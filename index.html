@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Larraun Pilota Elkartea</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #b30000, #006400);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 2.4em; }
+    header p { margin: 5px 0 0; }
+    .lang-switch { margin-top: 10px; }
+    .lang-switch button {
+      margin: 0 5px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    nav {
+      background-color: #222;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover { background-color: #444; }
+    section {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    h2 { color: #b30000; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .eu { display: none; }
+  </style>
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+      document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+    }
+  </script>
+</head>
+<body onload="setLang('es')">
+
+<header>
+  <img src="logo-larraun.png" alt="Larraun Pilota Elkartea" style="max-width:120px; margin-bottom:10px;" />
+  <h1>LARRAUN PILOTA ELKARTEA</h1>
+  <p class="es">Club de Pelota Vasca del Valle de Larraun · Lekunberri (Navarra)</p>
+  <p class="eu">Larraungo Pilota Elkartea · Lekunberri (Nafarroa)</p>
+  <div class="lang-switch">
+    <button onclick="setLang('es')">Castellano</button>
+    <button onclick="setLang('eu')">Euskera</button>
+  </div>
+</header>
+
+<nav>
+  <a href="#inicio">Inicio / Hasiera</a>
+  <a href="#club">El Club / Elkartea</a>
+  <a href="#modalidades">Modalidades</a>
+  <a href="#escuela">Escuela</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<section id="inicio">
+  <h2 class="es">Bienvenidos</h2>
+  <h2 class="eu">Ongi etorri</h2>
+  <p class="es">Larraun Pilota Elkartea es un club deportivo que agrupa a varios municipios del Valle de Larraun, fomentando la práctica de la pelota vasca y sus valores tradicionales.</p>
+  <p class="eu">Larraun Pilota Elkartea Larraungo hainbat herri biltzen dituen kirol elkartea da, euskal pilotaren praktika eta balioak sustatuz.</p>
+</section>
+
+<section id="club">
+  <h2 class="es">El Club</h2>
+  <h2 class="eu">Elkartea</h2>
+  <p class="es">Con sede en Lekunberri (Navarra), el club trabaja con deportistas de diferentes edades y niveles, promoviendo la convivencia entre municipios del valle.</p>
+  <p class="eu">Lekunberrin (Nafarroa) egoitza duen elkarteak adin eta maila desberdinetako pilotariekin lan egiten du, haraneko herrien arteko elkarlana sustatuz.</p>
+</section>
+
+<section id="modalidades">
+  <h2 class="es">Modalidades</h2>
+  <h2 class="eu">Modalitateak</h2>
+  <div class="cards">
+    <div class="card"><h3>Mano</h3><p class="es">Modalidad tradicional de la pelota vasca.</p><p class="eu">Euskal pilotaren modalitate tradizionala.</p></div>
+    <div class="card"><h3>Pala</h3><p class="es">Velocidad y precisión en el frontón.</p><p class="eu">Abiadura eta zehaztasuna frontoian.</p></div>
+    <div class="card"><h3>Frontenis</h3><p class="es">Modalidad dinámica y formativa.</p><p class="eu">Modalitate dinamiko eta hezitzailea.</p></div>
+  </div>
+</section>
+
+<section id="municipios">
+  <h2 class="es">Municipios del Valle de Larraun</h2>
+  <h2 class="eu">Larraungo Herriak</h2>
+  <p class="es">Larraun Pilota Elkartea agrupa a deportistas de los siguientes municipios:</p>
+  <p class="eu">Larraun Pilota Elkarteak ondoko herrietako pilotariak biltzen ditu:</p>
+  <ul>
+    <li>Albiasu</li><li>Aldatz</li><li>Alli</li><li>Arruitz</li><li>Astitz</li><li>Azpirotz-Lezaeta</li><li>Baraibar</li><li>Etxarri</li><li>Errazkin</li><li>Gorriti</li><li>Uitzi</li><li>Iribas</li><li>Lekunberri</li><li>Madoz</li><li>Muguiro</li><li>Oderitz</li>
+  </ul>
+</section>
+
+<section id="categorias">
+  <h2 class="es">Categorías</h2>
+  <h2 class="eu">Kategoriak</h2>
+  <div class="cards">
+    <div class="card"><h3>Benjamín</h3></div>
+    <div class="card"><h3>Alevín</h3></div>
+    <div class="card"><h3>Infantil</h3></div>
+    <div class="card"><h3>Cadete</h3></div>
+    <div class="card"><h3>Juvenil</h3></div>
+    <div class="card"><h3>Senior</h3></div>
+  </div>
+</section>
+
+<section id="entrenadores">
+  <h2 class="es">Entrenadores</h2>
+  <h2 class="eu">Entrenatzaileak</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Julen Martija</h3>
+      <p class="es">Categorías: Benjamín y Alevín</p>
+      <p class="eu">Kategoriak: Benjamin eta Alebin</p>
+    </div>
+    <div class="card">
+      <h3>Abel Barriola</h3>
+      <p class="es">Categorías: Infantil, Cadete, Juvenil y Senior</p>
+      <p class="eu">Kategoriak: Infantil, Kadete, Jubenil eta Senior</p>
+    </div>
+  </div>
+</section>
+
+<section id="entrenamientos">
+  <h2 class="es">Entrenamientos</h2>
+  <h2 class="eu">Entrenamenduak</h2>
+  <p class="es">Horarios de entrenamientos por categorías (a actualizar por el club).</p>
+  <p class="eu">Kategorien araberako entrenamendu ordutegiak (eguneratzeko).</p>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr><th style="border:1px solid #ccc; padding:8px;">Categoría</th><th style="border:1px solid #ccc; padding:8px;">Día</th><th style="border:1px solid #ccc; padding:8px;">Hora</th><th style="border:1px solid #ccc; padding:8px;">Frontón</th></tr>
+    <tr><td style="border:1px solid #ccc; padding:8px;">Benjamín / Alevín</td><td style="border:1px solid #ccc; padding:8px;">—</td><td style="border:1px solid #ccc; padding:8px;">—</td><td style="border:1px solid #ccc; padding:8px;">—</td></tr>
+    <tr><td style="border:1px solid #ccc; padding:8px;">Infantil a Senior</td><td style="border:1px solid #ccc; padding:8px;">—</td><td style="border:1px solid #ccc; padding:8px;">—</td><td style="border:1px solid #ccc; padding:8px;">—</td></tr>
+  </table>
+</section>
+
+<section id="galeria">
+  <h2 class="es">Galería</h2>
+  <h2 class="eu">Argazki Galeria</h2>
+  <p class="es">Imágenes del club (procedentes de Facebook).</p>
+  <p class="eu">Klubeko irudiak (Facebooketik).</p>
+  <div class="cards">
+    <div class="card">Foto 1</div>
+    <div class="card">Foto 2</div>
+    <div class="card">Foto 3</div>
+  </div>
+</section>
+
+<section id="escuela">
+  <h2 class="es">Escuela de Pelota</h2>
+  <h2 class="eu">Pilota Eskola</h2>
+  <p class="es">La escuela del club está abierta a niños y jóvenes del Valle de Larraun.</p>
+  <p class="eu">Pilota eskola Larraungo haur eta gazteei zuzenduta dago.</p>
+</section>
+
+<section id="calendario">
+  <h2 class="es">Calendario de Partidos</h2>
+  <h2 class="eu">Partiden Egutegia</h2>
+  <p class="es">Consulta los próximos partidos y competiciones oficiales del club.</p>
+  <p class="eu">Hemen ikus ditzakezu klubeko hurrengo partidak eta txapelketak.</p>
+  <img src="calendario-partidos.jpg" alt="Calendario de partidos" style="width:100%; max-width:900px; border:1px solid #ccc;" />
+</section>
+
+<section id="contacto">
+  <h2>Contacto</h2>
+  <p>📍 Lekunberri – Valle de Larraun (Navarra)</p>
+  <p>🔗 Facebook: Larraun Pilota Elkartea</p>
+</section>
+
+<footer>
+  <p>&copy; 2025 Larraun Pilota Elkartea</p>
+</footer>
+
+</body>
+</html>
