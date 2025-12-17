@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Larraun Pilota Elkartea</title>
+
   <style>
     body {
       margin: 0;
@@ -11,53 +12,69 @@
       background-color: #f4f4f4;
       color: #333;
     }
+
     header {
       background: linear-gradient(90deg, #b30000, #006400);
       color: white;
       padding: 20px;
       text-align: center;
     }
-    header h1 { margin: 0; font-size: 2.4em; }
-    header p { margin: 5px 0 0; }
-    .lang-switch { margin-top: 10px; }
-    .lang-switch button {
-      margin: 0 5px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
+
+    header img {
+      max-width: 120px;
+      margin-bottom: 10px;
     }
+
     nav {
       background-color: #222;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
     }
+
     nav a {
       color: white;
-      padding: 15px 20px;
+      padding: 14px 18px;
       text-decoration: none;
       font-weight: bold;
+      font-size: 0.95em;
     }
-    nav a:hover { background-color: #444; }
+
+    nav a:hover {
+      background-color: #444;
+    }
+
     section {
       padding: 40px 20px;
       max-width: 1100px;
       margin: auto;
     }
-    h2 { color: #b30000; }
+
+    h2 {
+      color: #b30000;
+      margin-top: 0;
+    }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
     }
+
     .card {
       background: white;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      text-align: center;
     }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
     footer {
       background-color: #222;
       color: white;
@@ -65,8 +82,26 @@
       padding: 20px;
       margin-top: 40px;
     }
-    .eu { display: none; }
+
+    .lang-switch button {
+      margin: 5px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .eu { display: block; }
+    .es { display: none; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+      nav a { padding: 10px; font-size: 0.9em; }
+      section { padding: 30px 15px; }
+    }
   </style>
+
   <script>
     function setLang(lang) {
       document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
@@ -74,153 +109,91 @@
     }
   </script>
 </head>
+
 <body onload="setLang('eu')">
 
 <header>
-  <img src="logo-larraun.png" alt="Larraun Pilota Elkartea" style="max-width:120px; margin-bottom:10px;" />
+  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
-  <p class="es">Club de Pelota Vasca del Valle de Larraun · Lekunberri (Navarra)</p>
-  <p class="eu">Larraungo Pilota Elkartea · Lekunberri (Nafarroa)</p>
+
+  <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
+  <p class="es">Club de pelota del valle de Larraun · Lekunberri (Navarra)</p>
+
   <div class="lang-switch">
-    <button onclick="setLang('es')">Castellano</button>
     <button onclick="setLang('eu')">Euskera</button>
+    <button onclick="setLang('es')">Castellano</button>
   </div>
 </header>
 
 <nav>
-  <a href="#inicio"> Hasiera / Inicio</a>
-  <a href="#club">Elkartea / El Club</a>
-  <a href="#modalidades">Modalitateak / Modalidades </a>
-  <a href="#escuela">Eskola / Escuela</a>
-  <a href="#contacto">Kontaktua / Contacto</a>
+  <a href="#inicio">Hasiera / Inicio</a>
+  <a href="#modalitateak">Modalitateak</a>
+  <a href="#kategoriak">Kategoriak</a>
+  <a href="#entrenamenduak">Entrenamenduak</a>
+  <a href="#taldeak">Taldeak</a>
+  <a href="#galeria">Galeria</a>
+  <a href="#kontaktua">Kontaktua</a>
 </nav>
 
 <section id="inicio">
-  <h2 class="es">Bienvenidos</h2>
   <h2 class="eu">Ongi etorri</h2>
-  <p class="es">Larraun Pilota Elkartea es un club deportivo que agrupa a varios municipios del Valle de Larraun, fomentando la práctica de la pelota vasca y sus valores tradicionales.</p>
-  <p class="eu">Larraun Pilota Elkartea Larraungo hainbat herri biltzen dituen kirol elkartea da, euskal pilotaren praktika eta balioak sustatuz.</p>
+  <h2 class="es">Bienvenidos</h2>
+  <p class="eu">Larraun Pilota Elkartea Larraungo hainbat herritako pilotariak biltzen dituen kirol elkartea da.</p>
+  <p class="es">Larraun Pilota Elkartea es un club deportivo que agrupa a pelotaris de varias localidades del valle.</p>
 </section>
 
-<section id="club">
-  <h2 class="es">El Club</h2>
-  <h2 class="eu">Elkartea</h2>
-  <p class="es">Con sede en Lekunberri (Navarra), el club trabaja con deportistas de diferentes edades y niveles, promoviendo la convivencia entre municipios del valle.</p>
-  <p class="eu">Lekunberrin (Nafarroa) egoitza duen elkarteak adin eta maila desberdinetako pilotariekin lan egiten du, haraneko herrien arteko elkarlana sustatuz.</p>
-</section>
-
-<section id="modalidades">
-  <h2 class="es">Modalitateak</h2>
-  <h2 class="eu">Modalitateak</h2>
+<section id="modalitateak">
+  <h2>Modalitateak</h2>
   <div class="cards">
-    <div class="card"><h3>Esku/Mano</h3><p class="es">Modalidad tradicional de la pelota vasca.</p><p class="eu">Euskal pilotaren modalitate tradizionala.</p></div>
-    <div class="card"><h3>Pala/Pala</h3><p class="es">Velocidad y precisión en el frontón.</p><p class="eu">Abiadura eta zehaztasuna frontoian.</p></div>
-      </div>
-</section>
-
-<section id="municipios">
-  <h2 class="es">Localidades del Valle de Larraun</h2>
-  <h2 class="eu">Larraungo Herriak</h2>
-  <p class="es">Larraun Pilota Elkartea agrupa a deportistas de los siguientes municipios:</p>
-  <p class="eu">Larraun Pilota Elkarteak ondoko herrietako pilotariak biltzen ditu:</p>
-  <ul>
-    <li>Albiasu</li><li>Aldatz</li><li>Alli</li><li>Arruitz</li><li>Astitz</li><li>Azpirotz-Lezaeta</li><li>Baraibar</li><li>Etxarri</li><li>Errazkin</li><li>Gorriti</li><li>Uitzi</li><li>Iribas</li><li>Lekunberri</li><li>Madoz</li><li>Muguiro</li><li>Oderitz</li>
-  </ul>
-</section>
-
-<section id="categorias">
-  <h2 class="es">Categorías</h2>
-  <h2 class="eu">Kategoriak</h2>
-  <div class="cards">
-    <div class="card"><h3>          Sein/Benjamín: 2017-2016</h3>
-    <div class="card"><h3>        Kimu/Alevín: 2015-2014</h3>
-    <div class="card"><h3>      Haur/Infantil: 2013-2012</h3>
-    <div class="card"><h3>    Kadete/Cadete: 2011-2010</h3>
-    <div class="card"><h3>  Gazte/Juvenil: 2009-2008</h3>
-    <div class="card"><h3>Helduak/Senior: 2007-.... </h3>
+    <div class="card"><h3>Esku Pilota</h3></div>
+    <div class="card"><h3>Pala</h3></div>
   </div>
 </section>
 
-<section id="entrenadores">
-  <h2 class="es">Entrenadores de mano</h2>
-  <h2 class="eu">Eskuko entrenatzaileak</h2>
+<section id="kategoriak">
+  <h2>Kategoriak</h2>
   <div class="cards">
-    <div class="card">
-      <h3>Julen Martija</h3>
-      <p class="es">Categorías: Benjamín y Alevín</p>
-      <p class="eu">Kategoriak: Sein eta Kimu/p>
-    </div>
-    <div class="card">
-      <h3>Abel Barriola</h3>
-      <p class="es">Categorías: Infantil, Cadete, Juvenil y Senior</p>
-      <p class="eu">Kategoriak: Haur, Kadete, Gazte eta Helduak</p>
-    </div>
+    <div class="card">Sein · Benjamín</div>
+    <div class="card">Kimu · Alevín</div>
+    <div class="card">Haur · Infantil</div>
+    <div class="card">Kadete · Cadete</div>
+    <div class="card">Gazte · Juvenil</div>
+    <div class="card">Helduak · Senior</div>
   </div>
 </section>
 
-<section id="entrenamientos">
-  <h2 class="es">Entrenamientos</h2>
+<section id="entrenamenduak">
   <h2 class="eu">Entrenamenduak</h2>
-  <p class="es">Horarios oficiales de entrenamientos para la temporada 2025–26.</p>
-  <p class="eu">2025–26 denboraldiko entrenamendu ofizialen ordutegiak.</p>
-  <img src="horarios.jpeg" alt="Ordutegiak 2025-26" style="width:100%; max-width:1000px; border:1px solid #ccc; margin-bottom:20px;" />
+  <h2 class="es">Entrenamientos</h2>
+  <img src="images/horarios.jpeg" alt="Ordutegiak" style="width:100%; max-width:1000px;">
 </section>
 
 <section id="taldeak">
-  <h2 class="es">Grupos</h2>
-  <h2 class="eu">Taldeak</h2>
-  <p class="es">Distribución de pelotaris por grupos y categorías.</p>
-  <p class="eu">Pilotarien banaketa talde eta kategorien arabera.</p>
-  <img src="grupos.jpeg" alt="Taldeak 2025-26" style="width:100%; max-width:1000px; border:1px solid #ccc;" />
+  <h2>Taldeak</h2>
+  <img src="images/grupos.jpeg" alt="Taldeak" style="width:100%; max-width:1000px;">
 </section>
 
 <section id="galeria">
-  <h2 class="es">Galería</h2>
-  <h2 class="eu">Argazki Galeria</h2>
-  <p class="es">Imágenes del club.</p>
-  <p class="eu">Klubeko irudiak.</p>
+  <h2>Galeria</h2>
   <div class="cards">
-   <img src="images/galeria/Foto 1.jpg" alt="Larraun Pilota">
-    <div class="card">Foto 1.jpg</div>
-    <div class="card">Foto 3</div>
+    <div class="card"><img src="images/galeria/foto1.jpg" alt="Entrenamendua"></div>
+    <div class="card"><img src="images/galeria/foto2.jpg" alt="Partida"></div>
+    <div class="card"><img src="images/galeria/foto3.jpg" alt="Kluba"></div>
   </div>
-</section>
-
-<section id="eskola">
-  <h2 class="es">Escuela de Pelota</h2>
-  <h2 class="eu">Pilota Eskola</h2>
-  <p class="es">La escuela del club está abierta a niños y jóvenes del Valle de Larraun.</p>
-  <p class="eu">Pilota eskola Larraungo haur eta gazteei zuzenduta dago.</p>
-</section>
-
-<section id="calendario">
-  <h2 class="es">Calendario de Partidos</h2>
-  <h2 class="eu">Partiden Egutegia</h2>
-  <p class="es">La información se obtiene de la Federación Navarra de Pelota.</p>
-  <p class="eu">Informazioa Nafarroako Pilota Federazioaren webgunetik hartzen da.</p>
-  <p><a href="https://www.fnpelota.com/pub/cartelera.asp?idioma=eu" target="_blank">Ver cartelera oficial (FNP)</a></p>
 </section>
 
 <section id="kontaktua">
   <h2>Kontaktua</h2>
-  <p>📍 Lekunberri, Plaza Gabari  5</p>
-  <p>📱 +34 613 99 77 10. Astean zehar, 16etatik 20etara / Horario entre semana, 16-20h</p>
+  <p>📍 Lekunberri</p>
+  <p>📱 613 99 77 10</p>
   <p>✉️ larraunpe@gmail.com</p>
-  <p>📘 <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">Facebook: Larraun Pilota Elkartea</a></p>
+  <p>📘 <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">Facebook</a></p>
 </section>
 
 <footer>
-  <p>&copy; 2025 Larraun Pilota Elkartea</p>
+  <p>© 2025 Larraun Pilota Elkartea</p>
 </footer>
-
-<section id="aviso-legal">
-  <h2 class="es">Aviso Legal</h2>
-  <h2 class="eu">Lege Oharra</h2>
-  <p class="es">Larraun Pilota Elkartea es una entidad deportiva sin ánimo de lucro. Los contenidos de esta web tienen carácter informativo. El club no se responsabiliza del uso indebido de la información publicada ni de los enlaces externos.</p>
-  <p class="es">Las imágenes y textos son propiedad del club o se utilizan con fines informativos y deportivos.</p>
-  <p class="eu">Larraun Pilota Elkartea irabazi asmorik gabeko kirol elkartea da. Webgune honetako edukiak informatiboak dira. Klubak ez du bere gain hartzen argitaratutako informazioaren erabilera okerra ezta kanpoko esteken edukia ere.</p>
-  <p class="eu">Irudiak eta testuak klubarenak dira edo kirol- eta informazio-helburuekin erabiltzen dira.</p>
-</section>
 
 </body>
 </html>
+
