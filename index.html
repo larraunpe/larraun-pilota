@@ -23,6 +23,36 @@
       position: relative;
     }
 
+    header {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  text-align: right;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.social-icons img {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.15);
+}
+
+
     header img {
       max-width: 120px;
       margin-bottom: 10px;
@@ -92,6 +122,18 @@
       font-size: 1.5em;
       cursor: pointer;
     }
+    @media (max-width: 600px) {
+  .top-right {
+    position: static;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
 
     @media (max-width: 700px) {
       nav {
@@ -212,6 +254,27 @@
 <body onload="setLang('eu')">
 
 <header>
+  <div class="top-right">
+  <div class="social-icons">
+    <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
+      <img src="images/icons/facebook.jpg" alt="Facebook Larraun Pilota">
+    </a>
+
+    <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank">
+      <img src="images/icons/instagram.jpg" alt="Instagram Larraun Pilota">
+    </a>
+
+    <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
+      <img src="images/icons/whatsapp.jpg" alt="WhatsApp Larraun Pilota">
+    </a>
+  </div>
+
+  <div class="lang-switch">
+    <button id="btn-eu" onclick="setLang('eu')">EU</button>
+    <button id="btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
   <div class="top-right">
     <div class="social-icons">
       <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
