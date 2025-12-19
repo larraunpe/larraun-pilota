@@ -159,7 +159,7 @@
 <nav id="menu">
   <!-- Euskera -->
   <a class="eu" href="#inicio">Hasiera</a>
-  <a class="eu" href="#notiziak">Notiziak</a>
+  <a class="eu" href="#notiziak">Berriak</a>
   <a class="eu" href="#modalitateak">Modalitateak</a>
   <a class="eu" href="#kategoriak">Kategoriak</a>
   <a class="eu" href="#entrenatzaileak">Entrenatzaileak</a>
@@ -188,8 +188,74 @@
 <section id="inicio">
   <h2 class="eu">Ongi etorri</h2>
   <h2 class="es">Bienvenidos</h2>
-  <p class="eu">Larraun Pilota Elkartea Larraungo hainbat herritako pilotariak biltzen dituen kirol elkartea da.</p>
-  <p class="es">Larraun Pilota Elkartea es un club deportivo que agrupa a pelotaris de varias localidades del valle.</p>
+
+  <p class="es">
+    Larraun Pilota Elkartea es mucho más que un club deportivo.
+    Es un punto de encuentro para los pueblos del valle de Larraún,
+    un espacio donde se transmite de generación en generación
+    la pasión por la <strong>pelota vasca</strong>, uno de los deportes
+    más arraigados a nuestra cultura y a nuestra forma de vivir.
+  </p>
+
+  <p class="es">
+    En nuestros frontones, la pelota ha sido siempre un lugar de
+    convivencia, esfuerzo y respeto, donde niños, jóvenes y adultos
+    han compartido entrenamientos, partidos y vivencias que forman
+    parte de la historia de nuestros pueblos.
+    La pelota no es solo competición: es educación, compañerismo
+    y vínculo entre localidades.
+  </p>
+
+  <p class="es">
+    Desde Lekunberri y el conjunto de las localidades del valle,
+    trabajamos para fomentar la práctica de la pelota vasca,
+    cuidar la cantera y mantener vivo un deporte que forma parte
+    de nuestra identidad, adaptándolo a los nuevos tiempos sin
+    perder sus valores tradicionales.
+  </p>
+
+  <p class="eu">
+    Larraun Pilota Elkartea kirol elkarte bat baino askoz gehiago da.
+    Larraungo herriak lotzen dituen topagunea da,
+    belaunaldiz belaunaldi <strong>euskal pilotarekiko zaletasuna</strong>
+    transmititzen den lekua, gure kulturaren eta bizimoduaren
+    parte garrantzitsua den kirola izanik.
+  </p>
+
+  <p class="eu">
+    Gure frontoietan, pilota betidanik izan da
+    elkarbizitzarako, ahaleginerako eta errespeturako gunea,
+    non haurrek, gazteek eta helduek entrenamenduak,
+    partidak eta bizipenak partekatu dituzten,
+    gure herrien historiaren parte bihurtuz.
+    Pilota ez da lehia bakarrik: hezkuntza,
+    laguntasuna eta herrien arteko lotura ere bada.
+  </p>
+
+  <p class="eu">
+    Lekunberritik eta haraneko gainerako herrietatik,
+    euskal pilotaren praktika sustatzeko lan egiten dugu,
+    harrobia zainduz eta gure nortasunaren parte den
+    kirol hau bizirik mantenduz,
+    balio tradizionalak galdu gabe garai berrietara egokituz.
+  </p>
+  <div style="margin-top:40px; text-align:center;">
+  <img 
+    src="images/historica-fronton.jpg"
+    alt="Imagen histórica de la pelota en Larraun"
+    style="max-width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.2); cursor:pointer;"
+    onclick="openImage(this.src)"
+  >
+
+  <p class="es" style="margin-top:10px; font-size:0.9em; color:#555;">
+    Imagen histórica de la práctica de la pelota vasca en el valle de Larraun.
+  </p>
+
+  <p class="eu" style="margin-top:10px; font-size:0.9em; color:#555;">
+    Larraungo haranean euskal pilotaren praktikaren irudi historikoa.
+  </p>
+</div>
+
 </section>
 
 <section id="berriak">
@@ -436,6 +502,30 @@
 <footer>
   <p>© 2025 Larraun Pilota Elkartea</p>
 </footer>
+
+  <script>
+  function openImage(src) {
+    const modal = document.createElement("div");
+    modal.style.position = "fixed";
+    modal.style.top = 0;
+    modal.style.left = 0;
+    modal.style.width = "100%";
+    modal.style.height = "100%";
+    modal.style.background = "rgba(0,0,0,0.9)";
+    modal.style.display = "flex";
+    modal.style.alignItems = "center";
+    modal.style.justifyContent = "center";
+    modal.style.zIndex = 9999;
+
+    modal.innerHTML = `
+      <img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">
+    `;
+
+    modal.onclick = () => document.body.removeChild(modal);
+    document.body.appendChild(modal);
+  }
+</script>
+
 
 </body>
 </html>
