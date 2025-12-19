@@ -128,53 +128,34 @@
     display: flex;
   }
 }
-.top-left {
+.top-right {
   position: absolute;
   top: 10px;
-  left: 15px;
-  text-align: left;
+  right: 15px;
+  text-align: right;
 }
 
 .social-icons {
   display: flex;
+  justify-content: flex-end;
   gap: 10px;
   margin-bottom: 6px;
 }
 
-.social-icons a {
-  font-size: 1.3em;
-  text-decoration: none;
+.social-icons img {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease;
 }
 
-.lang-switch button {
-  background-color: white;
-  color: #222;
-  margin: 2px 2px 0 0;
-  padding: 4px 8px;
-  font-size: 0.85em;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
+.social-icons img:hover {
+  transform: scale(1.15);
 }
 
-.lang-switch button:hover {
-  background-color: #ddd;
-}
-@media (max-width: 600px) {
-  .top-left {
-    position: static;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .social-icons {
-    justify-content: center;
-  }
-}
 .lang-switch button {
   background-color: #eee;
   color: #222;
-  margin: 2px 2px 0 0;
+  margin-left: 4px;
   padding: 4px 10px;
   font-size: 0.85em;
   border-radius: 4px;
@@ -185,34 +166,52 @@
 
 .lang-switch button.active {
   background-color: #222;
-  color: white;
+  color: #fff;
 }
+
 
 
   </style>
 
   <script>
-    function setLang(lang) {
-      document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
-      document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+  function setLang(lang) {
+    document.querySelectorAll('.es').forEach(e =>
+      e.style.display = lang === 'es' ? 'block' : 'none'
+    );
+    document.querySelectorAll('.eu').forEach(e =>
+      e.style.display = lang === 'eu' ? 'block' : 'none'
+    );
+
+    // Resaltar idioma activo
+    document.getElementById('btn-eu').classList.remove('active');
+    document.getElementById('btn-es').classList.remove('active');
+
+    if (lang === 'eu') {
+      document.getElementById('btn-eu').classList.add('active');
+    } else {
+      document.getElementById('btn-es').classList.add('active');
     }
-  </script>
+  }
+</script>
+
 </head>
 
 <body onload="setLang('eu')">
 
 <header>
-  <!-- BLOQUE SUPERIOR IZQUIERDO -->
-  <div class="top-left">
+  <!-- BLOQUE SUPERIOR DERECHO -->
+  <div class="top-right">
     <div class="social-icons">
-      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" title="Facebook">
-        📘
+      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" aria-label="Facebook">
+        <img src="icons/facebook.svg" alt="Facebook">
       </a>
-      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank" title="Instagram">
-        📸
+
+      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank" aria-label="Instagram">
+        <img src="icons/instagram.svg" alt="Instagram">
       </a>
-      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" title="WhatsApp">
-        💬
+
+      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" aria-label="WhatsApp">
+        <img src="icons/whatsapp.svg" alt="WhatsApp">
       </a>
     </div>
 
@@ -220,7 +219,6 @@
       <button id="btn-eu" onclick="setLang('eu')">EU</button>
       <button id="btn-es" onclick="setLang('es')">ES</button>
     </div>
-
   </div>
 
   <!-- CONTENIDO CENTRAL -->
