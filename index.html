@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Larraun Pilota Elkartea</title>
 
   <style>
@@ -16,7 +16,7 @@
     header {
       background: linear-gradient(90deg, #b30000, #006400);
       color: white;
-      padding: 25px 20px 35px;
+      padding: 30px 20px;
       text-align: center;
       position: relative;
     }
@@ -45,11 +45,6 @@
       width: 26px;
       height: 26px;
       border-radius: 4px;
-      transition: transform 0.2s ease;
-    }
-
-    .social-icons img:hover {
-      transform: scale(1.15);
     }
 
     .lang-switch button {
@@ -57,7 +52,6 @@
       color: #222;
       margin-left: 4px;
       padding: 4px 10px;
-      font-size: 0.85em;
       border-radius: 4px;
       cursor: pointer;
       border: none;
@@ -101,7 +95,7 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
     }
 
@@ -118,11 +112,11 @@
       border-radius: 6px;
     }
 
-    /* CARTEL SEMANAL A ANCHO COMPLETO */
+    /* CARTEL SEMANAL ANCHO COMPLETO */
     .cartel-full {
       width: 100vw;
-      max-width: 100%;
       margin-left: calc(-50vw + 50%);
+      max-width: 100%;
       display: block;
       margin-top: 20px;
     }
@@ -144,35 +138,18 @@
         text-align: center;
         margin-bottom: 10px;
       }
-
       .social-icons {
         justify-content: center;
-      }
-
-      nav a {
-        padding: 10px;
-        font-size: 0.85em;
       }
     }
   </style>
 
   <script>
     function setLang(lang) {
-      document.querySelectorAll('.es').forEach(e =>
-        e.style.display = lang === 'es' ? 'block' : 'none'
-      );
-      document.querySelectorAll('.eu').forEach(e =>
-        e.style.display = lang === 'eu' ? 'block' : 'none'
-      );
-
-      document.getElementById('btn-eu').classList.remove('active');
-      document.getElementById('btn-es').classList.remove('active');
-
-      if (lang === 'eu') {
-        document.getElementById('btn-eu').classList.add('active');
-      } else {
-        document.getElementById('btn-es').classList.add('active');
-      }
+      document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+      document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+      document.getElementById('btn-eu').classList.toggle('active', lang === 'eu');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
     }
   </script>
 </head>
@@ -192,133 +169,66 @@
         <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
       </a>
     </div>
-
     <div class="lang-switch">
       <button id="btn-eu" onclick="setLang('eu')">EU</button>
       <button id="btn-es" onclick="setLang('es')">ES</button>
     </div>
   </div>
 
-  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" class="logo">
+  <img src="images/logo-larraun.png" class="logo" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
-
-  <p class="eu">
-    Larraun Pilota Elkartea pilota zaletasuna, balioak eta herri nortasuna uztartzen dituen elkartea da.
-    Belaunaldiz belaunaldi, pilota eskuz eta palaz bizi izan da Larraungo bailaran, eta gure helburua
-    ondare hori zaindu, transmititu eta indartzea da.
-  </p>
-
-  <p class="es">
-    Larraun Pilota Elkartea es un club que une afición, valores y tradición. La pelota vasca ha sido
-    durante generaciones un elemento fundamental en el valle de Larraún, y nuestro objetivo es
-    conservarla, transmitirla y fortalecerla entre jóvenes y mayores.
-  </p>
 </header>
 
-<nav>
-  <a href="#inicio">Inicio</a>
-  <a href="#berriak">Berriak</a>
-  <a href="#modalitateak">Modalidades</a>
-  <a href="#kategoriak">Categorías</a>
-  <a href="#entrenatzaileak">Entrenadores</a>
-  <a href="#kartelera">Cartelera</a>
-  <a href="#emaitzak">Resultados</a>
-  <a href="#galeria">Galería</a>
-  <a href="#kontaktua">Contacto</a>
-</nav>
-
-<section id="berriak">
-  <h2 class="eu">Berriak</h2>
-  <h2 class="es">Noticias</h2>
-
-  <div class="card">
-    <p class="eu"><strong>14/12/2025</strong> – Urtarrileko bigarren astean Nafarroako Kirol Jokoen bigarren fasea hasiko da.</p>
-    <p class="es"><strong>14/12/2025</strong> – La segunda semana de enero comenzará la Fase 2 de los Juegos Deportivos de Navarra.</p>
-  </div>
-
-  <div class="card">
-    <p class="eu"><strong>17/12/2025</strong> – Abenduaren 24an Gabonetako Saskiaren zozketa egingo da frontoian, 20:00etan.</p>
-    <p class="es"><strong>17/12/2025</strong> – El 24/12/2025 se realizará el sorteo de la Cesta de Navidad en el frontón a las 20:00.</p>
-  </div>
-</section>
-
-<section id="entrenatzaileak">
-  <h2 class="eu">Entrenatzaileak</h2>
-  <h2 class="es">Entrenadores</h2>
-
+<!-- BIENVENIDA + FOTO HISTÓRICA -->
+<section id="inicio">
   <div class="cards">
     <div class="card">
-      <h3>Julen Martija</h3>
-      <p class="eu">Eskuzko entrenatzailea · Sein eta Kimu</p>
-      <p class="es">Entrenador de mano · Benjamín y Alevín</p>
+      <img src="images/historica.jpg" alt="Foto histórica del frontón">
+      <p><em>Argazki historikoa – Larraungo pilota</em></p>
     </div>
 
     <div class="card">
-      <h3>Abel Barriola</h3>
-      <p class="eu">Eskuzko entrenatzailea · Haur, Kadete, Gazte, Helduak</p>
-      <p class="es">Entrenador de mano · Infantil, Cadete, Juvenil y Senior</p>
-    </div>
+      <h2 class="eu">Ongi etorri</h2>
+      <h2 class="es">Bienvenidos</h2>
 
-    <div class="card">
-      <h3>Enrike Galartza</h3>
-      <p class="eu">Eskuzko entrenatzailea · Haur, Kadete, Gazte, Helduak</p>
-      <p class="es">Entrenador de mano · Infantil, Cadete, Juvenil y Senior</p>
-    </div>
+      <p class="eu">
+        Euskal pilota betidanik izan da Larraungo bihotza. Herriz herri, frontoia
+        elkargune izan da, belaunaldi desberdinak batzen dituen espazioa.
+        Larraun Pilota Elkarteak ondare hori zaindu, sustatu eta etorkizunera
+        eramateko helburua du.
+      </p>
 
-    <div class="card">
-      <h3>Maria Eguzkiza · Xabi Azpiroz</h3>
-      <p class="eu">Palako entrenatzaileak</p>
-      <p class="es">Entrenadores de pala</p>
+      <p class="es">
+        La pelota vasca ha sido siempre el corazón del valle de Larraún.
+        El frontón ha sido punto de encuentro, transmisión de valores y
+        convivencia entre generaciones. Larraun Pilota Elkartea nace para
+        cuidar ese legado y proyectarlo al futuro.
+      </p>
     </div>
   </div>
 </section>
 
+<!-- CARTELERA -->
 <section id="kartelera">
   <h2 class="eu">Partiden kartelera</h2>
   <h2 class="es">Cartelera de partidos</h2>
 
-  <p class="eu">Informazio ofiziala Nafarroako Pilota Federazioaren webgunean.</p>
-  <p class="es">Información oficial disponible en la web de la Federación Navarra de Pelota.</p>
-
-  <img src="images/cartel-semanal.jpg" alt="Cartel semanal" class="cartel-full">
-</section>
-
-<section id="emaitzak">
-  <h2 class="eu">Emaitzak</h2>
-  <h2 class="es">Resultados</h2>
-
   <p class="eu">
-    Emaitza ofizialak FNPren webgunean kontsulta daitezke.
-    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=eu" target="_blank">Ikusi hemen</a>
+    Partiden informazio ofiziala Nafarroako Pilota Federazioaren webgunean:
+    <a href="https://www.fnpelota.com/pub/cartelera.asp?idioma=eu" target="_blank">
+      fnpelota.com
+    </a>
   </p>
 
   <p class="es">
-    Los resultados oficiales se pueden consultar en la web de la FNP.
-    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=ca" target="_blank">Ver aquí</a>
+    Información oficial de los partidos en la web de la Federación Navarra de Pelota:
+    <a href="https://www.fnpelota.com/pub/cartelera.asp?idioma=ca" target="_blank">
+      fnpelota.com
+    </a>
   </p>
-</section>
 
-<section id="galeria">
-  <h2>Galería</h2>
-
-  <div class="cards">
-    <div class="card">
-      <img src="images/galeria/foto1.jpg" alt="Plantilla 2025/2026">
-      <p>Plantilla 2025/2026</p>
-    </div>
-  </div>
-
-  <p>
-    Argazki eta kartel guztiak modu zabalduan ikus daitezke
-    <strong><a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">Facebook</a></strong> ofizialean.
-  </p>
-</section>
-
-<section id="kontaktua">
-  <h2>Kontaktua</h2>
-  <p>📍 Lekunberri</p>
-  <p>📱 613 99 77 10</p>
-  <p>✉️ larraunpe@gmail.com</p>
+  <!-- CARTEL SEMANAL -->
+  <img src="images/cartel-semanal.jpg" alt="Cartel semanal" class="cartel-full">
 </section>
 
 <footer>
