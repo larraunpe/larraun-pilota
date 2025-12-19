@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Larraun Pilota Elkartea</title>
 
-  <meta name="description" content="Larraun Pilota Elkartea, club de pelota vasca en Lekunberri (Navarra). Entrenamientos, competiciones y cantera.">
-
   <style>
     body {
       margin: 0;
@@ -18,44 +16,57 @@
     header {
       background: linear-gradient(90deg, #b30000, #006400);
       color: white;
-      padding: 20px;
+      padding: 25px 20px 35px;
       text-align: center;
       position: relative;
     }
 
-    header {
-  position: relative;
-}
-
-.top-right {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  text-align: right;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-
-.social-icons img {
-  width: 26px;
-  height: 26px;
-  border-radius: 4px;
-  transition: transform 0.2s ease;
-}
-
-.social-icons img:hover {
-  transform: scale(1.15);
-}
-
-
-    header img {
+    header img.logo {
       max-width: 120px;
       margin-bottom: 10px;
+    }
+
+    /* ICONOS + IDIOMA ARRIBA DERECHA */
+    .top-right {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      text-align: right;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .social-icons img {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      transition: transform 0.2s ease;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.15);
+    }
+
+    .lang-switch button {
+      background-color: #eee;
+      color: #222;
+      margin-left: 4px;
+      padding: 4px 10px;
+      font-size: 0.85em;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+    }
+
+    .lang-switch button.active {
+      background-color: #222;
+      color: white;
     }
 
     nav {
@@ -67,10 +78,10 @@
 
     nav a {
       color: white;
-      padding: 14px 18px;
+      padding: 14px 16px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.95em;
+      font-size: 0.9em;
     }
 
     nav a:hover {
@@ -102,6 +113,20 @@
       text-align: center;
     }
 
+    .card img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    /* CARTEL SEMANAL A ANCHO COMPLETO */
+    .cartel-full {
+      width: 100vw;
+      max-width: 100%;
+      margin-left: calc(-50vw + 50%);
+      display: block;
+      margin-top: 20px;
+    }
+
     footer {
       background-color: #222;
       color: white;
@@ -113,86 +138,21 @@
     .eu { display: block; }
     .es { display: none; }
 
-    .menu-toggle {
-      display: none;
-      background: #222;
-      color: white;
-      padding: 12px;
-      text-align: center;
-      font-size: 1.5em;
-      cursor: pointer;
-    }
     @media (max-width: 600px) {
-  .top-right {
-    position: static;
-    text-align: center;
-    margin-bottom: 10px;
-  }
+      .top-right {
+        position: static;
+        text-align: center;
+        margin-bottom: 10px;
+      }
 
-  .social-icons {
-    justify-content: center;
-  }
-}
-
-
-    @media (max-width: 700px) {
-      nav {
-        display: none;
-        flex-direction: column;
+      .social-icons {
+        justify-content: center;
       }
 
       nav a {
-        border-top: 1px solid #444;
+        padding: 10px;
+        font-size: 0.85em;
       }
-
-      nav.show {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-    }
-
-    .top-right {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      text-align: right;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .social-icons img {
-      width: 22px;
-      height: 22px;
-      transition: transform 0.2s ease;
-    }
-
-    .social-icons img:hover {
-      transform: scale(1.15);
-    }
-
-    .lang-switch button {
-      background-color: #eee;
-      color: #222;
-      margin-left: 4px;
-      padding: 4px 10px;
-      font-size: 0.85em;
-      border-radius: 4px;
-      cursor: pointer;
-      border: none;
-      font-weight: bold;
-    }
-
-    .lang-switch button.active {
-      background-color: #222;
-      color: #fff;
     }
   </style>
 
@@ -213,78 +173,23 @@
       } else {
         document.getElementById('btn-es').classList.add('active');
       }
-
-      document.documentElement.lang = lang;
     }
-
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-
-    function openImage(src) {
-      const modal = document.createElement("div");
-      modal.style.position = "fixed";
-      modal.style.top = 0;
-      modal.style.left = 0;
-      modal.style.width = "100%";
-      modal.style.height = "100%";
-      modal.style.background = "rgba(0,0,0,0.9)";
-      modal.style.display = "flex";
-      modal.style.alignItems = "center";
-      modal.style.justifyContent = "center";
-      modal.style.zIndex = 9999;
-
-      modal.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">`;
-      modal.onclick = () => document.body.removeChild(modal);
-
-      document.body.appendChild(modal);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", () => {
-          document.getElementById("menu").classList.remove("show");
-        });
-      });
-    });
   </script>
-
 </head>
 
 <body onload="setLang('eu')">
 
 <header>
   <div class="top-right">
-  <div class="social-icons">
-    <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
-      <img src="images/icons/facebook.jpg" alt="Facebook Larraun Pilota">
-    </a>
-
-    <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank">
-      <img src="images/icons/instagram.jpg" alt="Instagram Larraun Pilota">
-    </a>
-
-    <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
-      <img src="images/icons/whatsapp.jpg" alt="WhatsApp Larraun Pilota">
-    </a>
-  </div>
-
-  <div class="lang-switch">
-    <button id="btn-eu" onclick="setLang('eu')">EU</button>
-    <button id="btn-es" onclick="setLang('es')">ES</button>
-  </div>
-</div>
-
-  <div class="top-right">
     <div class="social-icons">
       <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
-        <img src="icons/facebook.svg" alt="Facebook">
+        <img src="images/icons/facebook.jpg" alt="Facebook">
       </a>
-      <a href="https://www.instagram.com/larraunpilota" target="_blank">
-        <img src="icons/instagram.svg" alt="Instagram">
+      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank">
+        <img src="images/icons/instagram.jpg" alt="Instagram">
       </a>
       <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
-        <img src="icons/whatsapp.svg" alt="WhatsApp">
+        <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
       </a>
     </div>
 
@@ -294,43 +199,127 @@
     </div>
   </div>
 
-  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
+  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" class="logo">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
 
-  <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
-  <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
+  <p class="eu">
+    Larraun Pilota Elkartea pilota zaletasuna, balioak eta herri nortasuna uztartzen dituen elkartea da.
+    Belaunaldiz belaunaldi, pilota eskuz eta palaz bizi izan da Larraungo bailaran, eta gure helburua
+    ondare hori zaindu, transmititu eta indartzea da.
+  </p>
+
+  <p class="es">
+    Larraun Pilota Elkartea es un club que une afición, valores y tradición. La pelota vasca ha sido
+    durante generaciones un elemento fundamental en el valle de Larraún, y nuestro objetivo es
+    conservarla, transmitirla y fortalecerla entre jóvenes y mayores.
+  </p>
 </header>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<nav id="menu">
-  <a class="eu" href="#inicio">Hasiera</a>
-  <a class="eu" href="#berriak">Berriak</a>
-  <a class="eu" href="#modalitateak">Modalitateak</a>
-  <a class="eu" href="#kategoriak">Kategoriak</a>
-  <a class="eu" href="#entrenatzaileak">Entrenatzaileak</a>
-  <a class="eu" href="#entrenamenduak">Entrenamenduak</a>
-  <a class="eu" href="#taldeak">Taldeak</a>
-  <a class="eu" href="#kartelera">Kartelera</a>
-  <a class="eu" href="#emaitzak">Emaitzak</a>
-  <a class="eu" href="#galeria">Galeria</a>
-  <a class="eu" href="#kontaktua">Kontaktua</a>
-
-  <a class="es" href="#inicio">Inicio</a>
-  <a class="es" href="#berriak">Noticias</a>
-  <a class="es" href="#modalitateak">Modalidades</a>
-  <a class="es" href="#kategoriak">Categorías</a>
-  <a class="es" href="#entrenatzaileak">Entrenadores</a>
-  <a class="es" href="#entrenamenduak">Entrenamientos</a>
-  <a class="es" href="#taldeak">Grupos</a>
-  <a class="es" href="#kartelera">Cartelera</a>
-  <a class="es" href="#emaitzak">Resultados</a>
-  <a class="es" href="#galeria">Galería</a>
-  <a class="es" href="#kontaktua">Contacto</a>
+<nav>
+  <a href="#inicio">Inicio</a>
+  <a href="#berriak">Berriak</a>
+  <a href="#modalitateak">Modalidades</a>
+  <a href="#kategoriak">Categorías</a>
+  <a href="#entrenatzaileak">Entrenadores</a>
+  <a href="#kartelera">Cartelera</a>
+  <a href="#emaitzak">Resultados</a>
+  <a href="#galeria">Galería</a>
+  <a href="#kontaktua">Contacto</a>
 </nav>
 
-<!-- RESTO DE SECCIONES -->
-<!-- (El contenido es el mismo que ya tenías, solo corregido técnicamente) -->
+<section id="berriak">
+  <h2 class="eu">Berriak</h2>
+  <h2 class="es">Noticias</h2>
+
+  <div class="card">
+    <p class="eu"><strong>14/12/2025</strong> – Urtarrileko bigarren astean Nafarroako Kirol Jokoen bigarren fasea hasiko da.</p>
+    <p class="es"><strong>14/12/2025</strong> – La segunda semana de enero comenzará la Fase 2 de los Juegos Deportivos de Navarra.</p>
+  </div>
+
+  <div class="card">
+    <p class="eu"><strong>17/12/2025</strong> – Abenduaren 24an Gabonetako Saskiaren zozketa egingo da frontoian, 20:00etan.</p>
+    <p class="es"><strong>17/12/2025</strong> – El 24/12/2025 se realizará el sorteo de la Cesta de Navidad en el frontón a las 20:00.</p>
+  </div>
+</section>
+
+<section id="entrenatzaileak">
+  <h2 class="eu">Entrenatzaileak</h2>
+  <h2 class="es">Entrenadores</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Julen Martija</h3>
+      <p class="eu">Eskuzko entrenatzailea · Sein eta Kimu</p>
+      <p class="es">Entrenador de mano · Benjamín y Alevín</p>
+    </div>
+
+    <div class="card">
+      <h3>Abel Barriola</h3>
+      <p class="eu">Eskuzko entrenatzailea · Haur, Kadete, Gazte, Helduak</p>
+      <p class="es">Entrenador de mano · Infantil, Cadete, Juvenil y Senior</p>
+    </div>
+
+    <div class="card">
+      <h3>Enrike Galartza</h3>
+      <p class="eu">Eskuzko entrenatzailea · Haur, Kadete, Gazte, Helduak</p>
+      <p class="es">Entrenador de mano · Infantil, Cadete, Juvenil y Senior</p>
+    </div>
+
+    <div class="card">
+      <h3>Maria Eguzkiza · Xabi Azpiroz</h3>
+      <p class="eu">Palako entrenatzaileak</p>
+      <p class="es">Entrenadores de pala</p>
+    </div>
+  </div>
+</section>
+
+<section id="kartelera">
+  <h2 class="eu">Partiden kartelera</h2>
+  <h2 class="es">Cartelera de partidos</h2>
+
+  <p class="eu">Informazio ofiziala Nafarroako Pilota Federazioaren webgunean.</p>
+  <p class="es">Información oficial disponible en la web de la Federación Navarra de Pelota.</p>
+
+  <img src="images/cartel-semanal.jpg" alt="Cartel semanal" class="cartel-full">
+</section>
+
+<section id="emaitzak">
+  <h2 class="eu">Emaitzak</h2>
+  <h2 class="es">Resultados</h2>
+
+  <p class="eu">
+    Emaitza ofizialak FNPren webgunean kontsulta daitezke.
+    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=eu" target="_blank">Ikusi hemen</a>
+  </p>
+
+  <p class="es">
+    Los resultados oficiales se pueden consultar en la web de la FNP.
+    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=ca" target="_blank">Ver aquí</a>
+  </p>
+</section>
+
+<section id="galeria">
+  <h2>Galería</h2>
+
+  <div class="cards">
+    <div class="card">
+      <img src="images/galeria/foto1.jpg" alt="Plantilla 2025/2026">
+      <p>Plantilla 2025/2026</p>
+    </div>
+  </div>
+
+  <p>
+    Argazki eta kartel guztiak modu zabalduan ikus daitezke
+    <strong><a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">Facebook</a></strong> ofizialean.
+  </p>
+</section>
+
+<section id="kontaktua">
+  <h2>Kontaktua</h2>
+  <p>📍 Lekunberri</p>
+  <p>📱 613 99 77 10</p>
+  <p>✉️ larraunpe@gmail.com</p>
+</section>
 
 <footer>
   <p>© 2025 Larraun Pilota Elkartea</p>
