@@ -128,6 +128,66 @@
     display: flex;
   }
 }
+.top-left {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  text-align: left;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.social-icons a {
+  font-size: 1.3em;
+  text-decoration: none;
+}
+
+.lang-switch button {
+  background-color: white;
+  color: #222;
+  margin: 2px 2px 0 0;
+  padding: 4px 8px;
+  font-size: 0.85em;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+.lang-switch button:hover {
+  background-color: #ddd;
+}
+@media (max-width: 600px) {
+  .top-left {
+    position: static;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+.lang-switch button {
+  background-color: #eee;
+  color: #222;
+  margin: 2px 2px 0 0;
+  padding: 4px 10px;
+  font-size: 0.85em;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.lang-switch button.active {
+  background-color: #222;
+  color: white;
+}
+
 
   </style>
 
@@ -142,16 +202,33 @@
 <body onload="setLang('eu')">
 
 <header>
+  <!-- BLOQUE SUPERIOR IZQUIERDO -->
+  <div class="top-left">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" title="Facebook">
+        📘
+      </a>
+      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank" title="Instagram">
+        📸
+      </a>
+      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" title="WhatsApp">
+        💬
+      </a>
+    </div>
+
+    <div class="lang-switch">
+      <button id="btn-eu" onclick="setLang('eu')">EU</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
+
+  </div>
+
+  <!-- CONTENIDO CENTRAL -->
   <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
 
   <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
   <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
-
-  <div class="lang-switch">
-    <button onclick="setLang('eu')">Euskera</button>
-    <button onclick="setLang('es')">Castellano</button>
-  </div>
 </header>
 
 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
