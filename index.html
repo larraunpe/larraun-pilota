@@ -1,109 +1,67 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Larraun Pilota Elkartea</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larraun Pilota Elkartea</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(90deg, #b30000, #006400);
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header img {
-      max-width: 150px;
-      margin-bottom: 10px;
-    }
-
-    nav {
-      background-color: #222;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      padding: 14px 18px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.95em;
-    }
-
-    nav a:hover {
-      background-color: #444;
-    }
-
-    section {
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    h2 {
-      color: #b30000;
-      margin-top: 0;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      text-align: center;
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    .lang-switch button {
-     background-color: #eee;
-     color: #222;
-     margin: 4px 0 0 0;
-     padding: 8px 14px;
-     font-size: 0.95em;
-     border-radius: 6px;
-     cursor: pointer;
-     border: none;
-     font-weight: bold;
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
-    .eu { display: block; }
-    .es { display: none; }
+header {
+  background: linear-gradient(90deg, #b30000, #006400);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
 
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.8em; }
-      nav a { padding: 10px; font-size: 0.9em; }
-      section { padding: 30px 15px; }
-    }
-    .menu-toggle {
+header img {
+  max-width: 150px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #b30000;
+  margin-top: 0;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.eu { display: block; }
+.es { display: none; }
+
+/* ===== MENÚ ===== */
+nav {
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  padding: 14px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+nav a:hover {
+  background-color: #444;
+}
+
+.menu-toggle {
   display: none;
   background: #222;
   color: white;
@@ -114,126 +72,51 @@
 }
 
 @media (max-width: 700px) {
-  nav {
-    display: none;
-    flex-direction: column;
-  }
-
-  nav a {
-    border-top: 1px solid #444;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  nav.show {
-    display: flex;
-  }
-}
-.top-left {
-  position: absolute;
-  top: 10px;
-  left: 15px;
-  text-align: left;
+  nav { display: none; flex-direction: column; }
+  nav.show { display: flex; }
+  nav a { border-top: 1px solid #444; }
+  .menu-toggle { display: block; }
 }
 
-.social-icons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 6px;
+/* ===== CARDS ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-.social-icons a {
-  font-size: 1.3em;
-  text-decoration: none;
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
 }
 
-.lang-switch button {
-  background-color: white;
-  color: #222;
-  margin: 2px 2px 0 0;
-  padding: 4px 8px;
-  font-size: 0.85em;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
+.card img {
+  width: 100%;
+  border-radius: 6px;
 }
-.lang-switch button.active {
-  background-color: #222;
-  color: white;
-}
+
+/* ===== CABECERA SUPERIOR DERECHA ===== */
 .top-right {
   position: absolute;
-  top: 12px;
-  right: 15px;
-  text-align: right;
-}
-
-.social-icons {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-bottom: 6px;
-}
-
-.lang-switch button:hover {
-  background-color: #ddd;
-}
-@media (max-width: 600px) {
-  .top-left {
-    position: static;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .social-icons {
-    justify-content: center;
-  }
-}
-.social-icons img {
-  width: 22px;      /* antes ~44px implícitos */
-  height: auto;
-  display: block;
-}
-
-.lang-switch button {
-  background-color: #eee;
-  color: #222;
-  margin: 2px 2px 0 0;
-  padding: 4px 10px;
-  font-size: 0.85em;
-  border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  font-weight: bold;
-}
-
-.lang-switch button.active {
-  background-color: #222;
-  color: white;
-}
-
-
-  </style>
-.top-right {
-  position: absolute;
-  top: 12px;
-  right: 15px;
+  top: 14px;
+  right: 18px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* alinea todo a la derecha */
+  align-items: flex-end;
   z-index: 1000;
 }
 
 .social-icons {
   display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
 .social-icons img {
-  width: 22px;   /* iconos pequeños */
+  width: 32px;
   height: auto;
   display: block;
 }
@@ -241,13 +124,13 @@
 .lang-switch {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .lang-switch button {
   background-color: #eee;
   color: #222;
-  padding: 8px 14px;
+  padding: 8px 16px;
   font-size: 0.95em;
   border-radius: 6px;
   cursor: pointer;
@@ -259,39 +142,84 @@
   background-color: #222;
   color: white;
 }
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+/* ===== MÓVIL ===== */
 @media (max-width: 600px) {
+  header h1 { font-size: 1.8em; }
+  section { padding: 30px 15px; }
+
   .top-right {
     position: static;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
+  .social-icons img {
+    width: 36px;
   }
 
   .lang-switch {
     flex-direction: row;
+    gap: 8px;
   }
 }
+</style>
 
-  <script>
-    function setLang(lang) {
-      document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
-      document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
-    }
-  </script>
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+  document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+
+  document.getElementById('btn-es').classList.remove('active');
+  document.getElementById('btn-eu').classList.remove('active');
+  document.getElementById('btn-' + lang).classList.add('active');
+}
+
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('show');
+}
+
+function openImage(src) {
+  const modal = document.createElement("div");
+  modal.style.position = "fixed";
+  modal.style.top = 0;
+  modal.style.left = 0;
+  modal.style.width = "100%";
+  modal.style.height = "100%";
+  modal.style.background = "rgba(0,0,0,0.9)";
+  modal.style.display = "flex";
+  modal.style.alignItems = "center";
+  modal.style.justifyContent = "center";
+  modal.style.zIndex = 9999;
+
+  modal.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">`;
+  modal.onclick = () => document.body.removeChild(modal);
+  document.body.appendChild(modal);
+}
+</script>
 </head>
 
 <body onload="setLang('eu')">
 
 <header>
-  <!-- BLOQUE SUPERIOR DERECHO -->
   <div class="top-right">
     <div class="social-icons">
-      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" aria-label="Facebook">
+      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
         <img src="images/icons/facebook.jpg" alt="Facebook">
       </a>
-      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank" aria-label="Instagram">
+      <a href="https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi" target="_blank">
         <img src="images/icons/instagram.jpg" alt="Instagram">
       </a>
-      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" aria-label="WhatsApp">
+      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
         <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
       </a>
     </div>
@@ -300,10 +228,8 @@
       <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
       <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
     </div>
-
   </div>
 
-  <!-- CONTENIDO CENTRAL -->
   <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
 
@@ -314,9 +240,8 @@
 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
 <nav id="menu">
-  <!-- Euskera -->
   <a class="eu" href="#inicio">Hasiera</a>
-  <a class="eu" href="#notiziak">Berriak</a>
+  <a class="eu" href="#berriak">Berriak</a>
   <a class="eu" href="#modalitateak">Modalitateak</a>
   <a class="eu" href="#kategoriak">Kategoriak</a>
   <a class="eu" href="#entrenatzaileak">Entrenatzaileak</a>
@@ -327,9 +252,8 @@
   <a class="eu" href="#galeria">Galeria</a>
   <a class="eu" href="#kontaktua">Kontaktua</a>
 
-  <!-- Castellano -->
   <a class="es" href="#inicio">Inicio</a>
-  <a class="es" href="#noticias">Noticias</a>
+  <a class="es" href="#berriak">Noticias</a>
   <a class="es" href="#modalitateak">Modalidades</a>
   <a class="es" href="#kategoriak">Categorías</a>
   <a class="es" href="#entrenatzaileak">Entrenadores</a>
@@ -340,7 +264,6 @@
   <a class="es" href="#galeria">Galería</a>
   <a class="es" href="#kontaktua">Contacto</a>
 </nav>
-
 
 <section id="inicio">
   <h2 class="eu">Ongi etorri</h2>
@@ -708,49 +631,10 @@
 
 </section>
 
+
 <footer>
   <p>© 2025 Larraun Pilota Elkartea</p>
 </footer>
-
-  <script>
-  function openImage(src) {
-    const modal = document.createElement("div");
-    modal.style.position = "fixed";
-    modal.style.top = 0;
-    modal.style.left = 0;
-    modal.style.width = "100%";
-    modal.style.height = "100%";
-    modal.style.background = "rgba(0,0,0,0.9)";
-    modal.style.display = "flex";
-    modal.style.alignItems = "center";
-    modal.style.justifyContent = "center";
-    modal.style.zIndex = 9999;
-
-    modal.innerHTML = `
-      <img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">
-    `;
-
-    modal.onclick = () => document.body.removeChild(modal);
-    document.body.appendChild(modal);
-  }
-</script>
-
-  <script>
-  function setLang(lang) {
-    document.querySelectorAll('.es').forEach(e => {
-      e.style.display = (lang === 'es') ? 'block' : 'none';
-    });
-    document.querySelectorAll('.eu').forEach(e => {
-      e.style.display = (lang === 'eu') ? 'block' : 'none';
-    });
-
-    document.getElementById('btn-es').classList.remove('active');
-    document.getElementById('btn-eu').classList.remove('active');
-
-    document.getElementById('btn-' + lang).classList.add('active');
-  }
-</script>
-
 
 </body>
 </html>
