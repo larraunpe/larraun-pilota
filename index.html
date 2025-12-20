@@ -21,7 +21,7 @@
     }
 
     header img {
-      max-width: 120px;
+      max-width: 150px;
       margin-bottom: 10px;
     }
 
@@ -84,13 +84,16 @@
     }
 
     .lang-switch button {
-      margin: 5px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+     background-color: #eee;
+     color: #222;
+     margin: 4px 0 0 0;
+     padding: 8px 14px;
+     font-size: 0.95em;
+     border-radius: 6px;
+     cursor: pointer;
+     border: none;
+     font-weight: bold;
+}
 
     .eu { display: block; }
     .es { display: none; }
@@ -156,6 +159,10 @@
   cursor: pointer;
   border: none;
 }
+.lang-switch button.active {
+  background-color: #222;
+  color: white;
+}
 
 .lang-switch button:hover {
   background-color: #ddd;
@@ -171,6 +178,12 @@
     justify-content: center;
   }
 }
+.social-icons img {
+  width: 22px;      /* antes ~44px implícitos */
+  height: auto;
+  display: block;
+}
+
 .lang-switch button {
   background-color: #eee;
   color: #222;
@@ -217,8 +230,8 @@
     </div>
 
     <div class="lang-switch">
-      <button id="btn-eu" onclick="setLang('eu')">EU</button>
-      <button id="btn-es" onclick="setLang('es')">ES</button>
+      <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
+      <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
     </div>
 
   </div>
@@ -652,6 +665,22 @@
 
     modal.onclick = () => document.body.removeChild(modal);
     document.body.appendChild(modal);
+  }
+</script>
+
+  <script>
+  function setLang(lang) {
+    document.querySelectorAll('.es').forEach(e => {
+      e.style.display = (lang === 'es') ? 'block' : 'none';
+    });
+    document.querySelectorAll('.eu').forEach(e => {
+      e.style.display = (lang === 'eu') ? 'block' : 'none';
+    });
+
+    document.getElementById('btn-es').classList.remove('active');
+    document.getElementById('btn-eu').classList.remove('active');
+
+    document.getElementById('btn-' + lang).classList.add('active');
   }
 </script>
 
