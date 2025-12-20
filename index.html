@@ -163,6 +163,19 @@
   background-color: #222;
   color: white;
 }
+.top-right {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  text-align: right;
+}
+
+.social-icons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
 
 .lang-switch button:hover {
   background-color: #ddd;
@@ -203,6 +216,60 @@
 
 
   </style>
+.top-right {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* alinea todo a la derecha */
+  z-index: 1000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.social-icons img {
+  width: 22px;   /* iconos pequeños */
+  height: auto;
+  display: block;
+}
+
+.lang-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lang-switch button {
+  background-color: #eee;
+  color: #222;
+  padding: 8px 14px;
+  font-size: 0.95em;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.lang-switch button.active {
+  background-color: #222;
+  color: white;
+}
+@media (max-width: 600px) {
+  .top-right {
+    position: static;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .lang-switch {
+    flex-direction: row;
+  }
+}
 
   <script>
     function setLang(lang) {
