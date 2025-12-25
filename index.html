@@ -758,19 +758,20 @@ function openImage(src) {
 
 <script>
   window.addEventListener("load", () => {
-    const visitsElement = document.getElementById("visits");
-    if (!visitsElement) return;
+    const el = document.getElementById("visits");
+    if (!el) return;
 
     fetch("https://api.countapi.xyz/hit/larraun-pilota-elkartea/web-visits")
       .then(res => res.json())
       .then(data => {
-        visitsElement.innerText = data.value;
-      }).catch(err => {
-        visitsElement.innerText = "–";
-        console.error("CountAPI error:", err);
+        el.innerText = data.value;
+      })
+      .catch(() => {
+        el.innerText = "0";
       });
   });
 </script>
+
   
 </body>
 </html>
