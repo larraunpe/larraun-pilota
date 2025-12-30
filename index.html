@@ -798,19 +798,19 @@ function openImage(src) {
 </footer>
 
 <script>
-  window.addEventListener("load", () => {
-    const el = document.getElementById("visits");
-    if (!el) return;
+window.addEventListener("load", () => {
+  const el = document.getElementById("visits");
+  if (!el) return;
 
-    fetch("https://api.countapi.xyz/hit/larraun-pilota-elkartea/web-visits")
-      .then(res => res.json())
-      .then(data => {
-        el.innerText = data.value;
-      })
-      .catch(() => {
-        el.innerText = "0";
-      });
-  });
+  fetch("https://api.countapi.xyz/hit/larraunpilota.eus/visitas")
+    .then(res => res.json())
+    .then(data => {
+      el.innerText = data.value;
+    })
+    .catch(() => {
+      el.innerText = "0";
+    });
+});
 </script>
 
   
