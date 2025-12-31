@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Campeonatos de Euskal Pilota del club Larraun Pilota Elkartea en Lekunberri y las localidades del valle de Larraún (Navarra/Nafarroa).">
+<meta name="keywords" content="campeonatos pilota, esku pilota, pala, FNP, Nafarroako pilota federazioa, Larraun pilota, Lekunberri frontón, campeonato parejas navarra, interpueblos">
+<meta property="og:title" content="Larraun Pilota Elkartea | Campeonatos">
+<title class="eu">Larraun Pilota | Txapelketak – Campeonatos (FNP)</title>
+<title class="es">Larraun Pilota | Campeonatos – Txapelketak (FNP)</title>
+</head>
+<body onload="setLang('eu')">
+
+<header>
+  <img src="images/logo-larraun.png" 
+       alt="Logo del club deportivo Larraun Pilota Elkartea, Lekunberri, Navarra/Nafarroa, Euskal Pilota">
+  <h1 class="eu">Txapelketak / Campeonatos</h1>
+  <h1 class="es">Campeonatos / Txapelketak</h1>
+</header>
+
+<section style="background:white; border-radius:8px; padding:20px;">
+  <p class="es">
+    Aquí podrás consultar los campeonatos oficiales del club filtrados desde la <strong>Federación Navarra de Pelota (FNP)</strong>.
+  </p>
+  <p class="eu">
+    Hemen klubeko txapelketa ofizialak kontsulta ditzakezu, <strong>Nafarroako Pilota Federazioaren (FNP)</strong> webgunetik iragazita.
+  </p>
+
+  <h2 class="es">🔗 Campeonatos FNP</h2>
+  <h2 class="eu">🔗 FNP Txapelketak</h2>
+
+  <ul>
+    <li><a href="https://www.fnpelota.com/pub/competicion.asp?idioma=eu" target="_blank">➜ Txapelketak (Euskera)</a></li>
+    <li><a href="https://www.fnpelota.com/pub/competicion.asp?idioma=ca" target="_blank">➜ Campeonatos (Castellano)</a></li>
+  </ul>
+
+  <h2 class="es">Campeonatos del club</h2>
+  <h2 class="eu">Klubeko txapelketak</h2>
+
+  <div class="card">
+    <img src="images/historica-fronton.jpg"
+         alt="Foto histórica de campeonato Interpueblos con txapela, club Larraun Pilota, Lekunberri, Navarra"
+         onclick="openImage(this.src)" 
+         style="width:100%; border-radius:6px; cursor:pointer;">
+    <p class="es"><strong>Campeonato Interpueblos – 6ª Txapela</strong></p>
+    <p class="eu"><strong>Herrien Arteko Txapelketa – 6. Txapela</strong></p>
+  </div>
+</section>
+
+<section id="kontaktua"> <!-- contacto fijo -->
+  <h2>Kontaktua / Contacto</h2>
+  <p>📍 Lekunberri</p>
+  <p>📱 613 99 77 10</p>
+  <p>✉️ larraunpe@gmail.com</p>
+  <p>📘 Facebook · 📸 Instagram · 💬 WhatsApp</p>
+</section>
+
+<footer>© 2025 Larraun Pilota Elkartea</footer>
+
+<script>
+/* Mantienes tu sistema actual de idiomas */
+function setLang(lang) {
+  document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+  document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+}
+</script>
+
+</body>
+</html>
