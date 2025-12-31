@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Archivo de noticias antiguas del club Larraun Pilota Elkartea (Euskal Pilota, Lekunberri y Valle de Larraún, Navarra/Nafarroa)">
+<title>Archivo de noticias | Berri zaharren artxiboa</title>
+</head>
+<body onload="setLang('eu')">
+
+<header>
+  <h1 class="eu">Berri zaharren artxiboa</h1>
+  <h1 class="es">Archivo de noticias antiguas</h1>
+</header>
+
+<section style="background:white; border-radius:8px; padding:20px;">
+  <p class="es">Aquí se guardan las noticias obsoletas del club para consulta histórica.</p>
+  <p class="eu">Hemen gordetzen dira klubeko berriak zaharkituak, kontsulta historikorako.</p>
+
+  <div class="news-archive">
+
+    <!-- EJEMPLOS, luego tú los irás pegando aquí -->
+    <article class="obsolete">
+      <p>01/11/2025</p>
+      <h3 class="es">Ejemplo de noticia antigua</h3>
+      <h3 class="eu">Berri zaharraren adibidea</h3>
+      <p>Texto de prueba archivado…</p>
+    </article>
+
+  </div>
+</section>
+
+<section id="kontaktua">
+  <h2>Kontaktua / Contacto</h2>
+  <p>📍 Lekunberri</p>
+  <p>📱 613 99 77 10</p>
+  <p>✉️ larraunpe@gmail.com</p>
+  <p>📘 Facebook · 📸 Instagram · 💬 WhatsApp</p>
+</section>
+
+<footer>© 2025 Larraun Pilota Elkartea</footer>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+  document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+}
+</script>
+
+</body>
+</html>
