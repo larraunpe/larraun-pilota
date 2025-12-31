@@ -180,6 +180,34 @@ footer {
     gap: 8px;
   }
 }
+
+  .campeonatos-link {
+  margin-top: 20px; /* baja el recuadro */
+  background: #fff;
+  border-left: 4px solid #006400;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.campeonatos-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 600px) {
+  .campeonatos-link {
+    width: 90%;
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+
 </style>
 
 <script>
@@ -270,9 +298,15 @@ function openImage(src) {
       <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
     </div>
  
-   <a class="eu" href="campeonatos.html">Babestutako txapelketak</a>
-   <a class="es" href="campeonatos.html">Campeonatos patrocinados</a>
- </div>
+  <div class="eu">
+  <a href="campeonatos.html" class="campeonatos-link">🏆 Babestutako Txapelketak</a>
+</div>
+
+<div class="es">
+  <a href="campeonatos.html" class="campeonatos-link">🏆 Campeonatos patrocinados</a>
+</div> 
+    
+  </div>
   <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
 
