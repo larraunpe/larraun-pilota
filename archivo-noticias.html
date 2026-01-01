@@ -6,11 +6,10 @@
 <meta name="description" content="Archivo de noticias antiguas del club Larraun Pilota Elkartea (Euskal Pilota, Lekunberri y Valle de Larraún, Navarra/Nafarroa)">
 <title>Archivo de noticias | Berri zaharren artxiboa</title>
 </head>
-<body onload="setLang('eu')">
+<body onload="initLang()">
 
 <header>
-  <h1 class="eu">Berri zaharren artxiboa</h1>
-  <h1 class="es">Archivo de noticias antiguas</h1>
+  <h1>Berri zaharren artxiboa · Archivo de noticias antiguas</h1>
 </header>
 
 <section style="background:white; border-radius:8px; padding:20px;">
@@ -68,6 +67,12 @@
 <footer>© 2025 Larraun Pilota Elkartea</footer>
 
 <script>
+function initLang() {
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get("idioma") === "ca" ? "es" : "eu";
+  setLang(lang);
+}
+
 function setLang(lang) {
   document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
   document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
