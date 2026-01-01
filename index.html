@@ -119,10 +119,21 @@ nav a:hover {
 /* ===== CARDS ===== */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
 .card {
   background: white;
   padding: 20px;
@@ -488,15 +499,7 @@ function openImage(src) {
         onclick="openImage(this.src)">
     </a>
   </div>
-  <!-- ENLACE AL ARCHIVO (FUERA del grid) -->
-  <div class="archivo-wrapper">
-    <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
-      🗂️ Berri zaharren artxiboa
-    </a>
-    <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
-      🗂️ Archivo de noticias
-    </a>
-</div>
+ 
 
 <!--NOTICIA 2 -->
 <div class="card" style="text-align:left;">
@@ -576,17 +579,18 @@ function openImage(src) {
         style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
         onclick="openImage(this.src)">
     </a>
-  </div>
-</div>
+   </div>
+ </div>
 
-<div style="margin-top:30px; text-align:center;">
-  <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
-    🗂️ Berri zaharren artxiboa
-  </a>
-  <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
-    🗂️ Archivo de noticias
-  </a>
-</div>
+ <!-- 🔽 ENLACE AL ARCHIVO (SOLO AQUÍ) -->
+  <div class="archivo-wrapper">
+    <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
+      🗂️ Berri zaharren artxiboa
+    </a>
+    <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
+      🗂️ Archivo de noticias
+    </a>
+  </div>
 
    </section>
 
