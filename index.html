@@ -49,6 +49,21 @@ section {
 .eu { display: block; }
 .es { display: none; }
 
+.campeonatos-link {
+  margin-top: 30px;
+  background: #fff;
+  border-left: 5px solid #006400;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+
 /* ===== MENÚ ===== */
 nav {
   background-color: #222;
@@ -115,6 +130,11 @@ nav a:hover {
   flex-direction: column;
   align-items: flex-end;
   z-index: 1000;
+}
+
+.top-right .campeonatos-link {
+  margin-top: 18px
+  background: linear-gradient(90deg, #ffffff, #e8f5e8);
 }
 
 .social-icons {
@@ -536,16 +556,29 @@ function openImage(src) {
   </div>
 </div>
 
-    <p>
-    <a href="archivo-noticias.html?idioma=eu" target="_blank">
-      ➜ Berrien artxiboa
-    </a>
-    |
-    <a href="archivo-noticias.html?idioma=ca" target="_blank">
-      ➜ Archivo de noticias
-    </a>
-  </p>
+<div style="margin-top:30px; text-align:center;">
+  <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
+    🗂️ Berri zaharren artxiboa
+  </a>
+  <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
+    🗂️ Archivo de noticias
+  </a>
+</div>
+.archivo-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 22px;
+  background: #222;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
 
+.archivo-link:hover {
+  background: #444;
+}
    </section>
 
 <section id="modalitateak">
@@ -814,7 +847,7 @@ window.addEventListener("load", () => {
   const el = document.getElementById("visits");
   if (!el) return;
 
-  fetch("https://api.countapi.xyz/hit/larraunpilota.eus/visitas")
+  fetch("https://api.countapi.xyz/hit/larraun-pilota/index")
     .then(res => res.json())
     .then(data => {
       el.innerText = data.value;
