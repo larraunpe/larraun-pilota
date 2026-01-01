@@ -1,142 +1,134 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
 <meta charset="UTF-8">
-<title>Reservas | Larraun Pilota</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erreserbak · Reservas</title>
 
 <style>
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #b30000, #006400);
+  color: white;
   padding: 20px;
+  text-align: center;
 }
 
 h1 {
+  margin: 0;
+}
+
+section {
+  padding: 40px 20px;
+}
+
+.reserva-box {
+  max-width: 420px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
   text-align: center;
-  color: #006400;
 }
 
-.login, .reservas {
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-label {
+.reserva-box label {
+  display: block;
+  margin-top: 14px;
   font-weight: bold;
 }
 
-input {
+.reserva-box input,
+.reserva-box select {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0 20px;
+  padding: 12px;
+  margin-top: 8px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-button {
-  padding: 10px 20px;
+.reserva-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
   background: #006400;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
+  font-size: 1em;
   font-weight: bold;
+  cursor: pointer;
 }
 
-button:hover {
+.reserva-btn:hover {
   background: #004d00;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
+footer {
+  margin-top: 40px;
+  background: #222;
+  color: #fff;
   text-align: center;
-}
-
-th {
-  background: #eee;
-}
-
-.hidden {
-  display: none;
+  padding: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>📅 Reservas Frontón / Trinquete</h1>
+<header>
+  <h1>Frontoi & Trinquete Erreserbak</h1>
+  <p>Reservas Frontón y Trinquete</p>
+</header>
 
-<div class="login" id="login">
-  <h2>Acceso socios</h2>
-  <label>Usuario</label>
-  <input type="text" id="user">
+<section>
+  <div class="reserva-box">
+    <label>Eguna / Día</label>
+    <input type="date" id="fechaReserva">
 
-  <label>Contraseña</label>
-  <input type="password" id="pass">
+    <label>Instalazioa / Instalación</label>
+    <select id="instalacion">
+      <option value="Frontón">Frontón</option>
+      <option value="Trinquete">Trinquete</option>
+    </select>
 
-  <button onclick="login()">Entrar</button>
+    <button class="reserva-btn" onclick="enviarReserva()">
+      📲 Erreserba eskatu / Solicitar reserva
+    </button>
+  </div>
+</section>
 
-  <p id="error" style="color:red;"></p>
-</div>
-
-<div class="reservas hidden" id="reservas">
-  <h2 id="bienvenida"></h2>
-
-  <table>
-    <tr>
-      <th>Hora</th>
-      <th>Frontón</th>
-      <th>Trinquete</th>
-    </tr>
-  </table>
-</div>
+<footer>
+  © 2025 Larraun Pilota Elkartea
+</footer>
 
 <script>
-const users = {
-  "pelliki": { pass: "1111", role: "admin" },
-  "diegiki": { pass: "2222", role: "socio" }
-};
+const hoy = new Date().toISOString().split("T")[0];
+document.getElementById("fechaReserva").min = hoy;
 
-function login() {
-  const u = document.getElementById("user").value;
-  const p = document.getElementById("pass").value;
+function enviarReserva() {
+  const fecha = document.getElementById("fechaReserva").value;
+  const instalacion = document.getElementById("instalacion").value;
 
-  if (users[u] && users[u].pass === p) {
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("reservas").classList.remove("hidden");
-    document.getElementById("bienvenida").innerText =
-      "Bienvenido " + u + " (" + users[u].role + ")";
-
-    generarTabla();
-  } else {
-    document.getElementById("error").innerText = "Usuario o contraseña incorrectos";
+  if (!fecha) {
+    alert("Mesedez, eguna aukeratu / Selecciona un día");
+    return;
   }
-}
 
-function generarTabla() {
-  const table = document.querySelector("table");
-  for (let h = 8; h < 22; h++) {
-    ["00", "30"].forEach(m => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${String(h).padStart(2,"0")}:${m}</td>
-        <td><button>Reservar</button></td>
-        <td><button>Reservar</button></td>
-      `;
-      table.appendChild(row);
-    });
-  }
+  const [y, m, d] = fecha.split("-");
+  const fechaEU = `${y}/${m}/${d}`;
+
+  const texto = `Kaixo! ${instalacion} erreserbatu nahi dut ${fechaEU} egunerako.`;
+  const url = `https://wa.me/34613997710?text=${encodeURIComponent(texto)}`;
+
+  window.open(url, "_blank");
 }
 </script>
 
