@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reservas | Larraun Pilota</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #006400;
+}
+
+.login, .reservas {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #006400;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #004d00;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #eee;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📅 Reservas Frontón / Trinquete</h1>
+
+<div class="login" id="login">
+  <h2>Acceso socios</h2>
+  <label>Usuario</label>
+  <input type="text" id="user">
+
+  <label>Contraseña</label>
+  <input type="password" id="pass">
+
+  <button onclick="login()">Entrar</button>
+
+  <p id="error" style="color:red;"></p>
+</div>
+
+<div class="reservas hidden" id="reservas">
+  <h2 id="bienvenida"></h2>
+
+  <table>
+    <tr>
+      <th>Hora</th>
+      <th>Frontón</th>
+      <th>Trinquete</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+const users = {
+  "pelliki": { pass: "1111", role: "admin" },
+  "diegiki": { pass: "2222", role: "socio" }
+};
+
+function login() {
+  const u = document.getElementById("user").value;
+  const p = document.getElementById("pass").value;
+
+  if (users[u] && users[u].pass === p) {
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("reservas").classList.remove("hidden");
+    document.getElementById("bienvenida").innerText =
+      "Bienvenido " + u + " (" + users[u].role + ")";
+
+    generarTabla();
+  } else {
+    document.getElementById("error").innerText = "Usuario o contraseña incorrectos";
+  }
+}
+
+function generarTabla() {
+  const table = document.querySelector("table");
+  for (let h = 8; h < 22; h++) {
+    ["00", "30"].forEach(m => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${String(h).padStart(2,"0")}:${m}</td>
+        <td><button>Reservar</button></td>
+        <td><button>Reservar</button></td>
+      `;
+      table.appendChild(row);
+    });
+  }
+}
+</script>
+
+</body>
+</html>
