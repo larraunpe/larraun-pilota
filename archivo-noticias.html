@@ -96,6 +96,7 @@ footer {
 </head>
 
 <body onload="initLang()">
+<body onload="setLang('eu')">
 
 <header>
   <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
@@ -133,9 +134,23 @@ footer {
   </select>
 </div>
 
+<div style="margin:20px 0; text-align:right;">
+  <label for="yearFilter" style="font-weight:bold;">
+    <span class="eu">Urtea:</span>
+    <span class="es">Año:</span>
+  </label>
+  <select id="yearFilter"
+          onchange="filterByYear()"
+          style="padding:6px 10px; border-radius:6px;">
+    <option value="all">Todos</option>
+  </select>
+</div>
+
     <!-- NOTICIA ARCHIVADA 1 -->
     <div class="card" data-year="2025">
       <p style="font-size:0.9em; color:#666;">14/12/2025</p>
+      <div class="card" data-date="2025-12-14">
+
 
       <p class="es">
         La <strong>segunda semana de enero</strong> dará comienzo la
@@ -176,8 +191,57 @@ function initLang() {
 function setLang(lang) {
   document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
   document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+
+  formatDates(lang);
+}
+
+</script>
+<script>
+function buildYearFilter() {
+  const select = document.getElementById("yearFilter");
+  if (!select) return;
+
+  const years = new Set();
+
+  document.querySelectorAll(".card[data-date]").forEach(card => {
+    const year = card.dataset.date.split("-")[0];
+    years.add(year);
+  });
+
+  [...years].sort((a, b) => b - a).forEach(year => {
+    const option = document.createElement("option");
+    option.value = year;
+    option.textContent = year;
+    select.appendChild(option);
+  });
+}
+
+function filterByYear() {
+  const selectedYear = document.getElementById("yearFilter").value;
+
+  document.querySelectorAll(".card[data-date]").forEach(card => {
+    const year = card.dataset.date.split("-")[0];
+    card.style.display =
+      selectedYear === "all" || year === selectedYear
+        ? "block"
+        : "none";
+  });
+}
+
+window.addEventListener("load", buildYearFilter);
+</script>
+<script>
+function formatDates(lang) {
+  document.querySelectorAll(".news-date").forEach(el => {
+    const [y, m, d] = el.dataset.date.split("-");
+    el.textContent =
+      lang === "eu"
+        ? `${y}/${m}/${d}`
+        : `${d}/${m}/${y}`;
+  });
 }
 </script>
 
+  
 </body>
 </html>
