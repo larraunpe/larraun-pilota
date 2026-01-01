@@ -1,82 +1,126 @@
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Erreserbak · Reservas</title>
+<title>Reservas | Larraun Pilota Elkartea</title>
 
 <style>
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   color: #333;
 }
 
 header {
   background: linear-gradient(90deg, #b30000, #006400);
   color: white;
-  padding: 20px;
+  padding: 25px 20px;
   text-align: center;
-}
-
-h1 {
-  margin: 0;
 }
 
 section {
+  max-width: 1000px;
+  margin: auto;
   padding: 40px 20px;
 }
 
-.reserva-box {
-  max-width: 420px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-  text-align: center;
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-bottom: 30px;
 }
 
-.reserva-box label {
-  display: block;
-  margin-top: 14px;
+h2 {
+  margin-top: 0;
+  color: #006400;
+}
+
+label {
   font-weight: bold;
+  margin-top: 15px;
+  display: block;
 }
 
-.reserva-box input,
-.reserva-box select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  font-size: 1em;
+input, select, button {
+  margin-top: 6px;
+  padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
 }
 
-.reserva-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
+button {
   background: #006400;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 1em;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-.reserva-btn:hover {
+button:hover {
   background: #004d00;
 }
 
+.hidden {
+  display: none;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.day {
+  background: #eee;
+  padding: 12px;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.day:hover {
+  background: #cde6cd;
+}
+
+.day.selected {
+  background: #006400;
+  color: white;
+}
+
+.time-slots {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.slot {
+  padding: 10px;
+  background: #eee;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.slot.selected {
+  background: #b30000;
+  color: white;
+}
+
 footer {
-  margin-top: 40px;
   background: #222;
-  color: #fff;
+  color: white;
   text-align: center;
   padding: 20px;
+  margin-top: 40px;
 }
 </style>
 </head>
@@ -84,25 +128,43 @@ footer {
 <body>
 
 <header>
-  <h1>Frontoi & Trinquete Erreserbak</h1>
-  <p>Reservas Frontón y Trinquete</p>
+  <h1>Reservas Frontón y Trinquete</h1>
+  <p>Acceso exclusivo para socios y federados</p>
 </header>
 
 <section>
-  <div class="reserva-box">
-    <label>Eguna / Día</label>
-    <input type="date" id="fechaReserva">
 
-    <label>Instalazioa / Instalación</label>
-    <select id="instalacion">
-      <option value="Frontón">Frontón</option>
-      <option value="Trinquete">Trinquete</option>
-    </select>
+<div class="card" id="loginCard">
+  <h2>Acceso</h2>
+  <label>Usuario</label>
+  <input id="user">
+  <label>Contraseña</label>
+  <input type="password" id="pass">
+  <button onclick="login()">Entrar</button>
+  <p id="error" style="color:red;display:none;">Credenciales incorrectas</p>
+</div>
 
-    <button class="reserva-btn" onclick="enviarReserva()">
-      📲 Erreserba eskatu / Solicitar reserva
-    </button>
-  </div>
+<div class="card hidden" id="reservaCard">
+  <h2>Reserva</h2>
+
+  <label>Instalación</label>
+  <select>
+    <option>Frontón</option>
+    <option>Trinquete</option>
+  </select>
+
+  <label>Mes</label>
+  <select id="mes" onchange="buildCalendar()"></select>
+
+  <div class="calendar" id="calendar"></div>
+
+  <div class="time-slots" id="slots"></div>
+
+  <p style="font-size:0.9em;color:#555;margin-top:20px;">
+    ⏱ Máximo 1h 30min por persona y día
+  </p>
+</div>
+
 </section>
 
 <footer>
@@ -110,25 +172,76 @@ footer {
 </footer>
 
 <script>
-const hoy = new Date().toISOString().split("T")[0];
-document.getElementById("fechaReserva").min = hoy;
+const USERS = { pelliki: "1111", diegiki: "2222" };
+let selectedSlots = 0;
 
-function enviarReserva() {
-  const fecha = document.getElementById("fechaReserva").value;
-  const instalacion = document.getElementById("instalacion").value;
-
-  if (!fecha) {
-    alert("Mesedez, eguna aukeratu / Selecciona un día");
-    return;
+function login() {
+  if (USERS[user.value] === pass.value) {
+    loginCard.classList.add("hidden");
+    reservaCard.classList.remove("hidden");
+    initMonths();
+  } else {
+    error.style.display = "block";
   }
+}
 
-  const [y, m, d] = fecha.split("-");
-  const fechaEU = `${y}/${m}/${d}`;
+function initMonths() {
+  mes.innerHTML = "";
+  const now = new Date();
+  for (let i = 0; i < 3; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const o = document.createElement("option");
+    o.value = d;
+    o.textContent = d.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
+    mes.appendChild(o);
+  }
+  buildCalendar();
+}
 
-  const texto = `Kaixo! ${instalacion} erreserbatu nahi dut ${fechaEU} egunerako.`;
-  const url = `https://wa.me/34613997710?text=${encodeURIComponent(texto)}`;
+function buildCalendar() {
+  calendar.innerHTML = "";
+  slots.innerHTML = "";
+  selectedSlots = 0;
 
-  window.open(url, "_blank");
+  const base = new Date(mes.value);
+  const y = base.getFullYear();
+  const m = base.getMonth();
+  const days = new Date(y, m + 1, 0).getDate();
+
+  for (let d = 1; d <= days; d++) {
+    const div = document.createElement("div");
+    div.className = "day";
+    div.textContent = d;
+    div.onclick = () => selectDay(div);
+    calendar.appendChild(div);
+  }
+}
+
+function selectDay(el) {
+  document.querySelectorAll(".day").forEach(d => d.classList.remove("selected"));
+  el.classList.add("selected");
+  buildSlots();
+}
+
+function buildSlots() {
+  slots.innerHTML = "";
+  selectedSlots = 0;
+
+  for (let h = 8; h < 22; h++) {
+    ["00", "30"].forEach(m => {
+      const s = document.createElement("div");
+      s.className = "slot";
+      s.textContent = `${h}:${m}`;
+      s.onclick = () => toggleSlot(s);
+      slots.appendChild(s);
+    });
+  }
+}
+
+function toggleSlot(el) {
+  if (!el.classList.contains("selected") && selectedSlots >= 3) return;
+  el.classList.toggle("selected");
+  selectedSlots += el.classList.contains("selected") ? 1 : -1;
 }
 </script>
 
