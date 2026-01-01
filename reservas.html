@@ -1,193 +1,144 @@
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Erreserbak · Reservas | Larraun Pilota Elkartea</title>
+<title>Reservas | Larraun Pilota Elkartea</title>
 
 <style>
-body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f4f4f4; color:#333; }
-header { background:linear-gradient(90deg,#b30000,#006400); color:#fff; padding:20px; text-align:center; }
-section { max-width:1100px; margin:auto; padding:30px 20px; }
-.hidden { display:none; }
-
-.login-box {
-  max-width:400px;
-  margin:60px auto;
-  background:#fff;
-  padding:30px;
-  border-radius:8px;
-  box-shadow:0 2px 10px rgba(0,0,0,.2);
-}
-.login-box input {
-  width:100%;
-  padding:10px;
-  margin-bottom:15px;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
-.login-box button {
-  width:100%;
-  padding:12px;
-  background:#006400;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  font-size:1em;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.tabs { display:flex; gap:10px; margin-bottom:20px; }
-.tab {
-  padding:10px 20px;
-  background:#ddd;
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:bold;
-}
-.tab.active { background:#006400; color:#fff; }
-
-.day-select { margin-bottom:20px; }
-.slots {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:10px;
-}
-.slot {
-  padding:10px;
-  text-align:center;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:0.9em;
-}
-.free { background:#d4edda; }
-.booked { background:#f8d7da; cursor:not-allowed; }
-.selected { background:#cce5ff; }
-
-footer {
-  background:#222;
-  color:#fff;
-  text-align:center;
-  padding:15px;
-  margin-top:40px;
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#333}
+header{background:#222;color:#fff;text-align:center;padding:20px}
+.login-box,.reserva-box{max-width:420px;margin:40px auto;background:#fff;padding:25px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+h2{text-align:center;margin-top:0}
+input,button,select{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ccc}
+button{background:#b30000;color:#fff;border:none;font-weight:bold;cursor:pointer}
+button:hover{background:#900}
+.hidden{display:none}
+.tabs{display:flex;gap:10px;margin-bottom:15px}
+.tabs button{flex:1;background:#006400}
+.tabs button.active{background:#004d00}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{padding:10px;border-radius:6px;text-align:center;background:#e0e0e0;cursor:pointer}
+.slot.selected{background:#006400;color:#fff}
+footer{text-align:center;padding:20px;background:#222;color:#fff;margin-top:40px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Frontoi & Trinquete erreserbak</h1>
-  <p>Reservas de Frontón y Trinquete</p>
+  <h1>Reservas Frontón y Trinquete</h1>
 </header>
 
-<section>
-
-<div id="login" class="login-box">
-  <h2>Sarbidea · Acceso</h2>
-  <input type="text" id="user" placeholder="FITXA (usuario)">
-  <input type="password" id="pass" placeholder="URTEA (contraseña)">
-  <button onclick="login()">Sartu · Entrar</button>
-  <p id="loginError" style="color:red;"></p>
+<div class="login-box" id="loginBox">
+  <h2>Acceso socios / federados</h2>
+  <input type="text" id="user" placeholder="Usuario (FITXA)">
+  <input type="password" id="pass" placeholder="Contraseña (URTEA)">
+  <button onclick="login()">Entrar</button>
+  <p id="loginError" style="color:red;display:none">Datos incorrectos</p>
 </div>
 
-<div id="reservas" class="hidden">
+<div class="reserva-box hidden" id="reservaBox">
+  <h2 id="welcome"></h2>
+
   <div class="tabs">
-    <div class="tab active" onclick="setFacility('fronton',this)">Frontón</div>
-    <div class="tab" onclick="setFacility('trinquete',this)">Trinquete</div>
+    <button onclick="setCourt('fronton')" class="active">Frontón</button>
+    <button onclick="setCourt('trinquete')">Trinquete</button>
   </div>
 
-  <div class="day-select">
-    <label>📅 Día:
-      <input type="date" id="dayPicker">
-    </label>
-  </div>
+  <label>Día:</label>
+  <input type="date" id="datePicker">
 
+  <p>Seleccione hasta 1h30 (3 tramos):</p>
   <div class="slots" id="slots"></div>
 
-  <button style="margin-top:20px;" onclick="confirmBooking()">Confirmar reserva</button>
-  <p id="info"></p>
+  <button onclick="confirmReserva()">Confirmar reserva</button>
+  <p id="confirmMsg" style="font-weight:bold"></p>
 </div>
 
-</section>
-
-<footer>© 2025 Larraun Pilota Elkartea</footer>
+<footer>
+© 2025 Larraun Pilota Elkartea
+</footer>
 
 <script>
 const users = {
-  "P26726":"1985",
-  "P26727":"1995",
-  "P14541":"2001"
+  "P26726": { year:"1985", name:"MIGUEL", phone:"628 30 43 08", email:"" },
+  "P14541": { year:"2001", name:"IÑAKI", phone:"684368779", email:"galarzainaki@gmail.com" }
 };
 
-let currentUser = null;
-let facility = "fronton";
-let selectedSlots = [];
+function normalizePhone(raw){
+  if(!raw) return "";
+  const digits = raw.replace(/\D/g,"");
+  return digits.substring(0,9);
+}
 
+let currentUser=null;
 function login(){
-  const u = user.value.trim();
-  const p = pass.value.trim();
-  if(users[u] && users[u] === p){
-    currentUser = u;
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("reservas").classList.remove("hidden");
-    initCalendar();
+  const u=document.getElementById("user").value.trim();
+  const p=document.getElementById("pass").value.trim();
+  if(users[u] && users[u].year===p){
+    currentUser={...users[u], user:u};
+    currentUser.phone=normalizePhone(currentUser.phone);
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("reservaBox").classList.remove("hidden");
+    document.getElementById("welcome").innerText="Hola, "+currentUser.name;
   } else {
-    loginError.textContent = "Usuario o contraseña incorrectos";
+    document.getElementById("loginError").style.display="block";
   }
 }
 
-function setFacility(f,el){
-  facility = f;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  el.classList.add("active");
-  renderSlots();
+let selectedCourt="fronton";
+let selectedSlots=[];
+
+function setCourt(c){
+  selectedCourt=c;
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
 }
 
-function initCalendar(){
-  const today = new Date();
-  dayPicker.min = today.toISOString().split("T")[0];
-  renderSlots();
-}
-
-function renderSlots(){
-  slots.innerHTML = "";
-  selectedSlots = [];
-  for(let h=8; h<22; h++){
+function buildSlots(){
+  const container=document.getElementById("slots");
+  container.innerHTML="";
+  selectedSlots=[];
+  for(let h=8;h<22;h++){
     ["00","30"].forEach(m=>{
-      const time = `${String(h).padStart(2,"0")}:${m}`;
-      const div = document.createElement("div");
-      div.textContent = time;
-      div.className = "slot free";
-      div.onclick = ()=>toggleSlot(div,time);
-      slots.appendChild(div);
+      const label=(h<10?"0":"")+h+":"+m;
+      const div=document.createElement("div");
+      div.className="slot";
+      div.innerText=label;
+      div.onclick=()=>toggleSlot(div,label);
+      container.appendChild(div);
     });
   }
 }
 
-function toggleSlot(div,time){
-  if(div.classList.contains("selected")){
-    div.classList.remove("selected");
-    selectedSlots = selectedSlots.filter(t=>t!==time);
+function toggleSlot(el,label){
+  if(el.classList.contains("selected")){
+    el.classList.remove("selected");
+    selectedSlots=selectedSlots.filter(s=>s!==label);
   } else {
     if(selectedSlots.length>=3){
       alert("Máximo 1h30 por día");
       return;
     }
-    div.classList.add("selected");
-    selectedSlots.push(time);
+    el.classList.add("selected");
+    selectedSlots.push(label);
   }
 }
 
-function confirmBooking(){
+function confirmReserva(){
   if(selectedSlots.length===0){
-    alert("No hay tramos seleccionados");
+    alert("Seleccione al menos un tramo");
     return;
   }
-  const code = Math.floor(100000 + Math.random()*900000);
-  info.innerHTML = "✅ Reserva confirmada<br>Código: <strong>"+code+"</strong>";
+  const code=Math.floor(100000+Math.random()*900000);
+  document.getElementById("confirmMsg").innerText =
+    "Reserva confirmada. Código: "+code+
+    (currentUser.phone ? " · WhatsApp a "+currentUser.phone : "");
 }
+
+document.getElementById("datePicker").valueAsDate=new Date();
+buildSlots();
 </script>
 
 </body>
