@@ -3,23 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Archivo de noticias antiguas del club Larraun Pilota Elkartea (Euskal Pilota, Lekunberri y Valle de Larraún, Navarra/Nafarroa)">
+<meta name="description" content="Archivo de noticias antiguas del club Larraun Pilota Elkartea (Lekunberri, Nafarroa)">
 <title>Archivo de noticias | Berri zaharren artxiboa</title>
+
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.eu { display: block; }
+.es { display: none; }
+
+/* ===== HEADER ===== */
+header {
+  background: linear-gradient(90deg, #b30000, #006400);
+  color: white;
+  padding: 25px 20px;
+  text-align: center;
+}
+
+header img {
+  max-width: 120px;
+  margin-bottom: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+/* ===== NAV SIMPLE ===== */
+nav {
+  background: #222;
+  text-align: center;
+}
+
+nav a {
+  display: inline-block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background: #444;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ===== ARCHIVO ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: left;
+}
+
+.card img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+</style>
 </head>
+
 <body onload="initLang()">
 
 <header>
-  <h1>Berri zaharren artxiboa · Archivo de noticias antiguas</h1>
+  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
+  <h1 class="eu">Berri zaharren artxiboa</h1>
+  <h1 class="es">Archivo de noticias</h1>
 </header>
 
-<section style="background:white; border-radius:8px; padding:20px;">
-  <p class="es">Aquí se guardan las noticias obsoletas del club para consulta histórica.</p>
-  <p class="eu">Hemen gordetzen dira klubeko berriak zaharkituak, kontsulta historikorako.</p>
+<nav>
+  <a href="index.html" class="eu">⟵ Hasierara itzuli</a>
+  <a href="index.html" class="es">⟵ Volver a la página principal</a>
+</nav>
 
-  <div class="news-archive">
+<section>
+  <p class="es">
+    En esta sección se recogen noticias antiguas del club que se conservan
+    como archivo histórico para consulta.
+  </p>
 
-         <!-- NOTICIA 4 -->
-    <div class="card" style="text-align:left;">
+  <p class="eu">
+    Atal honetan klubeko berri zaharrak jasotzen dira,
+    artxibo historiko gisa kontsultatzeko.
+  </p>
+
+  <div class="cards">
+
+    <!-- NOTICIA ARCHIVADA -->
+    <div class="card">
       <p style="font-size:0.9em; color:#666;">14/12/2025</p>
 
       <p class="es">
@@ -38,33 +142,18 @@
         Parte hartu nahi dutenek <strong>koordinatzaileari</strong> jakinarazi beharko diote
         <strong>WhatsApp bidez</strong> edo <strong>larraunpe@gmail.com</strong> helbide elektronikora idatzita.
       </p>
-    <!-- IMAGEN ENLAZADA A WEB FEDERACIÓN -->
-  <div style="margin-top:15px; width:100%; text-align:center;">
-    <a href="https://www.fnpelota.com/pub/home.asp?idioma=eu"
-       target="_blank"
-       style="display:block; width:100%;">
-      <img 
-        src="images/cartelera/noticia4.jpg"
-        alt="Berria4 - Noticia4"
-        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
-        onclick="openImage(this.src)">
-    </a>
+
+      <a href="https://www.fnpelota.com/pub/home.asp?idioma=eu" target="_blank">
+        <img src="images/cartelera/noticia4.jpg" alt="Campeonato FNP">
+      </a>
+    </div>
+
   </div>
-
-
-
-</section>
-  
-
-<section id="kontaktua">
-  <h2>Kontaktua / Contacto</h2>
-  <p>📍 Lekunberri</p>
-  <p>📱 613 99 77 10</p>
-  <p>✉️ larraunpe@gmail.com</p>
-  <p>📘 Facebook · 📸 Instagram · 💬 WhatsApp</p>
 </section>
 
-<footer>© 2025 Larraun Pilota Elkartea</footer>
+<footer>
+  © 2025 Larraun Pilota Elkartea
+</footer>
 
 <script>
 function initLang() {
