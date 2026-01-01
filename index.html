@@ -181,7 +181,7 @@ footer {
   }
 }
 
-  .campeonatos-link {
+  .-link {
   margin-top: 20px; /* baja el recuadro */
   background: #fff;
   border-left: 4px solid #006400;
@@ -536,6 +536,16 @@ function openImage(src) {
   </div>
 </div>
 
+    <p>
+    <a href="archivo-noticias.html?idioma=eu" target="_blank">
+      ➜ Berrien artxiboa
+    </a>
+    |
+    <a href="archivo-noticias.html?idioma=ca" target="_blank">
+      ➜ Archivo de noticias
+    </a>
+  </p>
+
    </section>
 
 <section id="modalitateak">
@@ -801,7 +811,7 @@ function openImage(src) {
 
 <script>
 window.addEventListener("load", () => {
-  const el = document.getElementById("visits").innerText = data value;
+  const el = document.getElementById("visits");
   if (!el) return;
 
   fetch("https://api.countapi.xyz/hit/larraunpilota.eus/visitas")
