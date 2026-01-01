@@ -301,6 +301,8 @@ function setLang(lang) {
   document.getElementById('btn-es').classList.remove('active');
   document.getElementById('btn-eu').classList.remove('active');
   document.getElementById('btn-' + lang).classList.add('active');
+
+  formatDates(lang);
 }
 
 function toggleMenu() {
@@ -957,6 +959,18 @@ window.addEventListener("load", () => {
       el.innerText = "0";
     });
 });
+</script>
+
+<script>
+function formatDates(lang) {
+  document.querySelectorAll(".news-date").forEach(el => {
+    const [y, m, d] = el.dataset.date.split("-");
+    el.textContent =
+      lang === "eu"
+        ? `${y}/${m}/${d}`
+        : `${d}/${m}/${y}`;
+  });
+}
 </script>
 
   
