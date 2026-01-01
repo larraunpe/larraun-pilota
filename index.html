@@ -199,6 +199,20 @@ nav a:hover {
   margin-top: 18px;
   background: linear-gradient(90deg, #ffffff, #e8f5e8);
 }
+.top-left {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  z-index: 1000;
+}
+
+/* contenedor de enlaces para bajarlos */
+.links-derecha {
+  margin-top: 26px;   /* ← aquí controlas lo “bajo” que van */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .social-icons {
   display: flex;
@@ -247,11 +261,16 @@ footer {
 @media (max-width: 600px) {
   header h1 { font-size: 1.8em; }
   section { padding: 30px 15px; }
-
+  .top-left,
   .top-right {
     position: static;
     align-items: center;
     margin-bottom: 12px;
+  }
+
+  .links-derecha {
+  margin-top: 12px;
+  align-items: center;
   }
 
   .social-icons img {
@@ -365,48 +384,48 @@ function openImage(src) {
 <body onload="setLang('eu')">
 
 <header>
-<div class="top-left">
-  <div class="lang-switch">
-    <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
-    <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
-  </div>
-</div>
-
-<div class="top-right">
- <div class="social-icons">
- <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
- <img src="images/icons/facebook.jpg" alt="Facebook"> 
- </a>
- <a href="https://www.instagram.com/larraunpilota" target="_blank">
- <img src="images/icons/instagram.jpg" alt="Instagram">
- </a>
- <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
- <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
- </a>
- </div>
-</div>
-
-
-  <div class="eu">
-    <a href="campeonatos.html" class="campeonatos-link">🏆 Babestutako Txapelketak</a>
-  </div>
-  <div class="es">
-    <a href="campeonatos.html" class="campeonatos-link">🏆 Campeonatos patrocinados</a>
+  <!-- IZQUIERDA: IDIOMAS -->
+  <div class="top-left">
+    <div class="lang-switch">
+      <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
+      <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
+    </div>
   </div>
 
-  <div class="eu">
-    <a href="reservas.html" class="reserva-link">📅 Frontoi & Trinquete erreserbak</a>
-  </div>
-  <div class="es">
-    <a href="reservas.html" class="reserva-link">📅 Reservas Frontón y Trinquete</a>
+  <!-- DERECHA: REDES + ENLACES -->
+  <div class="top-right">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
+        <img src="images/icons/facebook.jpg" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/larraunpilota" target="_blank">
+        <img src="images/icons/instagram.jpg" alt="Instagram">
+      </a>
+      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
+        <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
+      </a>
+    </div>
+
+    <div class="links-derecha">
+      <div class="eu">
+        <a href="campeonatos.html" class="campeonatos-link">🏆 Babestutako Txapelketak</a>
+      </div>
+      <div class="es">
+        <a href="campeonatos.html" class="campeonatos-link">🏆 Campeonatos patrocinados</a>
+      </div>
+
+      <div class="eu">
+        <a href="reservas.html" class="reserva-link">📅 Frontoi & Trinquete erreserbak</a>
+      </div>
+      <div class="es">
+        <a href="reservas.html" class="reserva-link">📅 Reservas Frontón y Trinquete</a>
+      </div>
+    </div>
   </div>
 
-
-    
-  </div>
+  <!-- CENTRO -->
   <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
   <h1>LARRAUN PILOTA ELKARTEA</h1>
-
   <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
   <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
 </header>
