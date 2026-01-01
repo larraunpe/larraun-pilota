@@ -62,6 +62,21 @@ section {
   display: inline-block;
   transition: 0.2s;
 }
+.archivo-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 22px;
+  background: #222;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.archivo-link:hover {
+  background: #444;
+}
 
 
 /* ===== MENÚ ===== */
@@ -473,6 +488,14 @@ function openImage(src) {
         onclick="openImage(this.src)">
     </a>
   </div>
+  <!-- ENLACE AL ARCHIVO (FUERA del grid) -->
+  <div class="archivo-wrapper">
+    <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
+      🗂️ Berri zaharren artxiboa
+    </a>
+    <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
+      🗂️ Archivo de noticias
+    </a>
 </div>
 
 <!--NOTICIA 2 -->
@@ -564,21 +587,7 @@ function openImage(src) {
     🗂️ Archivo de noticias
   </a>
 </div>
-.archivo-link {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 12px 22px;
-  background: #222;
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.2s;
-}
 
-.archivo-link:hover {
-  background: #444;
-}
    </section>
 
 <section id="modalitateak">
