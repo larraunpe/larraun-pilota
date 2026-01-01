@@ -1,126 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reservas | Larraun Pilota Elkartea</title>
+<title>Erreserbak · Reservas | Larraun Pilota Elkartea</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
-  color: #333;
+body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f4f4f4; color:#333; }
+header { background:linear-gradient(90deg,#b30000,#006400); color:#fff; padding:20px; text-align:center; }
+section { max-width:1100px; margin:auto; padding:30px 20px; }
+.hidden { display:none; }
+
+.login-box {
+  max-width:400px;
+  margin:60px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+.login-box input {
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+.login-box button {
+  width:100%;
+  padding:12px;
+  background:#006400;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-size:1em;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-header {
-  background: linear-gradient(90deg, #b30000, #006400);
-  color: white;
-  padding: 25px 20px;
-  text-align: center;
+.tabs { display:flex; gap:10px; margin-bottom:20px; }
+.tab {
+  padding:10px 20px;
+  background:#ddd;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
 }
+.tab.active { background:#006400; color:#fff; }
 
-section {
-  max-width: 1000px;
-  margin: auto;
-  padding: 40px 20px;
+.day-select { margin-bottom:20px; }
+.slots {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
 }
-
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  margin-bottom: 30px;
-}
-
-h2 {
-  margin-top: 0;
-  color: #006400;
-}
-
-label {
-  font-weight: bold;
-  margin-top: 15px;
-  display: block;
-}
-
-input, select, button {
-  margin-top: 6px;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 300px;
-}
-
-button {
-  background: #006400;
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-button:hover {
-  background: #004d00;
-}
-
-.hidden {
-  display: none;
-}
-
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.day {
-  background: #eee;
-  padding: 12px;
-  text-align: center;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.day:hover {
-  background: #cde6cd;
-}
-
-.day.selected {
-  background: #006400;
-  color: white;
-}
-
-.time-slots {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-}
-
 .slot {
-  padding: 10px;
-  background: #eee;
-  border-radius: 6px;
-  text-align: center;
-  cursor: pointer;
+  padding:10px;
+  text-align:center;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:0.9em;
 }
-
-.slot.selected {
-  background: #b30000;
-  color: white;
-}
+.free { background:#d4edda; }
+.booked { background:#f8d7da; cursor:not-allowed; }
+.selected { background:#cce5ff; }
 
 footer {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+  background:#222;
+  color:#fff;
+  text-align:center;
+  padding:15px;
+  margin-top:40px;
 }
 </style>
 </head>
@@ -128,120 +78,115 @@ footer {
 <body>
 
 <header>
-  <h1>Reservas Frontón y Trinquete</h1>
-  <p>Acceso exclusivo para socios y federados</p>
+  <h1>Frontoi & Trinquete erreserbak</h1>
+  <p>Reservas de Frontón y Trinquete</p>
 </header>
 
 <section>
 
-<div class="card" id="loginCard">
-  <h2>Acceso</h2>
-  <label>Usuario</label>
-  <input id="user">
-  <label>Contraseña</label>
-  <input type="password" id="pass">
-  <button onclick="login()">Entrar</button>
-  <p id="error" style="color:red;display:none;">Credenciales incorrectas</p>
+<div id="login" class="login-box">
+  <h2>Sarbidea · Acceso</h2>
+  <input type="text" id="user" placeholder="FITXA (usuario)">
+  <input type="password" id="pass" placeholder="URTEA (contraseña)">
+  <button onclick="login()">Sartu · Entrar</button>
+  <p id="loginError" style="color:red;"></p>
 </div>
 
-<div class="card hidden" id="reservaCard">
-  <h2>Reserva</h2>
+<div id="reservas" class="hidden">
+  <div class="tabs">
+    <div class="tab active" onclick="setFacility('fronton',this)">Frontón</div>
+    <div class="tab" onclick="setFacility('trinquete',this)">Trinquete</div>
+  </div>
 
-  <label>Instalación</label>
-  <select>
-    <option>Frontón</option>
-    <option>Trinquete</option>
-  </select>
+  <div class="day-select">
+    <label>📅 Día:
+      <input type="date" id="dayPicker">
+    </label>
+  </div>
 
-  <label>Mes</label>
-  <select id="mes" onchange="buildCalendar()"></select>
+  <div class="slots" id="slots"></div>
 
-  <div class="calendar" id="calendar"></div>
-
-  <div class="time-slots" id="slots"></div>
-
-  <p style="font-size:0.9em;color:#555;margin-top:20px;">
-    ⏱ Máximo 1h 30min por persona y día
-  </p>
+  <button style="margin-top:20px;" onclick="confirmBooking()">Confirmar reserva</button>
+  <p id="info"></p>
 </div>
 
 </section>
 
-<footer>
-  © 2025 Larraun Pilota Elkartea
-</footer>
+<footer>© 2025 Larraun Pilota Elkartea</footer>
 
 <script>
-const USERS = { pelliki: "1111", diegiki: "2222" };
-let selectedSlots = 0;
+const users = {
+  "P26726":"1985",
+  "P26727":"1995",
+  "P14541":"2001"
+};
 
-function login() {
-  if (USERS[user.value] === pass.value) {
-    loginCard.classList.add("hidden");
-    reservaCard.classList.remove("hidden");
-    initMonths();
+let currentUser = null;
+let facility = "fronton";
+let selectedSlots = [];
+
+function login(){
+  const u = user.value.trim();
+  const p = pass.value.trim();
+  if(users[u] && users[u] === p){
+    currentUser = u;
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("reservas").classList.remove("hidden");
+    initCalendar();
   } else {
-    error.style.display = "block";
+    loginError.textContent = "Usuario o contraseña incorrectos";
   }
 }
 
-function initMonths() {
-  mes.innerHTML = "";
-  const now = new Date();
-  for (let i = 0; i < 3; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-    const o = document.createElement("option");
-    o.value = d;
-    o.textContent = d.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
-    mes.appendChild(o);
-  }
-  buildCalendar();
+function setFacility(f,el){
+  facility = f;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  el.classList.add("active");
+  renderSlots();
 }
 
-function buildCalendar() {
-  calendar.innerHTML = "";
+function initCalendar(){
+  const today = new Date();
+  dayPicker.min = today.toISOString().split("T")[0];
+  renderSlots();
+}
+
+function renderSlots(){
   slots.innerHTML = "";
-  selectedSlots = 0;
-
-  const base = new Date(mes.value);
-  const y = base.getFullYear();
-  const m = base.getMonth();
-  const days = new Date(y, m + 1, 0).getDate();
-
-  for (let d = 1; d <= days; d++) {
-    const div = document.createElement("div");
-    div.className = "day";
-    div.textContent = d;
-    div.onclick = () => selectDay(div);
-    calendar.appendChild(div);
-  }
-}
-
-function selectDay(el) {
-  document.querySelectorAll(".day").forEach(d => d.classList.remove("selected"));
-  el.classList.add("selected");
-  buildSlots();
-}
-
-function buildSlots() {
-  slots.innerHTML = "";
-  selectedSlots = 0;
-
-  for (let h = 8; h < 22; h++) {
-    ["00", "30"].forEach(m => {
-      const s = document.createElement("div");
-      s.className = "slot";
-      s.textContent = `${h}:${m}`;
-      s.onclick = () => toggleSlot(s);
-      slots.appendChild(s);
+  selectedSlots = [];
+  for(let h=8; h<22; h++){
+    ["00","30"].forEach(m=>{
+      const time = `${String(h).padStart(2,"0")}:${m}`;
+      const div = document.createElement("div");
+      div.textContent = time;
+      div.className = "slot free";
+      div.onclick = ()=>toggleSlot(div,time);
+      slots.appendChild(div);
     });
   }
 }
 
-function toggleSlot(el) {
-  if (!el.classList.contains("selected") && selectedSlots >= 3) return;
-  el.classList.toggle("selected");
-  selectedSlots += el.classList.contains("selected") ? 1 : -1;
+function toggleSlot(div,time){
+  if(div.classList.contains("selected")){
+    div.classList.remove("selected");
+    selectedSlots = selectedSlots.filter(t=>t!==time);
+  } else {
+    if(selectedSlots.length>=3){
+      alert("Máximo 1h30 por día");
+      return;
+    }
+    div.classList.add("selected");
+    selectedSlots.push(time);
+  }
+}
+
+function confirmBooking(){
+  if(selectedSlots.length===0){
+    alert("No hay tramos seleccionados");
+    return;
+  }
+  const code = Math.floor(100000 + Math.random()*900000);
+  info.innerHTML = "✅ Reserva confirmada<br>Código: <strong>"+code+"</strong>";
 }
 </script>
 
