@@ -1,22 +1,22 @@
 /* users.js */
-/* ATENCIÓN: ESTE ARCHIVO ES PÚBLICO SI SE SIRVE DIRECTAMENTE */
 
 const users = {
   "LARRAUNPE": {
     year: "200@",
-    role: "admin",
     name: "Administrador",
     phone: "669866803",
-    email: "larraunpe@gmail.com"
+    email: "larraunpe@gmail.com",
+    role: "admin"
   },
 
   "P26738": {
     year: "2014",
-    role: "user",
     name: "DIEGO",
     phone: "669866803",
-    email: "pelliki@hotmail.com"
+    email: "pelliki@hotmail.com",
+    role: "user"
   }
-
-  /* AQUÍ SEGUIRÍAN EL RESTO DE USUARIOS */
 };
+
+// ⬇️ ESTA LÍNEA ES CLAVE
+window.users = users;
