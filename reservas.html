@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="eu">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Erreserbak · Reservas</title>
+<title>Reservas Frontón y Trinquete</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- USUARIOS -->
 <script src="users.js"></script>
 
 <style>
@@ -15,18 +16,6 @@ body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0 }
   max-width:1000px;
   margin:auto;
   padding:20px;
-}
-
-.top-bar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.lang-selector button {
-  margin-left:5px;
-  padding:6px 10px;
-  cursor:pointer;
 }
 
 input, button {
@@ -71,7 +60,7 @@ button {
   cursor:pointer;
 }
 
-.hour.selected { background:#ffb3b3!important }
+.hour.selected { background:#ffb3b3 !important }
 
 .fronton { background:#bde7ff }
 .trinquete { background:#c7f5d9 }
@@ -83,8 +72,15 @@ button {
   margin-right:10px;
 }
 
-.space-btn.fronton { background:#4fc3f7; color:#00324d }
-.space-btn.trinquete { background:#66d19e; color:#0b3d2e }
+.space-btn.fronton {
+  background:#4fc3f7;
+  color:#00324d;
+}
+
+.space-btn.trinquete {
+  background:#66d19e;
+  color:#0b3d2e;
+}
 
 .admin {
   background:#222;
@@ -99,94 +95,39 @@ button {
 
 <!-- LOGIN -->
 <div class="login" id="login">
-  <h2 data-i18n="login_title"></h2>
-  <input id="user" data-i18n-placeholder="user">
-  <input id="pass" type="password" data-i18n-placeholder="pass">
-  <button onclick="login()" data-i18n="enter"></button>
+  <h2>Acceso a reservas</h2>
+  <input id="user" placeholder="Usuario">
+  <input id="pass" type="password" placeholder="Contraseña">
+  <button onclick="login()">Entrar</button>
   <p id="msg" style="color:red"></p>
 </div>
 
 <!-- APP -->
 <div class="app hidden" id="app">
+  <h2 id="welcome"></h2>
 
-  <div class="top-bar">
-    <h2 id="welcome"></h2>
-    <div class="lang-selector">
-      <button onclick="setLang('eu')">EU</button>
-      <button onclick="setLang('es')">ES</button>
-    </div>
-  </div>
-
-  <button class="space-btn fronton" onclick="setSpace('fronton')" data-i18n="fronton"></button>
-  <button class="space-btn trinquete" onclick="setSpace('trinquete')" data-i18n="trinquete"></button>
+  <button class="space-btn fronton" onclick="setSpace('fronton')">Frontón</button>
+  <button class="space-btn trinquete" onclick="setSpace('trinquete')">Trinquete</button>
 
   <h3 id="spaceTitle"></h3>
 
   <div id="calendar" class="calendar"></div>
   <div id="hours" class="hours"></div>
 
-  <button onclick="confirmReservation()" data-i18n="confirm"></button>
-  <button onclick="sendWhatsApp()" data-i18n="whatsapp"></button>
+  <button onclick="confirmReservation()">Confirmar reserva</button>
+  <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
 
   <div id="qrBox" class="hidden" style="margin-top:20px;text-align:center">
-    <h4 data-i18n="qr"></h4>
+    <h4>QR de la reserva</h4>
     <img id="qrImg">
   </div>
 
   <div id="adminPanel" class="admin hidden">
-    <h3 data-i18n="admin"></h3>
+    <h3>Panel administrador</h3>
     <button onclick="exportCSV()">Exportar Excel</button>
     <pre id="adminData"></pre>
   </div>
 </div>
-
-<script>
-let lang = "eu"
-
-const TEXTS = {
-  eu: {
-    login_title: "Erreserbetarako sarbidea",
-    user: "Erabiltzailea",
-    pass: "Pasahitza",
-    enter: "Sartu",
-    fronton: "Frontoia",
-    trinquete: "Trinketea",
-    confirm: "Erreserba baieztatu",
-    whatsapp: "WhatsApp bidez bidali",
-    qr: "Erreserbaren QR kodea",
-    admin: "Administratzailearen panela",
-    error_complete: "Aukeratu frontoia edo trinketea, eguna eta ordutegia.",
-    conflict: "Ezin da frontoia eta trinketea ordu berean erreserbatu."
-  },
-  es: {
-    login_title: "Acceso a reservas",
-    user: "Usuario",
-    pass: "Contraseña",
-    enter: "Entrar",
-    fronton: "Frontón",
-    trinquete: "Trinquete",
-    confirm: "Confirmar reserva",
-    whatsapp: "Enviar por WhatsApp",
-    qr: "QR de la reserva",
-    admin: "Panel administrador",
-    error_complete: "Selecciona frontón o trinquete, el día y el horario.",
-    conflict: "No puedes reservar frontón y trinquete a la misma hora."
-  }
-}
-
-function setLang(l){
-  lang = l
-  document.documentElement.lang = l
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    el.textContent = TEXTS[l][el.dataset.i18n]
-  })
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
-    el.placeholder = TEXTS[l][el.dataset.i18nPlaceholder]
-  })
-}
-
-setLang("eu")
-</script>
 
 <script>
 let currentUser=null, role=null
@@ -194,16 +135,174 @@ let space=null, selectedDay=null, selectedHours=[]
 let reservations=[]
 let lastReservation=null
 
-function formatDate(date){
-  const [y,m,d]=date.split("-")
-  return lang==="eu" ? `${y}/${m}/${d}` : `${d}/${m}/${y}`
+const loginDiv = document.getElementById("login")
+const app = document.getElementById("app")
+const welcome = document.getElementById("welcome")
+const adminPanel = document.getElementById("adminPanel")
+
+function login(){
+  const u = user.value.trim()
+  const p = pass.value.trim()
+
+  if(window.users && users[u] && users[u].year === p){
+    currentUser = u
+    role = users[u].role
+    loginDiv.classList.add("hidden")
+    app.classList.remove("hidden")
+    welcome.textContent = "Bienvenido " + users[u].name
+    if(role === "admin") adminPanel.classList.remove("hidden")
+    buildCalendar()
+  } else {
+    msg.textContent = "Credenciales incorrectas"
+  }
+}
+
+function setSpace(s){
+  space = s
+  selectedHours = []
+  hours.innerHTML = ""
+  spaceTitle.textContent = "Reservando " + (s === "fronton" ? "Frontón" : "Trinquete")
+}
+
+function buildCalendar(){
+  calendar.innerHTML = ""
+  const today = new Date()
+  const max = role === "admin" ? 21 : 7
+
+  for(let i=0;i<max;i++){
+    const d = new Date(today)
+    d.setDate(today.getDate() + i)
+    const div = document.createElement("div")
+    div.className = "day"
+    div.textContent = d.toISOString().slice(0,10)
+    div.onclick = () => selectDay(d)
+    calendar.appendChild(div)
+  }
+}
+
+function selectDay(d){
+  selectedDay = d.toISOString().slice(0,10)
+  buildHours()
+}
+
+function buildHours(){
+  hours.innerHTML = ""
+  selectedHours = []
+
+  for(let h=8;h<22;h++){
+    ["00","30"].forEach(m=>{
+      const t = String(h).padStart(2,"0")+":"+m
+      const div = document.createElement("div")
+      div.className = "hour " + space
+      div.textContent = t
+      div.onclick = () => toggleHour(t,div)
+      hours.appendChild(div)
+    })
+  }
+}
+
+function toggleHour(t,div){
+  if(selectedHours.includes(t)){
+    selectedHours = selectedHours.filter(x=>x!==t)
+    div.classList.remove("selected")
+  } else {
+    if(selectedHours.length >= 3 && role !== "admin") return
+    selectedHours.push(t)
+    div.classList.add("selected")
+  }
 }
 
 function confirmReservation(){
-  if(!space || !selectedDay || selectedHours.length===0){
-    alert(TEXTS[lang].error_complete)
+  if(!space || !selectedDay || selectedHours.length === 0){
+    alert(
+    "Aukeratu frontoia edo trinketea, eguna eta ordutegia.\n\n" +
+    "Selecciona frontón o trinquete, el día y el horario."
+  )
+  return
+  }
+
+  const conflict = reservations.some(r =>
+    r.user === currentUser &&
+    r.day === selectedDay &&
+    r.space !== space &&
+    r.hours.some(h => selectedHours.includes(h))
+  )
+
+  if(conflict && role !== "admin"){
+    alert("No puedes reservar frontón y trinquete a la misma hora")
     return
   }
+
+  const espacioTxt = space === "fronton" ? "Frontón" : "Trinquete"
+
+  const reserva = {
+    user: currentUser,
+    name: users[currentUser].name,
+    space,
+    spaceTxt: espacioTxt,
+    day: selectedDay,
+    hours: [...selectedHours]
+  }
+
+  reservations.push(reserva)
+  lastReservation = reserva
+
+  alert(
+    "Reserva confirmada\n\n" +
+    "Espacio: " + espacioTxt + "\n" +
+    "Fecha: " + selectedDay + "\n" +
+    "Horas: " + selectedHours.join(", ")
+  )
+
+  showQR(
+    "Reserva Larraun Pilota\n" +
+    "Nombre: " + reserva.name + "\n" +
+    "Espacio: " + espacioTxt + "\n" +
+    "Fecha: " + selectedDay + "\n" +
+    "Horas: " + reserva.hours.join(", ")
+  )
+
+  selectedHours = []
+  hours.innerHTML = ""
+
+  if(role === "admin"){
+    adminData.textContent = JSON.stringify(reservations,null,2)
+  }
+}
+
+function showQR(text){
+  qrImg.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+    encodeURIComponent(text)
+  qrBox.classList.remove("hidden")
+}
+
+function sendWhatsApp(){
+  if(!lastReservation){
+    alert("Primero confirma una reserva")
+    return
+  }
+
+  const msg =
+    "Reserva Larraun Pilota\n" +
+    "Nombre: " + lastReservation.name + "\n" +
+    "Espacio: " + lastReservation.spaceTxt + "\n" +
+    "Fecha: " + lastReservation.day + "\n" +
+    "Horas: " + lastReservation.hours.join(", ")
+
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank")
+}
+
+function exportCSV(){
+  let csv="Usuario,Espacio,Fecha,Horas\n"
+  reservations.forEach(r=>{
+    csv += `${r.user},${r.space},${r.day},"${r.hours.join(" ")}"\n`
+  })
+  const blob = new Blob([csv],{type:"text/csv"})
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(blob)
+  a.download = "reservas.csv"
+  a.click()
 }
 </script>
 
