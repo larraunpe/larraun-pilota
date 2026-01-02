@@ -173,7 +173,13 @@ function confirmReservation(){
   }
 
   reservations.push({user:currentUser,space,day:selectedDay,hours:[...selectedHours]})
-  alert("Reserva confirmada en "+space)
+  const espacioTxt = space === "fronton" ? "Frontón" : "Trinquete"
+  alert(
+    "Reserva confirmada\n\n" +
+    "Espacio: " + espacioTxt + "\n" +
+    "Fecha: " + selectedDay + "\n" +
+    "Horas: " + selectedHours.join(", ")
+  )
   selectedHours=[]
   hours.innerHTML=""
   adminData.textContent=JSON.stringify(reservations,null,2)
