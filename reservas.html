@@ -68,7 +68,11 @@ button { background:#333; color:white; border:none; border-radius:6px; cursor:po
   <div id="hours" class="hours"></div>
 
   <button onclick="confirmReservation()">Confirmar reserva</button>
-
+  <div id="qrBox" class="hidden" style="margin-top:20px;text-align:center">
+  <h4>QR de la reserva</h4>
+  <img id="qrImg">
+  </div>
+  <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
   <div id="adminPanel" class="admin hidden">
     <h3>Panel administrador</h3>
     <button onclick="exportCSV()">Exportar Excel</button>
@@ -99,6 +103,21 @@ function login(){
   } else {
     msg.textContent="Credenciales incorrectas"
   }
+}
+function sendWhatsApp(){
+  const espacioTxt = space === "fronton" ? "Frontón" : "Trinquete"
+
+  const msg =
+    "Reserva Larraun Pilota\n" +
+    "Usuario: " + users[currentUser].name + "\n" +
+    "Espacio: " + espacioTxt + "\n" +
+    "Fecha: " + selectedDay + "\n" +
+    "Horas: " + selectedHours.join(", ")
+
+  const url =
+    "https://wa.me/?text=" + encodeURIComponent(msg)
+
+  window.open(url, "_blank")
 }
 
 function setSpace(s){
@@ -157,7 +176,24 @@ function toggleHour(t,div){
 function confirmReservation(){
   if(!space||!selectedDay||!selectedHours.length){
     alert("Completa la reserva")
+  const qrText =
+  "Reserva Larraun Pilota\n" +
+  "Usuario: " + users[currentUser].name + "\n" +
+  "Espacio: " + espacioTxt + "\n" +
+  "Fecha: " + selectedDay + "\n" +
+  "Horas: " + selectedHours.join(", ")
+
+showQR(qrText)
+
     return
+  }
+function showQR(text){
+  const qr = document.getElementById("qrImg")
+  const box = document.getElementById("qrBox")
+  qr.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+    encodeURIComponent(text)
+  box.classList.remove("hidden")
   }
   // 🔒 BLOQUEO DE SOLAPE FRONTÓN / TRINQUETE
   const conflict = reservations.some(r =>
