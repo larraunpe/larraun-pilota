@@ -42,8 +42,7 @@ button { background:#333; color:white; border:none; border-radius:6px; cursor:po
   background:#66d19e; /* verde */
   color:#0b3d2e;
 }
-<button class="space-btn fronton" onclick="setSpace('fronton')">Frontón</button>
-<button class="space-btn trinquete" onclick="setSpace('trinquete')">Trinquete</button>
+
 </style>
 </head>
 
@@ -160,6 +159,19 @@ function confirmReservation(){
     alert("Completa la reserva")
     return
   }
+  // 🔒 BLOQUEO DE SOLAPE FRONTÓN / TRINQUETE
+  const conflict = reservations.some(r =>
+    r.user === currentUser &&
+    r.day === selectedDay &&
+    r.space !== space &&
+    r.hours.some(h => selectedHours.includes(h))
+  )
+
+  if(conflict && role !== "admin"){
+    alert("No puedes reservar frontón y trinquete a la misma hora")
+    return
+  }
+
   reservations.push({user:currentUser,space,day:selectedDay,hours:[...selectedHours]})
   alert("Reserva confirmada en "+space)
   selectedHours=[]
@@ -167,17 +179,6 @@ function confirmReservation(){
   adminData.textContent=JSON.stringify(reservations,null,2)
 }
 
-const conflict = reservations.some(r =>
-  r.user === currentUser &&
-  r.day === selectedDay &&
-  r.space !== space &&
-  r.hours.some(h => selectedHours.includes(h))
-);
-
-if (conflict && role !== "admin") {
-  alert("No puedes reservar frontón y trinquete a la misma hora");
-  return;
-}
 
 function exportCSV(){
   let csv="Usuario,Espacio,Fecha,Horas\n"
