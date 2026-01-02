@@ -15,16 +15,14 @@ const users = {
     phone: "669866803",
     email: "pelliki@hotmail.com",
     role: "user"
-  }
-};
+  },
   "P00001": {
     year: "1987",
     name: "IGOR",
     phone: "677755147",
     email: "larraunpe@gmail.com",
     role: "user"
-  }
-};
+  },
   "P00002": {
     year: "1976",
     name: "MIKEL",
