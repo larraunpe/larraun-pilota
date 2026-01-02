@@ -24,6 +24,26 @@ button { background:#333; color:white; border:none; border-radius:6px; cursor:po
 .hour.selected { background:#ffb3b3!important }
 
 .admin { background:#222; color:white; padding:15px; margin-top:30px }
+.space-btn {
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+.space-btn.fronton {
+  background:#4fc3f7; /* azul celeste */
+  color:#00324d;
+}
+
+.space-btn.trinquete {
+  background:#66d19e; /* verde */
+  color:#0b3d2e;
+}
+<button class="space-btn fronton" onclick="setSpace('fronton')">Frontón</button>
+<button class="space-btn trinquete" onclick="setSpace('trinquete')">Trinquete</button>
 </style>
 </head>
 
@@ -145,6 +165,18 @@ function confirmReservation(){
   selectedHours=[]
   hours.innerHTML=""
   adminData.textContent=JSON.stringify(reservations,null,2)
+}
+
+const conflict = reservations.some(r =>
+  r.user === currentUser &&
+  r.day === selectedDay &&
+  r.space !== space &&
+  r.hours.some(h => selectedHours.includes(h))
+);
+
+if (conflict && role !== "admin") {
+  alert("No puedes reservar frontón y trinquete a la misma hora");
+  return;
 }
 
 function exportCSV(){
