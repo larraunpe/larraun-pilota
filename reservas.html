@@ -214,8 +214,11 @@ function toggleHour(t,div){
 
 function confirmReservation(){
   if(!space || !selectedDay || selectedHours.length === 0){
-    alert("Selecciona frontón o trinquete")
-    return
+    alert(
+    "Aukeratu frontoia edo trinketea, eguna eta ordutegia.\n\n" +
+    "Selecciona frontón o trinquete, el día y el horario."
+  )
+  return
   }
 
   const conflict = reservations.some(r =>
