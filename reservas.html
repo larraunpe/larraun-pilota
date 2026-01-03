@@ -5,7 +5,6 @@
 <title>Reservas Frontón y Trinquete</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- USUARIOS -->
 <script src="users.js"></script>
 
 <style>
@@ -40,11 +39,15 @@ button {
 
 .day {
   background:#fff;
-  padding:10px;
+  padding:8px;
   border-radius:6px;
   text-align:center;
   cursor:pointer;
+  font-size:13px;
 }
+
+.day.active.fronton { background:#4fc3f7; color:#00324d }
+.day.active.trinquete { background:#66d19e; color:#0b3d2e }
 
 .hours {
   display:grid;
@@ -62,6 +65,12 @@ button {
 
 .hour.selected { background:#ffb3b3 !important }
 
+.hour.disabled {
+  background:#ddd !important;
+  color:#888;
+  cursor:not-allowed;
+}
+
 .fronton { background:#bde7ff }
 .trinquete { background:#c7f5d9 }
 
@@ -72,15 +81,8 @@ button {
   margin-right:10px;
 }
 
-.space-btn.fronton {
-  background:#4fc3f7;
-  color:#00324d;
-}
-
-.space-btn.trinquete {
-  background:#66d19e;
-  color:#0b3d2e;
-}
+.space-btn.fronton { background:#4fc3f7; color:#00324d }
+.space-btn.trinquete { background:#66d19e; color:#0b3d2e }
 
 .admin {
   background:#222;
@@ -93,7 +95,6 @@ button {
 
 <body>
 
-<!-- LOGIN -->
 <div class="login" id="login">
   <h2>Acceso a reservas</h2>
   <input id="user" placeholder="Usuario">
@@ -102,7 +103,6 @@ button {
   <p id="msg" style="color:red"></p>
 </div>
 
-<!-- APP -->
 <div class="app hidden" id="app">
   <h2 id="welcome"></h2>
 
@@ -132,176 +132,132 @@ button {
 <script>
 let currentUser=null, role=null
 let space=null, selectedDay=null, selectedHours=[]
-let reservations=[]
-let lastReservation=null
+let reservations=[], lastReservation=null
+let selectedDayDiv=null
 
-const loginDiv = document.getElementById("login")
-const app = document.getElementById("app")
-const welcome = document.getElementById("welcome")
-const adminPanel = document.getElementById("adminPanel")
+const daysEU = ["ig.","al.","as.","az.","og.","or.","lr."]
+const daysES = ["DOM","LUN","MAR","MIE","JUE","VIE","SAB"]
 
 function login(){
-  const u = user.value.trim()
-  const p = pass.value.trim()
+  const u=user.value.trim()
+  const p=pass.value.trim()
 
-  if(window.users && users[u] && users[u].year === p){
-    currentUser = u
-    role = users[u].role
-    loginDiv.classList.add("hidden")
+  if(users[u] && users[u].year===p){
+    currentUser=u
+    role=users[u].role
+    login.classList.add("hidden")
     app.classList.remove("hidden")
-    welcome.textContent = "Bienvenido " + users[u].name
-    if(role === "admin") adminPanel.classList.remove("hidden")
+    welcome.textContent="Bienvenido "+users[u].name
+    if(role==="admin") adminPanel.classList.remove("hidden")
     buildCalendar()
-  } else {
-    msg.textContent = "Credenciales incorrectas"
-  }
+  } else msg.textContent="Credenciales incorrectas"
 }
 
 function setSpace(s){
-  space = s
-  selectedHours = []
-  hours.innerHTML = ""
-  spaceTitle.textContent = "Reservando " + (s === "fronton" ? "Frontón" : "Trinquete")
+  space=s
+  selectedHours=[]
+  hours.innerHTML=""
+  spaceTitle.textContent="Reservando "+(s==="fronton"?"Frontón":"Trinquete")
 }
 
 function buildCalendar(){
-  calendar.innerHTML = ""
-  const today = new Date()
-  const max = role === "admin" ? 21 : 7
+  calendar.innerHTML=""
+  const today=new Date()
+  const max=role==="admin"?21:8
 
   for(let i=0;i<max;i++){
-    const d = new Date(today)
-    d.setDate(today.getDate() + i)
-    const div = document.createElement("div")
-    div.className = "day"
-    div.textContent = d.toISOString().slice(0,10)
-    div.onclick = () => selectDay(d)
+    const d=new Date(today)
+    d.setDate(today.getDate()+i)
+
+    const dow=d.getDay()
+    const div=document.createElement("div")
+    div.className="day"
+    div.innerHTML=
+      daysEU[dow].toUpperCase()+"<br>"+
+      daysES[dow]+"<br>"+
+      d.toLocaleDateString("es-ES",{day:"2-digit",month:"2-digit",year:"2-digit"})
+
+    div.onclick=()=>selectDay(d,div)
     calendar.appendChild(div)
   }
 }
 
-function selectDay(d){
-  selectedDay = d.toISOString().slice(0,10)
+function selectDay(d,div){
+  selectedDay=d.toISOString().slice(0,10)
+  if(selectedDayDiv) selectedDayDiv.classList.remove("active","fronton","trinquete")
+  div.classList.add("active",space)
+  selectedDayDiv=div
   buildHours()
 }
 
 function buildHours(){
-  hours.innerHTML = ""
-  selectedHours = []
+  hours.innerHTML=""
+  selectedHours=[]
+  const now=new Date()
 
   for(let h=8;h<22;h++){
     ["00","30"].forEach(m=>{
-      const t = String(h).padStart(2,"0")+":"+m
-      const div = document.createElement("div")
-      div.className = "hour " + space
-      div.textContent = t
-      div.onclick = () => toggleHour(t,div)
+      const t=String(h).padStart(2,"0")+":"+m
+      const div=document.createElement("div")
+      div.className="hour "+space
+      div.textContent=t
+
+      const slot=new Date(selectedDay+"T"+t)
+      const diff=(slot-now)/60000
+
+      if(selectedDay===now.toISOString().slice(0,10) && diff<-15){
+        div.classList.add("disabled")
+      } else {
+        div.onclick=()=>toggleHour(t,div)
+      }
       hours.appendChild(div)
     })
   }
 }
 
 function toggleHour(t,div){
+  if(div.classList.contains("disabled")) return
   if(selectedHours.includes(t)){
-    selectedHours = selectedHours.filter(x=>x!==t)
+    selectedHours=selectedHours.filter(x=>x!==t)
     div.classList.remove("selected")
   } else {
-    if(selectedHours.length >= 3 && role !== "admin") return
+    if(selectedHours.length>=3 && role!=="admin") return
     selectedHours.push(t)
     div.classList.add("selected")
   }
 }
 
 function confirmReservation(){
-  if(!space || !selectedDay || selectedHours.length === 0){
-    alert(
-    "Aukeratu frontoia edo trinketea, eguna eta ordutegia.\n\n" +
-    "Selecciona frontón o trinquete, el día y el horario."
-  )
-  return
-  }
-
-  const conflict = reservations.some(r =>
-    r.user === currentUser &&
-    r.day === selectedDay &&
-    r.space !== space &&
-    r.hours.some(h => selectedHours.includes(h))
-  )
-
-  if(conflict && role !== "admin"){
-    alert("No puedes reservar frontón y trinquete a la misma hora")
+  if(!space||!selectedDay||!selectedHours.length){
+    alert("Aukeratu frontoia edo trinketea, eguna eta ordutegia.\n\nSelecciona frontón o trinquete, el día y el horario.")
     return
   }
 
-  const espacioTxt = space === "fronton" ? "Frontón" : "Trinquete"
+  reservations.push({user:currentUser,space,day:selectedDay,hours:[...selectedHours]})
+  lastReservation=reservations.at(-1)
 
-  const reserva = {
-    user: currentUser,
-    name: users[currentUser].name,
-    space,
-    spaceTxt: espacioTxt,
-    day: selectedDay,
-    hours: [...selectedHours]
-  }
-
-  reservations.push(reserva)
-  lastReservation = reserva
-
-  alert(
-    "Reserva confirmada\n\n" +
-    "Espacio: " + espacioTxt + "\n" +
-    "Fecha: " + selectedDay + "\n" +
-    "Horas: " + selectedHours.join(", ")
-  )
-
-  showQR(
-    "Reserva Larraun Pilota\n" +
-    "Nombre: " + reserva.name + "\n" +
-    "Espacio: " + espacioTxt + "\n" +
-    "Fecha: " + selectedDay + "\n" +
-    "Horas: " + reserva.hours.join(", ")
-  )
-
-  selectedHours = []
-  hours.innerHTML = ""
-
-  if(role === "admin"){
-    adminData.textContent = JSON.stringify(reservations,null,2)
-  }
+  alert("Reserva confirmada\n\n"+selectedDay+"\n"+selectedHours.join(", "))
+  selectedHours=[]
+  hours.innerHTML=""
 }
 
-function showQR(text){
-  qrImg.src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
-    encodeURIComponent(text)
+function showQR(t){
+  qrImg.src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+encodeURIComponent(t)
   qrBox.classList.remove("hidden")
 }
 
 function sendWhatsApp(){
-  if(!lastReservation){
-    alert("Primero confirma una reserva")
-    return
-  }
-
-  const msg =
-    "Reserva Larraun Pilota\n" +
-    "Nombre: " + lastReservation.name + "\n" +
-    "Espacio: " + lastReservation.spaceTxt + "\n" +
-    "Fecha: " + lastReservation.day + "\n" +
-    "Horas: " + lastReservation.hours.join(", ")
-
-  window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank")
+  if(!lastReservation){alert("Primero confirma una reserva");return}
+  const msg="Reserva Larraun Pilota\n"+lastReservation.day+"\n"+lastReservation.hours.join(", ")
+  window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank")
 }
 
 function exportCSV(){
   let csv="Usuario,Espacio,Fecha,Horas\n"
-  reservations.forEach(r=>{
-    csv += `${r.user},${r.space},${r.day},"${r.hours.join(" ")}"\n`
-  })
-  const blob = new Blob([csv],{type:"text/csv"})
-  const a = document.createElement("a")
-  a.href = URL.createObjectURL(blob)
-  a.download = "reservas.csv"
+  reservations.forEach(r=>csv+=`${r.user},${r.space},${r.day},"${r.hours.join(" ")}"\n`)
+  const a=document.createElement("a")
+  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}))
+  a.download="reservas.csv"
   a.click()
 }
 </script>
