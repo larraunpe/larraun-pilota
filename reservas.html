@@ -157,7 +157,7 @@ function login(){
   if(users[u] && users[u].year===p){
     currentUser=u
     role=users[u].role
-    login.classList.add("hidden")
+    loginDiv.classList.add("hidden")
     app.classList.remove("hidden")
     welcome.textContent="Bienvenido "+users[u].name
     if(role==="admin") adminPanel.classList.remove("hidden")
