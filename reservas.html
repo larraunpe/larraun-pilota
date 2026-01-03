@@ -107,16 +107,16 @@ button {
 <div class="app hidden" id="app">
   <h2 id="welcome"></h2>
 
-  <button class="space-btn fronton" onclick="setSpace('fronton')">Frontón</button>
-  <button class="space-btn trinquete" onclick="setSpace('trinquete')">Trinquete</button>
+  <button class="space-btn fronton" onclick="setSpace('fronton')">Frontoia/Frontón</button>
+  <button class="space-btn trinquete" onclick="setSpace('trinquete')">Trinkete/Trinquete</button>
 
   <h3 id="spaceTitle"></h3>
 
   <div id="calendar" class="calendar"></div>
   <div id="hours" class="hours"></div>
 
-  <button onclick="confirmReservation()">Confirmar reserva</button>
-  <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
+  <button onclick="confirmReservation()">Baieztatu/Confirmar</button>
+  <button onclick="sendWhatsApp()">WhatsApp</button>
 
   <div id="qrBox" class="hidden" style="margin-top:20px;text-align:center">
     <h4>QR de la reserva</h4>
@@ -159,7 +159,7 @@ function login(){
     role=users[u].role
     loginDiv.classList.add("hidden")
     app.classList.remove("hidden")
-    welcome.textContent="Bienvenido "+users[u].name
+    welcome.textContent="Ongi etorri, "+users[u].name
     if(role==="admin") adminPanel.classList.remove("hidden")
     buildCalendar()
   } else msg.textContent="Credenciales incorrectas"
@@ -169,7 +169,7 @@ function setSpace(s){
   space=s
   selectedHours=[]
   hours.innerHTML=""
-  spaceTitle.textContent="Reservando "+(s==="fronton"?"Frontón":"Trinquete")
+  spaceTitle.textContent="Lekua/Sitio: "+(s==="fronton"?"Frontoia/Frontón":"Trinkete/Trinquete")
 }
 
 function buildCalendar(){
