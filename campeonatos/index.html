@@ -2,45 +2,110 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<title>Txapelketak | Campeonatos</title>
+<title>Campeonatos · Txapelketak | Larraun Pilota</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/campeonatos.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 4px solid #c40000;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+header img {
+  height: 70px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+header p {
+  margin: 4px 0 0;
+  color: #555;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.seasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.season {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.season h2 {
+  margin-top: 0;
+}
+
+.season .current {
+  color: #c40000;
+  font-weight: bold;
+}
+
+.season a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 16px;
+  background: #c40000;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.season a:hover {
+  background: #a80000;
+}
+</style>
 </head>
 
 <body>
 
-<header class="cabecera-campeonatos">
-  <div class="cabecera-inner">
-    <img src="/img/logo-larraun.png" alt="Larraun Pilota" class="logo">
-    <h1>Txapelketak · Campeonatos</h1>
-    <p>Temporada 2025–2026</p>
+<header>
+  <img src="/img/logo-larraun.png" alt="Larraun Pilota">
+  <div>
+    <h1>Campeonatos · Txapelketak</h1>
+    <p>Larraun Pilota Elkartea</p>
   </div>
 </header>
 
-<nav class="menu-competicion">
-  <ul>
-    <li class="active">Denboraldi aktiboa</li>
-    <li><a href="#historico">Historikoa</a></li>
-  </ul>
-</nav>
+<main>
 
-<main class="contenedor">
+  <div class="seasons">
 
-<section>
-  <h2>🟢 Temporada actual · 2025–2026</h2>
-  <p>Actualmente no hay competiciones publicadas.</p>
-</section>
+    <div class="season">
+      <h2>Temporada 2025–2026</h2>
+      <p class="current">Temporada actual · Egungo denboraldia</p>
+      <a href="temporada-2025-2026/index.html">Entrar</a>
+    </div>
 
-<section id="historico">
-  <h2>📂 Histórico de competiciones</h2>
+    <div class="season">
+      <h2>Temporada 2024–2025</h2>
+      <p>Temporada finalizada · Amaituta</p>
+      <a href="temporada-2024-2025/index.html">Ver</a>
+    </div>
 
-  <article class="competicion">
-    <h3>Mendialdea · 2024–2025</h3>
-    <p>Modalidad: Mano parejas · Liga + finales</p>
-    <a href="temporada-2024-2025/index.html">Ver competición</a>
-  </article>
-
-</section>
+  </div>
 
 </main>
 
