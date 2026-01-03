@@ -130,6 +130,17 @@ button {
 </div>
 
 <script>
+// Referencias a elementos del DOM
+const loginDiv = document.getElementById("login")
+const app = document.getElementById("app")
+const welcome = document.getElementById("welcome")
+const adminPanel = document.getElementById("adminPanel")
+const calendar = document.getElementById("calendar")
+const hours = document.getElementById("hours")
+const spaceTitle = document.getElementById("spaceTitle")
+const qrBox = document.getElementById("qrBox")
+const qrImg = document.getElementById("qrImg")
+const adminData = document.getElementById("adminData")
 let currentUser=null, role=null
 let space=null, selectedDay=null, selectedHours=[]
 let reservations=[], lastReservation=null
