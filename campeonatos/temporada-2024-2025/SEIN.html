@@ -1,1 +1,249 @@
-a
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Mendialdea 2024–2025 · Benjaminak/title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  color:#222;
+}
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+h1,h2 {
+  margin:0 0 10px 0;
+}
+
+.lang-switch button {
+  margin-left:5px;
+  padding:6px 10px;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.lang-switch button.active {
+  background:#333;
+  color:white;
+}
+
+.section {
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+
+.badge {
+  display:inline-block;
+  background:#66d19e;
+  color:#0b3d2e;
+  padding:4px 8px;
+  border-radius:4px;
+  font-size:12px;
+  margin-left:6px;
+}
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+th, td {
+  border-bottom:1px solid #ddd;
+  padding:8px;
+  text-align:center;
+}
+
+th {
+  background:#f0f0f0;
+}
+
+.left {
+  text-align:left;
+}
+
+footer {
+  text-align:center;
+  font-size:13px;
+  color:#666;
+  margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div>
+    <h1 id="title">Kadeteak</h1>
+    <div id="subtitle">Mendialdeko Pilota Txapelketa 2024–2025</div>
+  </div>
+  <div class="lang-switch">
+    <button id="btn-eu" class="active" onclick="setLang('eu')">EU</button>
+    <button id="btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</header>
+
+<!-- INFO GENERAL -->
+<div class="section">
+  <strong id="phaseLbl">Fasea:</strong> Liga <span class="badge">18 tanto</span><br>
+  <strong id="teamsLbl">Talde kopurua:</strong> 3
+</div>
+
+<!-- TALDEAK -->
+<div class="section">
+  <h2 id="teamsTitle">Taldeak</h2>
+  <ul>
+    <li>Aralar A</li>
+    <li>Larraun A</li>
+    <li>Basaburua</li>
+    <li>Sakana</li>
+    <li>Leitza</li>
+    <li>Bortziriak</li>
+  </ul>
+</div>
+
+<!-- PARTIDAK -->
+<div class="section">
+  <h2 id="matchesTitle">Partidak</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th id="dateLbl">Data</th>
+        <th id="localLbl">Etxekoa</th>
+        <th id="visitorLbl">Kanpokoa</th>
+        <th id="resultLbl">Emaitza</th>
+        <th id="courtLbl">Pilotalekua</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>12/01/2025</td>
+        <td class="left">Aralar A</td>
+        <td class="left">Leitza</td>
+        <td>18–14</td>
+        <td>Leitza</td>
+      </tr>
+      <tr>
+        <td>19/01/2025</td>
+        <td class="left">Larraun A</td>
+        <td class="left">Sakana</td>
+        <td>—</td>
+        <td>Larraun</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SAILKAPENA -->
+<div class="section">
+  <h2 id="tableTitle">Sailkapena</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th class="left" id="teamLbl">Taldea</th>
+        <th id="playedLbl">J</th>
+        <th id="wonLbl">I</th>
+        <th id="lostLbl">G</th>
+        <th id="pointsLbl">Puntuak</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td class="left">Aralar A</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class="left">Larraun A</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  © Larraun Pilota Elkartea
+</footer>
+
+</div>
+
+<script>
+function setLang(lang){
+  document.getElementById("btn-eu").classList.remove("active")
+  document.getElementById("btn-es").classList.remove("active")
+  document.getElementById("btn-"+lang).classList.add("active")
+
+  if(lang==="eu"){
+    title.textContent="Benjaminak"
+    subtitle.textContent="Mendialdeko Pilota Txapelketa 2024–2025"
+    phaseLbl.textContent="Fasea:"
+    teamsLbl.textContent="Talde kopurua:"
+    teamsTitle.textContent="Taldeak"
+    matchesTitle.textContent="Partidak"
+    tableTitle.textContent="Sailkapena"
+    dateLbl.textContent="Data"
+    localLbl.textContent="Etxekoa"
+    visitorLbl.textContent="Kanpokoa"
+    resultLbl.textContent="Emaitza"
+    courtLbl.textContent="Pilotalekua"
+    teamLbl.textContent="Taldea"
+    playedLbl.textContent="J"
+    wonLbl.textContent="I"
+    lostLbl.textContent="G"
+    pointsLbl.textContent="Puntuak"
+  } else {
+    title.textContent="Benjamines"
+    subtitle.textContent="Campeonato Mendialdea de Pelota 2024–2025"
+    phaseLbl.textContent="Fase:"
+    teamsLbl.textContent="Número de equipos:"
+    teamsTitle.textContent="Equipos"
+    matchesTitle.textContent="Partidos"
+    tableTitle.textContent="Clasificación"
+    dateLbl.textContent="Fecha"
+    localLbl.textContent="Local"
+    visitorLbl.textContent="Visitante"
+    resultLbl.textContent="Resultado"
+    courtLbl.textContent="Frontón"
+    teamLbl.textContent="Equipo"
+    playedLbl.textContent="J"
+    wonLbl.textContent="G"
+    lostLbl.textContent="P"
+    pointsLbl.textContent="Puntos"
+  }
+}
+</script>
+
+</body>
+</html>
