@@ -1,8 +1,8 @@
 /* users.js */
 
 const users = {
-  "LARRAUNPE": {
-    year: "200@",
+  "P00000": {
+    year: "2000",
     name: "Administrador",
     phone: "613997710",
     email: "larraunpe@gmail.com",
