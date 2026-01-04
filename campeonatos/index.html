@@ -11,6 +11,89 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f6f8;
 }
+/* ===== CABECERA TXAPELA ===== */
+.txapela-header {
+  position: relative;
+  background: #2b579a;
+  color: white;
+  overflow: hidden;
+}
+
+/* Txapela estilizada */
+.txapela-bg {
+  position: absolute;
+  top: -40px;
+  left: -60px;
+  width: 260px;
+  height: 140px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50% 50% 40% 40%;
+  transform: rotate(-12deg);
+}
+
+/* Botón de la txapela */
+.txapela-bg::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.header-inner {
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.txapela-header img {
+  height: 70px;
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.txapela-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.txapela-header p {
+  margin: 4px 0 0;
+  opacity: 0.9;
+}
+
+/* Idiomas */
+.lang-switch button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 10px;
+  margin-left: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lang-switch button.active {
+  background: white;
+  color: #2b579a;
+  font-weight: bold;
+}
+
 
 /* ===== CABECERA ===== */
 header {
