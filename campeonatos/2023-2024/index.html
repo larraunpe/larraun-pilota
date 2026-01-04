@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>2023–2024 Denboraldia · Temporada | Larraun Pilota</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* ===== CABECERA ===== */
+.header {
+  background: #2e7d32; /* verde institucional */
+  color: white;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header img {
+  height: 70px;
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.header p {
+  margin: 4px 0 0;
+  opacity: 0.9;
+}
+
+/* ===== IDIOMAS ===== */
+.lang-switch button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 10px;
+  margin-left: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lang-switch button.active {
+  background: white;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+/* ===== CONTENIDO ===== */
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.tournaments {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.tournament {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tournament-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tournament-header img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  background: #f1f1f1;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.tournament h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.tournament .date {
+  margin: 15px 0;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.tournament a {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 18px;
+  background: #2e7d32;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.tournament a:hover {
+  background: #215c25;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CABECERA -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <img src="/images/logo-larraun.png" alt="Larraun Pilota">
+      <div>
+        <h1 data-eu="2023–2024 Denboraldia"
+            data-es="Temporada 2023–2024">
+          2023–2024 Denboraldia
+        </h1>
+        <p>Larraun Pilota Elkartea</p>
+      </div>
+    </div>
+
+    <div class="lang-switch">
+      <button id="btn-eu" class="active" onclick="setLang('eu')">EU</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="tournaments">
+
+    <!-- MENDIALDEA -->
+    <div class="tournament">
+      <div class="tournament-header">
+        <!-- Logo opcional -->
+        <img src="images/logomendialdea.png" alt="Mendialdea">
+        <h2>MENDIALDEA 2023–2024</h2>
+      </div>
+
+      <div class="date"
+           data-eu="Hasiera aurreikusita: 2026ko maiatza"
+           data-es="Inicio previsto: mayo de 2026">
+        Hasiera aurreikusita: 2026ko maiatza
+      </div>
+
+      <a href="mendialdea-2023-2024/index.html"
+         data-eu="Txapelketa ikusi"
+         data-es="Ver campeonato">
+        Txapelketa ikusi
+      </a>
+    </div>
+
+   
+
+  </div>
+
+</main>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll("[data-eu]").forEach(el => {
+    el.textContent = el.dataset[lang];
+  });
+
+  document.getElementById("btn-eu").classList.toggle("active", lang === "eu");
+  document.getElementById("btn-es").classList.toggle("active", lang === "es");
+
+  document.documentElement.lang = lang;
+}
+</script>
+
+</body>
+</html>
