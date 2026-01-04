@@ -9,13 +9,25 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: #f4f6f8;
 }
 
+/* ===== CABECERA ===== */
 header {
-  background: #ffffff;
-  border-bottom: 4px solid #c40000;
+  background: #2b579a; /* azul tipo Word */
+  color: white;
   padding: 20px;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -23,6 +35,9 @@ header {
 
 header img {
   height: 70px;
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
 }
 
 header h1 {
@@ -32,13 +47,39 @@ header h1 {
 
 header p {
   margin: 4px 0 0;
-  color: #555;
+  opacity: 0.9;
 }
 
+/* ===== SELECTOR IDIOMA ===== */
+.lang-switch button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 10px;
+  margin-left: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lang-switch button.active {
+  background: white;
+  color: #2b579a;
+  font-weight: bold;
+}
+
+/* ===== CONTENIDO ===== */
 main {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
   padding: 30px 20px;
+}
+
+.section-title {
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 22px;
+  border-left: 6px solid #2b579a;
+  padding-left: 12px;
 }
 
 .seasons {
@@ -54,12 +95,12 @@ main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.season h2 {
+.season h3 {
   margin-top: 0;
 }
 
 .season .current {
-  color: #c40000;
+  color: #2b579a;
   font-weight: bold;
 }
 
@@ -67,14 +108,14 @@ main {
   display: inline-block;
   margin-top: 15px;
   padding: 10px 16px;
-  background: #c40000;
+  background: #2b579a;
   color: white;
   text-decoration: none;
   border-radius: 6px;
 }
 
 .season a:hover {
-  background: #a80000;
+  background: #1f3f73;
 }
 </style>
 </head>
@@ -82,32 +123,98 @@ main {
 <body>
 
 <header>
-  <img src="/images/logo-larraun.png" alt="Larraun Pilota">
-  <div>
-    <h1>Campeonatos · Txapelketak</h1>
-    <p>Larraun Pilota Elkartea</p>
+  <div class="header-inner">
+    <div class="header-left">
+      <img src="/img/logo-larraun.png" alt="Larraun Pilota">
+      <div>
+        <h1 data-eu="Txapelketak" data-es="Campeonatos">Txapelketak</h1>
+        <p data-eu="Larraun Pilota Elkartea" data-es="Larraun Pilota Elkartea">
+          Larraun Pilota Elkartea
+        </p>
+      </div>
+    </div>
+
+    <div class="lang-switch">
+      <button id="btn-eu" class="active" onclick="setLang('eu')">EU</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
   </div>
 </header>
 
 <main>
 
+  <!-- TEMPORADA ACTUAL -->
+  <h2 class="section-title"
+      data-eu="Denboraldi egungoa"
+      data-es="Temporada actual">
+    Denboraldi egungoa
+  </h2>
+
+  <div class="seasons">
+    <div class="season">
+      <h3>2025–2026</h3>
+      <p class="current"
+         data-eu="Egungo denboraldia"
+         data-es="Temporada en curso">
+        Egungo denboraldia
+      </p>
+      <a href="temporada-2025-2026/index.html"
+         data-eu="Sartu"
+         data-es="Entrar">
+        Sartu
+      </a>
+    </div>
+  </div>
+
+  <!-- TEMPORADAS FINALIZADAS -->
+  <h2 class="section-title"
+      data-eu="Amaitutako denboraldiak"
+      data-es="Temporadas finalizadas">
+    Amaitutako denboraldiak
+  </h2>
+
   <div class="seasons">
 
     <div class="season">
-      <h2>Temporada 2025–2026</h2>
-      <p class="current">Temporada actual · Egungo denboraldia</p>
-      <a href="temporada-2025-2026/index.html">Entrar</a>
+      <h3>2024–2025</h3>
+      <a href="temporada-2024-2025/index.html"
+         data-eu="Ikusi"
+         data-es="Ver">
+        Ikusi
+      </a>
     </div>
 
     <div class="season">
-      <h2>Temporada 2024–2025</h2>
-      <p>Temporada finalizada · Amaituta</p>
-      <a href="temporada-2024-2025/index.html">Ver</a>
+      <h3>2023–2024</h3>
+      <a href="temporada-2023-2024/index.html"
+         data-eu="Ikusi"
+         data-es="Ver">
+        Ikusi
+      </a>
     </div>
 
   </div>
 
 </main>
 
+<script>
+let currentLang = "eu";
+
+function setLang(lang){
+  currentLang = lang;
+
+  document.querySelectorAll("[data-eu]").forEach(el=>{
+    el.textContent = el.dataset[lang];
+  });
+
+  document.getElementById("btn-eu").classList.toggle("active", lang==="eu");
+  document.getElementById("btn-es").classList.toggle("active", lang==="es");
+
+  document.documentElement.lang = lang;
+}
+</script>
+
 </body>
+</html>
+
 </html>
