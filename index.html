@@ -972,16 +972,19 @@ window.addEventListener("load", () => {
   const el = document.getElementById("visits");
   if (!el) return;
 
-  fetch("https://api.countapi.xyz/hit/larraun-pilota/index")
-    .then(res => res.json())
-    .then(data => {
-      el.innerText = data.value;
-    })
-    .catch(() => {
-      el.innerText = "0";
-    });
+  let visits = localStorage.getItem("larraun_visits");
+
+  if (!visits) {
+    visits = 1;
+  } else {
+    visits = parseInt(visits, 10) + 1;
+  }
+
+  localStorage.setItem("larraun_visits", visits);
+  el.textContent = visits;
 });
 </script>
+
 
 <script>
 function formatDates(lang) {
