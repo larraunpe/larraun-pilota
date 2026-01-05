@@ -6,20 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
+body{
+  font-family:Arial, sans-serif;
   background:#f4f4f4;
   margin:0;
   color:#222;
 }
-
-.container {
+.container{
   max-width:1100px;
   margin:auto;
   padding:20px;
 }
-
-header {
+header{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -28,73 +26,42 @@ header {
   padding:20px;
   border-radius:10px;
 }
-
-h1,h2 {
-  margin:0 0 10px 0;
+header img{
+  height:60px;
+  background:white;
+  padding:6px;
+  border-radius:8px;
 }
-
-.subtitle {
-  font-size:14px;
-  opacity:0.9;
-}
-
-.lang-switch button {
-  margin-left:5px;
-  padding:6px 10px;
-  border:none;
-  border-radius:4px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.lang-switch button.active {
-  background:#92400e;
-  color:white;
-}
-
-.section {
+h1,h2{margin:0 0 10px 0;}
+.subtitle{font-size:14px;opacity:.9}
+.section{
   background:white;
   padding:20px;
   border-radius:8px;
   margin-bottom:20px;
 }
-
-.badge {
+.badge{
   display:inline-block;
-  background:#fde68a;
-  color:#92400e;
+  background:#facc15;
+  color:#713f12;
   padding:4px 8px;
   border-radius:4px;
   font-size:12px;
   margin-left:6px;
 }
-
-table {
+table{
   width:100%;
   border-collapse:collapse;
   font-size:14px;
 }
-
-th, td {
+th,td{
   border-bottom:1px solid #ddd;
   padding:8px;
   text-align:center;
 }
-
-th {
-  background:#fef3c7;
-}
-
-.left {
-  text-align:left;
-}
-
-.champion {
-  background:#fef9c3;
-  border-left:6px solid #facc15;
-}
-
-footer {
+th{background:#fef3c7;}
+.left{text-align:left;}
+footer{
   text-align:center;
   font-size:13px;
   color:#666;
@@ -104,111 +71,163 @@ footer {
 </head>
 
 <body>
-
 <div class="container">
 
 <header>
-  <div>
-    <h1 id="title">KIMU 1</h1>
-    <div class="subtitle" id="subtitle">
-      Mendialdeko Pilota Txapelketa 2024–2025
+  <div style="display:flex;gap:20px;align-items:center">
+    <img src="/images/logomendialdea.png" alt="Mendialdea">
+    <div>
+      <h1>KIMU 1</h1>
+      <div class="subtitle">Mendialdeko Pilota Txapelketa 2024–2025</div>
     </div>
-  </div>
-  <div class="lang-switch">
-    <button id="btn-eu" class="active" onclick="setLang('eu')">EU</button>
-    <button id="btn-es" onclick="setLang('es')">ES</button>
   </div>
 </header>
 
-<!-- INFO OROKORRA -->
+<!-- INFO -->
 <div class="section">
-  <strong id="phaseLbl">Fasea:</strong> Liga + finalak
-  <span class="badge">18 tanto</span><br>
-  <strong id="teamsLbl">Talde kopurua:</strong> <!-- ADIBIDEA --> 6
+  <strong>Modalitatea:</strong> Eskuz binakakoa<br>
+  <strong>Formatua:</strong> Liga + finalak <span class="badge">18 tanto</span><br>
+  <strong>Talde kopurua:</strong> 6 (2 talde)
 </div>
 
-<!-- TALDEAK -->
+<!-- TALDEA A -->
 <div class="section">
-  <h2 id="teamsTitle">Taldeak</h2>
+  <h2>Taldea A</h2>
+
+  <h3>Parejak</h3>
   <ul>
-    <!-- Excel-etik taldeak hemen -->
-    <li>Larraun</li>
-    <li>Aurrera</li>
-    <li>Araxes</li>
-    <li>Umore Ona</li>
-    <li>Leitza</li>
-    <li>Basaburua</li>
+    <li><strong>UMORE ONA – AURRERA</strong> (O. Goizueta – E. Bengoetxea)</li>
+    <li><strong>ARAXES</strong> (B. Esnaola – E. Otamendi)</li>
+    <li><strong>LARRAUN</strong> (X. Goldaracena – D. Centeno)</li>
   </ul>
-</div>
 
-<!-- LIGAKO PARTIDAK -->
-<div class="section">
-  <h2 id="matchesTitle">Ligako partidak</h2>
-
+  <h3>Partidak · Liga</h3>
   <table>
     <thead>
       <tr>
-        <th id="dateLbl">Data</th>
-        <th id="localLbl">Etxekoa</th>
-        <th id="visitorLbl">Kanpokoa</th>
-        <th id="resultLbl">Emaitza</th>
-        <th id="courtLbl">Pilotalekua</th>
+        <th>Data</th>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
       </tr>
     </thead>
     <tbody>
-      <!-- Excel-etik partida bakoitza hemen -->
       <tr>
+        <td></td>
+        <td class="left">UMORE ONA – AURRERA</td>
+        <td class="left">ARAXES</td>
         <td>—</td>
-        <td class="left">—</td>
-        <td class="left">—</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="left">ARAXES</td>
+        <td class="left">LARRAUN</td>
         <td>—</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="left">LARRAUN</td>
+        <td class="left">UMORE ONA – AURRERA</td>
         <td>—</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- SAILKAPENA -->
+<!-- TALDEA B -->
 <div class="section">
-  <h2 id="tableTitle">Sailkapena</h2>
+  <h2>Taldea B</h2>
 
+  <h3>Parejak</h3>
+  <ul>
+    <li><strong>UMORE ONA – AURRERA</strong> (U. Larralde – X. Zugarramurdi)</li>
+    <li><strong>UMORE ONA – AURRERA</strong> (I. Lujanbio – A. Baraibar)</li>
+    <li><strong>LARRAUN – AURRERA</strong> (E. Balda – E. Saizar)</li>
+  </ul>
+
+  <p style="font-size:13px;color:#555">
+    ⚠️ Jardunaldien datak jatorrizko Excel-eko moduan mantendu dira.
+  </p>
+
+  <h3>Partidak · Liga</h3>
   <table>
     <thead>
       <tr>
-        <th>#</th>
-        <th class="left" id="teamLbl">Taldea</th>
-        <th id="playedLbl">J</th>
-        <th id="wonLbl">I</th>
-        <th id="lostLbl">G</th>
-        <th id="pointsLbl">Puntuak</th>
+        <th>Data</th>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
       </tr>
     </thead>
     <tbody>
-      <!-- Excel-etik sailkapena -->
       <tr>
-        <td>1</td>
-        <td class="left">—</td>
+        <td></td>
+        <td class="left">UMORE ONA – AURRERA (Larralde)</td>
+        <td class="left">LARRAUN – AURRERA</td>
         <td>—</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="left">UMORE ONA – AURRERA (Lujanbio)</td>
+        <td class="left">ATSENDENA</td>
         <td>—</td>
-        <td>—</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="left">LARRAUN – AURRERA</td>
+        <td class="left">UMORE ONA – AURRERA (Lujanbio)</td>
         <td>—</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- FINAL FASEA -->
+<!-- FINALAK -->
 <div class="section">
-  <h2>Final fasea</h2>
+  <h2>Fase finala</h2>
 
-  <p><strong>Finalerdia:</strong> —</p>
-  <p><strong>Finala:</strong> —</p>
-</div>
+  <h3>Finalerdiak</h3>
+  <table>
+    <thead>
+      <tr>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="left">Talde A-ko 1.</td>
+        <td class="left">Talde B-ko 2.</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="left">Talde B-ko 1.</td>
+        <td class="left">Talde A-ko 2.</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
 
-<!-- TXAPELDUNAK -->
-<div class="section champion">
-  <h2>🏆 Txapeldunak</h2>
-  <p><strong>—</strong></p>
+  <h3>Finala</h3>
+  <table>
+    <thead>
+      <tr>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="left"></td>
+        <td class="left"></td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:10px"><strong>Txapeldunak:</strong> —</p>
 </div>
 
 <footer>
@@ -216,52 +235,5 @@ footer {
 </footer>
 
 </div>
-
-<script>
-function setLang(lang){
-  document.getElementById("btn-eu").classList.remove("active")
-  document.getElementById("btn-es").classList.remove("active")
-  document.getElementById("btn-"+lang).classList.add("active")
-
-  if(lang==="eu"){
-    title.textContent="KIMU 1"
-    subtitle.textContent="Mendialdeko Pilota Txapelketa 2024–2025"
-    phaseLbl.textContent="Fasea:"
-    teamsLbl.textContent="Talde kopurua:"
-    teamsTitle.textContent="Taldeak"
-    matchesTitle.textContent="Ligako partidak"
-    tableTitle.textContent="Sailkapena"
-    dateLbl.textContent="Data"
-    localLbl.textContent="Etxekoa"
-    visitorLbl.textContent="Kanpokoa"
-    resultLbl.textContent="Emaitza"
-    courtLbl.textContent="Pilotalekua"
-    teamLbl.textContent="Taldea"
-    playedLbl.textContent="J"
-    wonLbl.textContent="I"
-    lostLbl.textContent="G"
-    pointsLbl.textContent="Puntuak"
-  } else {
-    title.textContent="KIMU 1"
-    subtitle.textContent="Campeonato Mendialdea de Pelota 2024–2025"
-    phaseLbl.textContent="Fase:"
-    teamsLbl.textContent="Número de equipos:"
-    teamsTitle.textContent="Equipos"
-    matchesTitle.textContent="Partidos de liga"
-    tableTitle.textContent="Clasificación"
-    dateLbl.textContent="Fecha"
-    localLbl.textContent="Local"
-    visitorLbl.textContent="Visitante"
-    resultLbl.textContent="Resultado"
-    courtLbl.textContent="Frontón"
-    teamLbl.textContent="Equipo"
-    playedLbl.textContent="J"
-    wonLbl.textContent="G"
-    lostLbl.textContent="P"
-    pointsLbl.textContent="Puntos"
-  }
-}
-</script>
-
 </body>
 </html>
