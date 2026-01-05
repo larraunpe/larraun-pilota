@@ -1,465 +1,207 @@
 <!DOCTYPE html>
-<html lang="eu"><head><meta charset="utf-8">
-<title>KIMU 2 | Mendialdeko Txapelketa 2024-2025</title>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Mendialdea 2024–2025 · KIMU 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:Arial;background:#f5f5f5}
-header{background:#facc15;color:white;padding:20px}
-table{width:100%;border-collapse:collapse;background:white}
-th,td{border:1px solid #ddd;padding:6px;font-size:13px}
-th{background:#eee}
-</style></head>
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  color:#222;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  background:#fde047;
+  padding:20px;
+  border-radius:10px;
+}
+header img{
+  height:60px;
+  background:white;
+  padding:6px;
+  border-radius:8px;
+}
+h1,h2,h3{margin:0 0 10px 0;}
+.subtitle{font-size:14px;opacity:.9}
+.section{
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+.badge{
+  display:inline-block;
+  background:#facc15;
+  color:#713f12;
+  padding:4px 8px;
+  border-radius:4px;
+  font-size:12px;
+  margin-left:6px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+th,td{
+  border-bottom:1px solid #ddd;
+  padding:8px;
+  text-align:center;
+}
+th{background:#fef3c7;}
+.left{text-align:left;}
+footer{
+  text-align:center;
+  font-size:13px;
+  color:#666;
+  margin-top:40px;
+}
+</style>
+</head>
+
 <body>
-<header><h1>KIMU 2</h1></header>
-<main>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>KIMU 2 (goxua)(2--&gt;2)(pasa4)</th>
-      <th>P</th>
-      <th>TA-TK</th>
-      <th>Koef.</th>
-      <th>Unnamed: 4</th>
-      <th>Unnamed: 5</th>
-      <th>Unnamed: 6</th>
-      <th>ARAXES (E. Salvatierra-E. Iriarte)</th>
-      <th>Unnamed: 8</th>
-      <th>Unnamed: 9</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>ARAXES (E. Salvatierra-E. Iriarte)</td>
-      <td>4</td>
-      <td>-17</td>
-      <td>-5.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>6</td>
-      <td>26</td>
-      <td>8.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>3</td>
-      <td>-23</td>
-      <td>-7.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>5</td>
-      <td>14</td>
-      <td>4.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2025-05-25 00:00:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>1. jardunaldia</td>
-      <td>NaN</td>
-      <td>Tantoak</td>
-      <td>NaN</td>
-      <td>Puntuk</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>ARAXES (E. Salvatierra-E. Iriarte)</td>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>8</td>
-      <td>18.000000</td>
-      <td>1</td>
-      <td>2.0</td>
-      <td>GO</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>9</td>
-      <td>18.000000</td>
-      <td>1</td>
-      <td>2.0</td>
-      <td>LEK</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2025-06-01 00:00:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2. jardunaldia</td>
-      <td>NaN</td>
-      <td>Tantoak</td>
-      <td>NaN</td>
-      <td>Puntuk</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>18</td>
-      <td>11.000000</td>
-      <td>2</td>
-      <td>1.0</td>
-      <td>LEK</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>ARAXES (E. Salvatierra-E. Iriarte)</td>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>18</td>
-      <td>13.000000</td>
-      <td>2</td>
-      <td>1.0</td>
-      <td>BET</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2025-06-08 00:00:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>3. jardunaldia</td>
-      <td>NaN</td>
-      <td>Tantoak</td>
-      <td>NaN</td>
-      <td>Puntuk</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>ARAXES (E. Salvatierra-E. Iriarte)</td>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>6</td>
-      <td>18.000000</td>
-      <td>1</td>
-      <td>2.0</td>
-      <td>BET</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>18</td>
-      <td>9.000000</td>
-      <td>2</td>
-      <td>1.0</td>
-      <td>GO</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2025-06-15 00:00:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>MENDIALDEKO TTIKIN TXAPELKETA</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>KIMU 2 - FINALERDIK</td>
-      <td>NaN</td>
-      <td>Tantoak</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>EGUTEGIE</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>UMORE ONA (I. Kurianovych-P.Kurianovych)</td>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>12</td>
-      <td>18.000000</td>
-      <td>1</td>
-      <td>4.0</td>
-      <td>GOI</td>
-      <td>2025-05-25 00:00:00</td>
-      <td>1. jardunaldie</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>ARAXES (E. Salvatierra-E. Iriarte)</td>
-      <td>18</td>
-      <td>10.000000</td>
-      <td>2</td>
-      <td>3.0</td>
-      <td>LEK</td>
-      <td>2025-06-01 00:00:00</td>
-      <td>2. jardunaldie</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>2025-06-22 00:00:00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2025-06-08 00:00:00</td>
-      <td>3. jardunaldie</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>KIMU 2 - FINALA</td>
-      <td>NaN</td>
-      <td>Tantoak</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2025-06-15 00:00:00</td>
-      <td>Final erdik</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>LARRAUN (M.Bidegain-M. Argaña)</td>
-      <td>LARRAUN (J.Mitxaus-A. Balenciaga)</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2025-06-21 00:00:00</td>
-      <td>Finala (LEKUNBERRI)</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>SEIN (goxua)(2--&gt;1,5)</td>
-      <td>4ko, lau talde. bikotek elkartekoak.</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>KIMU 2 (goxua)(2--&gt;2)</td>
-      <td>4ko talde bat</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>KIMU 1 (goxua)(3--&gt;2)</td>
-      <td>3ko bi talde</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>HAUR 2 (goxua)(2--&gt;2)</td>
-      <td>4ko talde bat</td>
-      <td>bi bikote gonbidatu</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>HAUR 1(mixta)(3--&gt;3)</td>
-      <td>3ko bi talde</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>KADETE 3 (mixta)(4--&gt;3)</td>
-      <td>4ko talde bat</td>
-      <td>bi bikotek gonbidatu</td>
-    </tr>
-    <tr>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>KADETE 2 (mixta)(4--&gt;3)</td>
-      <td>4ko talde bat</td>
-      <td>pilotari bat gonbidatu</td>
-    </tr>
-  </tbody>
-</table>
-</main>
-</body></html>
+<div class="container">
+
+<header>
+  <div style="display:flex;gap:20px;align-items:center">
+    <img src="/images/logomendialdea.png" alt="Mendialdea">
+    <div>
+      <h1>KIMU 2</h1>
+      <div class="subtitle">Mendialdeko Pilota Txapelketa 2024–2025</div>
+    </div>
+  </div>
+</header>
+
+<!-- INFO -->
+<div class="section">
+  <strong>Modalitatea:</strong> Eskuz binakakoa<br>
+  <strong>Formatua:</strong> Liga + finalak <span class="badge">18 tanto</span><br>
+  <strong>Talde kopurua:</strong> 4
+</div>
+
+<!-- TALDEA -->
+<div class="section">
+  <h2>Parejak</h2>
+  <ul>
+    <li><strong>ARAXES</strong> (E. Salvatierra – E. Iriarte)</li>
+    <li><strong>UMORE ONA</strong> (I. Kurianovych – P. Kurianovych)</li>
+    <li><strong>LARRAUN</strong> (J. Mitxaus – A. Balenciaga)</li>
+    <li><strong>LARRAUN</strong> (M. Bidegain – M. Argaña)</li>
+  </ul>
+
+  <h3>Partidak · Liga</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Ligako emaitzak (zutabeak C eta D) -->
+      <!-- Datak nahi badituzu gero eskuz moldatu -->
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>ARAXES</strong> (E. Salvatierra – E. Iriarte)</td>
+        <td class="left"><strong>UMORE ONA</strong> (I. Kurianovych – P. Kurianovych)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>LARRAUN</strong> (J. Mitxaus – A. Balenciaga)</td>
+        <td class="left"><strong>LARRAUN</strong> (M. Bidegain – M. Argaña)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>ARAXES</strong> (E. Salvatierra – E. Iriarte)</td>
+        <td class="left"><strong>LARRAUN</strong> (J. Mitxaus – A. Balenciaga)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>UMORE ONA</strong> (I. Kurianovych – P. Kurianovych)</td>
+        <td class="left"><strong>LARRAUN</strong> (M. Bidegain – M. Argaña)</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FINALAK -->
+<div class="section">
+  <h2>Fase finala</h2>
+
+  <h3>Finalerdiak</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- A23:D26 -->
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>LARRAUN</strong> (M. Bidegain – M. Argaña)</td>
+        <td class="left"><strong>ARAXES</strong> (E. Salvatierra – E. Iriarte)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>UMORE ONA</strong> (I. Kurianovych – P. Kurianovych)</td>
+        <td class="left"><strong>LARRAUN</strong> (J. Mitxaus – A. Balenciaga)</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Finala</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th class="left">Etxekoa</th>
+        <th class="left">Kanpokoa</th>
+        <th>Emaitza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- A27:D29 -->
+      <tr>
+        <td>—</td>
+        <td class="left"><strong>LARRAUN</strong> (M. Bidegain – M. Argaña)</td>
+        <td class="left"><strong>UMORE ONA</strong> (I. Kurianovych – P. Kurianovych)</td>
+        <td>18—15</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:10px">
+    <strong>Txapeldunak:</strong> <strong>LARRAUN</strong> (M. Bidegain – M. Argaña)
+  </p>
+</div>
+
+<footer>
+  © Larraun Pilota Elkartea
+</footer>
+
+</div>
+</body>
+</html>
