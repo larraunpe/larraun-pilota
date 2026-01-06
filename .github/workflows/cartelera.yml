@@ -2,7 +2,7 @@ name: Actualizar cartelera Larraun
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # todos los días a las 06:00
+    - cron: "0 17 * * *"   # todos los días a las 06:00
   workflow_dispatch:
 
 jobs:
