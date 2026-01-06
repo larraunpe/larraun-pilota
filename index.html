@@ -758,6 +758,30 @@ function openImage(src) {
 
   <h3 class="eu" style="margin-top:30px;">Aste honetako kartela</h3>
   <h3 class="es" style="margin-top:30px;">Cartel semanal</h3>
+<div id="cartelera-visual"></div>
+
+<script>
+fetch("data/cartelera-larraun.json")
+  .then(r => r.json())
+  .then(partidos => {
+    const cont = document.getElementById("cartelera-visual");
+    if (!partidos.length) {
+      cont.innerHTML = "<p>No hay partidos esta semana</p>";
+      return;
+    }
+
+    cont.innerHTML = partidos.map(p => `
+      <div class="match">
+        <div class="match-time">🗓 ${p.fecha} · ${p.hora}</div>
+        <div class="match-fronton">📍 ${p.fronton}</div>
+        <div class="match-teams">
+          <span class="team larraun">${p.pareja}</span>
+        </div>
+        <div class="match-info">${p.competicion}</div>
+      </div>
+    `).join("");
+  });
+</script>
 
   <img
     src="images/cartelera/cartel-semanal.jpg"
