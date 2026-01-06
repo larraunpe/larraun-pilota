@@ -1,0 +1,28 @@
+name: Actualizar cartelera Larraun
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # todos los días a las 06:00
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install node-fetch jsdom
+
+      - run: node scripts/scrape-cartelera.js
+
+      - run: |
+          git config user.name "larraun-bot"
+          git config user.email "bot@larraunpilota.eus"
+          git add data/cartelera-larraun.json
+          git commit -m "🔄 Actualiza cartelera Larraun" || echo "Sin cambios"
+          git push
