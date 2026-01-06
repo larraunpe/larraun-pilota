@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install node-fetch jsdom
+      - run: npm install jsdom
 
       - run: node scripts/scrape-cartelera.js
 
