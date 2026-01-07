@@ -789,15 +789,17 @@ function openImage(src) {
 <section id="kartelera">
   <h2 class="eu">Kartelera</h2>
   <h2 class="es">Cartelera</h2>
+  <div id="lista-partidos"></div>
 <script>
 fetch("data/cartelera-larraun.json")
   .then(r => r.json())
   .then(data => {
-    const cont = document.getElementById("cartelera");
+    const cont = document.getElementById("lista-partidos");
+    if (!cont) return;
 
     data.forEach(p => {
       const div = document.createElement("div");
-      div.className = "partido";
+      div.className = "match";
 
       const frontonClass = p.fronton.includes("Lekunberri") ? "lekunberri" : "";
 
@@ -805,16 +807,18 @@ fetch("data/cartelera-larraun.json")
       const kanpokoakClass = p.kanpokoak.includes("LARRAUN") ? "larraun kanpokoak" : "kanpokoak";
 
       div.innerHTML = `
-        🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}<br>
-        🔢 <b>Zkia.:</b> ${p.zkia}<br>
-        📍 <b>Frontoia:</b> <span class="${frontonClass}">${p.fronton}</span><br>
-        🏠 <b>Etxekoa:</b> <span class="${etxekoaClass}">${p.etxekoa}</span><br>
-        ✈️ <b>Kanpokoak:</b> <span class="${kanpokoakClass}">${p.kanpokoak}</span><br>
-        🏆 <b>Lehiaketa:</b> ${p.lehiaketa}
+        <div class="match-line">🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}</div>
+        <div class="match-line">🔢 <b>Zkia.:</b> ${p.zkia}</div>
+        <div class="match-line">📍 <b>Frontoia:</b> <span class="${frontonClass}">${p.fronton}</span></div>
+        <div class="match-line">🏠 <b>Etxekoa:</b> <span class="${etxekoaClass}">${p.etxekoa}</span></div>
+        <div class="match-line">✈️ <b>Kanpokoak:</b> <span class="${kanpokoakClass}">${p.kanpokoak}</span></div>
+        <div class="match-line">🏆 <b>Lehiaketa:</b> ${p.lehiaketa}</div>
       `;
+
       cont.appendChild(div);
     });
-  });
+  })
+  .catch(err => console.error("Errorea kartelera kargatzean:", err));
 </script>
 
   <h3 class="eu" style="margin-top:30px;">Aste honetako kartela</h3>
