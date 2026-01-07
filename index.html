@@ -817,6 +817,11 @@ fetch("data/cartelera-larraun.json")
       return da - db;
       }); 
 
+      if (partido.ofiziala === false) {
+        badge.textContent = "EZ OFIZIALA";
+      }
+
+
       div.innerHTML = `
         <div class="match-line">🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}</div>
         <div class="match-line">🔢 <b>Zkia.:</b> ${p.zkia}</div>
