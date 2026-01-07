@@ -792,56 +792,30 @@ function openImage(src) {
 <script>
 fetch("data/cartelera-larraun.json")
   .then(r => r.json())
-  .then(partidos => {
-    
-    console.log("Partidos JSON:", partidos);
-    console.log("Primer partido:", partidos[0]);
+  .then(data => {
+    const cont = document.getElementById("cartelera");
 
-    const cont = document.getElementById("cartelera-visual");
+    data.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "partido";
 
-    const val = v => v && v.trim() !== "" ? v : "-";
+      const frontonClass = p.fronton.includes("Lekunberri") ? "lekunberri" : "";
 
-    const esLarraun = txt =>
-      txt && txt.toUpperCase().includes("LARRAUN");
+      const etxekoaClass = p.etxekoa.includes("LARRAUN") ? "larraun etxekoa" : "etxekoa";
+      const kanpokoakClass = p.kanpokoak.includes("LARRAUN") ? "larraun kanpokoak" : "kanpokoak";
 
-    const esLekunberri = txt =>
-      txt && txt.toUpperCase().includes("LEKUNBERRI");
-
-    cont.innerHTML = partidos.map(p => `
-      <div class="match">
-        <div class="match-line">
-          🗓 <strong>Data:</strong> ${val(p.fecha)}
-          · ⏰ <strong>Ordua:</strong> ${val(p.hora)}
-        </div>
-
-        <div class="match-line">
-          🔢 <strong>Zkia.:</strong> ${val(p.numero)}
-        </div>
-
-        <div class="match-line ${esLekunberri(p.fronton) ? "lekunberri" : ""}">
-          📍 <strong>Frontoia:</strong> ${val(p.fronton)}
-        </div>
-
-        <div class="match-line etxekoa ${esLarraun(p.local) ? "larraun" : ""}">
-          🏠 <strong>Etxekoa:</strong> ${val(p.local)}
-        </div>
-
-        <div class="match-line kanpokoak ${esLarraun(p.visitante) ? "larraun" : ""}">
-          ✈️ <strong>Kanpokoak:</strong> ${val(p.visitante)}
-        </div>
-
-        <div class="match-line">
-          🏆 <strong>Lehiaketa:</strong> ${val(p.competicion)}
-        </div>
-      </div>
-    `).join("");
-  })
-  .catch(() => {
-    document.getElementById("cartelera-visual").innerHTML =
-      "<p>Ezin izan da kartelera kargatu</p>";
+      div.innerHTML = `
+        🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}<br>
+        🔢 <b>Zkia.:</b> ${p.zkia}<br>
+        📍 <b>Frontoia:</b> <span class="${frontonClass}">${p.fronton}</span><br>
+        🏠 <b>Etxekoa:</b> <span class="${etxekoaClass}">${p.etxekoa}</span><br>
+        ✈️ <b>Kanpokoak:</b> <span class="${kanpokoakClass}">${p.kanpokoak}</span><br>
+        🏆 <b>Lehiaketa:</b> ${p.lehiaketa}
+      `;
+      cont.appendChild(div);
+    });
   });
 </script>
-
 
   <h3 class="eu" style="margin-top:30px;">Aste honetako kartela</h3>
   <h3 class="es" style="margin-top:30px;">Cartel semanal</h3>
