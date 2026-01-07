@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/01/09",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/01/09",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "3",
     "fronton": "Zizur Mayor - Ardoi",
     "etxekoa": "ARDOI (A. Plagaro - I. Alcasena)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/01/09",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "4",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (M. Navarreta - E. Rivero)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/01/09",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "3",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (O. Goikoetxea - B. Goikoetxea)",
@@ -46,7 +46,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
@@ -64,7 +64,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
@@ -73,7 +73,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
@@ -82,7 +82,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
@@ -91,7 +91,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Otamendi - M. Laso)",
@@ -109,7 +109,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "8",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Ezkurdia - X. Telletxea)",
@@ -118,7 +118,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Pamplona - Oberena F 1",
     "etxekoa": "OBERENA (M. Glaria)",
@@ -162,7 +162,7 @@
     "lehiaketa": "5½ NKJ - PGOMA NESKA BANAKA 5½ KADETE LIGAXKA"
   },
   {
-    "fecha": "2026/01/10",
+    "fecha": "2026/01/11",
     "hora": "11:00",
     "zkia": "1",
     "fronton": "LEMOA - LEMOA",
