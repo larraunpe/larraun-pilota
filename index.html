@@ -806,6 +806,17 @@ fetch("data/cartelera-larraun.json")
       const etxekoaClass = p.etxekoa.includes("LARRAUN") ? "larraun etxekoa" : "etxekoa";
       const kanpokoakClass = p.kanpokoak.includes("LARRAUN") ? "larraun kanpokoak" : "kanpokoak";
 
+      const oficiales = await fetch("/data/cartelera-larraun.json").then(r => r.json());
+      const noOficiales = await fetch("/data/partidos-no-oficiales.json").then(r => r.json());
+
+      const partidos = [...oficiales, ...noOficiales];
+
+      partidos.sort((a, b) => {
+      const da = new Date(`${a.fecha} ${a.hora}`);
+      const db = new Date(`${b.fecha} ${b.hora}`);
+      return da - db;
+      }); 
+
       div.innerHTML = `
         <div class="match-line">🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}</div>
         <div class="match-line">🔢 <b>Zkia.:</b> ${p.zkia}</div>
