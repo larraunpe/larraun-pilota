@@ -140,6 +140,26 @@ body {
 
 
 <script>
+<script>
+function calcularEmaitza(p) {
+  if (!p.tanteoa) return "";
+
+  // Detectar si LARRAUN está en casa o fuera
+  const larraunEtxean = p.etxekoa.includes("LARRAUN");
+
+  // Tomamos el primer set (suficiente en pelota)
+  const primerSet = p.tanteoa.split(",")[0].trim();
+  const [a, b] = primerSet.split("-").map(n => parseInt(n, 10));
+
+  if (isNaN(a) || isNaN(b)) return "";
+
+  const puntosLarraun = larraunEtxean ? a : b;
+  const puntosRival = larraunEtxean ? b : a;
+
+  return puntosLarraun > puntosRival ? "irabazita" : "galduta";
+}
+</script>
+
 Promise.all([
   fetch("data/resultados-larraun.json").then(r => r.json()),
   fetch("data/resultados-no-oficiales.json").then(r => r.json())
@@ -156,8 +176,11 @@ Promise.all([
   const cont = document.getElementById("lista-resultados");
 
   partidos.forEach(p => {
-    const div = document.createElement("div");
-    div.className = `partido ${p.emaitza} ${p.ofiziala ? "oficial" : "no-oficial"}`;
+   const emaitza = calcularEmaitza(p);
+
+   const div = document.createElement("div");
+   div.className = `partido ${emaitza} ${p.ofiziala ? "oficial" : "no-oficial"}`;
+
 
     const etxClass = p.etxekoa.includes("LARRAUN")
       ? "etxekoa larraun"
