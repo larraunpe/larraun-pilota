@@ -60,6 +60,10 @@ const CONVERSION = [
   const tds = [...row.querySelectorAll("td")];
   if (tds.length < 7) return;
 
+  console.log(
+    tds.map(td => td.textContent.replace(/\s+/g, " ").trim())
+  );
+
   const etxekoa = tds[4].textContent.trim();
   const kanpokoak = tds[5].textContent.trim();
 
