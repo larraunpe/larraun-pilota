@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larraun Pilota – Aste honetako partidak</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eaeaea;
+}
+  <button id="exportar"
+  style="
+    margin: 15px auto;
+    display: block;
+    padding: 10px 18px;
+    font-size: 16px;
+    background: #b30000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;">
+📸 Descargar cartel (PNG)
+</button>
+
+
+/* CONTENEDOR */
+.cartel {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+/* CABECERA */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid #b30000;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.header img {
+  height: 80px;
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 2.2em;
+  color: #b30000;
+}
+
+/* LISTA */
+.partidos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* PARTIDO */
+.partido {
+  padding: 16px 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #f9f9f9;
+  position: relative;
+}
+
+.partido.oficial {
+  border-left: 6px solid #006400;
+}
+
+.partido.no-oficial {
+  background: #fff2f2;
+  border-left: 6px solid #b30000;
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #b30000;
+  color: #fff;
+}
+
+/* TEXTOS */
+.fecha {
+  font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
+/* EQUIPOS */
+.equipos {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.etxekoa {
+  color: #0b2c5d;
+  font-weight: bold;
+}
+
+.kanpokoak {
+  color: #b00000;
+  font-weight: bold;
+}
+
+/* LARRAUN DESTACADO */
+.larraun {
+  font-size: 1.25em;
+  text-transform: uppercase;
+}
+
+/* FRONTÓN */
+.fronton {
+  margin-top: 6px;
+  font-style: italic;
+  color: #333;
+}
+
+/* LEKUNBERRI */
+.lekunberri {
+  background: #e6f2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* LEHIAKETA */
+.lehiaketa {
+  margin-top: 6px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.footer img {
+  height: 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.6em; }
+  .larraun { font-size: 1.15em; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+
+  <!-- CABECERA -->
+  <div class="header">
+    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <h1>ASTE HONETAKO PARTIDAK</h1>
+    <img src="images/logo-fnp.png" alt="FNP">
+  </div>
+
+  <!-- PARTIDOS -->
+  <div class="partidos" id="lista-partidos"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div>@larraunpilota</div>
+  </div>
+
+</div>
+
+<script>
+Promise.all([
+  fetch("data/cartelera-larraun.json").then(r => r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r => r.json())
+]).then(([oficiales, noOficiales]) => {
+
+  const partidos = [
+    ...oficiales.map(p => ({ ...p, ofiziala: true })),
+    ...noOficiales.map(p => ({ ...p, ofiziala: false }))
+  ];
+
+  partidos.sort((a, b) => {
+    const da = new Date(`${a.fecha} ${a.hora}`);
+    const db = new Date(`${b.fecha} ${b.hora}`);
+    return da - db;
+  });
+
+  const cont = document.getElementById("lista-partidos");
+
+  partidos.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "partido " + (p.ofiziala ? "oficial" : "no-oficial");
+
+    const etxekoaClass =
+      p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+
+    const kanpokoakClass =
+      p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
+
+    const frontonClass =
+      p.fronton.includes("Lekunberri") ? "fronton lekunberri" : "fronton";
+
+    div.innerHTML = `
+      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
+      <div class="fecha">🗓 ${p.fecha} · ⏰ ${p.hora}</div>
+
+      <div class="equipos">
+        <div class="${etxekoaClass}">🏠 ${p.etxekoa}</div>
+        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak}</div>
+      </div>
+
+      <div class="${frontonClass}">📍 ${p.fronton}</div>
+      <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
+    `;
+
+    cont.appendChild(div);
+  });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+document.getElementById("exportar").addEventListener("click", () => {
+  const cartel = document.querySelector(".cartel");
+
+  html2canvas(cartel, {
+    scale: 2,          // más calidad
+    useCORS: true,
+    backgroundColor: "#ffffff"
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "cartelera-larraun.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
+</script>
+
+
+</body>
+</html>
