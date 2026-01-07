@@ -793,6 +793,10 @@ function openImage(src) {
 fetch("data/cartelera-larraun.json")
   .then(r => r.json())
   .then(partidos => {
+    
+    console.log("Partidos JSON:", partidos);
+    console.log("Primer partido:", partidos[0]);
+
     const cont = document.getElementById("cartelera-visual");
 
     const val = v => v && v.trim() !== "" ? v : "-";
