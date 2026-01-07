@@ -31,25 +31,26 @@ const CONVERSION = {
     const partidos = [];
 
     rows.forEach(row => {
-      const tds = [...row.querySelectorAll("td")];
-      if (tds.length < 4) return;
+  const tds = [...row.querySelectorAll("td")];
+  if (tds.length < 7) return;
 
-      // Buscar la celda que contiene LARRAUN
-      const parejaCell = tds.find(td =>
-        td.textContent && td.textContent.includes("LARRAUN")
-      );
-      if (!parejaCell) return;
+  const etxekoa = tds[4].textContent.trim();
+  const kanpokoak = tds[5].textContent.trim();
 
-      let pareja = parejaCell.textContent.trim();
-      pareja = CONVERSION[pareja] || pareja;
+  // Solo partidos donde juegue LARRAUN
+  if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) return;
 
-      partidos.push({
-        fecha: tds[0]?.textContent?.trim() || "",
-        hora: tds[1]?.textContent?.trim() || "",
-        fronton: tds[3]?.textContent?.trim() || "",
-        pareja
-      });
-    });
+  partidos.push({
+    fecha: tds[0].textContent.trim(),
+    hora: tds[1].textContent.trim(),
+    zkia: tds[2].textContent.trim() || "-",
+    fronton: tds[3].textContent.trim(),
+    etxekoa: CONVERSION[etxekoa] || etxekoa || "-",
+    kanpokoak: CONVERSION[kanpokoak] || kanpokoak || "-",
+    lehiaketa: tds[6].textContent.trim() || "-"
+  });
+});
+
 
     fs.mkdirSync("data", { recursive: true });
     fs.writeFileSync(
