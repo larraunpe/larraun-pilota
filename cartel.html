@@ -54,4 +54,148 @@ body {
 .partido {
   padding: 16px 18px;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #f9f9f9;
+  position: relative;
+}
+
+/* OFICIAL */
+.partido.oficial {
+  border-left: 6px solid #006400;
+}
+
+/* NO OFICIAL */
+.partido.no-oficial {
+  background: #fff2f2;
+  border-left: 6px solid #b30000;
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #b30000;
+  color: #fff;
+}
+
+/* LÍNEAS */
+.fecha {
+  font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 6px;
+}
+
+.equipos {
+  font-size: 1.15em;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.fronton {
+  font-style: italic;
+  color: #333;
+}
+
+.lehiaketa {
+  margin-top: 4px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.footer img {
+  height: 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.6em;
+  }
+  .equipos {
+    font-size: 1.05em;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+
+  <!-- CABECERA -->
+  <div class="header">
+    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <h1>ASTE HONETAKO PARTIDAK</h1>
+    <img src="images/logo-fnp.png" alt="FNP">
+  </div>
+
+  <!-- PARTIDOS -->
+  <div class="partidos" id="lista-partidos"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div>@larraunpilota</div>
+  </div>
+
+</div>
+
+<script>
+Promise.all([
+  fetch("data/cartelera-larraun.json").then(r => r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r => r.json())
+]).then(([oficiales, noOficiales]) => {
+
+  const partidos = [
+    ...oficiales.map(p => ({ ...p, ofiziala: true })),
+    ...noOficiales.map(p => ({ ...p, ofiziala: false }))
+  ];
+
+  partidos.sort((a, b) => {
+    const da = new Date(`${a.fecha} ${a.hora}`);
+    const db = new Date(`${b.fecha} ${b.hora}`);
+    return da - db;
+  });
+
+  const cont = document.getElementById("lista-partidos");
+
+  partidos.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "partido " + (p.ofiziala ? "oficial" : "no-oficial");
+
+    div.innerHTML = `
+      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
+      <div class="fecha">🗓 ${p.fecha} · ⏰ ${p.hora}</div>
+      <div class="equipos">
+        ${p.etxekoa}<br>
+        ${p.kanpokoak}
+      </div>
+      <div class="fronton">📍 ${p.fronton}</div>
+      <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
+    `;
+
+    cont.appendChild(div);
+  });
+
+});
+</script>
+
+</body>
+</html>
