@@ -799,21 +799,53 @@ fetch("data/cartelera-larraun.json")
   .then(r => r.json())
   .then(partidos => {
     const cont = document.getElementById("cartelera-visual");
+
     if (!partidos.length) {
       cont.innerHTML = "<p>No hay partidos esta semana</p>";
       return;
     }
 
-    cont.innerHTML = partidos.map(p => `
-      <div class="match">
-        <div class="match-time">🗓 ${p.fecha} · ${p.hora}</div>
-        <div class="match-fronton">📍 ${p.fronton}</div>
-        <div class="match-teams">
-          <span class="team larraun">${p.pareja}</span>
+    cont.innerHTML = partidos.map(p => {
+
+      const esLarraun = txt =>
+        txt && txt.toUpperCase().includes("LARRAUN");
+
+      const esLekunberri = txt =>
+        txt && txt.toUpperCase().includes("LEKUNBERRI");
+
+      return `
+        <div class="match">
+          <div class="match-line">
+            🗓 <strong>Data:</strong> ${p.fecha} · ⏰ <strong>Ordua:</strong> ${p.hora}
+          </div>
+
+          <div class="match-line">
+            🔢 <strong>Zkia.:</strong> ${p.zkia || "-"}
+          </div>
+
+          <div class="match-line ${esLekunberri(p.fronton) ? "lekunberri" : ""}">
+            📍 <strong>Frontoia:</strong> ${p.fronton}
+          </div>
+
+          <div class="match-line etxekoa ${esLarraun(p.etxekoa) ? "larraun" : ""}">
+            🏠 <strong>Etxekoa:</strong> ${p.etxekoa}
+          </div>
+
+          <div class="match-line kanpokoak ${esLarraun(p.kanpokoak) ? "larraun" : ""}">
+            ✈️ <strong>Kanpokoak:</strong> ${p.kanpokoak}
+          </div>
+
+          <div class="match-line">
+            🏆 <strong>Lehiaketa:</strong> ${p.competicion}
+          </div>
         </div>
-        <div class="match-info">${p.competicion}</div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("cartelera-visual").innerHTML =
+      "<p>Ezin izan da kartelera kargatu</p>";
   });
 </script>
 
