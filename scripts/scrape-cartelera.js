@@ -4,16 +4,20 @@ import fs from "fs";
 
 const URL = "https://www.fnpelota.com/pub/cartelera.asp?idioma=eu";
 
+// ---------- util ----------
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", chunk => data += chunk);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(url, res => {
+        let data = "";
+        res.on("data", chunk => (data += chunk));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
 
+// ---------- conversion reglas ----------
 const CONVERSION = [
   {
     match: "D. Centeno - B. Esnaola",
@@ -33,18 +37,10 @@ const CONVERSION = [
   }
 ];
 
-(async () => {
-  try {
-    const html = await getHTML(URL);
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
-
-    const rows = [...document.querySelectorAll("table tr")];
-    const partidos = [];
-    function convertirPareja(texto) {
+function convertirPareja(texto) {
   if (!texto) return "-";
 
-  let limpio = texto.replace(/\s+/g, " ").trim();
+  const limpio = texto.replace(/\s+/g, " ").trim();
 
   for (const rule of CONVERSION) {
     if (limpio.includes(rule.match)) {
@@ -55,32 +51,45 @@ const CONVERSION = [
   return limpio;
 }
 
+// ---------- main ----------
+(async () => {
+  try {
+    const html = await getHTML(URL);
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
+
+    const rows = [...document.querySelectorAll("table tr")];
+    const partidos = [];
 
     rows.forEach(row => {
-  const tds = [...row.querySelectorAll("td")];
-  if (tds.length < 7) return;
+      const tds = [...row.querySelectorAll("td")];
+      if (tds.length < 6) return;
 
-  console.log(
-    tds.map(td => td.textContent.replace(/\s+/g, " ").trim())
-  );
+      const cols = tds.map(td =>
+        td.textContent.replace(/\s+/g, " ").trim()
+      );
 
-  const etxekoa = tds[4].textContent.trim();
-  const kanpokoak = tds[5].textContent.trim();
+      const fecha = cols[0] || "-";
+      const hora = cols[1] || "-";
+      const zkia = cols[2] || "-";
+      const fronton = cols[3] || "-";
+      const etxekoa = cols[4] || "-";
+      const kanpokoak = cols[5] || "-";
+      const lehiaketa = cols[6] || "-";
 
-  // Solo partidos donde juegue LARRAUN
-  if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) return;
+      // solo partidos donde juegue LARRAUN
+      if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) return;
 
-  partidos.push({
-    fecha: tds[0].textContent.trim(),
-    hora: tds[1].textContent.trim(),
-    zkia: tds[2].textContent.trim() || "-",
-    fronton: tds[3].textContent.trim(),
-    etxekoa: convertirPareja(etxekoa),
-    kanpokoak: convertirPareja(kanpokoak),
-    lehiaketa: tds[6].textContent.trim() || "-"
-  });
-});
-
+      partidos.push({
+        fecha,
+        hora,
+        zkia,
+        fronton,
+        etxekoa: convertirPareja(etxekoa),
+        kanpokoak: convertirPareja(kanpokoak),
+        lehiaketa
+      });
+    });
 
     fs.mkdirSync("data", { recursive: true });
     fs.writeFileSync(
@@ -88,7 +97,7 @@ const CONVERSION = [
       JSON.stringify(partidos, null, 2)
     );
 
-    console.log(`✔ Cartelera actualizada correctamente (${partidos.length} partidos)`);
+    console.log(`✔ Cartelera actualizada (${partidos.length} partidos)`);
 
   } catch (err) {
     console.error("❌ Error en scraping:", err);
