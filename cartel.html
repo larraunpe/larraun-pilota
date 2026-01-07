@@ -8,15 +8,15 @@
 <style>
 body {
   margin: 0;
-  font-family: "Arial", Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #eaeaea;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* CONTENEDOR */
 .cartel {
   max-width: 900px;
   margin: auto;
-  background: #ffffff;
+  background: #fff;
   padding: 30px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
@@ -36,21 +36,21 @@ body {
 }
 
 .header h1 {
-  text-align: center;
   flex: 1;
-  font-size: 2.2em;
+  text-align: center;
   margin: 0;
+  font-size: 2.2em;
   color: #b30000;
 }
 
-/* LISTA PARTIDOS */
+/* LISTA */
 .partidos {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* PARTIDO BASE */
+/* PARTIDO */
 .partido {
   padding: 16px 18px;
   border-radius: 10px;
@@ -59,12 +59,10 @@ body {
   position: relative;
 }
 
-/* OFICIAL */
 .partido.oficial {
   border-left: 6px solid #006400;
 }
 
-/* NO OFICIAL */
 .partido.no-oficial {
   background: #fff2f2;
   border-left: 6px solid #b30000;
@@ -83,26 +81,54 @@ body {
   color: #fff;
 }
 
-/* LÍNEAS */
+/* TEXTOS */
 .fecha {
   font-weight: bold;
   font-size: 0.95em;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
+/* EQUIPOS */
 .equipos {
-  font-size: 1.15em;
-  font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
+.etxekoa {
+  color: #0b2c5d;
+  font-weight: bold;
+}
+
+.kanpokoak {
+  color: #b00000;
+  font-weight: bold;
+}
+
+/* LARRAUN DESTACADO */
+.larraun {
+  font-size: 1.25em;
+  text-transform: uppercase;
+}
+
+/* FRONTÓN */
 .fronton {
+  margin-top: 6px;
   font-style: italic;
   color: #333;
 }
 
+/* LEKUNBERRI */
+.lekunberri {
+  background: #e6f2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* LEHIAKETA */
 .lehiaketa {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 0.9em;
   color: #555;
 }
@@ -125,12 +151,8 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-  .header h1 {
-    font-size: 1.6em;
-  }
-  .equipos {
-    font-size: 1.05em;
-  }
+  .header h1 { font-size: 1.6em; }
+  .larraun { font-size: 1.15em; }
 }
 </style>
 </head>
@@ -180,20 +202,30 @@ Promise.all([
     const div = document.createElement("div");
     div.className = "partido " + (p.ofiziala ? "oficial" : "no-oficial");
 
+    const etxekoaClass =
+      p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+
+    const kanpokoakClass =
+      p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
+
+    const frontonClass =
+      p.fronton.includes("Lekunberri") ? "fronton lekunberri" : "fronton";
+
     div.innerHTML = `
       ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
       <div class="fecha">🗓 ${p.fecha} · ⏰ ${p.hora}</div>
+
       <div class="equipos">
-        ${p.etxekoa}<br>
-        ${p.kanpokoak}
+        <div class="${etxekoaClass}">🏠 ${p.etxekoa}</div>
+        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak}</div>
       </div>
-      <div class="fronton">📍 ${p.fronton}</div>
+
+      <div class="${frontonClass}">📍 ${p.fronton}</div>
       <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
     `;
 
     cont.appendChild(div);
   });
-
 });
 </script>
 
