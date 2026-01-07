@@ -23,7 +23,7 @@ jobs:
       - run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
-            
+
           git add data/cartelera-larraun.json
           git commit -m "🔄 Actualiza cartelera Larraun" || echo "Sin cambios"
-          git push origin main
+          git push
