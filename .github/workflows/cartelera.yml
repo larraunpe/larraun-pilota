@@ -11,26 +11,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # ⬅️ MUY IMPORTANTE
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - run: npm install jsdom
+      # ⛔️ importante: NO guardar dependencias en git
+      - run: npm install jsdom --no-save
 
-      # 🔽 sincronizar ANTES de modificar nada
+      - run: node scripts/scrape-cartelera.js
+
       - run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
-          git pull --rebase origin main
 
-      # 🔽 ahora sí, generar el JSON
-      - run: node scripts/scrape-cartelera.js
-
-      # 🔽 commit y push
-      - run: |
           git add data/cartelera-larraun.json
           git commit -m "🔄 Actualiza cartelera Larraun" || echo "Sin cambios"
-          git push origin main
+          git push
