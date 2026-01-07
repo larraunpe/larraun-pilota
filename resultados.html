@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Larraun Pilota – Emaitzak</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eaeaea;
+}
+
+.cartel {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid #003366;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 2em;
+  color: #003366;
+}
+
+.resultados {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.partido {
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  border-left: 6px solid #999;
+}
+
+.partido.irabazita {
+  border-left-color: #006400;
+  background: #f0fff0;
+}
+
+.partido.galduta {
+  border-left-color: #b30000;
+  background: #fff2f2;
+}
+
+.fecha {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.equipos {
+  line-height: 1.4;
+}
+
+.etxekoa {
+  color: #0b2c5d;
+  font-weight: bold;
+}
+
+.kanpokoak {
+  color: #b00000;
+  font-weight: bold;
+}
+
+.larraun {
+  text-transform: uppercase;
+  font-size: 1.1em;
+}
+
+.tanteoa {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.fronton, .lehiaketa {
+  font-size: 0.9em;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+  <div class="header">
+    <h1>ASTEKO EMAITZAK – LARRAUN</h1>
+  </div>
+
+  <div class="resultados" id="lista"></div>
+</div>
+
+<script>
+fetch("data/resultados-larraun.json")
+  .then(r => r.json())
+  .then(datos => {
+    const cont = document.getElementById("lista");
+
+    datos.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "partido " + p.emaitza;
+
+      const etxClass = p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+      const kanpClass = p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
+
+      div.innerHTML = `
+        <div class="fecha">🗓 ${p.fecha}</div>
+
+        <div class="equipos">
+          <div class="${etxClass}">🏠 ${p.etxekoa}</div>
+          <div class="${kanpClass}">✈️ ${p.kanpokoak}</div>
+        </div>
+
+        <div class="tanteoa">${p.tanteoa}</div>
+
+        <div class="fronton">📍 ${p.fronton}</div>
+        <div class="lehiaketa">🏆 ${p.lehiaketa}</div>
+      `;
+
+      cont.appendChild(div);
+    });
+  });
+</script>
+
+</body>
+</html>
