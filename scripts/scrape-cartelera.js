@@ -1,7 +1,18 @@
+import https from "https";
 import { JSDOM } from "jsdom";
 import fs from "fs";
 
 const URL = "https://www.fnpelota.com/pub/cartelera.asp?idioma=eu";
+
+function getHTML(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, res => {
+      let data = "";
+      res.on("data", chunk => data += chunk);
+      res.on("end", () => resolve(data));
+    }).on("error", reject);
+  });
+}
 
 const CONVERSION = {
   "LARRAUN (D. Centeno - B. Esnaola)": "LARRAUN – ARAXES",
@@ -11,34 +22,45 @@ const CONVERSION = {
 };
 
 (async () => {
-  const html = await fetch(URL).then(r => r.text());
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
+  try {
+    const html = await getHTML(URL);
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
 
-  const rows = [...document.querySelectorAll("table tr")];
-  const partidos = [];
+    const rows = [...document.querySelectorAll("table tr")];
+    const partidos = [];
 
-  rows.forEach(row => {
-    const tds = row.querySelectorAll("td");
-    if (tds.length < 6) return;
+    rows.forEach(row => {
+      const tds = [...row.querySelectorAll("td")];
+      if (tds.length < 4) return;
 
-    const texto = row.textContent;
-    if (!texto.includes("LARRAUN")) return;
+      // Buscar la celda que contiene LARRAUN
+      const parejaCell = tds.find(td =>
+        td.textContent && td.textContent.includes("LARRAUN")
+      );
+      if (!parejaCell) return;
 
-    let pareja = tds[4].innerText.trim();
-    pareja = CONVERSION[pareja] || pareja;
+      let pareja = parejaCell.textContent.trim();
+      pareja = CONVERSION[pareja] || pareja;
 
-    partidos.push({
-      fecha: tds[0].innerText.trim(),
-      hora: tds[1].innerText.trim(),
-      fronton: tds[3].innerText.trim(),
-      pareja,
-      competicion: tds[6]?.innerText.trim() || ""
+      partidos.push({
+        fecha: tds[0]?.textContent?.trim() || "",
+        hora: tds[1]?.textContent?.trim() || "",
+        fronton: tds[3]?.textContent?.trim() || "",
+        pareja
+      });
     });
-  });
 
-  fs.writeFileSync(
-    "data/cartelera-larraun.json",
-    JSON.stringify(partidos, null, 2)
-  );
+    fs.mkdirSync("data", { recursive: true });
+    fs.writeFileSync(
+      "data/cartelera-larraun.json",
+      JSON.stringify(partidos, null, 2)
+    );
+
+    console.log(`✔ Cartelera actualizada correctamente (${partidos.length} partidos)`);
+
+  } catch (err) {
+    console.error("❌ Error en scraping:", err);
+    process.exit(1);
+  }
 })();
