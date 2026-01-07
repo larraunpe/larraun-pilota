@@ -838,9 +838,16 @@ function openImage(src) {
         ? "larraun kanpokoak"
         : "kanpokoak";
 
-      const badge = p.ofiziala === false
-        ? `<div style="color:#b00000;font-weight:bold;margin-bottom:6px;">EZ OFIZIALA</div>`
-        : "";
+      const isNoOficial = p.ofiziala === false;
+
+      if (isNoOficial) {
+      div.classList.add("no-oficial");
+      }
+
+      const badge = isNoOficial
+      ? `<div class="badge-no-oficial">EZ OFIZIALA</div>`
+      : "";
+
 
       div.innerHTML = `
         ${badge}
