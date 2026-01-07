@@ -14,12 +14,24 @@ function getHTML(url) {
   });
 }
 
-const CONVERSION = {
-  "LARRAUN (D. Centeno - B. Esnaola)": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
-  "ABAXITABIDEA (X. Goldaracena - E. Astibia)": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
-  "LARRAUN (A. Balda - U. Arcelus)": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
-  "LARRAUN (M. Goikoetxea - G. Uitzi)": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
-};
+const CONVERSION = [
+  {
+    match: "D. Centeno - B. Esnaola",
+    value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
+  },
+  {
+    match: "X. Goldaracena - E. Astibia",
+    value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)"
+  },
+  {
+    match: "A. Balda - U. Arcelus",
+    value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
+  },
+  {
+    match: "M. Goikoetxea - G. Uitzi",
+    value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
+  }
+];
 
 (async () => {
   try {
@@ -29,6 +41,20 @@ const CONVERSION = {
 
     const rows = [...document.querySelectorAll("table tr")];
     const partidos = [];
+    function convertirPareja(texto) {
+  if (!texto) return "-";
+
+  let limpio = texto.replace(/\s+/g, " ").trim();
+
+  for (const rule of CONVERSION) {
+    if (limpio.includes(rule.match)) {
+      return rule.value;
+    }
+  }
+
+  return limpio;
+}
+
 
     rows.forEach(row => {
   const tds = [...row.querySelectorAll("td")];
@@ -45,8 +71,8 @@ const CONVERSION = {
     hora: tds[1].textContent.trim(),
     zkia: tds[2].textContent.trim() || "-",
     fronton: tds[3].textContent.trim(),
-    etxekoa: CONVERSION[etxekoa] || etxekoa || "-",
-    kanpokoak: CONVERSION[kanpokoak] || kanpokoak || "-",
+    etxekoa: convertirPareja(etxekoa),
+    kanpokoak: convertirPareja(kanpokoak),
     lehiaketa: tds[6].textContent.trim() || "-"
   });
 });
