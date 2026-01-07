@@ -15,10 +15,10 @@ function getHTML(url) {
 }
 
 const CONVERSION = {
-  "LARRAUN (D. Centeno - B. Esnaola)": "LARRAUN – ARAXES",
-  "ABAXITABIDEA (X. Goldaracena - E. Astibia)": "LARRAUN – ABAXITABIDEA",
-  "LARRAUN (A. Balda - U. Arcelus)": "LARRAUN – OBERENA",
-  "LARRAUN (M. Goikoetxea - G. Uitzi)": "LARRAUN – ARAXES"
+  "LARRAUN (D. Centeno - B. Esnaola)": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+  "ABAXITABIDEA (X. Goldaracena - E. Astibia)": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
+  "LARRAUN (A. Balda - U. Arcelus)": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
+  "LARRAUN (M. Goikoetxea - G. Uitzi)": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
 };
 
 (async () => {
