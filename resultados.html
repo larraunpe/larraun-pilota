@@ -18,6 +18,11 @@ body {
   padding: 30px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
+.cartel > img {
+  display: block;
+  height: 65px;
+  margin: 0 auto 20px auto;
+}
 
 .header {
   display: flex;
@@ -131,40 +136,10 @@ body {
   <img src="images/logo-fnp.png" alt="FNP">
 </div>
 
-  <div class="resultados" id="lista"></div>
+  <div class="resultados" id="lista-resultados"></div>
 </div>
 
-<script>
-fetch("data/resultados-larraun.json")
-  .then(r => r.json())
-  .then(datos => {
-    const cont = document.getElementById("lista");
 
-    datos.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "partido " + p.emaitza;
-
-      const etxClass = p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
-      const kanpClass = p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
-
-      div.innerHTML = `
-        <div class="fecha">🗓 ${p.fecha}</div>
-
-        <div class="equipos">
-          <div class="${etxClass}">🏠 ${p.etxekoa}</div>
-          <div class="${kanpClass}">✈️ ${p.kanpokoak}</div>
-        </div>
-
-        <div class="tanteoa">${p.tanteoa}</div>
-
-        <div class="fronton">📍 ${p.fronton}</div>
-        <div class="lehiaketa">🏆 ${p.lehiaketa}</div>
-      `;
-
-      cont.appendChild(div);
-    });
-  });
-</script>
 <script>
 Promise.all([
   fetch("data/resultados-larraun.json").then(r => r.json()),
