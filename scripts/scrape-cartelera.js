@@ -78,7 +78,15 @@ function convertirPareja(texto) {
       const lehiaketa = cols[6] || "-";
 
       // solo partidos donde juegue LARRAUN
-      if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) return;
+      const esLarraun =
+  etxekoa.includes("LARRAUN") ||
+  kanpokoak.includes("LARRAUN") ||
+  CONVERSION.some(rule =>
+    etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
+  );
+
+if (!esLarraun) return;
+
 
       partidos.push({
         fecha,
