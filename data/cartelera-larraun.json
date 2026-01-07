@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (J. Chasco - I. Gomez)",
@@ -136,12 +136,21 @@
   },
   {
     "fecha": "2026/01/10",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (I. Garcia - I. Iturbide)",
     "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro)",
     "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/10",
+    "hora": "18:00",
+    "zkia": "1",
+    "fronton": "Eugui - Larrain Toki",
+    "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
+    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KADETE 1. 1. TALDE"
   },
   {
     "fecha": "2026/01/10",
@@ -157,15 +166,6 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
-    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KADETE 1. 1. TALDE"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "LARRAUN (U. Goñi)",
     "kanpokoak": "SORAUREN (I. Iribarren)",
     "lehiaketa": "5½ NKJ - PGOMA NESKA BANAKA 5½ KADETE LIGAXKA"
@@ -174,7 +174,7 @@
     "fecha": "2026/01/11",
     "hora": "11:00",
     "zkia": "1",
-    "fronton": "LEMOA - LEMOA",
+    "fronton": "-",
     "etxekoa": "LEMOA",
     "kanpokoak": "LARRAUN",
     "lehiaketa": "ESKUZ BINAKA GIZONEZKO GAZTEAK LIGA"
