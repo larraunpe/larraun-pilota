@@ -2,28 +2,41 @@ name: Actualizar resultados Larraun
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # cada día a las 06:00
+    - cron: "0 8 * * *"   # 08:00 UTC
+    - cron: "0 17 * * *"  # 17:00 UTC
   workflow_dispatch:
 
 jobs:
-  update:
+  update-resultados:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - run: npm install jsdom
+      - name: Instalar dependencias
+        run: npm install jsdom
 
-      - run: node scripts/scrape-resultados.js
+      - name: Ejecutar scraper de resultados
+        run: node scripts/scrape-resultados.js
 
-      - run: |
+      - name: Commit automático si hay cambios
+        run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
 
           git add data/resultados-larraun.json
-          git commit -m "🏁 Actualiza resultados Larraun" || echo "Sin cambios"
-          git push origin main
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ Sin cambios en resultados"
+          else
+            git commit -m "🏁 Actualiza resultados Larraun"
+            git push origin main
+          fi
