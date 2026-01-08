@@ -4,53 +4,25 @@ import fs from "fs";
 
 const URL = "https://www.fnpelota.com/pub/competicion.asp?idioma=eu";
 
-// --------------------------------------------------
-// UTILIDADES
-// --------------------------------------------------
+/* ---------- helpers ---------- */
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(
-      url,
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120",
-          Accept: "text/html"
-        }
-      },
-      res => {
-        let data = "";
-        res.on("data", chunk => (data += chunk));
-        res.on("end", () => resolve(data));
-      }
-    ).on("error", reject);
+    https.get(url, res => {
+      let data = "";
+      res.on("data", d => (data += d));
+      res.on("end", () => resolve(data));
+    }).on("error", reject);
   });
 }
 
-function limpiar(texto) {
-  return texto
-    .replace(/\s+/g, " ")
-    .replace(/\u00a0/g, " ")
-    .trim();
-}
-
-// --------------------------------------------------
-// FECHAS (semana actual + anterior)
-// --------------------------------------------------
-function parseFecha(fechaTexto) {
-  // formatos tipo: 08/01/2026 o 8/1/26
-  const m = fechaTexto.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
-  if (!m) return null;
-
-  let [, d, mth, y] = m;
-  if (y.length === 2) y = "20" + y;
-
-  return new Date(`${y}-${mth.padStart(2, "0")}-${d.padStart(2, "0")}`);
+function normalizarFecha(fechaStr) {
+  // esperado: dd/mm/yyyy
+  const [d, m, y] = fechaStr.split("/").map(Number);
+  if (!d || !m || !y) return null;
+  return new Date(y, m - 1, d);
 }
 
 function fechaEnRango(fecha) {
-  if (!fecha) return false;
-
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
@@ -60,98 +32,68 @@ function fechaEnRango(fecha) {
   const inicioSemanaAnterior = new Date(inicioSemanaActual);
   inicioSemanaAnterior.setDate(inicioSemanaActual.getDate() - 7);
 
-  const finSemanaActual = new Date(inicioSemanaActual);
-  finSemanaActual.setDate(inicioSemanaActual.getDate() + 7);
-
-  return fecha >= inicioSemanaAnterior && fecha < finSemanaActual;
+  return fecha >= inicioSemanaAnterior && fecha <= hoy;
 }
 
-// --------------------------------------------------
-// REGLAS DE CONVERSIÓN
-// --------------------------------------------------
-const CONVERSION = [
-  {
-    match: "D. Centeno - B. Esnaola",
-    value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
-  },
-  {
-    match: "X. Goldaracena - E. Astibia",
-    value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)"
-  },
-  {
-    match: "A. Balda - U. Arcelus",
-    value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
-  },
-  {
-    match: "M. Goikoetxea - G. Uitzi",
-    value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
-  }
-];
-
-function convertirPareja(texto) {
-  if (!texto) return "-";
-  const limpio = limpiar(texto);
-
-  for (const r of CONVERSION) {
-    if (limpio.includes(r.match)) return r.value;
-  }
-  return limpio;
+function contieneLarraun(texto) {
+  return texto && texto.toUpperCase().includes("LARRAUN");
 }
 
-function esParejaLarraun(texto) {
-  if (!texto) return false;
-  if (texto.includes("LARRAUN")) return true;
-  return CONVERSION.some(r => texto.includes(r.match));
-}
-
-// --------------------------------------------------
-// MAIN
-// --------------------------------------------------
+/* ---------- main ---------- */
 (async () => {
   try {
     const html = await getHTML(URL);
     const dom = new JSDOM(html);
     const document = dom.window.document;
 
-    const filas = [...document.querySelectorAll("tr")];
     const resultados = [];
 
-    filas.forEach(tr => {
-      const tds = [...tr.querySelectorAll("td")];
-      if (tds.length < 6) return;
+    // solo tablas "grandes" (evita cabeceras)
+    const tables = [...document.querySelectorAll("table")].filter(
+      t => t.querySelectorAll("tr td").length > 10
+    );
 
-      const textos = tds.map(td => limpiar(td.textContent));
+    tables.forEach(table => {
+      const rows = [...table.querySelectorAll("tr")];
 
-      // Intento flexible de columnas
-      const fechaTexto = textos.find(t => /\d{1,2}[\/\-]\d{1,2}/.test(t));
-      const tanteoa = textos.find(t => /\d+\s*-\s*\d+/.test(t));
-      const etxekoa = textos.find(t => t.includes("("));
-      const kanpokoak = textos.reverse().find(t => t.includes("("));
-      const fronton = textos.find(t => t.includes("-"));
-      const lehiaketa = textos.find(t => t.length > 10 && !t.includes("("));
+      rows.forEach(row => {
+        const tds = [...row.querySelectorAll("td")];
+        if (tds.length < 5) return;
 
-      const fecha = parseFecha(fechaTexto);
+        const text = tds.map(td =>
+          td.textContent.replace(/\s+/g, " ").trim()
+        );
 
-      if (!fechaEnRango(fecha)) return;
-      if (!esParejaLarraun(etxekoa) && !esParejaLarraun(kanpokoak)) return;
-      if (!tanteoa) return;
+        const fechaRaw = text.find(t => /\d{2}\/\d{2}\/\d{4}/.test(t));
+        if (!fechaRaw) return;
 
-      // resultado
-      let emaitza = "galduta";
-      const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
-      const larraunEtxe = esParejaLarraun(etxekoa);
-      if ((larraunEtxe && a > b) || (!larraunEtxe && b > a)) {
-        emaitza = "irabazita";
-      }
+        const fecha = normalizarFecha(fechaRaw);
+        if (!fecha || !fechaEnRango(fecha)) return;
 
-      resultados.push({
-        fecha: fechaTexto,
-        fronton: fronton || "-",
-        etxekoa: convertirPareja(etxekoa),
-        kanpokoak: convertirPareja(kanpokoak),
-        tanteoa,
-        lehiaketa: lehiaketa || "-",
-        emaitza
+        const etxekoa = text.find(t => contieneLarraun(t)) || "";
+        const kanpokoak = text.reverse().find(t => contieneLarraun(t)) || "";
+
+        if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) return;
+
+        const tanteoa = text.find(t => /^\d{1,2}-\d{1,2}/.test(t)) || "-";
+
+        let emaitza = "";
+        if (tanteoa.includes("-")) {
+          const [a, b] = tanteoa.split("-").map(Number);
+          const larraunEtxean = contieneLarraun(etxekoa);
+          emaitza =
+            (larraunEtxean && a > b) || (!larraunEtxean && b > a)
+              ? "irabazita"
+              : "galduta";
+        }
+
+        resultados.push({
+          fecha: fechaRaw,
+          etxekoa,
+          kanpokoak,
+          tanteoa,
+          emaitza
+        });
       });
     });
 
@@ -162,8 +104,8 @@ function esParejaLarraun(texto) {
     );
 
     console.log(`✔ Resultados encontrados: ${resultados.length}`);
-
-  } catch (err) {
-    console.error("⚠️ Error scraping FNP, se mantiene último JSON", err);
+  } catch (e) {
+    console.error("❌ Error scraping:", e);
+    process.exit(1);
   }
 })();
