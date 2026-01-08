@@ -24,8 +24,6 @@ jobs:
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
 
-          git pull --rebase origin main
-
           git add data/resultados-larraun.json
           git commit -m "🏁 Actualiza resultados Larraun" || echo "Sin cambios"
           git push origin main
