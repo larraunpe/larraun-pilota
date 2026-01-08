@@ -4,7 +4,7 @@ import fs from "fs";
 
 const URL = "https://www.fnpelota.com/pub/competicion.asp?idioma=eu";
 
-/* ---------- helpers ---------- */
+/* ---------- util ---------- */
 function getHTML(url) {
   return new Promise((resolve, reject) => {
     https.get(url, res => {
@@ -16,7 +16,6 @@ function getHTML(url) {
 }
 
 function normalizarFecha(fechaStr) {
-  // esperado: dd/mm/yyyy
   const [d, m, y] = fechaStr.split("/").map(Number);
   if (!d || !m || !y) return null;
   return new Date(y, m - 1, d);
@@ -35,8 +34,40 @@ function fechaEnRango(fecha) {
   return fecha >= inicioSemanaAnterior && fecha <= hoy;
 }
 
-function contieneLarraun(texto) {
-  return texto && texto.toUpperCase().includes("LARRAUN");
+/* ---------- reglas parejas ---------- */
+const CONVERSION = [
+  {
+    match: "D. Centeno - B. Esnaola",
+    value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
+  },
+  {
+    match: "X. Goldaracena - E. Astibia",
+    value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)"
+  },
+  {
+    match: "A. Balda - U. Arcelus",
+    value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
+  },
+  {
+    match: "M. Goikoetxea - G. Uitzi",
+    value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
+  }
+];
+
+function convertirPareja(texto) {
+  if (!texto) return "-";
+  const limpio = texto.replace(/\s+/g, " ").trim();
+
+  for (const r of CONVERSION) {
+    if (limpio.includes(r.match)) return r.value;
+  }
+  return limpio;
+}
+
+function esParejaLarraun(texto) {
+  if (!texto) return false;
+  if (texto.toUpperCase().includes("LARRAUN")) return true;
+  return CONVERSION.some(r => texto.includes(r.match));
 }
 
 /* ---------- main ---------- */
@@ -48,9 +79,8 @@ function contieneLarraun(texto) {
 
     const resultados = [];
 
-    // solo tablas "grandes" (evita cabeceras)
     const tables = [...document.querySelectorAll("table")].filter(
-      t => t.querySelectorAll("tr td").length > 10
+      t => t.querySelectorAll("td").length > 10
     );
 
     tables.forEach(table => {
@@ -58,39 +88,39 @@ function contieneLarraun(texto) {
 
       rows.forEach(row => {
         const tds = [...row.querySelectorAll("td")];
-        if (tds.length < 5) return;
+        if (tds.length < 6) return;
 
-        const text = tds.map(td =>
+        const cols = tds.map(td =>
           td.textContent.replace(/\s+/g, " ").trim()
         );
 
-        const fechaRaw = text.find(t => /\d{2}\/\d{2}\/\d{4}/.test(t));
+        const fechaRaw = cols.find(c => /\d{2}\/\d{2}\/\d{4}/.test(c));
         if (!fechaRaw) return;
 
-        const fecha = normalizarFecha(fechaRaw);
-        if (!fecha || !fechaEnRango(fecha)) return;
+        const fechaObj = normalizarFecha(fechaRaw);
+        if (!fechaObj || !fechaEnRango(fechaObj)) return;
 
-        const etxekoa = text.find(t => contieneLarraun(t)) || "";
-        const kanpokoak = text.reverse().find(t => contieneLarraun(t)) || "";
+        const etxekoa = cols[2] || "";
+        const kanpokoak = cols[3] || "";
 
-        if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) return;
+        if (!esParejaLarraun(etxekoa) && !esParejaLarraun(kanpokoak)) return;
 
-        const tanteoa = text.find(t => /^\d{1,2}-\d{1,2}/.test(t)) || "-";
+        const tanteoa = cols.find(c => /^\d{1,2}-\d{1,2}/.test(c)) || "-";
 
         let emaitza = "";
         if (tanteoa.includes("-")) {
           const [a, b] = tanteoa.split("-").map(Number);
-          const larraunEtxean = contieneLarraun(etxekoa);
+          const larraunEtxe = esParejaLarraun(etxekoa);
           emaitza =
-            (larraunEtxean && a > b) || (!larraunEtxean && b > a)
+            (larraunEtxe && a > b) || (!larraunEtxe && b > a)
               ? "irabazita"
               : "galduta";
         }
 
         resultados.push({
           fecha: fechaRaw,
-          etxekoa,
-          kanpokoak,
+          etxekoa: convertirPareja(etxekoa),
+          kanpokoak: convertirPareja(kanpokoak),
           tanteoa,
           emaitza
         });
@@ -103,9 +133,9 @@ function contieneLarraun(texto) {
       JSON.stringify(resultados, null, 2)
     );
 
-    console.log(`✔ Resultados encontrados: ${resultados.length}`);
-  } catch (e) {
-    console.error("❌ Error scraping:", e);
+    console.log(`✔ Resultados válidos: ${resultados.length}`);
+  } catch (err) {
+    console.error("❌ Error scraping resultados:", err);
     process.exit(1);
   }
 })();
