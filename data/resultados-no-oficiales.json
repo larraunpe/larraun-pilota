@@ -1,1 +1,39 @@
-[]
+[
+  {
+  "fecha": "2025/12/29",
+  "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU LIGAXKA",
+  "fronton": "Tafalla – Ereta",
+  "etxekoa": "HUARTE (Herce – Bronte)",
+  "kanpokoak": "LARRAUN – ABAXITABIDEA (Centeno – Amorena)",
+  "tanteoa": "6-18",
+  "emaitza": "IRABAZITA"
+},
+{
+  "fecha": "2026/01/03",
+  "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
+  "fronton": "Tolosa – Beotibar",
+  "etxekoa": "KURENE – LARRAUN (Ramirez – Garaño)",
+  "kanpokoak": "AZOITIA – LAPKE (Aranbarri – Goiburu)",
+  "tanteoa": "22-13",
+  "emaitza": "IRABAZITA"
+},
+{
+  "fecha": "2026/01/04",
+  "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU FINALERDIAK",
+  "fronton": "Tafalla – Ereta",
+  "etxekoa": "ULZAMA (Landiribar – Otegi)",
+  "kanpokoak": "LARRAUN – ABAXITABIDEA (Centeno – Amorena)",
+  "tanteoa": "18-9",
+  "emaitza": "GALDUTA"
+},
+{
+  "fecha": "2026/01/04",
+  "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
+  "fronton": "Tolosa – Beotibar",
+  "etxekoa": "BEHAR ZANA – MARKINA (Cestau – Calvo)",
+  "kanpokoak": "LARRAUN (Nazabal – Sotil)",
+  "tanteoa": "8-22",
+  "emaitza": "IRABAZITA"
+}
+
+]
