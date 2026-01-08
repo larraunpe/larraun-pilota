@@ -1,0 +1,44 @@
+[
+  {
+    "izena": "AURREBENJAMINAK",
+    "min": 0,
+    "max": 8,
+    "kolorea": "#c7b299"
+  },
+  {
+    "izena": "BENJAMINAK",
+    "min": 9,
+    "max": 10,
+    "kolorea": "#f39c12"
+  },
+  {
+    "izena": "ALEBINAK",
+    "min": 11,
+    "max": 12,
+    "kolorea": "#f1c40f"
+  },
+  {
+    "izena": "INFANTILAK",
+    "min": 13,
+    "max": 14,
+    "kolorea": "#27ae60"
+  },
+  {
+    "izena": "KADETEAK",
+    "min": 15,
+    "max": 16,
+    "kolorea": "#00bcd4"
+  },
+  {
+    "izena": "JUBENILAK",
+    "min": 17,
+    "max": 18,
+    "kolorea": "#1f3c88"
+  },
+  {
+    "izena": "NAGUSIAK",
+    "min": 19,
+    "max": 99,
+    "kolorea": "#607d8b"
+  }
+]
