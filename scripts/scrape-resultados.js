@@ -4,18 +4,71 @@ import fs from "fs";
 
 const URL = "https://www.fnpelota.com/pub/competicion.asp?idioma=eu";
 
-// ---------------- util ----------------
+// --------------------------------------------------
+// UTILIDADES
+// --------------------------------------------------
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", chunk => data += chunk);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https.get(
+      url,
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120",
+          Accept: "text/html"
+        }
+      },
+      res => {
+        let data = "";
+        res.on("data", chunk => (data += chunk));
+        res.on("end", () => resolve(data));
+      }
+    ).on("error", reject);
   });
 }
 
-// ---------------- reglas parejas ----------------
+function limpiar(texto) {
+  return texto
+    .replace(/\s+/g, " ")
+    .replace(/\u00a0/g, " ")
+    .trim();
+}
+
+// --------------------------------------------------
+// FECHAS (semana actual + anterior)
+// --------------------------------------------------
+function parseFecha(fechaTexto) {
+  // formatos tipo: 08/01/2026 o 8/1/26
+  const m = fechaTexto.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
+  if (!m) return null;
+
+  let [, d, mth, y] = m;
+  if (y.length === 2) y = "20" + y;
+
+  return new Date(`${y}-${mth.padStart(2, "0")}-${d.padStart(2, "0")}`);
+}
+
+function fechaEnRango(fecha) {
+  if (!fecha) return false;
+
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+
+  const inicioSemanaActual = new Date(hoy);
+  inicioSemanaActual.setDate(hoy.getDate() - hoy.getDay());
+
+  const inicioSemanaAnterior = new Date(inicioSemanaActual);
+  inicioSemanaAnterior.setDate(inicioSemanaActual.getDate() - 7);
+
+  const finSemanaActual = new Date(inicioSemanaActual);
+  finSemanaActual.setDate(inicioSemanaActual.getDate() + 7);
+
+  return fecha >= inicioSemanaAnterior && fecha < finSemanaActual;
+}
+
+// --------------------------------------------------
+// REGLAS DE CONVERSIÓN
+// --------------------------------------------------
 const CONVERSION = [
   {
     match: "D. Centeno - B. Esnaola",
@@ -37,15 +90,11 @@ const CONVERSION = [
 
 function convertirPareja(texto) {
   if (!texto) return "-";
+  const limpio = limpiar(texto);
 
-  const limpio = texto.replace(/\s+/g, " ").trim();
-
-  for (const rule of CONVERSION) {
-    if (limpio.includes(rule.match)) {
-      return rule.value;
-    }
+  for (const r of CONVERSION) {
+    if (limpio.includes(r.match)) return r.value;
   }
-
   return limpio;
 }
 
@@ -55,51 +104,53 @@ function esParejaLarraun(texto) {
   return CONVERSION.some(r => texto.includes(r.match));
 }
 
-// ---------------- main ----------------
+// --------------------------------------------------
+// MAIN
+// --------------------------------------------------
 (async () => {
   try {
     const html = await getHTML(URL);
     const dom = new JSDOM(html);
     const document = dom.window.document;
 
-    const rows = [...document.querySelectorAll("table tr")];
+    const filas = [...document.querySelectorAll("tr")];
     const resultados = [];
 
-    rows.forEach(row => {
-      const tds = [...row.querySelectorAll("td")];
-      if (tds.length < 8) return;
+    filas.forEach(tr => {
+      const tds = [...tr.querySelectorAll("td")];
+      if (tds.length < 6) return;
 
-      const cols = tds.map(td =>
-        td.textContent.replace(/\s+/g, " ").trim()
-      );
+      const textos = tds.map(td => limpiar(td.textContent));
 
-      const fecha = cols[0] || "-";
-      const fronton = cols[1] || "-";
-      const etxekoa = cols[2] || "-";
-      const kanpokoak = cols[3] || "-";
-      const tanteoa = cols[4] || "-";
-      const lehiaketa = cols[5] || "-";
+      // Intento flexible de columnas
+      const fechaTexto = textos.find(t => /\d{1,2}[\/\-]\d{1,2}/.test(t));
+      const tanteoa = textos.find(t => /\d+\s*-\s*\d+/.test(t));
+      const etxekoa = textos.find(t => t.includes("("));
+      const kanpokoak = textos.reverse().find(t => t.includes("("));
+      const fronton = textos.find(t => t.includes("-"));
+      const lehiaketa = textos.find(t => t.length > 10 && !t.includes("("));
 
-      // ---- FILTRO CLAVE ----
+      const fecha = parseFecha(fechaTexto);
+
+      if (!fechaEnRango(fecha)) return;
       if (!esParejaLarraun(etxekoa) && !esParejaLarraun(kanpokoak)) return;
+      if (!tanteoa) return;
 
-      // ---- determinar resultado ----
+      // resultado
       let emaitza = "galduta";
-      if (tanteoa.includes("-")) {
-        const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
-        const larraunEtxe = esParejaLarraun(etxekoa);
-        const irabazi =
-          (larraunEtxe && a > b) || (!larraunEtxe && b > a);
-        emaitza = irabazi ? "irabazita" : "galduta";
+      const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
+      const larraunEtxe = esParejaLarraun(etxekoa);
+      if ((larraunEtxe && a > b) || (!larraunEtxe && b > a)) {
+        emaitza = "irabazita";
       }
 
       resultados.push({
-        fecha,
-        fronton,
+        fecha: fechaTexto,
+        fronton: fronton || "-",
         etxekoa: convertirPareja(etxekoa),
         kanpokoak: convertirPareja(kanpokoak),
         tanteoa,
-        lehiaketa,
+        lehiaketa: lehiaketa || "-",
         emaitza
       });
     });
@@ -110,10 +161,9 @@ function esParejaLarraun(texto) {
       JSON.stringify(resultados, null, 2)
     );
 
-    console.log(`✔ Resultados actualizados (${resultados.length})`);
+    console.log(`✔ Resultados encontrados: ${resultados.length}`);
 
   } catch (err) {
-    console.error("❌ Error scraping resultados:", err);
-    process.exit(1);
+    console.error("⚠️ Error scraping FNP, se mantiene último JSON", err);
   }
 })();
