@@ -806,71 +806,25 @@ function openImage(src) {
 <section id="kartelera">
   <h2 class="eu">Kartelera</h2>
   <h2 class="es">Cartelera</h2>
+  <!-- CARTELERA INTERNA LARRAUN -->
+<iframe
+  src="cartelera.html"
+  style="
+    width:100%;
+    height:900px;
+    border:0;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    background:transparent;
+  "
+  loading="lazy"
+  title="Kartelera Larraun">
+</iframe>
+
   <div id="lista-partidos"></div>
-<script>
-(async () => {
-  try {
-    const cont = document.getElementById("lista-partidos");
-    if (!cont) return;
-
-    const oficiales = await fetch("data/cartelera-larraun.json").then(r => r.json());
-    const noOficiales = await fetch("data/partidos-no-oficiales.json").then(r => r.json());
-
-    const partidos = [...oficiales, ...noOficiales];
-
-    partidos.sort((a, b) => {
-      const da = new Date(`${a.fecha} ${a.hora}`);
-      const db = new Date(`${b.fecha} ${b.hora}`);
-      return da - db;
-    });
-
-    partidos.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "match";
-
-      const frontonClass = p.fronton.includes("Lekunberri") ? "lekunberri" : "";
-
-      const etxekoaClass = p.etxekoa.includes("LARRAUN")
-        ? "larraun etxekoa"
-        : "etxekoa";
-
-      const kanpokoakClass = p.kanpokoak.includes("LARRAUN")
-        ? "larraun kanpokoak"
-        : "kanpokoak";
-
-      const isNoOficial = p.ofiziala === false;
-
-      if (isNoOficial) {
-      div.classList.add("no-oficial");
-      }
-
-      const badge = isNoOficial
-      ? `<div class="badge-no-oficial">EZ OFIZIALA</div>`
-      : "";
-
-
-      div.innerHTML = `
-        ${badge}
-        <div class="match-line">🗓 <b>Data:</b> ${p.fecha} · ⏰ <b>Ordua:</b> ${p.hora}</div>
-        <div class="match-line">🔢 <b>Zkia.:</b> ${p.zkia || "-"}</div>
-        <div class="match-line">📍 <b>Frontoia:</b> <span class="${frontonClass}">${p.fronton}</span></div>
-        <div class="match-line">🏠 <b>Etxekoa:</b> <span class="${etxekoaClass}">${p.etxekoa}</span></div>
-        <div class="match-line">✈️ <b>Kanpokoak:</b> <span class="${kanpokoakClass}">${p.kanpokoak}</span></div>
-        <div class="match-line">🏆 <b>Lehiaketa:</b> ${p.lehiaketa || "-"}</div>
-      `;
-
-      cont.appendChild(div);
-    });
-
-  } catch (err) {
-    console.error("Errorea kartelera kargatzean:", err);
-  }
-})();
-</script>
-
   <h3 class="eu" style="margin-top:30px;">Aste honetako kartela</h3>
   <h3 class="es" style="margin-top:30px;">Cartel semanal</h3>
-<div id="cartelera-visual"></div>
+  <div id="cartelera-visual"></div>
 
   <img
     src="images/cartelera/cartel-semanal.jpg"
@@ -931,6 +885,22 @@ function openImage(src) {
 <section id="emaitzak">
   <h2 class="eu">Emaitzak</h2>
   <h2 class="es">Resultados</h2>
+
+  <!-- RESULTADOS INTERNOS LARRAUN -->
+<iframe
+  src="resultados.html"
+  style="
+    width:100%;
+    height:1200px;
+    border:0;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    background:transparent;
+    margin-top:20px;
+  "
+  loading="lazy"
+  title="Resultados Larraun">
+</iframe>
 
   <p class="eu">
     Txapelketa ofizialen emaitzak Nafarroako Pilota Federazioaren webgunean kontsulta daitezke.
