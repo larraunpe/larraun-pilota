@@ -158,32 +158,40 @@ Promise.all([
   partidos.forEach(p => {
     const emaitza = p.emaitza || "";
 
-    const div = document.createElement("div");
-    div.className = `partido ${emaitza} ${p.ofiziala ? "oficial" : "no-oficial"}`;
+const etxekoa = p.etxekoa || "LARRAUN";
+const kanpokoak = p.kanpokoak || "Aurkaria";
 
-    const etxClass = p.etxekoa.includes("LARRAUN")
-      ? "etxekoa larraun"
-      : "etxekoa";
+const etxClass = etxekoa.includes("LARRAUN")
+  ? "etxekoa larraun"
+  : "etxekoa";
+
+const kanpClass = kanpokoak.includes("LARRAUN")
+  ? "kanpokoak larraun"
+  : "kanpokoak";
+
 
     const kanpClass = p.kanpokoak.includes("LARRAUN")
       ? "kanpokoak larraun"
       : "kanpokoak";
 
     div.innerHTML = `
-      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
+  ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
 
-      <div class="fecha">🗓 ${p.fecha}</div>
+  <div class="fecha">🗓 ${p.fecha}</div>
 
-      <div class="equipos">
-        <div class="${etxClass}">🏠 ${p.etxekoa}</div>
-        <div class="${kanpClass}">✈️ ${p.kanpokoak}</div>
-      </div>
+  <div class="equipos">
+    <div class="${etxClass}">🏠 ${etxekoa}</div>
+    <div class="${kanpClass}">✈️ ${kanpokoak}</div>
+  </div>
 
-      <div class="tanteoa">${p.tanteoa}</div>
+  <div class="tanteoa">
+    ${p.tanteoa || p.resultado}
+    ${p.sets ? `<div style="font-size:0.8em;">(${p.sets.join(", ")})</div>` : ""}
+  </div>
 
-      <div class="fronton">📍 ${p.fronton}</div>
-      <div class="lehiaketa">🏆 ${p.lehiaketa}</div>
-    `;
+  <div class="fronton">📍 ${p.fronton || ""}</div>
+  ${p.lehiaketa ? `<div class="lehiaketa">🏆 ${p.lehiaketa}</div>` : ""}
+`;
 
     cont.appendChild(div);
   });
