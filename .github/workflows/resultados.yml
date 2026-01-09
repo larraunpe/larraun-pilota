@@ -2,13 +2,12 @@ name: Actualizar resultados Larraun
 
 on:
   schedule:
-    - cron: "0 8 * * *"
-    - cron: "0 17 * * *"
-    - cron: "0 20 * * *"
-    - cron: "0 21 * * *"
-    - cron: "0 22 * * *"
+    - cron: "0 6 * * *"    # 08:00 hora local aprox
+    - cron: "0 15 * * *"   # 17:00 local
+    - cron: "0 18 * * *"   # 20:00 local
+    - cron: "0 19 * * *"   # 21:00 local
+    - cron: "0 20 * * *"   # 22:00 local
   workflow_dispatch:
-
 
 jobs:
   update-resultados:
@@ -29,7 +28,10 @@ jobs:
         run: npm install jsdom
 
       - name: Ejecutar scraper de resultados
-        run: node scripts/scrape-resultados.js
+        run: |
+          node scripts/scrape-resultados.js
+          echo "📄 Resultados generados:"
+          cat data/resultados-larraun.json || echo "❌ Archivo no generado"
 
       - name: Commit automático si hay cambios
         run: |
