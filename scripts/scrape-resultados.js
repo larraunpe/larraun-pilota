@@ -1,141 +1,139 @@
-import https from "https";
-import { JSDOM } from "jsdom";
 import fs from "fs";
+import { JSDOM } from "jsdom";
 
-const URL = "https://www.fnpelota.com/pub/competicion.asp?idioma=eu";
+/* =========================
+   CONFIGURACIÓN
+========================= */
 
-/* ---------- util ---------- */
-function getHTML(url) {
-  return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", d => (data += d));
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
-  });
-}
+const URLS = [
+  // Puedes añadir más competiciones si quieres
+  "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=ca&idCompeticion=3060"
+];
 
-function normalizarFecha(fechaStr) {
-  const [d, m, y] = fechaStr.split("/").map(Number);
-  if (!d || !m || !y) return null;
+const OUTPUT_FILE = "data/resultados-larraun.json";
+
+/* =========================
+   UTILIDADES FECHA
+========================= */
+
+function parseFecha(str) {
+  const [d, m, y] = str.split("/").map(Number);
   return new Date(y, m - 1, d);
 }
 
-function fechaEnRango(fecha) {
+function estaEnSemanaActualOAnterior(fecha) {
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
   const inicioSemanaActual = new Date(hoy);
-  inicioSemanaActual.setDate(hoy.getDate() - hoy.getDay());
+  inicioSemanaActual.setDate(hoy.getDate() - hoy.getDay() + 1);
 
   const inicioSemanaAnterior = new Date(inicioSemanaActual);
   inicioSemanaAnterior.setDate(inicioSemanaActual.getDate() - 7);
 
-  return fecha >= inicioSemanaAnterior && fecha <= hoy;
+  return fecha >= inicioSemanaAnterior;
 }
 
-/* ---------- reglas parejas ---------- */
-const CONVERSION = [
-  {
-    match: "D. Centeno - B. Esnaola",
-    value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
-  },
-  {
-    match: "X. Goldaracena - E. Astibia",
-    value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)"
-  },
-  {
-    match: "A. Balda - U. Arcelus",
-    value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
-  },
-  {
-    match: "M. Goikoetxea - G. Uitzi",
-    value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
-  }
-];
+/* =========================
+   SCRAPER PRINCIPAL
+========================= */
 
-function convertirPareja(texto) {
-  if (!texto) return "-";
-  const limpio = texto.replace(/\s+/g, " ").trim();
+async function scrape() {
+  const resultados = [];
 
-  for (const r of CONVERSION) {
-    if (limpio.includes(r.match)) return r.value;
-  }
-  return limpio;
-}
+  for (const url of URLS) {
+    console.log("🔎 Analizando:", url);
 
-function esParejaLarraun(texto) {
-  if (!texto) return false;
-  if (texto.toUpperCase().includes("LARRAUN")) return true;
-  return CONVERSION.some(r => texto.includes(r.match));
-}
-
-/* ---------- main ---------- */
-(async () => {
-  try {
-    const html = await getHTML(URL);
+    const html = await fetch(url).then(r => r.text());
     const dom = new JSDOM(html);
     const document = dom.window.document;
 
-    const resultados = [];
+    const filas = Array.from(document.querySelectorAll("tr"));
 
-    const tables = [...document.querySelectorAll("table")].filter(
-      t => t.querySelectorAll("td").length > 10
-    );
+    for (let i = 0; i < filas.length; i++) {
+      const tr = filas[i];
+      const texto = tr.textContent.replace(/\s+/g, " ").toUpperCase();
 
-    tables.forEach(table => {
-      const rows = [...table.querySelectorAll("tr")];
+      if (!texto.includes("LARRAUN")) continue;
 
-      rows.forEach(row => {
-        const tds = [...row.querySelectorAll("td")];
-        if (tds.length < 6) return;
+      // ── RESULTADO ─────────────────────────────
+      const resultadoMatch = texto.match(/(\d+)\s*-\s*(\d+)/);
+      if (!resultadoMatch) continue;
 
-        const cols = tds.map(td =>
-          td.textContent.replace(/\s+/g, " ").trim()
-        );
+      const resultado = `${resultadoMatch[1]}-${resultadoMatch[2]}`;
 
-        const fechaRaw = cols.find(c => /\d{2}\/\d{2}\/\d{4}/.test(c));
-        if (!fechaRaw) return;
+      // ── SETS ─────────────────────────────────
+      const sets = [];
+      const setRegex = /\((\d+\s*-\s*\d+)\)/g;
+      let m;
+      while ((m = setRegex.exec(tr.textContent)) !== null) {
+        sets.push(m[1].replace(/\s*/g, ""));
+      }
 
-        const fechaObj = normalizarFecha(fechaRaw);
-        if (!fechaObj || !fechaEnRango(fechaObj)) return;
+      // ── FECHA (buscar hacia arriba) ──────────
+      let fechaTexto = null;
+      let k = i;
+      while (k >= 0 && !fechaTexto) {
+        const t = filas[k].textContent;
+        const fm = t.match(/\d{2}\/\d{2}\/\d{4}/);
+        if (fm) fechaTexto = fm[0];
+        k--;
+      }
 
-        const etxekoa = cols[2] || "";
-        const kanpokoak = cols[3] || "";
+      if (!fechaTexto) continue;
 
-        if (!esParejaLarraun(etxekoa) && !esParejaLarraun(kanpokoak)) return;
+      const fecha = parseFecha(fechaTexto);
+      if (!estaEnSemanaActualOAnterior(fecha)) continue;
 
-        const tanteoa = cols.find(c => /^\d{1,2}-\d{1,2}/.test(c)) || "-";
+      // ── FRONTÓN ──────────────────────────────
+      let fronton = "Desconocido";
+      const frontonMatch = tr.textContent.match(/Lekunberri[^0-9\n]*/i);
+      if (frontonMatch) fronton = frontonMatch[0].trim();
 
-        let emaitza = "";
-        if (tanteoa.includes("-")) {
-          const [a, b] = tanteoa.split("-").map(Number);
-          const larraunEtxe = esParejaLarraun(etxekoa);
-          emaitza =
-            (larraunEtxe && a > b) || (!larraunEtxe && b > a)
-              ? "irabazita"
-              : "galduta";
-        }
-
-        resultados.push({
-          fecha: fechaRaw,
-          etxekoa: convertirPareja(etxekoa),
-          kanpokoak: convertirPareja(kanpokoak),
-          tanteoa,
-          emaitza
-        });
+      resultados.push({
+        fecha: fechaTexto,
+        resultado,
+        sets,
+        fronton,
+        url
       });
-    });
 
-    fs.mkdirSync("data", { recursive: true });
-    fs.writeFileSync(
-      "data/resultados-larraun.json",
-      JSON.stringify(resultados, null, 2)
-    );
-
-    console.log(`✔ Resultados válidos: ${resultados.length}`);
-  } catch (err) {
-    console.error("❌ Error scraping resultados:", err);
-    process.exit(1);
+      console.log(`✔ Resultado encontrado ${fechaTexto} → ${resultado}`);
+    }
   }
-})();
+
+  guardarResultados(resultados);
+}
+
+/* =========================
+   GUARDAR JSON
+========================= */
+
+function guardarResultados(nuevos) {
+  let existentes = [];
+
+  if (fs.existsSync(OUTPUT_FILE)) {
+    existentes = JSON.parse(fs.readFileSync(OUTPUT_FILE, "utf8"));
+  }
+
+  const mapa = new Map();
+  [...existentes, ...nuevos].forEach(r => {
+    mapa.set(`${r.fecha}-${r.resultado}-${r.fronton}`, r);
+  });
+
+  const finales = Array.from(mapa.values()).sort(
+    (a, b) => parseFecha(b.fecha) - parseFecha(a.fecha)
+  );
+
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(finales, null, 2), "utf8");
+  console.log(`💾 Guardados ${finales.length} resultados`);
+}
+
+/* =========================
+   EJECUCIÓN
+========================= */
+
+scrape().catch(err => {
+  console.error("❌ Error en scraper:", err);
+  process.exit(1);
+});
