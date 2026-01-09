@@ -1,0 +1,38 @@
+pelotari (
+  id INTEGER PRIMARY KEY,
+  izena TEXT,
+  abizena TEXT,
+  jaiotza DATE,
+  modalitatea TEXT,   -- MANO / PALA
+  aktibo BOOLEAN
+)
+denboraldia (
+  id INTEGER PRIMARY KEY,
+  izena TEXT,          -- "2025-2026"
+  hasiera DATE,        -- 2025-09-01
+  amaiera DATE         -- 2026-08-31
+)
+kategoria (
+  id INTEGER PRIMARY KEY,
+  kodea TEXT,          -- KIMU, HAUR, KADETE...
+  izena TEXT,
+  adin_min INTEGER,
+  adin_max INTEGER,
+  kolorea TEXT
+)
+pelotari_denboraldia (
+  pelotari_id INTEGER,
+  denboraldia_id INTEGER,
+  adina INTEGER,
+  kategoria_id INTEGER
+)
+taldea (
+  id INTEGER PRIMARY KEY,
+  izena TEXT,          -- Taldea A
+  modalitatea TEXT     -- MANO / PALA
+)
+talde_pelotari (
+  taldea_id INTEGER,
+  pelotari_id INTEGER,
+  denboraldia_id INTEGER
+)
