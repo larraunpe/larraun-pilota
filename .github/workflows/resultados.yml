@@ -4,7 +4,11 @@ on:
   schedule:
     - cron: "0 8 * * *"   # 08:00 UTC
     - cron: "0 17 * * *"  # 17:00 UTC
-  workflow_dispatch:
+    - cron: "0 20 * * *"  # 20:00 UTC
+    - cron: "0 21 * * *"  # 21:00 UTC
+    - cron: "0 22 * * *"  # 22:00 UTC
+  
+    workflow_dispatch:
 
 jobs:
   update-resultados:
