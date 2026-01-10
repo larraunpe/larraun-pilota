@@ -52,6 +52,9 @@ function calcularEmaitza(etx, kanpo, res) {
   if ((lE && a > b) || (lK && b > a)) return "irabazita";
   return "galduta";
 }
+function makeURL(href) {
+  return new URL(href, "https://www.fnpelota.com/pub/").href;
+}
 
 // ================= FECHAS =================
 function parseFechaEU(f) {
@@ -139,9 +142,10 @@ async function scrapeModalidad(url, nombre) {
       const modalidades = [...catDoc.querySelectorAll("a")]
         .filter(a => a.href.includes("ModalidadComp.asp"))
         .map(a => ({
-          url: BASE + a.getAttribute("href"),
+          url: makeURL(a.getAttribute("href")),
           nombre: limpiar(a.textContent)
         }));
+
 
       for (const mod of modalidades) {
         try {
