@@ -129,8 +129,17 @@ async function scrapeModalidad(url, nombre) {
 
     // categorías
     const categorias = [...doc.querySelectorAll("a")]
-      .filter(a => a.href.includes("modalidadescompeticion.asp"))
-      .map(a => BASE + a.getAttribute("href"));
+      .filter(a => {
+        const href = a.getAttribute("href");
+        return (
+          href &&
+          href.includes("modalidadescompeticion.asp") &&
+          !href.startsWith("javascript") &&
+          !href.startsWith("#")
+        );
+      })
+      .map(a => new URL(href = a.getAttribute("href"), BASE).href);
+
 
     let resultados = [];
 
@@ -140,11 +149,20 @@ async function scrapeModalidad(url, nombre) {
       const catDoc = catDOM.window.document;
 
       const modalidades = [...catDoc.querySelectorAll("a")]
-        .filter(a => a.href.includes("ModalidadComp.asp"))
-        .map(a => ({
-          url: makeURL(a.getAttribute("href")),
-          nombre: limpiar(a.textContent)
-        }));
+      .filter(a => {
+        const href = a.getAttribute("href");
+        return (
+          href &&
+          href.includes("ModalidadComp.asp") &&
+          !href.startsWith("javascript") &&
+          !href.startsWith("#")
+        );
+      })
+      .map(a => ({
+        url: makeURL(a.getAttribute("href")),
+        nombre: limpiar(a.textContent)
+      }));
+
 
 
       for (const mod of modalidades) {
