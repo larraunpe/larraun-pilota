@@ -54,16 +54,19 @@ function parseFechaEU(f) {
 
 function fechaEnRango(fechaStr) {
   const f = parseFechaEU(fechaStr);
+  if (isNaN(f)) return false;
+
   const hoy = new Date();
 
-  const inicioSemanaActual = new Date(hoy);
-  inicioSemanaActual.setDate(hoy.getDate() - hoy.getDay());
+  const desde = new Date(hoy);
+  desde.setDate(hoy.getDate() - 14);
 
-  const inicioSemanaAnterior = new Date(inicioSemanaActual);
-  inicioSemanaAnterior.setDate(inicioSemanaActual.getDate() - 7);
+  const hasta = new Date(hoy);
+  hasta.setDate(hoy.getDate() + 7);
 
-  return f >= inicioSemanaAnterior && f <= hoy;
+  return f >= desde && f <= hasta;
 }
+
 
 // ================= EMAITZA =================
 function calcularEmaitza(etx, kanpo, tanteoa) {
