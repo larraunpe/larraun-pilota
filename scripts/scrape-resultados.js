@@ -2,91 +2,203 @@ import https from "https";
 import { JSDOM } from "jsdom";
 import fs from "fs";
 
+// ================= CONFIG =================
 const BASE = "https://www.fnpelota.com";
+const START_URL = `${BASE}/pub/competicion.asp?idioma=eu`;
 
-const COMPETICIONES = JSON.parse(
-  fs.readFileSync("data/competiciones-larraun.json", "utf8")
+// ================= PAREJAS MIXTAS =================
+const PAREJAS = JSON.parse(
+  fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
 
+// ================= UTIL =================
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", c => data += c);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(url, res => {
+        let data = "";
+        res.on("data", c => (data += c));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
+
+const clean = t => (t || "").replace(/\s+/g, " ").trim();
+
+function makeURL(href) {
+  try {
+    return new URL(href, BASE).href;
+  } catch {
+    return null;
+  }
+}
+
+// Solo el nombre del equipo (ignora pelotaris)
 function nombreEquipo(txt) {
   return clean(txt).split(/\n|  /)[0];
 }
 
+function convertirPareja(txt) {
+  const limpio = clean(txt);
+  for (const p of PAREJAS) {
+    if (limpio.includes(p.match)) return p.value;
+  }
+  return limpio;
+}
 
-const clean = t => (t || "").replace(/\s+/g, " ").trim();
+function contieneLarraun(txt = "") {
+  if (txt.includes("LARRAUN")) return true;
+  return PAREJAS.some(p => txt.includes(p.match));
+}
 
+// ================= FECHAS =================
+function parseFechaEU(f) {
+  const [y, m, d] = f.split("/").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function fechaEnRango(fechaStr) {
+  const f = parseFechaEU(fechaStr);
+  if (isNaN(f)) return false;
+
+  const hoy = new Date();
+
+  const desde = new Date(hoy);
+  desde.setDate(hoy.getDate() - 14);
+
+  const hasta = new Date(hoy);
+  hasta.setDate(hoy.getDate() + 7);
+
+  return f >= desde && f <= hasta;
+}
+
+// ================= EMAITZA =================
+function calcularEmaitza(etx, kanpo, tanteoa) {
+  const lE = contieneLarraun(etx);
+  const lK = contieneLarraun(kanpo);
+
+  if (!tanteoa || !tanteoa.includes("-")) return "jokatu_gabe";
+
+  const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
+  if (isNaN(a) || isNaN(b)) return "jokatu_gabe";
+
+  if ((lE && a > b) || (lK && b > a)) return "irabazita";
+  return "galduta";
+}
+
+// ================= SCRAPE MODALIDAD =================
+async function scrapeModalidad(url, izena) {
+  const html = await getHTML(url);
+  const dom = new JSDOM(html);
+  const doc = dom.window.document;
+
+  const filas = [...doc.querySelectorAll("table tr")];
+  const resultados = [];
+
+  for (const fila of filas) {
+    const tds = [...fila.querySelectorAll("td")];
+    if (tds.length < 5) continue;
+
+    // Fecha (solo YYYY/MM/DD)
+    const fechaRaw = clean(tds[0].textContent);
+    if (!fechaRaw.includes("/")) continue;
+
+    const fecha = fechaRaw.replace(/(\d{4}\/\d{2}\/\d{2}).*/, "$1");
+    if (!fechaEnRango(fecha)) continue;
+
+    const fronton = clean(tds[1].textContent);
+
+    const etxekoa = convertirPareja(
+      nombreEquipo(tds[2].textContent)
+    );
+    const kanpokoak = convertirPareja(
+      nombreEquipo(tds[4].textContent)
+    );
+
+    // Fuera descansos
+    if (
+      etxekoa.toLowerCase().includes("descanso") ||
+      kanpokoak.toLowerCase().includes("descanso")
+    )
+      continue;
+
+    // Solo partidos con Larraun
+    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak))
+      continue;
+
+    // EMAITZA
+    const emaitzaCell = tds[3];
+
+    const tanteoa = clean(
+      emaitzaCell.childNodes[0]?.textContent
+    ).replace(/\s+/g, "");
+
+    const sets = [...emaitzaCell.querySelectorAll("span")]
+      .map(s => clean(s.textContent.replace(/[()]/g, "")))
+      .filter(s => s.includes("-"));
+
+    resultados.push({
+      fecha,
+      fronton,
+      etxekoa,
+      kanpokoak,
+      tanteoa,
+      sets,
+      lehiaketa: izena,
+      emaitza: calcularEmaitza(etxekoa, kanpokoak, tanteoa),
+      ofiziala: true,
+      url
+    });
+  }
+
+  return resultados;
+}
+
+// ================= MAIN =================
 (async () => {
-  let resultados = [];
-
-  for (const comp of COMPETICIONES) {
-    const url = `${BASE}/pub/ModalidadComp.asp?idioma=eu&idCompeticion=${comp.id}`;
-    const html = await getHTML(url);
+  try {
+    const html = await getHTML(START_URL);
     const dom = new JSDOM(html);
     const doc = dom.window.document;
 
-    const filas = [...doc.querySelectorAll("table tr")];
+    const categoriaLinks = [...doc.querySelectorAll("a")]
+      .map(a => makeURL(a.getAttribute("href")))
+      .filter(h => h && h.includes("modalidadescompeticion.asp"));
 
-    for (const fila of filas) {
-      const tds = [...fila.querySelectorAll("td")];
-      if (tds.length !== 5) continue;
+    let resultados = [];
 
-      const fechaHora = clean(tds[0].textContent)
-       .replace(/\s+/g, " ")
-       .replace(/(\d{4}\/\d{2}\/\d{2}).*/, "$1");
+    for (const cat of categoriaLinks) {
+      try {
+        const catHTML = await getHTML(cat);
+        const catDOM = new JSDOM(catHTML);
+        const catDoc = catDOM.window.document;
 
-      if (!fechaHora.includes("/")) continue;
+        const modalidades = [...catDoc.querySelectorAll("a")]
+          .map(a => ({
+            url: makeURL(a.getAttribute("href")),
+            nombre: clean(a.textContent)
+          }))
+          .filter(m => m.url && m.url.includes("ModalidadComp.asp"));
 
-      const fecha = fechaHora.split(" ")[0];
-      const fronton = clean(tds[1].textContent);
-      const etxekoa = clean(tds[2].textContent);
-      const kanpokoak = clean(tds[4].textContent);
-      const etxekoa = convertirPareja(nombreEquipo(tds[2].textContent));
-      const kanpokoak = convertirPareja(nombreEquipo(tds[4].textContent));
-      if (
-        etxekoa.toLowerCase().includes("descanso") ||
-        kanpokoak.toLowerCase().includes("descanso")
-      ) continue;
-
-      const emaitzaCell = tds[3];
-      const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
-      const sets = [...emaitzaCell.querySelectorAll("span")]
-        .map(s => clean(s.textContent.replace(/[()]/g, "")))
-        .filter(Boolean);
-      const sets = [...emaitzaCell.querySelectorAll("span")]
-       .map(s => clean(s.textContent))
-       .filter(s => s.includes("-"));
-
-      const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent)
-       .replace(/\s+/g, "");
-
-      resultados.push({
-        fecha,
-        fronton,
-        etxekoa,
-        kanpokoak,
-        tanteoa,
-        sets,
-        lehiaketa: comp.nombre,
-        ofiziala: true,
-        url
-      });
+        for (const mod of modalidades) {
+          try {
+            const r = await scrapeModalidad(mod.url, mod.nombre);
+            resultados = resultados.concat(r);
+          } catch {}
+        }
+      } catch {}
     }
+
+    fs.mkdirSync("data", { recursive: true });
+    fs.writeFileSync(
+      "data/resultados-larraun.json",
+      JSON.stringify(resultados, null, 2)
+    );
+
+    console.log(`✔ Oficiales detectados: ${resultados.length}`);
+  } catch (e) {
+    console.error("❌ Error:", e);
+    process.exit(1);
   }
-
-  fs.mkdirSync("data", { recursive: true });
-  fs.writeFileSync(
-    "data/resultados-larraun.json",
-    JSON.stringify(resultados, null, 2)
-  );
-
-  console.log(`✔ Oficiales detectados: ${resultados.length}`);
 })();
