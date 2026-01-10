@@ -26,6 +26,10 @@ jobs:
 
       - name: Instalar dependencias
         run: npm install jsdom
+      
+      - name: 🔍 Prueba modalidad 3060 (debug)
+        run: node scripts/prueba-modalidad.js
+
 
       - name: Ejecutar scraper de resultados
         run: |
