@@ -10,7 +10,7 @@ const MIXTAS = JSON.parse(
   fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
 
-// ---------------- UTILIDADES ----------------
+// ---------------- HELPERS ----------------
 function getHTML(url) {
   return new Promise((resolve, reject) => {
     https.get(url, res => {
@@ -37,42 +37,48 @@ function contieneLarraun(txt = "") {
 }
 
 function calcularEmaitza(local, visitante, resultado) {
-  const lLocal = contieneLarraun(local);
-  const lVis = contieneLarraun(visitante);
+  const l1 = contieneLarraun(local);
+  const l2 = contieneLarraun(visitante);
 
-  if (lLocal && lVis) return "irabazita";
+  if (l1 && l2) return "irabazita";
 
-  if (!resultado.includes("-")) return "irabazita";
+  const m = resultado.match(/(\d+)\s*-\s*(\d+)/);
+  if (!m) return "irabazita";
 
-  const [a, b] = resultado.split("-").map(n => parseInt(n));
-  if (isNaN(a) || isNaN(b)) return "irabazita";
+  const a = parseInt(m[1], 10);
+  const b = parseInt(m[2], 10);
 
-  if ((lLocal && a > b) || (lVis && b > a)) return "irabazita";
+  if ((l1 && a > b) || (l2 && b > a)) return "irabazita";
   return "galduta";
 }
 
-// rango: semana actual + anterior
 function fechaValida(fecha) {
   const [d, m, y] = fecha.split("/").map(Number);
   const f = new Date(y, m - 1, d);
   const hoy = new Date();
 
-  const inicioSemana = new Date(hoy);
-  inicioSemana.setDate(hoy.getDate() - hoy.getDay() - 7);
+  const inicio = new Date(hoy);
+  inicio.setDate(hoy.getDate() - hoy.getDay() - 7);
 
-  return f >= inicioSemana && f <= hoy;
+  return f >= inicio && f <= hoy;
 }
 
-// ---------------- SCRAPE COMPETICIÓN ----------------
+// ---------------- SCRAPER ----------------
 async function scrapeCompeticion(url, nombre) {
   const html = await getHTML(url);
   const dom = new JSDOM(html);
   const doc = dom.window.document;
 
-  const filas = [...doc.querySelectorAll("table tr")];
   const resultados = [];
 
+  const filas = [...doc.querySelectorAll("table tr")];
+
   for (const fila of filas) {
+    const textoFila = clean(fila.textContent);
+
+    // Solo filas con resultado tipo 1 - 2
+    if (!/\d+\s*-\s*\d+/.test(textoFila)) continue;
+
     const tds = [...fila.querySelectorAll("td")];
     if (tds.length < 4) continue;
 
@@ -80,26 +86,33 @@ async function scrapeCompeticion(url, nombre) {
     if (!fechaTxt.includes("/")) continue;
     if (!fechaValida(fechaTxt)) continue;
 
-    const fronton = clean(tds[1]?.textContent || "");
+    const fronton = clean(tds[1].textContent);
 
-    const localRaw = clean(tds[2]?.textContent || "");
-    const visitanteRaw = clean(tds[4]?.textContent || "");
+    // Buscar resultado y sets
+    const resultadoCell = tds.find(td =>
+      /\d+\s*-\s*\d+/.test(td.textContent)
+    );
 
-    if (!localRaw || !visitanteRaw) continue;
+    if (!resultadoCell) continue;
+
+    const resultadoTxt = clean(resultadoCell.textContent);
+    const tanteoa = resultadoTxt.match(/\d+\s*-\s*\d+/)?.[0] || "";
+
+    const sets =
+      resultadoTxt.match(/\(\d+-\d+\)/g)?.map(s =>
+        s.replace(/[()]/g, "")
+      ) || [];
+
+    // Local = celda antes del resultado
+    const idx = tds.indexOf(resultadoCell);
+    const localRaw = clean(tds[idx - 1]?.textContent || "");
+    const visitanteRaw = clean(tds[idx + 1]?.textContent || "");
 
     if (
       !contieneLarraun(localRaw) &&
       !contieneLarraun(visitanteRaw)
     )
       continue;
-
-    const resultadoTxt = clean(tds[3]?.textContent || "");
-
-    const sets = resultadoTxt
-      .match(/\((\d+-\d+)\)/g)
-      ?.map(s => s.replace(/[()]/g, ""));
-
-    const tanteo = resultadoTxt.match(/\d+\s*-\s*\d+/)?.[0] || "";
 
     const local = convertirPareja(localRaw);
     const visitante = convertirPareja(visitanteRaw);
@@ -109,10 +122,10 @@ async function scrapeCompeticion(url, nombre) {
       fronton,
       etxekoa: local,
       kanpokoak: visitante,
-      tanteoa: tanteo,
+      tanteoa,
       sets,
       lehiaketa: nombre,
-      emaitza: calcularEmaitza(local, visitante, tanteo),
+      emaitza: calcularEmaitza(local, visitante, tanteoa),
       ofiziala: true,
       url
     });
@@ -141,7 +154,9 @@ async function scrapeCompeticion(url, nombre) {
       try {
         const r = await scrapeCompeticion(e.url, e.nombre);
         total.push(...r);
-      } catch {}
+      } catch (err) {
+        console.error("⚠️ Error en", e.url);
+      }
     }
 
     fs.mkdirSync("data", { recursive: true });
@@ -152,7 +167,7 @@ async function scrapeCompeticion(url, nombre) {
 
     console.log(`✔ Oficiales detectados: ${total.length}`);
   } catch (err) {
-    console.error("❌ Error:", err);
+    console.error("❌ Error global:", err);
     process.exit(1);
   }
 })();
