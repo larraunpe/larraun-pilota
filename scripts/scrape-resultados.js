@@ -17,6 +17,10 @@ function getHTML(url) {
     }).on("error", reject);
   });
 }
+function nombreEquipo(txt) {
+  return clean(txt).split(/\n|  /)[0];
+}
+
 
 const clean = t => (t || "").replace(/\s+/g, " ").trim();
 
@@ -35,19 +39,34 @@ const clean = t => (t || "").replace(/\s+/g, " ").trim();
       const tds = [...fila.querySelectorAll("td")];
       if (tds.length !== 5) continue;
 
-      const fechaHora = clean(tds[0].textContent);
+      const fechaHora = clean(tds[0].textContent)
+       .replace(/\s+/g, " ")
+       .replace(/(\d{4}\/\d{2}\/\d{2}).*/, "$1");
+
       if (!fechaHora.includes("/")) continue;
 
       const fecha = fechaHora.split(" ")[0];
       const fronton = clean(tds[1].textContent);
       const etxekoa = clean(tds[2].textContent);
       const kanpokoak = clean(tds[4].textContent);
+      const etxekoa = convertirPareja(nombreEquipo(tds[2].textContent));
+      const kanpokoak = convertirPareja(nombreEquipo(tds[4].textContent));
+      if (
+        etxekoa.toLowerCase().includes("descanso") ||
+        kanpokoak.toLowerCase().includes("descanso")
+      ) continue;
 
       const emaitzaCell = tds[3];
       const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
       const sets = [...emaitzaCell.querySelectorAll("span")]
         .map(s => clean(s.textContent.replace(/[()]/g, "")))
         .filter(Boolean);
+      const sets = [...emaitzaCell.querySelectorAll("span")]
+       .map(s => clean(s.textContent))
+       .filter(s => s.includes("-"));
+
+      const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent)
+       .replace(/\s+/g, "");
 
       resultados.push({
         fecha,
