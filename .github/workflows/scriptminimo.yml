@@ -1,0 +1,2 @@
+- name: Prueba modalidad 3060
+  run: node scripts/scriptminimo.js
