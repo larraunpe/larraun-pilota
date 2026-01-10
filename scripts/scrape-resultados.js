@@ -3,15 +3,14 @@ import { JSDOM } from "jsdom";
 import fs from "fs";
 
 // ======================================================
-// CONFIGURACIÓN GENERAL
+// CONFIGURACIÓN
 // ======================================================
 const BASE = "https://www.fnpelota.com";
 const URL_BASE = `${BASE}/pub/ModalidadComp.asp?idioma=eu&idCompeticion=`;
 
-const ID_DESDE = 2700;   // ajustable
-const ID_HASTA = 3800;   // ajustable
-
-const ESPERA_MS = 300;   // pausa entre peticiones (respeto al servidor)
+const ID_DESDE = 2700;
+const ID_HASTA = 3800;
+const ESPERA_MS = 300;
 
 // ======================================================
 // PAREJAS MIXTAS
@@ -29,11 +28,13 @@ function sleep(ms) {
 
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", c => data += c);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(url, res => {
+        let data = "";
+        res.on("data", c => (data += c));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
 
@@ -56,7 +57,6 @@ function convertirPareja(txt) {
 // FECHAS
 // ======================================================
 function parseFechaEU(str) {
-  // Puede venir "2026/01/07 18:00" o "2026/01/07"
   const m = str.match(/(\d{4}\/\d{2}\/\d{2})/);
   if (!m) return null;
 
@@ -64,22 +64,8 @@ function parseFechaEU(str) {
   return new Date(y, mo - 1, d);
 }
 
-function fechaEnRango(fechaStr) {
-  const f = parseFechaEU(fechaStr);
-  if (!f) return false;
-
-  const hoy = new Date();
-  const desde = new Date(hoy);
-  const hasta = new Date(hoy);
-
-  desde.setDate(hoy.getDate() - 14);
-  hasta.setDate(hoy.getDate() + 14);
-
-  return f >= desde && f <= hasta;
-}
-
 // ======================================================
-// RESULTADO (irabazita / galduta)
+// RESULTADO
 // ======================================================
 function calcularEmaitza(etx, kanpo, tanteoa) {
   const lE = contieneLarraun(etx);
@@ -96,7 +82,7 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
 }
 
 // ======================================================
-// SCRAPE DE UNA idCompeticion
+// SCRAPE DE UNA COMPETICIÓN
 // ======================================================
 async function scrapeCompeticion(id) {
   const url = `${URL_BASE}${id}`;
@@ -106,10 +92,9 @@ async function scrapeCompeticion(id) {
   const doc = dom.window.document;
 
   const filas = [...doc.querySelectorAll("table tr")];
-  if (filas.length > 2) {
-    console.log(`📄 id ${id}: ${filas.length} filas`);
-  }
+  if (filas.length <= 2) return [];
 
+  console.log(`📄 id ${id}: ${filas.length} filas`);
 
   const resultados = [];
 
@@ -119,27 +104,26 @@ async function scrapeCompeticion(id) {
 
     const fechaHora = clean(tds[0].textContent);
     if (!fechaHora.includes("/")) continue;
-    // if (!fechaEnRango(fechaHora)) continue;
 
     const fronton = clean(tds[1].textContent);
-    const etxekoaRaw = clean(tds[2].textContent);
-    const emaitzaCell = tds[3];
-    const kanpokoRaw = clean(tds[4].textContent);
+    const etxRaw = clean(tds[2].textContent);
+    const kanpoRaw = clean(tds[4].textContent);
 
-    if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") continue;
+    if (etxRaw === "Descanso" || kanpoRaw === "Descanso") continue;
 
-    const etxekoa = convertirPareja(etxekoaRaw);
-    const kanpokoak = convertirPareja(kanpokoRaw);
+    const etxekoa = convertirPareja(etxRaw);
+    const kanpokoak = convertirPareja(kanpoRaw);
 
     if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
 
+    const emaitzaCell = tds[3];
     const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
     const sets = [...emaitzaCell.querySelectorAll("span")]
       .map(s => clean(s.textContent.replace(/[()]/g, "")))
       .filter(Boolean);
 
     resultados.push({
-      fecha: parseFechaEU(fechaHora).toISOString().slice(0, 10),
+      fecha: parseFechaEU(fechaHora)?.toISOString().slice(0, 10),
       fronton,
       etxekoa,
       kanpokoak,
@@ -160,12 +144,17 @@ async function scrapeCompeticion(id) {
 (async () => {
   try {
     let todos = [];
-   
 
-        
+    for (let id = ID_DESDE; id <= ID_HASTA; id++) {
+      try {
+        const res = await scrapeCompeticion(id);
+        if (res.length) {
+          console.log(`✔ id ${id}: ${res.length} resultados`);
+          todos.push(...res);
+        }
         await sleep(ESPERA_MS);
       } catch {
-        // ignoramos errores individuales
+        // ignorar errores individuales
       }
     }
 
