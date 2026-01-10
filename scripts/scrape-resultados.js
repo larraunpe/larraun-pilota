@@ -2,41 +2,46 @@ import https from "https";
 import { JSDOM } from "jsdom";
 import fs from "fs";
 
-// ================= CONFIG =================
+// ======================================================
+// CONFIGURACIÓN GENERAL
+// ======================================================
 const BASE = "https://www.fnpelota.com";
-const START_URL = `${BASE}/pub/competicion.asp?idioma=eu`;
+const URL_BASE = `${BASE}/pub/ModalidadComp.asp?idioma=eu&idCompeticion=`;
 
-// ================= PAREJAS MIXTAS =================
+const ID_DESDE = 2700;   // ajustable
+const ID_HASTA = 3800;   // ajustable
+
+const ESPERA_MS = 300;   // pausa entre peticiones (respeto al servidor)
+
+// ======================================================
+// PAREJAS MIXTAS
+// ======================================================
 const PAREJAS = JSON.parse(
   fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
 
-// ================= UTIL =================
+// ======================================================
+// UTILIDADES
+// ======================================================
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, res => {
-        let data = "";
-        res.on("data", c => (data += c));
-        res.on("end", () => resolve(data));
-      })
-      .on("error", reject);
+    https.get(url, res => {
+      let data = "";
+      res.on("data", c => data += c);
+      res.on("end", () => resolve(data));
+    }).on("error", reject);
   });
 }
 
 const clean = t => (t || "").replace(/\s+/g, " ").trim();
 
-function makeURL(href) {
-  try {
-    return new URL(href, BASE).href;
-  } catch {
-    return null;
-  }
-}
-
-// Solo el nombre del equipo (ignora pelotaris)
-function nombreEquipo(txt) {
-  return clean(txt).split(/\n|  /)[0];
+function contieneLarraun(txt = "") {
+  if (txt.includes("LARRAUN")) return true;
+  return PAREJAS.some(p => txt.includes(p.match));
 }
 
 function convertirPareja(txt) {
@@ -47,105 +52,96 @@ function convertirPareja(txt) {
   return limpio;
 }
 
-function contieneLarraun(txt = "") {
-  if (txt.includes("LARRAUN")) return true;
-  return PAREJAS.some(p => txt.includes(p.match));
-}
+// ======================================================
+// FECHAS
+// ======================================================
+function parseFechaEU(str) {
+  // Puede venir "2026/01/07 18:00" o "2026/01/07"
+  const m = str.match(/(\d{4}\/\d{2}\/\d{2})/);
+  if (!m) return null;
 
-// ================= FECHAS =================
-function parseFechaEU(f) {
-  const [y, m, d] = f.split("/").map(Number);
-  return new Date(y, m - 1, d);
+  const [y, mo, d] = m[1].split("/").map(Number);
+  return new Date(y, mo - 1, d);
 }
 
 function fechaEnRango(fechaStr) {
   const f = parseFechaEU(fechaStr);
-  if (isNaN(f)) return false;
+  if (!f) return false;
 
   const hoy = new Date();
-
   const desde = new Date(hoy);
-  desde.setDate(hoy.getDate() - 14);
-
   const hasta = new Date(hoy);
-  hasta.setDate(hoy.getDate() + 7);
+
+  desde.setDate(hoy.getDate() - 14);
+  hasta.setDate(hoy.getDate() + 14);
 
   return f >= desde && f <= hasta;
 }
 
-// ================= EMAITZA =================
+// ======================================================
+// RESULTADO (irabazita / galduta)
+// ======================================================
 function calcularEmaitza(etx, kanpo, tanteoa) {
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
-  if (!tanteoa || !tanteoa.includes("-")) return "jokatu_gabe";
+  if (lE && lK) return "irabazita";
+  if (!tanteoa || !tanteoa.includes("-")) return "irabazita";
 
   const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
-  if (isNaN(a) || isNaN(b)) return "jokatu_gabe";
+  if (isNaN(a) || isNaN(b)) return "irabazita";
 
   if ((lE && a > b) || (lK && b > a)) return "irabazita";
   return "galduta";
 }
 
-// ================= SCRAPE MODALIDAD =================
-async function scrapeModalidad(url, izena) {
+// ======================================================
+// SCRAPE DE UNA idCompeticion
+// ======================================================
+async function scrapeCompeticion(id) {
+  const url = `${URL_BASE}${id}`;
   const html = await getHTML(url);
+
   const dom = new JSDOM(html);
   const doc = dom.window.document;
 
   const filas = [...doc.querySelectorAll("table tr")];
+  if (filas.length < 3) return [];
+
   const resultados = [];
 
   for (const fila of filas) {
     const tds = [...fila.querySelectorAll("td")];
     if (tds.length < 5) continue;
 
-    // Fecha (solo YYYY/MM/DD)
-    const fechaRaw = clean(tds[0].textContent);
-    if (!fechaRaw.includes("/")) continue;
-
-    const fecha = fechaRaw.replace(/(\d{4}\/\d{2}\/\d{2}).*/, "$1");
-    if (!fechaEnRango(fecha)) continue;
+    const fechaHora = clean(tds[0].textContent);
+    if (!fechaHora.includes("/")) continue;
+    if (!fechaEnRango(fechaHora)) continue;
 
     const fronton = clean(tds[1].textContent);
-
-    const etxekoa = convertirPareja(
-      nombreEquipo(tds[2].textContent)
-    );
-    const kanpokoak = convertirPareja(
-      nombreEquipo(tds[4].textContent)
-    );
-
-    // Fuera descansos
-    if (
-      etxekoa.toLowerCase().includes("descanso") ||
-      kanpokoak.toLowerCase().includes("descanso")
-    )
-      continue;
-
-    // Solo partidos con Larraun
-    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak))
-      continue;
-
-    // EMAITZA
+    const etxekoaRaw = clean(tds[2].textContent);
     const emaitzaCell = tds[3];
+    const kanpokoRaw = clean(tds[4].textContent);
 
-    const tanteoa = clean(
-      emaitzaCell.childNodes[0]?.textContent
-    ).replace(/\s+/g, "");
+    if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") continue;
 
+    const etxekoa = convertirPareja(etxekoaRaw);
+    const kanpokoak = convertirPareja(kanpokoRaw);
+
+    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
+
+    const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
     const sets = [...emaitzaCell.querySelectorAll("span")]
       .map(s => clean(s.textContent.replace(/[()]/g, "")))
-      .filter(s => s.includes("-"));
+      .filter(Boolean);
 
     resultados.push({
-      fecha,
+      fecha: parseFechaEU(fechaHora).toISOString().slice(0, 10),
       fronton,
       etxekoa,
       kanpokoak,
       tanteoa,
       sets,
-      lehiaketa: izena,
       emaitza: calcularEmaitza(etxekoa, kanpokoak, tanteoa),
       ofiziala: true,
       url
@@ -155,50 +151,47 @@ async function scrapeModalidad(url, izena) {
   return resultados;
 }
 
-// ================= MAIN =================
+// ======================================================
+// MAIN
+// ======================================================
 (async () => {
   try {
-    const html = await getHTML(START_URL);
-    const dom = new JSDOM(html);
-    const doc = dom.window.document;
+    let todos = [];
+    let idsSinNada = 0;
 
-    const categoriaLinks = [...doc.querySelectorAll("a")]
-      .map(a => makeURL(a.getAttribute("href")))
-      .filter(h => h && h.includes("modalidadescompeticion.asp"));
-
-    let resultados = [];
-
-    for (const cat of categoriaLinks) {
+    for (let id = ID_DESDE; id <= ID_HASTA; id++) {
       try {
-        const catHTML = await getHTML(cat);
-        const catDOM = new JSDOM(catHTML);
-        const catDoc = catDOM.window.document;
+        const res = await scrapeCompeticion(id);
 
-        const modalidades = [...catDoc.querySelectorAll("a")]
-          .map(a => ({
-            url: makeURL(a.getAttribute("href")),
-            nombre: clean(a.textContent)
-          }))
-          .filter(m => m.url && m.url.includes("ModalidadComp.asp"));
-
-        for (const mod of modalidades) {
-          try {
-            const r = await scrapeModalidad(mod.url, mod.nombre);
-            resultados = resultados.concat(r);
-          } catch {}
+        if (res.length > 0) {
+          console.log(`✔ id ${id} → ${res.length} resultado(s)`);
+          todos.push(...res);
+          idsSinNada = 0;
+        } else {
+          idsSinNada++;
         }
-      } catch {}
+
+        // Parada temprana si no hay nada en muchos IDs seguidos
+        if (idsSinNada >= 150) {
+          console.log("⏹️ Parada temprana: sin resultados recientes");
+          break;
+        }
+
+        await sleep(ESPERA_MS);
+      } catch {
+        // ignoramos errores individuales
+      }
     }
 
     fs.mkdirSync("data", { recursive: true });
     fs.writeFileSync(
       "data/resultados-larraun.json",
-      JSON.stringify(resultados, null, 2)
+      JSON.stringify(todos, null, 2)
     );
 
-    console.log(`✔ Oficiales detectados: ${resultados.length}`);
+    console.log(`🏁 Total resultados detectados: ${todos.length}`);
   } catch (e) {
-    console.error("❌ Error:", e);
+    console.error("❌ Error fatal:", e);
     process.exit(1);
   }
 })();
