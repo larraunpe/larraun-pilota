@@ -34,7 +34,6 @@ function makeURL(href) {
   }
 }
 
-// ================= LARRAUN / PAREJAS =================
 function convertirPareja(txt) {
   const limpio = clean(txt);
   for (const p of PAREJAS) {
@@ -44,12 +43,13 @@ function convertirPareja(txt) {
 }
 
 function contieneLarraun(txt = "") {
-  if (txt.toUpperCase().includes("LARRAUN")) return true;
+  if (txt.includes("LARRAUN")) return true;
   return PAREJAS.some(p => txt.includes(p.match));
 }
 
 // ================= FECHAS =================
 function parseFechaEU(f) {
+  // formato: 2026/01/07
   const [y, m, d] = f.split("/").map(Number);
   return new Date(y, m - 1, d);
 }
@@ -59,12 +59,11 @@ function fechaEnRango(fechaStr) {
   if (isNaN(f)) return false;
 
   const hoy = new Date();
-
   const desde = new Date(hoy);
-  desde.setDate(hoy.getDate() - 14);
+  desde.setDate(hoy.getDate() - 14); // 2 semanas atrás
 
   const hasta = new Date(hoy);
-  hasta.setDate(hoy.getDate() + 7);
+  hasta.setDate(hoy.getDate() + 7); // 1 semana futura
 
   return f >= desde && f <= hasta;
 }
@@ -74,7 +73,7 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
-  // dos parejas de Larraun → verde
+  // Dos parejas LARRAUN → verde
   if (lE && lK) return "irabazita";
 
   if (!tanteoa || !tanteoa.includes("-")) return "irabazita";
@@ -97,9 +96,10 @@ async function scrapeModalidad(url, izena) {
 
   for (const fila of filas) {
     const tds = [...fila.querySelectorAll("td")];
-    if (tds.length < 5) continue;
 
-    // Fecha / hora
+    // 👇 SOLO filas de partido real
+    if (tds.length !== 5) continue;
+
     const fechaHora = clean(tds[0].textContent);
     if (!fechaHora.includes("/")) continue;
 
@@ -107,25 +107,19 @@ async function scrapeModalidad(url, izena) {
     if (!fechaEnRango(fecha)) continue;
 
     const fronton = clean(tds[1].textContent);
+    const etxekoa = convertirPareja(tds[2].textContent);
+    const kanpokoak = convertirPareja(tds[4].textContent);
 
-    // RAW antes de conversión
-    const etxRaw = clean(tds[2].textContent);
-    const kanpoRaw = clean(tds[4].textContent);
+    if (
+      etxekoa.includes("Descanso") ||
+      kanpokoak.includes("Descanso")
+    ) continue;
 
-    if (etxRaw.includes("Descanso") || kanpoRaw.includes("Descanso")) continue;
-    if (!contieneLarraun(etxRaw) && !contieneLarraun(kanpoRaw)) continue;
+    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
 
-    // Conversión final
-    const etxekoa = convertirPareja(etxRaw);
-    const kanpokoak = convertirPareja(kanpoRaw);
-
-    // EMAITZA
+    // Resultado y sets
     const emaitzaCell = tds[3];
-    const tanteoa = clean(
-      emaitzaCell.firstChild?.textContent || emaitzaCell.textContent
-    )
-      .split("(")[0]
-      .trim();
+    const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
 
     const sets = [...emaitzaCell.querySelectorAll("span")]
       .map(s => clean(s.textContent.replace(/[()]/g, "")))
@@ -155,10 +149,9 @@ async function scrapeModalidad(url, izena) {
     const dom = new JSDOM(html);
     const doc = dom.window.document;
 
-    // Categorías
     const categoriaLinks = [...doc.querySelectorAll("a")]
       .map(a => makeURL(a.getAttribute("href")))
-      .filter(h => h && h.toLowerCase().includes("modalidadescompeticion.asp"));
+      .filter(h => h && h.includes("modalidadescompeticion.asp"));
 
     let resultados = [];
 
@@ -179,12 +172,12 @@ async function scrapeModalidad(url, izena) {
           try {
             const r = await scrapeModalidad(mod.url, mod.nombre);
             resultados = resultados.concat(r);
-          } catch {
-            /* modalidad rota → se ignora */
+          } catch (e) {
+            // una modalidad no rompe todo
           }
         }
-      } catch {
-        /* categoría rota → se ignora */
+      } catch (e) {
+        // una categoría no rompe todo
       }
     }
 
@@ -196,7 +189,7 @@ async function scrapeModalidad(url, izena) {
 
     console.log(`✔ Oficiales detectados: ${resultados.length}`);
   } catch (e) {
-    console.error("❌ Error:", e);
+    console.error("❌ Error fatal:", e);
     process.exit(1);
   }
 })();
