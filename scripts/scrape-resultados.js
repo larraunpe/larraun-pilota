@@ -106,7 +106,10 @@ async function scrapeCompeticion(id) {
   const doc = dom.window.document;
 
   const filas = [...doc.querySelectorAll("table tr")];
-  if (filas.length < 3) return [];
+  if (filas.length > 2) {
+    console.log(`📄 id ${id}: ${filas.length} filas`);
+  }
+
 
   const resultados = [];
 
@@ -116,7 +119,7 @@ async function scrapeCompeticion(id) {
 
     const fechaHora = clean(tds[0].textContent);
     if (!fechaHora.includes("/")) continue;
-    if (!fechaEnRango(fechaHora)) continue;
+    // if (!fechaEnRango(fechaHora)) continue;
 
     const fronton = clean(tds[1].textContent);
     const etxekoaRaw = clean(tds[2].textContent);
@@ -157,26 +160,9 @@ async function scrapeCompeticion(id) {
 (async () => {
   try {
     let todos = [];
-    let idsSinNada = 0;
+   
 
-    for (let id = ID_DESDE; id <= ID_HASTA; id++) {
-      try {
-        const res = await scrapeCompeticion(id);
-
-        if (res.length > 0) {
-          console.log(`✔ id ${id} → ${res.length} resultado(s)`);
-          todos.push(...res);
-          idsSinNada = 0;
-        } else {
-          idsSinNada++;
-        }
-
-        // Parada temprana si no hay nada en muchos IDs seguidos
-        if (idsSinNada >= 150) {
-          console.log("⏹️ Parada temprana: sin resultados recientes");
-          break;
-        }
-
+        
         await sleep(ESPERA_MS);
       } catch {
         // ignoramos errores individuales
