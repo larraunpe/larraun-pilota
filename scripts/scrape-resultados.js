@@ -1,173 +1,165 @@
 import https from "https";
-import fs from "fs";
 import { JSDOM } from "jsdom";
+import fs from "fs";
 
+// ================= CONFIG =================
 const BASE = "https://www.fnpelota.com";
-const INDEX =
-  "https://www.fnpelota.com/pub/competicion.asp?idioma=eu";
+const COMPETICIONES_URL = `${BASE}/pub/competicion.asp?idioma=eu`;
+const TEMPORADA = "2025";
 
-const MIXTAS = JSON.parse(
+// ================= CARGA PAREJAS =================
+const PAREJAS = JSON.parse(
   fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
 
-// ---------------- HELPERS ----------------
+// ================= UTIL =================
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", d => (data += d));
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(url, res => {
+        let data = "";
+        res.on("data", c => (data += c));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
 
-const clean = t => t.replace(/\s+/g, " ").trim();
+const limpiar = t => (t || "").replace(/\s+/g, " ").trim();
 
 function convertirPareja(txt) {
-  const t = clean(txt);
-  for (const m of MIXTAS) {
-    if (t.includes(m.match)) return m.value;
+  const limpio = limpiar(txt);
+  for (const p of PAREJAS) {
+    if (limpio.includes(p.match)) return p.value;
   }
-  return t;
+  return limpio;
 }
 
 function contieneLarraun(txt = "") {
   if (txt.includes("LARRAUN")) return true;
-  return MIXTAS.some(m => txt.includes(m.match));
+  return PAREJAS.some(p => txt.includes(p.match));
 }
 
-function calcularEmaitza(local, visitante, resultado) {
-  const l1 = contieneLarraun(local);
-  const l2 = contieneLarraun(visitante);
+function calcularEmaitza(etx, kanpo, res) {
+  const lE = contieneLarraun(etx);
+  const lK = contieneLarraun(kanpo);
 
-  if (l1 && l2) return "irabazita";
+  if (!res || !res.includes("-")) return "irabazita";
 
-  const m = resultado.match(/(\d+)\s*-\s*(\d+)/);
-  if (!m) return "irabazita";
+  const [a, b] = res.split("-").map(n => parseInt(n, 10));
+  if (Number.isNaN(a) || Number.isNaN(b)) return "irabazita";
 
-  const a = parseInt(m[1], 10);
-  const b = parseInt(m[2], 10);
-
-  if ((l1 && a > b) || (l2 && b > a)) return "irabazita";
+  if ((lE && a > b) || (lK && b > a)) return "irabazita";
   return "galduta";
 }
 
-function fechaValida(fecha) {
-  const [d, m, y] = fecha.split("/").map(Number);
-  const f = new Date(y, m - 1, d);
-  const hoy = new Date();
-
-  const inicio = new Date(hoy);
-  inicio.setDate(hoy.getDate() - hoy.getDay() - 7);
-
-  return f >= inicio && f <= hoy;
+// ================= FECHAS =================
+function parseFechaEU(f) {
+  // 2026/01/07
+  const [y, m, d] = f.split("/").map(Number);
+  return new Date(y, m - 1, d);
 }
 
-// ---------------- SCRAPER ----------------
-async function scrapeCompeticion(url, nombre) {
+function fechaEnRango(fechaStr) {
+  const f = parseFechaEU(fechaStr);
+  const hoy = new Date();
+
+  const inicioSemana = new Date(hoy);
+  inicioSemana.setDate(hoy.getDate() - hoy.getDay() - 7);
+
+  return f >= inicioSemana && f <= hoy;
+}
+
+// ================= SCRAPE MODALIDAD =================
+async function scrapeModalidad(url, nombre) {
   const html = await getHTML(url);
   const dom = new JSDOM(html);
   const doc = dom.window.document;
 
-  const resultados = [];
-
   const filas = [...doc.querySelectorAll("table tr")];
+  const out = [];
 
   for (const fila of filas) {
-    const textoFila = clean(fila.textContent);
-
-    // Solo filas con resultado tipo 1 - 2
-    if (!/\d+\s*-\s*\d+/.test(textoFila)) continue;
-
     const tds = [...fila.querySelectorAll("td")];
-    if (tds.length < 4) continue;
+    if (tds.length < 5) continue;
 
-    const fechaTxt = clean(tds[0].textContent);
-    if (!fechaTxt.includes("/")) continue;
-    if (!fechaValida(fechaTxt)) continue;
+    const fechaHora = limpiar(tds[0].textContent);
+    if (!fechaHora.includes("/")) continue;
 
-    const fronton = clean(tds[1].textContent);
+    const fecha = fechaHora.split(" ")[0];
+    if (!fechaEnRango(fecha)) continue;
 
-    // Buscar resultado y sets
-    const resultadoCell = tds.find(td =>
-      /\d+\s*-\s*\d+/.test(td.textContent)
-    );
+    const fronton = limpiar(tds[1].textContent);
+    const etxekoa = convertirPareja(tds[2].textContent);
+    const emaitzaTxt = limpiar(tds[3].childNodes[0]?.textContent);
+    const kanpokoak = convertirPareja(tds[4].textContent);
 
-    if (!resultadoCell) continue;
+    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
 
-    const resultadoTxt = clean(resultadoCell.textContent);
-    const tanteoa = resultadoTxt.match(/\d+\s*-\s*\d+/)?.[0] || "";
+    const sets = [...tds[3].querySelectorAll("span")]
+      .map(s => limpiar(s.textContent))
+      .filter(Boolean);
 
-    const sets =
-      resultadoTxt.match(/\(\d+-\d+\)/g)?.map(s =>
-        s.replace(/[()]/g, "")
-      ) || [];
-
-    // Local = celda antes del resultado
-    const idx = tds.indexOf(resultadoCell);
-    const localRaw = clean(tds[idx - 1]?.textContent || "");
-    const visitanteRaw = clean(tds[idx + 1]?.textContent || "");
-
-    if (
-      !contieneLarraun(localRaw) &&
-      !contieneLarraun(visitanteRaw)
-    )
-      continue;
-
-    const local = convertirPareja(localRaw);
-    const visitante = convertirPareja(visitanteRaw);
-
-    resultados.push({
-      fecha: fechaTxt,
+    out.push({
+      fecha,
       fronton,
-      etxekoa: local,
-      kanpokoak: visitante,
-      tanteoa,
+      etxekoa,
+      kanpokoak,
+      tanteoa: emaitzaTxt,
       sets,
       lehiaketa: nombre,
-      emaitza: calcularEmaitza(local, visitante, tanteoa),
+      emaitza: calcularEmaitza(etxekoa, kanpokoak, emaitzaTxt),
       ofiziala: true,
       url
     });
   }
 
-  return resultados;
+  return out;
 }
 
-// ---------------- MAIN ----------------
+// ================= MAIN =================
 (async () => {
   try {
-    const html = await getHTML(INDEX);
+    const html = await getHTML(COMPETICIONES_URL);
     const dom = new JSDOM(html);
     const doc = dom.window.document;
 
-    const enlaces = [...doc.querySelectorAll("a")]
-      .filter(a => a.href.includes("ModalidadComp.asp"))
-      .map(a => ({
-        url: BASE + a.getAttribute("href"),
-        nombre: clean(a.textContent)
-      }));
+    // categorías
+    const categorias = [...doc.querySelectorAll("a")]
+      .filter(a => a.href.includes("modalidadescompeticion.asp"))
+      .map(a => BASE + a.getAttribute("href"));
 
-    let total = [];
+    let resultados = [];
 
-    for (const e of enlaces) {
-      try {
-        const r = await scrapeCompeticion(e.url, e.nombre);
-        total.push(...r);
-      } catch (err) {
-        console.error("⚠️ Error en", e.url);
+    for (const catUrl of categorias) {
+      const catHTML = await getHTML(catUrl);
+      const catDOM = new JSDOM(catHTML);
+      const catDoc = catDOM.window.document;
+
+      const modalidades = [...catDoc.querySelectorAll("a")]
+        .filter(a => a.href.includes("ModalidadComp.asp"))
+        .map(a => ({
+          url: BASE + a.getAttribute("href"),
+          nombre: limpiar(a.textContent)
+        }));
+
+      for (const mod of modalidades) {
+        try {
+          const r = await scrapeModalidad(mod.url, mod.nombre);
+          resultados = resultados.concat(r);
+        } catch {}
       }
     }
 
     fs.mkdirSync("data", { recursive: true });
     fs.writeFileSync(
       "data/resultados-larraun.json",
-      JSON.stringify(total, null, 2)
+      JSON.stringify(resultados, null, 2)
     );
 
-    console.log(`✔ Oficiales detectados: ${total.length}`);
-  } catch (err) {
-    console.error("❌ Error global:", err);
+    console.log(`✔ Oficiales detectados: ${resultados.length}`);
+  } catch (e) {
+    console.error("❌ Error:", e);
     process.exit(1);
   }
 })();
