@@ -14,11 +14,13 @@ const PAREJAS = JSON.parse(
 // ================= UTIL =================
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      let data = "";
-      res.on("data", c => data += c);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(url, res => {
+        let data = "";
+        res.on("data", c => (data += c));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
 
@@ -32,6 +34,7 @@ function makeURL(href) {
   }
 }
 
+// ================= LARRAUN / PAREJAS =================
 function convertirPareja(txt) {
   const limpio = clean(txt);
   for (const p of PAREJAS) {
@@ -41,13 +44,12 @@ function convertirPareja(txt) {
 }
 
 function contieneLarraun(txt = "") {
-  if (txt.includes("LARRAUN")) return true;
+  if (txt.toUpperCase().includes("LARRAUN")) return true;
   return PAREJAS.some(p => txt.includes(p.match));
 }
 
 // ================= FECHAS =================
 function parseFechaEU(f) {
-  // 2026/01/07
   const [y, m, d] = f.split("/").map(Number);
   return new Date(y, m - 1, d);
 }
@@ -67,13 +69,14 @@ function fechaEnRango(fechaStr) {
   return f >= desde && f <= hasta;
 }
 
-
 // ================= EMAITZA =================
 function calcularEmaitza(etx, kanpo, tanteoa) {
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
+  // dos parejas de Larraun → verde
   if (lE && lK) return "irabazita";
+
   if (!tanteoa || !tanteoa.includes("-")) return "irabazita";
 
   const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
@@ -96,6 +99,7 @@ async function scrapeModalidad(url, izena) {
     const tds = [...fila.querySelectorAll("td")];
     if (tds.length < 5) continue;
 
+    // Fecha / hora
     const fechaHora = clean(tds[0].textContent);
     if (!fechaHora.includes("/")) continue;
 
@@ -103,15 +107,26 @@ async function scrapeModalidad(url, izena) {
     if (!fechaEnRango(fecha)) continue;
 
     const fronton = clean(tds[1].textContent);
-    const etxekoa = convertirPareja(tds[2].textContent);
-    const kanpokoak = convertirPareja(tds[4].textContent);
 
-    if (etxekoa.includes("Descanso") || kanpokoak.includes("Descanso")) continue;
-    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
+    // RAW antes de conversión
+    const etxRaw = clean(tds[2].textContent);
+    const kanpoRaw = clean(tds[4].textContent);
 
-    // EMAITZA + SETS
+    if (etxRaw.includes("Descanso") || kanpoRaw.includes("Descanso")) continue;
+    if (!contieneLarraun(etxRaw) && !contieneLarraun(kanpoRaw)) continue;
+
+    // Conversión final
+    const etxekoa = convertirPareja(etxRaw);
+    const kanpokoak = convertirPareja(kanpoRaw);
+
+    // EMAITZA
     const emaitzaCell = tds[3];
-    const tanteoa = clean(emaitzaCell.childNodes[0]?.textContent);
+    const tanteoa = clean(
+      emaitzaCell.firstChild?.textContent || emaitzaCell.textContent
+    )
+      .split("(")[0]
+      .trim();
+
     const sets = [...emaitzaCell.querySelectorAll("span")]
       .map(s => clean(s.textContent.replace(/[()]/g, "")))
       .filter(Boolean);
@@ -140,9 +155,10 @@ async function scrapeModalidad(url, izena) {
     const dom = new JSDOM(html);
     const doc = dom.window.document;
 
+    // Categorías
     const categoriaLinks = [...doc.querySelectorAll("a")]
       .map(a => makeURL(a.getAttribute("href")))
-      .filter(h => h && h.includes("modalidadescompeticion.asp"));
+      .filter(h => h && h.toLowerCase().includes("modalidadescompeticion.asp"));
 
     let resultados = [];
 
@@ -163,9 +179,13 @@ async function scrapeModalidad(url, izena) {
           try {
             const r = await scrapeModalidad(mod.url, mod.nombre);
             resultados = resultados.concat(r);
-          } catch {}
+          } catch {
+            /* modalidad rota → se ignora */
+          }
         }
-      } catch {}
+      } catch {
+        /* categoría rota → se ignora */
+      }
     }
 
     fs.mkdirSync("data", { recursive: true });
