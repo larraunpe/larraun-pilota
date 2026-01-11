@@ -186,7 +186,7 @@ function isHome(place) {
   return p.includes("lekunberri") || p.includes("aldatz");
 }
 
-fetch("data/resultados-larraun.json")
+fetch("/data/resultados-larraun.json")
 .then(r => r.json())
 .then(data => {
   const { from, to } = getDateRangeSemanaActualYAnterior();
