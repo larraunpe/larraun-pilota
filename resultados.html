@@ -122,7 +122,9 @@ const SOURCES=[
 
 function parseDate(fecha){
   if(!fecha) return null;
-  return new Date(fecha.replace(/\//g,"-")+"T00:00");
+  const m = fecha.match(/(\d{4})[\/-](\d{2})[\/-](\d{2})/);
+  if(!m) return null;
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
 }
 
 function monday(d){
@@ -149,7 +151,7 @@ Promise.all(
   today.setHours(0,0,0,0);
 
   const data=all.flat()
-    .filter(m => m._date && m._date <= today)   // ❗ NO FUTUROS
+    .filter(m => m._date && m._date <= today)
     .sort((a,b)=>a._date-b._date);
 
   const thisMon=monday(today);
