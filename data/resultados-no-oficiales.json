@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026-01-09",
-    "lehiaketa": "SAN ANTON PILOTA TXAPELKETA. PROMESA MUTILAK. FINALAURREKOA",
+    "modalidad": "SAN ANTON PILOTA TXAPELKETA. PROMESA MUTILAK. FINALAURREKOA",
     "fronton": "Elgoibar",
     "etxekoa": "Nazabal (LARRAUN) – Artetxe",
     "kanpokoak": "Izagirre – Ormatxea",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2025-12-28",
-    "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU LIGAXKA",
+    "modalidad": "TAFALLA NEGUKO TXAPELKETA. KIMU LIGAXKA",
     "fronton": "Tafalla – Ereta",
     "etxekoa": "HUARTE (Herce – Bronte)",
     "kanpokoak": "LARRAUN – ABAXITABIDEA (Centeno – Amorena)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026-01-03",
-    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
+    "modalidad": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
     "fronton": "Tolosa – Beotibar",
     "etxekoa": "KURENE – LARRAUN (Ramirez – Garaño)",
     "kanpokoak": "AZOITIA – LAPKE (Aranbarri – Goiburu)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026-01-04",
-    "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU FINALERDIAK",
+    "modalidad": "TAFALLA NEGUKO TXAPELKETA. KIMU FINALERDIAK",
     "fronton": "Tafalla – Ereta",
     "etxekoa": "ULZAMA (Landiribar – Otegi)",
     "kanpokoak": "LARRAUN – ABAXITABIDEA (Centeno – Amorena)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026-01-04",
-    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
+    "modalidad": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA",
     "fronton": "Tolosa – Beotibar",
     "etxekoa": "BEHAR ZANA – MARKINA (Cestau – Calvo)",
     "kanpokoak": "LARRAUN (Nazabal – Sotil)",
