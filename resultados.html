@@ -9,8 +9,28 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
-  padding:20px;
+  padding:0;
 }
+
+/* ===== HEADER ===== */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px;
+  background:#ffffff;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+header img{height:48px;}
+header h1{
+  margin:0;
+  font-size:2em;
+  color:#004d40;
+  letter-spacing:2px;
+}
+
+/* ===== CONTENIDO ===== */
+main{padding:20px;}
 
 .week-title{
   margin:30px 0 10px;
@@ -45,58 +65,40 @@ body{
 
 /* ===== FRANJAS ===== */
 .win-home{
-  background:repeating-linear-gradient(
-    -45deg,
-    rgba(0,100,0,.15),
-    rgba(0,100,0,.15) 10px,
-    rgba(0,80,150,.15) 10px,
-    rgba(0,80,150,.15) 20px
-  );
+  background:repeating-linear-gradient(-45deg,
+    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
+    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
 }
 .win-away{
-  background:repeating-linear-gradient(
-    -45deg,
-    rgba(0,100,0,.15),
-    rgba(0,100,0,.15) 10px,
-    rgba(120,120,120,.15) 10px,
-    rgba(120,120,120,.15) 20px
-  );
+  background:repeating-linear-gradient(-45deg,
+    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
+    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
 }
 .lose-home{
-  background:repeating-linear-gradient(
-    -45deg,
-    rgba(160,0,0,.15),
-    rgba(160,0,0,.15) 10px,
-    rgba(0,80,150,.15) 10px,
-    rgba(0,80,150,.15) 20px
-  );
+  background:repeating-linear-gradient(-45deg,
+    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
+    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
 }
 .lose-away{
-  background:repeating-linear-gradient(
-    -45deg,
-    rgba(160,0,0,.15),
-    rgba(160,0,0,.15) 10px,
-    rgba(120,120,120,.15) 10px,
-    rgba(120,120,120,.15) 20px
-  );
+  background:repeating-linear-gradient(-45deg,
+    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
+    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
 }
 
-/* no oficiales → franjas inversas */
+/* no oficiales → franjas invertidas */
 .no-oficial.win-home,
 .no-oficial.win-away,
 .no-oficial.lose-home,
 .no-oficial.lose-away{
-  background-image:repeating-linear-gradient(
-    45deg,
-    rgba(0,0,0,.08),
-    rgba(0,0,0,.08) 10px,
-    rgba(255,255,255,.08) 10px,
-    rgba(255,255,255,.08) 20px
-  );
+  background-image:repeating-linear-gradient(45deg,
+    rgba(0,0,0,.08),rgba(0,0,0,.08) 10px,
+    rgba(255,255,255,.08) 10px,rgba(255,255,255,.08) 20px);
 }
 
+/* ===== TEXTO ===== */
 .line{margin:4px 0;}
-.teams{font-weight:bold;}
+.etxekoa{color:#0d47a1;font-weight:bold;}
+.kanpokoak{color:#b71c1c;font-weight:bold;}
 .score{font-size:1.1em;font-weight:bold;}
 .meta{font-size:.9em;color:#333;}
 .icon{margin-right:6px;}
@@ -105,68 +107,79 @@ body{
 
 <body>
 
-<div id="content"></div>
+<header>
+  <img src="/img/logo-left.png" alt="">
+  <h1>EMAITZAK</h1>
+  <img src="/img/logo-right.png" alt="">
+</header>
+
+<main id="content"></main>
 
 <script>
-const URLS = [
-  { url:"/data/resultados-larraun.json", oficial:true },
-  { url:"/data/resultados-no-oficiales.json", oficial:false }
+const SOURCES=[
+  {url:"/data/resultados-larraun.json",ofiziala:true},
+  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function parseDate(d){ return new Date(d+"T00:00:00"); }
+function getDateTime(m){
+  if(!m.fecha) return new Date(0);
+  if(m.hora) return new Date(`${m.fecha}T${m.hora}`);
+  return new Date(`${m.fecha}T00:00`);
+}
 
-function mondayOfWeek(date){
-  const d=new Date(date);
-  const day=d.getDay()||7;
-  if(day!==1)d.setDate(d.getDate()-day+1);
-  return d;
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1)x.setDate(x.getDate()-day+1);
+  return x;
 }
 
 function isHome(fronton){
-  return /lekunberri|aldatz/i.test(fronton);
+  return /lekunberri|aldatz/i.test(fronton||"");
 }
 
 Promise.all(
-  URLS.map(src =>
-    fetch(src.url)
-      .then(r=>r.json())
-      .then(arr=>arr.map(o=>({ ...o, ofiziala:src.oficial })))
-  )
+  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
+    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala}))))
 ).then(all=>{
-  const data = all.flat();
+  const data=all.flat();
+
+  // ORDENACIÓN GLOBAL
+  data.sort((a,b)=>getDateTime(a)-getDateTime(b));
 
   const today=new Date();
-  const thisMon=mondayOfWeek(today);
+  const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
   const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
 
   const thisWeek=[], lastWeek=[];
-
   data.forEach(m=>{
-    if(!m.emaitza||m.emaitza==="undefined")return;
-    const d=parseDate(m.fecha);
-    if(d>=thisMon&&d<=today)thisWeek.push(m);
-    else if(d>=lastMon&&d<=lastSun)lastWeek.push(m);
+    const d=new Date(m.fecha+"T00:00");
+    if(d>=thisMon&&d<=today) thisWeek.push(m);
+    else if(d>=lastMon&&d<=lastSun) lastWeek.push(m);
   });
 
-  const container=document.getElementById("content");
+  const c=document.getElementById("content");
 
   function render(title,arr){
-    if(!arr.length)return;
-    container.innerHTML+=`<div class="week-title">${title}</div>`;
+    if(!arr.length) return;
+    c.innerHTML+=`<div class="week-title">${title}</div>`;
     arr.forEach(m=>{
-      const home=isHome(m.fronton);
-      const win=m.emaitza==="irabazita";
       let cls="match ";
-      if(!m.ofiziala)cls+="no-oficial ";
-      cls+=win?(home?"win-home":"win-away"):(home?"lose-home":"lose-away");
+      if(!m.ofiziala) cls+="no-oficial ";
+      if(m.emaitza){
+        const home=isHome(m.fronton);
+        cls+= m.emaitza==="irabazita"
+          ? (home?"win-home":"win-away")
+          : (home?"lose-home":"lose-away");
+      }
 
-      container.innerHTML+=`
+      c.innerHTML+=`
       <div class="${cls}">
         <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
-        <div class="line meta"><span class="icon">📍</span>${m.fronton}</div>
-        <div class="line teams"><span class="icon">🏠</span>${m.etxekoa}</div>
-        <div class="line teams"><span class="icon">✈️</span>${m.kanpokoak}</div>
+        <div class="line meta"><span class="icon">📍</span>${m.fronton||""}</div>
+        <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa}</div>
+        <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak}</div>
         <div class="line score">${m.tanteoa||""}</div>
         ${m.sets?.length?`<div class="line meta">${m.sets.join("  ")}</div>`:""}
         <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
@@ -174,8 +187,8 @@ Promise.all(
     });
   }
 
-  render("ASTE HONETAKO EMAITZAK", thisWeek);
-  render("AURREKO ASTEKO EMAITZAK", lastWeek);
+  render("ASTE HONETAKO EMAITZAK",thisWeek);
+  render("AURREKO ASTEKO EMAITZAK",lastWeek);
 });
 </script>
 
