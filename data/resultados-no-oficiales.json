@@ -1,6 +1,15 @@
 [
   {
-    "fecha": "2025/12/28",
+    "fecha": "2026/01/09",
+    "lehiaketa": "SAN ANTON PILOTA TXAPELKETA. PROMESA MUTILAK. FINALAURREKOA",
+    "fronton": "Elgoibar",
+    "etxekoa": "Nazabal (LARRAUN) – Artetxe",
+    "kanpokoak": "Izagirre – Ormatxea",
+    "tanteoa": "22-15",
+    "emaitza": "irabazita"
+  },
+  {
+    "fecha": "2025/12/29",
     "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU LIGAXKA",
     "fronton": "Tafalla – Ereta",
     "etxekoa": "HUARTE (Herce – Bronte)",
@@ -21,7 +30,7 @@
     "fecha": "2026/01/04",
     "lehiaketa": "TAFALLA NEGUKO TXAPELKETA. KIMU FINALERDIAK",
     "fronton": "Tafalla – Ereta",
-    "etxekoa": "ULTZAMA (Landiribar – Otegi)",
+    "etxekoa": "ULZAMA (Landiribar – Otegi)",
     "kanpokoak": "LARRAUN – ABAXITABIDEA (Centeno – Amorena)",
     "tanteoa": "18-9",
     "emaitza": "galduta"
@@ -35,5 +44,4 @@
     "tanteoa": "8-22",
     "emaitza": "irabazita"
   }
-
 ]
