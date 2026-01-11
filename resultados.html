@@ -2,8 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emaitzak – Larraun Pilota</title>
+<title>Larraun – Emaitzak</title>
 
 <style>
 body {
@@ -14,228 +13,206 @@ body {
 }
 
 h2 {
-  margin-top:40px;
+  margin-top:30px;
   color:#222;
 }
 
-.week-block {
-  margin-bottom:40px;
+.week-title {
+  margin:30px 0 12px;
+  font-size:1.4em;
+  font-weight:bold;
+  color:#006400;
 }
 
+/* ===== PARTIDO ===== */
 .match {
+  background:#fff;
   margin-bottom:14px;
-  padding:14px 16px;
+  padding:14px 18px;
   border-radius:8px;
-  color:#222;
   box-shadow:0 2px 6px rgba(0,0,0,0.15);
-  font-size:0.95em;
+  position:relative;
+  overflow:hidden;
 }
 
-/* ===== RAYAS ===== */
-.win.home.official {
-  background: repeating-linear-gradient(
-    45deg,
-    #dff3e4,
-    #dff3e4 10px,
-    #e3ecf7 10px,
-    #e3ecf7 20px
-  );
+.match.no-oficial::after {
+  content:"EZ OFIZIALA";
+  position:absolute;
+  top:10px;
+  right:-40px;
+  transform:rotate(45deg);
+  background:#b00000;
+  color:#fff;
+  padding:4px 50px;
+  font-size:0.75em;
+  font-weight:bold;
 }
 
-.win.away.official {
-  background: repeating-linear-gradient(
-    45deg,
-    #dff3e4,
-    #dff3e4 10px,
-    #eeeeee 10px,
-    #eeeeee 20px
-  );
+/* ===== FRANJAS ===== */
+.win-home {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0,100,0,0.15),
+      rgba(0,100,0,0.15) 10px,
+      rgba(0,80,150,0.15) 10px,
+      rgba(0,80,150,0.15) 20px
+    );
 }
 
-.lose.home.official {
-  background: repeating-linear-gradient(
-    45deg,
-    #f6d6d6,
-    #f6d6d6 10px,
-    #e3ecf7 10px,
-    #e3ecf7 20px
-  );
+.win-away {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0,100,0,0.15),
+      rgba(0,100,0,0.15) 10px,
+      rgba(120,120,120,0.15) 10px,
+      rgba(120,120,120,0.15) 20px
+    );
 }
 
-.lose.away.official {
-  background: repeating-linear-gradient(
-    45deg,
-    #f6d6d6,
-    #f6d6d6 10px,
-    #eeeeee 10px,
-    #eeeeee 20px
-  );
+.lose-home {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(160,0,0,0.15),
+      rgba(160,0,0,0.15) 10px,
+      rgba(0,80,150,0.15) 10px,
+      rgba(0,80,150,0.15) 20px
+    );
 }
 
-/* NO OFICIALES → rayas invertidas */
-.no-oficial.win.home {
-  background: repeating-linear-gradient(
-    -45deg,
-    #dff3e4,
-    #dff3e4 10px,
-    #e3ecf7 10px,
-    #e3ecf7 20px
-  );
+.lose-away {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(160,0,0,0.15),
+      rgba(160,0,0,0.15) 10px,
+      rgba(120,120,120,0.15) 10px,
+      rgba(120,120,120,0.15) 20px
+    );
 }
 
-.no-oficial.win.away {
-  background: repeating-linear-gradient(
-    -45deg,
-    #dff3e4,
-    #dff3e4 10px,
-    #eeeeee 10px,
-    #eeeeee 20px
-  );
+/* no oficiales: franjas al revés */
+.no-oficial.win-home,
+.no-oficial.win-away,
+.no-oficial.lose-home,
+.no-oficial.lose-away {
+  background-size:20px 20px;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.08),
+      rgba(0,0,0,0.08) 10px,
+      rgba(255,255,255,0.08) 10px,
+      rgba(255,255,255,0.08) 20px
+    );
 }
 
-.no-oficial.lose.home {
-  background: repeating-linear-gradient(
-    -45deg,
-    #f6d6d6,
-    #f6d6d6 10px,
-    #e3ecf7 10px,
-    #e3ecf7 20px
-  );
+.line {
+  margin:4px 0;
 }
 
-.no-oficial.lose.away {
-  background: repeating-linear-gradient(
-    -45deg,
-    #f6d6d6,
-    #f6d6d6 10px,
-    #eeeeee 10px,
-    #eeeeee 20px
-  );
-}
-
-.team {
+.teams {
   font-weight:bold;
 }
 
 .score {
-  margin-top:6px;
   font-size:1.05em;
+  font-weight:bold;
 }
 
-.sets {
+.meta {
   font-size:0.9em;
-  margin-top:4px;
-  color:#444;
-}
-
-.place {
-  font-style:italic;
-  margin-top:4px;
+  color:#333;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Emaitzak</h1>
-<div id="results"></div>
+<div id="content"></div>
 
 <script>
-function getDateRangeSemanaActualYAnterior() {
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  const day = today.getDay();
-  const diffToMonday = day === 0 ? -6 : 1 - day;
+const DATA_URL = "/data/resultados-larraun.json";
 
-  const mondayThisWeek = new Date(today);
-  mondayThisWeek.setDate(today.getDate() + diffToMonday);
-
-  const mondayLastWeek = new Date(mondayThisWeek);
-  mondayLastWeek.setDate(mondayThisWeek.getDate() - 7);
-
-  const sundayThisWeek = new Date(mondayThisWeek);
-  sundayThisWeek.setDate(mondayThisWeek.getDate() + 6);
-
-  return { from: mondayLastWeek, to: sundayThisWeek };
+function parseDate(d) {
+  return new Date(d + "T00:00:00");
 }
 
-function parseFecha(str) {
-  if (!str) return null;
-  const [y,m,d] = str.split("-");
-  const date = new Date(y, m-1, d);
-  date.setHours(0,0,0,0);
-  return date;
+function mondayOfWeek(date) {
+  const d = new Date(date);
+  const day = d.getDay() || 7;
+  if (day !== 1) d.setDate(d.getDate() - day + 1);
+  return d;
 }
 
-function hasValidResult(p) {
-  if (!p || !p.resultado) return false;
-  if (String(p.resultado).toLowerCase().includes("descanso")) return false;
-  return true;
+function inRange(date, start, end) {
+  return date >= start && date <= end;
 }
 
-function formatSets(sets) {
-  if (!Array.isArray(sets)) return "";
-  return sets.map(s =>
-    s.match(/\d+-\d+/g)?.join("  ")
-  ).join(" | ");
+function isHome(fronton) {
+  return /lekunberri|aldatz/i.test(fronton);
 }
 
-function isHome(place) {
-  if (!place) return false;
-  const p = place.toLowerCase();
-  return p.includes("lekunberri") || p.includes("aldatz");
-}
+fetch(DATA_URL)
+  .then(r => r.json())
+  .then(data => {
+    const today = new Date();
+    const thisMonday = mondayOfWeek(today);
+    const lastMonday = new Date(thisMonday);
+    lastMonday.setDate(thisMonday.getDate() - 7);
+    const lastSunday = new Date(thisMonday);
+    lastSunday.setDate(thisMonday.getDate() - 1);
 
-fetch("/data/resultados-larraun.json")
-.then(r => r.json())
-.then(data => {
-  const { from, to } = getDateRangeSemanaActualYAnterior();
+    const weekThis = [];
+    const weekLast = [];
 
-  const filtered = data.filter(p => {
-    if (!hasValidResult(p)) return false;
-    const d = parseFecha(p.fecha);
-    if (!d) return false;
-    return d >= from && d <= to;
-  });
+    data.forEach(m => {
+      if (!m.emaitza || m.emaitza === "undefined") return;
 
-  const weeks = {};
+      const d = parseDate(m.fecha);
 
-  filtered.forEach(p => {
-    const d = parseFecha(p.fecha);
-    const weekKey = d.toISOString().slice(0,10);
-    if (!weeks[weekKey]) weeks[weekKey] = [];
-    weeks[weekKey].push(p);
-  });
-
-  const container = document.getElementById("results");
-
-  Object.keys(weeks).sort((a,b)=>b.localeCompare(a)).forEach(week => {
-    const block = document.createElement("div");
-    block.className = "week-block";
-
-    block.innerHTML = `<h2>${week} asteko emaitzak</h2>`;
-
-    weeks[week].forEach(p => {
-      const win = p.gana ? "win" : "lose";
-      const home = isHome(p.frontoia) ? "home" : "away";
-      const official = p.ofiziala ? "official" : "no-oficial";
-
-      const div = document.createElement("div");
-      div.className = `match ${win} ${home} ${official}`;
-
-      div.innerHTML = `
-        <div class="team">${p.etxekoa} – ${p.kanpokoak}</div>
-        <div class="score">${p.resultado}</div>
-        <div class="sets">${formatSets(p.sets)}</div>
-        <div class="place">${p.frontoia}</div>
-      `;
-
-      block.appendChild(div);
+      if (inRange(d, thisMonday, today)) {
+        weekThis.push(m);
+      } else if (inRange(d, lastMonday, lastSunday)) {
+        weekLast.push(m);
+      }
     });
 
-    container.appendChild(block);
+    const container = document.getElementById("content");
+
+    function renderWeek(title, matches) {
+      if (!matches.length) return;
+
+      container.innerHTML += `<div class="week-title">${title}</div>`;
+
+      matches.forEach(m => {
+        const home = isHome(m.fronton);
+        const win = m.emaitza === "irabazita";
+        const oficial = m.ofiziala !== false;
+
+        let cls = "match ";
+        cls += oficial ? "" : "no-oficial ";
+        cls += win
+          ? (home ? "win-home" : "win-away")
+          : (home ? "lose-home" : "lose-away");
+
+        container.innerHTML += `
+          <div class="${cls}">
+            <div class="line meta">${m.fecha} · ${m.fronton}</div>
+            <div class="line teams">${m.etxekoa} vs ${m.kanpokoak}</div>
+            <div class="line score">${m.tanteoa || ""}</div>
+            ${m.sets && m.sets.length ? `<div class="line meta">${m.sets.join("  ")}</div>` : ""}
+            <div class="line meta">${m.modalidad || ""}</div>
+          </div>
+        `;
+      });
+    }
+
+    renderWeek("ASTE HONETAKO EMAITZAK", weekThis);
+    renderWeek("AURREKO ASTEKO EMAITZAK", weekLast);
   });
-});
 </script>
 
 </body>
