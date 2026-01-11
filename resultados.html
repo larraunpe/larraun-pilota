@@ -9,7 +9,6 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
-  padding:0;
 }
 
 /* ===== HEADER ===== */
@@ -21,7 +20,7 @@ header{
   background:#ffffff;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
-header img{height:48px;}
+header img{height:50px;}
 header h1{
   margin:0;
   font-size:2em;
@@ -33,8 +32,8 @@ header h1{
 main{padding:20px;}
 
 .week-title{
-  margin:30px 0 10px;
-  font-size:1.4em;
+  margin:30px 0 12px;
+  font-size:1.5em;
   font-weight:bold;
   color:#004d40;
 }
@@ -42,7 +41,7 @@ main{padding:20px;}
 /* ===== TARJETA ===== */
 .match{
   background:#fff;
-  margin-bottom:14px;
+  margin-bottom:16px;
   padding:14px 18px;
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
@@ -54,11 +53,11 @@ main{padding:20px;}
   content:"EZ OFIZIALA";
   position:absolute;
   top:12px;
-  right:-42px;
+  right:-45px;
   transform:rotate(45deg);
   background:#b00000;
   color:#fff;
-  padding:4px 55px;
+  padding:4px 60px;
   font-size:.75em;
   font-weight:bold;
 }
@@ -66,23 +65,23 @@ main{padding:20px;}
 /* ===== FRANJAS ===== */
 .win-home{
   background:repeating-linear-gradient(-45deg,
-    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
-    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
+    rgba(0,100,0,.18),rgba(0,100,0,.18) 12px,
+    rgba(0,90,160,.18) 12px,rgba(0,90,160,.18) 24px);
 }
 .win-away{
   background:repeating-linear-gradient(-45deg,
-    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
-    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
+    rgba(0,100,0,.18),rgba(0,100,0,.18) 12px,
+    rgba(140,140,140,.18) 12px,rgba(140,140,140,.18) 24px);
 }
 .lose-home{
   background:repeating-linear-gradient(-45deg,
-    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
-    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
+    rgba(170,0,0,.18),rgba(170,0,0,.18) 12px,
+    rgba(0,90,160,.18) 12px,rgba(0,90,160,.18) 24px);
 }
 .lose-away{
   background:repeating-linear-gradient(-45deg,
-    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
-    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
+    rgba(170,0,0,.18),rgba(170,0,0,.18) 12px,
+    rgba(140,140,140,.18) 12px,rgba(140,140,140,.18) 24px);
 }
 
 /* no oficiales → franjas invertidas */
@@ -91,15 +90,15 @@ main{padding:20px;}
 .no-oficial.lose-home,
 .no-oficial.lose-away{
   background-image:repeating-linear-gradient(45deg,
-    rgba(0,0,0,.08),rgba(0,0,0,.08) 10px,
-    rgba(255,255,255,.08) 10px,rgba(255,255,255,.08) 20px);
+    rgba(0,0,0,.10),rgba(0,0,0,.10) 12px,
+    rgba(255,255,255,.10) 12px,rgba(255,255,255,.10) 24px);
 }
 
 /* ===== TEXTO ===== */
 .line{margin:4px 0;}
 .etxekoa{color:#0d47a1;font-weight:bold;}
 .kanpokoak{color:#b71c1c;font-weight:bold;}
-.score{font-size:1.1em;font-weight:bold;}
+.score{font-size:1.15em;font-weight:bold;}
 .meta{font-size:.9em;color:#333;}
 .icon{margin-right:6px;}
 </style>
@@ -108,9 +107,9 @@ main{padding:20px;}
 <body>
 
 <header>
-  <img src="/img/logo-left.png" alt="">
+  <img src="/img/logo-larraun.png" alt="Larraun">
   <h1>EMAITZAK</h1>
-  <img src="/img/logo-right.png" alt="">
+  <img src="/img/logo-fnp.png" alt="FNP">
 </header>
 
 <main id="content"></main>
@@ -121,16 +120,15 @@ const SOURCES=[
   {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function getDateTime(m){
-  if(!m.fecha) return new Date(0);
-  if(m.hora) return new Date(`${m.fecha}T${m.hora}`);
-  return new Date(`${m.fecha}T00:00`);
+function parseDate(fecha){
+  if(!fecha) return null;
+  return new Date(fecha.replace(/\//g,"-")+"T00:00");
 }
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
-  if(day!==1)x.setDate(x.getDate()-day+1);
+  if(day!==1) x.setDate(x.getDate()-day+1);
   return x;
 }
 
@@ -139,24 +137,29 @@ function isHome(fronton){
 }
 
 Promise.all(
-  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
-    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala}))))
+  SOURCES.map(s =>
+    fetch(s.url).then(r=>r.json())
+      .then(arr => arr.map(o => ({
+        ...o,
+        ofiziala:s.ofiziala,
+        _date: parseDate(o.fecha)
+      })))
 ).then(all=>{
-  const data=all.flat();
-
-  // ORDENACIÓN GLOBAL
-  data.sort((a,b)=>getDateTime(a)-getDateTime(b));
-
   const today=new Date();
+  today.setHours(0,0,0,0);
+
+  const data=all.flat()
+    .filter(m => m._date && m._date <= today)   // ❗ NO FUTUROS
+    .sort((a,b)=>a._date-b._date);
+
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
   const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
 
   const thisWeek=[], lastWeek=[];
   data.forEach(m=>{
-    const d=new Date(m.fecha+"T00:00");
-    if(d>=thisMon&&d<=today) thisWeek.push(m);
-    else if(d>=lastMon&&d<=lastSun) lastWeek.push(m);
+    if(m._date>=thisMon) thisWeek.push(m);
+    else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
   });
 
   const c=document.getElementById("content");
@@ -179,10 +182,9 @@ Promise.all(
         <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
         <div class="line meta"><span class="icon">📍</span>${m.fronton||""}</div>
         <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa}</div>
-        <div class="line kanpokoak"><span class="icon">🚩</span>${m.kanpokoak}</div>
+        <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak}</div>
         <div class="line score">${m.tanteoa||""}</div>
-        ${m.sets?.length?`<div class="line meta">${m.sets.join("  ")}</div>`:""}
-        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
+        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||m.lehiaketa||""}</div>
       </div>`;
     });
   }
