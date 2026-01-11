@@ -2,200 +2,241 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<title>Larraun Pilota – Emaitzak</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emaitzak – Larraun Pilota</title>
 
 <style>
 body {
-  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #eaeaea;
+  background:#f4f4f4;
+  margin:0;
+  padding:20px;
 }
 
-.cartel {
-  max-width: 900px;
-  margin: auto;
-  background: #fff;
-  padding: 30px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+h2 {
+  margin-top:40px;
+  color:#222;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 4px solid #003366;
-  padding-bottom: 20px;
-  margin-bottom: 25px;
+.week-block {
+  margin-bottom:40px;
 }
 
-.header img {
-  height: 80px;
-}
-.logo-larraun {
-  height: 70px;     /* un poco más pequeño */
-  object-fit: contain;
-}
-  
-.header h1 {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-  font-size: 2em;
-  color: #003366;
+.match {
+  margin-bottom:14px;
+  padding:14px 16px;
+  border-radius:8px;
+  color:#222;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  font-size:0.95em;
 }
 
-.resultados {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+/* ===== RAYAS ===== */
+.win.home.official {
+  background: repeating-linear-gradient(
+    45deg,
+    #dff3e4,
+    #dff3e4 10px,
+    #e3ecf7 10px,
+    #e3ecf7 20px
+  );
 }
 
-.partido {
-  padding: 16px 18px;
-  border-radius: 10px;
-  background: #f9f9f9;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  position: relative;
+.win.away.official {
+  background: repeating-linear-gradient(
+    45deg,
+    #dff3e4,
+    #dff3e4 10px,
+    #eeeeee 10px,
+    #eeeeee 20px
+  );
 }
 
-.partido.oficial {
-  border-left: 6px solid #006400;
+.lose.home.official {
+  background: repeating-linear-gradient(
+    45deg,
+    #f6d6d6,
+    #f6d6d6 10px,
+    #e3ecf7 10px,
+    #e3ecf7 20px
+  );
 }
 
-.partido.no-oficial {
-  border-left: 6px solid #b30000;
-  background: #fff2f2;
+.lose.away.official {
+  background: repeating-linear-gradient(
+    45deg,
+    #f6d6d6,
+    #f6d6d6 10px,
+    #eeeeee 10px,
+    #eeeeee 20px
+  );
 }
 
-.partido.irabazita {
-  background: #f0fff0;
+/* NO OFICIALES → rayas invertidas */
+.no-oficial.win.home {
+  background: repeating-linear-gradient(
+    -45deg,
+    #dff3e4,
+    #dff3e4 10px,
+    #e3ecf7 10px,
+    #e3ecf7 20px
+  );
 }
 
-.partido.galduta {
-  background: #fff5f5;
+.no-oficial.win.away {
+  background: repeating-linear-gradient(
+    -45deg,
+    #dff3e4,
+    #dff3e4 10px,
+    #eeeeee 10px,
+    #eeeeee 20px
+  );
 }
 
-.badge {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 0.75em;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: #b30000;
-  color: #fff;
+.no-oficial.lose.home {
+  background: repeating-linear-gradient(
+    -45deg,
+    #f6d6d6,
+    #f6d6d6 10px,
+    #e3ecf7 10px,
+    #e3ecf7 20px
+  );
 }
 
-
-.fecha {
-  font-weight: bold;
-  margin-bottom: 6px;
+.no-oficial.lose.away {
+  background: repeating-linear-gradient(
+    -45deg,
+    #f6d6d6,
+    #f6d6d6 10px,
+    #eeeeee 10px,
+    #eeeeee 20px
+  );
 }
 
-.equipos {
-  line-height: 1.4;
+.team {
+  font-weight:bold;
 }
 
-.etxekoa {
-  color: #0b2c5d;
-  font-weight: bold;
+.score {
+  margin-top:6px;
+  font-size:1.05em;
 }
 
-.kanpokoak {
-  color: #b00000;
-  font-weight: bold;
+.sets {
+  font-size:0.9em;
+  margin-top:4px;
+  color:#444;
 }
 
-.larraun {
-  text-transform: uppercase;
-  font-size: 1.1em;
-}
-
-.tanteoa {
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-top: 8px;
-  text-align: center;
-}
-
-.fronton, .lehiaketa {
-  font-size: 0.9em;
-  color: #555;
+.place {
+  font-style:italic;
+  margin-top:4px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="cartel">
-  <div class="header">
-  <img src="images/logo-larraun.png" alt="Larraun Pilota" class="logo-larraun">
-  <h1>AZKENEKO EMAITZAK – LARRAUN</h1>
-  <img src="images/logo-fnp.png" alt="FNP">
-</div>
-
-  <div class="resultados" id="lista-resultados"></div>
-</div>
-
+<h1>Emaitzak</h1>
+<div id="results"></div>
 
 <script>
-Promise.all([
-  fetch("data/resultados-larraun.json").then(r => r.json()),
-  fetch("data/resultados-no-oficiales.json").then(r => r.json())
-]).then(([oficiales, noOficiales]) => {
+function getDateRangeSemanaActualYAnterior() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const day = today.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
 
-  const partidos = [
-    ...oficiales.map(p => ({ ...p, ofiziala: true })),
-    ...noOficiales.map(p => ({ ...p, ofiziala: false }))
-  ];
+  const mondayThisWeek = new Date(today);
+  mondayThisWeek.setDate(today.getDate() + diffToMonday);
 
-  partidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+  const mondayLastWeek = new Date(mondayThisWeek);
+  mondayLastWeek.setDate(mondayThisWeek.getDate() - 7);
 
-  const cont = document.getElementById("lista-resultados");
+  const sundayThisWeek = new Date(mondayThisWeek);
+  sundayThisWeek.setDate(mondayThisWeek.getDate() + 6);
 
-  partidos.forEach(p => {
-    const emaitza = p.emaitza || "";
+  return { from: mondayLastWeek, to: sundayThisWeek };
+}
 
-    const etxekoa = p.etxekoa || "LARRAUN";
-    const kanpokoak = p.kanpokoak || "Aurkaria";
+function parseFecha(str) {
+  if (!str) return null;
+  const [y,m,d] = str.split("-");
+  const date = new Date(y, m-1, d);
+  date.setHours(0,0,0,0);
+  return date;
+}
 
-    const etxClass = etxekoa.includes("LARRAUN")
-      ? "etxekoa larraun"
-      : "etxekoa";
+function hasValidResult(p) {
+  if (!p || !p.resultado) return false;
+  if (String(p.resultado).toLowerCase().includes("descanso")) return false;
+  return true;
+}
 
-    const kanpClass = kanpokoak.includes("LARRAUN")
-      ? "kanpokoak larraun"
-      : "kanpokoak";
+function formatSets(sets) {
+  if (!Array.isArray(sets)) return "";
+  return sets.map(s =>
+    s.match(/\d+-\d+/g)?.join("  ")
+  ).join(" | ");
+}
 
-    const div = document.createElement("div");
-    div.className = `partido ${emaitza} ${p.ofiziala ? "oficial" : "no-oficial"}`;
+function isHome(place) {
+  if (!place) return false;
+  const p = place.toLowerCase();
+  return p.includes("lekunberri") || p.includes("aldatz");
+}
 
-    div.innerHTML = `
-      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
+fetch("data/resultados-larraun.json")
+.then(r => r.json())
+.then(data => {
+  const { from, to } = getDateRangeSemanaActualYAnterior();
 
-      <div class="fecha">🗓 ${p.fecha}</div>
+  const filtered = data.filter(p => {
+    if (!hasValidResult(p)) return false;
+    const d = parseFecha(p.fecha);
+    if (!d) return false;
+    return d >= from && d <= to;
+  });
 
-      <div class="equipos">
-        <div class="${etxClass}">🏠 ${etxekoa}</div>
-        <div class="${kanpClass}">✈️ ${kanpokoak}</div>
-      </div>
+  const weeks = {};
 
-      <div class="tanteoa">
-        ${p.tanteoa || p.resultado}
-        ${p.sets ? `<div style="font-size:0.8em;">(${p.sets.join(", ")})</div>` : ""}
-      </div>
+  filtered.forEach(p => {
+    const d = parseFecha(p.fecha);
+    const weekKey = d.toISOString().slice(0,10);
+    if (!weeks[weekKey]) weeks[weekKey] = [];
+    weeks[weekKey].push(p);
+  });
 
-      <div class="fronton">📍 ${p.fronton || ""}</div>
-      ${p.lehiaketa ? `<div class="lehiaketa">🏆 ${p.lehiaketa}</div>` : ""}
-    `;
+  const container = document.getElementById("results");
 
-    cont.appendChild(div);
+  Object.keys(weeks).sort((a,b)=>b.localeCompare(a)).forEach(week => {
+    const block = document.createElement("div");
+    block.className = "week-block";
+
+    block.innerHTML = `<h2>${week} asteko emaitzak</h2>`;
+
+    weeks[week].forEach(p => {
+      const win = p.gana ? "win" : "lose";
+      const home = isHome(p.frontoia) ? "home" : "away";
+      const official = p.ofiziala ? "official" : "no-oficial";
+
+      const div = document.createElement("div");
+      div.className = `match ${win} ${home} ${official}`;
+
+      div.innerHTML = `
+        <div class="team">${p.etxekoa} – ${p.kanpokoak}</div>
+        <div class="score">${p.resultado}</div>
+        <div class="sets">${formatSets(p.sets)}</div>
+        <div class="place">${p.frontoia}</div>
+      `;
+
+      block.appendChild(div);
+    });
+
+    container.appendChild(block);
   });
 });
 </script>
-
-
 
 </body>
 </html>
