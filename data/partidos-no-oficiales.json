@@ -1,21 +1,29 @@
 [
   {
-    "fecha": "2026/01/09",
-    "hora": "19:00",
-    "zkia": "2",
-    "fronton": "Elgoibar",
-    "etxekoa": "Nazabal (LARRAUN) - Artetxe)",
-    "kanpokoak": "Izagirre - Ormaetxea",
-    "lehiaketa": "SAN ANTON PILOTA TXAPELKETA. PROMESA MUTILAK. FINALAURREKOA",
-    "ofiziala": false
+    "fecha": "2026/01/18",
+    "hora": "09:00",
+    "zkia": "1",
+    "fronton": "Lesaka",
+    "etxekoa": "LARRAUN (Balda – Sotil)",
+    "kanpokoak": "HERNANI (Galdos – Azpeitia)",
+    "lehiaketa": "ARKUPE TXAPELKETA. KADETE KANPORAKETA"
   },
   {
-  "fecha": "2026/01/10",
-  "hora": "18:00",
-  "zkia": "1",
-  "fronton": "Pamplona – Oberena 2",
-  "etxekoa": "OBERENA",
-  "kanpokoak": "LARRAUN",
-  "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA "
- }
+    "fecha": "2026/01/18",
+    "hora": "16:00",
+    "zkia": "",
+    "fronton": "Zizur – Fronton nagusia",
+    "etxekoa": "LARRAUN (Laso)",
+    "kanpokoak": "-",
+    "lehiaketa": "ZIZUR 4 TXAPELKETA GAZTE (2009) KANPORAKETA"
+  },
+  {
+    "fecha": "2026/01/10",
+    "hora": "18:00",
+    "zkia": "1",
+    "fronton": "Pamplona – Oberena 2",
+    "etxekoa": "OBERENA",
+    "kanpokoak": "LARRAUN",
+    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA "
+  }
 ]
