@@ -9,17 +9,19 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
+  padding:0;
 }
 
+/* ===== HEADER ===== */
 header{
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:14px 20px;
-  background:#fff;
+  background:#ffffff;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
-header img{height:50px;}
+header img{height:48px;}
 header h1{
   margin:0;
   font-size:2em;
@@ -27,18 +29,20 @@ header h1{
   letter-spacing:2px;
 }
 
+/* ===== CONTENIDO ===== */
 main{padding:20px;}
 
 .week-title{
-  margin:36px 0 14px;
+  margin:30px 0 10px;
   font-size:1.4em;
   font-weight:bold;
   color:#004d40;
 }
 
+/* ===== TARJETA ===== */
 .match{
   background:#fff;
-  margin-bottom:16px;
+  margin-bottom:14px;
   padding:14px 18px;
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
@@ -50,46 +54,63 @@ main{padding:20px;}
   content:"EZ OFIZIALA";
   position:absolute;
   top:12px;
-  right:-45px;
+  right:-42px;
   transform:rotate(45deg);
   background:#b00000;
   color:#fff;
-  padding:4px 60px;
+  padding:4px 55px;
   font-size:.75em;
   font-weight:bold;
 }
 
-/* Franjas */
-.win-home{background:repeating-linear-gradient(-45deg,rgba(0,100,0,.18) 0 12px,rgba(0,90,160,.18) 12px 24px);}
-.win-away{background:repeating-linear-gradient(-45deg,rgba(0,100,0,.18) 0 12px,rgba(140,140,140,.18) 12px 24px);}
-.lose-home{background:repeating-linear-gradient(-45deg,rgba(170,0,0,.18) 0 12px,rgba(0,90,160,.18) 12px 24px);}
-.lose-away{background:repeating-linear-gradient(-45deg,rgba(170,0,0,.18) 0 12px,rgba(140,140,140,.18) 12px 24px);}
+/* ===== FRANJAS ===== */
+.win-home{
+  background:repeating-linear-gradient(-45deg,
+    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
+    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
+}
+.win-away{
+  background:repeating-linear-gradient(-45deg,
+    rgba(0,100,0,.15),rgba(0,100,0,.15) 10px,
+    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
+}
+.lose-home{
+  background:repeating-linear-gradient(-45deg,
+    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
+    rgba(0,80,150,.15) 10px,rgba(0,80,150,.15) 20px);
+}
+.lose-away{
+  background:repeating-linear-gradient(-45deg,
+    rgba(160,0,0,.15),rgba(160,0,0,.15) 10px,
+    rgba(120,120,120,.15) 10px,rgba(120,120,120,.15) 20px);
+}
 
+/* no oficiales → franjas invertidas */
 .no-oficial.win-home,
 .no-oficial.win-away,
 .no-oficial.lose-home,
 .no-oficial.lose-away{
-  background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.1) 0 12px,rgba(255,255,255,.1) 12px 24px);
+  background-image:repeating-linear-gradient(45deg,
+    rgba(0,0,0,.08),rgba(0,0,0,.08) 10px,
+    rgba(255,255,255,.08) 10px,rgba(255,255,255,.08) 20px);
 }
 
+/* ===== TEXTO ===== */
 .line{margin:4px 0;}
 .etxekoa{color:#0d47a1;font-weight:bold;}
 .kanpokoak{color:#b71c1c;font-weight:bold;}
-.score{font-size:1.15em;font-weight:bold;}
+.score{font-size:1.1em;font-weight:bold;}
 .meta{font-size:.9em;color:#333;}
 .icon{margin-right:6px;}
-.sets{font-size:.95em;font-style:italic;}
-.modalitatea a{color:#004d40;text-decoration:none;font-weight:bold;}
-.modalitatea a:hover{text-decoration:underline;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/images/logo-larraun.png">
+  <img src="/img/logo-left.png" alt="">
   <h1>EMAITZAK</h1>
-  <img src="/images/logo-fnp.png">
+  <img src="/img/logo-right.png" alt="">
 </header>
 
 <main id="content"></main>
@@ -100,17 +121,16 @@ const SOURCES=[
   {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function parseDateSafe(fecha){
-  if(!fecha) return null;
-  const d=new Date(fecha.trim());
-  return isNaN(d)?null:d;
+function getDateTime(m){
+  if(!m.fecha) return new Date(0);
+  if(m.hora) return new Date(`${m.fecha}T${m.hora}`);
+  return new Date(`${m.fecha}T00:00`);
 }
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
-  x.setDate(x.getDate()-day+1);
-  x.setHours(0,0,0,0);
+  if(day!==1)x.setDate(x.getDate()-day+1);
   return x;
 }
 
@@ -118,75 +138,57 @@ function isHome(fronton){
   return /lekunberri|aldatz/i.test(fronton||"");
 }
 
-function formatSets(arr){
-  if(!arr || !arr.length) return "";
-  return arr.map(s=>{
-    const p=s.match(/\d+-\d+/g);
-    return p ? p.join("  ") : s;
-  }).join(" | ");
-}
-
 Promise.all(
-  SOURCES.map(s =>
-    fetch(s.url).then(r=>r.json())
-      .then(arr => arr.map(o=>({
-        ...o,
-        ofiziala:s.ofiziala,
-        _date: parseDateSafe(o.fecha)
-      })))
+  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
+    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala}))))
 ).then(all=>{
-  const data=all.flat().sort((a,b)=>{
-    if(!a._date) return 1;
-    if(!b._date) return -1;
-    return a._date-b._date;
-  });
+  const data=all.flat();
 
-  const groups={};
-  const fallback=[];
+  // ORDENACIÓN GLOBAL
+  data.sort((a,b)=>getDateTime(a)-getDateTime(b));
 
+  const today=new Date();
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
+  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
+
+  const thisWeek=[], lastWeek=[];
   data.forEach(m=>{
-    if(!m._date){ fallback.push(m); return; }
-    const key=monday(m._date).toISOString();
-    (groups[key] ||= []).push(m);
+    const d=new Date(m.fecha+"T00:00");
+    if(d>=thisMon&&d<=today) thisWeek.push(m);
+    else if(d>=lastMon&&d<=lastSun) lastWeek.push(m);
   });
 
   const c=document.getElementById("content");
 
-  Object.keys(groups).sort((a,b)=>new Date(b)-new Date(a)).forEach(k=>{
-    const s=new Date(k), e=new Date(s); e.setDate(s.getDate()+6);
-    c.innerHTML+=`<div class="week-title">ASTEKO EMAITZAK (${s.toLocaleDateString("eu-ES")} → ${e.toLocaleDateString("eu-ES")})</div>`;
-    render(groups[k]);
-  });
-
-  if(fallback.length){
-    c.innerHTML+=`<div class="week-title">BESTELAKO EMAITZAK</div>`;
-    render(fallback);
-  }
-
-  function render(arr){
+  function render(title,arr){
+    if(!arr.length) return;
+    c.innerHTML+=`<div class="week-title">${title}</div>`;
     arr.forEach(m=>{
       let cls="match ";
       if(!m.ofiziala) cls+="no-oficial ";
       if(m.emaitza){
-        const h=isHome(m.fronton);
-        cls+= m.emaitza==="irabazita" ? (h?"win-home":"win-away") : (h?"lose-home":"lose-away");
+        const home=isHome(m.fronton);
+        cls+= m.emaitza==="irabazita"
+          ? (home?"win-home":"win-away")
+          : (home?"lose-home":"lose-away");
       }
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta"><span class="icon">📅</span>${m.fecha||""}</div>
+        <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
         <div class="line meta"><span class="icon">📍</span>${m.fronton||""}</div>
-        <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa||""}</div>
-        <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak||""}</div>
+        <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa}</div>
+        <div class="line kanpokoak"><span class="icon">🚩</span>${m.kanpokoak}</div>
         <div class="line score">${m.tanteoa||""}</div>
-        ${m.sets?.length?`<div class="line sets">${formatSets(m.sets)}</div>`:""}
-        <div class="line meta modalitatea">
-          <span class="icon">🏆</span>
-          ${m.url?`<a href="${m.url}" target="_blank">${m.modalidad||""}</a>`:(m.modalidad||"")}
-        </div>
+        ${m.sets?.length?`<div class="line meta">${m.sets.join("  ")}</div>`:""}
+        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
       </div>`;
     });
   }
+
+  render("ASTE HONETAKO EMAITZAK",thisWeek);
+  render("AURREKO ASTEKO EMAITZAK",lastWeek);
 });
 </script>
 
