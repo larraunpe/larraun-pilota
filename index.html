@@ -404,6 +404,69 @@ nav a:hover {
   background-color: #222;
   color: white;
 }
+  /* GALERÍA – CARPETAS */
+    .galeria-folders {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .folder {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 90px;
+      padding-left: 28px;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 1.4em;
+      font-weight: bold;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .folder::before {
+      content: "📁";
+      font-size: 2em;
+      margin-right: 14px;
+    }
+
+    .folder::after {
+      content: "Ikusi galeria →";
+      position: absolute;
+      right: 26px;
+      font-size: 0.9em;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.25s ease;
+    }
+
+    .folder:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+
+    .folder:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .t2019 { background: linear-gradient(135deg,#2c3e50,#4ca1af); }
+    .t2020 { background: linear-gradient(135deg,#5f2c82,#49a09d); }
+    .t2021 { background: linear-gradient(135deg,#1d4350,#a43931); }
+    .t2022 { background: linear-gradient(135deg,#134e5e,#71b280); }
+    .t2023 { background: linear-gradient(135deg,#283c86,#45a247); }
+    .t2024 { background: linear-gradient(135deg,#3a1c71,#d76d77); }
+    .t2025 { background: linear-gradient(135deg,#000428,#004e92); }
+
+    @media (max-width: 700px) {
+      .folder { height: 70px; font-size: 1.2em; }
+      .folder::after { display: none; }
+    }
+
 
 /* ===== FOOTER ===== */
 footer {
@@ -1220,52 +1283,15 @@ function openImage(src) {
     <img src="images/galeria/foto3.jpg" alt="Cartel semanal" onclick="openImage(this.src)">
   </div>
 </div>
-  <div class="galeria-folders">
-
-    <a class="folder t2019" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2019 – 2020</span>
-    </a>
-
-    <a class="folder t2020" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2020 – 2021</span>
-    </a>
-
-    <a class="folder t2021" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2021 – 2022</span>
-    </a>
-
-    <a class="folder t2022" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2022 – 2023</span>
-    </a>
-
-    <a class="folder t2023" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2023 – 2024</span>
-    </a>
-
-    <a class="folder t2024" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2024 – 2025</span>
-    </a>
-
-    <a class="folder t2025" 
-       href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
-       target="_blank">
-      <span>2025 – 2026</span>
-    </a>
-
+    <div class="galeria-folders">
+    <a class="folder t2019" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2019 – 2020</a>
+    <a class="folder t2020" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2020 – 2021</a>
+    <a class="folder t2021" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2021 – 2022</a>
+    <a class="folder t2022" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2022 – 2023</a>
+    <a class="folder t2023" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2023 – 2024</a>
+    <a class="folder t2024" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2024 – 2025</a>
+    <a class="folder t2025" href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums" target="_blank">2025 – 2026</a>
   </div>
-
 </section>
 
 <section id="kontaktua">
