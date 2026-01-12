@@ -199,36 +199,21 @@ section {
   background:linear-gradient(135deg,#7ecbff,#2e7d32);
 }
 
-.modal-card.mano::after{
-  content:"";
-  position:absolute;
-  bottom:-10px;              /* controla lo “baja” que queda */
-  left:50%;
-  transform:translateX(-50%);
-  width:160px;
-  height:160px;
-  background:url("/images/silueta-pelotari.png") no-repeat center;
-  background-repeat:no-repeat;
-  background-position:center bottom;
-  background-size:contain;
-  opacity:.35;
-  pointer-events:none;
-}
-
 /* ===== PALA ===== */
 .modal-card.pala{
   background:linear-gradient(135deg,#ffb347,#8b4500);
 }
 
+/* ===== SILUETAS (CENTRADAS HORIZONTAL + ABAJO) ===== */
+.modal-card.mano::after,
 .modal-card.pala::after{
   content:"";
   position:absolute;
-  bottom:-10px;              /* controla lo “baja” que queda */
+  bottom:-10px;
   left:50%;
   transform:translateX(-50%);
   width:160px;
   height:160px;
-  background:url("/images/silueta-pala-chica.png") no-repeat center;
   background-repeat:no-repeat;
   background-position:center bottom;
   background-size:contain;
@@ -236,6 +221,14 @@ section {
   pointer-events:none;
 }
 
+/* imágenes (RUTAS RELATIVAS ✔) */
+.modal-card.mano::after{
+  background-image:url("images/silueta-pelotari.png");
+}
+
+.modal-card.pala::after{
+  background-image:url("images/silueta-pala-chica.png");
+}
 
 .kategoria-card p {
   margin: 6px 0 0;
@@ -892,11 +885,10 @@ function openImage(src) {
    </section>
 
 <section id="modalitateak">
-  
   <h2 class="eu">Modalitateak</h2>
   <h2 class="es">Modalidades</h2>
-  
 </section>
+
 <section class="modalitateak">
   <a href="mano.html" class="modal-card mano">
     <h2>Esku pilota</h2>
