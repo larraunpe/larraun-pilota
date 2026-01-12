@@ -9,7 +9,6 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
-  padding:0;
 }
 
 /* ===== HEADER ===== */
@@ -47,60 +46,33 @@ main{padding:20px;}
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
   position:relative;
-  overflow:hidden;
 }
 
-/* LATERAL IZQUIERDO */
 .match::before{
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
+  left:0; top:0; bottom:0;
   width:6px;
   background:#000;
 }
+.match.win::before{background:#1b8f3a;}
+.match.lose::before{background:#b00000;}
+.match.pending::before{background:#000;}
 
-.match.win::before{ background:#1b8f3a; }
-.match.lose::before{ background:#b00000; }
-.match.pending::before{ background:#000; }
+.match.no-oficial{background:#f0f0f0;}
 
-/* NO OFICIALES */
-.match.no-oficial{
-  background:#f0f0f0;
-}
-
-.match.no-oficial::after{
-  content:"EZ OFIZIALA";
-  position:absolute;
-  top:12px;
-  right:-42px;
-  transform:rotate(45deg);
-  background:#b00000;
-  color:#fff;
-  padding:4px 55px;
-  font-size:.75em;
-  font-weight:bold;
-}
-
-/* ===== TEXTO ===== */
 .line{margin:4px 0;}
 .score{font-size:1.1em;font-weight:bold;}
 .meta{font-size:.9em;color:#333;}
-.icon{margin-right:6px;}
 
-/* LARRAUN */
 .larraun{
   color:#0d47a1;
   font-weight:bold;
   font-size:1.05em;
   text-transform:uppercase;
 }
-.no-larraun{
-  color:#b71c1c;
-}
+.no-larraun{color:#b71c1c;}
 
-/* FRONTONES DESTACADOS */
 .fronton-destacado{
   background:#e3f2fd;
   padding:2px 6px;
@@ -109,41 +81,41 @@ main{padding:20px;}
   font-weight:bold;
 }
 
-/* MODALIDAD */
 .modalidad-link{
   color:#004d40;
-  text-decoration:none;
   font-weight:600;
-}
-.modalidad-link:hover{
-  text-decoration:underline;
-}
-.link-icon{
-  margin-left:8px;
   text-decoration:none;
 }
+.modalidad-link:hover{text-decoration:underline;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/img/logo-left.png" alt="Larraun">
+  <img src="/img/logo-larraun.png" alt="">
   <h1>EMAITZAK</h1>
-  <img src="/img/logo-right.png" alt="FNP">
+  <img src="/img/logo-fnp.png" alt="">
 </header>
 
 <main id="content"></main>
 
 <script>
 const SOURCES=[
-  {url:"/data/resultados-larraun.json",ofiziala:true},
-  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
+  "/data/resultados-larraun.json",
+  "/data/resultados-no-oficiales.json"
 ];
 
-function parseDate(fecha){
-  if(!fecha) return null;
-  return new Date(fecha+"T00:00");
+function safeFetch(url){
+  return fetch(url)
+    .then(r => r.ok ? r.json() : [])
+    .catch(() => []);
+}
+
+function parseDate(f){
+  if(!f) return null;
+  const d = new Date(f+"T00:00");
+  return isNaN(d) ? null : d;
 }
 
 function monday(d){
@@ -154,34 +126,22 @@ function monday(d){
   return x;
 }
 
-function isLarraun(txt){
-  return /larraun/i.test(txt||"");
-}
+function isLarraun(t){return /larraun/i.test(t||"");}
+function destacado(f){return /lekunberri|aldatz/i.test(f||"");}
 
-function frontonDestacado(f){
-  return /lekunberri|aldatz/i.test(f||"");
-}
+Promise.all(SOURCES.map(safeFetch)).then(all=>{
+  const today=new Date(); today.setHours(0,0,0,0);
 
-Promise.all(
-  SOURCES.map(s =>
-    fetch(s.url).then(r=>r.json())
-      .then(arr => arr.map(o => ({
-        ...o,
-        ofiziala:s.ofiziala,
-        _date: parseDate(o.fecha)
-      })))
-).then(all=>{
-  const today=new Date();
-  today.setHours(0,0,0,0);
+  const data = all.flat()
+    .map(m => ({...m, _date: parseDate(m.fecha)}))
+    .filter(m => m._date && m._date <= today)
+    .sort((a,b)=>a._date-b._date);
 
-  const data=all.flat()
-    .filter(m=>m._date && m._date<=today)
-    .sort((a,b)=>{
-      if(a._date-b._date!==0) return a._date-b._date;
-      if((a.fronton||"")<(b.fronton||"")) return -1;
-      if((a.fronton||"")>(b.fronton||"")) return 1;
-      return (a.etxekoa||"").localeCompare(b.etxekoa||"");
-    });
+  if(!data.length){
+    document.getElementById("content").innerHTML =
+      "<p>Ez dago emaitzarik erakusteko.</p>";
+    return;
+  }
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
@@ -198,48 +158,21 @@ Promise.all(
   function render(title,arr){
     if(!arr.length) return;
     c.innerHTML+=`<div class="week-title">${title}</div>`;
-
     arr.forEach(m=>{
       let cls="match ";
-      if(!m.ofiziala) cls+="no-oficial ";
-
       if(!m.emaitza) cls+="pending";
-      else if(isLarraun(m.etxekoa+m.kanpokoak) && /irabazita|^\d+/.test(m.emaitza)) cls+="win";
+      else if(isLarraun(m.etxekoa+m.kanpokoak) && /irabazita|\d+/.test(m.emaitza)) cls+="win";
       else cls+="lose";
-
-      const modalidadLink =
-        m.url && m.url!=="-"
-          ? `<a href="${m.url}" target="_blank" class="modalidad-link">${m.modalidad||""}</a>
-             <a href="${m.url}" target="_blank" class="link-icon" title="Ikusi iturria">🔗</a>`
-          : `<span class="modalidad-link">${m.modalidad||""}</span>`;
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta">
-          <span class="icon">📅</span>${m.fecha}
-        </div>
-
-        <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
-          <span class="icon">📍</span>${m.fronton||""}
-        </div>
-
-        <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">
-          <span class="icon">🏠</span>${m.etxekoa||""}
-        </div>
-
-        <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">
-          <span class="icon">✈️</span>${m.kanpokoak||""}
-        </div>
-
+        <div class="line meta">📅 ${m.fecha}</div>
+        <div class="line meta ${destacado(m.fronton)?'fronton-destacado':''}">📍 ${m.fronton||""}</div>
+        <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">🏠 ${m.etxekoa||""}</div>
+        <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
         ${m.tanteoa?`<div class="line score">${m.tanteoa}</div>`:""}
-
-        ${m.sets && m.sets.length
-          ? `<div class="line meta"><span class="icon">🎯</span>${m.sets.join("  ")}</div>`
-          : ""}
-
-        <div class="line meta">
-          <span class="icon">🏆</span>${modalidadLink}
-        </div>
+        ${m.sets?.length?`<div class="line meta">🎯 ${m.sets.join("  ")}</div>`:""}
+        <div class="line meta">🏆 ${m.modalidad||""}</div>
       </div>`;
     });
   }
@@ -251,3 +184,4 @@ Promise.all(
 
 </body>
 </html>
+
