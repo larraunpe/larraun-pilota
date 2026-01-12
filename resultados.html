@@ -11,13 +11,12 @@ body{
   margin:0;
 }
 
-/* ===== HEADER ===== */
 header{
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:14px 20px;
-  background:#ffffff;
+  background:#fff;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 header img{height:50px;}
@@ -28,7 +27,6 @@ header h1{
   letter-spacing:2px;
 }
 
-/* ===== CONTENIDO ===== */
 main{padding:20px;}
 
 .week-title{
@@ -38,7 +36,6 @@ main{padding:20px;}
   color:#004d40;
 }
 
-/* ===== TARJETA ===== */
 .match{
   background:#fff;
   margin-bottom:16px;
@@ -62,54 +59,37 @@ main{padding:20px;}
   font-weight:bold;
 }
 
-/* ===== FRANJAS ===== */
-.win-home{
-  background:repeating-linear-gradient(-45deg,
-    rgba(0,100,0,.18),rgba(0,100,0,.18) 12px,
-    rgba(0,90,160,.18) 12px,rgba(0,90,160,.18) 24px);
-}
-.win-away{
-  background:repeating-linear-gradient(-45deg,
-    rgba(0,100,0,.18),rgba(0,100,0,.18) 12px,
-    rgba(140,140,140,.18) 12px,rgba(140,140,140,.18) 24px);
-}
-.lose-home{
-  background:repeating-linear-gradient(-45deg,
-    rgba(170,0,0,.18),rgba(170,0,0,.18) 12px,
-    rgba(0,90,160,.18) 12px,rgba(0,90,160,.18) 24px);
-}
-.lose-away{
-  background:repeating-linear-gradient(-45deg,
-    rgba(170,0,0,.18),rgba(170,0,0,.18) 12px,
-    rgba(140,140,140,.18) 12px,rgba(140,140,140,.18) 24px);
-}
+/* Franjas */
+.win-home{background:repeating-linear-gradient(-45deg,rgba(0,100,0,.18) 0 12px,rgba(0,90,160,.18) 12px 24px);}
+.win-away{background:repeating-linear-gradient(-45deg,rgba(0,100,0,.18) 0 12px,rgba(140,140,140,.18) 12px 24px);}
+.lose-home{background:repeating-linear-gradient(-45deg,rgba(170,0,0,.18) 0 12px,rgba(0,90,160,.18) 12px 24px);}
+.lose-away{background:repeating-linear-gradient(-45deg,rgba(170,0,0,.18) 0 12px,rgba(140,140,140,.18) 12px 24px);}
 
-/* no oficiales → franjas invertidas */
 .no-oficial.win-home,
 .no-oficial.win-away,
 .no-oficial.lose-home,
 .no-oficial.lose-away{
-  background-image:repeating-linear-gradient(45deg,
-    rgba(0,0,0,.10),rgba(0,0,0,.10) 12px,
-    rgba(255,255,255,.10) 12px,rgba(255,255,255,.10) 24px);
+  background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.1) 0 12px,rgba(255,255,255,.1) 12px 24px);
 }
 
-/* ===== TEXTO ===== */
 .line{margin:4px 0;}
 .etxekoa{color:#0d47a1;font-weight:bold;}
 .kanpokoak{color:#b71c1c;font-weight:bold;}
 .score{font-size:1.15em;font-weight:bold;}
 .meta{font-size:.9em;color:#333;}
 .icon{margin-right:6px;}
+.sets{font-size:.95em;font-style:italic;}
+.modalitatea a{color:#004d40;text-decoration:none;font-weight:bold;}
+.modalitatea a:hover{text-decoration:underline;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/images/logo-larraun.png" alt="Larraun">
+  <img src="/images/logo-larraun.png">
   <h1>EMAITZAK</h1>
-  <img src="/images/logo-fnp.png" alt="FNP">
+  <img src="/images/logo-fnp.png">
 </header>
 
 <main id="content"></main>
@@ -120,15 +100,16 @@ const SOURCES=[
   {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function parseDate(fecha){
-  const m = fecha?.match(/(\d{4})-(\d{2})-(\d{2})/);
-  return m ? new Date(+m[1], m[2]-1, +m[3]) : null;
+function parseDateSafe(fecha){
+  if(!fecha) return null;
+  const d=new Date(fecha.trim());
+  return isNaN(d)?null:d;
 }
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
-  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setDate(x.getDate()-day+1);
   x.setHours(0,0,0,0);
   return x;
 }
@@ -137,59 +118,75 @@ function isHome(fronton){
   return /lekunberri|aldatz/i.test(fronton||"");
 }
 
+function formatSets(arr){
+  if(!arr || !arr.length) return "";
+  return arr.map(s=>{
+    const p=s.match(/\d+-\d+/g);
+    return p ? p.join("  ") : s;
+  }).join(" | ");
+}
+
 Promise.all(
   SOURCES.map(s =>
     fetch(s.url).then(r=>r.json())
-      .then(arr => arr.map(o => ({
+      .then(arr => arr.map(o=>({
         ...o,
         ofiziala:s.ofiziala,
-        _date: parseDate(o.fecha)
+        _date: parseDateSafe(o.fecha)
       })))
 ).then(all=>{
-  const data = all.flat()
-    .filter(m => m._date)
-    .sort((a,b)=>a._date-b._date);
+  const data=all.flat().sort((a,b)=>{
+    if(!a._date) return 1;
+    if(!b._date) return -1;
+    return a._date-b._date;
+  });
 
-  const weeks={};
+  const groups={};
+  const fallback=[];
 
   data.forEach(m=>{
+    if(!m._date){ fallback.push(m); return; }
     const key=monday(m._date).toISOString();
-    (weeks[key] ||= []).push(m);
+    (groups[key] ||= []).push(m);
   });
 
   const c=document.getElementById("content");
 
-  Object.keys(weeks).sort((a,b)=>new Date(b)-new Date(a)).forEach(k=>{
-    const week=weeks[k];
-    const start=new Date(k);
-    const end=new Date(start); end.setDate(start.getDate()+6);
+  Object.keys(groups).sort((a,b)=>new Date(b)-new Date(a)).forEach(k=>{
+    const s=new Date(k), e=new Date(s); e.setDate(s.getDate()+6);
+    c.innerHTML+=`<div class="week-title">ASTEKO EMAITZAK (${s.toLocaleDateString("eu-ES")} → ${e.toLocaleDateString("eu-ES")})</div>`;
+    render(groups[k]);
+  });
 
-    c.innerHTML+=`
-      <div class="week-title">
-        ASTEKO EMAITZAK (${start.toLocaleDateString("eu-ES")} → ${end.toLocaleDateString("eu-ES")})
-      </div>`;
+  if(fallback.length){
+    c.innerHTML+=`<div class="week-title">BESTELAKO EMAITZAK</div>`;
+    render(fallback);
+  }
 
-    week.forEach(m=>{
+  function render(arr){
+    arr.forEach(m=>{
       let cls="match ";
       if(!m.ofiziala) cls+="no-oficial ";
       if(m.emaitza){
-        const home=isHome(m.fronton);
-        cls+= m.emaitza==="irabazita"
-          ? (home?"win-home":"win-away")
-          : (home?"lose-home":"lose-away");
+        const h=isHome(m.fronton);
+        cls+= m.emaitza==="irabazita" ? (h?"win-home":"win-away") : (h?"lose-home":"lose-away");
       }
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
+        <div class="line meta"><span class="icon">📅</span>${m.fecha||""}</div>
         <div class="line meta"><span class="icon">📍</span>${m.fronton||""}</div>
-        <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa}</div>
-        <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak}</div>
+        <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa||""}</div>
+        <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak||""}</div>
         <div class="line score">${m.tanteoa||""}</div>
-        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
+        ${m.sets?.length?`<div class="line sets">${formatSets(m.sets)}</div>`:""}
+        <div class="line meta modalitatea">
+          <span class="icon">🏆</span>
+          ${m.url?`<a href="${m.url}" target="_blank">${m.modalidad||""}</a>`:(m.modalidad||"")}
+        </div>
       </div>`;
     });
-  });
+  }
 });
 </script>
 
