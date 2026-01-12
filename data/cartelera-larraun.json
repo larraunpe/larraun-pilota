@@ -1,182 +1,200 @@
 [
   {
-    "fecha": "2026/01/07",
-    "hora": "18:00",
+    "fecha": "2026/01/14",
+    "hora": "19:00 !Horario provisional",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
     "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE LIGAXKA"
   },
   {
-    "fecha": "2026/01/09",
-    "hora": "17:30",
-    "zkia": "1",
+    "fecha": "2026/01/16",
+    "hora": "17:30 !Horario provisional",
+    "zkia": "4",
     "fronton": "Leitza - Amazabal",
-    "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
-    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    "etxekoa": "AURRERA (J. Baleztena - O. Alkorta)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
   },
   {
-    "fecha": "2026/01/09",
-    "hora": "18:00",
-    "zkia": "3",
-    "fronton": "Zizur Mayor - Ardoi",
-    "etxekoa": "ARDOI (A. Plagaro - I. Alcasena)",
-    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/09",
-    "hora": "18:00",
+    "fecha": "2026/01/16",
+    "hora": "18:00 !Horario provisional",
     "zkia": "4",
-    "fronton": "Alsasua - Burunda",
-    "etxekoa": "PILOTAJAUKU (M. Navarreta - E. Rivero)",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+    "fronton": "Doneztebe - Ezkurra",
+    "etxekoa": "ERREKA (H. Fagoaga - I. Ancizar)",
+    "kanpokoak": "LARRAUN (U. Otamendi - M. Laso)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
   },
   {
-    "fecha": "2026/01/09",
-    "hora": "18:15",
-    "zkia": "3",
-    "fronton": "Betelu - Escuelas",
-    "etxekoa": "ARAXES (O. Goikoetxea - B. Goikoetxea)",
-    "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "09:30",
-    "zkia": "2",
-    "fronton": "Estella - Remontival",
-    "etxekoa": "SAN MIGUEL (J. Chasco - I. Gomez)",
-    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
     "zkia": "1",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "kanpokoak": "UMORE ONA (N. Zubiri - U. Zurutuza)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
-    "kanpokoak": "BORTZIRIAK (I. Baleztena - A. Zubillaga)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "3",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
-    "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "4",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
-    "kanpokoak": "AURRERA (A. Baraibar - P. Azpiroz)",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (X. Sanchez - L. Zabaleta)",
+    "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
     "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
   },
   {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "5",
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
-    "kanpokoak": "SAN JUAN (J. Abaurrea - I. Martinez)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "6",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "ULTZAMA (P. Aldaz - M. Perez)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "7",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Otamendi - M. Laso)",
-    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "8",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Ezkurdia - X. Telletxea)",
-    "kanpokoak": "ARDOI (M. Abadia - E. Eraso)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
-    "zkia": "4",
-    "fronton": "Pamplona - Oberena F 1",
-    "etxekoa": "OBERENA (M. Glaria)",
-    "kanpokoak": "LARRAUN (L. Bengoetxea)",
+    "etxekoa": "LARRAUN (L. Legarra)",
+    "kanpokoak": "AUÑAMENDI (I. Pedroarena)",
     "lehiaketa": "5½ NKJ - PGOMA NESKA BANAKA 5½ KADETE LIGAXKA"
   },
   {
-    "fecha": "2026/01/10",
-    "hora": "10:00",
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Bengoetxea)",
+    "kanpokoak": "G.PILOTA (A. Garmendia)",
+    "lehiaketa": "5½ NKJ - PGOMA NESKA BANAKA 5½ KADETE LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+    "kanpokoak": "ALDABIDE (I. Zabalza - K. Lizarraga)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "4",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
+    "kanpokoak": "AGOITZ (L. Ardanaz - I. Erro)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
     "zkia": "5",
-    "fronton": "Asiain - Asiain",
-    "etxekoa": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
-    "kanpokoak": "P.P.SAN SEBASTIAN (A. Arambillet - I. Bañales)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+    "kanpokoak": "ALDABIDE (A. Gartziandia - A. Remiro)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
   },
   {
-    "fecha": "2026/01/10",
-    "hora": "12:00",
-    "zkia": "1",
-    "fronton": "Barañain - Retegi",
-    "etxekoa": "LAGUNAK (I. Garcia - I. Iturbide)",
-    "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/10",
-    "hora": "18:00",
-    "zkia": "1",
-    "fronton": "Eugui - Larrain Toki",
-    "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
-    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil)",
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "6",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
+    "kanpokoak": "ULTZAMA (A. Orquin - J. Olague)",
     "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KADETE 1. 1. TALDE"
   },
   {
-    "fecha": "2026/01/10",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (U. Goñi)",
-    "kanpokoak": "SORAUREN (I. Iribarren)",
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "7",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Bildarraz - I. Sotil)",
+    "kanpokoak": "LAGUNAK (I. Arrieta - J. Beitia)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KADETE 1. 1. TALDE"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "8",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
+    "kanpokoak": "AURRERA (M. Martinez - A. Sagardui)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "5",
+    "fronton": "Pamplona - Oberena F 1",
+    "etxekoa": "OBERENA (I. Nuin)",
+    "kanpokoak": "LARRAUN (U. Goñi)",
     "lehiaketa": "5½ NKJ - PGOMA NESKA BANAKA 5½ KADETE LIGAXKA"
   },
   {
-    "fecha": "2026/01/11",
-    "hora": "11:00",
-    "zkia": "1",
+    "fecha": "2026/01/18",
+    "hora": "09:30 !Horario provisional",
+    "zkia": "2",
+    "fronton": "Estella - Remontival",
+    "etxekoa": "SAN MIGUEL (A. Iliberri - O. Baquedano)",
+    "kanpokoak": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LEMOA",
-    "kanpokoak": "LARRAUN",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LAGUNAK (A. Mayo - M. Calderon)",
+    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "ARAXES (D. Valdivia - A. Erraissi)",
+    "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/18",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
+    "kanpokoak": "LARRAUN (J. Ezkurdia - X. Telletxea)",
+    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "13:30",
+    "zkia": "1",
+    "fronton": "Lekunberri - LEKUNBERRI-JAIAN JAI",
+    "etxekoa": "LARRAUN",
+    "kanpokoak": "LAGUN ONAK P.E. A",
     "lehiaketa": "ESKUZ BINAKA GIZONEZKO GAZTEAK LIGA"
   }
 ]
