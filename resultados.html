@@ -9,32 +9,29 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
+  padding:0;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:14px 24px;
+  padding:14px 20px;
   background:#ffffff;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
-
-header .logo{
-  height:52px;
-}
-
+header img{height:48px;}
 header h1{
   margin:0;
-  font-size:2.1em;
+  font-size:2em;
   color:#004d40;
-  letter-spacing:3px;
+  letter-spacing:2px;
 }
 
-
-/* CONTENIDO */
+/* ===== CONTENIDO ===== */
 main{padding:20px;}
+
 .week-title{
   margin:30px 0 10px;
   font-size:1.4em;
@@ -42,7 +39,7 @@ main{padding:20px;}
   color:#004d40;
 }
 
-/* TARJETA */
+/* ===== TARJETA ===== */
 .match{
   background:#fff;
   margin-bottom:14px;
@@ -50,88 +47,103 @@ main{padding:20px;}
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
   position:relative;
+  overflow:hidden;
 }
 
-/* no oficiales */
-.match.no-oficial{
-  background:#f2f2f2;
-}
-
-/* LATERAL */
+/* LATERAL IZQUIERDO */
 .match::before{
   content:"";
   position:absolute;
-  left:0; top:0; bottom:0;
+  left:0;
+  top:0;
+  bottom:0;
   width:6px;
-  border-radius:8px 0 0 8px;
   background:#000;
 }
-.match.win::before{background:#2e7d32;}
-.match.lose::before{background:#c62828;}
-.match.pending::before{background:#000;}
 
-/* TEXTO */
-.line{margin:4px 0;}
-.meta{font-size:.9em;color:#333;}
-.score{font-size:1.1em;font-weight:bold;}
+.match.win::before{ background:#1b8f3a; }
+.match.lose::before{ background:#b00000; }
+.match.pending::before{ background:#000; }
 
-.fronton{font-weight:bold;}
-.fronton.home{
-  background:linear-gradient(
-    90deg,
-    rgba(13,71,161,.18),
-    rgba(13,71,161,.06)
-  );
-  padding:6px 10px;
-  border-radius:6px;
-  font-style:italic;
-  font-size:1.05em;
-  color:#0d47a1;
-  box-shadow:inset 0 0 6px rgba(13,71,161,.25);
+/* NO OFICIALES */
+.match.no-oficial{
+  background:#f0f0f0;
 }
 
-.team{
+.match.no-oficial::after{
+  content:"EZ OFIZIALA";
+  position:absolute;
+  top:12px;
+  right:-42px;
+  transform:rotate(45deg);
+  background:#b00000;
+  color:#fff;
+  padding:4px 55px;
+  font-size:.75em;
   font-weight:bold;
 }
-.team.larraun{
-  color:#0d47a1;
-  text-transform:uppercase;
-  font-size:1.12em;
-}
-.team.other{
-  color:#b71c1c;
-  font-size:.95em;
-}
 
-.setline{
-  font-size:.9em;
-  color:#444;
-  margin-top:2px;
-}
-
+/* ===== TEXTO ===== */
+.line{margin:4px 0;}
+.score{font-size:1.1em;font-weight:bold;}
+.meta{font-size:.9em;color:#333;}
 .icon{margin-right:6px;}
+
+/* LARRAUN */
+.larraun{
+  color:#0d47a1;
+  font-weight:bold;
+  font-size:1.05em;
+  text-transform:uppercase;
+}
+.no-larraun{
+  color:#b71c1c;
+}
+
+/* FRONTONES DESTACADOS */
+.fronton-destacado{
+  background:#e3f2fd;
+  padding:2px 6px;
+  border-radius:4px;
+  font-style:italic;
+  font-weight:bold;
+}
+
+/* MODALIDAD */
+.modalidad-link{
+  color:#004d40;
+  text-decoration:none;
+  font-weight:600;
+}
+.modalidad-link:hover{
+  text-decoration:underline;
+}
+.link-icon{
+  margin-left:8px;
+  text-decoration:none;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/img/logo-left.png" alt="">
+  <img src="/img/logo-left.png" alt="Larraun">
   <h1>EMAITZAK</h1>
-  <img src="/img/logo-right.png" alt="">
+  <img src="/img/logo-right.png" alt="FNP">
 </header>
 
 <main id="content"></main>
 
 <script>
 const SOURCES=[
-  "/data/resultados-larraun.json",
-  "/data/resultados-no-oficiales.json"
+  {url:"/data/resultados-larraun.json",ofiziala:true},
+  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function parseDate(f){
-  const m=f?.match(/(\d{4})-(\d{2})-(\d{2})/);
-  return m ? new Date(+m[1],m[2]-1,+m[3]) : null;
+function parseDate(fecha){
+  if(!fecha) return null;
+  return new Date(fecha+"T00:00");
 }
 
 function monday(d){
@@ -142,37 +154,34 @@ function monday(d){
   return x;
 }
 
-function isLarraun(t){
-  return /larraun/i.test(t||"");
+function isLarraun(txt){
+  return /larraun/i.test(txt||"");
 }
 
-function isHomeFronton(f){
+function frontonDestacado(f){
   return /lekunberri|aldatz/i.test(f||"");
 }
 
-function normalizeBool(v){
-  return v===true || v==="true";
-}
-
-function formatSets(arr){
-  if(!Array.isArray(arr)) return "";
-  const joined=arr.join(" ");
-  const parts=joined.match(/\d+-\d+/g);
-  return parts ? parts.join("   ") : "";
-}
-
 Promise.all(
-  SOURCES.map(u=>fetch(u).then(r=>r.json()).catch(()=>[]))
+  SOURCES.map(s =>
+    fetch(s.url).then(r=>r.json())
+      .then(arr => arr.map(o => ({
+        ...o,
+        ofiziala:s.ofiziala,
+        _date: parseDate(o.fecha)
+      })))
 ).then(all=>{
   const today=new Date();
-  today.setHours(23,59,59,999);
+  today.setHours(0,0,0,0);
 
-  let data=all.flat().map(o=>({
-    ...o,
-    ofiziala: normalizeBool(o.ofiziala),
-    _date: parseDate(o.fecha)
-  }))
-  .filter(m=>m._date && m._date<=today);
+  const data=all.flat()
+    .filter(m=>m._date && m._date<=today)
+    .sort((a,b)=>{
+      if(a._date-b._date!==0) return a._date-b._date;
+      if((a.fronton||"")<(b.fronton||"")) return -1;
+      if((a.fronton||"")>(b.fronton||"")) return 1;
+      return (a.etxekoa||"").localeCompare(b.etxekoa||"");
+    });
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
@@ -184,40 +193,53 @@ Promise.all(
     else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
   });
 
-  function sortWeek(a){
-    a.sort((x,y)=>
-      x._date-y._date ||
-      (x.fronton||"").localeCompare(y.fronton||"") ||
-      (x.etxekoa||"").localeCompare(y.etxekoa||"")
-    );
-  }
-  sortWeek(thisWeek); sortWeek(lastWeek);
-
   const c=document.getElementById("content");
 
   function render(title,arr){
     if(!arr.length) return;
     c.innerHTML+=`<div class="week-title">${title}</div>`;
+
     arr.forEach(m=>{
-      let state="pending";
-      if(m.emaitza==="irabazita") state="win";
-      else if(m.emaitza==="galduta") state="lose";
+      let cls="match ";
+      if(!m.ofiziala) cls+="no-oficial ";
+
+      if(!m.emaitza) cls+="pending";
+      else if(isLarraun(m.etxekoa+m.kanpokoak) && /irabazita|^\d+/.test(m.emaitza)) cls+="win";
+      else cls+="lose";
+
+      const modalidadLink =
+        m.url && m.url!=="-"
+          ? `<a href="${m.url}" target="_blank" class="modalidad-link">${m.modalidad||""}</a>
+             <a href="${m.url}" target="_blank" class="link-icon" title="Ikusi iturria">🔗</a>`
+          : `<span class="modalidad-link">${m.modalidad||""}</span>`;
 
       c.innerHTML+=`
-      <div class="match ${state} ${!m.ofiziala?'no-oficial':''}">
-        <div class="line meta">📅 ${m.fecha}</div>
-        <div class="line fronton ${isHomeFronton(m.fronton)?'home':''}">
-          📍 ${m.fronton||""}
+      <div class="${cls}">
+        <div class="line meta">
+          <span class="icon">📅</span>${m.fecha}
         </div>
-        <div class="line team ${isLarraun(m.etxekoa)?'larraun':'other'}">
-          🏠 ${m.etxekoa||""}
+
+        <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
+          <span class="icon">📍</span>${m.fronton||""}
         </div>
-        <div class="line team ${isLarraun(m.kanpokoak)?'larraun':'other'}">
-          ✈️ ${m.kanpokoak||""}
+
+        <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">
+          <span class="icon">🏠</span>${m.etxekoa||""}
         </div>
-        <div class="line score">${m.tanteoa||""}</div>
-        ${formatSets(m.sets)?`<div class="setline">${formatSets(m.sets)}</div>`:""}
-        <div class="line meta">🏆 ${m.modalidad||""}</div>
+
+        <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">
+          <span class="icon">✈️</span>${m.kanpokoak||""}
+        </div>
+
+        ${m.tanteoa?`<div class="line score">${m.tanteoa}</div>`:""}
+
+        ${m.sets && m.sets.length
+          ? `<div class="line meta"><span class="icon">🎯</span>${m.sets.join("  ")}</div>`
+          : ""}
+
+        <div class="line meta">
+          <span class="icon">🏆</span>${modalidadLink}
+        </div>
       </div>`;
     });
   }
@@ -229,4 +251,3 @@ Promise.all(
 
 </body>
 </html>
-
