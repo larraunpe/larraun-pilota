@@ -87,15 +87,21 @@ main{padding:20px;}
   text-decoration:none;
 }
 .modalidad-link:hover{text-decoration:underline;}
+.modalidad-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/img/logo-larraun.png" alt="">
+  <!-- MISMAS RUTAS QUE cartel.html -->
+  <img src="/images/logo-larraun.png" alt="Larraun Pilota">
   <h1>EMAITZAK</h1>
-  <img src="/img/logo-fnp.png" alt="">
+  <img src="/images/logo-fnp.png" alt="FNP">
 </header>
 
 <main id="content"></main>
@@ -107,21 +113,19 @@ const SOURCES=[
 ];
 
 function safeFetch(url){
-  return fetch(url)
-    .then(r => r.ok ? r.json() : [])
-    .catch(() => []);
+  return fetch(url).then(r=>r.ok?r.json():[]).catch(()=>[]);
 }
 
 function parseDate(f){
   if(!f) return null;
-  const d = new Date(f+"T00:00");
-  return isNaN(d) ? null : d;
+  const d=new Date(f+"T00:00");
+  return isNaN(d)?null:d;
 }
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
-  if(day!==1) x.setDate(x.getDate()-day+1);
+  if(day!==1)x.setDate(x.getDate()-day+1);
   x.setHours(0,0,0,0);
   return x;
 }
@@ -132,14 +136,13 @@ function destacado(f){return /lekunberri|aldatz/i.test(f||"");}
 Promise.all(SOURCES.map(safeFetch)).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
 
-  const data = all.flat()
-    .map(m => ({...m, _date: parseDate(m.fecha)}))
-    .filter(m => m._date && m._date <= today)
+  const data=all.flat()
+    .map(m=>({...m,_date:parseDate(m.fecha)}))
+    .filter(m=>m._date && m._date<=today)
     .sort((a,b)=>a._date-b._date);
 
   if(!data.length){
-    document.getElementById("content").innerHTML =
-      "<p>Ez dago emaitzarik erakusteko.</p>";
+    document.getElementById("content").innerHTML="<p>Ez dago emaitzarik erakusteko.</p>";
     return;
   }
 
@@ -164,6 +167,13 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
       else if(isLarraun(m.etxekoa+m.kanpokoak) && /irabazita|\d+/.test(m.emaitza)) cls+="win";
       else cls+="lose";
 
+      const modalidadHTML = m.url && m.url!=="-"
+        ? `<div class="modalidad-wrap">
+             <a href="${m.url}" target="_blank" rel="noopener" class="modalidad-link">${m.modalidad||""}</a>
+             <a href="${m.url}" target="_blank" rel="noopener">🔗</a>
+           </div>`
+        : `<span class="modalidad-link">${m.modalidad||""}</span>`;
+
       c.innerHTML+=`
       <div class="${cls}">
         <div class="line meta">📅 ${m.fecha}</div>
@@ -172,7 +182,7 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
         <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
         ${m.tanteoa?`<div class="line score">${m.tanteoa}</div>`:""}
         ${m.sets?.length?`<div class="line meta">🎯 ${m.sets.join("  ")}</div>`:""}
-        <div class="line meta">🏆 ${m.modalidad||""}</div>
+        <div class="line meta">🏆 ${modalidadHTML}</div>
       </div>`;
     });
   }
@@ -184,4 +194,3 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
 
 </body>
 </html>
-
