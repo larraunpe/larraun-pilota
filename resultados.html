@@ -32,8 +32,8 @@ header h1{
 main{padding:20px;}
 
 .week-title{
-  margin:30px 0 12px;
-  font-size:1.5em;
+  margin:36px 0 14px;
+  font-size:1.4em;
   font-weight:bold;
   color:#004d40;
 }
@@ -121,16 +121,15 @@ const SOURCES=[
 ];
 
 function parseDate(fecha){
-  if(!fecha) return null;
-  const m = fecha.match(/(\d{4})[\/-](\d{2})[\/-](\d{2})/);
-  if(!m) return null;
-  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const m = fecha?.match(/(\d{4})-(\d{2})-(\d{2})/);
+  return m ? new Date(+m[1], m[2]-1, +m[3]) : null;
 }
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
   if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
   return x;
 }
 
@@ -147,29 +146,30 @@ Promise.all(
         _date: parseDate(o.fecha)
       })))
 ).then(all=>{
-  const today=new Date();
-  today.setHours(0,0,0,0);
-
-  const data=all.flat()
-    .filter(m => m._date && m._date <= today)
+  const data = all.flat()
+    .filter(m => m._date)
     .sort((a,b)=>a._date-b._date);
 
-  const thisMon=monday(today);
-  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
-  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
+  const weeks={};
 
-  const thisWeek=[], lastWeek=[];
   data.forEach(m=>{
-    if(m._date>=thisMon) thisWeek.push(m);
-    else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
+    const key=monday(m._date).toISOString();
+    (weeks[key] ||= []).push(m);
   });
 
   const c=document.getElementById("content");
 
-  function render(title,arr){
-    if(!arr.length) return;
-    c.innerHTML+=`<div class="week-title">${title}</div>`;
-    arr.forEach(m=>{
+  Object.keys(weeks).sort((a,b)=>new Date(b)-new Date(a)).forEach(k=>{
+    const week=weeks[k];
+    const start=new Date(k);
+    const end=new Date(start); end.setDate(start.getDate()+6);
+
+    c.innerHTML+=`
+      <div class="week-title">
+        ASTEKO EMAITZAK (${start.toLocaleDateString("eu-ES")} → ${end.toLocaleDateString("eu-ES")})
+      </div>`;
+
+    week.forEach(m=>{
       let cls="match ";
       if(!m.ofiziala) cls+="no-oficial ";
       if(m.emaitza){
@@ -186,13 +186,10 @@ Promise.all(
         <div class="line etxekoa"><span class="icon">🏠</span>${m.etxekoa}</div>
         <div class="line kanpokoak"><span class="icon">✈️</span>${m.kanpokoak}</div>
         <div class="line score">${m.tanteoa||""}</div>
-        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||m.lehiaketa||""}</div>
+        <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
       </div>`;
     });
-  }
-
-  render("ASTE HONETAKO EMAITZAK",thisWeek);
-  render("AURREKO ASTEKO EMAITZAK",lastWeek);
+  });
 });
 </script>
 
