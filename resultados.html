@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Larraun – Emaitzak</title>
+
+<style>
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f4;
+  margin:0;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 24px;
+  background:#ffffff;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+header .logo{
+  height:52px;
+}
+
+header h1{
+  margin:0;
+  font-size:2.1em;
+  color:#004d40;
+  letter-spacing:3px;
+}
+
+
+/* CONTENIDO */
+main{padding:20px;}
+.week-title{
+  margin:30px 0 10px;
+  font-size:1.4em;
+  font-weight:bold;
+  color:#004d40;
+}
+
+/* TARJETA */
+.match{
+  background:#fff;
+  margin-bottom:14px;
+  padding:14px 18px 14px 26px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  position:relative;
+}
+
+/* no oficiales */
+.match.no-oficial{
+  background:#f2f2f2;
+}
+
+/* LATERAL */
+.match::before{
+  content:"";
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:6px;
+  border-radius:8px 0 0 8px;
+  background:#000;
+}
+.match.win::before{background:#2e7d32;}
+.match.lose::before{background:#c62828;}
+.match.pending::before{background:#000;}
+
+/* TEXTO */
+.line{margin:4px 0;}
+.meta{font-size:.9em;color:#333;}
+.score{font-size:1.1em;font-weight:bold;}
+
+.fronton{font-weight:bold;}
+.fronton.home{
+  background:linear-gradient(
+    90deg,
+    rgba(13,71,161,.18),
+    rgba(13,71,161,.06)
+  );
+  padding:6px 10px;
+  border-radius:6px;
+  font-style:italic;
+  font-size:1.05em;
+  color:#0d47a1;
+  box-shadow:inset 0 0 6px rgba(13,71,161,.25);
+}
+
+.team{
+  font-weight:bold;
+}
+.team.larraun{
+  color:#0d47a1;
+  text-transform:uppercase;
+  font-size:1.12em;
+}
+.team.other{
+  color:#b71c1c;
+  font-size:.95em;
+}
+
+.setline{
+  font-size:.9em;
+  color:#444;
+  margin-top:2px;
+}
+
+.icon{margin-right:6px;}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="/img/logo-left.png" alt="">
+  <h1>EMAITZAK</h1>
+  <img src="/img/logo-right.png" alt="">
+</header>
+
+<main id="content"></main>
+
+<script>
+const SOURCES=[
+  "/data/resultados-larraun.json",
+  "/data/resultados-no-oficiales.json"
+];
+
+function parseDate(f){
+  const m=f?.match(/(\d{4})-(\d{2})-(\d{2})/);
+  return m ? new Date(+m[1],m[2]-1,+m[3]) : null;
+}
+
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+
+function isLarraun(t){
+  return /larraun/i.test(t||"");
+}
+
+function isHomeFronton(f){
+  return /lekunberri|aldatz/i.test(f||"");
+}
+
+function normalizeBool(v){
+  return v===true || v==="true";
+}
+
+function formatSets(arr){
+  if(!Array.isArray(arr)) return "";
+  const joined=arr.join(" ");
+  const parts=joined.match(/\d+-\d+/g);
+  return parts ? parts.join("   ") : "";
+}
+
+Promise.all(
+  SOURCES.map(u=>fetch(u).then(r=>r.json()).catch(()=>[]))
+).then(all=>{
+  const today=new Date();
+  today.setHours(23,59,59,999);
+
+  let data=all.flat().map(o=>({
+    ...o,
+    ofiziala: normalizeBool(o.ofiziala),
+    _date: parseDate(o.fecha)
+  }))
+  .filter(m=>m._date && m._date<=today);
+
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
+  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
+
+  const thisWeek=[], lastWeek=[];
+  data.forEach(m=>{
+    if(m._date>=thisMon) thisWeek.push(m);
+    else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
+  });
+
+  function sortWeek(a){
+    a.sort((x,y)=>
+      x._date-y._date ||
+      (x.fronton||"").localeCompare(y.fronton||"") ||
+      (x.etxekoa||"").localeCompare(y.etxekoa||"")
+    );
+  }
+  sortWeek(thisWeek); sortWeek(lastWeek);
+
+  const c=document.getElementById("content");
+
+  function render(title,arr){
+    if(!arr.length) return;
+    c.innerHTML+=`<div class="week-title">${title}</div>`;
+    arr.forEach(m=>{
+      let state="pending";
+      if(m.emaitza==="irabazita") state="win";
+      else if(m.emaitza==="galduta") state="lose";
+
+      c.innerHTML+=`
+      <div class="match ${state} ${!m.ofiziala?'no-oficial':''}">
+        <div class="line meta">📅 ${m.fecha}</div>
+        <div class="line fronton ${isHomeFronton(m.fronton)?'home':''}">
+          📍 ${m.fronton||""}
+        </div>
+        <div class="line team ${isLarraun(m.etxekoa)?'larraun':'other'}">
+          🏠 ${m.etxekoa||""}
+        </div>
+        <div class="line team ${isLarraun(m.kanpokoak)?'larraun':'other'}">
+          ✈️ ${m.kanpokoak||""}
+        </div>
+        <div class="line score">${m.tanteoa||""}</div>
+        ${formatSets(m.sets)?`<div class="setline">${formatSets(m.sets)}</div>`:""}
+        <div class="line meta">🏆 ${m.modalidad||""}</div>
+      </div>`;
+    });
+  }
+
+  render("ASTE HONETAKO EMAITZAK",thisWeek);
+  render("AURREKO ASTEKO EMAITZAK",lastWeek);
+});
+</script>
+
+</body>
+</html>
 
