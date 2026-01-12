@@ -14,7 +14,7 @@
   {
     "fecha": "2026-01-10",
     "fronton": "Pamplona – Oberena 2",
-    "etxekoa": "OBERENA",
+    "etxekoa": "OBERENA", 
     "kanpokoak": "LARRAUN",
     "tanteoa": "2-0",
     "sets": [],
@@ -22,17 +22,5 @@
     "emaitza": "galduta",
     "ofiziala": "true",
     "url": "https://www.facebook.com/photo/?fbid=1498635188931107&set=pcb.1498635358931090"
-  },
-  {
-    "fecha": "2026-01-12",
-    "fronton": "Pamplona - Frontón Labrit",
-    "etxekoa": "ESTERIBAR (M. Villanueva) VILLANUEVA AYERRA, M.",
-    "kanpokoak": "LARRAUN (A. Balda) BALDA IRUNGARAI, A.",
-    "tanteoa": "3 - 10",
-    "sets": [],
-    "modalidad": "NKJ - FRONTBALL KADETE",
-    "emaitza": "irabazita",
-    "ofiziala": false,
-    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2868"
   }
 ]
