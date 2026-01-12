@@ -43,13 +43,18 @@ main{padding:20px;}
 .match{
   background:#fff;
   margin-bottom:14px;
-  padding:14px 18px 14px 22px;
+  padding:14px 18px 14px 24px;
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
   position:relative;
 }
 
-/* LATERAL */
+/* no oficiales */
+.match.no-oficial{
+  background:#f1f1f1;
+}
+
+/* LATERAL IZQUIERDO */
 .match::before{
   content:"";
   position:absolute;
@@ -73,7 +78,10 @@ main{padding:20px;}
   font-weight:bold;
 }
 .fronton.home{
-  color:#004d40;
+  color:#0d47a1;
+  font-style:italic;
+  font-size:1.05em;
+  text-shadow:0 0 6px rgba(13,71,161,.35);
 }
 
 .team{
@@ -82,10 +90,11 @@ main{padding:20px;}
 .team.larraun{
   color:#0d47a1;
   text-transform:uppercase;
-  font-size:1.05em;
+  font-size:1.12em;
 }
 .team.other{
   color:#b71c1c;
+  font-size:.95em;
 }
 
 .icon{margin-right:6px;}
@@ -103,7 +112,10 @@ main{padding:20px;}
 <main id="content"></main>
 
 <script>
-const SOURCE="/data/resultados-larraun.json";
+const SOURCES=[
+  {url:"/data/resultados-larraun.json", ofiziala:true},
+  {url:"/data/resultados-no-oficiales.json", ofiziala:false}
+];
 
 function monday(d){
   const x=new Date(d);
@@ -121,31 +133,41 @@ function isHomeFronton(f){
   return /lekunberri|aldatz/i.test(f||"");
 }
 
-fetch(SOURCE)
-.then(r=>r.json())
-.then(data=>{
+function parseDate(fecha){
+  if(!fecha) return null;
+  const m=fecha.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return null;
+  return new Date(+m[1], m[2]-1, +m[3]);
+}
+
+Promise.all(
+  SOURCES.map(s =>
+    fetch(s.url)
+      .then(r=>r.json())
+      .then(arr => arr.map(o => ({
+        ...o,
+        ofiziala: s.ofiziala,
+        _date: parseDate(o.fecha)
+      })))
+).then(all=>{
   const today=new Date();
   today.setHours(23,59,59,999);
+
+  const data=all.flat().filter(m => m._date && m._date<=today);
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
   const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
 
   const thisWeek=[], lastWeek=[];
-
   data.forEach(m=>{
-    if(!m.fecha) return;
-    const d=new Date(m.fecha+"T00:00");
-    if(d>today) return;
-
-    if(d>=thisMon) thisWeek.push(m);
-    else if(d>=lastMon && d<=lastSun) lastWeek.push(m);
+    if(m._date>=thisMon) thisWeek.push(m);
+    else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
   });
 
   function sortWeek(arr){
     arr.sort((a,b)=>{
-      const da=new Date(a.fecha), db=new Date(b.fecha);
-      if(da-db!==0) return da-db;
+      if(a._date-b._date!==0) return a._date-b._date;
       if((a.fronton||"")!==(b.fronton||""))
         return (a.fronton||"").localeCompare(b.fronton||"");
       return (a.etxekoa||"").localeCompare(b.etxekoa||"");
@@ -160,15 +182,16 @@ fetch(SOURCE)
   function render(title,arr){
     if(!arr.length) return;
     c.innerHTML+=`<div class="week-title">${title}</div>`;
-
     arr.forEach(m=>{
       let state="pending";
       if(m.tanteoa){
-        state = m.emaitza==="irabazita" ? "win" : "lose";
+        state = isLarraun(m.etxekoa)||isLarraun(m.kanpokoak)
+          ? "win"
+          : "lose";
       }
 
       c.innerHTML+=`
-      <div class="match ${state}">
+      <div class="match ${state} ${!m.ofiziala?'no-oficial':''}">
         <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
         <div class="line fronton ${isHomeFronton(m.fronton)?'home':''}">
           <span class="icon">📍</span>${m.fronton||""}
@@ -177,9 +200,10 @@ fetch(SOURCE)
           <span class="icon">🏠</span>${m.etxekoa||""}
         </div>
         <div class="line team ${isLarraun(m.kanpokoak)?'larraun':'other'}">
-          <span class="icon">🚩</span>${m.kanpokoak||""}
+          <span class="icon">✈️</span>${m.kanpokoak||""}
         </div>
         <div class="line score">${m.tanteoa||""}</div>
+        ${m.sets?.filter(s=>s).length?`<div class="line meta">${m.sets.join("  ")}</div>`:""}
         <div class="line meta"><span class="icon">🏆</span>${m.modalidad||""}</div>
       </div>`;
     });
