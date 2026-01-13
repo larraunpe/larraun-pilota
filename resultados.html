@@ -98,7 +98,6 @@ main{padding:20px;}
 <body>
 
 <header>
-  <!-- MISMAS RUTAS QUE cartel.html -->
   <img src="/images/logo-larraun.png" alt="Larraun Pilota">
   <h1>EMAITZAK</h1>
   <img src="/images/logo-fnp.png" alt="FNP">
@@ -132,6 +131,14 @@ function monday(d){
 
 function isLarraun(t){return /larraun/i.test(t||"");}
 function destacado(f){return /lekunberri|aldatz/i.test(f||"");}
+
+/* 🔧 FORMATO DE SETS */
+function formatSets(sets){
+  return sets
+    .join("  ")
+    .replace(/\(/g," /")
+    .replace(/\)/g,"");
+}
 
 Promise.all(SOURCES.map(safeFetch)).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
@@ -181,7 +188,7 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
         <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">🏠 ${m.etxekoa||""}</div>
         <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
         ${m.tanteoa?`<div class="line score">${m.tanteoa}</div>`:""}
-        ${m.sets?.length?`<div class="line meta">🎯 ${m.sets.join("  ")}</div>`:""}
+        ${m.sets?.length?`<div class="line meta">🎯 ${formatSets(m.sets)}</div>`:""}
         <div class="line meta">🏆 ${modalidadHTML}</div>
       </div>`;
     });
