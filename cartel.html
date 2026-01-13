@@ -57,15 +57,12 @@ body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   background: #f9f9f9;
   position: relative;
+  border-left: 6px solid #b00000; /* se ajusta por JS */
 }
 
-.partido.oficial {
-  border-left: 6px solid #006400;
-}
-
+/* NO OFICIAL → fondo gris suave */
 .partido.no-oficial {
-  background: #fff2f2;
-  border-left: 6px solid #b30000;
+  background: #f3f3f3;
 }
 
 /* BADGE */
@@ -81,7 +78,7 @@ body {
   color: #fff;
 }
 
-/* TEXTOS */
+/* FECHA / HORA / ZKIA */
 .fecha {
   font-weight: bold;
   font-size: 0.95em;
@@ -117,7 +114,7 @@ body {
   color: #333;
 }
 
-/* LEKUNBERRI */
+/* LEKUNBERRI / ALDATZ */
 .lekunberri {
   background: #e6f2ff;
   padding: 4px 8px;
@@ -187,12 +184,12 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, ofiziala: true })),
-    ...noOficiales.map(p => ({ ...p, ofiziala: false }))
+    ...noOficiales
   ];
 
   partidos.sort((a, b) => {
-    const da = new Date(`${a.fecha} ${a.hora}`);
-    const db = new Date(`${b.fecha} ${b.hora}`);
+    const da = new Date(`${a.fecha} ${a.hora || "00:00"}`);
+    const db = new Date(`${b.fecha} ${b.hora || "00:00"}`);
     return da - db;
   });
 
@@ -200,27 +197,39 @@ Promise.all([
 
   partidos.forEach(p => {
     const div = document.createElement("div");
-    div.className = "partido " + (p.ofiziala ? "oficial" : "no-oficial");
+
+    const esOficial = p.ofiziala === true || p.ofiziala === "true";
+    const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
+
+    div.className = "partido" + (esOficial ? "" : " no-oficial");
+    div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
     const etxekoaClass =
-      p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+      p.etxekoa?.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
 
     const kanpokoakClass =
-      p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
+      p.kanpokoak?.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
 
     const frontonClass =
-      p.fronton.includes("Lekunberri") ? "fronton lekunberri" : "fronton";
+      esLekunberri ? "fronton lekunberri" : "fronton";
+
+    const lineaFecha = `
+      <div class="fecha">
+        ${p.zkia ? "🔢 " + p.zkia + " · " : ""}
+        🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
+      </div>
+    `;
 
     div.innerHTML = `
-      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
-      <div class="fecha">🗓 ${p.fecha} · ⏰ ${p.hora}</div>
+      ${!esOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
+      ${lineaFecha}
 
       <div class="equipos">
-        <div class="${etxekoaClass}">🏠 ${p.etxekoa}</div>
-        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak}</div>
+        <div class="${etxekoaClass}">🏠 ${p.etxekoa || ""}</div>
+        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak || ""}</div>
       </div>
 
-      <div class="${frontonClass}">📍 ${p.fronton}</div>
+      <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
       <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
     `;
 
