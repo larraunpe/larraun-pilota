@@ -235,6 +235,20 @@ Promise.all(
       </div>`;
     });
   }
+  function ordenarSemana(arr){
+  return arr.sort((a,b)=>{
+    if(a._date - b._date !== 0) return a._date - b._date;
+
+    const fa = (a.fronton || "").toLowerCase();
+    const fb = (b.fronton || "").toLowerCase();
+    if(fa < fb) return -1;
+    if(fa > fb) return 1;
+
+    const ma = (a.modalidad || "").toLowerCase();
+    const mb = (b.modalidad || "").toLowerCase();
+    return ma.localeCompare(mb);
+  });
+}
 
   render("ASTE HONETAKO EMAITZAK",thisWeek);
   render("AURREKO ASTEKO EMAITZAK",lastWeek);
