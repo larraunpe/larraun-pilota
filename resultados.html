@@ -9,6 +9,7 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f4f4;
   margin:0;
+  padding:0;
 }
 
 /* ===== HEADER ===== */
@@ -46,12 +47,16 @@ main{padding:20px;}
   border-radius:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.15);
   position:relative;
+  overflow:hidden;
 }
 
+/* LATERAL */
 .match::before{
   content:"";
   position:absolute;
-  left:0; top:0; bottom:0;
+  left:0;
+  top:0;
+  bottom:0;
   width:6px;
   background:#000;
 }
@@ -59,12 +64,17 @@ main{padding:20px;}
 .match.lose::before{background:#b00000;}
 .match.pending::before{background:#000;}
 
-.match.no-oficial{background:#f0f0f0;}
+/* NO OFICIALES */
+.match.no-oficial{
+  background:#f1f1f1;
+}
 
-.line{margin:4px 0;}
-.score{font-size:1.1em;font-weight:bold;}
+/* ===== TEXTO ===== */
+.line{margin:6px 0;}
 .meta{font-size:.9em;color:#333;}
+.icon{margin-right:6px;}
 
+/* LARRAUN */
 .larraun{
   color:#0d47a1;
   font-weight:bold;
@@ -73,6 +83,7 @@ main{padding:20px;}
 }
 .no-larraun{color:#b71c1c;}
 
+/* FRONTÓN DESTACADO */
 .fronton-destacado{
   background:#e3f2fd;
   padding:2px 6px;
@@ -81,77 +92,81 @@ main{padding:20px;}
   font-weight:bold;
 }
 
-.modalidad-link{
+/* ===== MARCADOR ===== */
+.scoreboard{
+  display:flex;
+  justify-content:center;
+  margin:10px 0;
+  font-size:1.6em;
+  font-weight:bold;
+}
+.scorebox{
+  min-width:56px;
+  padding:6px 0;
+  text-align:center;
+  color:#fff;
+}
+.scorebox.blue{background:#0d47a1;}
+.scorebox.red{background:#b71c1c;}
+
+/* SETS */
+.sets{
+  text-align:center;
+  font-size:.95em;
+  color:#333;
+}
+
+/* MODALIDAD */
+.modalidad{
+  font-size:.9em;
   color:#004d40;
   font-weight:600;
+  display:inline;
+}
+.modalidad a{
+  color:#004d40;
   text-decoration:none;
 }
-.modalidad-link:hover{text-decoration:underline;}
-.modalidad-wrap{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.modalidad a:hover{text-decoration:underline;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/images/logo-larraun.png" alt="Larraun Pilota">
+  <img src="/img/logo-left.png" alt="Larraun">
   <h1>EMAITZAK</h1>
-  <img src="/images/logo-fnp.png" alt="FNP">
+  <img src="/img/logo-right.png" alt="FNP">
 </header>
 
 <main id="content"></main>
 
 <script>
 const SOURCES=[
-  "/data/resultados-larraun.json",
-  "/data/resultados-no-oficiales.json"
+  {url:"/data/resultados-larraun.json",ofiziala:true},
+  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function safeFetch(url){
-  return fetch(url).then(r=>r.ok?r.json():[]).catch(()=>[]);
+function parseDate(fecha){
+  return fecha ? new Date(fecha+"T00:00") : null;
 }
-
-function parseDate(f){
-  if(!f) return null;
-  const d=new Date(f+"T00:00");
-  return isNaN(d)?null:d;
-}
-
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
-  if(day!==1)x.setDate(x.getDate()-day+1);
+  if(day!==1) x.setDate(x.getDate()-day+1);
   x.setHours(0,0,0,0);
   return x;
 }
-
 function isLarraun(t){return /larraun/i.test(t||"");}
-function destacado(f){return /lekunberri|aldatz/i.test(f||"");}
+function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
 
-/* 🔧 FORMATO DE SETS */
-function formatSets(sets){
-  return sets
-    .join("  ")
-    .replace(/\(/g," /")
-    .replace(/\)/g,"");
-}
-
-Promise.all(SOURCES.map(safeFetch)).then(all=>{
+Promise.all(
+  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
+    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala,_date:parseDate(o.fecha)}))))
+).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
 
-  const data=all.flat()
-    .map(m=>({...m,_date:parseDate(m.fecha)}))
-    .filter(m=>m._date && m._date<=today)
-    .sort((a,b)=>a._date-b._date);
-
-  if(!data.length){
-    document.getElementById("content").innerHTML="<p>Ez dago emaitzarik erakusteko.</p>";
-    return;
-  }
+  const data=all.flat().filter(m=>m._date&&m._date<=today);
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
@@ -160,7 +175,7 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
   const thisWeek=[], lastWeek=[];
   data.forEach(m=>{
     if(m._date>=thisMon) thisWeek.push(m);
-    else if(m._date>=lastMon && m._date<=lastSun) lastWeek.push(m);
+    else if(m._date>=lastMon&&m._date<=lastSun) lastWeek.push(m);
   });
 
   const c=document.getElementById("content");
@@ -168,28 +183,45 @@ Promise.all(SOURCES.map(safeFetch)).then(all=>{
   function render(title,arr){
     if(!arr.length) return;
     c.innerHTML+=`<div class="week-title">${title}</div>`;
+
     arr.forEach(m=>{
       let cls="match ";
+      if(!m.ofiziala) cls+="no-oficial ";
       if(!m.emaitza) cls+="pending";
-      else if(isLarraun(m.etxekoa+m.kanpokoak) && /irabazita|\d+/.test(m.emaitza)) cls+="win";
+      else if(isLarraun(m.etxekoa+m.kanpokoak)&&/irabazita|\d+-\d+/.test(m.emaitza)) cls+="win";
       else cls+="lose";
 
-      const modalidadHTML = m.url && m.url!=="-"
-        ? `<div class="modalidad-wrap">
-             <a href="${m.url}" target="_blank" rel="noopener" class="modalidad-link">${m.modalidad||""}</a>
-             <a href="${m.url}" target="_blank" rel="noopener">🔗</a>
-           </div>`
-        : `<span class="modalidad-link">${m.modalidad||""}</span>`;
+      let marcador="";
+      if(m.tanteoa && m.tanteoa.includes("-")){
+        const [a,b]=m.tanteoa.split("-").map(x=>x.trim());
+        marcador=`
+          <div class="scoreboard">
+            <div class="scorebox blue">${a}</div>
+            <div class="scorebox red">${b}</div>
+          </div>`;
+      }
+
+      const modalidadHTML =
+        m.url && m.url!=="-"
+          ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
+          : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta">📅 ${m.fecha}</div>
-        <div class="line meta ${destacado(m.fronton)?'fronton-destacado':''}">📍 ${m.fronton||""}</div>
+        <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
+
         <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">🏠 ${m.etxekoa||""}</div>
         <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
-        ${m.tanteoa?`<div class="line score">${m.tanteoa}</div>`:""}
-        ${m.sets?.length?`<div class="line meta">🎯 ${formatSets(m.sets)}</div>`:""}
-        <div class="line meta">🏆 ${modalidadHTML}</div>
+
+        ${marcador}
+
+        ${m.sets?.length?`<div class="sets">🎯 ${m.sets.join("  ")}</div>`:""}
+
+        <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
+          📍 ${m.fronton||""}
+        </div>
+
+        <div class="line meta">${modalidadHTML}</div>
       </div>`;
     });
   }
