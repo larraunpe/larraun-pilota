@@ -134,9 +134,9 @@ main{padding:20px;}
 <body>
 
 <header>
-  <img src="/images/logo-larraun.png" alt="Larraun">
+  <img src="/img/logo-left.png" alt="Larraun">
   <h1>EMAITZAK</h1>
-  <img src="/images/logo-fnp.png" alt="FNP">
+  <img src="/img/logo-right.png" alt="FNP">
 </header>
 
 <main id="content"></main>
@@ -159,6 +159,14 @@ function monday(d){
 }
 function isLarraun(t){return /larraun/i.test(t||"");}
 function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
+
+/* 🔧 FORMATEO DE SETS (ÚNICO CAMBIO) */
+function formatSets(sets){
+  return sets
+    .join(" ")
+    .replace(/\(/g," / ")
+    .replace(/\)/g,"");
+}
 
 Promise.all(
   SOURCES.map(s=>fetch(s.url).then(r=>r.json())
@@ -208,14 +216,16 @@ Promise.all(
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta"><span class="icon">📅</span>${m.fecha}</div>
+        <div class="line meta">📅 ${m.fecha}</div>
 
         <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">🏠 ${m.etxekoa||""}</div>
         <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
 
         ${marcador}
 
-        ${m.sets?.length?`<div class="sets">🎯 ${m.sets.join("  ")}</div>`:""}
+        ${m.sets?.length
+          ? `<div class="sets">🎯 ${formatSets(m.sets)}</div>`
+          : ""}
 
         <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
           📍 ${m.fronton||""}
