@@ -215,8 +215,7 @@ Promise.all([
 
     const lineaFecha = `
       <div class="fecha">
-        ${p.zkia ? "🔢 " + p.zkia + " · " : ""}
-        🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
+        🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora + ${p.zkia ? ". 🔢 " + p.zkia + " · ": ""}
       </div>
     `;
 
