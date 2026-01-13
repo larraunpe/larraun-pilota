@@ -109,41 +109,43 @@
 
 <script>
 /*
-  Este script carga automáticamente TODAS las imágenes (.png y .jpg)
-  que existan en /images/patrocinio/
-
-  Funciona correctamente en servidores web clásicos (Apache / hosting estándar)
-  donde el listado de directorios está permitido.
+  LISTA EXPLÍCITA DE LOGOS
+  Añade aquí los ficheros que pongas en /images/patrocinio/
 */
 
-const container = document.getElementById('logos');
-const folderPath = '/images/patrocinio/';
+const LOGOS = [
+"fede.jpg",
+"GAÑARBE.jpg",
+"HOTEL eta LARRAUN.jpg",
+"kirolmank.jpg",
+"Lacturale.jpg",
+"lekun.jpg",
+"LOGO LARRAUN.jpg",
+"Logo lekunberri.JPG",
+"Logo SK.jpg",
+"logopelota.jpg",
+"MUGIRO eta LARRAUN.jpg",
+"Uranga Saigos.jpg",
+"URZUBI (naranja).jpg",
+"Venta Mugiro.png"
 
-fetch(folderPath)
-  .then(response => response.text())
-  .then(html => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const links = doc.querySelectorAll('a');
+  // 👉 añade aquí los que quieras
+];
 
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && (href.endsWith('.png') || href.endsWith('.jpg') || href.endsWith('.jpeg'))) {
-        const div = document.createElement('div');
-        div.className = 'logo-item';
+const container = document.getElementById("logos");
+const basePath = "/images/patrocinio/";
 
-        const img = document.createElement('img');
-        img.src = folderPath + href;
-        img.alt = href.replace(/[-_]/g, ' ').split('.')[0];
+LOGOS.forEach(file => {
+  const div = document.createElement("div");
+  div.className = "logo-item";
 
-        div.appendChild(img);
-        container.appendChild(div);
-      }
-    });
-  })
-  .catch(() => {
-    container.innerHTML = '<p>No se han podido cargar los logotipos.</p>';
-  });
+  const img = document.createElement("img");
+  img.src = basePath + file;
+  img.alt = file.replace(/[-_]/g, " ").split(".")[0];
+
+  div.appendChild(img);
+  container.appendChild(div);
+});
 </script>
 
 </body>
