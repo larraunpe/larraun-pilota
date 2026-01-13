@@ -31,7 +31,7 @@ function getHTML(url) {
       res.on("data", c => chunks.push(c));
       res.on("end", () => {
         const buffer = Buffer.concat(chunks);
-        resolve(buffer.toString("latin1")); // 👈 UTF CORRECTO
+        resolve(buffer.toString("latin1")); // UTF correcto
       });
     }).on("error", reject);
   });
@@ -66,13 +66,15 @@ function parseFechaEU(str) {
 // EMAITZA
 // ======================================================
 function calcularEmaitza(etx, kanpo, tanteoa) {
+  if (!tanteoa || tanteoa === "0 - 0") return "";
+
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
-  if (!tanteoa || !tanteoa.includes("-")) return "irabazita";
+  if (!tanteoa.includes("-")) return "";
 
   const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
-  if (isNaN(a) || isNaN(b)) return "irabazita";
+  if (isNaN(a) || isNaN(b)) return "";
 
   if ((lE && a > b) || (lK && b > a)) return "irabazita";
   return "galduta";
@@ -87,20 +89,14 @@ function obtenerModalidad(doc) {
 }
 
 // ======================================================
-// SETS (FORMATO FINAL)
+// SETS
 // ======================================================
 function extraerSets(cell) {
   const spans = [...cell.querySelectorAll("span")];
   if (!spans.length) return [];
 
   const sets = spans
-    .map(s =>
-      clean(
-        s.textContent
-          .replace("(", "")
-          .replace(")", "")
-      )
-    )
+    .map(s => clean(s.textContent))
     .filter(Boolean);
 
   return sets.length ? [sets.join("  ")] : [];
@@ -135,8 +131,36 @@ async function scrapeCompeticion(id) {
     const etxekoaRaw = clean(tds[2].textContent);
     const kanpokoRaw = clean(tds[4].textContent);
 
-    if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") continue;
+    // ================================
+    // 👉 PARTIDO DE DESCANSO
+    // ================================
+    if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") {
+      const equipoLarraun =
+        contieneLarraun(etxekoaRaw) ? etxekoaRaw :
+        contieneLarraun(kanpokoRaw) ? kanpokoRaw :
+        null;
 
+      if (!equipoLarraun) continue;
+
+      resultados.push({
+        fecha: fechaObj.toISOString().slice(0, 10),
+        fronton: "",
+        etxekoa: convertirPareja(equipoLarraun),
+        kanpokoak: "ATSEDENA",
+        tanteoa: "0 - 0",
+        sets: [],
+        modalidad,
+        emaitza: "",
+        ofiziala: true,
+        url
+      });
+
+      continue;
+    }
+
+    // ================================
+    // PARTIDO NORMAL
+    // ================================
     const etxekoa = convertirPareja(etxekoaRaw);
     const kanpokoak = convertirPareja(kanpokoRaw);
 
