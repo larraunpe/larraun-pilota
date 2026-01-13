@@ -2495,7 +2495,7 @@
   },
   {
     "fecha": "2026-01-24",
-    "fronton": "-",
+    "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (H. Aizagirre - U. Oscariz)",
     "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
     "tanteoa": "",
@@ -2582,8 +2582,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "-",
+    "fecha": "2026-01-16",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
     "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
     "tanteoa": "",
@@ -2705,7 +2705,7 @@
   },
   {
     "fecha": "2026-01-17",
-    "fronton": "-",
+    "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (X. Sanchez - L. Zabaleta)",
     "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
     "tanteoa": "",
@@ -2800,8 +2800,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3026"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "-",
+    "fecha": "2026-01-16",
+    "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (D. Valdivia - A. Erraissi)",
     "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
     "tanteoa": "",
@@ -2874,9 +2874,9 @@
   {
     "fecha": "2026-01-09",
     "fronton": "Alsasua - Burunda",
-    "etxekoa": "PILOTAJAUKU (M. Navarreta - E. Rivero)",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "tanteoa": "",
+    "etxekoa": "PILOTAJAUKU (M. Navarreta - E. Rivero)*Equipo no presentado",
+    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
+    "tanteoa": "0 * - 18",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KIMU 4.",
     "emaitza": "irabazita",
@@ -2968,8 +2968,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3029"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "-",
+    "fecha": "2026-01-16",
+    "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (A. Mayo - M. Calderon)",
     "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
     "tanteoa": "",
@@ -3018,9 +3018,9 @@
   {
     "fecha": "2026-01-10",
     "fronton": "Eugui - Larrain Toki",
-    "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
-    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil)",
-    "tanteoa": "",
+    "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva) FONSECA HERNANDEZ , I. VILLANUEVA AYERRA, M.",
+    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil) BILDARRAZ ANSORENA, J. SOTIL MIKEO, I.",
+    "tanteoa": "6 - 22",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KADETE 1.",
     "emaitza": "irabazita",
@@ -3088,8 +3088,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3035"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "-",
+    "fecha": "2026-01-16",
+    "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (J. Baleztena - O. Alkorta)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "tanteoa": "",
@@ -3136,7 +3136,7 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3035"
   },
   {
-    "fecha": "2026-01-16",
+    "fecha": "2026-01-17",
     "fronton": "Doneztebe - Ezkurra",
     "etxekoa": "ERREKA (H. Fagoaga - I. Ancizar)",
     "kanpokoak": "LARRAUN (U. Otamendi - M. Laso)",
@@ -3172,8 +3172,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3035"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "Lekunberri - Jaian Jai",
+    "fecha": "2026-01-16",
+    "fronton": "Leitza - Amazabal",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
     "kanpokoak": "AURRERA (M. Martinez - A. Sagardui)",
     "tanteoa": "",
@@ -3270,8 +3270,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
   {
-    "fecha": "2026-01-17",
-    "fronton": "-",
+    "fecha": "2026-01-15",
+    "fronton": "Pamplona - Larrabide - Trinkete",
     "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
     "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
     "tanteoa": "",
@@ -3355,18 +3355,18 @@
   },
   {
     "fecha": "2026-01-10",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (U. Goñi)",
-    "kanpokoak": "SORAUREN (I. Iribarren)",
-    "tanteoa": "",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Goñi) GOÑI ELUSTONDO, U.",
+    "kanpokoak": "SORAUREN (I. Iribarren) IRIBARREN LEKUMBERRI, I.",
+    "tanteoa": "15 - 25",
     "sets": [],
     "modalidad": "NKJ - PGOMA NESKA BANAKA 5½ KADETE",
-    "emaitza": "irabazita",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3072"
   },
   {
-    "fecha": "2026-01-17",
+    "fecha": "2026-01-16",
     "fronton": "Pamplona - Oberena F 1",
     "etxekoa": "OBERENA (I. Nuin)",
     "kanpokoak": "LARRAUN (U. Goñi)",
@@ -3462,8 +3462,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3078"
   },
   {
-    "fecha": "2026-01-18",
-    "fronton": "-",
+    "fecha": "2026-01-17",
+    "fronton": "Villava - Atarrabia",
     "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
     "kanpokoak": "LARRAUN (J. Ezkurdia - X. Telletxea)",
     "tanteoa": "",
