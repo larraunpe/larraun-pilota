@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/01/16",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "4",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (J. Baleztena - O. Alkorta)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/01/16",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "3",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (A. Mayo - M. Calderon)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/01/16",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "1",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (D. Valdivia - A. Erraissi)",
@@ -46,7 +46,16 @@
   },
   {
     "fecha": "2026/01/16",
-    "hora": "19:00 !Horario provisional",
+    "hora": "19:00",
+    "zkia": "1",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/16",
+    "hora": "19:00",
     "zkia": "1",
     "fronton": "Pamplona - Oberena F 1",
     "etxekoa": "OBERENA (I. Nuin)",
@@ -55,7 +64,7 @@
   },
   {
     "fecha": "2026/01/16",
-    "hora": "19:30 !Horario provisional",
+    "hora": "19:30",
     "zkia": "1",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
@@ -64,7 +73,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (X. Sanchez - L. Zabaleta)",
@@ -73,7 +82,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Legarra)",
@@ -82,7 +91,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Bengoetxea)",
@@ -91,7 +100,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
@@ -100,7 +109,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
@@ -109,7 +118,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Bildarraz - I. Sotil)",
@@ -118,7 +127,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "2",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
@@ -127,7 +136,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "1",
     "fronton": "Doneztebe - Ezkurra",
     "etxekoa": "ERREKA (H. Fagoaga - I. Ancizar)",
@@ -136,7 +145,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
@@ -145,7 +154,7 @@
   },
   {
     "fecha": "2026/01/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
@@ -154,7 +163,7 @@
   },
   {
     "fecha": "2026/01/18",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (A. Iliberri - O. Baquedano)",
@@ -169,15 +178,6 @@
     "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/01/17",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
   },
   {
     "fecha": "2026/01/17",
