@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrocinio | Pilota Kluba</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+    }
+
+    header {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      max-width: 800px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    /* GRID LOGOS */
+    .logos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 30px;
+      align-items: center;
+    }
+
+    .logo-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .logo-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    }
+
+    .logo-item img {
+      max-width: 100%;
+      max-height: 100px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.25s ease;
+    }
+
+    .logo-item:hover img {
+      filter: grayscale(0%);
+    }
+
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Patrocinadores</h1>
+  <a href="index.html">← Volver a la web</a>
+</header>
+
+<section>
+  <p class="intro">
+    El Pilota Kluba agradece profundamente el apoyo de todas las entidades, comercios
+    y profesionales que hacen posible nuestra actividad deportiva y social.
+  </p>
+
+  <div id="logos" class="logos-grid"></div>
+</section>
+
+<footer>
+  <p>© Pilota Kluba</p>
+</footer>
+
+<script>
+/*
+  Este script carga automáticamente TODAS las imágenes (.png y .jpg)
+  que existan en /images/patrocinio/
+
+  Funciona correctamente en servidores web clásicos (Apache / hosting estándar)
+  donde el listado de directorios está permitido.
+*/
+
+const container = document.getElementById('logos');
+const folderPath = '/images/patrocinio/';
+
+fetch(folderPath)
+  .then(response => response.text())
+  .then(html => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const links = doc.querySelectorAll('a');
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && (href.endsWith('.png') || href.endsWith('.jpg') || href.endsWith('.jpeg'))) {
+        const div = document.createElement('div');
+        div.className = 'logo-item';
+
+        const img = document.createElement('img');
+        img.src = folderPath + href;
+        img.alt = href.replace(/[-_]/g, ' ').split('.')[0];
+
+        div.appendChild(img);
+        container.appendChild(div);
+      }
+    });
+  })
+  .catch(() => {
+    container.innerHTML = '<p>No se han podido cargar los logotipos.</p>';
+  });
+</script>
+
+</body>
+</html>
