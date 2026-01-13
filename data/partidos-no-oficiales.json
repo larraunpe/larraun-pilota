@@ -18,12 +18,39 @@
     "lehiaketa": "ZIZUR 4 TXAPELKETA GAZTE (2009) KANPORAKETA"
   },
   {
-    "fecha": "2026/01/10",
-    "hora": "18:00",
+    "fecha": "2026/01/17",
+    "hora": "16:30",
     "zkia": "1",
-    "fronton": "Pamplona – Oberena 2",
-    "etxekoa": "OBERENA",
-    "kanpokoak": "LARRAUN",
-    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA "
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAS",
+    "kanpokoak": "PELOTA 22",
+    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA "
+  },
+  {
+    "fecha": "2026/01/17",
+    "hora": "16:30",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAS",
+    "kanpokoak": "PELOTA 22",
+    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA "
+  },
+  {
+    "fecha": "2026/01/18",
+    "hora": "16:30",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN",
+    "kanpokoak": "SAN COSME",
+    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA "
+  },
+  {
+    "fecha": "2026/01/18",
+    "hora": "16:30",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN",
+    "kanpokoak": "SAN COSME",
+    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BINAKA "
   }
 ]
