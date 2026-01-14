@@ -65,14 +65,11 @@ main{padding:20px;}
 .match.pending::before{background:#000;}
 
 /* NO OFICIALES */
-.match.no-oficial{
-  background:#f1f1f1;
-}
+.match.no-oficial{background:#f1f1f1;}
 
 /* ===== TEXTO ===== */
 .line{margin:6px 0;}
 .meta{font-size:.9em;color:#333;}
-.icon{margin-right:6px;}
 
 /* LARRAUN */
 .larraun{
@@ -121,13 +118,21 @@ main{padding:20px;}
   font-size:.9em;
   color:#004d40;
   font-weight:600;
-  display:inline;
 }
 .modalidad a{
   color:#004d40;
   text-decoration:none;
 }
 .modalidad a:hover{text-decoration:underline;}
+
+/* SEPARADOR DESCANSO */
+.rest-separator{
+  margin:20px 0 10px;
+  text-align:center;
+  font-weight:bold;
+  color:#666;
+  letter-spacing:1px;
+}
 </style>
 </head>
 
@@ -147,9 +152,7 @@ const SOURCES=[
   {url:"/data/resultados-no-oficiales.json",ofiziala:false}
 ];
 
-function parseDate(fecha){
-  return fecha ? new Date(fecha+"T00:00") : null;
-}
+function parseDate(f){return f?new Date(f+"T00:00"):null;}
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
@@ -159,13 +162,31 @@ function monday(d){
 }
 function isLarraun(t){return /larraun/i.test(t||"");}
 function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
-
-/* 🔧 FORMATEO DE SETS (ÚNICO CAMBIO) */
+function esDescanso(m){
+  return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
+}
 function formatSets(sets){
-  return sets
-    .join(" ")
-    .replace(/\(/g," / ")
-    .replace(/\)/g,"");
+  return sets.join(" ").replace(/\(/g," / ").replace(/\)/g,"");
+}
+
+function ordenarSemana(arr){
+  const normales = arr.filter(m => !esDescanso(m));
+  const descansos = arr.filter(m => esDescanso(m));
+
+  normales.sort((a,b)=>{
+    if (a._date - b._date !== 0) return a._date - b._date;
+
+    const fa = (a.fronton || "").toLowerCase();
+    const fb = (b.fronton || "").toLowerCase();
+    if (fa < fb) return -1;
+    if (fa > fb) return 1;
+
+    const ma = (a.modalidad || "").toLowerCase();
+    const mb = (b.modalidad || "").toLowerCase();
+    return ma.localeCompare(mb);
+  });
+
+  return [...normales, ...descansos];
 }
 
 Promise.all(
@@ -173,7 +194,6 @@ Promise.all(
     .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala,_date:parseDate(o.fecha)}))))
 ).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
-
   const data=all.flat().filter(m=>m._date&&m._date<=today);
 
   const thisMon=monday(today);
@@ -190,29 +210,38 @@ Promise.all(
 
   function render(title,arr){
     if(!arr.length) return;
+    arr = ordenarSemana(arr);
+
     c.innerHTML+=`<div class="week-title">${title}</div>`;
 
+    let descansoMostrado=false;
+
     arr.forEach(m=>{
+      if(esDescanso(m)&&!descansoMostrado){
+        c.innerHTML+=`<div class="rest-separator">— JARDUNALDIKO ATSEDENAK —</div>`;
+        descansoMostrado=true;
+      }
+
       let cls="match ";
       if(!m.ofiziala) cls+="no-oficial ";
       if(!m.emaitza) cls+="pending";
-      else if(isLarraun(m.etxekoa+m.kanpokoak)&&/irabazita|\d+-\d+/.test(m.emaitza)) cls+="win";
+      else if(/irabazita/.test(m.emaitza)) cls+="win";
       else cls+="lose";
 
       let marcador="";
-      if(m.tanteoa && m.tanteoa.includes("-")){
-        const [a,b]=m.tanteoa.split("-").map(x=>x.trim());
+      if(m.tanteoa&&m.tanteoa.includes("-")){
+        const[a,b]=m.tanteoa.split("-").map(x=>x.trim());
         marcador=`
-          <div class="scoreboard">
-            <div class="scorebox blue">${a}</div>
-            <div class="scorebox red">${b}</div>
-          </div>`;
+        <div class="scoreboard">
+          <div class="scorebox blue">${a}</div>
+          <div class="scorebox red">${b}</div>
+        </div>`;
       }
 
-      const modalidadHTML =
-        m.url && m.url!=="-"
-          ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
-          : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
+      const modalidadHTML=
+        m.url&&m.url!=="-"
+        ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
+        : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
 
       c.innerHTML+=`
       <div class="${cls}">
@@ -222,10 +251,7 @@ Promise.all(
         <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
 
         ${marcador}
-
-        ${m.sets?.length
-          ? `<div class="sets">🎯 ${formatSets(m.sets)}</div>`
-          : ""}
+        ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
 
         <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
           📍 ${m.fronton||""}
@@ -235,23 +261,9 @@ Promise.all(
       </div>`;
     });
   }
-  function ordenarSemana(arr){
-  return arr.sort((a,b)=>{
-    if(a._date - b._date !== 0) return a._date - b._date;
 
-    const fa = (a.fronton || "").toLowerCase();
-    const fb = (b.fronton || "").toLowerCase();
-    if(fa < fb) return -1;
-    if(fa > fb) return 1;
-
-    const ma = (a.modalidad || "").toLowerCase();
-    const mb = (b.modalidad || "").toLowerCase();
-    return ma.localeCompare(mb);
-  });
-}
-
-  render("ASTE HONETAKO EMAITZAK",thisWeek);
-  render("AURREKO ASTEKO EMAITZAK",lastWeek);
+  render("ASTE HONETAKO EMAITZAK", thisWeek);
+  render("AURREKO ASTEKO EMAITZAK", lastWeek);
 });
 </script>
 
