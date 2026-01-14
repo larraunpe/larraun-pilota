@@ -71,14 +71,19 @@ main{padding:20px;}
 .line{margin:6px 0;}
 .meta{font-size:.9em;color:#333;}
 
-/* LARRAUN */
-.larraun{
+/* COLORES FIJOS EQUIPOS */
+.etxekoa-line{
   color:#0d47a1;
   font-weight:bold;
   font-size:1.05em;
   text-transform:uppercase;
 }
-.no-larraun{color:#b71c1c;}
+.kanpokoa-line{
+  color:#b71c1c;
+  font-weight:bold;
+  font-size:1.05em;
+  text-transform:uppercase;
+}
 
 /* FRONTÓN DESTACADO */
 .fronton-destacado{
@@ -160,7 +165,6 @@ function monday(d){
   x.setHours(0,0,0,0);
   return x;
 }
-function isLarraun(t){return /larraun/i.test(t||"");}
 function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
 function esDescanso(m){
   return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
@@ -247,8 +251,8 @@ Promise.all(
       <div class="${cls}">
         <div class="line meta">📅 ${m.fecha}</div>
 
-        <div class="line ${isLarraun(m.etxekoa)?'larraun':'no-larraun'}">🏠 ${m.etxekoa||""}</div>
-        <div class="line ${isLarraun(m.kanpokoak)?'larraun':'no-larraun'}">✈️ ${m.kanpokoak||""}</div>
+        <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
+        <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
 
         ${marcador}
         ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
