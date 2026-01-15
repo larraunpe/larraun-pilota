@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Entrenamenduak | Larraun Pilota Elkartea</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+  color:#222;
+}
+
+header{
+  background:#004d40;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+}
+
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  overflow:hidden;
+}
+
+.card h2{
+  margin:0;
+  padding:16px;
+  color:#fff;
+  font-size:1.2em;
+}
+
+.card .content{
+  padding:16px;
+}
+
+/* ===== COLORES DE CABECERA ===== */
+.esku-julen h2{background:#2e7d32;}
+.esku-barriola h2{background:#1565c0;}
+.pala h2{background:#6a1b9a;}
+
+/* ===== CATEGORÍAS ===== */
+.group{
+  margin-bottom:14px;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.prebenjaminak{background:#f1e0c5;}
+.benjaminak{background:#ffcc80;}
+.alebinak{background:#fff59d;}
+.infantilak{background:#a5d6a7;}
+.kadeteak{background:#81d4fa;}
+.jubenilak{background:#90caf9;}
+.nagusiak{background:#90a4ae;}
+
+.group h3{
+  margin:0 0 6px;
+  font-size:0.95em;
+}
+
+ul{
+  margin:0;
+  padding-left:18px;
+}
+
+li{
+  font-size:0.9em;
+  line-height:1.4;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ENTRENAMENDUAK</h1>
+</header>
+
+<main>
+
+<div class="grid">
+
+  <!-- ESKU PILOTA · JULEN MARTIJA -->
+  <div class="card esku-julen">
+    <h2>🤾 Eskupilota · Julen Martija</h2>
+    <div class="content">
+
+      <div class="group prebenjaminak">
+        <h3>Aurrebenjaminak</h3>
+        <ul>
+          <li>Luka Soria</li>
+          <li>Luar Ojuela</li>
+          <li>Joar Ruiz</li>
+          <li>Markel Etxeberria</li>
+          <li>Ekhi Zubillaga</li>
+        </ul>
+      </div>
+
+      <div class="group benjaminak">
+        <h3>Benjaminak</h3>
+        <ul>
+          <li>Aiur Loyarte</li>
+          <li>Aimar Ochoa</li>
+          <li>Manex Sanz</li>
+          <li>Beñat Goikoetxea</li>
+        </ul>
+      </div>
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Ekhi Mozo</li>
+          <li>Ander Astiz</li>
+          <li>Ibai Ansorena</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ESKU PILOTA · ABEL + JULEN -->
+  <div class="card esku-barriola">
+    <h2>🤾 Eskupilota · Abel Barriola + Julen Martija</h2>
+    <div class="content">
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Mikel Bidegain</li>
+          <li>Julen Mitxaus</li>
+          <li>Aimar Balenciaga</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak</h3>
+        <ul>
+          <li>Imanol Sotil</li>
+          <li>Julen Bildarraz</li>
+          <li>Oihan Ijurko</li>
+        </ul>
+      </div>
+
+      <div class="group jubenilak">
+        <h3>Jubenilak</h3>
+        <ul>
+          <li>Unai Otamendi</li>
+          <li>Mikel Laso</li>
+          <li>Egoitz Oreja</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Nagusiak</h3>
+        <ul>
+          <li>Igor Nazabal</li>
+          <li>Lucas Navarro</li>
+          <li>Endika Galarza</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PALA -->
+  <div class="card pala">
+    <h2>🏓 Pala</h2>
+    <div class="content">
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Nora Goldarazena</li>
+          <li>Sara Venzislavova</li>
+          <li>Nashla Watts</li>
+        </ul>
+      </div>
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Zuriñe Imaz</li>
+          <li>Nerea Saralegui</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak</h3>
+        <ul>
+          <li>Uxue Goñi</li>
+          <li>Laida Legarra</li>
+          <li>Martina Morais</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Jubenilak / Nagusiak</h3>
+        <ul>
+          <li>Maider Saralegi</li>
+          <li>Maddi Galartza</li>
+          <li>Maria Eguzkiza</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+</body>
+</html>
