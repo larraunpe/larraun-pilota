@@ -3,12 +3,14 @@
     "id": "diego_centeno",
     "izena": "Diego Centeno",
     "urtea": 2014,
-    "modalitateak": ["esku"]
+    "modalitateak": ["esku"],
+    "talde": "KIMU"
   },
   {
     "id": "mikel_argana",
     "izena": "Mikel Argaña",
     "urtea": 2013,
-    "modalitateak": ["esku"]
+    "modalitateak": ["esku"],
+    "talde": "KIMU"
   }
 ]
