@@ -3112,8 +3112,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3024"
   },
   {
-    "fecha": "2026-01-24",
-    "fronton": "-",
+    "fecha": "2026-01-23",
+    "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (E. Bengoetxea - E. Saizar)",
     "kanpokoak": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
     "tanteoa": "",
@@ -3728,12 +3728,14 @@
   {
     "fecha": "2026-01-15",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MUÑOZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-13)(15-14)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
