@@ -266,8 +266,10 @@ section {
 /* Cada día será una columna con posicionamiento relativo */
 .dia {
   position: relative;
-  min-height: 600px; /* se ajusta luego automáticamente */
+  min-height: 600px;
+  padding-top: 40px; /* 👈 espacio reservado para el nombre del día */
 }
+
 
 /* Los eventos ahora se posicionan */
 .evento {
@@ -1705,6 +1707,41 @@ setInterval(renderSponsors, 5000);
   });
 })();
 </script>
+<script>
+/* ===== CALENDARIO PROPORCIONAL POR HORAS ===== */
+
+const START_MINUTES = 16 * 60;      // 16:00
+const PIXELS_PER_15_MIN = 20;       // escala visual
+const DAY_HEADER_HEIGHT = 40;       // debe coincidir con padding-top
+
+function parseTimeToMinutes(time) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+document.querySelectorAll(".dia").forEach(dia => {
+  dia.querySelectorAll(".evento").forEach(evento => {
+    const text = evento.innerText;
+    const match = text.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
+
+    if (!match) return;
+
+    const start = parseTimeToMinutes(match[1]);
+    const end = parseTimeToMinutes(match[2]);
+
+    const top =
+      DAY_HEADER_HEIGHT +
+      ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+
+    const height =
+      ((end - start) / 15) * PIXELS_PER_15_MIN;
+
+    evento.style.top = `${top}px`;
+    evento.style.height = `${height}px`;
+  });
+});
+</script>
+
 
 
 </body>
