@@ -596,6 +596,58 @@ footer {
 .match-line {
   margin: 4px 0;
 }
+.horarios-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.calendario {
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.calendario h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6em;
+}
+
+.fronton h3 { color:#2e7d32; }
+.trinquete h3 { color:#004e92; }
+
+.semana {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.dia h4 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.evento {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* COLORES */
+.prebenjamin { background:#c2b280; }
+.benjamin { background:#ff9800; }
+.alevin { background:#ffeb3b; color:#333; }
+.infantil { background:#4caf50; color:#fff; }
+.cadete { background:#81d4fa; color:#003; }
+.juvenil { background:#0d47a1; color:#fff; }
+.nagusi { background:#4682B4; color:#fff; }
 
 /* Equipos */
 .etxekoa {
@@ -1147,7 +1199,89 @@ function openImage(src) {
   <h2 class="es">Entrenamientos</h2>
 
   <h3 class="eu">Ordutegiak</h3>
-  <h3 class="es">Horarios</h3>
+  <h3 class="es">Horarios</h3>+
+  <div class="horarios-wrapper">
+
+  <!-- FRONTÓN -->
+  <div class="calendario fronton">
+    <h3>🏟️ FRONTÓN</h3>
+
+    <div class="semana">
+      <div class="dia">
+        <h4>Lunes</h4>
+        <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+        <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Martes</h4>
+        <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+        <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+        <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+        <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+        <div class="evento nagusi mano">🖐 Nagusiak A<br>20:15–21:30</div>
+      </div>
+
+      <div class="dia">
+        <h4>Miércoles</h4>
+        <div class="evento benjamin pala">🏓 Benjaminak<br>16:00–17:00</div>
+        <div class="evento infantil pala">🏓 Infantilak<br>17:00–18:00</div>
+        <div class="evento cadete pala">🏓 Kadete 1<br>18:00–19:00</div>
+        <div class="evento cadete pala">🏓 Kadete 2<br>19:00–20:00</div>
+        <div class="evento nagusi pala">🏓 Nagusiak<br>20:00–21:00</div>
+      </div>
+
+      <div class="dia">
+        <h4>Jueves</h4>
+        <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+        <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+        <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+        <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Viernes</h4>
+        <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+        <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRINQUETE -->
+  <div class="calendario trinquete">
+    <h3>🏛️ TRINQUETE</h3>
+
+    <div class="semana">
+      <div class="dia">
+        <h4>Lunes</h4>
+        <div class="evento benjamin pala">🏓 Benjaminak<br>16:30–17:30</div>
+        <div class="evento infantil pala">🏓 Infantilak<br>17:30–18:30</div>
+        <div class="evento cadete pala">🏓 Kadete 1<br>18:30–19:30</div>
+        <div class="evento cadete pala">🏓 Kadete 2<br>19:30–20:30</div>
+      </div>
+
+      <div class="dia">
+        <h4>Martes</h4>
+        <div class="evento nagusi mano">🖐 Nagusiak A<br>17:00–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Jueves</h4>
+        <div class="evento nagusi mano">🖐 Nagusiak B<br>17:00–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Viernes</h4>
+        <div class="evento nagusi pala">🏓 Nagusiak<br>19:30–21:00</div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
   <!-- aquí va la imagen de ordutegia -->
   <img src="images/ordutegia.jpg" alt="Ordutegiak" style="width:100%; max-width:1000px;">
