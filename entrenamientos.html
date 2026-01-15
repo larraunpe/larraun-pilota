@@ -50,8 +50,8 @@ main{
 }
 
 /* ===== CABECERAS ===== */
-.esku-julen h2{background:#2e7d32;}
-.esku-barriola h2{background:#1565c0;}
+.txiki h2{background:#2e7d32;}
+.haundi h2{background:#1565c0;}
 .pala h2{background:#6a1b9a;}
 
 /* ===== GRUPOS (COLOR BASE) ===== */
@@ -79,7 +79,6 @@ ul{
   padding-left:18px;
 }
 
-/* ===== PELOTARI ===== */
 li{
   position:relative;
   font-size:0.9em;
@@ -90,7 +89,7 @@ li{
   overflow:hidden;
 }
 
-/* ===== SOMBREADO POR EDAD (OVERLAY) ===== */
+/* ===== SOMBREADO POR EDAD ===== */
 li::after{
   content:"";
   position:absolute;
@@ -104,7 +103,7 @@ li.edad-benjaminak::after{background:#ffb74d;}
 li.edad-alebinak::after{background:#fff176;}
 li.edad-infantilak::after{background:#81c784;}
 li.edad-kadeteak::after{background:#4fc3f7;}
-li.edad-jubenilak::after{background:#1e88e5;} /* azul oscuro */
+li.edad-jubenilak::after{background:#1e88e5;}
 li.edad-nagusiak::after{background:#607d8b;}
 </style>
 </head>
@@ -118,14 +117,14 @@ li.edad-nagusiak::after{background:#607d8b;}
 <main>
 <div class="grid">
 
-  <div class="card esku-julen">
+  <div class="card txiki">
     <h2>🤾 Eskupilota · TXIKI</h2>
-    <div class="content" id="esku-julen"></div>
+    <div class="content" id="esku-txiki"></div>
   </div>
 
-  <div class="card esku-barriola">
-    <h2>🤾 Eskupilota · HELDU</h2>
-    <div class="content" id="esku-barriola"></div>
+  <div class="card haundi">
+    <h2>🤾 Eskupilota · HAUNDI</h2>
+    <div class="content" id="esku-haundi"></div>
   </div>
 
   <div class="card pala">
@@ -137,16 +136,6 @@ li.edad-nagusiak::after{background:#607d8b;}
 </main>
 
 <script>
-const contenedores = {
-  "ESKU PILOTA": {
-    "TXIKI": "esku-julen",
-    "HELDU": "esku-barriola"
-  },
-  "PALA GOMA": {
-    "*": "pala"
-  }
-};
-
 function categoriaPorAnio(anio){
   if (anio >= 2018) return "aurrebenjaminak";
   if (anio >= 2016) return "benjaminak";
@@ -163,6 +152,10 @@ function raizCategoria(cat){
     .replace(/\s+/g,"");
 }
 
+function esTxiki(raiz){
+  return ["aurrebenjaminak","benjaminak","alebinak"].includes(raiz);
+}
+
 fetch('/data/pelotariak.json')
 .then(r => r.json())
 .then(data => {
@@ -170,22 +163,27 @@ fetch('/data/pelotariak.json')
   const grupos = {};
 
   data.forEach(p => {
-    const key = p.MODALITATEA + "|" + p.TALDEA + "|" + p.KATEGORIA;
+    const key = p.MODALITATEA + "|" + p.KATEGORIA;
     if (!grupos[key]) grupos[key] = [];
     grupos[key].push(p);
   });
 
   Object.entries(grupos).forEach(([key, pelotaris]) => {
-    const [modalitatea, taldea, categoria] = key.split("|");
+    const [modalitatea, categoria] = key.split("|");
+    const raiz = raizCategoria(categoria);
 
-    const cont =
-      contenedores[modalitatea]?.[taldea] ||
-      contenedores[modalitatea]?.["*"];
+    let contenedor = null;
 
-    if (!cont) return;
+    if (modalitatea === "ESKU PILOTA") {
+      contenedor = esTxiki(raiz) ? "esku-txiki" : "esku-haundi";
+    } else if (modalitatea === "PALA") {
+      contenedor = "pala";
+    }
+
+    if (!contenedor) return;
 
     const grupo = document.createElement("div");
-    grupo.className = "group " + raizCategoria(categoria);
+    grupo.className = "group " + raiz;
 
     const h3 = document.createElement("h3");
     h3.textContent = categoria;
@@ -203,7 +201,7 @@ fetch('/data/pelotariak.json')
       });
 
     grupo.appendChild(ul);
-    document.getElementById(cont).appendChild(grupo);
+    document.getElementById(contenedor).appendChild(grupo);
   });
 });
 </script>
