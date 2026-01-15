@@ -54,7 +54,7 @@ main{
 .esku-barriola h2{background:#1565c0;}
 .pala h2{background:#6a1b9a;}
 
-/* ===== CATEGORÍAS ===== */
+/* ===== GRUPOS ===== */
 .group{
   margin-bottom:14px;
   border-radius:10px;
@@ -84,6 +84,7 @@ li{
   line-height:1.4;
   padding:3px 6px;
   border-radius:6px;
+  margin-bottom:3px;
 }
 </style>
 </head>
@@ -118,6 +119,17 @@ li{
 </main>
 
 <script>
+/* ===== ORDEN FIJO DE CATEGORÍAS ===== */
+const ordenCategorias = [
+  "Aurrebenjaminak",
+  "Benjaminak",
+  "Alebinak",
+  "Infantilak",
+  "Kadeteak",
+  "Jubenilak",
+  "Nagusiak"
+];
+
 /* ===== CONTENEDORES ===== */
 const contenedores = {
   "ESKU PILOTA": {
@@ -134,7 +146,6 @@ const contenedores = {
   }
 };
 
-/* ===== CATEGORÍA POR AÑO ===== */
 function categoriaPorAnio(anio){
   if (anio >= 2018) return "Aurrebenjaminak";
   if (anio >= 2016) return "Benjaminak";
@@ -145,69 +156,74 @@ function categoriaPorAnio(anio){
   return "Nagusiak";
 }
 
-/* ===== NORMALIZAR TEXTO ===== */
+function claseCategoria(cat){
+  return cat.toLowerCase().replace(/\s+/g,"");
+}
+
 function normalizar(txt){
-  return txt
-    .toUpperCase()
-    .replace(/\s+[0-9AB]$/i, "")   // elimina " 1", " A", " B"
-    .replace(/\s+/g, " ")
-    .trim();
+  return txt.toUpperCase().replace(/\s+[0-9AB]$/,"").trim();
 }
 
-function claseCategoria(nombre){
-  return nombre.toLowerCase().replace(/\s+/g, "");
-}
-
-/* ===== CARGA DATOS ===== */
+/* ===== CARGA ===== */
 fetch('/data/pelotariak.json')
-  .then(r => {
-    if (!r.ok) throw new Error("No se pudo cargar pelotariak.json");
-    return r.json();
-  })
-  .then(data => {
+.then(r => r.json())
+.then(data => {
 
-    const grupos = {};
+  const grupos = {};
 
-    data.forEach(p => {
-      const categoria = categoriaPorAnio(p.URTEA);
-      const modalitatea = normalizar(p.MODALITATEA);
+  data.forEach(p => {
+    const categoriaEdad = categoriaPorAnio(p.URTEA);
+    const modalidad = normalizar(p.MODALITATEA);
 
-      const key = modalitatea + "|" + categoria;
-      if (!grupos[key]) grupos[key] = [];
-      grupos[key].push(p);
-    });
+    const key = modalidad + "|" + categoriaEdad;
+    if (!grupos[key]) grupos[key] = [];
+    grupos[key].push(p);
+  });
 
-    Object.entries(grupos).forEach(([key, pelotaris]) => {
-      const [modalitatea, categoria] = key.split("|");
+  Object.entries(grupos).forEach(([key, pelotaris]) => {
+    const [modalidad, categoria] = key.split("|");
 
-      const contenedor =
-        contenedores[modalitatea]?.[categoria.toUpperCase()] ||
-        contenedores[modalitatea]?.["*"];
+    const contenedor =
+      contenedores[modalidad]?.[categoria.toUpperCase()] ||
+      contenedores[modalidad]?.["*"];
 
-      if (!contenedor) return;
+    if (!contenedor) return;
 
-      const div = document.createElement("div");
-      div.className = "group " + claseCategoria(categoria);
+    const wrapper = document.createElement("div");
+    wrapper.dataset.categoria = categoria;
+    wrapper.className = "group " + claseCategoria(categoria);
 
-      const h3 = document.createElement("h3");
-      h3.textContent = categoria;
-      div.appendChild(h3);
+    const h3 = document.createElement("h3");
+    h3.textContent = categoria;
+    wrapper.appendChild(h3);
 
-      const ul = document.createElement("ul");
+    const ul = document.createElement("ul");
 
-      pelotaris
-        .sort((a,b) => a.Izena.localeCompare(b.Izena))
-        .forEach(p => {
-          const li = document.createElement("li");
-          li.textContent = p.Izena;
-          ul.appendChild(li);
-        });
+    pelotaris
+      .sort((a,b) => a.Izena.localeCompare(b.Izena))
+      .forEach(p => {
+        const edadCat = categoriaPorAnio(p.URTEA);
+        const li = document.createElement("li");
+        li.textContent = p.Izena;
+        li.classList.add(claseCategoria(edadCat)); // 👈 sombreado por EDAD
+        ul.appendChild(li);
+      });
 
-      div.appendChild(ul);
-      document.getElementById(contenedor).appendChild(div);
-    });
-  })
-  .catch(err => console.error(err));
+    wrapper.appendChild(ul);
+    document.getElementById(contenedor).appendChild(wrapper);
+  });
+
+  /* ===== ORDENAR GRUPOS ===== */
+  document.querySelectorAll(".content").forEach(content => {
+    const grupos = Array.from(content.querySelectorAll(".group"));
+    grupos.sort((a,b) =>
+      ordenCategorias.indexOf(a.dataset.categoria) -
+      ordenCategorias.indexOf(b.dataset.categoria)
+    );
+    grupos.forEach(g => content.appendChild(g));
+  });
+
+});
 </script>
 
 </body>
