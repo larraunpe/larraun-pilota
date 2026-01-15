@@ -61,7 +61,7 @@ main{
   padding:10px 12px;
 }
 
-.prebenjaminak{background:#f1e0c5;}
+.aurrebenjaminak{background:#f1e0c5;}
 .benjaminak{background:#ffcc80;}
 .alebinak{background:#fff59d;}
 .infantilak{background:#a5d6a7;}
@@ -118,24 +118,23 @@ li{
 </main>
 
 <script>
+/* ===== CONTENEDORES ===== */
 const contenedores = {
   "ESKU PILOTA": {
-    "ALEBINAK": "esku-julen",
     "AURREBENJAMINAK": "esku-julen",
-    "BENJAMINAK 1": "esku-julen",
-    "BENJAMINAK 2": "esku-julen",
+    "BENJAMINAK": "esku-julen",
+    "ALEBINAK": "esku-julen",
     "INFANTILAK": "esku-barriola",
-    "KADETEAK A": "esku-barriola",
-    "KADETEAK B": "esku-barriola",
+    "KADETEAK": "esku-barriola",
     "JUBENILAK": "esku-barriola",
-    "NAGUSIAK A": "esku-barriola",
-    "NAGUSIAK B": "esku-barriola"
+    "NAGUSIAK": "esku-barriola"
   },
   "PALA GOMA": {
     "*": "pala"
   }
 };
 
+/* ===== CATEGORÍA POR AÑO ===== */
 function categoriaPorAnio(anio){
   if (anio >= 2018) return "Aurrebenjaminak";
   if (anio >= 2016) return "Benjaminak";
@@ -146,23 +145,34 @@ function categoriaPorAnio(anio){
   return "Nagusiak";
 }
 
-function claseCategoria(nombre){
-  return nombre.toLowerCase()
-    .replace(" ", "")
-    .replace("ä","a")
-    .replace("ö","o");
+/* ===== NORMALIZAR TEXTO ===== */
+function normalizar(txt){
+  return txt
+    .toUpperCase()
+    .replace(/\s+[0-9AB]$/i, "")   // elimina " 1", " A", " B"
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
+function claseCategoria(nombre){
+  return nombre.toLowerCase().replace(/\s+/g, "");
+}
+
+/* ===== CARGA DATOS ===== */
 fetch('/data/pelotariak.json')
-  .then(r => r.json())
+  .then(r => {
+    if (!r.ok) throw new Error("No se pudo cargar pelotariak.json");
+    return r.json();
+  })
   .then(data => {
 
     const grupos = {};
 
     data.forEach(p => {
-      const cat = categoriaPorAnio(p.URTEA);
-      const key = p.MODALITATEA + "|" + cat;
+      const categoria = categoriaPorAnio(p.URTEA);
+      const modalitatea = normalizar(p.MODALITATEA);
 
+      const key = modalitatea + "|" + categoria;
       if (!grupos[key]) grupos[key] = [];
       grupos[key].push(p);
     });
@@ -190,14 +200,14 @@ fetch('/data/pelotariak.json')
         .forEach(p => {
           const li = document.createElement("li");
           li.textContent = p.Izena;
-          li.classList.add(claseCategoria(categoria));
           ul.appendChild(li);
         });
 
       div.appendChild(ul);
       document.getElementById(contenedor).appendChild(div);
     });
-  });
+  })
+  .catch(err => console.error(err));
 </script>
 
 </body>
