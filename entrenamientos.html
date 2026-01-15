@@ -49,12 +49,12 @@ main{
   padding:16px;
 }
 
-/* ===== COLORES CABECERA ===== */
+/* ===== CABECERAS ===== */
 .esku-julen h2{background:#2e7d32;}
 .esku-barriola h2{background:#1565c0;}
 .pala h2{background:#6a1b9a;}
 
-/* ===== GRUPOS ===== */
+/* ===== GRUPOS (COLOR BASE) ===== */
 .group{
   margin-bottom:14px;
   border-radius:10px;
@@ -79,13 +79,33 @@ ul{
   padding-left:18px;
 }
 
+/* ===== PELOTARI ===== */
 li{
+  position:relative;
   font-size:0.9em;
   line-height:1.4;
   padding:3px 6px;
   border-radius:6px;
   margin-bottom:3px;
+  overflow:hidden;
 }
+
+/* ===== SOMBREADO POR EDAD (OVERLAY) ===== */
+li::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.35;
+  pointer-events:none;
+}
+
+li.edad-aurrebenjaminak::after{background:#f1e0c5;}
+li.edad-benjaminak::after{background:#ffb74d;}
+li.edad-alebinak::after{background:#fff176;}
+li.edad-infantilak::after{background:#81c784;}
+li.edad-kadeteak::after{background:#4fc3f7;}
+li.edad-jubenilak::after{background:#1e88e5;} /* azul oscuro */
+li.edad-nagusiak::after{background:#607d8b;}
 </style>
 </head>
 
@@ -96,16 +116,15 @@ li{
 </header>
 
 <main>
-
 <div class="grid">
 
   <div class="card esku-julen">
-    <h2>🤾 Eskupilota · Julen Martija</h2>
+    <h2>🤾 Eskupilota · TXIKI</h2>
     <div class="content" id="esku-julen"></div>
   </div>
 
   <div class="card esku-barriola">
-    <h2>🤾 Eskupilota · Abel Barriola + Enrike Galarza</h2>
+    <h2>🤾 Eskupilota · HELDU</h2>
     <div class="content" id="esku-barriola"></div>
   </div>
 
@@ -115,31 +134,13 @@ li{
   </div>
 
 </div>
-
 </main>
 
 <script>
-/* ===== ORDEN FIJO DE CATEGORÍAS ===== */
-const ordenCategorias = [
-  "Aurrebenjaminak",
-  "Benjaminak",
-  "Alebinak",
-  "Infantilak",
-  "Kadeteak",
-  "Jubenilak",
-  "Nagusiak"
-];
-
-/* ===== CONTENEDORES ===== */
 const contenedores = {
   "ESKU PILOTA": {
-    "AURREBENJAMINAK": "esku-julen",
-    "BENJAMINAK": "esku-julen",
-    "ALEBINAK": "esku-julen",
-    "INFANTILAK": "esku-barriola",
-    "KADETEAK": "esku-barriola",
-    "JUBENILAK": "esku-barriola",
-    "NAGUSIAK": "esku-barriola"
+    "TXIKI": "esku-julen",
+    "HELDU": "esku-barriola"
   },
   "PALA GOMA": {
     "*": "pala"
@@ -147,84 +148,9 @@ const contenedores = {
 };
 
 function categoriaPorAnio(anio){
-  if (anio >= 2018) return "Aurrebenjaminak";
-  if (anio >= 2016) return "Benjaminak";
-  if (anio >= 2014) return "Alebinak";
-  if (anio >= 2012) return "Infantilak";
-  if (anio >= 2010) return "Kadeteak";
-  if (anio >= 2008) return "Jubenilak";
-  return "Nagusiak";
-}
-
-function claseCategoria(cat){
-  return cat.toLowerCase().replace(/\s+/g,"");
-}
-
-function normalizar(txt){
-  return txt.toUpperCase().replace(/\s+[0-9AB]$/,"").trim();
-}
-
-/* ===== CARGA ===== */
-fetch('/data/pelotariak.json')
-.then(r => r.json())
-.then(data => {
-
-  const grupos = {};
-
-  data.forEach(p => {
-    const categoriaEdad = categoriaPorAnio(p.URTEA);
-    const modalidad = normalizar(p.MODALITATEA);
-
-    const key = modalidad + "|" + categoriaEdad;
-    if (!grupos[key]) grupos[key] = [];
-    grupos[key].push(p);
-  });
-
-  Object.entries(grupos).forEach(([key, pelotaris]) => {
-    const [modalidad, categoria] = key.split("|");
-
-    const contenedor =
-      contenedores[modalidad]?.[categoria.toUpperCase()] ||
-      contenedores[modalidad]?.["*"];
-
-    if (!contenedor) return;
-
-    const wrapper = document.createElement("div");
-    wrapper.dataset.categoria = categoria;
-    wrapper.className = "group " + claseCategoria(categoria);
-
-    const h3 = document.createElement("h3");
-    h3.textContent = categoria;
-    wrapper.appendChild(h3);
-
-    const ul = document.createElement("ul");
-
-    pelotaris
-      .sort((a,b) => a.Izena.localeCompare(b.Izena))
-      .forEach(p => {
-        const edadCat = categoriaPorAnio(p.URTEA);
-        const li = document.createElement("li");
-        li.textContent = p.Izena;
-        li.classList.add(claseCategoria(edadCat)); // 👈 sombreado por EDAD
-        ul.appendChild(li);
-      });
-
-    wrapper.appendChild(ul);
-    document.getElementById(contenedor).appendChild(wrapper);
-  });
-
-  /* ===== ORDENAR GRUPOS ===== */
-  document.querySelectorAll(".content").forEach(content => {
-    const grupos = Array.from(content.querySelectorAll(".group"));
-    grupos.sort((a,b) =>
-      ordenCategorias.indexOf(a.dataset.categoria) -
-      ordenCategorias.indexOf(b.dataset.categoria)
-    );
-    grupos.forEach(g => content.appendChild(g));
-  });
-
-});
-</script>
-
-</body>
-</html>
+  if (anio >= 2018) return "aurrebenjaminak";
+  if (anio >= 2016) return "benjaminak";
+  if (anio >= 2014) return "alebinak";
+  if (anio >= 2012) return "infantilak";
+  if (anio >= 2010) return "kadeteak";
+  if
