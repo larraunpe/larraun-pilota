@@ -153,4 +153,60 @@ function categoriaPorAnio(anio){
   if (anio >= 2014) return "alebinak";
   if (anio >= 2012) return "infantilak";
   if (anio >= 2010) return "kadeteak";
-  if
+  if (anio >= 2008) return "jubenilak";
+  return "nagusiak";
+}
+
+function raizCategoria(cat){
+  return cat.toLowerCase()
+    .replace(/\s+[ab12]$/,"")
+    .replace(/\s+/g,"");
+}
+
+fetch('/data/pelotariak.json')
+.then(r => r.json())
+.then(data => {
+
+  const grupos = {};
+
+  data.forEach(p => {
+    const key = p.MODALITATEA + "|" + p.TALDEA + "|" + p.KATEGORIA;
+    if (!grupos[key]) grupos[key] = [];
+    grupos[key].push(p);
+  });
+
+  Object.entries(grupos).forEach(([key, pelotaris]) => {
+    const [modalitatea, taldea, categoria] = key.split("|");
+
+    const cont =
+      contenedores[modalitatea]?.[taldea] ||
+      contenedores[modalitatea]?.["*"];
+
+    if (!cont) return;
+
+    const grupo = document.createElement("div");
+    grupo.className = "group " + raizCategoria(categoria);
+
+    const h3 = document.createElement("h3");
+    h3.textContent = categoria;
+    grupo.appendChild(h3);
+
+    const ul = document.createElement("ul");
+
+    pelotaris
+      .sort((a,b)=>a.Izena.localeCompare(b.Izena))
+      .forEach(p=>{
+        const li = document.createElement("li");
+        li.textContent = p.Izena;
+        li.classList.add("edad-" + categoriaPorAnio(p.URTEA));
+        ul.appendChild(li);
+      });
+
+    grupo.appendChild(ul);
+    document.getElementById(cont).appendChild(grupo);
+  });
+});
+</script>
+
+</body>
+</html>
