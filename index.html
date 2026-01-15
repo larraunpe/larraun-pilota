@@ -262,6 +262,19 @@ section {
   margin-bottom: 12px;
   color: #222;
 }
+  
+/* Cada día será una columna con posicionamiento relativo */
+.dia {
+  position: relative;
+  min-height: 600px; /* se ajusta luego automáticamente */
+}
+
+/* Los eventos ahora se posicionan */
+.evento {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
 
 .pelotari-lista {
   display: flex;
@@ -1659,6 +1672,40 @@ renderSponsors();
 // rotación automática cada 5 segundos
 setInterval(renderSponsors, 5000);
 </script>
+<script>
+(function () {
+  const PIXELS_PER_15_MIN = 20;   // escala vertical
+  const START_MINUTES = 16 * 60; // 16:00 es el inicio base
+
+  document.querySelectorAll(".dia").forEach(dia => {
+    let maxBottom = 0;
+
+    dia.querySelectorAll(".evento").forEach(evento => {
+      const text = evento.innerHTML;
+      const match = text.match(/(\d{1,2}):(\d{2})\s*–\s*(\d{1,2}):(\d{2})/);
+
+      if (!match) return;
+
+      const [, h1, m1, h2, m2] = match.map(Number);
+
+      const start = h1 * 60 + m1;
+      const end = h2 * 60 + m2;
+
+      const top = ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+      const height = ((end - start) / 15) * PIXELS_PER_15_MIN;
+
+      evento.style.top = top + "px";
+      evento.style.height = height + "px";
+
+      maxBottom = Math.max(maxBottom, top + height);
+    });
+
+    // Ajusta la altura del día según el último evento
+    dia.style.minHeight = maxBottom + 20 + "px";
+  });
+})();
+</script>
+
 
 </body>
 </html>
