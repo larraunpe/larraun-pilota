@@ -268,6 +268,58 @@ section {
   flex-wrap: wrap;
   gap: 10px;
 }
+#patrocinadores-home {
+  background: #eee;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.sponsor-carousel {
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.sponsor-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sponsor-item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-item img {
+  max-width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.sponsor-item:hover img {
+  filter: grayscale(0%);
+}
+
+.sponsor-link {
+  margin-top: 20px;
+}
+
+.sponsor-link a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+}
+
 
 .pelotari {
   font-weight: bold;
@@ -1332,7 +1384,18 @@ function openImage(src) {
 </div>
 
 </section>
+<section id="patrocinadores-home">
+  <h2 class="eu">Babesleak</h2>
+  <h2 class="es">Patrocinadores</h2>
 
+  <div class="sponsor-carousel">
+    <div class="sponsor-track" id="sponsor-track"></div>
+  </div>
+
+  <div class="sponsor-link">
+    <a href="patrocinio.html">→ Ikusi babesle guztiak</a>
+  </div>
+</section>
 
 <footer>
   <p>© 2025 Larraun Pilota Elkartea</p>
@@ -1374,6 +1437,63 @@ function formatDates(lang) {
 }
 </script>
 <script src="js/kategoriak.js"></script>
+<script>
+const SPONSORS = [
+  "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg",
+  "kotxera.jpg","barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg",
+  "carniceriaartxueta.jpg","carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg",
+  "construccionesgarciarenasaralegi.jpg","construccionesurangasaigos.jpg",
+  "fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg","iseelectricidad.jpg",
+  "kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg","maderasansorena.jpg",
+  "maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
+  "ventademugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg",
+  "ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg",
+  "fontaneriairibarren.jpg","izarberri.png","lakita.jpg","nekazari.jpg",
+  "sidreriatokialai.jpg","tallereslarraun.jpg","talleresotxotorenamotor.jpg",
+  "veterinarialekunberri.jpg"
+];
+
+const track = document.getElementById("sponsor-track");
+const basePath = "/images/patrocinio/";
+const BATCH_SIZE = 12;
+let currentIndex = 0;
+
+function renderSponsors() {
+  track.style.opacity = 0;
+
+  setTimeout(() => {
+    track.innerHTML = "";
+
+    const slice = SPONSORS.slice(currentIndex, currentIndex + BATCH_SIZE);
+
+    slice.forEach(file => {
+      const div = document.createElement("div");
+      div.className = "sponsor-item";
+
+      const img = document.createElement("img");
+      img.src = basePath + file;
+      img.alt = file.replace(/[-_]/g, " ").split(".")[0];
+
+      div.appendChild(img);
+      track.appendChild(div);
+    });
+
+    track.style.opacity = 1;
+
+    currentIndex += BATCH_SIZE;
+    if (currentIndex >= SPONSORS.length) {
+      currentIndex = 0;
+    }
+  }, 300);
+}
+
+// primera carga
+renderSponsors();
+
+// rotación automática cada 5 segundos
+setInterval(renderSponsors, 5000);
+</script>
+
 </body>
 </html>
 
