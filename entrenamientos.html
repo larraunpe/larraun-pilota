@@ -49,7 +49,7 @@ main{
   padding:16px;
 }
 
-/* ===== COLORES DE CABECERA ===== */
+/* ===== COLORES CABECERA ===== */
 .esku-julen h2{background:#2e7d32;}
 .esku-barriola h2{background:#1565c0;}
 .pala h2{background:#6a1b9a;}
@@ -82,6 +82,8 @@ ul{
 li{
   font-size:0.9em;
   line-height:1.4;
+  padding:3px 6px;
+  border-radius:6px;
 }
 </style>
 </head>
@@ -96,211 +98,107 @@ li{
 
 <div class="grid">
 
-  <!-- ESKU PILOTA · JULEN MARTIJA -->
   <div class="card esku-julen">
     <h2>🤾 Eskupilota · Julen Martija</h2>
-    <div class="content">
-
-      <div class="group prebenjaminak">
-        <h3>Aurrebenjaminak</h3>
-        <ul>
-          <li>Lander Ariztimuño</li>
-          <li>Amets Mozo</li>
-          <li>Aimar Bidegain</li>
-          <li>Unai Erneta</li>
-          <li>Joar Ruiz</li>
-          <li>Markel Etxeberria</li>
-          <li>Luka Soria</li>
-          <li>Luar Ojuel</li>
-          <li>Ekhi Zubillaga</li>
-        </ul>
-      </div>
-
-      <div class="group benjaminak">
-        <h3>Benjaminak 1</h3>
-        <ul>
-          <li>Gorka Garcia</li>
-          <li>Liher Goikoetxea</li>
-          <li>Beñat Goikoetxea</li>
-          <li>Manex Sanz</li>
-          <li>Aiur Loyarte</li>
-          <li>Eneko Jaurrieta</li>
-          <li>Enai Albeniz</li>
-          <li>Martin Argaña</li>
-          <li>Aimar Ochoa</li>
-        </ul>
-      </div>
-       <div class="group benjaminak">
-        <h3>Benjaminak 2</h3>
-        <ul>
-          <li>Inhar Lociga</li>
-          <li>Urko Agirrezabala</li>
-          <li>Aratz Apezetxea</li>
-          <li>Urko Ariztimuño</li>
-          <li>Luken Oiartzun</li>
-          <li>Eneko Etxeberria</li>
-          <li>Suhar Galartza</li>
-          <li>Aitor Ruiz</li>
-          <li>Oier Mitxaus</li>
-        </ul>
-      </div>
-
-      <div class="group alebinak">
-        <h3>Alebinak</h3>
-        <ul>
-          <li>Diego Centeno</li>
-          <li>Mikel Argaña</li>
-          <li>Endika Balda</li>
-          <li>Ibai Ansorena</li>
-          <li>Ander Astiz</li>
-          <li>Joan Mendinueta</li>
-          <li>Adur Zubillaga</li>
-          <li>Ekhi Mozo</li>
-          <li>Ander Dorronsoro</li>
-
-        </ul>
-      </div>
-
-    </div>
+    <div class="content" id="esku-julen"></div>
   </div>
 
-  <!-- ESKU PILOTA · ABEL + JULEN -->
   <div class="card esku-barriola">
     <h2>🤾 Eskupilota · Abel Barriola + Enrike Galarza</h2>
-    <div class="content">
-
-      <div class="group infantilak">
-        <h3>Infantilak</h3>
-        <ul>
-          <li>Aimar Bengoetxea</li>
-          <li>Mikel Bidegain</li>
-          <li>Xabier Goldaracena</li>
-          <li>Aimar Balenciaga</li>
-          <li>Julen Mitxaus</li>
-        </ul>
-      </div>
-
-      <div class="group kadeteak">
-        <h3>Kadeteak B</h3>
-        <ul>
-          <li>Janire Sotil</li>
-          <li>Martin Etxepare</li>
-          <li>Ilan Eguzkiza</li>
-          <li>Egoi Jaka</li>
-          <li>Amaiur Goikoetxea</li>
-          <li>Bikendi Legarra</li>
-        </ul>
-      </div>
-       <div class="group kadeteak">
-        <h3>Kadeteak A</h3>
-        <ul>
-          <li>Aitor Balda</li>
-          <li>Julen Bildarraz</li>
-          <li>Oihan Ijurko</li>
-          <li>Imanol Sotil</li>
-        </ul>
-      </div>
-
-      <div class="group jubenilak">
-        <h3>Jubenilak</h3>
-        <ul>
-          <li>Egoi Ijurko</li>
-          <li>Ibai Ijurko</li>
-          <li>Egoitz Oreja</li>
-          <li>Mikel Laso</li>
-          <li>Unai Otamendi</li>
-        </ul>
-      </div>
-
-      <div class="group nagusiak">
-        <h3>Nagusiak B</h3>
-        <ul>
-          <li>Miguel Lazkoz</li>
-          <li>Julen Ezkurdia</li>
-          <li>Mattin Goikoetxea</li>
-          <li>Xuban Telletxea</li>
-        </ul>
-      </div>
-      <div class="group nagusiak">
-        <h3>Nagusiak a</h3>
-        <ul>
-          <li>Iñaki Galarza</li>
-          <li>Oinatz Iriarte</li>
-          <li>Intza Garaño</li>
-          <li>Aitor Eguzkiza</li>
-          <li>Endika Galarza</li>
-          <li>Lucas Navarro</li>
-          <li>Julen Sotil</li>
-          <li>Igor Nazabal</li>
-        </ul>
-      </div>
-
-    </div>
+    <div class="content" id="esku-barriola"></div>
   </div>
 
-  <!-- PALA -->
   <div class="card pala">
     <h2>🏓 Pala</h2>
-    <div class="content">
-
-      <div class="group alebinak">
-        <h3>Alebinak</h3>
-        <ul>
-          <li>Nora Goldarazena</li>
-          <li>Sara Venzislavova</li>
-          <li>Nashla Watts</li>
-        </ul>
-      </div>
-
-      <div class="group infantilak">
-        <h3>Infantilak</h3>
-        <ul>
-          <li>Haizea Apezetxea</li>
-          <li>Nerea Saralegui</li>
-          <li>Zuriñe Imaz</li>
-          <li>Iraide Garaño</li>
-        </ul>
-      </div>
-
-      <div class="group kadeteak">
-        <h3>Kadeteak 1</h3>
-        <ul>
-          <li>Irati Balenciaga</li>
-          <li>Marian Saralegui</li>
-          <li>Martina Morais</li>
-          <li>Uxue Goñi</li>
-          <li>Laida Legarra</li>
-        </ul>
-      </div>
-      <div class="group kadeteak">
-        <h3>Kadeteak 2</h3>
-        <ul>
-          <li>Haizea Etxarri</li>
-          <li>Kiara Legarra</li>
-          <li>Joane Martinikorena</li>
-          <li>Izarne Larreta</li>
-          <li>Lorea Bengoetxea</li>
-          <li>Garazi Astiz</li>
-        </ul>
-      </div>
-
-      <div class="group nagusiak">
-        <h3>Jubenilak / Nagusiak</h3>
-        <ul>
-          <li>Maider Saralegi</li>
-          <li>Maddi Galartza</li>
-          <li>Maria Eguzkiza</li>
-          <li>Irati Garziarena</li>
-          <li>Naia Galarza</li>
-        </ul>
-      </div>
-
-    </div>
+    <div class="content" id="pala"></div>
   </div>
 
 </div>
 
 </main>
+
+<script>
+const contenedores = {
+  "ESKU PILOTA": {
+    "ALEBINAK": "esku-julen",
+    "AURREBENJAMINAK": "esku-julen",
+    "BENJAMINAK 1": "esku-julen",
+    "BENJAMINAK 2": "esku-julen",
+    "INFANTILAK": "esku-barriola",
+    "KADETEAK A": "esku-barriola",
+    "KADETEAK B": "esku-barriola",
+    "JUBENILAK": "esku-barriola",
+    "NAGUSIAK A": "esku-barriola",
+    "NAGUSIAK B": "esku-barriola"
+  },
+  "PALA GOMA": {
+    "*": "pala"
+  }
+};
+
+function categoriaPorAnio(anio){
+  if (anio >= 2018) return "Aurrebenjaminak";
+  if (anio >= 2016) return "Benjaminak";
+  if (anio >= 2014) return "Alebinak";
+  if (anio >= 2012) return "Infantilak";
+  if (anio >= 2010) return "Kadeteak";
+  if (anio >= 2008) return "Jubenilak";
+  return "Nagusiak";
+}
+
+function claseCategoria(nombre){
+  return nombre.toLowerCase()
+    .replace(" ", "")
+    .replace("ä","a")
+    .replace("ö","o");
+}
+
+fetch('/data/pelotariak.json')
+  .then(r => r.json())
+  .then(data => {
+
+    const grupos = {};
+
+    data.forEach(p => {
+      const cat = categoriaPorAnio(p.URTEA);
+      const key = p.MODALITATEA + "|" + cat;
+
+      if (!grupos[key]) grupos[key] = [];
+      grupos[key].push(p);
+    });
+
+    Object.entries(grupos).forEach(([key, pelotaris]) => {
+      const [modalitatea, categoria] = key.split("|");
+
+      const contenedor =
+        contenedores[modalitatea]?.[categoria.toUpperCase()] ||
+        contenedores[modalitatea]?.["*"];
+
+      if (!contenedor) return;
+
+      const div = document.createElement("div");
+      div.className = "group " + claseCategoria(categoria);
+
+      const h3 = document.createElement("h3");
+      h3.textContent = categoria;
+      div.appendChild(h3);
+
+      const ul = document.createElement("ul");
+
+      pelotaris
+        .sort((a,b) => a.Izena.localeCompare(b.Izena))
+        .forEach(p => {
+          const li = document.createElement("li");
+          li.textContent = p.Izena;
+          li.classList.add(claseCategoria(categoria));
+          ul.appendChild(li);
+        });
+
+      div.appendChild(ul);
+      document.getElementById(contenedor).appendChild(div);
+    });
+  });
+</script>
 
 </body>
 </html>
