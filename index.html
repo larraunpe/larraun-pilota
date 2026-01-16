@@ -267,15 +267,11 @@ section {
 .dia {
   position: relative;
   min-height: 520px; /* ajustable */
-  padding-top: 40px;
+  padding-top: 44px;
 }
 
 
-.evento {
-  position: absolute;
-  left: 0;
-  right: 0;
-}
+
 .evento {
   position: absolute;
   left: 6px;
@@ -653,12 +649,19 @@ footer {
   border-radius: 8px;
 }
 .dia h4 {
-  position: sticky;
+  position: absolute;
   top: 0;
-  z-index: 2;
+  left: 0;
+  right: 0;
+
+  height: 44px;
+  line-height: 44px;
+
   margin: 0;
-  height: 40px;
-  line-height: 40px;
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  z-index: 2;
 }
 
 .evento {
