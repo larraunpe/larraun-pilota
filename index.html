@@ -265,17 +265,13 @@ section {
   
 /* Cada día será una columna con posicionamiento relativo */
 .dia {
-  position: relative;
-  min-height: 600px;
-  padding-top: 60px; /* 👈 espacio reservado para el nombre del día */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 40px; /* solo para separar del título */
 }
-
 
 /* Los eventos ahora se posicionan */
-.evento {
-  position: relative; /* ya no tapa los títulos */
-  margin-top: 6px;
-}
 
 .pelotari-lista {
   display: flex;
@@ -640,15 +636,11 @@ footer {
 }
 
 .dia h4 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   text-align: center;
-  background: #fff;
-  padding: 6px 0;
+  background: rgba(255,255,255,0.85);
+  padding: 8px 0;
   font-weight: bold;
-  z-index: 2;
+  border-radius: 8px;
 }
 
 .evento {
@@ -656,9 +648,10 @@ footer {
   border-radius: 10px;
   font-size: 0.9em;
   font-weight: bold;
-  margin-bottom: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  line-height: 1.3;
 }
+
 
 /* COLORES */
 .prebenjamin { background:#c2b280; }
