@@ -267,14 +267,14 @@ section {
 .dia {
   position: relative;
   min-height: 600px;
-  padding-top: 40px; /* 👈 espacio reservado para el nombre del día */
+  padding-top: 60px; /* 👈 espacio reservado para el nombre del día */
 }
 
 
 /* Los eventos ahora se posicionan */
 .evento {
-  position: absolute;
-
+  position: relative; /* ya no tapa los títulos */
+  margin-top: 6px;
 }
 
 .pelotari-lista {
@@ -640,9 +640,15 @@ footer {
 }
 
 .dia h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   text-align: center;
-  margin-bottom: 10px;
-  font-size: 1.1em;
+  background: #fff;
+  padding: 6px 0;
+  font-weight: bold;
+  z-index: 2;
 }
 
 .evento {
