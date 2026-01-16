@@ -267,11 +267,12 @@ section {
 .dia {
   position: relative;
   padding-top: var(--altura-cabecera-dia);
-  min-height: 600px;
+  min-height: 780px;
 }
 
 :root {
   --altura-cabecera-dia: 52px;
+  --hora-base-offset: 180px; /* 3 horas × 60px (13:00 → 16:00) */
 }
 
 
@@ -281,8 +282,19 @@ section {
   position: absolute;
   left: 6px;
   right: 6px;
+  top: calc(
+    var(--hora-base-offset) +
+    var(--inicio-evento, 0px) +
+    var(--altura-cabecera-dia)
+  );
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  line-height: 1.3;
 }
-/* Los eventos ahora se posicionan */
+  /* Los eventos ahora se posicionan */
 
 .pelotari-lista {
   display: flex;
@@ -383,7 +395,11 @@ nav a:hover {
   nav a { border-top: 1px solid #444; }
   .menu-toggle { display: block; }
 }
-
+@media (max-width: 600px) {
+  :root {
+    --hora-base-offset: 220px;
+  }
+}
 /* ===== CARDS ===== */
 .cards {
   display: grid;
@@ -666,18 +682,7 @@ footer {
 }
 
 
-.evento {
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  top: calc(var(--inicio-evento, 0px) + var(--altura-cabecera-dia));
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 0.9em;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  line-height: 1.3;
-}
+
 /* COLORES */
 .prebenjamin { background:#c2b280; }
 .benjamin { background:#ff9800; }
