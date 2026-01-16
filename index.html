@@ -265,10 +265,15 @@ section {
   
 /* Cada día será una columna con posicionamiento relativo */
 .dia {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 40px; /* solo para separar del título */
+  position: relative;
+  min-height: 520px; /* ajustable */
+  padding-top: 50px;
+}
+
+.evento {
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 /* Los eventos ahora se posicionan */
@@ -1780,6 +1785,28 @@ document.querySelectorAll(".evento").forEach(evento => {
 
   evento.style.marginTop = offset + "px";
 });
+</script>
+<script>
+(function () {
+  const BASE_HOUR = 16;       // referencia: 16:00
+  const INTERVAL_PX = 14;     // 15 min = 14px
+
+  document.querySelectorAll(".evento").forEach(ev => {
+    const text = ev.innerText;
+
+    // Busca hora inicio tipo 16:15–17:15
+    const match = text.match(/(\d{1,2}):(\d{2})/);
+    if (!match) return;
+
+    const hour = parseInt(match[1], 10);
+    const min = parseInt(match[2], 10);
+
+    const totalMinutes = (hour - BASE_HOUR) * 60 + min;
+    const intervals = totalMinutes / 15;
+
+    ev.style.top = (intervals * INTERVAL_PX) + "px";
+  });
+})();
 </script>
 
 
