@@ -267,7 +267,6 @@ section {
 .dia {
   position: relative;
   min-height: 520px;
-  padding-top: calc(var(--altura-cabecera-dia) + 8px);
 }
 
 :root {
@@ -648,8 +647,16 @@ footer {
 
 
 .dia h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--altura-cabecera-dia);
+  margin: 0;
+  padding: 10px 6px;
   background: rgba(255,255,255,0.97);
   backdrop-filter: blur(2px);
+  z-index: 2;
 }
 
 .evento {
