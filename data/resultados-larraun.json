@@ -3162,12 +3162,12 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Betelu - Escuelas",
-    "etxekoa": "ARAXES (D. Valdivia - A. Erraissi)",
-    "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
-    "tanteoa": "",
+    "etxekoa": "ARAXES (D. Valdivia - A. Erraissi) ERRAISSI, A. VALDIVIA TALAVERA, D.",
+    "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga) ANSORENA BELDARRAIN, I. ZUBILLAGA ALVAREZ, A.",
+    "tanteoa": "18 - 15",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KIMU 4.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3026"
   },
@@ -3366,12 +3366,12 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Barañain - Retegi",
-    "etxekoa": "LAGUNAK (A. Mayo - M. Calderon)",
-    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
-    "tanteoa": "",
+    "etxekoa": "LAGUNAK (A. Mayo - M. Calderon) CALDERON HERNANDEZ, M. MAYO ECHEVERRIA, A.",
+    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
+    "tanteoa": "18 - 7",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA HAUR 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3029"
   },
@@ -3618,12 +3618,12 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Leitza - Amazabal",
-    "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
-    "kanpokoak": "AURRERA (M. Martinez - A. Sagardui)",
-    "tanteoa": "",
+    "etxekoa": "LARRAUN (M. Etxepare - A. Artola) ARTOLA ASTIBIA, A. ETXEPARE GONZALEZ, M.",
+    "kanpokoak": "AURRERA (M. Martinez - A. Sagardui) MARTINEZ SAGASTIBELTZA, M. SAGARDUI LEKUONA, A.",
+    "tanteoa": "7 - 22",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE 2.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3036"
   },
@@ -3676,8 +3676,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
   },
   {
-    "fecha": "2026-01-24",
-    "fronton": "-",
+    "fecha": "2026-01-20",
+    "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
     "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria)",
     "tanteoa": "",
@@ -3862,12 +3862,12 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Pamplona - Oberena F 1",
-    "etxekoa": "OBERENA (I. Nuin)",
-    "kanpokoak": "LARRAUN (U. Goñi)",
-    "tanteoa": "",
+    "etxekoa": "OBERENA (I. Nuin) NUIN OLITE, I.",
+    "kanpokoak": "LARRAUN (U. Goñi) GOÑI ELUSTONDO, U.",
+    "tanteoa": "25 - 12",
     "sets": [],
     "modalidad": "NKJ - PGOMA NESKA BANAKA 5½ KADETE",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3072"
   },
