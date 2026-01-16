@@ -60,6 +60,9 @@ main{
   border-radius:10px;
   padding:10px 12px;
 }
+.group.jubenilak h3 {
+  color: #ffffff;
+}
 
 .prebenjaminak{background:#f1e0c5;}
 .benjaminak{background:#ffcc80;}
@@ -86,12 +89,15 @@ li{
 /* ===== SOMBREADO POR EDAD DEL PELOTARI ===== */
 li{
   position: relative;
+  z-index: 1;
 }
+
 
 li::after{
   content:"";
   position:absolute;
   inset:0;
+  z-index: -1;          /* CLAVE */
   pointer-events:none;
   border-radius:4px;
 }
