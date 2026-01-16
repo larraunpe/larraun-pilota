@@ -266,9 +266,9 @@ section {
 /* Cada día será una columna con posicionamiento relativo */
 .dia {
   position: relative;
-  min-height: 520px;
+  padding-top: 40px; /* exactamente lo que mide el h4 */
+  min-height: 600px;
 }
-
 :root {
   --altura-cabecera-dia: 68px;
 }
@@ -651,12 +651,13 @@ footer {
   top: 0;
   left: 0;
   right: 0;
-  height: var(--altura-cabecera-dia);
+  height: 40px;
   margin: 0;
-  padding: 10px 6px;
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(2px);
-  z-index: 2;
+  padding: 8px 6px;
+  background: white;
+  z-index: 3;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
 }
 
 .evento {
@@ -1764,8 +1765,8 @@ document.querySelectorAll(".dia").forEach(dia => {
     const end = parseTimeToMinutes(match[2]);
 
     const top =
-      DAY_HEADER_HEIGHT +
-      ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+  DAY_HEADER_HEIGHT +
+  ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
 
     const height =
       ((end - start) / 15) * PIXELS_PER_15_MIN;
