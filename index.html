@@ -263,38 +263,68 @@ section {
   color: #222;
 }
   
-/* Cada día será una columna con posicionamiento relativo */
+/* HORARIOS FIJOS - NUEVO CSS */
 .dia {
   position: relative;
-  padding-top: var(--altura-cabecera-dia);
-  min-height: 780px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 60px 8px 15px 8px; /* Más padding-top para la cabecera */
+  min-height: 450px;
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
 }
 
-:root {
-  --altura-cabecera-dia: 52px;
-  --hora-base-offset: 180px; /* 3 horas × 60px (13:00 → 16:00) */
+/* Cabecera del día (fija en la parte superior) */
+.dia h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  margin: 0;
+  padding: 15px 6px;
+  background: linear-gradient(135deg, #2c3e50, #4a6491);
+  color: white;
+  z-index: 10;
+  border-radius: 12px 12px 0 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-
-
-
+/* Eventos (entrenamientos) */
 .evento {
   position: absolute;
-  left: 6px;
-  right: 6px;
-  top: calc(
-    var(--hora-base-offset) +
-    var(--inicio-evento, 0px) +
-    var(--altura-cabecera-dia)
-  );
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 0.9em;
+  left: 8px;
+  right: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.85em;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  line-height: 1.3;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  line-height: 1.2;
+  z-index: 5;
+  overflow: hidden;
+  transition: transform 0.2s ease;
 }
-  /* Los eventos ahora se posicionan */
+
+.evento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+/* COLORES DE CATEGORÍAS */
+.prebenjamin { background:#c2b280; }
+.benjamin { background:#ff9800; }
+.alevin { background:#ffeb3b; color:#333; }
+.infantil { background:#4caf50; color:#fff; }
+.cadete { background:#81d4fa; color:#003; }
+.juvenil { background:#0d47a1; color:#fff; }
+.nagusi { background:#4682B4; color:#fff; }
 
 .pelotari-lista {
   display: flex;
@@ -394,10 +424,22 @@ nav a:hover {
   nav.show { display: flex; }
   nav a { border-top: 1px solid #444; }
   .menu-toggle { display: block; }
-}
-@media (max-width: 600px) {
-  :root {
-    --hora-base-offset: 220px;
+  
+  /* Ajustes para móviles en horarios */
+  .dia {
+    min-height: 400px;
+    padding: 55px 6px 12px 6px;
+  }
+  
+  .dia h4 {
+    height: 45px;
+    font-size: 0.9em;
+    padding: 12px 6px;
+  }
+  
+  .evento {
+    font-size: 0.8em;
+    padding: 6px 8px;
   }
 }
 /* ===== CARDS ===== */
@@ -457,7 +499,7 @@ nav a:hover {
 
 /* contenedor de enlaces para bajarlos */
 .links-derecha {
-  margin-top: 26px;   /* ← aquí controlas lo “bajo” que van */
+  margin-top: 26px;   /* ← aquí controlas lo "bajo" que van */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -496,7 +538,7 @@ nav a:hover {
   background-color: #222;
   color: white;
 }
-  /* GALERÍA – CARPETAS */
+  /* GALERÍA - CARPETAS */
     .galeria-folders {
       margin-top: 50px;
       display: flex;
@@ -662,36 +704,6 @@ footer {
   gap: 16px;
 }
 
-
-.dia h4 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--altura-cabecera-dia);
-  margin: 0;
-  padding: 10px 6px;
-  background: white;
-  z-index: 3;
-  border-radius: 10px 10px 0 0;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-
-
-/* COLORES */
-.prebenjamin { background:#c2b280; }
-.benjamin { background:#ff9800; }
-.alevin { background:#ffeb3b; color:#333; }
-.infantil { background:#4caf50; color:#fff; }
-.cadete { background:#81d4fa; color:#003; }
-.juvenil { background:#0d47a1; color:#fff; }
-.nagusi { background:#4682B4; color:#fff; }
-
 /* Equipos */
 .etxekoa {
   color: #0b2c5d; /* azul oscuro */
@@ -730,12 +742,12 @@ footer {
 }
 /* ===== FONDOS FRONTOIA / TRINKETE ===== */
 
-/* FRONTOIA – verde azulado muy claro */
+/* FRONTOIA - verde azulado muy claro */
 .calendario.fronton {
   background: linear-gradient(135deg, #cfe8e2, #e2f3ef);
 }
 
-/* TRINKETE – marrón muy claro */
+/* TRINKETE - marrón muy claro */
 .calendario.trinquete {
   background: linear-gradient(135deg, #e6dccf, #f0e9df);
 }
@@ -774,7 +786,7 @@ function openImage(src) {
   modal.style.justifyContent = "center";
   modal.style.zIndex = 9999;
 
-  modal.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">`;
+  modal.innerHTML = <img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">;
   modal.onclick = () => document.body.removeChild(modal);
   document.body.appendChild(modal);
 }
@@ -1658,8 +1670,8 @@ function formatDates(lang) {
     const [y, m, d] = el.dataset.date.split("-");
     el.textContent =
       lang === "eu"
-        ? `${y}/${m}/${d}`
-        : `${d}/${m}/${y}`;
+        ? ${y}/${m}/${d}
+        : ${d}/${m}/${y};
   });
 }
 </script>
@@ -1721,123 +1733,51 @@ renderSponsors();
 setInterval(renderSponsors, 5000);
 </script>
 <script>
-(function () {
-  const PIXELS_PER_15_MIN = 20;   // escala vertical
-  const START_MINUTES = 14 * 60; // 14:00 es el inicio base
-
-  document.querySelectorAll(".dia").forEach(dia => {
-    let maxBottom = 0;
-
-    dia.querySelectorAll(".evento").forEach(evento => {
-      const text = evento.innerHTML;
-      const match = text.match(/(\d{1,2}):(\d{2})\s*–\s*(\d{1,2}):(\d{2})/);
-
+/* ===== POSICIONAMIENTO AUTOMÁTICO DE HORARIOS ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuración
+  const HORA_INICIO = 16; // 16:00 es la hora más temprana
+  const ALTURA_POR_HORA = 50; // 50px por cada hora
+  
+  // Para cada día
+  document.querySelectorAll('.dia').forEach(dia => {
+    // Para cada evento dentro del día
+    dia.querySelectorAll('.evento').forEach(evento => {
+      const texto = evento.textContent;
+      
+      // Buscar hora de inicio (formato: "16:15–17:15")
+      const match = texto.match(/(\d{1,2}):(\d{2})[–-]/);
       if (!match) return;
-
-      const [, h1, m1, h2, m2] = match.map(Number);
-
-      const start = h1 * 60 + m1;
-      const end = h2 * 60 + m2;
-
-      const top = ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
-      const height = ((end - start) / 15) * PIXELS_PER_15_MIN;
-
-      evento.style.top = top + "px";
-      evento.style.height = height + "px";
-
-      maxBottom = Math.max(maxBottom, top + height);
+      
+      const hora = parseInt(match[1]);
+      const minutos = parseInt(match[2]);
+      
+      // Calcular minutos desde las 16:00
+      const minutosDesdeInicio = (hora - HORA_INICIO) * 60 + minutos;
+      
+      // Calcular top (posición desde la parte superior del .dia)
+      const top = 50 + (minutosDesdeInicio / 60) * ALTURA_POR_HORA;
+      
+      // Calcular altura (duración del evento)
+      const matchFin = texto.match(/[–-]\s*(\d{1,2}):(\d{2})/);
+      if (matchFin) {
+        const horaFin = parseInt(matchFin[1]);
+        const minutosFin = parseInt(matchFin[2]);
+        const minutosTotales = (horaFin * 60 + minutosFin) - (hora * 60 + minutos);
+        const altura = (minutosTotales / 60) * ALTURA_POR_HORA;
+        
+        // Aplicar estilos
+        evento.style.top = ${top}px;
+        evento.style.height = ${altura}px;
+        evento.style.position = 'absolute';
+        evento.style.left = '8px';
+        evento.style.right = '8px';
+      }
     });
-
-    // Ajusta la altura del día según el último evento
-    dia.style.minHeight = maxBottom + 20 + "px";
-  });
-})();
-</script>
-<script>
-/* ===== CALENDARIO PROPORCIONAL POR HORAS ===== */
-
-const START_MINUTES = 16 * 60;      // 16:00
-const PIXELS_PER_15_MIN = 20;       // escala visual
-const DAY_HEADER_HEIGHT = 40;       // debe coincidir con padding-top
-
-function parseTimeToMinutes(time) {
-  const [h, m] = time.split(":").map(Number);
-  return h * 60 + m;
-}
-
-document.querySelectorAll(".dia").forEach(dia => {
-  dia.querySelectorAll(".evento").forEach(evento => {
-    const text = evento.innerText;
-    const match = text.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
-
-    if (!match) return;
-
-    const start = parseTimeToMinutes(match[1]);
-    const end = parseTimeToMinutes(match[2]);
-
-    const top =
-  DAY_HEADER_HEIGHT +
-  ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
-
-    const height =
-      ((end - start) / 15) * PIXELS_PER_15_MIN;
-
-    evento.style.top = `${top}px`;
-    evento.style.height = `${height}px`;
   });
 });
 </script>
-<script>
-const START_BASE = 16 * 60;        // 16:00 en minutos
-const PIXELS_PER_15_MIN = 14;     // altura de cada intervalo
 
-document.querySelectorAll(".evento").forEach(evento => {
-
-  const texto = evento.textContent;
-
-  // Busca horas tipo 16:00 - 17:15
-  const match = texto.match(/(\d{1,2}):(\d{2})/);
-  if (!match) return;
-
-  const hora = parseInt(match[1], 10);
-  const min  = parseInt(match[2], 10);
-
-  const inicioMin = hora * 60 + min;
-  const diffMin   = Math.max(0, inicioMin - START_BASE);
-
-  const pasos = diffMin / 15;
-  const offset = pasos * PIXELS_PER_15_MIN;
-
-  evento.style.marginTop = offset + "px";
-});
-</script>
-<script>
-(function () {
-  const BASE_HOUR = 16;       // referencia: 16:00
-  const INTERVAL_PX = 14;     // 15 min = 14px
-
-  document.querySelectorAll(".evento").forEach(ev => {
-    const text = ev.innerText;
-
-    // Busca hora inicio tipo 16:15–17:15
-    const match = text.match(/(\d{1,2}):(\d{2})/);
-    if (!match) return;
-
-    const hour = parseInt(match[1], 10);
-    const min = parseInt(match[2], 10);
-
-    const totalMinutes = (hour - BASE_HOUR) * 60 + min;
-    const intervals = totalMinutes / 15;
-
-    ev.style.top = (intervals * INTERVAL_PX) + "px";
-  });
-})();
-</script>
-
-
-
-</body>
-</html>
 
 
 </body>
