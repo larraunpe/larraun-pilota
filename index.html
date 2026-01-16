@@ -1757,6 +1757,30 @@ document.querySelectorAll(".dia").forEach(dia => {
   });
 });
 </script>
+<script>
+const START_BASE = 16 * 60;        // 16:00 en minutos
+const PIXELS_PER_15_MIN = 14;     // altura de cada intervalo
+
+document.querySelectorAll(".evento").forEach(evento => {
+
+  const texto = evento.textContent;
+
+  // Busca horas tipo 16:00 - 17:15
+  const match = texto.match(/(\d{1,2}):(\d{2})/);
+  if (!match) return;
+
+  const hora = parseInt(match[1], 10);
+  const min  = parseInt(match[2], 10);
+
+  const inicioMin = hora * 60 + min;
+  const diffMin   = Math.max(0, inicioMin - START_BASE);
+
+  const pasos = diffMin / 15;
+  const offset = pasos * PIXELS_PER_15_MIN;
+
+  evento.style.marginTop = offset + "px";
+});
+</script>
 
 
 
