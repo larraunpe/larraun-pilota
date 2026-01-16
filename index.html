@@ -266,11 +266,12 @@ section {
 /* Cada día será una columna con posicionamiento relativo */
 .dia {
   position: relative;
-  padding-top: 40px; /* exactamente lo que mide el h4 */
+  padding-top: var(--altura-cabecera-dia);
   min-height: 600px;
 }
+
 :root {
-  --altura-cabecera-dia: 68px;
+  --altura-cabecera-dia: 52px;
 }
 
 
@@ -651,16 +652,25 @@ footer {
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: var(--altura-cabecera-dia);
   margin: 0;
-  padding: 8px 6px;
+  padding: 10px 6px;
   background: white;
   z-index: 3;
-  border-radius: 8px 8px 0 0;
+  border-radius: 10px 10px 0 0;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
+
 .evento {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: calc(var(--inicio-evento, 0px) + var(--altura-cabecera-dia));
   padding: 10px;
   border-radius: 10px;
   font-size: 0.9em;
@@ -668,10 +678,6 @@ footer {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   line-height: 1.3;
 }
-.evento {
-  top: calc(var(--inicio-evento, 0px) + var(--altura-cabecera-dia));
-}
-
 /* COLORES */
 .prebenjamin { background:#c2b280; }
 .benjamin { background:#ff9800; }
