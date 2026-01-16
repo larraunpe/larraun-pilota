@@ -49,19 +49,19 @@ main{
   padding:16px;
 }
 
-/* ===== CABECERAS ===== */
-.txiki h2{background:#2e7d32;}
-.haundi h2{background:#1565c0;}
+/* ===== COLORES DE CABECERA ===== */
+.esku-julen h2{background:#2e7d32;}
+.esku-barriola h2{background:#1565c0;}
 .pala h2{background:#6a1b9a;}
 
-/* ===== GRUPOS (COLOR BASE) ===== */
+/* ===== CATEGORÍAS ===== */
 .group{
   margin-bottom:14px;
   border-radius:10px;
   padding:10px 12px;
 }
 
-.aurrebenjaminak{background:#f1e0c5;}
+.prebenjaminak{background:#f1e0c5;}
 .benjaminak{background:#ffcc80;}
 .alebinak{background:#fff59d;}
 .infantilak{background:#a5d6a7;}
@@ -80,22 +80,21 @@ ul{
 }
 
 li{
-  position:relative;
   font-size:0.9em;
   line-height:1.4;
-  padding:3px 6px;
-  border-radius:6px;
-  margin-bottom:3px;
-  overflow:hidden;
+}
+/* ===== SOMBREADO POR EDAD DEL PELOTARI ===== */
+li{
+  position: relative;
 }
 
-/* ===== SOMBREADO POR EDAD ===== */
 li::after{
   content:"";
   position:absolute;
   inset:0;
-  opacity:.35;
+  opacity:0.35;
   pointer-events:none;
+  border-radius:4px;
 }
 
 li.edad-aurrebenjaminak::after{background:#f1e0c5;}
@@ -103,8 +102,9 @@ li.edad-benjaminak::after{background:#ffb74d;}
 li.edad-alebinak::after{background:#fff176;}
 li.edad-infantilak::after{background:#81c784;}
 li.edad-kadeteak::after{background:#4fc3f7;}
-li.edad-jubenilak::after{background:#1e88e5;}
+li.edad-jubenilak::after{background:#1e88e5;} /* azul oscuro */
 li.edad-nagusiak::after{background:#607d8b;}
+
 </style>
 </head>
 
@@ -115,26 +115,214 @@ li.edad-nagusiak::after{background:#607d8b;}
 </header>
 
 <main>
+
 <div class="grid">
 
-  <div class="card txiki">
-    <h2>🤾 Eskupilota · TXIKI</h2>
-    <div class="content" id="esku-txiki"></div>
+  <!-- ESKU PILOTA · JULEN MARTIJA -->
+  <div class="card esku-julen">
+    <h2>🤾 Eskupilota · Julen Martija</h2>
+    <div class="content">
+
+      <div class="group prebenjaminak">
+        <h3>Aurrebenjaminak</h3>
+        <ul>
+          <li>Lander Ariztimuño</li>
+          <li>Amets Mozo</li>
+          <li>Aimar Bidegain</li>
+          <li>Unai Erneta</li>
+          <li>Joar Ruiz</li>
+          <li>Markel Etxeberria</li>
+          <li>Luka Soria</li>
+          <li>Luar Ojuel</li>
+          <li>Ekhi Zubillaga</li>
+        </ul>
+      </div>
+
+      <div class="group benjaminak">
+        <h3>Benjaminak 1</h3>
+        <ul>
+          <li>Gorka Garcia</li>
+          <li>Liher Goikoetxea</li>
+          <li>Beñat Goikoetxea</li>
+          <li>Manex Sanz</li>
+          <li>Aiur Loyarte</li>
+          <li>Eneko Jaurrieta</li>
+          <li>Enai Albeniz</li>
+          <li>Martin Argaña</li>
+          <li>Aimar Ochoa</li>
+        </ul>
+      </div>
+       <div class="group benjaminak">
+        <h3>Benjaminak 2</h3>
+        <ul>
+          <li>Inhar Lociga</li>
+          <li>Urko Agirrezabala</li>
+          <li>Aratz Apezetxea</li>
+          <li>Urko Ariztimuño</li>
+          <li>Luken Oiartzun</li>
+          <li>Eneko Etxeberria</li>
+          <li>Suhar Galartza</li>
+          <li>Aitor Ruiz</li>
+          <li>Oier Mitxaus</li>
+        </ul>
+      </div>
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Diego Centeno</li>
+          <li>Mikel Argaña</li>
+          <li>Endika Balda</li>
+          <li>Ibai Ansorena</li>
+          <li>Ander Astiz</li>
+          <li>Joan Mendinueta</li>
+          <li>Adur Zubillaga</li>
+          <li>Ekhi Mozo</li>
+          <li>Ander Dorronsoro</li>
+
+        </ul>
+      </div>
+
+    </div>
   </div>
 
-  <div class="card haundi">
-    <h2>🤾 Eskupilota · HAUNDI</h2>
-    <div class="content" id="esku-haundi"></div>
+  <!-- ESKU PILOTA · ABEL + JULEN -->
+  <div class="card esku-barriola">
+    <h2>🤾 Eskupilota · Abel Barriola + Enrike Galarza</h2>
+    <div class="content">
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Aimar Bengoetxea</li>
+          <li>Mikel Bidegain</li>
+          <li>Xabier Goldaracena</li>
+          <li>Aimar Balenciaga</li>
+          <li>Julen Mitxaus</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak B</h3>
+        <ul>
+          <li>Janire Sotil</li>
+          <li>Martin Etxepare</li>
+          <li>Ilan Eguzkiza</li>
+          <li>Egoi Jaka</li>
+          <li>Amaiur Goikoetxea</li>
+          <li>Bikendi Legarra</li>
+        </ul>
+      </div>
+       <div class="group kadeteak">
+        <h3>Kadeteak A</h3>
+        <ul>
+          <li>Aitor Balda</li>
+          <li>Julen Bildarraz</li>
+          <li>Oihan Ijurko</li>
+          <li>Imanol Sotil</li>
+        </ul>
+      </div>
+
+      <div class="group jubenilak">
+        <h3>Jubenilak</h3>
+        <ul>
+          <li>Egoi Ijurko</li>
+          <li>Ibai Ijurko</li>
+          <li>Egoitz Oreja</li>
+          <li>Mikel Laso</li>
+          <li>Unai Otamendi</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Nagusiak B</h3>
+        <ul>
+          <li>Miguel Lazkoz</li>
+          <li>Julen Ezkurdia</li>
+          <li>Mattin Goikoetxea</li>
+          <li>Xuban Telletxea</li>
+        </ul>
+      </div>
+      <div class="group nagusiak">
+        <h3>Nagusiak a</h3>
+        <ul>
+          <li>Iñaki Galarza</li>
+          <li>Oinatz Iriarte</li>
+          <li>Intza Garaño</li>
+          <li>Aitor Eguzkiza</li>
+          <li>Endika Galarza</li>
+          <li>Lucas Navarro</li>
+          <li>Julen Sotil</li>
+          <li>Igor Nazabal</li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 
+  <!-- PALA -->
   <div class="card pala">
     <h2>🏓 Pala</h2>
-    <div class="content" id="pala"></div>
+    <div class="content">
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Nora Goldarazena</li>
+          <li>Sara Venzislavova</li>
+          <li>Nashla Watts</li>
+        </ul>
+      </div>
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Haizea Apezetxea</li>
+          <li>Nerea Saralegui</li>
+          <li>Zuriñe Imaz</li>
+          <li>Iraide Garaño</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak 1</h3>
+        <ul>
+          <li>Irati Balenciaga</li>
+          <li>Marian Saralegui</li>
+          <li>Martina Morais</li>
+          <li>Uxue Goñi</li>
+          <li>Laida Legarra</li>
+        </ul>
+      </div>
+      <div class="group kadeteak">
+        <h3>Kadeteak 2</h3>
+        <ul>
+          <li>Haizea Etxarri</li>
+          <li>Kiara Legarra</li>
+          <li>Joane Martinikorena</li>
+          <li>Izarne Larreta</li>
+          <li>Lorea Bengoetxea</li>
+          <li>Garazi Astiz</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Jubenilak / Nagusiak</h3>
+        <ul>
+          <li>Maider Saralegi</li>
+          <li>Maddi Galartza</li>
+          <li>Maria Eguzkiza</li>
+          <li>Irati Garziarena</li>
+          <li>Naia Galarza</li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 
 </div>
-</main>
 
+</main>
 <script>
 function categoriaPorAnio(anio){
   if (anio >= 2018) return "aurrebenjaminak";
@@ -146,64 +334,25 @@ function categoriaPorAnio(anio){
   return "nagusiak";
 }
 
-function raizCategoria(cat){
-  return cat.toLowerCase()
-    .replace(/\s+[ab12]$/,"")
-    .replace(/\s+/g,"");
-}
-
-function esTxiki(raiz){
-  return ["aurrebenjaminak","benjaminak","alebinak"].includes(raiz);
-}
-
 fetch('/data/pelotariak.json')
-.then(r => r.json())
-.then(data => {
+  .then(r => r.json())
+  .then(data => {
 
-  const grupos = {};
+    // Creamos un mapa nombre -> categoría por edad
+    const edades = {};
+    data.forEach(p => {
+      edades[p.Izena.trim()] = categoriaPorAnio(p.URTEA);
+    });
 
-  data.forEach(p => {
-    const key = p.MODALITATEA + "|" + p.KATEGORIA;
-    if (!grupos[key]) grupos[key] = [];
-    grupos[key].push(p);
-  });
-
-  Object.entries(grupos).forEach(([key, pelotaris]) => {
-    const [modalitatea, categoria] = key.split("|");
-    const raiz = raizCategoria(categoria);
-
-    let contenedor = null;
-
-    if (modalitatea === "ESKU PILOTA") {
-      contenedor = esTxiki(raiz) ? "esku-txiki" : "esku-haundi";
-    } else if (modalitatea === "PALA") {
-      contenedor = "pala";
-    }
-
-    if (!contenedor) return;
-
-    const grupo = document.createElement("div");
-    grupo.className = "group " + raiz;
-
-    const h3 = document.createElement("h3");
-    h3.textContent = categoria;
-    grupo.appendChild(h3);
-
-    const ul = document.createElement("ul");
-
-    pelotaris
-      .sort((a,b)=>a.Izena.localeCompare(b.Izena))
-      .forEach(p=>{
-        const li = document.createElement("li");
-        li.textContent = p.Izena;
-        li.classList.add("edad-" + categoriaPorAnio(p.URTEA));
-        ul.appendChild(li);
-      });
-
-    grupo.appendChild(ul);
-    document.getElementById(contenedor).appendChild(grupo);
-  });
-});
+    // Recorremos TODOS los li ya pintados
+    document.querySelectorAll("li").forEach(li => {
+      const nombre = li.textContent.trim();
+      if (edades[nombre]) {
+        li.classList.add("edad-" + edades[nombre]);
+      }
+    });
+  })
+  .catch(err => console.error("Error cargando edades:", err));
 </script>
 
 </body>
