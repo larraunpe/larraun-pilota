@@ -267,15 +267,20 @@ section {
 .dia {
   position: relative;
   min-height: 520px; /* ajustable */
-  padding-top: 50px;
+  padding-top: 40px;
 }
+
 
 .evento {
   position: absolute;
   left: 0;
   right: 0;
 }
-
+.evento {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+}
 /* Los eventos ahora se posicionan */
 
 .pelotari-lista {
@@ -646,6 +651,14 @@ footer {
   padding: 8px 0;
   font-weight: bold;
   border-radius: 8px;
+}
+.dia h4 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0;
+  height: 40px;
+  line-height: 40px;
 }
 
 .evento {
