@@ -1777,6 +1777,55 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+<script>
+// Función para calcular top y height de los eventos
+function posicionarEventos() {
+  const intervalos = 15; // minutos por intervalo mínimo
+  const diaAltura = 400; // altura disponible aproximada del día (px)
+  
+  document.querySelectorAll('.calendario .dia').forEach(dia => {
+    const h4Height = dia.querySelector('h4').offsetHeight;
+    const eventos = dia.querySelectorAll('.evento');
+    
+    // Primero calculamos la hora mínima y máxima para ese día
+    let minHora = 24*60, maxHora = 0;
+    eventos.forEach(ev => {
+      const texto = ev.innerHTML;
+      const match = texto.match(/(\d{1,2}):(\d{2})/g);
+      if (match) {
+        const start = match[0].split(':'); // hh:mm
+        const end = match[1].split(':');
+        const startMin = parseInt(start[0])*60 + parseInt(start[1]);
+        const endMin = parseInt(end[0])*60 + parseInt(end[1]);
+        if (startMin < minHora) minHora = startMin;
+        if (endMin > maxHora) maxHora = endMin;
+      }
+    });
+    
+    const totalMinutos = maxHora - minHora;
+    const scale = (diaAltura - h4Height - 20) / totalMinutos; // px por minuto
+    
+    eventos.forEach(ev => {
+      const texto = ev.innerHTML;
+      const match = texto.match(/(\d{1,2}):(\d{2})/g);
+      if (match) {
+        const start = match[0].split(':');
+        const end = match[1].split(':');
+        const startMin = parseInt(start[0])*60 + parseInt(start[1]);
+        const endMin = parseInt(end[0])*60 + parseInt(end[1]);
+        const top = h4Height + (startMin - minHora)*scale;
+        const height = (endMin - startMin)*scale;
+        ev.style.top = top + 'px';
+        ev.style.height = height + 'px';
+      }
+    });
+  });
+}
+
+// Ejecutar al cargar
+window.addEventListener('load', posicionarEventos);
+window.addEventListener('resize', posicionarEventos);
+</script>
 
 
 
