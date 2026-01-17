@@ -2758,12 +2758,14 @@
   {
     "fecha": "2026-01-17",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
-    "kanpokoak": "AGOITZ (L. Ardanaz - I. Erro)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "kanpokoak": "AGOITZ (L. Ardanaz - I. Erro) ARDANAZ ARCELUS, L. ERRO ARIZCUREN, I.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(5-9)(9-7)(0-3)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
   },
@@ -2982,12 +2984,14 @@
   {
     "fecha": "2026-01-17",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-    "kanpokoak": "ALDABIDE (I. Zabalza - K. Lizarraga)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "ALDABIDE (I. Zabalza - K. Lizarraga) LIZARRAGA YAMAGUTXI, K. ZABALZA LLANO, I.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-0)(9-5)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
   },
