@@ -22,5 +22,29 @@
     "emaitza": "galduta",
     "ofiziala": "true",
     "url": "https://www.facebook.com/photo/?fbid=1498635188931107&set=pcb.1498635358931090"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAK",
+    "kanpokoak": "PELOTA 22",
+    "tanteoa": "2-0",
+    "sets": ["10-0 / 10 -2"],
+    "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",
+    "emaitza": "2-0",
+    "ofiziala": "true",
+    "url": ""
+  },
+{
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAK",
+    "kanpokoak": "PELOTA 22",
+    "tanteoa": "2-0",
+    "sets": ["10-0 / 10 -2"],
+    "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",
+    "emaitza": "2-0",
+    "ofiziala": "true",
+    "url": ""
   }
 ]
