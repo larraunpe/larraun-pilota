@@ -752,6 +752,89 @@ footer {
 
 /* (el resto de tu CSS tal cual) */
 
+/* =========================================
+   TALDEAK · ENTRENAMENDUAK (CSS COMPLETO)
+   ========================================= */
+
+.entrenamenduak-taldeak .card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  overflow:hidden;
+}
+
+.entrenamenduak-taldeak .card h2{
+  margin:0;
+  padding:16px;
+  color:#fff;
+  font-size:1.2em;
+}
+
+/* ===== COLORES DE CABECERA ===== */
+.entrenamenduak-taldeak .esku-julen h2{background:#2e7d32;}
+.entrenamenduak-taldeak .esku-barriola h2{background:#1565c0;}
+.entrenamenduak-taldeak .pala h2{background:#6a1b9a;}
+
+/* ===== GRUPOS ===== */
+.entrenamenduak-taldeak .group{
+  margin-bottom:14px;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.entrenamenduak-taldeak .prebenjaminak{background:#f1e0c5;}
+.entrenamenduak-taldeak .benjaminak{background:#ffb74d;}
+.entrenamenduak-taldeak .alebinak{background:#fff176;}
+.entrenamenduak-taldeak .infantilak{background:#4caf50;}
+.entrenamenduak-taldeak .kadeteak{background:#81d4fa;}
+.entrenamenduak-taldeak .jubenilak{background:#0d47a1;}
+.entrenamenduak-taldeak .nagusiak{background:#4682B4;}
+
+.entrenamenduak-taldeak .group h3{
+  margin:0 0 6px;
+  font-size:0.95em;
+}
+
+/* ===== LISTAS ===== */
+.entrenamenduak-taldeak ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.entrenamenduak-taldeak li{
+  font-size:0.9em;
+  line-height:1.4;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SOMBREADO POR EDAD ===== */
+.entrenamenduak-taldeak li::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  border-radius:4px;
+}
+
+.entrenamenduak-taldeak li.edad-aurrebenjaminak::after{background:#f1e0c5;}
+.entrenamenduak-taldeak li.edad-benjaminak::after{background:#ffb74d;}
+.entrenamenduak-taldeak li.edad-alebinak::after{background:#fff176;}
+.entrenamenduak-taldeak li.edad-infantilak::after{background:#4caf50;}
+.entrenamenduak-taldeak li.edad-kadeteak::after{background:#81d4fa;}
+.entrenamenduak-taldeak li.edad-jubenilak::after{background:#0d47a1;}
+.entrenamenduak-taldeak li.edad-nagusiak::after{background:#4682B4;}
+
+/* ===== TEXTO BLANCO EN FONDOS OSCUROS ===== */
+.entrenamenduak-taldeak li.edad-jubenilak,
+.entrenamenduak-taldeak li.edad-infantilak,
+.entrenamenduak-taldeak li.edad-nagusiak{
+  color:#ffffff;
+  font-weight:600;
+}
+
+
 </style>
 
 <script>
