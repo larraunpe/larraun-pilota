@@ -2932,8 +2932,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
   {
-    "fecha": "2026-01-24",
-    "fronton": "-",
+    "fecha": "2026-01-25",
+    "fronton": "Berriozar - Polideportivo",
     "etxekoa": "BERRIOZAR (A. Martinez - I. Martinez)",
     "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
     "tanteoa": "",
@@ -3502,12 +3502,12 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Leitza - Amazabal",
-    "etxekoa": "AURRERA (J. Baleztena - O. Alkorta)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "tanteoa": "",
+    "etxekoa": "AURRERA (J. Baleztena - O. Alkorta) ALKORTA ORONOZ, O. BALEZTENA OTXOTORENA, J.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "tanteoa": "22 - 9",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE 1.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3035"
   },
@@ -3913,7 +3913,7 @@
   },
   {
     "fecha": "2026-01-24",
-    "fronton": "-",
+    "fronton": "Espinal - Ederrena",
     "etxekoa": "AUÑAMENDI (L. Iriarte)",
     "kanpokoak": "LARRAUN (L. Bengoetxea)",
     "tanteoa": "",
