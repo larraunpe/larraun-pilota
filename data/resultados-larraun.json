@@ -2922,17 +2922,19 @@
   {
     "fecha": "2026-01-16",
     "fronton": "Zizur Menor - Ikastola San Fermin",
-    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola) ARBIZU PEREZ DE MENDIGUREN, M. OFIALDEGUI ORQUIN, O.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-3)(9-2)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
   {
-    "fecha": "2026-01-25",
+    "fecha": "2026-01-23",
     "fronton": "Berriozar - Polideportivo",
     "etxekoa": "BERRIOZAR (A. Martinez - I. Martinez)",
     "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -2996,8 +2998,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
   },
   {
-    "fecha": "2026-01-24",
-    "fronton": "-",
+    "fecha": "2026-01-23",
+    "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (A. Garijo - J. Zabaleta)",
     "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
     "tanteoa": "",
@@ -3720,12 +3722,14 @@
   {
     "fecha": "2026-01-14",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez) *Equipo no presentado",
+    "tanteoa": "2 - 0 *",
+    "sets": [
+      "(15-0)(15-0)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
@@ -3904,7 +3908,7 @@
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Bengoetxea) BENGOETXEA LARRARTE, L.",
     "kanpokoak": "G.PILOTA (A. Garmendia) GARMENDIA ETXABE, A.",
-    "tanteoa": "20 - 22",
+    "tanteoa": "20 - 25",
     "sets": [],
     "modalidad": "NKJ - PGOMA NESKA BANAKA 5½ KADETE",
     "emaitza": "galduta",
