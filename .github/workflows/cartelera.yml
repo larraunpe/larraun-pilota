@@ -2,8 +2,8 @@ name: Actualizar cartelera Larraun
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # todos los días a las 08:00
-    - cron: "0 16 * * *"   # todos los días a las 17:00
+    - cron: "0 8,15,20 * * 1,2"
+      timezone: Europe/Madrid
   workflow_dispatch:
 
 jobs:
@@ -29,3 +29,4 @@ jobs:
           git add data/cartelera-larraun.json
           git commit -m "🔄 Actualiza cartelera Larraun" || echo "Sin cambios"
           git push
+
