@@ -3672,12 +3672,14 @@
   {
     "fecha": "2026-01-20",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
-    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-8)(15-2)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA KADETE TRINKETE",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
   },
