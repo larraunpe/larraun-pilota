@@ -1,56 +1,20 @@
 [
   {
-    "fecha": "2026/01/18",
-    "hora": "09:00",
-    "zkia": "1",
+    "fecha": "2026/01/25",
+    "hora": "16:30",
+    "zkia": "2",
+    "fronton": "Tolosa – Beotibar",
+    "etxekoa": "KURENE – LARRAUN (Ramirez - Garaño) ",
+    "kanpokoak": "INTXURRE – IRURTZUN (Murua – Santesteban) ",
+    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA"
+  },
+  {
+    "fecha": "2026/01/25",
+    "hora": "09:30",
+    "zkia": "2",
     "fronton": "Lesaka",
     "etxekoa": "LARRAUN (Balda – Sotil)",
-    "kanpokoak": "HERNANI (Galdos – Azpeitia)",
-    "lehiaketa": "ARKUPE TXAPELKETA. KADETE KANPORAKETA"
-  },
-  {
-    "fecha": "2026/01/18",
-    "hora": "16:00",
-    "zkia": "",
-    "fronton": "Zizur – Fronton nagusia",
-    "etxekoa": "LARRAUN (Laso)",
-    "kanpokoak": "-",
-    "lehiaketa": "ZIZUR 4 TXAPELKETA GAZTE (2009) KANPORAKETA"
-  },
-  {
-    "fecha": "2026/01/17",
-    "hora": "18:00",
-    "zkia": "1",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN PROMESAK",
-    "kanpokoak": "PELOTA 22",
-    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA "
-  },
-  {
-    "fecha": "2026/01/17",
-    "hora": "18:00",
-    "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN PROMESAK",
-    "kanpokoak": "PELOTA 22",
-    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA "
-  },
-  {
-    "fecha": "2026/01/18",
-    "hora": "16:30",
-    "zkia": "1",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN",
-    "kanpokoak": "SAN COSME",
-    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA "
-  },
-  {
-    "fecha": "2026/01/18",
-    "hora": "16:30",
-    "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN",
-    "kanpokoak": "SAN COSME",
-    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BINAKA "
+    "kanpokoak": "ZAZPI ITURRI (Gorostidi – Urrestilla)",
+    "lehiaketa": "ARKUPEKO PILOTA TXAPELKETA GAZTETXOAK KANPORAKETA"
   }
 ]
