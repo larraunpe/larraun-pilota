@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Larraun – Emaitzak</title>
+
+<style>
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:0;
+}
+
+/* ===== HEADER ===== */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px;
+  background:#ffffff;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+header img{height:48px;}
+header h1{
+  margin:0;
+  font-size:2em;
+  color:#004d40;
+  letter-spacing:2px;
+}
+
+/* ===== CONTENIDO ===== */
+main{padding:20px;}
+
+.week-title{
+  margin:30px 0 10px;
+  font-size:1.4em;
+  font-weight:bold;
+  color:#004d40;
+}
+
+/* ===== TARJETA ===== */
+.match{
+  background:#fff;
+  margin-bottom:14px;
+  padding:14px 18px 14px 26px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  position:relative;
+  overflow:hidden;
+}
+
+/* LATERAL */
+.match::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:6px;
+  background:#000;
+}
+.match.win::before{background:#1b8f3a;}
+.match.lose::before{background:#b00000;}
+.match.pending::before{background:#000;}
+
+/* NO OFICIALES */
+.match.no-oficial{background:#f1f1f1;}
+
+/* ===== TEXTO ===== */
+.line{margin:6px 0;}
+.meta{font-size:.9em;color:#333;}
+
+/* COLORES FIJOS EQUIPOS */
+.etxekoa-line{
+  color:#0d47a1;
+  font-weight:bold;
+  font-size:1.05em;
+  text-transform:uppercase;
+}
+.kanpokoa-line{
+  color:#b71c1c;
+  font-weight:bold;
+  font-size:1.05em;
+  text-transform:uppercase;
+}
+
+/* FRONTÓN DESTACADO */
+.fronton-destacado{
+  background:#e3f2fd;
+  padding:2px 6px;
+  border-radius:4px;
+  font-style:italic;
+  font-weight:bold;
+}
+
+/* ===== MARCADOR ===== */
+.scoreboard{
+  display:flex;
+  justify-content:center;
+  margin:10px 0;
+  font-size:1.6em;
+  font-weight:bold;
+}
+.scorebox{
+  min-width:56px;
+  padding:6px 0;
+  text-align:center;
+  color:#fff;
+}
+.scorebox.blue{background:#0d47a1;}
+.scorebox.red{background:#b71c1c;}
+
+/* SETS */
+.sets{
+  text-align:center;
+  font-size:.95em;
+  color:#333;
+}
+
+/* MODALIDAD */
+.modalidad{
+  font-size:.9em;
+  color:#004d40;
+  font-weight:600;
+}
+.modalidad a{
+  color:#004d40;
+  text-decoration:none;
+}
+.modalidad a:hover{text-decoration:underline;}
+
+/* SEPARADOR DESCANSO */
+.rest-separator{
+  margin:20px 0 10px;
+  text-align:center;
+  font-weight:bold;
+  color:#666;
+  letter-spacing:1px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="/images/logo-larraun.png" alt="Larraun">
+  <h1>EMAITZAK</h1>
+  <img src="/images/logo-fnp.png" alt="FNP">
+</header>
+
+<main id="content"></main>
+
+<script>
+const SOURCES=[
+  {url:"/data/resultados-larraun.json",ofiziala:true},
+  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
+];
+
+function parseDate(f){return f?new Date(f+"T00:00"):null;}
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
+function esDescanso(m){
+  return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
+}
+function formatSets(sets){
+  return sets.join(" ").replace(/\(/g," / ").replace(/\)/g,"");
+}
+
+function ordenarSemana(arr){
+  const normales = arr.filter(m => !esDescanso(m));
+  const descansos = arr.filter(m => esDescanso(m));
+
+  normales.sort((a,b)=>{
+    if (a._date - b._date !== 0) return a._date - b._date;
+
+    const fa = (a.fronton || "").toLowerCase();
+    const fb = (b.fronton || "").toLowerCase();
+    if (fa < fb) return -1;
+    if (fa > fb) return 1;
+
+    const ma = (a.modalidad || "").toLowerCase();
+    const mb = (b.modalidad || "").toLowerCase();
+    return ma.localeCompare(mb);
+  });
+
+  return [...normales, ...descansos];
+}
+
+Promise.all(
+  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
+    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala,_date:parseDate(o.fecha)}))))
+).then(all=>{
+  const today=new Date(); today.setHours(0,0,0,0);
+  const data=all.flat().filter(m=>m._date&&m._date<=today);
+
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
+  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
+
+  const thisWeek=[], lastWeek=[];
+  data.forEach(m=>{
+    if(m._date>=thisMon) thisWeek.push(m);
+    else if(m._date>=lastMon&&m._date<=lastSun) lastWeek.push(m);
+  });
+
+  const c=document.getElementById("content");
+
+  function render(title,arr){
+    if(!arr.length) return;
+    arr = ordenarSemana(arr);
+
+    c.innerHTML+=`<div class="week-title">${title}</div>`;
+
+    let descansoMostrado=false;
+
+    arr.forEach(m=>{
+      if(esDescanso(m)&&!descansoMostrado){
+        c.innerHTML+=`<div class="rest-separator">— JARDUNALDIKO ATSEDENAK —</div>`;
+        descansoMostrado=true;
+      }
+
+      let cls="match ";
+      if(!m.ofiziala) cls+="no-oficial ";
+      if(!m.emaitza) cls+="pending";
+      else if(/irabazita/.test(m.emaitza)) cls+="win";
+      else cls+="lose";
+
+      let marcador="";
+      if(m.tanteoa&&m.tanteoa.includes("-")){
+        const[a,b]=m.tanteoa.split("-").map(x=>x.trim());
+        marcador=`
+        <div class="scoreboard">
+          <div class="scorebox blue">${a}</div>
+          <div class="scorebox red">${b}</div>
+        </div>`;
+      }
+
+      const modalidadHTML=
+        m.url&&m.url!=="-"
+        ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
+        : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
+
+      c.innerHTML+=`
+      <div class="${cls}">
+        <div class="line meta">📅 ${m.fecha}</div>
+
+        <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
+        <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
+
+        ${marcador}
+        ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
+
+        <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
+          📍 ${m.fronton||""}
+        </div>
+
+        <div class="line meta">${modalidadHTML}</div>
+      </div>`;
+    });
+  }
+
+  render("ASTE HONETAKO EMAITZAK", thisWeek);
+  render("AURREKO ASTEKO EMAITZAK", lastWeek);
+});
+</script>
+
+</body>
+</html>
