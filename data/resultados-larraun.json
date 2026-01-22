@@ -3740,12 +3740,14 @@
   {
     "fecha": "2026-01-22",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(1-15)(9-15)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
