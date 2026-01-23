@@ -1,146 +1,157 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="utf-8">
-<title>Etxeko partiduak — Larraun Pilota Elkartea</title>
+<meta charset="UTF-8">
+<title>Etxeko partiduak – Larraun Pilota</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f6f7;
-    margin: 0;
-    color: #222;
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:20px;
 }
 
-header {
-    background: #ffffff;
-    border-bottom: 4px solid #8b0000;
-    padding: 15px;
-    text-align: center;
+/* ===== CONTENEDOR ===== */
+#content{
+  max-width:900px;
+  margin:auto;
 }
 
-header img {
-    max-height: 70px;
+/* ===== GRUPOS ===== */
+.group{
+  margin-bottom:22px;
+  padding:14px;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 
-h1 {
-    margin: 10px 0 0;
-    font-size: 22px;
-    letter-spacing: 1px;
+/* Frontón / Trinkete */
+.fronton-jai-alai{ background:#e3f2fd; }
+.fronton-trinkete{ background:#fce4ec; }
+
+/* Lekunberri / Aldatz */
+.lekunberri{ box-shadow: inset 0 0 0 4px #1b5e20; }
+.aldatz{ box-shadow: inset 0 0 0 4px #4e342e; }
+
+/* ===== CABECERA GRUPO ===== */
+.fronton{
+  font-size:1.15em;
+  font-weight:800;
+  color:#004d40;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+.datetime{
+  margin-top:2px;
+  font-size:.9em;
+  color:#333;
 }
 
-.fronton {
-    background: #8b0000;
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 20px;
-    margin-top: 30px;
-    border-radius: 6px;
+/* ===== PARTIDOS ===== */
+.match{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid rgba(0,0,0,.15);
 }
 
-.hora {
-    background: #e9e9e9;
-    padding: 8px 12px;
-    margin-top: 15px;
-    font-weight: bold;
-    border-left: 6px solid #8b0000;
+.torneo{
+  font-size:1.05em;
+  font-weight:800;
+  margin-bottom:4px;
 }
 
-.partido {
-    background: #ffffff;
-    padding: 10px 14px;
-    border-bottom: 1px solid #ddd;
+.etxekoa{
+  color:#0d47a1;
+  font-weight:600;
 }
 
-.partido:last-child {
-    border-bottom: none;
-}
-
-.lehiaketa {
-    font-size: 13px;
-    color: #666;
-    margin-top: 3px;
+.kanpokoa{
+  color:#b71c1c;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <!-- MISMO LOGO -->
-    <img src="https://larraunpilota.eus/plazaola.jpg" alt="Larraun Pilota">
-    <h1>Etxeko partiduak</h1>
-</header>
+<h1>Etxeko partiduak</h1>
 
-<div class="container" id="edukia"></div>
+<div id="content"></div>
 
 <script>
-fetch("data/cartelera-larraun.json")
-.then(r => r.json())
-.then(data => {
+// === FUENTE DE DATOS ===
+const DATA_URL = "/data/etxeko-partiduak.json";
 
-    // solo Lekunberri o Aldatz
-    const etxeko = data.filter(p =>
-        p.fronton &&
-        (
-            p.fronton.toLowerCase().includes("lekunberri") ||
-            p.fronton.toLowerCase().includes("aldatz")
-        )
-    );
+// === UTILIDADES ===
+function parseDate(m){
+  return new Date(m.fecha + " " + m.ordua);
+}
 
-    // agrupar por frontón y hora
-    const grupos = {};
+function frontonClass(f){
+  return /trinkete/i.test(f) ? "fronton-trinkete" : "fronton-jai-alai";
+}
 
-    etxeko.forEach(p => {
-        const key = p.fronton + " | " + p.hora;
-        if (!grupos[key]) grupos[key] = [];
-        grupos[key].push(p);
+function lugarClass(f){
+  if(/lekunberri/i.test(f)) return "lekunberri";
+  if(/aldatz/i.test(f)) return "aldatz";
+  return "";
+}
+
+function groupKey(m){
+  return `${m.fronton}|${m.fecha}|${m.ordua}`;
+}
+
+// === CARGA ===
+fetch(DATA_URL)
+  .then(r => r.json())
+  .then(data => {
+
+    // ORDENAR: día → hora → frontón
+    data.sort((a,b)=>{
+      const da = parseDate(a);
+      const db = parseDate(b);
+      if(da - db !== 0) return da - db;
+      return (a.fronton || "").localeCompare(b.fronton || "");
     });
 
-    const cont = document.getElementById("edukia");
+    // AGRUPAR
+    const groups = {};
+    data.forEach(m=>{
+      const key = groupKey(m);
+      if(!groups[key]) groups[key] = [];
+      groups[key].push(m);
+    });
 
-    let frontonActual = "";
+    const container = document.getElementById("content");
 
-    Object.keys(grupos)
-        .sort()
-        .forEach(key => {
+    // RENDER
+    Object.values(groups).forEach(matches=>{
+      const m0 = matches[0];
 
-            const [fronton, hora] = key.split(" | ");
+      const group = document.createElement("div");
+      group.className = `group ${frontonClass(m0.fronton)} ${lugarClass(m0.fronton)}`;
 
-            if (fronton !== frontonActual) {
-                const f = document.createElement("div");
-                f.className = "fronton";
-                f.textContent = fronton;
-                cont.appendChild(f);
-                frontonActual = fronton;
-            }
+      group.innerHTML = `
+        <div class="fronton">📍 ${m0.fronton}</div>
+        <div class="datetime">📅 ${m0.fecha} · ⏰ ${m0.ordua}</div>
+      `;
 
-            const h = document.createElement("div");
-            h.className = "hora";
-            h.textContent = "🕒 " + hora;
-            cont.appendChild(h);
+      matches.forEach((m,i)=>{
+        group.innerHTML += `
+          <div class="match">
+            <div class="torneo">${i+1} · ${m.lehiaketa}</div>
+            <div class="etxekoa">🏠 ${m.etxekoa}</div>
+            <div class="kanpokoa">✈️ ${m.kanpokoak}</div>
+          </div>
+        `;
+      });
 
-            grupos[key].forEach(p => {
-                const d = document.createElement("div");
-                d.className = "partido";
-                d.innerHTML = `
-                    <strong>${p.etxekoa}</strong><br>
-                    ${p.kanpokoak}
-                    <div class="lehiaketa">${p.lehiaketa}</div>
-                `;
-                cont.appendChild(d);
-            });
-        });
-
-});
+      container.appendChild(group);
+    });
+  });
 </script>
 
 </body>
