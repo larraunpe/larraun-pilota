@@ -2936,12 +2936,14 @@
   {
     "fecha": "2026-01-23",
     "fronton": "Berriozar - Polideportivo",
-    "etxekoa": "BERRIOZAR (A. Martinez - I. Martinez)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "BERRIOZAR (A. Martinez - I. Martinez) MARTINEZ CORDON, A. MARTINEZ IRIARTE, L.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-8)(9-7)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
@@ -3000,12 +3002,14 @@
   {
     "fecha": "2026-01-23",
     "fronton": "Irurtzun - Bi Aizpe 1",
-    "etxekoa": "IRURTZUN (A. Garijo - J. Zabaleta)",
-    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "IRURTZUN (A. Garijo - J. Zabaleta) GARIJO BERAZA, A. ZABALETA SANTESTEBAN, J.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(8-9)(3-9)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
   },
@@ -3120,12 +3124,12 @@
   {
     "fecha": "2026-01-23",
     "fronton": "Leitza - Amazabal",
-    "etxekoa": "AURRERA (E. Bengoetxea - E. Saizar)",
+    "etxekoa": "AURRERA (E. Bengoetxea - E. Saizar) BENGOETXEA ARIZTIMUÑO, E. SAIZAR EZCURRA, E.",
     "kanpokoak": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
-    "tanteoa": "",
+    "tanteoa": "18 - 9",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KIMU 2.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3024"
   },
@@ -3468,12 +3472,12 @@
   {
     "fecha": "2026-01-23",
     "fronton": "Burlada - Askatasuna",
-    "etxekoa": "ZUGARRALDE (A. Imaz - A. Merino)",
+    "etxekoa": "ZUGARRALDE (A. Imaz - A. Merino) IMAZ ARANDIA, A. MERINO AYESA, A.",
     "kanpokoak": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
-    "tanteoa": "",
+    "tanteoa": "7 - 22",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KADETE 1.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3031"
   },
@@ -3515,7 +3519,7 @@
   },
   {
     "fecha": "2026-01-31",
-    "fronton": "-",
+    "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (M. Diaz - R. Armendariz)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "tanteoa": "",
@@ -3684,8 +3688,8 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
   },
   {
-    "fecha": "2026-01-31",
-    "fronton": "-",
+    "fecha": "2026-01-28",
+    "fronton": "Garralda - Trinkete",
     "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta)",
     "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus)",
     "tanteoa": "",
