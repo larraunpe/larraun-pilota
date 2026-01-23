@@ -32,7 +32,7 @@ h1{
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 
-/* Oficiales / No oficiales */
+/* No oficiales */
 .no-oficial{
   opacity:.85;
   background: repeating-linear-gradient(
@@ -90,7 +90,7 @@ h1{
 
 <body>
 
-<h1>Etxeko partiduak</h1>
+<h1>Etxeko partiduak (aste honetakoak)</h1>
 
 <div id="content"></div>
 
@@ -103,7 +103,15 @@ const SOURCES = [
 
 // ================= HELPERS =================
 function parseDate(m){
-  return new Date(m.fecha + " " + m.ordua);
+  return new Date(m.fecha + "T" + (m.ordua || "00:00"));
+}
+
+function mondayOfWeek(d){
+  const x = new Date(d);
+  const day = x.getDay() || 7;
+  if(day !== 1) x.setDate(x.getDate() - day + 1);
+  x.setHours(0,0,0,0);
+  return x;
 }
 
 function groupKey(m){
@@ -120,6 +128,10 @@ function lugarClass(f){
   return "";
 }
 
+function esLarraun(f){
+  return /lekunberri|aldatz/i.test(f || "");
+}
+
 // ================= LOAD DATA =================
 Promise.all(
   SOURCES.map(s =>
@@ -129,7 +141,22 @@ Promise.all(
   )
 ).then(all => {
 
-  const data = all.flat();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const mon = mondayOfWeek(today);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+
+  let data = all.flat();
+
+  // 👉 FILTROS IMPORTANTES
+  data = data.filter(m => {
+    if(!esLarraun(m.fronton)) return false;
+
+    const d = parseDate(m);
+    return d >= mon && d <= sun;
+  });
 
   // ORDENAR: día → hora → frontón
   data.sort((a,b)=>{
@@ -165,9 +192,9 @@ Promise.all(
     matches.forEach((m,i)=>{
       group.innerHTML += `
         <div class="match">
-          <div class="torneo">${i+1} · ${m.lehiaketa}</div>
-          <div class="etxekoa">🏠 ${m.etxekoa}</div>
-          <div class="kanpokoa">✈️ ${m.kanpokoak}</div>
+          <div class="torneo">${i+1} · ${m.modalidad || ""}</div>
+          <div class="etxekoa">🏠 ${m.etxekoa || ""}</div>
+          <div class="kanpokoa">✈️ ${m.kanpokoak || ""}</div>
         </div>
       `;
     });
