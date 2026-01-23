@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<title>Etxeko partiduak — Larraun Pilota</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f6f7;
+    margin: 0;
+    color: #222;
+}
+
+header {
+    background: #ffffff;
+    border-bottom: 4px solid #8b0000;
+    padding: 15px;
+    text-align: center;
+}
+
+header img {
+    max-height: 70px;
+}
+
+h1 {
+    margin: 10px 0 0;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.fronton {
+    background: #8b0000;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin-top: 30px;
+    border-radius: 6px;
+}
+
+.hora {
+    background: #e9e9e9;
+    padding: 8px 12px;
+    margin-top: 15px;
+    font-weight: bold;
+    border-left: 6px solid #8b0000;
+}
+
+.partido {
+    background: #ffffff;
+    padding: 10px 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+.partido:last-child {
+    border-bottom: none;
+}
+
+.lehiaketa {
+    font-size: 13px;
+    color: #666;
+    margin-top: 3px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <!-- MISMO LOGO -->
+    <img src="https://larraunpilota.eus/logo.png" alt="Larraun Pilota">
+    <h1>Etxeko partiduak</h1>
+</header>
+
+<div class="container" id="edukia"></div>
+
+<script>
+fetch("cartelera-larraun.json")
+.then(r => r.json())
+.then(data => {
+
+    // solo Lekunberri o Aldatz
+    const etxeko = data.filter(p =>
+        p.fronton &&
+        (
+            p.fronton.toLowerCase().includes("lekunberri") ||
+            p.fronton.toLowerCase().includes("aldatz")
+        )
+    );
+
+    // agrupar por frontón y hora
+    const grupos = {};
+
+    etxeko.forEach(p => {
+        const key = p.fronton + " | " + p.hora;
+        if (!grupos[key]) grupos[key] = [];
+        grupos[key].push(p);
+    });
+
+    const cont = document.getElementById("edukia");
+
+    let frontonActual = "";
+
+    Object.keys(grupos)
+        .sort()
+        .forEach(key => {
+
+            const [fronton, hora] = key.split(" | ");
+
+            if (fronton !== frontonActual) {
+                const f = document.createElement("div");
+                f.className = "fronton";
+                f.textContent = fronton;
+                cont.appendChild(f);
+                frontonActual = fronton;
+            }
+
+            const h = document.createElement("div");
+            h.className = "hora";
+            h.textContent = "🕒 " + hora;
+            cont.appendChild(h);
+
+            grupos[key].forEach(p => {
+                const d = document.createElement("div");
+                d.className = "partido";
+                d.innerHTML = `
+                    <strong>${p.etxekoa}</strong><br>
+                    ${p.kanpokoak}
+                    <div class="lehiaketa">${p.lehiaketa}</div>
+                `;
+                cont.appendChild(d);
+            });
+        });
+
+});
+</script>
+
+</body>
+</html>
