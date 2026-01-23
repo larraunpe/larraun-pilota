@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="utf-8">
-<title>Etxeko partiduak — Larraun Pilota</title>
+<title>Etxeko partiduak — Larraun Pilota Elkartea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -76,14 +76,14 @@ h1 {
 
 <header>
     <!-- MISMO LOGO -->
-    <img src="https://larraunpilota.eus/logo.png" alt="Larraun Pilota">
+    <img src="https://larraunpilota.eus/plazaola.jpg" alt="Larraun Pilota">
     <h1>Etxeko partiduak</h1>
 </header>
 
 <div class="container" id="edukia"></div>
 
 <script>
-fetch("cartelera-larraun.json")
+fetch("data/cartelera-larraun.json")
 .then(r => r.json())
 .then(data => {
 
