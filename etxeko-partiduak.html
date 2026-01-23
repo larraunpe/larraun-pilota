@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Etxeko partiduak – Larraun Pilota</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -14,7 +13,11 @@ body{
   padding:20px;
 }
 
-/* ===== CONTENEDOR ===== */
+h1{
+  text-align:center;
+  color:#004d40;
+}
+
 #content{
   max-width:900px;
   margin:auto;
@@ -29,6 +32,18 @@ body{
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 
+/* Oficiales / No oficiales */
+.no-oficial{
+  opacity:.85;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0,0,0,0.03),
+    rgba(0,0,0,0.03) 10px,
+    rgba(0,0,0,0.06) 10px,
+    rgba(0,0,0,0.06) 20px
+  );
+}
+
 /* Frontón / Trinkete */
 .fronton-jai-alai{ background:#e3f2fd; }
 .fronton-trinkete{ background:#fce4ec; }
@@ -37,7 +52,7 @@ body{
 .lekunberri{ box-shadow: inset 0 0 0 4px #1b5e20; }
 .aldatz{ box-shadow: inset 0 0 0 4px #4e342e; }
 
-/* ===== CABECERA GRUPO ===== */
+/* ===== CABECERA ===== */
 .fronton{
   font-size:1.15em;
   font-weight:800;
@@ -45,7 +60,6 @@ body{
 }
 
 .datetime{
-  margin-top:2px;
   font-size:.9em;
   color:#333;
 }
@@ -60,7 +74,6 @@ body{
 .torneo{
   font-size:1.05em;
   font-weight:800;
-  margin-bottom:4px;
 }
 
 .etxekoa{
@@ -82,12 +95,19 @@ body{
 <div id="content"></div>
 
 <script>
-// === FUENTE DE DATOS ===
-const DATA_URL = "/data/etxeko-partiduak.json";
+// ================= CONFIG =================
+const SOURCES = [
+  { url: "/data/resultados-larraun.json", ofiziala: true },
+  { url: "/data/resultados-no-oficiales.json", ofiziala: false }
+];
 
-// === UTILIDADES ===
+// ================= HELPERS =================
 function parseDate(m){
   return new Date(m.fecha + " " + m.ordua);
+}
+
+function groupKey(m){
+  return `${m.fronton}|${m.fecha}|${m.ordua}`;
 }
 
 function frontonClass(f){
@@ -100,58 +120,61 @@ function lugarClass(f){
   return "";
 }
 
-function groupKey(m){
-  return `${m.fronton}|${m.fecha}|${m.ordua}`;
-}
+// ================= LOAD DATA =================
+Promise.all(
+  SOURCES.map(s =>
+    fetch(s.url)
+      .then(r => r.json())
+      .then(arr => arr.map(m => ({ ...m, ofiziala: s.ofiziala })))
+  )
+).then(all => {
 
-// === CARGA ===
-fetch(DATA_URL)
-  .then(r => r.json())
-  .then(data => {
+  const data = all.flat();
 
-    // ORDENAR: día → hora → frontón
-    data.sort((a,b)=>{
-      const da = parseDate(a);
-      const db = parseDate(b);
-      if(da - db !== 0) return da - db;
-      return (a.fronton || "").localeCompare(b.fronton || "");
-    });
-
-    // AGRUPAR
-    const groups = {};
-    data.forEach(m=>{
-      const key = groupKey(m);
-      if(!groups[key]) groups[key] = [];
-      groups[key].push(m);
-    });
-
-    const container = document.getElementById("content");
-
-    // RENDER
-    Object.values(groups).forEach(matches=>{
-      const m0 = matches[0];
-
-      const group = document.createElement("div");
-      group.className = `group ${frontonClass(m0.fronton)} ${lugarClass(m0.fronton)}`;
-
-      group.innerHTML = `
-        <div class="fronton">📍 ${m0.fronton}</div>
-        <div class="datetime">📅 ${m0.fecha} · ⏰ ${m0.ordua}</div>
-      `;
-
-      matches.forEach((m,i)=>{
-        group.innerHTML += `
-          <div class="match">
-            <div class="torneo">${i+1} · ${m.lehiaketa}</div>
-            <div class="etxekoa">🏠 ${m.etxekoa}</div>
-            <div class="kanpokoa">✈️ ${m.kanpokoak}</div>
-          </div>
-        `;
-      });
-
-      container.appendChild(group);
-    });
+  // ORDENAR: día → hora → frontón
+  data.sort((a,b)=>{
+    const da = parseDate(a);
+    const db = parseDate(b);
+    if(da - db !== 0) return da - db;
+    return (a.fronton || "").localeCompare(b.fronton || "");
   });
+
+  // AGRUPAR
+  const groups = {};
+  data.forEach(m=>{
+    const key = groupKey(m);
+    if(!groups[key]) groups[key] = [];
+    groups[key].push(m);
+  });
+
+  const container = document.getElementById("content");
+
+  // RENDER
+  Object.values(groups).forEach(matches=>{
+    const m0 = matches[0];
+
+    const group = document.createElement("div");
+    group.className = `group ${frontonClass(m0.fronton)} ${lugarClass(m0.fronton)}`;
+    if(!m0.ofiziala) group.classList.add("no-oficial");
+
+    group.innerHTML = `
+      <div class="fronton">📍 ${m0.fronton}</div>
+      <div class="datetime">📅 ${m0.fecha} · ⏰ ${m0.ordua}</div>
+    `;
+
+    matches.forEach((m,i)=>{
+      group.innerHTML += `
+        <div class="match">
+          <div class="torneo">${i+1} · ${m.lehiaketa}</div>
+          <div class="etxekoa">🏠 ${m.etxekoa}</div>
+          <div class="kanpokoa">✈️ ${m.kanpokoak}</div>
+        </div>
+      `;
+    });
+
+    container.appendChild(group);
+  });
+});
 </script>
 
 </body>
