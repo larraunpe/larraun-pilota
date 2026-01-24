@@ -2,8 +2,8 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Etxeko partiduak – Larraun Pilota</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
@@ -15,16 +15,15 @@ body{
 
 header{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:25px;
 }
 
 header img{
-  max-width:140px;
-  margin-bottom:10px;
+  height:80px;
 }
 
 h1{
-  margin:0;
+  margin:10px 0 0;
   color:#004d40;
 }
 
@@ -33,57 +32,50 @@ h1{
   margin:auto;
 }
 
-/* ===== SEPARADOR DÍA ===== */
+/* ===== DÍA ===== */
 .day-separator{
-  margin:34px 0 16px;
+  margin:36px 0 18px;
   text-align:center;
   font-weight:900;
-  color:#444;
-  letter-spacing:1px;
+  font-size:1.1em;
+  color:#333;
 }
 
-/* ===== GRUPOS ===== */
+/* ===== GRUPO ===== */
 .group{
   margin-bottom:22px;
-  border-radius:16px;
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:0 3px 8px rgba(0,0,0,.2);
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
 }
 
-/* No oficiales */
-.no-oficial{
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(0,0,0,0.03),
-    rgba(0,0,0,0.03) 10px,
-    rgba(0,0,0,0.07) 10px,
-    rgba(0,0,0,0.07) 20px
-  );
+.group.no-oficial{
+  background:#f0f0f0;
 }
 
-/* ===== CABECERA BLOQUE ===== */
+/* CABECERA */
 .group-header{
   padding:14px 18px;
   color:#fff;
 }
 
-.fronton-jai-alai .group-header{ background:#1565c0; }
-.fronton-trinkete .group-header{ background:#ad1457; }
+.jai-alai .group-header{ background:#1565c0; }
+.trinkete .group-header{ background:#ad1457; }
 
 .lekunberri .group-header{ box-shadow: inset 0 0 0 4px #1b5e20; }
 .aldatz .group-header{ box-shadow: inset 0 0 0 4px #4e342e; }
 
-.fronton-name{
+.fronton{
   font-size:1.25em;
   font-weight:900;
 }
 
 .datetime{
   font-size:1em;
-  opacity:.95;
+  margin-top:4px;
 }
 
-/* ===== CONTENIDO ===== */
+/* CUERPO */
 .group-body{
   background:#fff;
   padding:16px 18px;
@@ -92,7 +84,7 @@ h1{
 .match{
   padding-top:12px;
   margin-top:12px;
-  border-top:1px solid rgba(0,0,0,.15);
+  border-top:1px solid #ddd;
 }
 
 .torneo{
@@ -101,147 +93,107 @@ h1{
   margin-bottom:6px;
 }
 
-.etxekoa{
-  color:#0d47a1;
-  font-weight:700;
-}
-
-.kanpokoa{
-  color:#b71c1c;
-  font-weight:700;
-}
+.etxekoa{ color:#0d47a1; font-weight:700; }
+.kanpokoa{ color:#b71c1c; font-weight:700; }
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="/img/logo-larraun.png" alt="Larraun Pilota">
+  <img src="images/logo-larraun.png" alt="Larraun Pilota">
   <h1>Etxeko partiduak</h1>
 </header>
 
 <div id="content"></div>
 
 <script>
-/* ================= CONFIG ================= */
-const SOURCES = [
-  { url: "/data/resultados-larraun.json", ofiziala: true },
-  { url: "/data/resultados-no-oficiales.json", ofiziala: false }
-];
-
-/* ================= HELPERS ================= */
-function getHora(m){
-  return m.hora || m.ordua || "";
-}
-
-function getTorneo(m){
-  return m.modalidad || m.torneo || m.txapelketa || "";
-}
-
-function parseDate(m){
-  return new Date(m.fecha + "T" + (getHora(m) || "00:00"));
-}
-
-function mondayOfWeek(d){
-  const x = new Date(d);
-  const day = x.getDay() || 7;
-  if(day !== 1) x.setDate(x.getDate() - day + 1);
+/* ===== FECHAS ===== */
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
   x.setHours(0,0,0,0);
   return x;
 }
 
-function groupKey(m){
-  return `${m.fronton}|${m.fecha}|${getHora(m)}`;
+function dayEU(d){
+  const days=["IGANDEA","ASTELEHENA","ASTEARTEA","ASTEAZKENA","OSTEGUNA","OSTIRALA","LARUNBATA"];
+  const months=["URTARRILA","OTSAILA","MARTXOA","APIRILA","MAIATZA","EKAINA","UZTAILA","ABUZTUA","IRAILA","URRIA","AZAROA","ABENDUA"];
+  return `${days[d.getDay()]} · ${d.getDate()} ${months[d.getMonth()]}`;
 }
 
-function frontonClass(f){
-  return /trinkete/i.test(f) ? "fronton-trinkete" : "fronton-jai-alai";
-}
+Promise.all([
+  fetch("data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales,noOficiales])=>{
 
-function lugarClass(f){
-  if(/lekunberri/i.test(f)) return "lekunberri";
-  if(/aldatz/i.test(f)) return "aldatz";
-  return "";
-}
+  const partidos=[...oficiales.map(p=>({...p,ofiziala:true})),...noOficiales];
 
-function esLarraun(f){
-  return /lekunberri|aldatz/i.test(f || "");
-}
-
-function dayLabelEU(date){
-  const days = ["IGANDEA","ASTELEHENA","ASTEARTEA","ASTEAZKENA","OSTEGUNA","OSTIRALA","LARUNBATA"];
-  const months = ["URTARRILA","OTSAILA","MARTXOA","APIRILA","MAIATZA","EKAINA","UZTAILA","ABUZTUA","IRAILA","URRIA","AZAROA","ABENDUA"];
-  return `${days[date.getDay()]} · ${date.getDate()} ${months[date.getMonth()]}`;
-}
-
-/* ================= LOAD DATA ================= */
-Promise.all(
-  SOURCES.map(s =>
-    fetch(s.url)
-      .then(r => r.json())
-      .then(arr => arr.map(m => ({ ...m, ofiziala: s.ofiziala })))
-  )
-).then(all => {
-
-  const today = new Date();
+  const today=new Date();
   today.setHours(0,0,0,0);
+  const mon=monday(today);
+  const sun=new Date(mon); sun.setDate(mon.getDate()+6);
 
-  const mon = mondayOfWeek(today);
-  const sun = new Date(mon);
-  sun.setDate(mon.getDate() + 6);
-
-  let data = all.flat().filter(m => {
-    if(!esLarraun(m.fronton)) return false;
-    const d = parseDate(m);
-    return d >= mon && d <= sun;
+  const data=partidos.filter(p=>{
+    if(!/lekunberri|aldatz/i.test(p.fronton||"")) return false;
+    const d=new Date(`${p.fecha} ${p.hora||"00:00"}`);
+    return d>=mon && d<=sun;
   });
 
-  data.sort((a,b)=> parseDate(a) - parseDate(b));
+  data.sort((a,b)=>{
+    const da=new Date(`${a.fecha} ${a.hora||"00:00"}`);
+    const db=new Date(`${b.fecha} ${b.hora||"00:00"}`);
+    if(da-db!==0) return da-db;
+    return (a.fronton||"").localeCompare(b.fronton||"");
+  });
 
-  const container = document.getElementById("content");
-  let lastDay = "";
+  const cont=document.getElementById("content");
+  let lastDay="";
 
-  data.forEach(m => {
-    const d = parseDate(m);
-    const dayKey = d.toDateString();
+  data.forEach(p=>{
+    const d=new Date(`${p.fecha} ${p.hora||"00:00"}`);
+    const dayKey=d.toDateString();
 
-    if(dayKey !== lastDay){
-      container.innerHTML += `<div class="day-separator">— ${dayLabelEU(d)} —</div>`;
-      lastDay = dayKey;
+    if(dayKey!==lastDay){
+      cont.innerHTML+=`<div class="day-separator">— ${dayEU(d)} —</div>`;
+      lastDay=dayKey;
     }
 
-    const key = groupKey(m);
+    const key=`${p.fronton}|${p.fecha}|${p.hora}`;
     if(document.getElementById(key)) return;
 
-    const matches = data.filter(x => groupKey(x) === key);
-    const m0 = matches[0];
+    const bloque=data.filter(x=>`${x.fronton}|${x.fecha}|${x.hora}`===key);
+    const b0=bloque[0];
 
-    const group = document.createElement("div");
-    group.id = key;
-    group.className = `group ${frontonClass(m0.fronton)} ${lugarClass(m0.fronton)}`;
-    if(!m0.ofiziala) group.classList.add("no-oficial");
+    const group=document.createElement("div");
+    group.id=key;
+    group.className="group"+
+      (!b0.ofiziala?" no-oficial":"")+
+      (/trinkete/i.test(b0.fronton)?" trinkete":" jai-alai")+
+      (/lekunberri/i.test(b0.fronton)?" lekunberri":" aldatz");
 
-    group.innerHTML = `
+    group.innerHTML=`
       <div class="group-header">
-        <div class="fronton-name">📍 ${m0.fronton}</div>
-        <div class="datetime">📅 ${m0.fecha} · ⏰ ${getHora(m0)}</div>
+        <div class="fronton">📍 ${b0.fronton}</div>
+        <div class="datetime">🗓 ${b0.fecha} · ⏰ ${b0.hora||""}</div>
       </div>
       <div class="group-body"></div>
     `;
 
-    const body = group.querySelector(".group-body");
+    const body=group.querySelector(".group-body");
 
-    matches.forEach((x,i)=>{
-      body.innerHTML += `
+    bloque.forEach((m,i)=>{
+      body.innerHTML+=`
         <div class="match">
-          <div class="torneo">${i+1} · ${getTorneo(x)}</div>
-          <div class="etxekoa">🏠 ${x.etxekoa || ""}</div>
-          <div class="kanpokoa">✈️ ${x.kanpokoak || ""}</div>
+          <div class="torneo">${i+1} · ${m.lehiaketa||""}</div>
+          <div class="etxekoa">🏠 ${m.etxekoa||""}</div>
+          <div class="kanpokoa">✈️ ${m.kanpokoak||""}</div>
         </div>
       `;
     });
 
-    container.appendChild(group);
+    cont.appendChild(group);
   });
 });
 </script>
