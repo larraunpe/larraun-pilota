@@ -229,4 +229,22 @@ Promise.all(
       <div class="group-body"></div>
     `;
 
-    const body = group.querySelector(".gr
+    const body = group.querySelector(".group-body");
+
+    matches.forEach((x,i)=>{
+      body.innerHTML += `
+        <div class="match">
+          <div class="torneo">${i+1} · ${getTorneo(x)}</div>
+          <div class="etxekoa">🏠 ${x.etxekoa || ""}</div>
+          <div class="kanpokoa">✈️ ${x.kanpokoak || ""}</div>
+        </div>
+      `;
+    });
+
+    container.appendChild(group);
+  });
+});
+</script>
+
+</body>
+</html>
