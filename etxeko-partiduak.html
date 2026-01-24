@@ -1,1 +1,237 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Etxeko partiduak – Larraun Pilota</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  color:#004d40;
+}
+
+#content{
+  max-width:900px;
+  margin:auto;
+}
+
+/* ===== SEPARADOR DÍA ===== */
+.day-separator{
+  margin:30px 0 14px;
+  text-align:center;
+  font-weight:800;
+  color:#555;
+  letter-spacing:1px;
+}
+
+/* ===== GRUPOS ===== */
+.group{
+  margin-bottom:20px;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.18);
+}
+
+/* No oficiales */
+.no-oficial{
+  opacity:.85;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0,0,0,0.03),
+    rgba(0,0,0,0.03) 10px,
+    rgba(0,0,0,0.06) 10px,
+    rgba(0,0,0,0.06) 20px
+  );
+}
+
+/* ===== CABECERA BLOQUE ===== */
+.group-header{
+  padding:12px 16px;
+  color:#fff;
+}
+
+.fronton-jai-alai .group-header{ background:#1565c0; }
+.fronton-trinkete .group-header{ background:#ad1457; }
+
+.lekunberri .group-header{ box-shadow: inset 0 0 0 4px #1b5e20; }
+.aldatz .group-header{ box-shadow: inset 0 0 0 4px #4e342e; }
+
+.fronton-name{
+  font-size:1.2em;
+  font-weight:900;
+}
+
+.datetime{
+  font-size:.95em;
+  opacity:.95;
+}
+
+/* ===== CONTENIDO ===== */
+.group-body{
+  background:#fff;
+  padding:14px 16px;
+}
+
+.match{
+  padding-top:10px;
+  margin-top:10px;
+  border-top:1px solid rgba(0,0,0,.15);
+}
+
+.torneo{
+  font-size:1.05em;
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.etxekoa{
+  color:#0d47a1;
+  font-weight:600;
+}
+
+.kanpokoa{
+  color:#b71c1c;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Etxeko partiduak (aste honetakoak)</h1>
+
+<div id="content"></div>
+
+<script>
+// ================= CONFIG =================
+const SOURCES = [
+  { url: "/data/resultados-larraun.json", ofiziala: true },
+  { url: "/data/resultados-no-oficiales.json", ofiziala: false }
+];
+
+// ================= HELPERS =================
+function parseDate(m){
+  return new Date(m.fecha + "T" + (m.hora || "00:00"));
+}
+
+function mondayOfWeek(d){
+  const x = new Date(d);
+  const day = x.getDay() || 7;
+  if(day !== 1) x.setDate(x.getDate() - day + 1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+
+function groupKey(m){
+  return `${m.fronton}|${m.fecha}|${m.hora}`;
+}
+
+function frontonClass(f){
+  return /trinkete/i.test(f) ? "fronton-trinkete" : "fronton-jai-alai";
+}
+
+function lugarClass(f){
+  if(/lekunberri/i.test(f)) return "lekunberri";
+  if(/aldatz/i.test(f)) return "aldatz";
+  return "";
+}
+
+function esLarraun(f){
+  return /lekunberri|aldatz/i.test(f || "");
+}
+
+function dayLabelEU(date){
+  const days = ["IGANDEA","ASTELEHENA","ASTEARTEA","ASTEAZKENA","OSTEGUNA","OSTIRALA","LARUNBATA"];
+  const months = ["URTARRILA","OTSAILA","MARTXOA","APIRILA","MAIATZA","EKAINA","UZTAILA","ABUZTUA","IRAILA","URRIA","AZAROA","ABENDUA"];
+  return `${days[date.getDay()]} · ${date.getDate()} ${months[date.getMonth()]}`;
+}
+
+// ================= LOAD DATA =================
+Promise.all(
+  SOURCES.map(s =>
+    fetch(s.url)
+      .then(r => r.json())
+      .then(arr => arr.map(m => ({ ...m, ofiziala: s.ofiziala })))
+  )
+).then(all => {
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const mon = mondayOfWeek(today);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+
+  let data = all.flat().filter(m => {
+    if(!esLarraun(m.fronton)) return false;
+    const d = parseDate(m);
+    return d >= mon && d <= sun;
+  });
+
+  // ORDENAR
+  data.sort((a,b)=>{
+    const da = parseDate(a);
+    const db = parseDate(b);
+    if(da - db !== 0) return da - db;
+    return (a.fronton || "").localeCompare(b.fronton || "");
+  });
+
+  const container = document.getElementById("content");
+  let lastDay = "";
+
+  data.forEach(m => {
+    const d = parseDate(m);
+    const dayKey = d.toDateString();
+
+    if(dayKey !== lastDay){
+      container.innerHTML += `<div class="day-separator">— ${dayLabelEU(d)} —</div>`;
+      lastDay = dayKey;
+    }
+
+    const key = groupKey(m);
+    if(document.getElementById(key)) return;
+
+    const matches = data.filter(x => groupKey(x) === key);
+    const m0 = matches[0];
+
+    const group = document.createElement("div");
+    group.id = key;
+    group.className = `group ${frontonClass(m0.fronton)} ${lugarClass(m0.fronton)}`;
+    if(!m0.ofiziala) group.classList.add("no-oficial");
+
+    group.innerHTML = `
+      <div class="group-header">
+        <div class="fronton-name">📍 ${m0.fronton}</div>
+        <div class="datetime">📅 ${m0.fecha} · ⏰ ${m0.hora || ""}</div>
+      </div>
+      <div class="group-body"></div>
+    `;
+
+    const body = group.querySelector(".group-body");
+
+    matches.forEach((x,i)=>{
+      body.innerHTML += `
+        <div class="match">
+          <div class="torneo">${i+1} · ${x.modalidad || ""}</div>
+          <div class="etxekoa">🏠 ${x.etxekoa || ""}</div>
+          <div class="kanpokoa">✈️ ${x.kanpokoak || ""}</div>
+        </div>
+      `;
+    });
+
+    container.appendChild(group);
+  });
+});
+</script>
+
+</body>
+</html>
 
