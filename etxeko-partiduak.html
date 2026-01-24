@@ -101,7 +101,7 @@ h1{
 <body>
 
 <header>
-  <img src="images/logo-larraun.png" alt="Larraun Pilota">
+  <img src="images/etxekoak.jpg" alt="Larraun Pilota">
   <h1>Etxeko partiduak</h1>
 </header>
 
@@ -133,7 +133,10 @@ Promise.all([
   const today=new Date();
   today.setHours(0,0,0,0);
   const mon=monday(today);
-  const sun=new Date(mon); sun.setDate(mon.getDate()+6);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  sun.setHours(23, 59, 59, 999);
+
 
   const data=partidos.filter(p=>{
     if(!/lekunberri|aldatz/i.test(p.fronton||"")) return false;
