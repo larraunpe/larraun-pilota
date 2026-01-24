@@ -13,8 +13,18 @@ body{
   padding:20px;
 }
 
-h1{
+header{
   text-align:center;
+  margin-bottom:20px;
+}
+
+header img{
+  max-width:140px;
+  margin-bottom:10px;
+}
+
+h1{
+  margin:0;
   color:#004d40;
 }
 
@@ -25,36 +35,35 @@ h1{
 
 /* ===== SEPARADOR DÍA ===== */
 .day-separator{
-  margin:30px 0 14px;
+  margin:34px 0 16px;
   text-align:center;
-  font-weight:800;
-  color:#555;
+  font-weight:900;
+  color:#444;
   letter-spacing:1px;
 }
 
 /* ===== GRUPOS ===== */
 .group{
-  margin-bottom:20px;
-  border-radius:14px;
+  margin-bottom:22px;
+  border-radius:16px;
   overflow:hidden;
-  box-shadow:0 2px 6px rgba(0,0,0,.18);
+  box-shadow:0 3px 8px rgba(0,0,0,.2);
 }
 
 /* No oficiales */
 .no-oficial{
-  opacity:.85;
   background: repeating-linear-gradient(
     45deg,
     rgba(0,0,0,0.03),
     rgba(0,0,0,0.03) 10px,
-    rgba(0,0,0,0.06) 10px,
-    rgba(0,0,0,0.06) 20px
+    rgba(0,0,0,0.07) 10px,
+    rgba(0,0,0,0.07) 20px
   );
 }
 
 /* ===== CABECERA BLOQUE ===== */
 .group-header{
-  padding:12px 16px;
+  padding:14px 18px;
   color:#fff;
 }
 
@@ -65,61 +74,72 @@ h1{
 .aldatz .group-header{ box-shadow: inset 0 0 0 4px #4e342e; }
 
 .fronton-name{
-  font-size:1.2em;
+  font-size:1.25em;
   font-weight:900;
 }
 
 .datetime{
-  font-size:.95em;
+  font-size:1em;
   opacity:.95;
 }
 
 /* ===== CONTENIDO ===== */
 .group-body{
   background:#fff;
-  padding:14px 16px;
+  padding:16px 18px;
 }
 
 .match{
-  padding-top:10px;
-  margin-top:10px;
+  padding-top:12px;
+  margin-top:12px;
   border-top:1px solid rgba(0,0,0,.15);
 }
 
 .torneo{
-  font-size:1.05em;
-  font-weight:800;
-  margin-bottom:4px;
+  font-size:1.1em;
+  font-weight:900;
+  margin-bottom:6px;
 }
 
 .etxekoa{
   color:#0d47a1;
-  font-weight:600;
+  font-weight:700;
 }
 
 .kanpokoa{
   color:#b71c1c;
-  font-weight:600;
+  font-weight:700;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Etxeko partiduak (aste honetakoak)</h1>
+<header>
+  <img src="/img/logo-larraun.png" alt="Larraun Pilota">
+  <h1>Etxeko partiduak</h1>
+</header>
 
 <div id="content"></div>
 
 <script>
-// ================= CONFIG =================
+/* ================= CONFIG ================= */
 const SOURCES = [
   { url: "/data/resultados-larraun.json", ofiziala: true },
   { url: "/data/resultados-no-oficiales.json", ofiziala: false }
 ];
 
-// ================= HELPERS =================
+/* ================= HELPERS ================= */
+function getHora(m){
+  return m.hora || m.ordua || "";
+}
+
+function getTorneo(m){
+  return m.modalidad || m.torneo || m.txapelketa || "";
+}
+
 function parseDate(m){
-  return new Date(m.fecha + "T" + (m.hora || "00:00"));
+  return new Date(m.fecha + "T" + (getHora(m) || "00:00"));
 }
 
 function mondayOfWeek(d){
@@ -131,7 +151,7 @@ function mondayOfWeek(d){
 }
 
 function groupKey(m){
-  return `${m.fronton}|${m.fecha}|${m.hora}`;
+  return `${m.fronton}|${m.fecha}|${getHora(m)}`;
 }
 
 function frontonClass(f){
@@ -154,7 +174,7 @@ function dayLabelEU(date){
   return `${days[date.getDay()]} · ${date.getDate()} ${months[date.getMonth()]}`;
 }
 
-// ================= LOAD DATA =================
+/* ================= LOAD DATA ================= */
 Promise.all(
   SOURCES.map(s =>
     fetch(s.url)
@@ -176,13 +196,7 @@ Promise.all(
     return d >= mon && d <= sun;
   });
 
-  // ORDENAR
-  data.sort((a,b)=>{
-    const da = parseDate(a);
-    const db = parseDate(b);
-    if(da - db !== 0) return da - db;
-    return (a.fronton || "").localeCompare(b.fronton || "");
-  });
+  data.sort((a,b)=> parseDate(a) - parseDate(b));
 
   const container = document.getElementById("content");
   let lastDay = "";
@@ -210,28 +224,9 @@ Promise.all(
     group.innerHTML = `
       <div class="group-header">
         <div class="fronton-name">📍 ${m0.fronton}</div>
-        <div class="datetime">📅 ${m0.fecha} · ⏰ ${m0.hora || ""}</div>
+        <div class="datetime">📅 ${m0.fecha} · ⏰ ${getHora(m0)}</div>
       </div>
       <div class="group-body"></div>
     `;
 
-    const body = group.querySelector(".group-body");
-
-    matches.forEach((x,i)=>{
-      body.innerHTML += `
-        <div class="match">
-          <div class="torneo">${i+1} · ${x.modalidad || ""}</div>
-          <div class="etxekoa">🏠 ${x.etxekoa || ""}</div>
-          <div class="kanpokoa">✈️ ${x.kanpokoak || ""}</div>
-        </div>
-      `;
-    });
-
-    container.appendChild(group);
-  });
-});
-</script>
-
-</body>
-</html>
-
+    const body = group.querySelector(".gr
