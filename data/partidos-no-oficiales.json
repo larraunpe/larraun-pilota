@@ -1,38 +1,13 @@
 [
   {
-    "fecha": "2026/01/25",
+    "fecha": "2026/02/01",
     "hora": "16:30",
     "zkia": "2",
     "fronton": "Tolosa – Beotibar",
-    "etxekoa": "KURENE – LARRAUN (Ramirez - Garaño) ",
-    "kanpokoak": "INTXURRE – IRURTZUN (Murua – Santesteban) ",
-    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL LAURDENEN LIGAXKA"
+    "etxekoa": "NAFARREN ETXEA",
+    "kanpokoak": "LARRAUN",
+    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL AURREKOAK"
   },
-  {
-    "fecha": "2026/01/25",
-    "hora": "09:30",
-    "zkia": "2",
-    "fronton": "Lesaka",
-    "etxekoa": "LARRAUN (Balda – Sotil)",
-    "kanpokoak": "ZAZPI ITURRI (Gorostidi – Urrestilla)",
-    "lehiaketa": "ARKUPEKO PILOTA TXAPELKETA GAZTETXOAK KANPORAKETA"
-  },
-  {
-    "fecha": "2026/01/24",
-    "hora": "11:30",
-    "zkia": "1",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN PROMESAK",
-    "kanpokoak": "NAJERINO PROMESAS",
-    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA "
-  },
-{
-    "fecha": "2026/01/24",
-    "hora": "11:30",
-    "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN PROMESAK",
-    "kanpokoak": "NAJERINO PROMESAS",
-    "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA "
-  }
+  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "1",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA "   },
+  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "2",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA "   }
 ]
