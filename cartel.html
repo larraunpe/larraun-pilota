@@ -129,7 +129,11 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
-    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
+    ...noOficiales.map(p => ({
+      ...p,
+      origen: "no-oficiales",
+      ofiziala: p.ofiziala === true || p.ofiziala === "true"
+    }))
   ];
 
   partidos.sort((a, b) => {
@@ -144,10 +148,10 @@ Promise.all([
     const div = document.createElement("div");
 
     const esNoOficial =
-      p.origen === "no-oficiales" && p.ofiziala === "false";
+      p.origen === "no-oficiales" && p.ofiziala === false;
 
     const esBesteOfizial =
-      p.origen === "no-oficiales" && p.ofiziala === "true";
+      p.origen === "no-oficiales" && p.ofiziala === true;
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
