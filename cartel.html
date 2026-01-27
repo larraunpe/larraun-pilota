@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Larraun Pilota – Aste honetako partidak</title>
+<link rel="icon" type="image/png" href="/kartelera.png">
+<meta property="og:title" content="Kartelera – Larraun Pilota Elkartea">
+<meta property="og:description" content="Pilotarien aste honetako partidak web formatuan">
+<meta property="og:image" content="https://larraunpilota.eus/kartelera.png">
+<meta property="og:url" content="https://larraunpilota.eus/kartelera.html">
 
 <style>
 body {
@@ -57,10 +62,10 @@ body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   background: #f9f9f9;
   position: relative;
-  border-left: 6px solid #b00000;
+  border-left: 6px solid #b00000; /* se ajusta por JS */
 }
 
-/* NO OFICIAL */
+/* NO OFICIAL → fondo gris suave */
 .partido.no-oficial {
   background: #f3f3f3;
 }
@@ -78,7 +83,7 @@ body {
   color: #fff;
 }
 
-/* FECHA */
+/* FECHA / HORA / ZKIA */
 .fecha {
   font-weight: bold;
   font-size: 0.95em;
@@ -101,6 +106,7 @@ body {
   font-weight: bold;
 }
 
+/* LARRAUN DESTACADO */
 .larraun {
   font-size: 1.25em;
   text-transform: uppercase;
@@ -113,6 +119,7 @@ body {
   color: #333;
 }
 
+/* LEKUNBERRI / ALDATZ */
 .lekunberri {
   background: #e6f2ff;
   padding: 4px 8px;
@@ -156,14 +163,17 @@ body {
 
 <div class="cartel">
 
+  <!-- CABECERA -->
   <div class="header">
     <img src="images/logo-larraun.png" alt="Larraun Pilota">
     <h1>ASTE HONETAKO PARTIDAK</h1>
     <img src="images/logo-fnp.png" alt="FNP">
   </div>
 
+  <!-- PARTIDOS -->
   <div class="partidos" id="lista-partidos"></div>
 
+  <!-- FOOTER -->
   <div class="footer">
     <div>📍 Larraun Pilota Elkartea</div>
     <div>@larraunpilota</div>
@@ -178,8 +188,8 @@ Promise.all([
 ]).then(([oficiales, noOficiales]) => {
 
   const partidos = [
-    ...oficiales.map(p => ({ ...p, origen: "oficial" })),
-    ...noOficiales.map(p => ({ ...p, origen: "no-oficial" }))
+    ...oficiales.map(p => ({ ...p, ofiziala: true })),
+    ...noOficiales
   ];
 
   partidos.sort((a, b) => {
@@ -196,10 +206,7 @@ Promise.all([
     const esOficial = p.ofiziala === true || p.ofiziala === "true";
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
 
-    const mostrarNoOficial = !esOficial;
-    const mostrarBesteOfizial = esOficial && p.origen === "no-oficial";
-
-    div.className = "partido" + (mostrarNoOficial ? " no-oficial" : "");
+    div.className = "partido" + (esOficial ? "" : " no-oficial");
     div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
     const etxekoaClass =
@@ -213,14 +220,13 @@ Promise.all([
 
     const lineaFecha = `
       <div class="fecha">
-        🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
-        ${p.zkia ? "🔢 " + p.zkia + " · " : ""}
+      🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
+      ${p.zkia ? "🔢 " + p.zkia + " · " : ""}
       </div>
     `;
 
     div.innerHTML = `
-      ${mostrarNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-      ${mostrarBesteOfizial ? `<div class="badge">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
+      ${!esOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
       ${lineaFecha}
 
       <div class="equipos">
@@ -229,7 +235,7 @@ Promise.all([
       </div>
 
       <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
-      <div class="lehiaketa">🏆 ${p.lehiaketa || p.modalidad || ""}</div>
+      <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
     `;
 
     cont.appendChild(div);
