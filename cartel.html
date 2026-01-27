@@ -17,7 +17,6 @@ body {
   background: #eaeaea;
 }
 
-/* CONTENEDOR */
 .cartel {
   max-width: 900px;
   margin: auto;
@@ -26,7 +25,6 @@ body {
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 
-/* CABECERA */
 .header {
   display: flex;
   align-items: center;
@@ -48,14 +46,12 @@ body {
   color: #b30000;
 }
 
-/* LISTA */
 .partidos {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* PARTIDO */
 .partido {
   padding: 16px 18px;
   border-radius: 10px;
@@ -65,12 +61,10 @@ body {
   border-left: 6px solid #b00000;
 }
 
-/* NO OFICIAL */
 .partido.no-oficial {
   background: #f3f3f3;
 }
 
-/* BADGE */
 .badge {
   position: absolute;
   top: 12px;
@@ -83,19 +77,16 @@ body {
   color: #fff;
 }
 
-/* BADGE OFICIAL */
 .badge.oficial {
   background: #198754;
 }
 
-/* FECHA */
 .fecha {
   font-weight: bold;
   font-size: 0.95em;
   margin-bottom: 8px;
 }
 
-/* EQUIPOS */
 .equipos {
   margin-bottom: 8px;
   line-height: 1.4;
@@ -111,20 +102,17 @@ body {
   font-weight: bold;
 }
 
-/* LARRAUN */
 .larraun {
   font-size: 1.25em;
   text-transform: uppercase;
 }
 
-/* FRONTÓN */
 .fronton {
   margin-top: 6px;
   font-style: italic;
   color: #333;
 }
 
-/* LEKUNBERRI */
 .lekunberri {
   background: #e6f2ff;
   padding: 4px 8px;
@@ -133,14 +121,12 @@ body {
   color: #003366;
 }
 
-/* LEHIAKETA */
 .lehiaketa {
   margin-top: 6px;
   font-size: 0.9em;
   color: #555;
 }
 
-/* FOOTER */
 .footer {
   margin-top: 30px;
   padding-top: 15px;
@@ -156,7 +142,6 @@ body {
   height: 50px;
 }
 
-/* RESPONSIVE */
 @media (max-width: 600px) {
   .header h1 { font-size: 1.6em; }
   .larraun { font-size: 1.15em; }
@@ -190,8 +175,8 @@ Promise.all([
 ]).then(([oficiales, noOficiales]) => {
 
   const partidos = [
-    ...oficiales.map(p => ({ ...p, ofiziala: true })),
-    ...noOficiales
+    ...oficiales.map(p => ({ ...p, _origen: "oficial" })),
+    ...noOficiales.map(p => ({ ...p, _origen: "no-oficial" }))
   ];
 
   partidos.sort((a, b) => {
@@ -205,10 +190,13 @@ Promise.all([
   partidos.forEach(p => {
     const div = document.createElement("div");
 
-    const esOficial = p.ofiziala === true || p.ofiziala === "true";
+    const esNoOficial = p._origen === "no-oficial";
+    const esOficialNoOficial =
+      esNoOficial && String(p.ofiziala).toLowerCase().includes("true");
+
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
 
-    div.className = "partido" + (esOficial ? "" : " no-oficial");
+    div.className = "partido" + (esNoOficial && !esOficialNoOficial ? " no-oficial" : "");
     div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
     const etxekoaClass =
@@ -227,11 +215,14 @@ Promise.all([
       </div>
     `;
 
-    div.innerHTML = `
-      <div class="badge ${esOficial ? "oficial" : ""}">
-        ${esOficial ? "TXAPELKETA OFIZIALA" : "EZ OFIZIALA"}
-      </div>
+    const badgeHTML = esNoOficial
+      ? `<div class="badge ${esOficialNoOficial ? "oficial" : ""}">
+           ${esOficialNoOficial ? "TXAPELKETA OFIZIALA" : "EZ OFIZIALA"}
+         </div>`
+      : "";
 
+    div.innerHTML = `
+      ${badgeHTML}
       ${lineaFecha}
 
       <div class="equipos">
