@@ -4,43 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Larraun Pilota – Aste honetako partidak</title>
-<link rel="icon" type="image/png" href="/kartelera.png">
-<meta property="og:title" content="Kartelera – Larraun Pilota Elkartea">
-<meta property="og:description" content="Pilotarien aste honetako partidak web formatuan">
-<meta property="og:image" content="https://larraunpilota.eus/kartelera.png">
-<meta property="og:url" content="https://larraunpilota.eus/kartelera.html">
 
 <style>
-/* === ESTILOS SIN CAMBIOS === */
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #eaeaea; }
-.cartel { max-width: 900px; margin: auto; background: #fff; padding: 30px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
-.header { display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #b30000; padding-bottom: 20px; margin-bottom: 25px; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eaeaea;
+}
+
+.cartel {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid #b30000;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
 .header img { height: 80px; }
-.header h1 { flex: 1; text-align: center; margin: 0; font-size: 2.2em; color: #b30000; }
-.partidos { display: flex; flex-direction: column; gap: 18px; }
-.partido { padding: 16px 18px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.15); background: #f9f9f9; position: relative; border-left: 6px solid #b00000; }
-.partido.no-oficial { background: #f3f3f3; }
-.badge { position: absolute; top: 12px; right: 14px; font-size: 0.75em; font-weight: bold; padding: 4px 8px; border-radius: 6px; background: #b30000; color: #fff; }
-.fecha { font-weight: bold; font-size: 0.95em; margin-bottom: 8px; }
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 2.2em;
+  color: #b30000;
+}
+
+.partidos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.partido {
+  padding: 16px 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #f9f9f9;
+  position: relative;
+  border-left: 6px solid #b00000;
+}
+
+.partido.no-oficial {
+  background: #f3f3f3;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #b30000;
+  color: #fff;
+}
+
+/* 🟢 VERDE */
+.badge.beste-ofiziala {
+  background: #198754;
+}
+
+.fecha {
+  font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
 .equipos { margin-bottom: 8px; line-height: 1.4; }
+
 .etxekoa { color: #0b2c5d; font-weight: bold; }
 .kanpokoak { color: #b00000; font-weight: bold; }
+
 .larraun { font-size: 1.25em; text-transform: uppercase; }
+
 .fronton { margin-top: 6px; font-style: italic; color: #333; }
-.lekunberri { background: #e6f2ff; padding: 4px 8px; border-radius: 6px; font-weight: bold; color: #003366; }
+
+.lekunberri {
+  background: #e6f2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #003366;
+}
+
 .lehiaketa { margin-top: 6px; font-size: 0.9em; color: #555; }
-.footer { margin-top: 30px; padding-top: 15px; border-top: 2px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; color: #444; }
-@media (max-width: 600px) { .header h1 { font-size: 1.6em; } .larraun { font-size: 1.15em; } }
+
+.footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #444;
+}
 </style>
 </head>
 
 <body>
 
 <div class="cartel">
+
   <div class="header">
-    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <img src="images/logo-larraun.png">
     <h1>ASTE HONETAKO PARTIDAK</h1>
-    <img src="images/logo-fnp.png" alt="FNP">
+    <img src="images/logo-fnp.png">
   </div>
 
   <div class="partidos" id="lista-partidos"></div>
@@ -49,6 +128,7 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #eaeaea
     <div>📍 Larraun Pilota Elkartea</div>
     <div>@larraunpilota</div>
   </div>
+
 </div>
 
 <script>
@@ -59,7 +139,11 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
-    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
+    ...noOficiales.map(p => ({
+      ...p,
+      origen: "no-oficiales",
+      ofiziala: String(p.ofiziala).toLowerCase() === "true"
+    }))
   ];
 
   partidos.sort((a, b) => {
@@ -73,34 +157,28 @@ Promise.all([
   partidos.forEach(p => {
     const div = document.createElement("div");
 
-    const ofiziala = p.ofiziala === true || p.ofiziala === "true";
-    const esNoOficial = p.origen === "no-oficiales" && !ofiziala;
-    const esBesteOfizial = p.origen === "no-oficiales" && ofiziala;
+    const esNoOficial = p.origen === "no-oficiales" && p.ofiziala === false;
+    const esBesteOfizial = p.origen === "no-oficiales" && p.ofiziala === true;
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
     div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
-    const etxekoaClass = p.etxekoa?.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
-    const kanpokoakClass = p.kanpokoak?.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
-    const frontonClass = esLekunberri ? "fronton lekunberri" : "fronton";
-
     div.innerHTML = `
       ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-      ${esBesteOfizial ? `<div class="badge">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
+      ${esBesteOfizial ? `<div class="badge beste-ofiziala">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
 
       <div class="fecha">
         🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
-        ${p.zkia ? "🔢 " + p.zkia + " · " : ""}
       </div>
 
       <div class="equipos">
-        <div class="${etxekoaClass}">🏠 ${p.etxekoa || ""}</div>
-        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak || ""}</div>
+        <div class="etxekoa">🏠 ${p.etxekoa || ""}</div>
+        <div class="kanpokoak">✈️ ${p.kanpokoak || ""}</div>
       </div>
 
-      <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
+      <div class="fronton">📍 ${p.fronton || ""}</div>
       <div class="lehiaketa">🏆 ${p.lehiaketa || p.modalidad || ""}</div>
     `;
 
