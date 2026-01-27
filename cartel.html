@@ -145,13 +145,13 @@ Promise.all([
 
     const rawOfiziala = p.ofiziala;
 
-    const esBesteOfizial =
-      p.origen === "no-oficiales" &&
-      (rawOfiziala === true || rawOfiziala === "true");
+    const valorOfiziala = String(p.ofiziala).toLowerCase();
 
-    const esNoOficial =
-      p.origen === "no-oficiales" &&
-      (rawOfiziala === false || rawOfiziala === "false");
+const esBesteOfizial =
+  p.origen === "no-oficiales" && valorOfiziala === "true";
+
+const esNoOficial =
+  p.origen === "no-oficiales" && valorOfiziala === "false";
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
