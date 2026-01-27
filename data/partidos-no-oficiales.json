@@ -1,7 +1,4 @@
 [
   {     "fecha": "2026/01/31",     "hora": "12:00",     "zkia": "1",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN",     "kanpokoak": "UHARTE",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",     "ofiziala": "true"   },
-  {     "fecha": "2026/01/31",     "hora": "12:00",     "zkia": "2",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN",     "kanpokoak": "UHARTE",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BINAKA ",     "ofiziala": "true"   },
-  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "1",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",     "ofiziala": "true"   },
-  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "2",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",     "ofiziala": "true"   },
-  {     "fecha": "2026/02/01",     "hora": "16:30",     "zkia": "2",     "fronton": "Tolosa – Beotibar",    "etxekoa": "INTXURRE – IRURTZUN (Murua – Santesteban)",    "kanpokoak": "LARRAUN (Nazabal – Sotil)",    "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL AURREKOAK",    "ofiziala": "false"  }
+  {     "fecha": "2026/01/31",     "hora": "12:00",     "zkia": "2",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN",     "kanpokoak": "UHARTE",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BINAKA ",     "ofiziala": "true"   }
 ]
