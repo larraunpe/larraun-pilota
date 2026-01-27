@@ -86,17 +86,7 @@ body {
 .etxekoa { color: #0b2c5d; font-weight: bold; }
 .kanpokoak { color: #b00000; font-weight: bold; }
 
-.larraun { font-size: 1.25em; text-transform: uppercase; }
-
 .fronton { margin-top: 6px; font-style: italic; color: #333; }
-
-.lekunberri {
-  background: #e6f2ff;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-weight: bold;
-  color: #003366;
-}
 
 .lehiaketa { margin-top: 6px; font-size: 0.9em; color: #555; }
 
@@ -139,11 +129,7 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
-    ...noOficiales.map(p => ({
-      ...p,
-      origen: "no-oficiales",
-      ofiziala: String(p.ofiziala).toLowerCase() === "true"
-    }))
+    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
   ];
 
   partidos.sort((a, b) => {
@@ -157,13 +143,13 @@ Promise.all([
   partidos.forEach(p => {
     const div = document.createElement("div");
 
-    const esNoOficial = p.origen === "no-oficiales" && p.ofiziala === false;
-    const esBesteOfizial = p.origen === "no-oficiales" && p.ofiziala === true;
+    const esNoOficial =
+      p.origen === "no-oficiales" && p.ofiziala === "false";
+
+    const esBesteOfizial =
+      p.origen === "no-oficiales" && p.ofiziala === "true";
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
-
-    const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
-    div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
     div.innerHTML = `
       ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
