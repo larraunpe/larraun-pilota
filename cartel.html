@@ -129,11 +129,7 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
-    ...noOficiales.map(p => ({
-      ...p,
-      origen: "no-oficiales",
-      ofiziala: p.ofiziala === true || p.ofiziala === "true"
-    }))
+    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
   ];
 
   partidos.sort((a, b) => {
@@ -147,16 +143,20 @@ Promise.all([
   partidos.forEach(p => {
     const div = document.createElement("div");
 
-    const esNoOficial =
-      p.origen === "no-oficiales" && p.ofiziala === false;
+    const rawOfiziala = p.ofiziala;
 
     const esBesteOfizial =
-      p.origen === "no-oficiales" && p.ofiziala === true;
+      p.origen === "no-oficiales" &&
+      (rawOfiziala === true || rawOfiziala === "true");
+
+    const esNoOficial =
+      p.origen === "no-oficiales" &&
+      (rawOfiziala === false || rawOfiziala === "false");
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
     div.innerHTML = `
-      ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
+      ${esNoOficial ? `<div class="badge">EZ OFIZIALAK</div>` : ""}
       ${esBesteOfizial ? `<div class="badge beste-ofiziala">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
 
       <div class="fecha">
@@ -176,6 +176,7 @@ Promise.all([
   });
 });
 </script>
+
 
 </body>
 </html>
