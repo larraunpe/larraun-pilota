@@ -10,6 +10,6 @@
     "kanpokoak": "LARRAUN (Nazabal – Sotil)",
     "lehiaketa": "SOROA MEMORIALA LEHEN MAILA FINAL AURREKOAK"
   },
-  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "1",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA "   },
-  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "2",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA "   }
+  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "1",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/01",     "hora": "11:00",     "zkia": "2",     "fronton": "Egora Olimpics – Vall D`Ebron",     "etxekoa": "NAFARREN ETXEA BCN",     "kanpokoak": "LARRAUN",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",     "ofiziala": "true"   },
 ]
