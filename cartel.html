@@ -51,7 +51,7 @@ body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   background: #f9f9f9;
   position: relative;
-  border-left: 6px solid #b00000;
+  border-left: 6px solid #b00000; /* default */
 }
 
 .partido.no-oficial {
@@ -81,14 +81,47 @@ body {
   margin-bottom: 8px;
 }
 
-.equipos { margin-bottom: 8px; line-height: 1.4; }
+.equipos { 
+  margin-bottom: 8px; 
+  line-height: 1.4; 
+}
 
-.etxekoa { color: #0b2c5d; font-weight: bold; }
-.kanpokoak { color: #b00000; font-weight: bold; }
+.etxekoa { 
+  color: #0b2c5d; 
+  font-weight: bold; 
+}
 
-.fronton { margin-top: 6px; font-style: italic; color: #333; }
+.kanpokoak { 
+  color: #b00000; 
+  font-weight: bold; 
+}
 
-.lehiaketa { margin-top: 6px; font-size: 0.9em; color: #555; }
+.etxekoa.larraun {
+  color: #0b2c5d;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+
+.fronton { 
+  margin-top: 6px; 
+  font-style: italic; 
+  color: #333; 
+}
+
+.fronton.lekunberri {
+  background: #e6f2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #003366;
+}
+
+.lehiaketa { 
+  margin-top: 6px; 
+  font-size: 0.9em; 
+  color: #555; 
+}
 
 .footer {
   margin-top: 30px;
@@ -129,11 +162,7 @@ Promise.all([
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
-    ...noOficiales.map(p => ({
-      ...p,
-      origen: "no-oficiales",
-      ofiziala: p.ofiziala === true || p.ofiziala === "true"
-    }))
+    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
   ];
 
   partidos.sort((a, b) => {
@@ -147,28 +176,39 @@ Promise.all([
   partidos.forEach(p => {
     const div = document.createElement("div");
 
-    const esNoOficial =
-      p.origen === "no-oficiales" && p.ofiziala === false;
+    // determinar badge
+    const valorOfiziala = String(p.ofiziala).toLowerCase();
+    const esBesteOfizial = p.origen === "no-oficiales" && valorOfiziala === "true";
+    const esNoOficial = p.origen === "no-oficiales" && valorOfiziala === "false";
 
-    const esBesteOfizial =
-      p.origen === "no-oficiales" && p.ofiziala === true;
+    // destacar Lekunberri/Aldatz
+    const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
+    div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
+
+    // clases para frónton
+    const frontonClass = esLekunberri ? "fronton lekunberri" : "fronton";
+
+    // resaltar pelotaris de Larraun
+    const etxekoaClass = p.etxekoa?.toUpperCase().includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+    const kanpokoakClass = p.kanpokoak?.toUpperCase().includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
     div.innerHTML = `
-      ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
+      ${esNoOficial ? `<div class="badge">EZ OFIZIALAK</div>` : ""}
       ${esBesteOfizial ? `<div class="badge beste-ofiziala">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
 
       <div class="fecha">
         🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
+        ${p.zkia ? "🔢 " + p.zkia : ""}
       </div>
 
       <div class="equipos">
-        <div class="etxekoa">🏠 ${p.etxekoa || ""}</div>
-        <div class="kanpokoak">✈️ ${p.kanpokoak || ""}</div>
+        <div class="${etxekoaClass}">🏠 ${p.etxekoa || ""}</div>
+        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak || ""}</div>
       </div>
 
-      <div class="fronton">📍 ${p.fronton || ""}</div>
+      <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
       <div class="lehiaketa">🏆 ${p.lehiaketa || p.modalidad || ""}</div>
     `;
 
