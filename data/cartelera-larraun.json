@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "3",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (L. Escudero - O. Urdaniz)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "5",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (A. Imaz - A. Merino)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (L. Arregui -I. San Vicente)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "2",
     "fronton": "Pamplona - San Juan Azul",
     "etxekoa": "SAN JUAN (E. Ortigosa - J. Lakuntza)",
@@ -46,7 +46,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "20:15 !Horario provisional",
+    "hora": "20:15",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/01/30",
-    "hora": "20:15 !Horario provisional",
+    "hora": "20:15",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
@@ -64,7 +64,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
@@ -73,7 +73,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
@@ -82,7 +82,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
@@ -91,7 +91,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Otamendi - M. Laso)",
@@ -109,7 +109,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (M. Diaz - R. Armendariz)",
@@ -118,7 +118,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Ororbia - Ororbia",
     "etxekoa": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
@@ -127,7 +127,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "10:30 !Horario provisional",
+    "hora": "10:30",
     "zkia": "1",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (A. Garcia - J. Okiñena)",
@@ -136,7 +136,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "1",
     "fronton": "Espinal - Ederrena",
     "etxekoa": "AUÑAMENDI (I. Pedroarena)",
@@ -145,7 +145,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Pamplona - San Juan Verde",
     "etxekoa": "SAN JUAN (I. Guerra)",
@@ -154,7 +154,7 @@
   },
   {
     "fecha": "2026/01/31",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "3",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (B. Gracia - J. Tabar)",
@@ -163,7 +163,7 @@
   },
   {
     "fecha": "2026/02/01",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
