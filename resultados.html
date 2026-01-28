@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Larraun – Emaitzak</title>
+<link rel="icon" type="image/png" href="/emaitzak.png">
+<meta property="og:title" content="Emaitzak – Larraun Pilota Elkartea">
+<meta property="og:description" content="Pilotarien azken emaitzak">
+<meta property="og:image" content="https://larraunpilota.eus/emaitzak.png">
+<meta property="og:url" content="https://larraunpilota.eus/emaitzak.html">
 
 <style>
 body{
@@ -67,11 +72,26 @@ main{padding:20px;}
 /* NO OFICIALES */
 .match.no-oficial{background:#f1f1f1;}
 
+/* ===== BADGES ===== */
+.badge{
+  position:absolute;
+  top:10px;
+  right:12px;
+  font-size:.7em;
+  font-weight:bold;
+  padding:4px 8px;
+  border-radius:6px;
+  background:#b00000;
+  color:#fff;
+}
+.badge.beste-ofiziala{
+  background:#198754;
+}
+
 /* ===== TEXTO ===== */
 .line{margin:6px 0;}
 .meta{font-size:.9em;color:#333;}
 
-/* COLORES FIJOS EQUIPOS */
 .etxekoa-line{
   color:#0d47a1;
   font-weight:bold;
@@ -111,14 +131,12 @@ main{padding:20px;}
 .scorebox.blue{background:#0d47a1;}
 .scorebox.red{background:#b71c1c;}
 
-/* SETS */
 .sets{
   text-align:center;
   font-size:.95em;
   color:#333;
 }
 
-/* MODALIDAD */
 .modalidad{
   font-size:.9em;
   color:#004d40;
@@ -130,7 +148,6 @@ main{padding:20px;}
 }
 .modalidad a:hover{text-decoration:underline;}
 
-/* SEPARADOR DESCANSO */
 .rest-separator{
   margin:20px 0 10px;
   text-align:center;
@@ -153,8 +170,8 @@ main{padding:20px;}
 
 <script>
 const SOURCES=[
-  {url:"/data/resultados-larraun.json",ofiziala:true},
-  {url:"/data/resultados-no-oficiales.json",ofiziala:false}
+  {url:"/data/resultados-larraun.json", origen:"oficial"},
+  {url:"/data/resultados-no-oficiales.json", origen:"no-oficial"}
 ];
 
 function parseDate(f){return f?new Date(f+"T00:00"):null;}
@@ -179,23 +196,28 @@ function ordenarSemana(arr){
 
   normales.sort((a,b)=>{
     if (a._date - b._date !== 0) return a._date - b._date;
-
-    const fa = (a.fronton || "").toLowerCase();
-    const fb = (b.fronton || "").toLowerCase();
-    if (fa < fb) return -1;
-    if (fa > fb) return 1;
-
-    const ma = (a.modalidad || "").toLowerCase();
-    const mb = (b.modalidad || "").toLowerCase();
-    return ma.localeCompare(mb);
+    return (a.fronton||"").localeCompare(b.fronton||"");
   });
 
   return [...normales, ...descansos];
 }
 
 Promise.all(
-  SOURCES.map(s=>fetch(s.url).then(r=>r.json())
-    .then(a=>a.map(o=>({...o,ofiziala:s.ofiziala,_date:parseDate(o.fecha)}))))
+  SOURCES.map(s =>
+    fetch(s.url)
+      .then(r=>r.json())
+      .then(arr =>
+        arr.map(o => ({
+          ...o,
+          origen: s.origen,
+          ofiziala:
+            s.origen==="no-oficial"
+              ? String(o.ofiziala).toLowerCase()==="true"
+              : true,
+          _date: parseDate(o.fecha)
+        }))
+      )
+  )
 ).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
   const data=all.flat().filter(m=>m._date&&m._date<=today);
@@ -217,7 +239,6 @@ Promise.all(
     arr = ordenarSemana(arr);
 
     c.innerHTML+=`<div class="week-title">${title}</div>`;
-
     let descansoMostrado=false;
 
     arr.forEach(m=>{
@@ -226,8 +247,11 @@ Promise.all(
         descansoMostrado=true;
       }
 
+      const esBesteOfizial = m.origen==="no-oficial" && m.ofiziala===true;
+      const esNoOficial   = m.origen==="no-oficial" && m.ofiziala===false;
+
       let cls="match ";
-      if(!m.ofiziala) cls+="no-oficial ";
+      if(esNoOficial) cls+="no-oficial ";
       if(!m.emaitza) cls+="pending";
       else if(/irabazita/.test(m.emaitza)) cls+="win";
       else cls+="lose";
@@ -249,8 +273,10 @@ Promise.all(
 
       c.innerHTML+=`
       <div class="${cls}">
-        <div class="line meta">📅 ${m.fecha}</div>
+        ${esNoOficial ? `<div class="badge">EZ OFIZIALAK</div>` : ""}
+        ${esBesteOfizial ? `<div class="badge beste-ofiziala">BESTE TXAPELKETAK OFIZIALAK</div>` : ""}
 
+        <div class="line meta">📅 ${m.fecha}</div>
         <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
         <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
 
