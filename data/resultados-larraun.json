@@ -3696,12 +3696,14 @@
   {
     "fecha": "2026-01-28",
     "fronton": "Garralda - Trinkete",
-    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta)",
-    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta) LARRAÑETA GRANADA, J. ZIGANDA GARRALDA, M.",
+    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-15)(7-15)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA KADETE TRINKETE",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
   },
