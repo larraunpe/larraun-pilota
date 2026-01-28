@@ -250,11 +250,18 @@ Promise.all(
       const esBesteOfizial = m.origen==="no-oficial" && m.ofiziala===true;
       const esNoOficial   = m.origen==="no-oficial" && m.ofiziala===false;
 
-      let cls="match ";
-      if(esNoOficial) cls+="no-oficial ";
-      if(!m.emaitza) cls+="pending";
-      else if(/irabazita/.test(m.emaitza)) cls+="win";
-      else cls+="lose";
+      let cls = "match ";
+      if (esNoOficial) cls += "no-oficial ";
+
+      const emaitza = (m.emaitza || "").toLowerCase().trim();
+
+      if (!emaitza) {
+        cls += "pending";
+      } else if (emaitza === "irabazita") {
+        cls += "win";
+      } else {
+        cls += "lose";
+      }
 
       let marcador="";
       if(m.tanteoa&&m.tanteoa.includes("-")){
