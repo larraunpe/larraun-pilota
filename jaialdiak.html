@@ -43,6 +43,26 @@ input{
   padding:6px;
   font-size:1em;
 }
+  /* ===== FILAS SENIOR ===== */
+tr.senior-bai{
+  background: linear-gradient(90deg, #fffde7, #ffffff);
+  box-shadow: inset 6px 0 0 #f9a825;
+}
+
+tr.senior-bai td{
+  font-weight:700;
+}
+
+/* Texto SENIOR */
+.senior-bai-text{
+  color:#e65100;
+}
+/* ===== TRINKETE ===== */
+tr.trinkete{
+  background:#fce4ec;
+  box-shadow: inset 6px 0 0 #ad1457;
+}
+
 
 input:focus{
   outline:2px solid #7cb342;
@@ -54,6 +74,18 @@ input:focus{
 .whatsapp a{
   text-decoration:none;
 }
+  /* ===== OHARRA ===== */
+.oharra{
+  max-width:900px;
+  margin:14px auto 0;
+  font-size:.95em;
+  color:#444;
+  background:#eeeeee;
+  padding:10px 14px;
+  border-left:6px solid #7cb342;
+  border-radius:6px;
+}
+
 </style>
 </head>
 
@@ -75,6 +107,10 @@ input:focus{
 <tbody id="taula"></tbody>
 
 </table>
+  <div class="oharra">
+  * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri
+</div>
+
 
 <script>
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
@@ -132,12 +168,24 @@ Promise.all([
       const guardado = localStorage.getItem(id) || "";
 
       const tr = document.createElement("tr");
+
+if(j.senior === "BAI"){
+  tr.classList.add("senior-bai");
+}
+
+if(/trinkete/i.test(j.fronton)){
+  tr.classList.add("trinkete");
+}
+
       tr.innerHTML = `
         <td>${j.fecha}</td>
         <td>${j.hora}</td>
         <td>${j.fronton}</td>
         <td><strong>${j.zb}</strong></td>
-        <td><strong>${j.senior}</strong></td>
+        <td class="${j.senior === 'BAI' ? 'senior-bai-text' : ''}">
+  <strong>${j.senior}</strong>
+</td>
+
         <td>
           <input value="${guardado}"
             oninput="localStorage.setItem('${id}', this.value)">
