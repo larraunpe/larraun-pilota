@@ -84,64 +84,67 @@ function normalizaHora(h){
   return h.slice(0,5);
 }
 
-fetch("data/cartelera-larraun.json")
-  .then(r=>r.json())
-  .then(data=>{
+Promise.all([
+  fetch("data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales, noOficiales]) => {
 
-    const jaialdiak = {};
+  const data = [
+    ...oficiales.map(p => ({ ...p, ofiziala:true })),
+    ...noOficiales
+  ];
 
-    data.forEach(p=>{
+  const jaialdiak = {};
 
-      /* ✅ SOLO Lekunberri o Aldatz */
-      if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
+  data.forEach(p => {
 
-      const hora = normalizaHora(p.hora);
-      const key = `${p.fecha}|${hora}|${p.fronton}`;
+    /* SOLO Lekunberri o Aldatz */
+    if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
 
-      if(!jaialdiak[key]){
-        jaialdiak[key]={
-          fecha: p.fecha,
-          hora: hora,
-          fronton: p.fronton,
-          zb: 0,
-          senior: "EZ"
-        };
-      }
+    const hora = normalizaHora(p.hora);
+    const key = `${p.fecha}|${hora}|${p.fronton}`;
 
-      jaialdiak[key].zb++;
+    if(!jaialdiak[key]){
+      jaialdiak[key] = {
+        fecha: p.fecha,
+        hora: hora,
+        fronton: p.fronton,
+        zb: 0,
+        senior: "EZ"
+      };
+    }
 
-      /* ✅ Buscar ESPAINA en lehiaketa */
-      const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
-      if(SENIOR_RE.test(testua)){
-        jaialdiak[key].senior = "BAI";
-      }
+    jaialdiak[key].zb++;
+
+    const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
+    if(SENIOR_RE.test(testua)){
+      jaialdiak[key].senior = "BAI";
+    }
+  });
+
+  const tbody = document.getElementById("taula");
+
+  Object.values(jaialdiak)
+    .sort((a,b)=> new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora))
+    .forEach(j => {
+
+      const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
+      const guardado = localStorage.getItem(id) || "";
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${j.fecha}</td>
+        <td>${j.hora}</td>
+        <td>${j.fronton}</td>
+        <td><strong>${j.zb}</strong></td>
+        <td><strong>${j.senior}</strong></td>
+        <td>
+          <input value="${guardado}"
+            oninput="localStorage.setItem('${id}', this.value)">
+        </td>
+      `;
+      tbody.appendChild(tr);
     });
-
-    const tbody=document.getElementById("taula");
-
-    Object.values(jaialdiak)
-      .sort((a,b)=>{
-        return new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora);
-      })
-      .forEach(j=>{
-
-        const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
-        const guardado = localStorage.getItem(id) || "";
-
-        const tr=document.createElement("tr");
-        tr.innerHTML=`
-          <td>${j.fecha}</td>
-          <td>${j.hora}</td>
-          <td>${j.fronton}</td>
-          <td><strong>${j.zb}</strong></td>
-          <td><strong>${j.senior}</strong></td>
-          <td>
-            <input value="${guardado}"
-              oninput="localStorage.setItem('${id}',this.value)">
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
 });
 </script>
 
