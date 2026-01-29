@@ -91,7 +91,9 @@ fetch("data/cartelera-larraun.json")
     const jaialdiak = {};
 
     data.forEach(p=>{
-      if(!/lekunberri|aldatz|trinkete/i.test(p.fronton||"")) return;
+
+      /* ✅ SOLO Lekunberri o Aldatz */
+      if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
 
       const hora = normalizaHora(p.hora);
       const key = `${p.fecha}|${hora}|${p.fronton}`;
@@ -108,7 +110,9 @@ fetch("data/cartelera-larraun.json")
 
       jaialdiak[key].zb++;
 
-      if(SENIOR_RE.test(p.modalitatea||"")){
+      /* ✅ Buscar ESPAINA en lehiaketa */
+      const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
+      if(SENIOR_RE.test(testua)){
         jaialdiak[key].senior = "BAI";
       }
     });
