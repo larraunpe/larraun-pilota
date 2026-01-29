@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaialdiak – Larraun Pilota Elkartea</title>
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+  padding:20px;
+}
+
+table{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  border-collapse:collapse;
+  background:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+thead{
+  background:#7cb342;
+  color:#000;
+}
+
+th, td{
+  padding:10px;
+  border:1px solid #ccc;
+  text-align:center;
+}
+
+th{
+  font-weight:900;
+}
+
+input{
+  width:100%;
+  border:none;
+  background:#e8f5e9;
+  padding:6px;
+  font-size:1em;
+}
+
+input:focus{
+  outline:2px solid #7cb342;
+}
+
+.whatsapp{
+  font-size:.85em;
+}
+.whatsapp a{
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;color:#33691e;">JAIALDIAK</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>EGUNA</th>
+      <th>ORDUA</th>
+      <th>SENIOR</th>
+      <th>EPAILEA(K)</th>
+      <th>📲</th>
+    </tr>
+  </thead>
+  <tbody id="taula"></tbody>
+</table>
+
+<script>
+const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
+
+fetch("data/cartelera-larraun.json")
+  .then(r=>r.json())
+  .then(data=>{
+
+    const jaialdiak = {};
+
+    data.forEach(p=>{
+      if(!/lekunberri|aldatz|trinkete/i.test(p.fronton||"")) return;
+
+      const key = `${p.fecha}|${p.hora}`;
+
+      if(!jaialdiak[key]){
+        jaialdiak[key]={
+          fecha:p.fecha,
+          hora:p.hora,
+          senior:"EZ"
+        };
+      }
+
+      if(SENIOR_RE.test(p.modalitatea||"")){
+        jaialdiak[key].senior="BAI";
+      }
+    });
+
+    const tbody=document.getElementById("taula");
+
+    Object.values(jaialdiak).sort((a,b)=>{
+      return new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora);
+    }).forEach(j=>{
+      const id = `epailea_${j.fecha}_${j.hora}`;
+      const guardado = localStorage.getItem(id) || "";
+
+      const tr=document.createElement("tr");
+      tr.innerHTML=`
+        <td>${j.fecha}</td>
+        <td>${j.hora}</td>
+        <td><strong>${j.senior}</strong></td>
+        <td>
+          <input value="${guardado}"
+                 oninput="localStorage.setItem('${id}',this.value)">
+        </td>
+        <td class="whatsapp">
+          <a target="_blank"
+             href="https://wa.me/?text=${encodeURIComponent(
+               `Jaialdia ${j.fecha} ${j.hora}\nEpailea: ${guardado || '____'}`
+             )}">
+             WhatsApp
+          </a>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+});
+</script>
+
+</body>
+</html>
