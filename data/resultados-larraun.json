@@ -2956,12 +2956,14 @@
   {
     "fecha": "2026-01-30",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "kanpokoak": "PILOTAJAUKU (A. Claver - A. Unamuno)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "PILOTAJAUKU (A. Claver - A. Unamuno) CLAVER MAZKIARAN, A. UNAMUNO SANMIGUEL, A.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(3-9)(9-8)(1-3)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
@@ -3082,12 +3084,12 @@
   {
     "fecha": "2026-01-30",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
-    "kanpokoak": "LAGUNAK (O. Peña - A. Molina)",
-    "tanteoa": "",
+    "etxekoa": "LARRAUN (M. Argaña - E. Balda) ARGAÑA ARRIBILLAGA, M. BALDA ETXEBERRIA, E.",
+    "kanpokoak": "LAGUNAK (O. Peña - A. Molina) MOLINA MORA, A. PEÑA MEDINA, O.",
+    "tanteoa": "18 - 9",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KIMU 2.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3024"
   },
@@ -4052,7 +4054,7 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3078"
   },
   {
-    "fecha": "2026-02-06",
+    "fecha": "2026-02-07",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "kanpokoak": "SAN MIGUEL (I. Plaza - X. Mateo)",
