@@ -3,303 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Larraun Pilota – Aste honetako partidak</title>
+<title>Larraun – Asteko Kartela</title>
 
 <style>
-
-body {
-  margin: 0;
+body{
+  margin:0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #eaeaea;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background:
+    linear-gradient(rgba(255,255,255,.85), rgba(255,255,255,.85)),
+    url("https://larraunpilota.eus/asteko-kartela.jpg") center/cover no-repeat;
 }
 
-/* capa blanca translúcida */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.85);
-  z-index: -1;
+/* ===== CONTENEDOR ===== */
+.cartel{
+  max-width:900px;
+  margin:20px auto;
+  background:#ffffffcc;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  padding:20px 24px 30px;
 }
 
-/* CONTENEDOR */
-.cartel {
-  max-width: 900px;
-  margin: auto;
-  background: #fff;
-  padding: 30px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-  backdrop-filter: blur(2px);
+/* ===== CABECERA ===== */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+.header img{
+  height:64px;
+}
+.header h1{
+  margin:0;
+  font-size:2em;
+  letter-spacing:2px;
+  color:#004d40;
 }
 
-
-/* CABECERA */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 4px solid #b30000;
-  padding-bottom: 20px;
-  margin-bottom: 25px;
+/* ===== BLOQUES ===== */
+.bloque{
+  margin-top:26px;
 }
 
-.header img {
-  height: 80px;
+.bloque h2{
+  margin:0 0 10px;
+  font-size:1.4em;
+  color:#1b5e20;
+  border-bottom:3px solid #7cb342;
+  padding-bottom:4px;
 }
 
-.header h1 {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-  font-size: 2.2em;
-  color: #b30000;
+/* ===== GRUPO ===== */
+.grupo{
+  margin-top:14px;
+  border-radius:8px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 3px 8px rgba(0,0,0,.2);
 }
 
-/* LISTA */
-.partidos {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.grupo-header{
+  background:#e3f2fd;
+  padding:10px 14px;
+  font-weight:bold;
+  color:#0d47a1;
 }
 
-/* PARTIDO */
-.partido {
-  padding: 16px 18px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  background: #f9f9f9;
-  position: relative;
+.grupo-header span{
+  margin-right:14px;
 }
 
-.partido.oficial {
-  border-left: 6px solid #006400;
+.linea{
+  padding:8px 14px;
+  border-top:1px solid #ddd;
+  display:flex;
+  gap:10px;
+  font-size:.95em;
 }
 
-.partido.no-oficial {
-  background: #fff2f2;
-  border-left: 6px solid #b30000;
+.zkia{
+  width:26px;
+  font-weight:bold;
+  color:#333;
 }
 
-/* BADGE */
-.badge {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 0.75em;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: #b30000;
-  color: #fff;
-}
-
-/* TEXTOS */
-.fecha {
-  font-weight: bold;
-  font-size: 0.95em;
-  margin-bottom: 8px;
-}
-
-/* EQUIPOS */
-.equipos {
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.etxekoa {
-  color: #0b2c5d;
-  font-weight: bold;
-}
-
-.kanpokoak {
-  color: #b00000;
-  font-weight: bold;
-}
-
-/* LARRAUN DESTACADO */
-.larraun {
-  font-size: 1.25em;
-  text-transform: uppercase;
-}
-
-/* FRONTÓN */
-.fronton {
-  margin-top: 6px;
-  font-style: italic;
-  color: #333;
-}
-
-/* LEKUNBERRI */
-.lekunberri {
-  background: #e6f2ff;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-weight: bold;
-  color: #003366;
-}
-
-/* LEHIAKETA */
-.lehiaketa {
-  margin-top: 6px;
-  font-size: 0.9em;
-  color: #555;
-}
-
-/* FOOTER */
-.footer {
-  margin-top: 30px;
-  padding-top: 15px;
-  border-top: 2px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9em;
-  color: #444;
-}
-
-.footer img {
-  height: 50px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  .header h1 { font-size: 1.6em; }
-  .larraun { font-size: 1.15em; }
-}
+.etxekoa{color:#0d47a1;font-weight:bold;}
+.kanpokoa{color:#b71c1c;font-weight:bold;}
+.lehiaketa{flex:1;color:#333;}
 </style>
 </head>
 
 <body>
 
-  <button id="exportar"
-  style="
-    margin: 15px auto;
-    display: block;
-    padding: 10px 18px;
-    font-size: 16px;
-    background: #b30000;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;">
-📸 Descargar cartel (PNG)
-</button>
-
 <div class="cartel">
 
-  <!-- CABECERA -->
   <div class="header">
-    <img src="images/logo-larraun.png" alt="Larraun Pilota">
-    <h1>ASTE HONETAKO PARTIDAK</h1>
-    <img src="images/logo-fnp.png" alt="FNP">
+    <img src="/images/logo-larraun.png" alt="Larraun">
+    <h1>ASTEKO PARTIDUAK</h1>
+    <img src="/images/logo-fnp.png" alt="FNP">
   </div>
 
-  <!-- PARTIDOS -->
-  <div class="partidos" id="lista-partidos"></div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div>📍 Larraun Pilota Elkartea</div>
-    <div>@larraunpilota</div>
-  </div>
+  <div id="content"></div>
 
 </div>
 
 <script>
-Promise.all([
-  fetch("data/cartelera-larraun.json").then(r => r.json()),
-  fetch("data/partidos-no-oficiales.json").then(r => r.json())
-]).then(([oficiales, noOficiales]) => {
+function normalizaHora(h){
+  return h ? h.slice(0,5) : "00:00";
+}
 
-  const partidos = [
-    ...oficiales.map(p => ({ ...p, ofiziala: true })),
-    ...noOficiales.map(p => ({ ...p, ofiziala: false }))
+function agrupar(data){
+  const g={};
+  data.forEach(p=>{
+    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+    if(!g[key]) g[key]=[];
+    g[key].push(p);
+  });
+  Object.values(g).forEach(arr=>{
+    arr.sort((a,b)=>(a.zkia||0)-(b.zkia||0));
+  });
+  return g;
+}
+
+Promise.all([
+  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales,noOficiales])=>{
+
+  const bloque1 = oficiales;
+
+  const bloque2 = noOficiales.filter(p =>
+    String(p.ofiziala).toLowerCase()==="true"
+  );
+
+  const bloque3 = noOficiales.filter(p =>
+    String(p.ofiziala).toLowerCase()!=="true"
+  );
+
+  const bloques = [
+    {titulo:"ORDUTEGIAK", data:bloque1},
+    {titulo:"BESTE TXAPELKETAK OFIZIALAK", data:bloque2},
+    {titulo:"TXAPELKETAK EZ OFIZIALAK", data:bloque3}
   ];
 
-  partidos.sort((a, b) => {
-    const da = new Date(`${a.fecha} ${a.hora}`);
-    const db = new Date(`${b.fecha} ${b.hora}`);
-    return da - db;
-  });
+  const cont=document.getElementById("content");
 
-  const cont = document.getElementById("lista-partidos");
+  bloques.forEach(b=>{
+    if(!b.data.length) return;
 
-  partidos.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "partido " + (p.ofiziala ? "oficial" : "no-oficial");
+    const grupos=agrupar(b.data);
 
-    const etxekoaClass =
-      p.etxekoa.includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+    cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
+    const bloqueDiv=cont.lastChild;
 
-    const kanpokoakClass =
-      p.kanpokoak.includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
-
-    const frontonClass =
-      p.fronton.includes("Lekunberri") ? "fronton lekunberri" : "fronton";
-
-    div.innerHTML = `
-      ${p.ofiziala ? "" : `<div class="badge">EZ OFIZIALA</div>`}
-      <div class="fecha">🗓 ${p.fecha} · ⏰ ${p.hora}</div>
-
-      <div class="equipos">
-        <div class="${etxekoaClass}">🏠 ${p.etxekoa}</div>
-        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak}</div>
-      </div>
-
-      <div class="${frontonClass}">📍 ${p.fronton}</div>
-      <div class="lehiaketa">🏆 ${p.lehiaketa || ""}</div>
-    `;
-
-    cont.appendChild(div);
-  });
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
-document.getElementById("exportar").addEventListener("click", () => {
-  const cartel = document.querySelector(".cartel");
-
-  html2canvas(cartel, {
-    scale: 2,          // más calidad
-    useCORS: true,
-    backgroundColor: "#ffffff"
-  }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "cartelera-larraun.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  });
-});
-</script>
-
-<script>
-(function fondoSemanal() {
-  const fondos = [
-    "images/fondos/frontona.jpeg",
-    "images/fondos/frontonlekun3.jpeg",
-    "images/fondos/jaianjaiv.png",
-    "images/fondos/labrit.jpeg",
-    "images/fondos/pelotas.jpg",
-    "images/fondos/remonte.jpeg",
-    "images/fondos/tacos.jpeg"
-    ];
-
-  // calcular semana del año
-  const hoy = new Date();
-  const inicioAno = new Date(hoy.getFullYear(), 0, 1);
-  const dias = Math.floor((hoy - inicioAno) / 86400000);
-  const semana = Math.floor((dias + inicioAno.getDay()) / 7);
-
-  const fondo = fondos[semana % fondos.length];
-  document.body.style.backgroundImage = `url('${fondo}')`;
-})();
-</script>
-
-
-
-</body>
-</html>
+    Object.entries(grupos).forEach(([key,partidos])=>{
+      const p0=partidos[0];
+      bloqueDiv.innerHTML+=`
+        <div class="grupo">
+          <div class="grupo-header">
+            <span>📅 ${p0.fecha}</span>
+            <span>⏰ ${normalizaHora(p0.hora)}</span>
+            <span>📍 ${p0.fro
