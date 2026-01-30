@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Asteko Partiduak</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f2f2f2;
+}
+
+.cartel{
+  max-width:900px;
+  margin:20px auto;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  padding:20px;
+}
+
+/* ===== BLOQUES ===== */
+.bloque{
+  margin-top:24px;
+}
+
+.bloque h2{
+  margin:0 0 10px;
+  color:#1a237e;
+  border-bottom:3px solid #7986cb;
+  padding-bottom:4px;
+}
+
+/* ===== GRUPO ===== */
+.grupo{
+  margin-top:14px;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 3px 10px rgba(0,0,0,.2);
+}
+
+/* CABECERAS */
+.grupo-header{
+  padding:10px 14px;
+  color:white;
+  font-weight:bold;
+}
+
+.header-azul{ background:#1976d2; }
+.header-rojo{ background:#ef9a9a; color:#4a0000; }
+
+.header-azul .lekua,
+.header-rojo .lekua{
+  display:block;
+  margin-top:4px;
+}
+
+.lekua-destacado{
+  font-weight:800;
+  font-style:italic;
+}
+
+/* ===== PARTIDOS ===== */
+.partido{
+  padding:10px 14px;
+  border-top:1px solid #ddd;
+}
+
+.equipo{
+  font-weight:bold;
+  line-height:1.3;
+}
+
+.azul{ color:#0d47a1; }
+.rojo{ color:#b71c1c; }
+
+.larraun{
+  font-size:1.1em;
+  text-transform:uppercase;
+}
+
+/* LEHIAKETA */
+.lehiaketa{
+  margin-top:6px;
+  font-size:.9em;
+}
+
+.fase{
+  font-weight:800;
+  margin-top:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+  <div id="contenido"></div>
+</div>
+
+<script>
+function normalizaHora(h){
+  return h ? h.slice(0,5) : "00:00";
+}
+
+function esLekunberriAldatz(fronton){
+  return /lekunberri|aldatz/i.test(fronton);
+}
+
+function detectarFase(texto){
+  const fases = [
+    "FINAL LAURDENEN LIGAXKA",
+    "FINAL LAURDENAK",
+    "FINAL AURREKOAK",
+    "FINALA",
+    "LIGAXKA",
+    "KANPORAKETA",
+    "KAMPORAKETA"
+  ];
+  for(const f of fases){
+    if(texto.toUpperCase().includes(f)) return f;
+  }
+  return "";
+}
+
+function limpiarLehiaketa(texto, fase){
+  return fase ? texto.replace(new RegExp(fase,"i"),"").trim() : texto;
+}
+
+function agrupar(data){
+  const g={};
+  data.forEach(p=>{
+    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+    if(!g[key]) g[key]=[];
+    g[key].push(p);
+  });
+  Object.values(g).forEach(a=>a.sort((x,y)=>(x.zkia||0)-(y.zkia||0)));
+  return g;
+}
+
+/* === CARGA DE DATOS === */
+fetch("/data/cartelera-larraun.json")
+.then(r=>r.json())
+.then(data=>{
+
+  const cont=document.getElementById("contenido");
+  const grupos=agrupar(data);
+
+  Object.entries(grupos).forEach(([key,partidos])=>{
+    const p0=partidos[0];
+    const esEspecial=esLekunberriAldatz(p0.fronton);
+
+    const headerClass = esEspecial ? "header-azul" : "header-rojo";
+    const lekuaClass = esEspecial ? "lekua-destacado" : "";
+
+    let html=`
+      <div class="grupo">
+        <div class="grupo-header ${headerClass}">
+          📅 ${p0.fecha} · ⏰ ${normalizaHora(p0.hora)}
+          <span class="lekua ${lekuaClass}">📍 ${p0.fronton}</span>
+        </div>
+    `;
+
+    partidos.forEach(p=>{
+      const etxeLarraun=/larraun/i.test(p.etxekoa||"");
+      const kanpoLarraun=/larraun/i.test(p.kanpokoak||"");
+
+      const fase=detectarFase(p.lehiaketa||"");
+      const base=limpiarLehiaketa(p.lehiaketa||"",fase);
+
+      html+=`
+        <div class="partido">
+          <div class="equipo azul ${etxeLarraun?'larraun':''}">
+            ${p.etxekoa||""}
+          </div>
+          <div class="equipo rojo ${kanpoLarraun?'larraun':''}">
+            ${p.kanpokoak||""}
+          </div>
+          <div class="lehiaketa">
+            ${base}
+            ${fase ? `<div class="fase">${fase}</div>` : ``}
+          </div>
+        </div>
+      `;
+    });
+
+    html+=`</div>`;
+    cont.innerHTML+=html;
+  });
+});
+</script>
+
+</body>
+</html>
