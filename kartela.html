@@ -14,7 +14,6 @@ body{
     url("https://larraunpilota.eus/asteko-kartela.jpg") center/cover no-repeat;
 }
 
-/* ===== CONTENEDOR ===== */
 .cartel{
   max-width:900px;
   margin:20px auto;
@@ -24,7 +23,7 @@ body{
   padding:20px 24px 30px;
 }
 
-/* ===== CABECERA ===== */
+/* CABECERA */
 .header{
   display:flex;
   align-items:center;
@@ -39,7 +38,7 @@ body{
   color:#004d40;
 }
 
-/* ===== BLOQUES ===== */
+/* BLOQUES */
 .bloque{margin-top:26px;}
 .bloque h2{
   margin:0 0 10px;
@@ -49,7 +48,7 @@ body{
   padding-bottom:4px;
 }
 
-/* ===== GRUPO ===== */
+/* GRUPO */
 .grupo{
   margin-top:14px;
   border-radius:8px;
@@ -64,32 +63,43 @@ body{
   font-weight:bold;
   color:#0d47a1;
 }
-
 .grupo-header.rojo{
   background:#f8d7da;
   color:#842029;
 }
-
 .grupo-header span{margin-right:14px;}
 
+/* LINEA PARTIDO */
 .linea{
   padding:8px 14px;
   border-top:1px solid #ddd;
   display:flex;
+  align-items:flex-start;
   gap:10px;
   font-size:.95em;
-  align-items:center;
-}
-
-.linea.doble{
-  flex-direction:column;
-  align-items:flex-start;
 }
 
 .zkia{
   width:26px;
   font-weight:bold;
   color:#333;
+  flex-shrink:0;
+}
+
+/* EQUIPOS */
+.equipos{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.equipos .fila1{
+  display:flex;
+  gap:10px;
+}
+
+.equipos .fila2{
+  margin-top:2px;
 }
 
 .etxekoa{color:#0d47a1;font-weight:bold;}
@@ -100,7 +110,12 @@ body{
   font-size:1.05em;
 }
 
-.lehiaketa{flex:1;color:#333;}
+/* LEHIAKETA */
+.lehiaketa{
+  flex:1;
+  color:#333;
+  text-align:right;
+}
 
 .fase{
   font-weight:bold;
@@ -140,6 +155,10 @@ function detectarFase(t){
     if(t.toUpperCase().includes(f)) return f;
   }
   return "";
+}
+
+function limpiarLehiaketa(t,f){
+  return f ? t.replace(new RegExp(f,"i"),"").trim() : t;
 }
 
 function ordenar(data){
@@ -183,7 +202,6 @@ Promise.all([
     if(!b.data.length) return;
 
     const grupos=agrupar(b.data);
-
     cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
     const bloqueDiv=cont.lastChild;
 
@@ -198,31 +216,44 @@ Promise.all([
             <span>⏰ ${normalizaHora(p0.hora)}</span>
             <span>📍 ${p0.fronton}</span>
           </div>
+
           ${partidos.map(p=>{
             const textoEquipos=(p.etxekoa||"")+" "+(p.kanpokoak||"");
             const doble=textoEquipos.length>60;
             const fase=detectarFase(p.lehiaketa||"");
+            const lehiaketaLimpia=limpiarLehiaketa(p.lehiaketa||"",fase);
 
             return `
-            <div class="linea ${doble?'doble':''}">
+            <div class="linea">
               <div class="zkia">${p.zkia}</div>
 
-              <div class="etxekoa ${/larraun/i.test(p.etxekoa||"")?'larraun':''}">
-                ${p.etxekoa||""}
-              </div>
-
-              <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
-                ${p.kanpokoak||""}
+              <div class="equipos">
+                <div class="fila1">
+                  <div class="etxekoa ${/larraun/i.test(p.etxekoa||"")?'larraun':''}">
+                    ${p.etxekoa||""}
+                  </div>
+                </div>
+                ${doble?`
+                <div class="fila2">
+                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
+                    ${p.kanpokoak||""}
+                  </div>
+                </div>`:
+                `<div class="fila1">
+                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
+                    ${p.kanpokoak||""}
+                  </div>
+                </div>`}
               </div>
 
               <div class="lehiaketa">
-                ${p.lehiaketa||""}
+                ${lehiaketaLimpia}
                 ${fase?` <span class="fase">(${fase})</span>`:""}
               </div>
             </div>`;
           }).join("")}
-        </div>
-      `;
+
+        </div>`;
     });
   });
 });
