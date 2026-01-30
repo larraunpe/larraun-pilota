@@ -3,13 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Larraun Pilota Elkartea – Jaialdiak</title>
-<link rel="icon" type="image/png" href="/epailea.jpg">
-<meta property="og:title" content="Jaialdiak – Larraun Pilota Elkartea">
-<meta property="og:description" content="Aste honetako partidak Larraunen">
-<meta property="og:image" content="https://larraunpilota.eus/epailea.jpg">
-<meta property="og:url" content="https://larraunpilota.eus/jaialdiak.html">
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
 <style>
@@ -17,6 +10,12 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   background:#f4f4f4;
   padding:20px;
+}
+
+h1{
+  text-align:center;
+  color:#33691e;
+  margin-bottom:20px;
 }
 
 table{
@@ -30,7 +29,6 @@ table{
 
 thead{
   background:#7cb342;
-  color:#000;
 }
 
 th, td{
@@ -50,38 +48,61 @@ input{
   padding:6px;
   font-size:1em;
 }
-  /* ===== FILAS SENIOR ===== */
-tr.senior-bai{
-  background: linear-gradient(90deg, #00fff, #0000ff);
-  box-shadow: inset 6px 0 0 #f9a825;
-}
-
-tr.senior-bai td{
-  font-weight:700;
-}
-
-/* Texto SENIOR */
-.senior-bai-text{
-  color:#e65100;
-}
-/* ===== TRINKETE ===== */
-tr.trinkete{
-  background:#fce4ec;
-  box-shadow: inset 6px 0 0 #ad1457;
-}
-
 
 input:focus{
   outline:2px solid #7cb342;
 }
 
-.whatsapp{
-  font-size:.85em;
+/* ===== SOMBREADO SOLO SI SENIOR ===== */
+tr.senior-bai{
+  background: linear-gradient(90deg, #fffde7, #ffffff);
 }
-.whatsapp a{
-  text-decoration:none;
+
+/* ===== LATERAL SEGÚN LEKUA ===== */
+tr.lateral-jaianjai{
+  box-shadow: inset 6px 0 0 #1565c0;
 }
-  /* ===== OHARRA ===== */
+
+tr.lateral-trinkete{
+  box-shadow: inset 6px 0 0 #2e7d32;
+}
+
+tr.lateral-default{
+  box-shadow: inset 6px 0 0 #3f51b5;
+}
+
+/* ===== TEXTO LEKUA ===== */
+.lekua-jaianjai{
+  background:#e3f2fd;
+  color:#0d47a1;
+  font-weight:700;
+  padding:4px 6px;
+  border-radius:6px;
+}
+
+.lekua-trinkete{
+  background:#e8f5e9;
+  color:#1b5e20;
+  font-weight:700;
+  padding:4px 6px;
+  border-radius:6px;
+}
+
+.lekua-default{
+  background:#e8eaf6;
+  color:#1a237e;
+  font-weight:700;
+  padding:4px 6px;
+  border-radius:6px;
+}
+
+/* ===== SENIOR TEXTO ===== */
+.senior-bai-text{
+  color:#e65100;
+  font-weight:900;
+}
+
+/* ===== OHARRA ===== */
 .oharra{
   max-width:900px;
   margin:14px auto 0;
@@ -92,32 +113,30 @@ input:focus{
   border-left:6px solid #7cb342;
   border-radius:6px;
 }
-
 </style>
 </head>
 
 <body>
 
-<h1 style="text-align:center;color:#33691e;">JAIALDIAK</h1>
+<h1>JAIALDIAK</h1>
 
 <table>
   <thead>
-  <tr>
-    <th>EGUNA</th>
-    <th>ORDUA</th>
-    <th>LEKUA</th>
-    <th>ZB</th>
-    <th>SENIOR</th>
-    <th>EPAILEA(K)</th>
-  </tr>
-</thead>
-<tbody id="taula"></tbody>
-
+    <tr>
+      <th>EGUNA</th>
+      <th>ORDUA</th>
+      <th>LEKUA</th>
+      <th>ZB</th>
+      <th>SENIOR</th>
+      <th>EPAILEA(K)</th>
+    </tr>
+  </thead>
+  <tbody id="taula"></tbody>
 </table>
-  <div class="oharra">
+
+<div class="oharra">
   * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri
 </div>
-
 
 <script>
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
@@ -171,33 +190,51 @@ Promise.all([
     .sort((a,b)=> new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora))
     .forEach(j => {
 
-      const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
-      const guardado = localStorage.getItem(id) || "";
-
       const tr = document.createElement("tr");
 
-if(j.senior === "BAI"){
-  tr.classList.add("senior-bai");
-}
+      /* Sombreado SOLO si SENIOR */
+      if(j.senior === "BAI"){
+        tr.classList.add("senior-bai");
+      }
 
-if(/trinkete/i.test(j.fronton)){
-  tr.classList.add("trinkete");
-}
+      /* Lateral según LEKUA */
+      if(/lekunberri\s*-\s*jaian\s*jai/i.test(j.fronton)){
+        tr.classList.add("lateral-jaianjai");
+      }
+      else if(/lekunberri\s*-\s*trinkete/i.test(j.fronton)){
+        tr.classList.add("lateral-trinkete");
+      }
+      else{
+        tr.classList.add("lateral-default");
+      }
+
+      const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
+      const guardado = localStorage.getItem(id) || "";
 
       tr.innerHTML = `
         <td>${j.fecha}</td>
         <td>${j.hora}</td>
-        <td>${j.fronton}</td>
+        <td>
+          <span class="${
+            /lekunberri\s*-\s*jaian\s*jai/i.test(j.fronton)
+              ? 'lekua-jaianjai'
+              : /lekunberri\s*-\s*trinkete/i.test(j.fronton)
+                ? 'lekua-trinkete'
+                : 'lekua-default'
+          }">
+            ${j.fronton}
+          </span>
+        </td>
         <td><strong>${j.zb}</strong></td>
         <td class="${j.senior === 'BAI' ? 'senior-bai-text' : ''}">
-  <strong>${j.senior}</strong>
-</td>
-
+          <strong>${j.senior}</strong>
+        </td>
         <td>
           <input value="${guardado}"
             oninput="localStorage.setItem('${id}', this.value)">
         </td>
       `;
+
       tbody.appendChild(tr);
     });
 });
