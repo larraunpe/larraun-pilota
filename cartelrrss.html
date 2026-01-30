@@ -164,4 +164,22 @@ Promise.all([
           <div class="grupo-header">
             <span>📅 ${p0.fecha}</span>
             <span>⏰ ${normalizaHora(p0.hora)}</span>
-            <span>📍 ${p0.fro
+            <span>📍 ${p0.fronton}</span>
+          </div>
+          ${partidos.map(p=>`
+            <div class="linea">
+              <div class="zkia">${p.zkia}</div>
+              <div class="etxekoa">${p.etxekoa||""}</div>
+              <div class="kanpokoa">${p.kanpokoak||""}</div>
+              <div class="lehiaketa">${p.lehiaketa||""}</div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    });
+  });
+});
+</script>
+
+</body>
+</html>
