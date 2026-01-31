@@ -340,6 +340,83 @@ section {
   font-weight: bold;
   font-size: 0.95em;
 }
+/* ===== TEMPORADAS ===== */
+.temporadas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.temporada-card {
+  background: #111;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease;
+}
+
+.temporada-card:hover {
+  transform: translateY(-4px);
+}
+
+/* VIDEO */
+.temporada-video {
+  position: relative;
+  display: block;
+}
+
+.temporada-video img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.temporada-video .play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4em;
+  color: rgba(255,255,255,0.9);
+}
+
+/* INFO */
+.temporada-info {
+  padding: 18px;
+  color: white;
+}
+
+.temporada-info h3 {
+  margin: 0 0 12px;
+}
+
+/* LINKS */
+.temporada-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.temporada-links a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.temporada-links .fb {
+  background: #1877f2;
+  color: white;
+}
+
+.temporada-links .yt {
+  background: #ff0000;
+  color: white;
+}
 
 /* ===== MENÚ ===== */
 nav {
@@ -1863,6 +1940,43 @@ function openImage(src) {
     <div style="font-weight:bold; margin-bottom:6px;" class="eu">Jaian Jai 1900</div>
     <img src="images/galeria/foto3.jpg" alt="Cartel semanal" onclick="openImage(this.src)">
   </div>
+
+    <div class="temporada-card">
+
+  <!-- MINIATURA YOUTUBE -->
+  <a href="https://www.youtube.com/watch?v=OsV9NTw38Vs"
+     target="_blank"
+     class="temporada-video">
+    <img src="https://img.youtube.com/vi/OsV9NTw38Vs/hqdefault.jpg"
+         alt="Temporada 2024-2025 - Larraun Pilota Elkartea">
+    <span class="play">▶</span>
+  </a>
+
+  <!-- INFO -->
+  <div class="temporada-info">
+    <h3>Temporada 2024-2025</h3>
+
+    <div class="temporada-links">
+      <a href="https://www.facebook.com/ID_ALBUM_2024"
+         target="_blank"
+         class="fb">
+        📸 Álbum de fotos
+      </a>
+
+      <a href="https://www.youtube.com/watch?v=OsV9NTw38Vs"
+         target="_blank"
+         class="yt">
+        ▶ Vídeo completo
+      </a>
+    </div>
+  </div>
+
+</div>
+
+ <div class="temporadas-grid">
+  <!-- tarjetas -->
+</div>
+
 </div>
   <p class="es">
   ℹ️ Estos son los enlaces directos a los <strong>álbumes del Facebook</strong> desde el PC.</p>
