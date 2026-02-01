@@ -48,5 +48,17 @@
     "url": ""
   },
   {     "fecha": "2026-01-24",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "NAJERINO PROMESAS",     "tanteoa": "2-0",     "sets": ["10-4 / 10-4"],     "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",     "emaitza": "irabazita",     "ofiziala": "true",     "url": ""   },
-  {     "fecha": "2026-01-24",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "NAJERINO PROMESAS",     "tanteoa": "2-0",     "sets": ["10-0 / 10 -1"],     "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",     "emaitza": "irabazita",     "ofiziala": "true",     "url": "-"   }
+  {     "fecha": "2026-01-24",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "NAJERINO PROMESAS",     "tanteoa": "2-0",     "sets": ["10-0 / 10 -1"],     "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",     "emaitza": "irabazita",     "ofiziala": "true",     "url": "-"   },
+  {
+    "fecha": "2026-02-01",
+    "fronton": "Zizur – Fronton nagusia",
+    "etxekoa": "-",
+    "kanpokoak": "LARRAUN (Ijurko)",
+    "tanteoa": "18-15",
+    "sets": [""],
+    "modalidad": "ZIZUR 4 TXAPELKETA KADETE (2010) KANPORAKETA",
+    "emaitza": "irabazita",
+    "ofiziala": "false",
+    "url": ""
+  }
 ]
