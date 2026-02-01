@@ -29,7 +29,7 @@ body{
   position:relative;
   max-width:900px;
   margin:20px auto;
-  background:#ffffffee;
+  background:rgba(255,255,255,.92);
   border-radius:12px;
   box-shadow:0 8px 20px rgba(0,0,0,.3);
   padding:20px 24px 30px;
@@ -52,6 +52,16 @@ body{
 .cartel > *{
   position:relative;
   z-index:1;
+}
+.grupo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,.08) 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.06) 2px, transparent 3px),
+    radial-gradient(circle at 40% 80%, rgba(0,0,0,.05) 2px, transparent 3px);
+  pointer-events:none;
 }
 
 /* ===== BOTÓN JPG ===== */
@@ -103,9 +113,15 @@ body{
   margin-top:14px;
   border-radius:8px;
   overflow:hidden;
-  background:#ffffffdd;
-  box-shadow:0 3px 8px rgba(0,0,0,.2);
+
+  /* Fondo de pared de frontón */
+  background:
+    linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.88)),
+    url("https://larraunpilota.eus/fronton-fondo.jpg") center/cover no-repeat;
+
+  box-shadow:0 3px 8px rgba(0,0,0,.25);
 }
+
 
 .grupo-header{
   background:#e3f2fd;
