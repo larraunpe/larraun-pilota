@@ -12,6 +12,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type"]
 }));
 app.use(express.json());
+app.options("*", cors());
 
 const dataPath = path.resolve("./data");
 
