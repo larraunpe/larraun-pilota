@@ -36,17 +36,6 @@ body{
   overflow:hidden;
 }
 
-/* FONDO FRONTÓN */
-.cartel::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    url("/images/fronton-wall.jpg") center/cover no-repeat;
-  opacity:.12;
-  filter:grayscale(100%) contrast(110%);
-  z-index:0;
-}
 
 /* CONTENIDO REAL */
 .cartel > *{
@@ -110,6 +99,7 @@ body{
 
 /* ===== GRUPO ===== */
 .grupo{
+  position:relative;
   margin-top:14px;
   border-radius:8px;
   overflow:hidden;
