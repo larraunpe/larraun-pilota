@@ -1,4 +1,4 @@
-const API = "https://larraun-api.onrender.com";
+const API = "https://larraun-api.onrender.com/partidos";
 
 document.getElementById("partidoForm").addEventListener("submit", async e => {
   e.preventDefault();
