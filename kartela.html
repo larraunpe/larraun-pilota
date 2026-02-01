@@ -52,6 +52,14 @@ body{
     radial-gradient(circle at 40% 80%, rgba(0,0,0,.05) 2px, transparent 3px);
   pointer-events:none;
 }
+.grupo::after{
+  z-index:1;
+}
+
+.grupo > *{
+  position:relative;
+  z-index:2;
+}
 
 /* ===== BOTÓN JPG ===== */
 .exportar{
@@ -106,8 +114,9 @@ body{
 
   /* Fondo de pared de frontón */
   background:
-    linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.88)),
+    linear-gradient(rgba(255,255,255,.65), rgba(255,255,255,.65)),
     url("https://larraunpilota.eus/fronton-fondo.jpg") center/cover no-repeat;
+  background-blend-mode: multiply;
 
   box-shadow:0 3px 8px rgba(0,0,0,.25);
 }
