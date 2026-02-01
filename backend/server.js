@@ -1,3 +1,41 @@
+import fetch from "node-fetch";
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const REPO = process.env.GITHUB_REPO;
+const BRANCH = process.env.GITHUB_BRANCH || "main";
+
+async function getFile(path) {
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,
+    {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    }
+  );
+  return await res.json();
+}
+
+async function saveFile(path, content, sha, message) {
+  await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${path}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message,
+        content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
+        sha,
+        branch: BRANCH
+      })
+    }
+  );
+}
+
 import express from "express";
 import cors from "cors";
 import fs from "fs-extra";
