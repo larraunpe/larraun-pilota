@@ -67,12 +67,30 @@ app.get("/partidos", async (req, res) => {
 
 // Añadir partido
 app.post("/partidos", async (req, res) => {
-  const partido = req.body;
-  const data = await fs.readJson(partidosFile);
-  data.push(partido);
-  await fs.writeJson(partidosFile, data, { spaces: 2 });
-  res.json({ ok: true });
+  try {
+    const nuevo = req.body;
+
+    const file = await getFile("data/partidos-no-oficiales.json");
+    const data = JSON.parse(
+      Buffer.from(file.content, "base64").toString()
+    );
+
+    data.push(nuevo);
+
+    await saveFile(
+      "data/partidos-no-oficiales.json",
+      data,
+      file.sha,
+      "Añadir partido desde formulario"
+    );
+
+    res.json({ ok: true });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "No se pudo guardar el partido" });
+  }
 });
+
 
 /* ---- RESULTADOS ---- */
 
@@ -84,12 +102,30 @@ app.get("/resultados", async (req, res) => {
 
 // Añadir resultado
 app.post("/resultados", async (req, res) => {
-  const resultado = req.body;
-  const data = await fs.readJson(resultadosFile);
-  data.push(resultado);
-  await fs.writeJson(resultadosFile, data, { spaces: 2 });
-  res.json({ ok: true });
+  try {
+    const nuevo = req.body;
+
+    const file = await getFile("data/resultados-no-oficiales.json");
+    const data = JSON.parse(
+      Buffer.from(file.content, "base64").toString()
+    );
+
+    data.push(nuevo);
+
+    await saveFile(
+      "data/resultados-no-oficiales.json",
+      data,
+      file.sha,
+      "Añadir resultado desde formulario"
+    );
+
+    res.json({ ok: true });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "No se pudo guardar el resultado" });
+  }
 });
+
 
 app.listen(PORT, () => {
   console.log(`API Larraun funcionando en puerto ${PORT}`);
