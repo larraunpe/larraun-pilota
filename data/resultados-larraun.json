@@ -3796,12 +3796,14 @@
   {
     "fecha": "2026-02-01",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez) GOMEZ BASURTO, A. GOÑI AZNAREZ, O.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(15-7)(14-15)(3-10)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
