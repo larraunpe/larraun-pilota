@@ -11,15 +11,19 @@ document.getElementById("partidoForm").addEventListener("submit", async e => {
     etxekoa: document.getElementById("etxekoa").value,
     kanpokoak: document.getElementById("kanpokoak").value,
     lehiaketa: document.getElementById("lehiaketa").value,
-    ofiziala: document.getElementById("ofiziala").value
+    ofiziala: document.getElementById("ofiziala").value === "true"
   };
 
-  await fetch(`${API}/partidos`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(partido)
-});
+  const res = await fetch(`${API}/partidos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(partido)
+  });
 
+  if (!res.ok) {
+    alert("❌ Error guardando partido");
+    return;
+  }
 
   alert("Partido guardado ✔️");
   e.target.reset();
