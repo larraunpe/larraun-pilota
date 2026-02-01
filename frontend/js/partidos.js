@@ -1,4 +1,4 @@
-const API = "https://larraun-api.onrender.com/partidos";
+const API = "https://larraun-api.onrender.com";
 
 document.getElementById("partidoForm").addEventListener("submit", async e => {
   e.preventDefault();
@@ -15,10 +15,11 @@ document.getElementById("partidoForm").addEventListener("submit", async e => {
   };
 
   await fetch(`${API}/partidos`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(partido)
-  });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(partido)
+});
+
 
   alert("Partido guardado ✔️");
   e.target.reset();
