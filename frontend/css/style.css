@@ -1,0 +1,100 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  background: #f5f6f8;
+  color: #222;
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+/* Formularios */
+form {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+input,
+select,
+textarea,
+button {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0.7rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2c7be5;
+}
+
+/* Botones */
+button {
+  background: #2c7be5;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1a68d1;
+}
+
+/* Lista de partidos */
+#lista {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#lista > div {
+  background: #ffffff;
+  padding: 0.9rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+#lista strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+#lista button {
+  margin-top: 0.5rem;
+  background: #28a745;
+}
+
+#lista button:hover {
+  background: #1f8a38;
+}
+
+/* Ajustes desktop */
+@media (min-width: 768px) {
+  body {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
