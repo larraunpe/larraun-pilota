@@ -1,4 +1,4 @@
-const API = "https://TU-BACKEND.onrender.com";
+const API = "https://larraun-api.onrender.com";
 const lista = document.getElementById("lista");
 
 fetch(`${API}/partidos`)
