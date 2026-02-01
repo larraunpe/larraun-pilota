@@ -1,1 +1,54 @@
-
+[ 
+  {
+    "fecha": "2026-01-09",
+    "fronton": "Elgoibar",
+    "etxekoa": "Nazabal (LARRAUN) – Artetxe",
+    "kanpokoak": "Izagirre – Ormatxea",
+    "tanteoa": "17-22",
+    "sets": [""],
+    "modalidad": "SAN ANTON PILOTA TXAPELKETA. PROMESA MUTILAK. FINALAURREKOA",
+    "emaitza": "17-22",
+    "ofiziala": "false",
+    "url": "-"
+  },
+  {
+    "fecha": "2026-01-10",
+    "fronton": "Pamplona – Oberena 2",
+    "etxekoa": "OBERENA", 
+    "kanpokoak": "LARRAUN",
+    "tanteoa": "2-0",
+    "sets": [],
+    "modalidad": "ESPAINAKO TXAPELKETA OHOREZKO MAILA ",
+    "emaitza": "galduta",
+    "ofiziala": "true",
+    "url": "https://www.facebook.com/photo/?fbid=1498635188931107&set=pcb.1498635358931090"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAK",
+    "kanpokoak": "PELOTA 22",
+    "tanteoa": "2-0",
+    "sets": ["10-0 / 10 -2"],
+    "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",
+    "emaitza": "irabazita",
+    "ofiziala": "true",
+    "url": ""
+  },
+{
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN PROMESAK",
+    "kanpokoak": "PELOTA 22",
+    "tanteoa": "2-0",
+    "sets": ["10-0 / 10 -2"],
+    "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",
+    "emaitza": "irabazita",
+    "ofiziala": "true",
+    "url": ""
+  },
+  {     "fecha": "2026-01-24",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "NAJERINO PROMESAS",     "tanteoa": "2-0",     "sets": ["10-4 / 10-4"],     "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA ",     "emaitza": "irabazita",     "ofiziala": "true",     "url": ""   },
+  {     "fecha": "2026-01-24",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "NAJERINO PROMESAS",     "tanteoa": "2-0",     "sets": ["10-0 / 10 -1"],     "modalidad": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA ",     "emaitza": "irabazita",     "ofiziala": "true",     "url": "-"   },
+  {     "fecha": "2026-02-01",     "fronton": "Zizur – Fronton nagusia",     "etxekoa": "LARRAUN (Ijurko)",     "kanpokoak": "LEZKAO (Saez de Asteasu)",     "tanteoa": "18-15",     "sets": [],     "modalidad": "ZIZUR 4 TXAPELKETA KADETE (2010) KANPORAKETA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": "https://www.facebook.com/100075420652664/videos/953029450570159"   },
+  {     "fecha": "2026-02-01",     "fronton": "Zizur – Fronton txiki",     "etxekoa": "BEHAR ZANA (Larrañaga)",     "kanpokoak": "LARRAUN (Balda)",     "tanteoa": "16-13",     "sets": [],     "modalidad": "ZIZUR 4 TXAPELKETA KIMU (2015) KANPORAKETA",     "emaitza": "galduta",     "ofiziala": "false",     "url": ""   }
+]
