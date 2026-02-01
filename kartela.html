@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
 <meta property="og:image" content="https://larraunpilota.eus/preview-escritorio.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -14,25 +14,66 @@
 
 <title>Larraun – Asteko Kartela</title>
 
+<!-- html2canvas -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
 body{
   margin:0;
   font-family: Arial, Helvetica, sans-serif;
-  background:
-    linear-gradient(rgba(255,255,255,.85), rgba(255,255,255,.85)),
-    url("https://larraunpilota.eus/asteko-kartela.jpg") center/cover no-repeat;
+  background:#e0e0e0;
 }
 
+/* ===== CARTEL ===== */
 .cartel{
+  position:relative;
   max-width:900px;
   margin:20px auto;
-  background:#ffffffcc;
+  background:#ffffffee;
   border-radius:12px;
   box-shadow:0 8px 20px rgba(0,0,0,.3);
   padding:20px 24px 30px;
+  overflow:hidden;
 }
 
-/* CABECERA */
+/* FONDO FRONTÓN */
+.cartel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    url("/images/fronton-wall.jpg") center/cover no-repeat;
+  opacity:.12;
+  filter:grayscale(100%) contrast(110%);
+  z-index:0;
+}
+
+/* CONTENIDO REAL */
+.cartel > *{
+  position:relative;
+  z-index:1;
+}
+
+/* ===== BOTÓN JPG ===== */
+.exportar{
+  text-align:center;
+  margin-bottom:14px;
+}
+.exportar button{
+  background:#1b5e20;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  font-size:.95em;
+  border-radius:20px;
+  cursor:pointer;
+  box-shadow:0 3px 6px rgba(0,0,0,.3);
+}
+.exportar button:hover{
+  background:#2e7d32;
+}
+
+/* ===== CABECERA ===== */
 .header{
   display:flex;
   align-items:center;
@@ -47,7 +88,7 @@ body{
   color:#004d40;
 }
 
-/* BLOQUES */
+/* ===== BLOQUES ===== */
 .bloque{margin-top:26px;}
 .bloque h2{
   margin:0 0 10px;
@@ -57,12 +98,12 @@ body{
   padding-bottom:4px;
 }
 
-/* GRUPO */
+/* ===== GRUPO ===== */
 .grupo{
   margin-top:14px;
   border-radius:8px;
   overflow:hidden;
-  background:#fff;
+  background:#ffffffdd;
   box-shadow:0 3px 8px rgba(0,0,0,.2);
 }
 
@@ -78,12 +119,11 @@ body{
 }
 .grupo-header span{margin-right:14px;}
 
-/* LINEA PARTIDO */
+/* ===== LINEA PARTIDO ===== */
 .linea{
   padding:8px 14px;
   border-top:1px solid #ddd;
   display:flex;
-  align-items:flex-start;
   gap:10px;
   font-size:.95em;
 }
@@ -92,23 +132,6 @@ body{
   width:26px;
   font-weight:bold;
   color:#333;
-  flex-shrink:0;
-}
-
-/* EQUIPOS */
-.equipos{
-  display:flex;
-  flex-direction:column;
-  flex:1;
-}
-
-.equipos .fila1{
-  display:flex;
-  gap:10px;
-}
-
-.equipos .fila2{
-  margin-top:2px;
 }
 
 .etxekoa{color:#0d47a1;font-weight:bold;}
@@ -119,27 +142,27 @@ body{
   font-size:1.05em;
 }
 
-/* LEHIAKETA */
 .lehiaketa{
-  flex:1;
-  color:#333;
+  margin-left:auto;
   text-align:right;
 }
 
-.fase{
-  font-weight:bold;
-}
+.fase{font-weight:bold;}
 </style>
 </head>
 
 <body>
 
-<div class="cartel">
+<div class="exportar">
+  <button onclick="exportarJPG()">📸 DESKARGATU KARTELA (JPG)</button>
+</div>
+
+<div class="cartel" id="kartela">
 
   <div class="header">
-    <img src="/images/logo-larraun.png" alt="Larraun">
+    <img src="/images/logo-larraun.png">
     <h1>ASTEKO PARTIDUAK</h1>
-    <img src="/images/logo-fnp.png" alt="FNP">
+    <img src="/images/logo-fnp.png">
   </div>
 
   <div id="content"></div>
@@ -147,125 +170,17 @@ body{
 </div>
 
 <script>
-function normalizaHora(h){
-  return h ? h.slice(0,5) : "00:00";
-}
-
-function detectarFase(t){
-  const fases=[
-    "FINAL LAURDENAK",
-    "FINAL AURREKOAK",
-    "FINALA",
-    "LIGAXKA",
-    "KANPORAKETA",
-    "KAMPORAKETA"
-  ];
-  for(const f of fases){
-    if(t.toUpperCase().includes(f)) return f;
-  }
-  return "";
-}
-
-function limpiarLehiaketa(t,f){
-  return f ? t.replace(new RegExp(f,"i"),"").trim() : t;
-}
-
-function ordenar(data){
-  return data.sort((a,b)=>{
-    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
-    if(normalizaHora(a.hora)!==normalizaHora(b.hora))
-      return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
-    return (a.fronton||"").localeCompare(b.fronton||"");
+function exportarJPG(){
+  html2canvas(document.getElementById("kartela"),{
+    scale:2,
+    backgroundColor:"#ffffff"
+  }).then(canvas=>{
+    const link=document.createElement("a");
+    link.download="asteko-partiduak.jpg";
+    link.href=canvas.toDataURL("image/jpeg",0.95);
+    link.click();
   });
 }
-
-function agrupar(data){
-  const g={};
-  data.forEach(p=>{
-    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
-    if(!g[key]) g[key]=[];
-    g[key].push(p);
-  });
-  Object.values(g).forEach(arr=>{
-    arr.sort((a,b)=>(a.zkia||0)-(b.zkia||0));
-  });
-  return g;
-}
-
-Promise.all([
-  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales,noOficiales])=>{
-
-  const bloques = [
-    {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
-    {titulo:"BESTE TXAPELKETAK OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()==="true"))},
-    {titulo:"TXAPELKETAK EZ OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()!=="true"))}
-  ];
-
-  const cont=document.getElementById("content");
-
-  bloques.forEach(b=>{
-    if(!b.data.length) return;
-
-    const grupos=agrupar(b.data);
-    cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
-    const bloqueDiv=cont.lastChild;
-
-    Object.values(grupos).forEach(partidos=>{
-      const p0=partidos[0];
-      const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
-
-      bloqueDiv.innerHTML+=`
-        <div class="grupo">
-          <div class="grupo-header ${!esLocal?'rojo':''}">
-            <span>📅 ${p0.fecha}</span>
-            <span>⏰ ${normalizaHora(p0.hora)}</span>
-            <span>📍 ${p0.fronton}</span>
-          </div>
-
-          ${partidos.map(p=>{
-            const textoEquipos=(p.etxekoa||"")+" "+(p.kanpokoak||"");
-            const doble=textoEquipos.length>60;
-            const fase=detectarFase(p.lehiaketa||"");
-            const lehiaketaLimpia=limpiarLehiaketa(p.lehiaketa||"",fase);
-
-            return `
-            <div class="linea">
-              <div class="zkia">${p.zkia}</div>
-
-              <div class="equipos">
-                <div class="fila1">
-                  <div class="etxekoa ${/larraun/i.test(p.etxekoa||"")?'larraun':''}">
-                    ${p.etxekoa||""}
-                  </div>
-                </div>
-                ${doble?`
-                <div class="fila2">
-                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
-                    ${p.kanpokoak||""}
-                  </div>
-                </div>`:
-                `<div class="fila1">
-                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
-                    ${p.kanpokoak||""}
-                  </div>
-                </div>`}
-              </div>
-
-              <div class="lehiaketa">
-                ${lehiaketaLimpia}
-                ${fase?` <span class="fase">(${fase})</span>`:""}
-              </div>
-            </div>`;
-          }).join("")}
-
-        </div>`;
-    });
-  });
-});
 </script>
 
 </body>
