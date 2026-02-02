@@ -1,8 +1,72 @@
 [
-  {     "fecha": "2026/02/05",     "hora": "18:30",     "zkia": "4",     "fronton": "Lesaka",     "etxekoa": "ILUNPE (Odriozola – Larrañaga)",     "kanpokoak": "LARRAUN (Iriarte – Garaño)",     "lehiaketa": "ARKUPE TXAPELKETA. HELDUAK KANPORAKETA",     "ofiziala": "false"   },
-  {     "fecha": "2026/02/05",     "hora": "20:00",     "zkia": "1",     "fronton": "Goizueta",     "etxekoa": "UMORE ONA (Apaolaza)",     "kanpokoak": "LARRAUN (Astiz)",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",     "ofiziala": "false"   },
-  {     "fecha": "2026/02/05",     "hora": "20:00",     "zkia": "2",     "fronton": "Goizueta",     "etxekoa": "UMORE ONA (Apezetxea – Urruzola)",     "kanpokoak": "LARRAUN (Galarza – Sotil)",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",     "ofiziala": "false"   },
-  {     "fecha": "2026/02/08",     "hora": "10:00",     "zkia": "1",     "fronton": "Lesaka",     "etxekoa": "LARRAUN – ERREKA (Laso – Ancizar)",     "kanpokoak": "BEHAR ZANA (A. Otaegi – Elola)",     "lehiaketa": "ARKUPE TXAPELKETA. GAZTEAK FINAL LAURDENAK",     "ofiziala": "false"   },
-  {     "fecha": "2026/02/07",     "hora": "16:00",     "zkia": "1",     "fronton": "Zizur – Fronton nagusia",     "etxekoa": "LARRAUN (Ijurko)",     "kanpokoak": "",     "lehiaketa": "ZIZUR 4 TXAPELKETA KADETE (2010) KANPORAKETA",     "ofiziala": "false"   },
-  {     "fecha": "2026/02/08",     "hora": "11:00",     "zkia": "1",     "fronton": "Zizur – Fronton txiki",     "etxekoa": "LARRAUN (Mitxaus)",     "kanpokoak": "",     "lehiaketa": "ZIZUR 4 TXAPELKETA KADETE (2017) KANPORAKETA",     "ofiziala": "false"   }
+  {
+    "fecha": "2026/02/05",
+    "hora": "18:30",
+    "zkia": "4",
+    "fronton": "Lesaka",
+    "etxekoa": "ILUNPE (Odriozola – Larrañaga)",
+    "kanpokoak": "LARRAUN (Iriarte – Garaño)",
+    "lehiaketa": "ARKUPE TXAPELKETA. HELDUAK KANPORAKETA",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/05",
+    "hora": "20:00",
+    "zkia": "1",
+    "fronton": "Goizueta",
+    "etxekoa": "UMORE ONA (Apaolaza)",
+    "kanpokoak": "LARRAUN (Astiz)",
+    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/05",
+    "hora": "20:00",
+    "zkia": "2",
+    "fronton": "Goizueta",
+    "etxekoa": "UMORE ONA (Apezetxea – Urruzola)",
+    "kanpokoak": "LARRAUN (Galarza – Sotil)",
+    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/08",
+    "hora": "10:00",
+    "zkia": "1",
+    "fronton": "Lesaka",
+    "etxekoa": "LARRAUN – ERREKA (Laso – Ancizar)",
+    "kanpokoak": "BEHAR ZANA (A. Otaegi – Elola)",
+    "lehiaketa": "ARKUPE TXAPELKETA. GAZTEAK FINAL LAURDENAK",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/07",
+    "hora": "16:00",
+    "zkia": "1",
+    "fronton": "Zizur – Fronton nagusia",
+    "etxekoa": "LARRAUN (Ijurko)",
+    "kanpokoak": "",
+    "lehiaketa": "ZIZUR 4 TXAPELKETA KADETE (2010) KANPORAKETA",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/08",
+    "hora": "11:00",
+    "zkia": "1",
+    "fronton": "Zizur – Fronton txiki",
+    "etxekoa": "LARRAUN (Mitxaus)",
+    "kanpokoak": "",
+    "lehiaketa": "ZIZUR 4 TXAPELKETA KADETE (2017) KANPORAKETA",
+    "ofiziala": "false"
+  },
+  {
+    "fecha": "2026/02/05",
+    "hora": "18:30",
+    "zkia": "2",
+    "fronton": "Lesaka",
+    "etxekoa": "OSPELE - LARRAUN (L. Orbegozo - X. Tellechea)",
+    "kanpokoak": "OLABURU (A. Iturbe - K. Bikandi)",
+    "lehiaketa": "ARKUPE TXAPELKETA HELDUAK. KANPORAKETA",
+    "ofiziala": false
+  }
 ]
