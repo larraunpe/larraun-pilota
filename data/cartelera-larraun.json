@@ -9,6 +9,24 @@
     "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE LIGAXKA"
   },
   {
+    "fecha": "2026/02/05",
+    "hora": "18:15 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Etxarren - Aranburu",
+    "etxekoa": "IRURTZUN (U. Arano - H. Zelaia)",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/02/05",
+    "hora": "18:15 !Horario provisional",
+    "zkia": "2",
+    "fronton": "Etxarren - Aranburu",
+    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
+    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+  },
+  {
     "fecha": "2026/02/06",
     "hora": "17:30 !Horario provisional",
     "zkia": "2",
@@ -55,6 +73,24 @@
   },
   {
     "fecha": "2026/02/07",
+    "hora": "09:30 !Horario provisional",
+    "zkia": "3",
+    "fronton": "Berriozar - Polideportivo",
+    "etxekoa": "BERRIOZAR (E. Iribas - I. Diaz)",
+    "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/02/07",
+    "hora": "09:45 !Horario provisional",
+    "zkia": "2",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (E. Esain - P. Gorraiz)",
+    "kanpokoak": "LARRAUN (U. Otamendi - M. Laso)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/02/07",
     "hora": "10:00 !Horario provisional",
     "zkia": "1",
     "fronton": "Betelu - Escuelas",
@@ -68,7 +104,7 @@
     "zkia": "2",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (M. Baleztena - A. Maiza)",
-    "kanpokoak": "LARRAUN (L. Navarro - M. Lazkoz)",
+    "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro)",
     "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
   },
   {
@@ -112,45 +148,9 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
-    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "IRURTZUN (E. Esain - P. Gorraiz)",
-    "kanpokoak": "LARRAUN (U. Otamendi - M. Laso)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "IRURTZUN (U. Arano - H. Zelaia)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "BERRIOZAR (E. Iribas - I. Diaz)",
-    "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
   },
   {
     "fecha": "2026/02/07",
