@@ -29,20 +29,28 @@ body{
 
   background:#dfeee4;
 
-  /* textura + pelotazos fuertes */
   background-image:
-    radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-    radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
-    radial-gradient(ellipse 40px 30px at 20% 30%, rgba(0,0,0,.28), transparent 70%),
-    radial-gradient(ellipse 46px 34px at 70% 60%, rgba(0,0,0,.25), transparent 70%),
-    radial-gradient(ellipse 36px 26px at 40% 80%, rgba(0,0,0,.22), transparent 70%);
+  /* grano pared */
+  radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+  radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+
+  /* pelotazos definidos (borde oscuro + centro difuso) */
+  radial-gradient(circle at 22% 30%, rgba(0,0,0,.45) 0 6px, rgba(0,0,0,.18) 7px, transparent 14px),
+  radial-gradient(circle at 70% 60%, rgba(0,0,0,.40) 0 7px, rgba(0,0,0,.16) 8px, transparent 16px),
+  radial-gradient(circle at 40% 80%, rgba(0,0,0,.38) 0 5px, rgba(0,0,0,.15) 6px, transparent 13px),
+  radial-gradient(circle at 85% 25%, rgba(0,0,0,.42) 0 6px, rgba(0,0,0,.17) 7px, transparent 15px),
+  radial-gradient(circle at 15% 75%, rgba(0,0,0,.35) 0 5px, rgba(0,0,0,.12) 6px, transparent 12px);
+
 
   background-size:
-    20px 20px,
-    30px 30px,
-    800px 800px,
-    900px 900px,
-    700px 700px;
+  20px 20px,
+  30px 30px,
+  100% 100%,
+  100% 100%,
+  100% 100%,
+  100% 100%,
+  100% 100%;
+
 
   box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
