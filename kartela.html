@@ -21,34 +21,27 @@ body{
 
 /* ================= CARTEL FRONTÓN ================= */
 .cartel{
+  position: relative; /* necesario para pelotazos absolutos */
   max-width:900px;
   margin:20px auto;
   padding:20px 24px 30px;
   border-radius:14px;
   overflow:hidden;
   background:#dfeee4;
-
-  /* Fondo con pelotazos densos y variados */
-  background-image:
-    /* grano fino pared */
-    radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-    radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
-
-    /* impactos más visibles y densos */
-    radial-gradient(circle, rgba(0,0,0,.5) 3px, rgba(0,0,0,.25) 6px, transparent 9px),
-    radial-gradient(circle, rgba(0,0,0,.45) 3px, rgba(0,0,0,.2) 7px, transparent 10px),
-    radial-gradient(circle, rgba(0,0,0,.35) 4px, rgba(0,0,0,.15) 8px, transparent 12px),
-    radial-gradient(circle, rgba(0,0,0,.3) 5px, rgba(0,0,0,.12) 10px, transparent 14px);
-
-  background-size:
-    20px 20px,   /* grano */
-    30px 30px,   /* grano */
-    90px 90px,   /* impactos densos */
-    120px 120px, /* impactos medios */
-    180px 180px, /* impactos grandes */
-    220px 220px; /* impactos extra */
-
   box-shadow:0 10px 28px rgba(0,0,0,.35);
+}
+
+/* ================= PELOTAZOS EXPLOSIVOS ================= */
+.pelotazos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pelotazos .pelota {
+  position: absolute;
+  border-radius: 50%;
 }
 
 /* ================= BOTÓN ================= */
@@ -68,6 +61,7 @@ body{
   align-items:center;
   justify-content:space-between;
   margin-bottom:16px;
+  position: relative; z-index:1;
 }
 .header img{height:64px}
 .header h1{
@@ -78,7 +72,7 @@ body{
 }
 
 /* ================= BLOQUES ================= */
-.bloque{margin-top:28px}
+.bloque{margin-top:28px; position: relative; z-index:1;}
 
 .bloque h2{
   text-align:center;
@@ -94,7 +88,7 @@ body{
   margin-top:14px;
   background:#ffffffee;
   border-radius:10px;
-
+  z-index:1;
   box-shadow:
     0 4px 10px rgba(0,0,0,.25),
     0 1px 0 rgba(255,255,255,.6) inset;
@@ -104,7 +98,7 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  opacity:.3; /* más visibles */
+  opacity:.3; 
   pointer-events:none;
   background:
     radial-gradient(circle at 10% 15%, #000 2px, transparent 4px),
@@ -157,6 +151,8 @@ body{
 </div>
 
 <div class="cartel" id="kartela">
+  <!-- Pelotazos explosivos -->
+  <div class="pelotazos"></div>
 
   <div class="header">
     <img src="/images/logo-larraun.png">
@@ -165,10 +161,24 @@ body{
   </div>
 
   <div id="content"></div>
-
 </div>
 
 <script>
+/* ================= GENERAR PELOTAZOS ================= */
+function generarPelotazos(numPelotazos = 200){
+  const cont = document.querySelector(".pelotazos");
+  for(let i=0; i<numPelotazos; i++){
+    const div = document.createElement("div");
+    const size = Math.random()*12 + 4; // tamaño 4px a 16px
+    div.style.width = div.style.height = size + "px";
+    div.style.left = Math.random()*100 + "%";
+    div.style.top = Math.random()*100 + "%";
+    div.style.background = `rgba(0,0,0,${Math.random()*0.5 + 0.2})`;
+    cont.appendChild(div);
+  }
+}
+generarPelotazos(200); // Cambia a 300 para más efecto
+
 /* ================= JPG ================= */
 function exportarJPG(){
   html2canvas(document.getElementById("kartela"),{
