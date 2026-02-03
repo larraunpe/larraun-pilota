@@ -5,70 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta property="og:image" content="https://larraunpilota.eus/preview-escritorio.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:title" content="Asteko Partiduak – Larraun Pilota">
-<meta property="og:description" content="Aste honetako partidu guztiak, ordutegiak eta frontoiak.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://larraunpilota.eus/asteko-kartela">
 
 <title>Larraun – Asteko Kartela</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-/* ======================================================
-   BASE
-====================================================== */
+/* ================= BASE ================= */
 body{
   margin:0;
-  font-family:system-ui, sans-serif;
+  font-family:system-ui,sans-serif;
   background:#e4efe8;
 }
 
-/* ======================================================
-   CARTEL = PARED DE FRONTÓN VERDE
-====================================================== */
+/* ================= CARTEL FRONTÓN ================= */
 .cartel{
-  position:relative;
   max-width:900px;
   margin:20px auto;
   padding:20px 24px 30px;
   border-radius:14px;
   overflow:hidden;
 
-  /* verde frontón */
-  background-color:#dfeee4;
+  background:#dfeee4;
 
-  /* textura + grano + pelotazos más visibles */
+  /* textura + pelotazos fuertes */
   background-image:
-    radial-gradient(rgba(0,0,0,.07) 1px, transparent 1px),
-    radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
-
-    /* pelotazos grandes */
-    radial-gradient(ellipse 32px 24px at 20% 30%, rgba(0,0,0,.25), transparent 70%),
-    radial-gradient(ellipse 40px 30px at 70% 60%, rgba(0,0,0,.22), transparent 70%),
-    radial-gradient(ellipse 26px 20px at 40% 80%, rgba(0,0,0,.20), transparent 70%),
-    radial-gradient(ellipse 36px 26px at 80% 20%, rgba(0,0,0,.18), transparent 70%);
+    radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+    radial-gradient(ellipse 40px 30px at 20% 30%, rgba(0,0,0,.28), transparent 70%),
+    radial-gradient(ellipse 46px 34px at 70% 60%, rgba(0,0,0,.25), transparent 70%),
+    radial-gradient(ellipse 36px 26px at 40% 80%, rgba(0,0,0,.22), transparent 70%);
 
   background-size:
-    18px 18px,
-    26px 26px,
-    700px 700px,
+    20px 20px,
+    30px 30px,
+    800px 800px,
     900px 900px,
-    650px 650px,
-    800px 800px;
+    700px 700px;
 
   box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
 
-/* ======================================================
-   BOTÓN
-====================================================== */
-.exportar{
-  text-align:center;
-  margin:14px 0;
-}
+/* ================= BOTÓN ================= */
+.exportar{text-align:center;margin:14px 0}
 .exportar button{
   background:#1b5e20;
   color:#fff;
@@ -76,22 +56,16 @@ body{
   padding:10px 18px;
   border-radius:20px;
   cursor:pointer;
-  box-shadow:0 3px 6px rgba(0,0,0,.3);
-}
-.exportar button:hover{
-  background:#2e7d32;
 }
 
-/* ======================================================
-   CABECERA
-====================================================== */
+/* ================= HEADER ================= */
 .header{
   display:flex;
   align-items:center;
   justify-content:space-between;
   margin-bottom:16px;
 }
-.header img{height:64px;}
+.header img{height:64px}
 .header h1{
   margin:0;
   font-size:2em;
@@ -99,54 +73,41 @@ body{
   color:#004d40;
 }
 
-/* ======================================================
-   BLOQUES (TÍTULOS CENTRADOS)
-====================================================== */
-.bloque{margin-top:28px;}
+/* ================= BLOQUES ================= */
+.bloque{margin-top:28px}
 
 .bloque h2{
-  text-align:center;              /* ← centrado */
-  margin:0 0 14px;
+  text-align:center;
   font-size:1.45em;
   color:#1b5e20;
   font-weight:800;
-  letter-spacing:1px;
+  margin-bottom:14px;
 }
 
-/* ======================================================
-   GRUPO = CARTEL PEGADO A LA PARED
-====================================================== */
+/* ================= GRUPO PAPEL PEGADO ================= */
 .grupo{
   position:relative;
   margin-top:14px;
-
   background:#ffffffee;
-
   border-radius:10px;
 
-  /* efecto papel pegado */
   box-shadow:
     0 4px 10px rgba(0,0,0,.25),
     0 1px 0 rgba(255,255,255,.6) inset;
-
-  backdrop-filter:blur(2px);
 }
 
-/* pequeñas marcas también sobre el papel */
 .grupo::after{
   content:"";
   position:absolute;
   inset:0;
+  opacity:.2;
   pointer-events:none;
-  opacity:.18;
   background:
     radial-gradient(circle at 30% 20%, #000 2px, transparent 3px),
     radial-gradient(circle at 60% 70%, #000 2px, transparent 3px);
 }
 
-/* ======================================================
-   CABECERA GRUPO
-====================================================== */
+/* ================= HEADER GRUPO ================= */
 .grupo-header{
   background:#e3f2fd;
   padding:10px 14px;
@@ -158,9 +119,7 @@ body{
   color:#842029;
 }
 
-/* ======================================================
-   PARTIDOS
-====================================================== */
+/* ================= LINEA PARTIDO ================= */
 .linea{
   padding:8px 14px;
   border-top:1px solid #ddd;
@@ -169,26 +128,15 @@ body{
   font-size:.95em;
 }
 
-.zkia{
-  width:26px;
-  font-weight:bold;
-  color:#333;
-}
-
-.etxekoa{color:#0d47a1;font-weight:bold;}
-.kanpokoa{color:#b71c1c;font-weight:bold;}
-
-.larraun{
-  text-transform:uppercase;
-  font-size:1.05em;
-}
+.zkia{width:26px;font-weight:bold}
+.etxekoa{color:#0d47a1;font-weight:bold}
+.kanpokoa{color:#b71c1c;font-weight:bold}
 
 .lehiaketa{
   margin-left:auto;
   text-align:right;
 }
-
-.fase{font-weight:bold;}
+.fase{font-weight:bold}
 </style>
 </head>
 
@@ -211,6 +159,7 @@ body{
 </div>
 
 <script>
+/* ================= JPG ================= */
 function exportarJPG(){
   html2canvas(document.getElementById("kartela"),{
     scale:2,
@@ -222,36 +171,16 @@ function exportarJPG(){
     link.click();
   });
 }
-</script>
+
+/* ================= LÓGICA ORIGINAL ================= */
 function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
-}
-
-function detectarFase(t){
-  const fases=[
-    "FINAL LAURDENAK",
-    "FINAL AURREKOAK",
-    "FINALA",
-    "LIGAXKA",
-    "KANPORAKETA",
-    "KAMPORAKETA"
-  ];
-  for(const f of fases){
-    if(t.toUpperCase().includes(f)) return f;
-  }
-  return "";
-}
-
-function limpiarLehiaketa(t,f){
-  return f ? t.replace(new RegExp(f,"i"),"").trim() : t;
 }
 
 function ordenar(data){
   return data.sort((a,b)=>{
     if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
-    if(normalizaHora(a.hora)!==normalizaHora(b.hora))
-      return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
-    return (a.fronton||"").localeCompare(b.fronton||"");
+    return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
   });
 }
 
@@ -262,9 +191,6 @@ function agrupar(data){
     if(!g[key]) g[key]=[];
     g[key].push(p);
   });
-  Object.values(g).forEach(arr=>{
-    arr.sort((a,b)=>(a.zkia||0)-(b.zkia||0));
-  });
   return g;
 }
 
@@ -273,12 +199,10 @@ Promise.all([
   fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-  const bloques = [
+  const bloques=[
     {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
-    {titulo:"BESTE TXAPELKETAK OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()==="true"))},
-    {titulo:"TXAPELKETAK EZ OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()!=="true"))}
+    {titulo:"BESTE TXAPELKETAK OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
+    {titulo:"TXAPELKETAK EZ OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
   ];
 
   const cont=document.getElementById("content");
@@ -286,31 +210,30 @@ Promise.all([
   bloques.forEach(b=>{
     if(!b.data.length) return;
 
-    const grupos=agrupar(b.data);
     cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
     const bloqueDiv=cont.lastChild;
+
+    const grupos=agrupar(b.data);
 
     Object.values(grupos).forEach(partidos=>{
       const p0=partidos[0];
       const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
 
       bloqueDiv.innerHTML+=`
-        <div class="grupo">
-          <div class="grupo-header ${!esLocal?'rojo':''}">
-            <span>📅 ${p0.fecha}</span>
-            <span>⏰ ${normalizaHora(p0.hora)}</span>
-            <span>📍 ${p0.fronton}</span>
-          </div>
+      <div class="grupo">
+        <div class="grupo-header ${!esLocal?'rojo':''}">
+          📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
+        </div>
 
-          ${partidos.map(p=>`
-            <div class="linea">
-              <div class="zkia">${p.zkia}</div>
-              <div class="etxekoa">${p.etxekoa||""}</div>
-              <div class="kanpokoa">${p.kanpokoak||""}</div>
-              <div class="lehiaketa">${p.lehiaketa||""}</div>
-            </div>
-          `).join("")}
-        </div>`;
+        ${partidos.map(p=>`
+          <div class="linea">
+            <div class="zkia">${p.zkia}</div>
+            <div class="etxekoa">${p.etxekoa||""}</div>
+            <div class="kanpokoa">${p.kanpokoak||""}</div>
+            <div class="lehiaketa">${p.lehiaketa||""}</div>
+          </div>
+        `).join("")}
+      </div>`;
     });
   });
 });
