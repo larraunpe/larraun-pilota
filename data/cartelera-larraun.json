@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/02/05",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "1",
     "fronton": "Etxarren - Aranburu",
     "etxekoa": "IRURTZUN (U. Arano - H. Zelaia)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/02/05",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "2",
     "fronton": "Etxarren - Aranburu",
     "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/02/06",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "2",
     "fronton": "Bera - Eztegara",
     "etxekoa": "BORTZIRIAK (A. Elizalde - E. Oyarzabal)",
@@ -100,6 +100,15 @@
   },
   {
     "fecha": "2026/02/07",
+    "hora": "12:00 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Villava - Atarrabia",
+    "etxekoa": "ATARRABIA (O. Oroz - O. Etxabarri)",
+    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
+    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/02/07",
     "hora": "17:00 !Horario provisional",
     "zkia": "2",
     "fronton": "Burlada - Askatasuna",
@@ -151,15 +160,6 @@
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "ATARRABIA (O. Oroz - O. Etxabarri)",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "lehiaketa": "MANO PAREJAS - FASE 2 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
   },
   {
     "fecha": "2026/02/07",
