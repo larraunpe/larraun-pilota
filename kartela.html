@@ -223,10 +223,97 @@ function exportarJPG(){
   });
 }
 </script>
+function normalizaHora(h){
+  return h ? h.slice(0,5) : "00:00";
+}
 
-<!-- TODO tu JS original intacto -->
-<script>
-/* TU JS EXACTO, SIN CAMBIOS */
+function detectarFase(t){
+  const fases=[
+    "FINAL LAURDENAK",
+    "FINAL AURREKOAK",
+    "FINALA",
+    "LIGAXKA",
+    "KANPORAKETA",
+    "KAMPORAKETA"
+  ];
+  for(const f of fases){
+    if(t.toUpperCase().includes(f)) return f;
+  }
+  return "";
+}
+
+function limpiarLehiaketa(t,f){
+  return f ? t.replace(new RegExp(f,"i"),"").trim() : t;
+}
+
+function ordenar(data){
+  return data.sort((a,b)=>{
+    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
+    if(normalizaHora(a.hora)!==normalizaHora(b.hora))
+      return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
+    return (a.fronton||"").localeCompare(b.fronton||"");
+  });
+}
+
+function agrupar(data){
+  const g={};
+  data.forEach(p=>{
+    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+    if(!g[key]) g[key]=[];
+    g[key].push(p);
+  });
+  Object.values(g).forEach(arr=>{
+    arr.sort((a,b)=>(a.zkia||0)-(b.zkia||0));
+  });
+  return g;
+}
+
+Promise.all([
+  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales,noOficiales])=>{
+
+  const bloques = [
+    {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
+    {titulo:"BESTE TXAPELKETAK OFIZIALAK",
+     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()==="true"))},
+    {titulo:"TXAPELKETAK EZ OFIZIALAK",
+     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()!=="true"))}
+  ];
+
+  const cont=document.getElementById("content");
+
+  bloques.forEach(b=>{
+    if(!b.data.length) return;
+
+    const grupos=agrupar(b.data);
+    cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
+    const bloqueDiv=cont.lastChild;
+
+    Object.values(grupos).forEach(partidos=>{
+      const p0=partidos[0];
+      const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
+
+      bloqueDiv.innerHTML+=`
+        <div class="grupo">
+          <div class="grupo-header ${!esLocal?'rojo':''}">
+            <span>📅 ${p0.fecha}</span>
+            <span>⏰ ${normalizaHora(p0.hora)}</span>
+            <span>📍 ${p0.fronton}</span>
+          </div>
+
+          ${partidos.map(p=>`
+            <div class="linea">
+              <div class="zkia">${p.zkia}</div>
+              <div class="etxekoa">${p.etxekoa||""}</div>
+              <div class="kanpokoa">${p.kanpokoak||""}</div>
+              <div class="lehiaketa">${p.lehiaketa||""}</div>
+            </div>
+          `).join("")}
+        </div>`;
+    });
+  });
+});
 </script>
 
 </body>
