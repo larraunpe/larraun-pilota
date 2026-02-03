@@ -104,4 +104,130 @@ body{
 ====================================================== */
 .bloque{margin-top:28px;}
 
-.bloque h
+.bloque h2{
+  text-align:center;              /* ← centrado */
+  margin:0 0 14px;
+  font-size:1.45em;
+  color:#1b5e20;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+/* ======================================================
+   GRUPO = CARTEL PEGADO A LA PARED
+====================================================== */
+.grupo{
+  position:relative;
+  margin-top:14px;
+
+  background:#ffffffee;
+
+  border-radius:10px;
+
+  /* efecto papel pegado */
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.25),
+    0 1px 0 rgba(255,255,255,.6) inset;
+
+  backdrop-filter:blur(2px);
+}
+
+/* pequeñas marcas también sobre el papel */
+.grupo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background:
+    radial-gradient(circle at 30% 20%, #000 2px, transparent 3px),
+    radial-gradient(circle at 60% 70%, #000 2px, transparent 3px);
+}
+
+/* ======================================================
+   CABECERA GRUPO
+====================================================== */
+.grupo-header{
+  background:#e3f2fd;
+  padding:10px 14px;
+  font-weight:bold;
+  color:#0d47a1;
+}
+.grupo-header.rojo{
+  background:#f8d7da;
+  color:#842029;
+}
+
+/* ======================================================
+   PARTIDOS
+====================================================== */
+.linea{
+  padding:8px 14px;
+  border-top:1px solid #ddd;
+  display:flex;
+  gap:10px;
+  font-size:.95em;
+}
+
+.zkia{
+  width:26px;
+  font-weight:bold;
+  color:#333;
+}
+
+.etxekoa{color:#0d47a1;font-weight:bold;}
+.kanpokoa{color:#b71c1c;font-weight:bold;}
+
+.larraun{
+  text-transform:uppercase;
+  font-size:1.05em;
+}
+
+.lehiaketa{
+  margin-left:auto;
+  text-align:right;
+}
+
+.fase{font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<div class="exportar">
+  <button onclick="exportarJPG()">📸 DESKARGATU KARTELA (JPG)</button>
+</div>
+
+<div class="cartel" id="kartela">
+
+  <div class="header">
+    <img src="/images/logo-larraun.png">
+    <h1>LARRAUN PILOTA ELKARTEA</h1>
+    <img src="/images/logo-fnp.png">
+  </div>
+
+  <div id="content"></div>
+
+</div>
+
+<script>
+function exportarJPG(){
+  html2canvas(document.getElementById("kartela"),{
+    scale:2,
+    backgroundColor:"#ffffff"
+  }).then(canvas=>{
+    const link=document.createElement("a");
+    link.download="asteko-partiduak.jpg";
+    link.href=canvas.toDataURL("image/jpeg",0.95);
+    link.click();
+  });
+}
+</script>
+
+<!-- TODO tu JS original intacto -->
+<script>
+/* TU JS EXACTO, SIN CAMBIOS */
+</script>
+
+</body>
+</html>
