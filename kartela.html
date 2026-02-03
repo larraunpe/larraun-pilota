@@ -167,16 +167,26 @@ body{
 /* ================= GENERAR PELOTAZOS ================= */
 function generarPelotazos(numPelotazos = 200){
   const cont = document.querySelector(".pelotazos");
+  const cartel = document.getElementById("kartela");
+  const ancho = cartel.offsetWidth;
+  const alto = cartel.offsetHeight;
+
   for(let i=0; i<numPelotazos; i++){
     const div = document.createElement("div");
     const size = Math.random()*12 + 4; // tamaño 4px a 16px
     div.style.width = div.style.height = size + "px";
-    div.style.left = Math.random()*100 + "%";
-    div.style.top = Math.random()*100 + "%";
+    div.style.left = Math.random()*ancho + "px";
+    div.style.top = Math.random()*alto + "px";
     div.style.background = `rgba(0,0,0,${Math.random()*0.5 + 0.2})`;
+    div.style.borderRadius = "50%";
+    div.style.position = "absolute";
     cont.appendChild(div);
   }
 }
+
+// Ejecutamos cuando todo el contenido esté cargado
+window.addEventListener("load", ()=> generarPelotazos(200));
+  
 generarPelotazos(200); // Cambia a 300 para más efecto
 
 /* ================= JPG ================= */
