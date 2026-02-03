@@ -56,7 +56,7 @@ body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   background: #f9f9f9;
   position: relative;
-  border-left: 6px solid #b00000; /* default */
+  border-left: 6px solid #b00000;
 }
 
 .partido.no-oficial {
@@ -75,7 +75,6 @@ body {
   color: #fff;
 }
 
-/* 🟢 VERDE */
 .badge.beste-ofiziala {
   background: #198754;
 }
@@ -160,10 +159,40 @@ body {
 </div>
 
 <script>
+/* ================= FUNCIONES DE FASES ================= */
+let fases = {};
+
+// Cargar fases desde JSON
+function cargarFases(){
+  return fetch("/data/fases.json")
+    .then(r => r.json())
+    .catch(err => {
+      console.error("No se pudieron cargar las fases:", err);
+      return {};
+    });
+}
+
+// Formatea el texto de lehiaketa: fase en negrita + resto entre paréntesis
+function formatearLehiaketa(textoOriginal, fases){
+  if(!textoOriginal) return "";
+  const clave = Object.keys(fases).find(fase => textoOriginal.toUpperCase().startsWith(fase));
+  if(clave){
+    const resto = textoOriginal.slice(clave.length).trim();
+    if(resto){
+      return `<b>${clave}</b> (${resto})`;
+    } else {
+      return `<b>${clave}</b>`;
+    }
+  }
+  return textoOriginal;
+}
+
+/* ================= CARGAR PARTIDOS ================= */
 Promise.all([
+  cargarFases(),
   fetch("data/cartelera-larraun.json").then(r => r.json()),
   fetch("data/partidos-no-oficiales.json").then(r => r.json())
-]).then(([oficiales, noOficiales]) => {
+]).then(([fases, oficiales, noOficiales]) => {
 
   const partidos = [
     ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
@@ -190,7 +219,7 @@ Promise.all([
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
     div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
 
-    // clases para frónton
+    // clases para fronton
     const frontonClass = esLekunberri ? "fronton lekunberri" : "fronton";
 
     // resaltar pelotaris de Larraun
@@ -214,7 +243,7 @@ Promise.all([
       </div>
 
       <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
-      <div class="lehiaketa">🏆 ${p.lehiaketa || p.modalidad || ""}</div>
+      <div class="lehiaketa">🏆 ${formatearLehiaketa(p.lehiaketa || p.modalidad, fases)}</div>
     `;
 
     cont.appendChild(div);
