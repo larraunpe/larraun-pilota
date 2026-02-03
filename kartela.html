@@ -14,84 +14,66 @@
 
 <title>Larraun – Asteko Kartela</title>
 
-<!-- html2canvas -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background-color: #f3f2ee;
+/* ======================================================
+   BASE
+====================================================== */
+body{
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:#e4efe8;
 }
 
-
-/* ===== CARTEL ===== */
+/* ======================================================
+   CARTEL = PARED DE FRONTÓN VERDE
+====================================================== */
 .cartel{
   position:relative;
   max-width:900px;
   margin:20px auto;
+  padding:20px 24px 30px;
+  border-radius:14px;
+  overflow:hidden;
 
-  /* color base cal */
-  background-color:#f3f2ee;
+  /* verde frontón */
+  background-color:#dfeee4;
 
-  /* textura + pelotazos */
+  /* textura + grano + pelotazos más visibles */
   background-image:
-    radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-    radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-    radial-gradient(ellipse 18px 12px at 20% 30%, rgba(0,0,0,0.15), transparent 70%),
-    radial-gradient(ellipse 22px 16px at 70% 60%, rgba(0,0,0,0.12), transparent 70%),
-    radial-gradient(ellipse 14px 10px at 40% 80%, rgba(0,0,0,0.10), transparent 70%);
+    radial-gradient(rgba(0,0,0,.07) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+
+    /* pelotazos grandes */
+    radial-gradient(ellipse 32px 24px at 20% 30%, rgba(0,0,0,.25), transparent 70%),
+    radial-gradient(ellipse 40px 30px at 70% 60%, rgba(0,0,0,.22), transparent 70%),
+    radial-gradient(ellipse 26px 20px at 40% 80%, rgba(0,0,0,.20), transparent 70%),
+    radial-gradient(ellipse 36px 26px at 80% 20%, rgba(0,0,0,.18), transparent 70%);
 
   background-size:
     18px 18px,
     26px 26px,
-    600px 600px,
     700px 700px,
-    500px 500px;
+    900px 900px,
+    650px 650px,
+    800px 800px;
 
-  border-radius:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,.3);
-  padding:20px 24px 30px;
-  overflow:hidden;
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
 
-
-
-/* CONTENIDO REAL */
-.cartel > *{
-  position:relative;
-  z-index:1;
-}
-.grupo::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(0,0,0,.08) 2px, transparent 3px),
-    radial-gradient(circle at 70% 60%, rgba(0,0,0,.06) 2px, transparent 3px),
-    radial-gradient(circle at 40% 80%, rgba(0,0,0,.05) 2px, transparent 3px);
-  pointer-events:none;
-}
-.grupo::after{
-  z-index:1;
-}
-
-.grupo > *{
-  position:relative;
-  z-index:2;
-}
-
-/* ===== BOTÓN JPG ===== */
+/* ======================================================
+   BOTÓN
+====================================================== */
 .exportar{
   text-align:center;
-  margin-bottom:14px;
+  margin:14px 0;
 }
 .exportar button{
   background:#1b5e20;
   color:#fff;
   border:none;
   padding:10px 18px;
-  font-size:.95em;
   border-radius:20px;
   cursor:pointer;
   box-shadow:0 3px 6px rgba(0,0,0,.3);
@@ -100,7 +82,9 @@ body {
   background:#2e7d32;
 }
 
-/* ===== CABECERA ===== */
+/* ======================================================
+   CABECERA
+====================================================== */
 .header{
   display:flex;
   align-items:center;
@@ -115,230 +99,9 @@ body {
   color:#004d40;
 }
 
-/* ===== BLOQUES ===== */
-.bloque{margin-top:26px;}
-.bloque h2{
-  margin:0 0 10px;
-  font-size:1.4em;
-  color:#1b5e20;
-  border-bottom:3px solid #7cb342;
-  padding-bottom:4px;
-}
+/* ======================================================
+   BLOQUES (TÍTULOS CENTRADOS)
+====================================================== */
+.bloque{margin-top:28px;}
 
-/* ===== GRUPO ===== */
-.grupo{
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(2px);
-  border-radius:10px;
-  box-shadow:0 3px 8px rgba(0,0,0,.25);
-}
-
-  /* Fondo de pared de frontón */
-  background:
-    linear-gradient(rgba(255,255,255,.65), rgba(255,255,255,.65)),
-    url("https://larraunpilota.eus/fronton-fondo.jpg") center/cover no-repeat;
-  background-blend-mode: multiply;
-
-  box-shadow:0 3px 8px rgba(0,0,0,.25);
-}
-
-
-.grupo-header{
-  background:#e3f2fd;
-  padding:10px 14px;
-  font-weight:bold;
-  color:#0d47a1;
-}
-.grupo-header.rojo{
-  background:#f8d7da;
-  color:#842029;
-}
-.grupo-header span{margin-right:14px;}
-
-/* ===== LINEA PARTIDO ===== */
-.linea{
-  padding:8px 14px;
-  border-top:1px solid #ddd;
-  display:flex;
-  gap:10px;
-  font-size:.95em;
-}
-
-.zkia{
-  width:26px;
-  font-weight:bold;
-  color:#333;
-}
-
-.etxekoa{color:#0d47a1;font-weight:bold;}
-.kanpokoa{color:#b71c1c;font-weight:bold;}
-
-.larraun{
-  text-transform:uppercase;
-  font-size:1.05em;
-}
-
-.lehiaketa{
-  margin-left:auto;
-  text-align:right;
-}
-
-.fase{font-weight:bold;}
-</style>
-</head>
-
-<body>
-
-<div class="exportar">
-  <button onclick="exportarJPG()">📸 DESKARGATU KARTELA (JPG)</button>
-</div>
-
-<div class="cartel" id="kartela">
-
-  <div class="header">
-    <img src="/images/logo-larraun.png">
-    <h1>LARRAUN PILOTA ELKARTEA</h1>
-    <img src="/images/logo-fnp.png">
-  </div>
-
-  <div id="content"></div>
-
-</div>
-
-<script>
-function exportarJPG(){
-  html2canvas(document.getElementById("kartela"),{
-    scale:2,
-    backgroundColor:"#ffffff"
-  }).then(canvas=>{
-    const link=document.createElement("a");
-    link.download="asteko-partiduak.jpg";
-    link.href=canvas.toDataURL("image/jpeg",0.95);
-    link.click();
-  });
-}
-</script>
-<script>
-function normalizaHora(h){
-  return h ? h.slice(0,5) : "00:00";
-}
-
-function detectarFase(t){
-  const fases=[
-    "FINAL LAURDENAK",
-    "FINAL AURREKOAK",
-    "FINALA",
-    "LIGAXKA",
-    "KANPORAKETA",
-    "KAMPORAKETA"
-  ];
-  for(const f of fases){
-    if(t.toUpperCase().includes(f)) return f;
-  }
-  return "";
-}
-
-function limpiarLehiaketa(t,f){
-  return f ? t.replace(new RegExp(f,"i"),"").trim() : t;
-}
-
-function ordenar(data){
-  return data.sort((a,b)=>{
-    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
-    if(normalizaHora(a.hora)!==normalizaHora(b.hora))
-      return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
-    return (a.fronton||"").localeCompare(b.fronton||"");
-  });
-}
-
-function agrupar(data){
-  const g={};
-  data.forEach(p=>{
-    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
-    if(!g[key]) g[key]=[];
-    g[key].push(p);
-  });
-  Object.values(g).forEach(arr=>{
-    arr.sort((a,b)=>(a.zkia||0)-(b.zkia||0));
-  });
-  return g;
-}
-
-Promise.all([
-  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales,noOficiales])=>{
-
-  const bloques = [
-    {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
-    {titulo:"BESTE TXAPELKETAK OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()==="true"))},
-    {titulo:"TXAPELKETAK EZ OFIZIALAK",
-     data:ordenar(noOficiales.filter(p=>String(p.ofiziala).toLowerCase()!=="true"))}
-  ];
-
-  const cont=document.getElementById("content");
-
-  bloques.forEach(b=>{
-    if(!b.data.length) return;
-
-    const grupos=agrupar(b.data);
-    cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
-    const bloqueDiv=cont.lastChild;
-
-    Object.values(grupos).forEach(partidos=>{
-      const p0=partidos[0];
-      const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
-
-      bloqueDiv.innerHTML+=`
-        <div class="grupo">
-          <div class="grupo-header ${!esLocal?'rojo':''}">
-            <span>📅 ${p0.fecha}</span>
-            <span>⏰ ${normalizaHora(p0.hora)}</span>
-            <span>📍 ${p0.fronton}</span>
-          </div>
-
-          ${partidos.map(p=>{
-            const textoEquipos=(p.etxekoa||"")+" "+(p.kanpokoak||"");
-            const doble=textoEquipos.length>60;
-            const fase=detectarFase(p.lehiaketa||"");
-            const lehiaketaLimpia=limpiarLehiaketa(p.lehiaketa||"",fase);
-
-            return `
-            <div class="linea">
-              <div class="zkia">${p.zkia}</div>
-
-              <div class="equipos">
-                <div class="fila1">
-                  <div class="etxekoa ${/larraun/i.test(p.etxekoa||"")?'larraun':''}">
-                    ${p.etxekoa||""}
-                  </div>
-                </div>
-                ${doble?`
-                <div class="fila2">
-                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
-                    ${p.kanpokoak||""}
-                  </div>
-                </div>`:
-                `<div class="fila1">
-                  <div class="kanpokoa ${/larraun/i.test(p.kanpokoak||"")?'larraun':''}">
-                    ${p.kanpokoak||""}
-                  </div>
-                </div>`}
-              </div>
-
-              <div class="lehiaketa">
-                ${lehiaketaLimpia}
-                ${fase?` <span class="fase">(${fase})</span>`:""}
-              </div>
-            </div>`;
-          }).join("")}
-
-        </div>`;
-    });
-  });
-});
-</script>
-
-</body>
-</html>
+.bloque h
