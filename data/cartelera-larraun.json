@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/02/06",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "2",
     "fronton": "Goizueta - Municipal",
     "etxekoa": "UMORE ONA (I. Kurianovych - P. Kurianovych)",
@@ -46,7 +46,7 @@
   },
   {
     "fecha": "2026/02/06",
-    "hora": "18:10 !Horario provisional",
+    "hora": "18:10",
     "zkia": "4",
     "fronton": "Salinas de Pamplona - Mutilendako",
     "etxekoa": "MUTILENDAKO (J. Ariz - M. Arrondo)",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/02/06",
-    "hora": "19:00 !Horario provisional",
+    "hora": "19:00",
     "zkia": "1",
     "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (A. Unanua - B. Unanua)",
@@ -64,7 +64,7 @@
   },
   {
     "fecha": "2026/02/06",
-    "hora": "20:15 !Horario provisional",
+    "hora": "20:15",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
@@ -73,7 +73,7 @@
   },
   {
     "fecha": "2026/02/07",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "3",
     "fronton": "Berriozar - Polideportivo",
     "etxekoa": "BERRIOZAR (E. Iribas - I. Diaz)",
@@ -82,7 +82,7 @@
   },
   {
     "fecha": "2026/02/07",
-    "hora": "09:45 !Horario provisional",
+    "hora": "09:45",
     "zkia": "2",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (E. Esain - P. Gorraiz)",
@@ -91,7 +91,7 @@
   },
   {
     "fecha": "2026/02/07",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/02/07",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "ATARRABIA (O. Oroz - O. Etxabarri)",
@@ -109,16 +109,16 @@
   },
   {
     "fecha": "2026/02/07",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "2",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (M. Baleztena - A. Maiza)",
-    "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro)",
+    "kanpokoak": "LARRAUN (L. Navarro - M. Lazkoz)",
     "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA"
   },
   {
     "fecha": "2026/02/08",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
@@ -127,7 +127,7 @@
   },
   {
     "fecha": "2026/02/08",
-    "hora": "16:30 !Horario provisional",
+    "hora": "16:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
@@ -136,7 +136,7 @@
   },
   {
     "fecha": "2026/02/08",
-    "hora": "16:30 !Horario provisional",
+    "hora": "16:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
@@ -145,7 +145,7 @@
   },
   {
     "fecha": "2026/02/08",
-    "hora": "16:30 !Horario provisional",
+    "hora": "16:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
