@@ -26,30 +26,27 @@ body{
   padding:20px 24px 30px;
   border-radius:14px;
   overflow:hidden;
-
   background:#dfeee4;
 
- background-image:
+  /* Fondo con pelotazos densos y variados */
+  background-image:
+    /* grano fino pared */
+    radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
 
-  /* grano fino pared */
-  radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-  radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
-
-  /* MUCHOS pelotazos pequeños repetidos */
-  radial-gradient(circle, rgba(0,0,0,.35) 2px, rgba(0,0,0,.18) 4px, transparent 7px),
-  radial-gradient(circle, rgba(0,0,0,.30) 2px, rgba(0,0,0,.15) 5px, transparent 8px),
-  radial-gradient(circle, rgba(0,0,0,.28) 3px, rgba(0,0,0,.12) 6px, transparent 10px);
-
-
+    /* impactos más visibles y densos */
+    radial-gradient(circle, rgba(0,0,0,.5) 3px, rgba(0,0,0,.25) 6px, transparent 9px),
+    radial-gradient(circle, rgba(0,0,0,.45) 3px, rgba(0,0,0,.2) 7px, transparent 10px),
+    radial-gradient(circle, rgba(0,0,0,.35) 4px, rgba(0,0,0,.15) 8px, transparent 12px),
+    radial-gradient(circle, rgba(0,0,0,.3) 5px, rgba(0,0,0,.12) 10px, transparent 14px);
 
   background-size:
-  20px 20px,   /* grano */
-  30px 30px,   /* grano */
-  140px 140px, /* impactos densos */
-  180px 180px, /* impactos medios */
-  240px 240px; /* impactos grandes */
-
-
+    20px 20px,   /* grano */
+    30px 30px,   /* grano */
+    90px 90px,   /* impactos densos */
+    120px 120px, /* impactos medios */
+    180px 180px, /* impactos grandes */
+    220px 220px; /* impactos extra */
 
   box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
@@ -107,11 +104,17 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  opacity:.2;
+  opacity:.3; /* más visibles */
   pointer-events:none;
   background:
-    radial-gradient(circle at 30% 20%, #000 2px, transparent 3px),
-    radial-gradient(circle at 60% 70%, #000 2px, transparent 3px);
+    radial-gradient(circle at 10% 15%, #000 2px, transparent 4px),
+    radial-gradient(circle at 25% 40%, #000 2px, transparent 4px),
+    radial-gradient(circle at 40% 20%, #000 2px, transparent 4px),
+    radial-gradient(circle at 55% 60%, #000 2px, transparent 4px),
+    radial-gradient(circle at 70% 35%, #000 2px, transparent 4px),
+    radial-gradient(circle at 85% 70%, #000 2px, transparent 4px),
+    radial-gradient(circle at 50% 80%, #000 2px, transparent 4px),
+    radial-gradient(circle at 30% 65%, #000 2px, transparent 4px);
 }
 
 /* ================= HEADER GRUPO ================= */
