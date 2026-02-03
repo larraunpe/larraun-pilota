@@ -31,14 +31,22 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
+/* ===== CARTEL ===== */
+.cartel{
+  position:relative;
+  max-width:900px;
+  margin:20px auto;
 
-  /* 3 capas: grano + grano fino + manchas */
+  /* color base cal */
+  background-color:#f3f2ee;
+
+  /* textura + pelotazos */
   background-image:
     radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
     radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-    radial-gradient(ellipse 18px 12px at 20% 30%, rgba(0,0,0,0.12), transparent 70%),
-    radial-gradient(ellipse 22px 16px at 70% 60%, rgba(0,0,0,0.10), transparent 70%),
-    radial-gradient(ellipse 14px 10px at 40% 80%, rgba(0,0,0,0.09), transparent 70%);
+    radial-gradient(ellipse 18px 12px at 20% 30%, rgba(0,0,0,0.15), transparent 70%),
+    radial-gradient(ellipse 22px 16px at 70% 60%, rgba(0,0,0,0.12), transparent 70%),
+    radial-gradient(ellipse 14px 10px at 40% 80%, rgba(0,0,0,0.10), transparent 70%);
 
   background-size:
     18px 18px,
@@ -47,19 +55,12 @@ body::before {
     700px 700px,
     500px 500px;
 
-  opacity: 0.35; /* ajusta 0.25–0.45 */
-}
-/* ===== CARTEL ===== */
-.cartel{
-  position:relative;
-  max-width:900px;
-  margin:20px auto;
-  background:rgba(255,255,255,.92);
   border-radius:12px;
   box-shadow:0 8px 20px rgba(0,0,0,.3);
   padding:20px 24px 30px;
   overflow:hidden;
 }
+
 
 
 /* CONTENIDO REAL */
