@@ -346,20 +346,7 @@ bloquesData.forEach(b=>{
 
 });
   
-  /* medir antes de añadir */
-contenido.appendChild(bloque);
-
-if(contenido.scrollHeight > CONTENIDO_MAX){
-contenido.removeChild(bloque);
-pagina=nuevaPagina();
-contenido=pagina.querySelector(".contenido");
-contenido.appendChild(bloque);
-}
-
-});
-
-});
-
+  
 /* ================= EXPORTAR ================= */
 
 async function exportar(){
