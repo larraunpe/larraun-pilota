@@ -76,17 +76,16 @@ body{
 
 /* ================= PELOTAZOS ================= */
 
-.pelotazos{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
+.pelotazos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.pelota{
-  position:absolute;
-  border-radius:50%;
-  background:rgba(230,230,230,.12);
+.pelotazos .pelota {
+  position: absolute;
+  border-radius: 50%;
 }
 
 /* capas visibles */
@@ -298,7 +297,7 @@ function generarPelotazos(total = 1000){
     d.className = "pelota";
 
     const size = Math.random() < 0.7
-      ? Math.random() * 2 + 1   // mayoría muy pequeños
+      ? Math.random() * 5 + 3   // mayoría muy pequeños
       : Math.random() * 4 + 2;  // algunos medianos
 
     d.style.width = d.style.height = size + "px";
