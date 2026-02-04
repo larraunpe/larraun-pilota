@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Larraun Pilota – Aste honetako partidak</title>
+
+<style>
+
+/* ===================== FONDO FRONTÓN ===================== */
+
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+
+  /* verde más oscuro */
+  background:#1f5a36;
+
+  /* pelotazos distribuidos por TODO el cartel */
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.08) 0 5px, transparent 6px),
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,.07) 0 6px, transparent 7px),
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,.09) 0 4px, transparent 5px),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,.08) 0 7px, transparent 8px),
+    radial-gradient(circle at 90% 40%, rgba(255,255,255,.07) 0 5px, transparent 6px),
+    radial-gradient(circle at 15% 90%, rgba(255,255,255,.06) 0 6px, transparent 7px),
+    radial-gradient(circle at 85% 10%, rgba(255,255,255,.08) 0 5px, transparent 6px);
+}
+
+/* ===================== CONTENEDOR ===================== */
+
+.cartel{
+  max-width:900px;
+  margin:40px auto;
+  background:#ffffff;
+  padding:30px;
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  position:relative;
+  overflow:hidden;
+}
+
+/* pelotazos grandes dentro de zona blanca */
+.cartel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(circle at 20% 25%, rgba(0,0,0,.04) 0 28px, transparent 30px),
+    radial-gradient(circle at 75% 60%, rgba(0,0,0,.05) 0 35px, transparent 36px),
+    radial-gradient(circle at 45% 85%, rgba(0,0,0,.04) 0 30px, transparent 31px);
+}
+
+/* ===================== HEADER ===================== */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:28px;
+}
+
+.header img{ height:80px; }
+
+.header h1{
+  flex:1;
+  text-align:center;
+  font-size:2.3em;
+  margin:0;
+  color:#ffffff;
+  padding:14px 0;
+
+  /* efecto colchón */
+  background:#b30000;
+  border-radius:14px;
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,.25),
+    inset 0 -6px 12px rgba(0,0,0,.35),
+    0 6px 14px rgba(0,0,0,.35);
+}
+
+/* ===================== LISTA ===================== */
+
+.partidos{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* ===================== TARJETAS ===================== */
+
+.partido{
+  padding:18px 20px;
+  border-radius:12px;
+  background:#f9f9f9;
+  position:relative;
+  border-left:8px solid #b00000;
+
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 4px 10px rgba(0,0,0,.15);
+}
+
+/* ===================== EFECTO PIEDRA ===================== */
+
+.piedra{
+  color:#2f2f2f;
+  font-weight:700;
+
+  text-shadow:
+    0 1px 0 #fff,
+    0 2px 2px rgba(0,0,0,.15),
+    0 0 1px rgba(0,0,0,.3);
+}
+
+/* ===================== BADGES ===================== */
+
+.badge{
+  position:absolute;
+  top:10px;
+  right:12px;
+  font-size:.75em;
+  padding:4px 8px;
+  border-radius:6px;
+  font-weight:bold;
+  background:#b30000;
+  color:#fff;
+}
+
+.badge.beste-ofiziala{
+  background:#198754;
+}
+
+/* ===================== TEXTOS ===================== */
+
+.fecha{
+  margin-bottom:8px;
+}
+
+.equipos{
+  line-height:1.4;
+  margin-bottom:8px;
+}
+
+.etxekoa{ color:#0b2c5d; }
+.kanpokoak{ color:#b00000; }
+
+.fronton{
+  font-style:italic;
+  margin-top:6px;
+}
+
+.lehiaketa{
+  margin-top:6px;
+  font-size:.95em;
+}
+
+/* ===================== FOOTER ===================== */
+
+.footer{
+  margin-top:30px;
+  padding-top:15px;
+  border-top:2px solid #ddd;
+  display:flex;
+  justify-content:space-between;
+  font-size:.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+
+  <div class="header">
+    <img src="images/logo-larraun.png">
+    <h1>ASTE HONETAKO PARTIDAK</h1>
+    <img src="images/logo-fnp.png">
+  </div>
+
+  <div class="partidos" id="lista-partidos"></div>
+
+  <div class="footer">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div>@larraunpilota</div>
+  </div>
+
+</div>
+
+<script>
+
+/* ========= FASES DESDE JSON ========= */
+
+function cargarFases(){
+  return fetch("/data/fases.json")
+    .then(r=>r.json())
+    .catch(()=>({}));
+}
+
+function formatearLehiaketa(texto, fases){
+  if(!texto) return "";
+  const key = Object.keys(fases).find(f =>
+    texto.toUpperCase().startsWith(f)
+  );
+
+  if(key){
+    const resto = texto.slice(key.length).trim();
+    return `<b>${key}</b>${resto ? " ("+resto+")" : ""}`;
+  }
+  return texto;
+}
+
+/* ========= PARTIDOS ========= */
+
+Promise.all([
+  cargarFases(),
+  fetch("data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([fases, oficiales, noOficiales])=>{
+
+  const partidos=[
+    ...oficiales,
+    ...noOficiales
+  ];
+
+  const cont=document.getElementById("lista-partidos");
+
+  partidos.forEach(p=>{
+
+    const div=document.createElement("div");
+    div.className="partido";
+
+    div.innerHTML=`
+      <div class="fecha piedra">🗓 ${p.fecha} ${p.hora || ""}</div>
+
+      <div class="equipos piedra">
+        <div class="etxekoa">🏠 ${p.etxekoa||""}</div>
+        <div class="kanpokoak">✈️ ${p.kanpokoak||""}</div>
+      </div>
+
+      <div class="fronton piedra">📍 ${p.fronton||""}</div>
+
+      <div class="lehiaketa piedra">
+        🏆 ${formatearLehiaketa(p.lehiaketa||p.modalidad,fases)}
+      </div>
+    `;
+
+    cont.appendChild(div);
+  });
+
+});
+
+</script>
+
+</body>
+</html>
