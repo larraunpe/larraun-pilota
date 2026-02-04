@@ -319,6 +319,21 @@ Promise.all([
     });
   });
 });
+  /* ========= EXPORTAR JPG ========= */
+function exportarJPG(){
+  const el = document.getElementById("kartela");
+
+  html2canvas(el,{
+    scale:2,
+    backgroundColor:null
+  }).then(canvas=>{
+    const link=document.createElement("a");
+    link.download="kartela.jpg";
+    link.href=canvas.toDataURL("image/jpeg",0.95);
+    link.click();
+  });
+}
+
 </script>
 
 </body>
