@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Larraun – Asteko Kartela</title>
-
+<title>Larraun Kartela</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
@@ -14,182 +13,116 @@
 
 body{
   margin:0;
-  font-family:"Trebuchet MS","Arial Black",system-ui,sans-serif;
+  font-family:"Trebuchet MS","Arial Black",sans-serif;
   background:#1b4d31;
 }
 
 /* ================= CARTEL ================= */
 
 .cartel{
-  position:relative;
-  max-width:900px;
+  width:900px;
   margin:20px auto;
-  padding:22px;
-  border-radius:14px;
+  background:#3c7a52; /* verde más claro realista */
+  border-radius:12px;
   overflow:hidden;
-
-  background:#2a623f;
-  box-shadow:0 12px 30px rgba(0,0,0,.45);
-}
-/* textura frontón real */
-.cartel::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,.06) 0 1px, transparent 2px),
-    radial-gradient(circle at 60% 70%, rgba(0,0,0,.08) 0 1px, transparent 2px),
-    radial-gradient(circle at 40% 50%, rgba(255,255,255,.04) 0 1px, transparent 2px),
-    radial-gradient(circle at 80% 20%, rgba(0,0,0,.07) 0 1px, transparent 2px),
-    repeating-radial-gradient(circle at 0 0,
-      rgba(255,255,255,.03) 0 1px,
-      transparent 1px 3px
-    );
+  position:relative;
 }
 
-/* ===== textura hormigón ===== */
+/* textura hormigón */
 .cartel::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:0;
-
   background:
-    repeating-linear-gradient(45deg, rgba(255,255,255,.02) 0 2px, rgba(0,0,0,.02) 2px 4px),
-    radial-gradient(circle at 20% 30%, rgba(0,0,0,.15) 0 3px, transparent 4px),
-    radial-gradient(circle at 80% 70%, rgba(0,0,0,.15) 0 3px, transparent 4px);
-}
-
-/* viñeta póster viejo */
-.cartel::after{
-  content:"";
-  position:absolute;
-  inset:-30px;
-  pointer-events:none;
-  z-index:0;
-  background:radial-gradient(circle, transparent 60%, rgba(0,0,0,.45));
+    repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 4px),
+    radial-gradient(circle at 30% 30%,rgba(0,0,0,.15) 0 3px,transparent 4px);
 }
 
 /* ================= PELOTAZOS ================= */
 
-.pelotazos {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+.pelotazos{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.pelotazos .pelota {
-  position: absolute;
-  border-radius: 50%;
+.pelota{
+  position:absolute;
+  border-radius:50%;
+  background:#000;
 }
 
-/* capas visibles */
-.header,
-.bloque,
-.patrocinadores{
-  position:relative;
-  z-index:1;
+/* ================= CHAPA NEGRA ================= */
+
+.chapa{
+  height:12px;
+  background:#000;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER COLCHÓN ================= */
 
 .header{
+  background:#2448b5;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:18px;
-}
-
-.header img{height:64px}
-
-.header h1{
-  color:#fff;
-  padding:10px 18px;
-  border-radius:12px;
-  background:#b00000;
-  letter-spacing:2px;
+  padding:14px 20px;
 
   box-shadow:
-    inset 0 6px 8px rgba(255,255,255,.3),
-    inset 0 -8px 10px rgba(0,0,0,.5);
+    inset 0 8px 12px rgba(255,255,255,.3),
+    inset 0 -12px 14px rgba(0,0,0,.6);
+}
+
+.header img{height:60px}
+
+.header h1{
+  letter-spacing:2px;
 }
 
 /* ================= BLOQUES ================= */
 
-.bloque{margin-top:30px}
+.bloque{padding:18px}
 
 .bloque h2{
   text-align:center;
   color:#fff;
-  letter-spacing:1px;
+  letter-spacing:2px;
 }
 
-/* ================= GRUPO ================= */
+/* ================= GRUPOS ================= */
 
 .grupo{
-  margin-top:14px;
   background:#fff;
   border-radius:10px;
-  box-shadow:0 5px 12px rgba(0,0,0,.35);
+  margin-top:12px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.4);
 }
-
-/* pelotazos grandes dentro del papel */
-.grupo::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.25;
-  background:
-    radial-gradient(circle at 20% 40%, #000 0 10px, transparent 11px),
-    radial-gradient(circle at 70% 65%, #000 0 12px, transparent 13px);
-}
-
-/* ================= CABECERA COLCHÓN ================= */
 
 .grupo-header{
-  background:#0d47a1;
+  background:#2448b5;
   color:#fff;
-  padding:10px 14px;
+  padding:8px 14px;
   font-weight:bold;
-
-  box-shadow:
-    inset 0 5px 6px rgba(255,255,255,.25),
-    inset 0 -8px 10px rgba(0,0,0,.35);
 }
 
 .grupo-header.rojo{
   background:#b00000;
 }
 
-/* ================= TEXTO PIEDRA ================= */
-
 .linea{
-  padding:8px 14px;
-  border-top:1px solid #ddd;
   display:flex;
+  padding:8px 14px;
   gap:10px;
-  font-size:.95em;
-}
-
-.zkia,
-.etxekoa,
-.kanpokoa,
-.lehiaketa{
+  border-top:1px solid #ddd;
   font-weight:900;
-  text-shadow:
-    0 1px 0 #fff,
-    0 2px 2px rgba(0,0,0,.3);
 }
 
-.zkia{width:26px}
-.etxekoa{color:#0d47a1}
-.kanpokoa{color:#b71c1c}
+.zkia{width:30px}
+.etxekoa{color:#2448b5}
+.kanpokoa{color:#b00000}
 
 .lehiaketa{
   margin-left:auto;
@@ -200,12 +133,16 @@ body{
   font-weight:900;
 }
 
-/* ================= PATROCINADORES ================= */
+/* ================= PIE ================= */
 
 .patrocinadores{
-  margin-top:40px;
-  padding-top:20px;
-  border-top:2px dashed rgba(255,255,255,.4);
+  background:#2e2e2e;
+  padding:14px;
+}
+
+.suelo{
+  background:#777;
+  padding:20px;
 }
 
 .logos-grid{
@@ -218,7 +155,6 @@ body{
   background:#fff;
   padding:6px;
   border-radius:6px;
-  box-shadow:0 3px 6px rgba(0,0,0,.35);
 }
 
 .logo-item img{
@@ -231,26 +167,16 @@ body{
 
 .exportar{
   text-align:center;
-  margin:14px 0;
+  margin:14px;
 }
 
 button{
-  background:#0d47a1;
+  padding:12px 20px;
+  background:#2448b5;
   color:#fff;
   border:none;
-  padding:10px 18px;
   border-radius:20px;
   cursor:pointer;
-}
-/* ================= PAGINACIÓN IMPRENTA ================= */
-
-.pagina{
-  page-break-after: always;
-  min-height:1400px; /* altura tipo A4 vertical */
-}
-
-.contenido{
-  min-height:800px;
 }
 
 </style>
@@ -259,37 +185,14 @@ button{
 <body>
 
 <div class="exportar">
-  <button onclick="exportarPaginas()">📸 DESKARGATU KARTELAK (JPG)</button>
+<button onclick="exportarPaginas()">📸 DESKARGATU JPG</button>
 </div>
-
-<!-- PLANTILLA DE PÁGINA -->
-<div class="cartel pagina" id="pagina-template" style="display:none">
-
-  <div class="pelotazos"></div>
-
-  <!-- CABECERA FIJA -->
-  <div class="header">
-    <img src="/images/logo-larraun.png">
-    <h1>LARRAUN PILOTA ELKARTEA</h1>
-    <img src="/images/logo-fnp.png">
-  </div>
-
-  <!-- CONTENIDO VARIABLE -->
-  <div class="contenido"></div>
-
-  <!-- PIE FIJO -->
-  <div class="patrocinadores">
-    <div class="logos-grid" id="logos-template"></div>
-  </div>
-
-</div>
-
-<!-- CONTENEDOR REAL -->
-<div id="paginas"></div>
 
 <div class="cartel" id="kartela">
 
 <div class="pelotazos"></div>
+
+<div class="chapa"></div>
 
 <div class="header">
 <img src="/images/logo-larraun.png">
@@ -297,238 +200,129 @@ button{
 <img src="/images/logo-fnp.png">
 </div>
 
+<div class="chapa"></div>
+
 <div id="content"></div>
+
+<div class="chapa"></div>
 
 <div class="patrocinadores">
 <div class="logos-grid" id="logos"></div>
 </div>
 
+<div class="suelo"></div>
+
 </div>
 
 <script>
 
-/* ========= EXPORTAR JPG ========= */
-function exportarJPG(){
-  html2canvas(document.getElementById("kartela"),{
-    scale:2,
-    useCORS:true,
-    backgroundColor:null
-  }).then(canvas=>{
-    const link=document.createElement("a");
-    link.download="kartela.jpg";
-    link.href=canvas.toDataURL("image/jpeg",0.95);
-    link.click();
-  });
-}
+/* ================= PELOTAZOS ================= */
 
-/* ========= PELOTAZOS ========= */
-function generarPelotazos(total = 1000){
-  const cont = document.querySelector(".pelotazos");
-  const w = kartela.offsetWidth;
-  const h = kartela.offsetHeight;
+function generarPelotazos(){
+  const cont=document.querySelector(".pelotazos");
+  const w=900;
+  const h=document.getElementById("kartela").offsetHeight;
 
-  for(let i = 0; i < total; i++){
-    const d = document.createElement("div");
-    d.className = "pelota";
-
-    const size = Math.random() < 0.7
-      ? Math.random() * 5 + 3   // mayoría muy pequeños
-      : Math.random() * 4 + 2;  // algunos medianos
-
-    d.style.width = d.style.height = size + "px";
-    d.style.left = Math.random() * w + "px";
-    d.style.top  = Math.random() * h + "px";
-    d.style.opacity = Math.random() * 0.12 + 0.06;
-
+  for(let i=0;i<2500;i++){
+    const d=document.createElement("div");
+    d.className="pelota";
+    const s=Math.random()*6+3;
+    d.style.width=d.style.height=s+"px";
+    d.style.left=Math.random()*w+"px";
+    d.style.top=Math.random()*h+"px";
+    d.style.opacity=Math.random()*0.08+0.05;
     cont.appendChild(d);
   }
 }
-window.addEventListener("load",generarPelotazos);
 
-/* ========= FASES ========= */
+/* ================= FASES ================= */
+
 let fases={};
 fetch("/data/fases.json").then(r=>r.json()).then(d=>fases=d);
 
 function formatearLehiaketa(t){
   if(!t) return "";
   const k=Object.keys(fases).find(f=>t.toUpperCase().startsWith(f));
-  if(k){
-    const resto=t.slice(k.length).trim();
-    return `<span class="fase">${k}</span>${resto?` (${resto})`:""}`;
-  }
-  return t;
+  if(!k) return t;
+  return `<span class="fase">${k}</span> (${t.slice(k.length).trim()})`;
 }
 
-/* ========= PARTIDOS ========= */
-
-function normalizaHora(h){return h?h.slice(0,5):"00:00"}
-
-function ordenar(data){
-  return data.sort((a,b)=>{
-    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
-    return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
-  });
-}
-
-function agrupar(data){
-  const g={};
-  data.forEach(p=>{
-    const k=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
-    if(!g[k]) g[k]=[];
-    g[k].push(p);
-  });
-  return g;
-}
+/* ================= RENDER PARTIDOS (TU LÓGICA ORIGINAL) ================= */
 
 Promise.all([
-  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
+fetch("/data/cartelera-larraun.json").then(r=>r.json()),
+fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-  const bloques=[
-    {titulo:"ORDUTEGIAK",data:ordenar(oficiales)},
-    {titulo:"BESTE TXAPELKETAK OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
-    {titulo:"TXAPELKETAK EZ OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
-  ];
+const bloques=[
+{titulo:"ORDUTEGIAK",data:oficiales},
+{titulo:"BESTE TXAPELKETAK OFIZIALAK",data:noOficiales.filter(p=>String(p.ofiziala)==="true")},
+{titulo:"TXAPELKETAK EZ OFIZIALAK",data:noOficiales.filter(p=>String(p.ofiziala)!=="true")}
+];
 
-  const cont=document.getElementById("content");
+const cont=document.getElementById("content");
 
-  bloques.forEach(b=>{
-    if(!b.data.length) return;
+bloques.forEach(b=>{
+if(!b.data.length) return;
 
-    const bloque=document.createElement("div");
-    bloque.className="bloque";
-    bloque.innerHTML=`<h2>${b.titulo}</h2>`;
-    cont.appendChild(bloque);
+const bloque=document.createElement("div");
+bloque.className="bloque";
+bloque.innerHTML=`<h2>${b.titulo}</h2>`;
+cont.appendChild(bloque);
 
-    const grupos=agrupar(b.data);
+b.data.forEach(p=>{
+const esLocal=/lekunberri|aldatz/i.test(p.fronton||"");
 
-    Object.values(grupos).forEach(partidos=>{
-      const p0=partidos[0];
-      const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
-
-      const grupo=document.createElement("div");
-      grupo.className="grupo";
-
-      grupo.innerHTML=`
-        <div class="grupo-header ${!esLocal?'rojo':''}">
-          📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
-        </div>
-        ${partidos.map(p=>`
-          <div class="linea">
-            <div class="zkia">${p.zkia}</div>
-            <div class="etxekoa">${p.etxekoa||""}</div>
-            <div class="kanpokoa">${p.kanpokoak||""}</div>
-            <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa)}</div>
-          </div>
-        `).join("")}
-      `;
-      bloque.appendChild(grupo);
-    });
-  });
+bloque.innerHTML+=`
+<div class="grupo">
+<div class="grupo-header ${!esLocal?'rojo':''}">
+📅 ${p.fecha} | ⏰ ${p.hora} | 📍 ${p.fronton}
+</div>
+<div class="linea">
+<div class="zkia">${p.zkia}</div>
+<div class="etxekoa">${p.etxekoa||""}</div>
+<div class="kanpokoa">${p.kanpokoak||""}</div>
+<div class="lehiaketa">${formatearLehiaketa(p.lehiaketa)}</div>
+</div>
+</div>`;
 });
 
-/* ========= PATROCINADORES ========= */
+});
 
-const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
-"barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
-"carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
-"construccionesurangasaigos.jpg","fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg",
-"iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
-"maderasnasorena.jpg","maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
-"ventamugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg","ekin.jpg",
-"farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
-"izarberri.png","lakita.jpg","nekazari.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
-"talleresotxotorena.jpg","veterinarialekunberri.jpg"];
+setTimeout(generarPelotazos,300);
+
+});
+
+/* ================= LOGOS ================= */
+
+const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg"];
 const logos=document.getElementById("logos");
 LOGOS.forEach(f=>{
-  logos.innerHTML+=`<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`;
+logos.innerHTML+=`<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`;
 });
 
-</script>
-<script>
-/* ================= EXPORTAR MULTI JPG ================= */
+/* ================= EXPORTAR MULTIPÁGINA ================= */
 
 async function exportarPaginas(){
+const canvas=await html2canvas(document.getElementById("kartela"),{scale:2,useCORS:true});
+const A4=3508;
+let y=0,n=1;
 
-  const paginasCont = document.getElementById("paginas");
-  paginasCont.innerHTML = "";
+while(y<canvas.height){
+const slice=document.createElement("canvas");
+slice.width=canvas.width;
+slice.height=Math.min(A4,canvas.height-y);
+slice.getContext("2d").drawImage(canvas,0,y,canvas.width,slice.height,0,0,canvas.width,slice.height);
 
-  const bloques = [...document.querySelectorAll(".bloque")];
+const a=document.createElement("a");
+a.download=`kartela_${n++}.jpg`;
+a.href=slice.toDataURL("image/jpeg",0.95);
+a.click();
 
-  let paginaActual = crearPagina();
-  let contenido = paginaActual.querySelector(".contenido");
-
-  for(const bloque of bloques){
-    const clon = bloque.cloneNode(true);
-    contenido.appendChild(clon);
-
-    if(paginaActual.offsetHeight > 1400){
-      contenido.removeChild(clon);
-      await exportarPagina(paginaActual);
-      paginaActual = crearPagina();
-      contenido = paginaActual.querySelector(".contenido");
-      contenido.appendChild(clon);
-    }
-  }
-
-  await exportarPagina(paginaActual);
+y+=A4;
+}
 }
 
-/* ================= CREAR PÁGINA ================= */
-
-function crearPagina(){
-  const tpl = document.getElementById("pagina-template");
-  const pagina = tpl.cloneNode(true);
-  pagina.style.display = "block";
-  pagina.removeAttribute("id");
-
-  // logos
-  const logosOrigen = document.querySelector("#logos");
-  const logosDestino = pagina.querySelector("#logos-template");
-  logosDestino.innerHTML = logosOrigen.innerHTML;
-
-  paginas.appendChild(pagina);
-
-  generarPelotazosPagina(pagina);
-
-  return pagina;
-}
-
-/* ================= EXPORTAR UNA PÁGINA ================= */
-
-let contador = 1;
-async function exportarPagina(pagina){
-  await html2canvas(pagina,{
-    scale:2,
-    useCORS:true,
-    backgroundColor:"#2a623f"
-  }).then(canvas=>{
-    const a = document.createElement("a");
-    a.download = `kartela_${contador++}.jpg`;
-    a.href = canvas.toDataURL("image/jpeg",0.95);
-    a.click();
-  });
-}
-
-/* ================= PELOTAZOS POR PÁGINA ================= */
-
-function generarPelotazosPagina(pagina){
-  const cont = pagina.querySelector(".pelotazos");
-  const w = pagina.offsetWidth;
-  const h = pagina.offsetHeight;
-
-  for(let i=0;i<900;i++){
-    const d=document.createElement("div");
-    d.className="pelota";
-    const s=Math.random()*4+2;
-    d.style.width=d.style.height=s+"px";
-    d.style.left=Math.random()*w+"px";
-    d.style.top=Math.random()*h+"px";
-    d.style.opacity=Math.random()*0.12+0.05;
-    cont.appendChild(d);
-  }
-}
 </script>
 
 </body>
