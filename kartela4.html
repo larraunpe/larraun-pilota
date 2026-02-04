@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<title>Larraun – Kartel Inprimagarria</title>
+<title>Larraun Kartela Pro</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -12,13 +12,13 @@
 
 body{
   margin:0;
-  font-family:"Trebuchet MS","Arial Black",system-ui,sans-serif;
   background:#1b4d31;
+  font-family:"Trebuchet MS","Arial Black",system-ui,sans-serif;
 }
 
 .exportar{
   text-align:center;
-  margin:16px;
+  margin:14px;
 }
 
 button{
@@ -28,18 +28,31 @@ button{
   padding:10px 18px;
   border-radius:20px;
   cursor:pointer;
+  font-weight:bold;
 }
 
-/* ================= PAGINA A4 ================= */
+/* ================= PAGINA ================= */
 
 .pagina{
   width:900px;
-  height:1400px;
+  min-height:1400px;
   margin:20px auto;
   position:relative;
-  overflow:hidden;
   background:#2a623f;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  box-shadow:0 12px 30px rgba(0,0,0,.5);
+  overflow:hidden;
+}
+
+/* textura hormigón + póster */
+.pagina::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 2px, rgba(0,0,0,.03) 2px 4px),
+    radial-gradient(circle, transparent 60%, rgba(0,0,0,.4));
+  z-index:0;
 }
 
 /* ================= PELOTAZOS ================= */
@@ -47,7 +60,6 @@ button{
 .pelotazos{
   position:absolute;
   inset:0;
-  pointer-events:none;
   z-index:0;
 }
 
@@ -57,51 +69,55 @@ button{
   background:#000;
 }
 
-/* ================= CABECERA ================= */
+/* ================= HEADER ================= */
 
-.colchon-azul{
+.header{
   background:#3f51b5;
-  padding:16px 22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:14px 20px;
   box-shadow:
     inset 0 8px 12px rgba(255,255,255,.35),
     inset 0 -10px 12px rgba(0,0,0,.55);
 }
 
-.colchon-azul h1{
+.header h1{
   color:#fff;
   letter-spacing:3px;
 }
 
-.chapa{
-  height:10px;
-  background:#000;
-}
+.chapa{height:10px;background:#000}
 
 /* ================= CONTENIDO ================= */
 
 .contenido{
-  padding:18px;
+  padding:20px;
   position:relative;
   z-index:2;
 }
 
 .bloque{margin-top:24px}
-.bloque h2{text-align:center;color:#fff}
+.bloque h2{
+  color:#fff;
+  text-align:center;
+  letter-spacing:2px;
+}
+
+/* ================= PARTIDOS ================= */
 
 .grupo{
   background:#fff;
   border-radius:10px;
   margin-top:10px;
-  box-shadow:0 4px 10px rgba(0,0,0,.3);
+  box-shadow:0 5px 12px rgba(0,0,0,.3);
+  overflow:hidden;
 }
 
 .grupo-header{
   padding:10px;
-  font-weight:bold;
   color:#fff;
+  font-weight:bold;
   background:#0d47a1;
 }
 
@@ -112,12 +128,13 @@ button{
 .linea{
   display:flex;
   gap:10px;
-  padding:7px 12px;
+  padding:8px 12px;
   border-top:1px solid #ddd;
   font-weight:900;
+  font-size:.95em;
 }
 
-.zkia{width:26px}
+.zkia{width:28px}
 .etxekoa{color:#0d47a1}
 .kanpokoa{color:#b71c1c}
 .lehiaketa{margin-left:auto;text-align:right}
@@ -126,15 +143,9 @@ button{
 /* ================= PIE ================= */
 
 .footer{
-  position:absolute;
-  bottom:0;
-  width:100%;
-}
-
-.colchon-gris{background:#2c2c2c;height:22px}
-.suelo{
+  padding:16px;
   background:#9e9e9e;
-  padding:18px;
+  margin-top:30px;
 }
 
 .logos-grid{
@@ -145,13 +156,13 @@ button{
 
 .logo-item{
   background:#fff;
-  padding:4px;
+  padding:5px;
   border-radius:6px;
 }
 
 .logo-item img{
   width:100%;
-  height:30px;
+  height:34px;
   object-fit:contain;
 }
 
@@ -161,16 +172,12 @@ button{
 <body>
 
 <div class="exportar">
-<button onclick="exportarPaginas()">📸 DESKARGATU KARTELAK</button>
+<button onclick="exportarPaginas()">📸 DESKARGATU JPG GUZTIAK</button>
 </div>
 
 <div id="paginas"></div>
 
 <script>
-
-/* ================= DATOS ================= */
-
-const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg"]; // simplificado ejemplo
 
 /* ================= PELOTAZOS ================= */
 
@@ -178,16 +185,16 @@ function generarPelotazos(pagina){
 
   const cont=pagina.querySelector(".pelotazos");
 
-  for(let i=0;i<2000;i++){
+  for(let i=0;i<2200;i++){
     const d=document.createElement("div");
     d.className="pelota";
 
-    const s=Math.random()<0.8?Math.random()*4+2:Math.random()*10+6;
+    const s=Math.random()*8+3;
 
     d.style.width=d.style.height=s+"px";
     d.style.left=Math.random()*900+"px";
     d.style.top=Math.random()*1400+"px";
-    d.style.opacity=Math.random()*0.08+0.04;
+    d.style.opacity=Math.random()*0.10+0.05;
 
     cont.appendChild(d);
   }
@@ -203,7 +210,7 @@ function crearPagina(){
   p.innerHTML=`
     <div class="pelotazos"></div>
 
-    <div class="colchon-azul">
+    <div class="header">
       <img src="/images/logo-larraun.png" height="60">
       <h1>LARRAUN PILOTA ELKARTEA</h1>
       <img src="/images/logo-fnp.png" height="60">
@@ -213,64 +220,99 @@ function crearPagina(){
     <div class="contenido"></div>
 
     <div class="footer">
-      <div class="chapa"></div>
-      <div class="colchon-gris"></div>
-      <div class="suelo">
-        <div class="logos-grid"></div>
-      </div>
+      <div class="logos-grid" id="logos"></div>
     </div>
   `;
 
-  const grid=p.querySelector(".logos-grid");
-  LOGOS.forEach(l=>{
-    grid.innerHTML+=`<div class="logo-item"><img src="/images/patrocinio/${l}"></div>`;
-  });
+  generarPelotazos(p);
 
   document.getElementById("paginas").appendChild(p);
-
-  generarPelotazos(p);
 
   return p;
 }
 
-/* ================= EJEMPLO PARTIDOS ================= */
+/* ================= LOGOS ================= */
 
-function generarContenido(){
+const LOGOS=[ /* tus logos reales */
+"aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg"
+];
+
+function pintarLogos(pagina){
+  const grid=pagina.querySelector("#logos");
+  LOGOS.forEach(f=>{
+    grid.innerHTML+=`<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`;
+  });
+}
+
+/* ================= PARTIDOS ================= */
+
+function normalizaHora(h){return h?h.slice(0,5):"00:00"}
+
+function agrupar(data){
+  const g={};
+  data.forEach(p=>{
+    const k=`${p.fecha}|${p.hora}|${p.fronton}`;
+    if(!g[k]) g[k]=[];
+    g[k].push(p);
+  });
+  return g;
+}
+
+async function cargarDatos(){
+
+  const oficiales=await fetch("/data/cartelera-larraun.json").then(r=>r.json());
+  const noOficiales=await fetch("/data/partidos-no-oficiales.json").then(r=>r.json());
+
+  const todos=[...oficiales,...noOficiales];
 
   const pagina=crearPagina();
   const cont=pagina.querySelector(".contenido");
 
-  for(let i=1;i<=20;i++){
-    cont.innerHTML+=`
-      <div class="grupo">
-        <div class="grupo-header">📅 2026/02/0${i%7+1}</div>
-        <div class="linea">
-          <div class="zkia">${i}</div>
-          <div class="etxekoa">LARRAUN</div>
-          <div class="kanpokoa">AURKARIA</div>
-          <div class="lehiaketa"><span class="fase">FASE 2</span> NKJ</div>
-        </div>
+  const grupos=agrupar(todos);
+
+  Object.values(grupos).forEach(partidos=>{
+
+    const p0=partidos[0];
+
+    const grupo=document.createElement("div");
+    grupo.className="grupo";
+
+    grupo.innerHTML=`
+      <div class="grupo-header">
+        📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
       </div>
+      ${partidos.map(p=>`
+        <div class="linea">
+          <div class="zkia">${p.zkia}</div>
+          <div class="etxekoa">${p.etxekoa}</div>
+          <div class="kanpokoa">${p.kanpokoak}</div>
+          <div class="lehiaketa">${p.lehiaketa||""}</div>
+        </div>
+      `).join("")}
     `;
-  }
+
+    cont.appendChild(grupo);
+
+  });
+
+  pintarLogos(pagina);
 }
 
-/* 👉 SE GENERA AL CARGAR */
-window.onload=generarContenido;
+window.onload=cargarDatos;
 
 /* ================= EXPORTAR ================= */
 
 async function exportarPaginas(){
+
   const paginas=[...document.querySelectorAll(".pagina")];
 
   let n=1;
   for(const p of paginas){
-    await html2canvas(p,{scale:2,useCORS:true}).then(c=>{
-      const a=document.createElement("a");
-      a.download=`kartela_${n++}.jpg`;
-      a.href=c.toDataURL("image/jpeg",0.95);
-      a.click();
-    });
+    const canvas=await html2canvas(p,{scale:2,useCORS:true});
+    const a=document.createElement("a");
+    a.download=`kartela_${n++}.jpg`;
+    a.href=canvas.toDataURL("image/jpeg",0.95);
+    a.click();
   }
 }
 
