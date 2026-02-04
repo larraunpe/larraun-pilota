@@ -40,16 +40,6 @@
     "ofiziala": "true"
   },
   {
-    "fecha": "2026/02/08",
-    "hora": "10:00",
-    "zkia": "1",
-    "fronton": "Lesaka",
-    "etxekoa": "LARRAUN – ERREKA (Laso – Ancizar)",
-    "kanpokoak": "BEHAR ZANA (A. Otaegi – Elola)",
-    "lehiaketa": "ARKUPE TXAPELKETA. GAZTEAK FINAL LAURDENAK",
-    "ofiziala": "false"
-  },
-  {
     "fecha": "2026/02/07",
     "hora": "16:00",
     "zkia": "1",
@@ -76,7 +66,7 @@
     "fronton": "Doneztebe",
     "etxekoa": "LARRAUN - ERREKA (Laso - Ancizar)",
     "kanpokoak": "BEHAR ZANA (Otaegi - Elola)",
-    "lehiaketa": "ARKUPEKO PILOTA TXAPELKETA. FINAL LAURDENAK",
+    "lehiaketa": "ARKUPEKO PILOTA TXAPELKETA GAZTEAK. FINAL LAURDENAK",
     "ofiziala": false
   }
 ]
