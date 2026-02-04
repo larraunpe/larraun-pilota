@@ -1,5 +1,41 @@
 [
   {
+    "fecha": "2025-09-13",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "ESTERIBAR (M. Villanueva) VILLANUEVA AYERRA, M.",
+    "kanpokoak": "LARRAUN (A. Balda) BALDA IRUNGARAI, A.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - FRONTBALL KADETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2868"
+  },
+  {
+    "fecha": "2025-09-13",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "LARRAUN (A. Balda) BALDA IRUNGARAI, A.",
+    "kanpokoak": "LAGUNAK (A. Lerin) LERIN LEBRERO, A.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - FRONTBALL KADETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2868"
+  },
+  {
+    "fecha": "2025-09-13",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "LAGUNAK (I. Arrieta) ARRIETA ELCANO, I.",
+    "kanpokoak": "LARRAUN (A. Balda) BALDA IRUNGARAI, A.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - FRONTBALL KADETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2868"
+  },
+  {
     "fecha": "2025-09-27",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Astiz - I. Garaño) ASTIZ OLASKOAGA, U. GARAÑO GASTESI, I.",
@@ -178,6 +214,352 @@
     "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2877"
+  },
+  {
+    "fecha": "2025-10-04",
+    "fronton": "",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-11",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "kanpokoak": "ATARRABIA (L. Urtasun - S. Miguel) MIGUEL ASENSIO, S. URTASUN AZKONA, L.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-7)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-18",
+    "fronton": "Ororbia - Ororbia",
+    "etxekoa": "ABAXITABIDEA (M. Amorena - M. Dallo) DALLO ESQUIROZ, M. HUGALDE IRIBARREN , J.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(7-9) (3-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "kanpokoak": "ULTZAMA (M. Iraizoz - A. Vertiz) IRAIZOZ GARRIZ, M. VERTIZ LATASA, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-4)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-31",
+    "fronton": "Bera - Eztegara",
+    "etxekoa": "BORTZIRIAK (M. Oyarzabal - I. Baleztena) BALEZTENA IZQUIERDO, I. OYARZABAL BERRUETA, M.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-7) (9-7)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-04",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - O. Mitxaus) AGIRREZABALA VALENCIA, U. MITXAUS FUENTES, O.",
+    "kanpokoak": "LARRAUN (A. Apezetxea - S. Galartza) APEZETXEA GOIKOETXEA, A. GALARTZA MEÑIKA, S.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-4)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - O. Mitxaus) AGIRREZABALA VALENCIA, U. MITXAUS FUENTES, O.",
+    "kanpokoak": "AURRERA (U. Oscariz - H. Aizagirre) AIZAGIRRE ALKAIN, H. OSCARIZ ECHENIQUE, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(6-9) (5-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Apezetxea - S. Galartza) APEZETXEA GOIKOETXEA, A. GALARTZA MEÑIKA, S.",
+    "kanpokoak": "ALDABIDE (M. Zabalza - I. Rabaz) RABAZ DUARTE, I. ZABALZA AULESTIARTE, M.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-3) (6-9) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-31",
+    "fronton": "Arbizu - Arbizu",
+    "etxekoa": "ALDABIDE (M. Zabalza - I. Rabaz) RABAZ DUARTE, I. ZABALZA AULESTIARTE, M.",
+    "kanpokoak": "LARRAUN (U. Agirrezabala - O. Mitxaus) AGIRREZABALA VALENCIA, U. MITXAUS FUENTES, O.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-5) (8-9) (0-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-11-01",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "AURRERA (U. Oscariz - H. Aizagirre) AIZAGIRRE ALKAIN, H. OSCARIZ ECHENIQUE, U.",
+    "kanpokoak": "LARRAUN (A. Apezetxea - S. Galartza) APEZETXEA GOIKOETXEA, A. GALARTZA MEÑIKA, S.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-4)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2879"
+  },
+  {
+    "fecha": "2025-10-03",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (A. Claver - A. Unamuno) CLAVER MAZKIARAN, A. UNAMUNO SANMIGUEL, A.",
+    "kanpokoak": "LARRAUN (L. Oiartzun - G. Garcia) GARCIA AZPIROZ, G. OIARTZUN GOIKOETXEA, L.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-7) (9-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-11",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Oiartzun - G. Garcia) GARCIA AZPIROZ, G. OIARTZUN GOIKOETXEA, L.",
+    "kanpokoak": "AURRERA (A. Amundarain - J. Saralegi) AMUNDARAIN DELGADO, A. SARALEGI OLANO, J.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(8-9) (3-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Oiartzun - G. Garcia) GARCIA AZPIROZ, G. OIARTZUN GOIKOETXEA, L.",
+    "kanpokoak": "OBERENA (A. Arnesto - J. Sanchez-valverde) ARNESTO ARCELUS, A. SANCHEZ-VALVERDE BERRIO, J.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(2-9) (9-8) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-24",
+    "fronton": "Goizueta - Municipal",
+    "etxekoa": "UMORE ONA (A. Makazaga - A. Zubiri) MAKAZAGA ZABALA, A. ZUBIRI APEZETXEA, A.",
+    "kanpokoak": "LARRAUN (L. Oiartzun - G. Garcia) GARCIA AZPIROZ, G. OIARTZUN GOIKOETXEA, L.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-6) (9-5)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-11-02",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Oiartzun - G. Garcia) GARCIA AZPIROZ, G. OIARTZUN GOIKOETXEA, L.",
+    "kanpokoak": "ARDOI (O. Zudaire - A. Garcia) GARCIA IRAOLA, A. ZUDAIRE ERASO, O.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-6)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-04",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "PILOTAJAUKU (L. Arregui - I. San) ARREGUI MENDIZABAL, L. SAN VICENTE FERNANDEZ, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(0-9) (5-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-10",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola) IRAOLA ASTIZ, I. OFIALDEGUI ORQUIN, O.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-6) (9-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "UMORE ONA (U. Zurutuza - N. Zubiri) ZUBIRI APEZETXEA, A. ZURUTUZA MAKAZAGA, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(5-9) (1-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "IRURTZUN (J. Zabaleta - H. Zelaia) ZABALETA SANTESTEBAN, J. ZELAIA TABAR, H.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-7) (4-9) (0-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-31",
+    "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+    "etxekoa": "OBERENA (E. Domingo - J. Mendiola) DOMINGO FERNANDEZ, E. MENDIOLA LEON, J.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2880"
+  },
+  {
+    "fecha": "2025-10-03",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (U. Arano - A. Garijo) ARANO IRIARTE, U. GARIJO BERAZA, A.",
+    "kanpokoak": "LARRAUN (A. Ruiz - A. Loyarte) LOYARTE GAZTELUMENDI, A. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(9-6) (6-9) (3-1)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2881"
+  },
+  {
+    "fecha": "2025-10-11",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - A. Loyarte) LOYARTE GAZTELUMENDI, A. RUIZ MARTIN, A.",
+    "kanpokoak": "LAGUNAK (S. Arteta - U. Arteta) ARTETA GUTIERREZ, S. ARTETA GUTIERREZ, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(5-9) (4-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2881"
+  },
+  {
+    "fecha": "2025-10-18",
+    "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+    "etxekoa": "OBERENA (M. Arruti - A. Azkarate) ARRUTI ETCHEVERS, M. AZKARATE SANZ, A.",
+    "kanpokoak": "LARRAUN (A. Ruiz - A. Loyarte) LOYARTE GAZTELUMENDI, A. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(5-9) (9-6) (3-0)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2881"
+  },
+  {
+    "fecha": "2025-10-25",
+    "fronton": "",
+    "etxekoa": "LARRAUN (A. Ruiz - A. Loyarte)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2881"
+  },
+  {
+    "fecha": "2025-11-02",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - A. Loyarte) LOYARTE GAZTELUMENDI, A. RUIZ MARTIN, A.",
+    "kanpokoak": "ULTZAMA (A. Martinez - X. Baraibar) BARAIBAR INDA, X. MARTINEZ LEGARREA, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-7) (9-7)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2881"
   },
   {
     "fecha": "2025-10-04",
@@ -970,6 +1352,296 @@
     "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2973"
+  },
+  {
+    "fecha": "2025-11-06",
+    "fronton": "Goizueta - Municipal",
+    "etxekoa": "UMORE ONA (A. Zubiri) ZUBIRI APEZETXEA, A.",
+    "kanpokoak": "LARRAUN (I. Lociga) LOCIGA MUÑOZ, I.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-2) (6-9) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala) AGIRREZABALA VALENCIA, U.",
+    "kanpokoak": "LARRAUN (O. Mitxaus) MITXAUS FUENTES, O.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(8-9) (5-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Ororbia - Ororbia",
+    "etxekoa": "ABAXITABIDEA (M. Dallo) DALLO ESQUIROZ, M.",
+    "kanpokoak": "LARRAUN (U. Agirrezabala) AGIRREZABALA VALENCIA, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(5-9) (5-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Lociga) LOCIGA MUÑOZ, I.",
+    "kanpokoak": "ALDABIDE (M. Zabalza) ZABALZA AULESTIARTE, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-5) (9-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus) MITXAUS FUENTES, O.",
+    "kanpokoak": "UMORE ONA (A. Zubiri) ZUBIRI APEZETXEA, A.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(7-9) (9-5) (3-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-23",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus) MITXAUS FUENTES, O.",
+    "kanpokoak": "ABAXITABIDEA (M. Dallo) DALLO ESQUIROZ, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-5)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-23",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala) AGIRREZABALA VALENCIA, U.",
+    "kanpokoak": "LARRAUN (I. Lociga) LOCIGA MUÑOZ, I.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-6) (8-9) (1-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-28",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Lociga) LOCIGA MUÑOZ, I.",
+    "kanpokoak": "LARRAUN (O. Mitxaus) MITXAUS FUENTES, O.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-9) (1-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-29",
+    "fronton": "Arbizu - Arbizu",
+    "etxekoa": "ALDABIDE (M. Zabalza) ZABALZA AULESTIARTE, M.",
+    "kanpokoak": "LARRAUN (U. Agirrezabala) AGIRREZABALA VALENCIA, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-9) (5-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-12-13",
+    "fronton": "Ororbia - Ororbia",
+    "etxekoa": "ABAXITABIDEA (M. Dallo) DALLO ESQUIROZ, M.",
+    "kanpokoak": "LARRAUN (I. Lociga) LOCIGA MUÑOZ, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-9) (7-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-12-14",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus) MITXAUS FUENTES, O.",
+    "kanpokoak": "ALDABIDE (M. Zabalza) *Equipo no presentado",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-0) (9-0)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-12-14",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala) AGIRREZABALA VALENCIA, U.",
+    "kanpokoak": "UMORE ONA (A. Zubiri) ZUBIRI APEZETXEA, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-7) (9-8)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Apezetxea) APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-4) (5-9) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Villava - Atarrabia",
+    "etxekoa": "ATARRABIA (E. Beloki) BELOKI ARANGUREN, E.",
+    "kanpokoak": "LARRAUN (A. Apezetxea) APEZETXEA GOIKOETXEA, A.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(4-9) (9-3) (3-0)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
+    "kanpokoak": "ABAXITABIDEA (M. Berruezo) BERRUEZO PEREZ DE OBANOS, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-4) (9-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-21",
+    "fronton": "Salinas de Pamplona - Mutilendako",
+    "etxekoa": "NOAIN (I. Lizarraga) LIZARRAGA LATASA, I.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(8-9) (9-7) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "",
+    "etxekoa": "LARRAUN (A. Apezetxea)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-29",
+    "fronton": "",
+    "etxekoa": "LARRAUN (U. Ariztimuño)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-11-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Apezetxea) APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "ABAXITABIDEA (M. Berruezo) BERRUEZO PEREZ DE OBANOS, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-3) (9-1)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-12-12",
+    "fronton": "Salinas de Pamplona - Mutilendako",
+    "etxekoa": "NOAIN (I. Lizarraga) LIZARRAGA LATASA, I.",
+    "kanpokoak": "LARRAUN (A. Apezetxea) APEZETXEA GOIKOETXEA, A.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(5-9) (9-8) (2-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
+  },
+  {
+    "fecha": "2025-12-14",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
+    "kanpokoak": "ATARRABIA (E. Beloki) BELOKI ARANGUREN, E.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(9-5) (6-9) (3-1)"
+    ],
+    "modalidad": "NKJ - ESKUZ BANAKA SEIN 2. MAILA",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2982"
   },
   {
     "fecha": "2025-11-07",
@@ -1836,6 +2508,548 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=2998"
   },
   {
+    "fecha": "2025-11-14",
+    "fronton": "",
+    "etxekoa": "LARRAUN (M. Eguzkiza)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKT - PALETA GOMA BANAKA NESKA F30M",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3001"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Pamplona - Tenis",
+    "etxekoa": "LARRAUN (M. Eguzkiza) EGUZKIZA ARGAÑA, M.",
+    "kanpokoak": "OBERENA (U. Murillo) MURILLO GOÑI, U.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKT - PALETA GOMA BANAKA NESKA F30M",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3001"
+  },
+  {
+    "fecha": "2025-11-15",
+    "fronton": "Pamplona - Tenis",
+    "etxekoa": "AUÑAMENDI (H. Argain) ARGAIN IRIARTE, H.",
+    "kanpokoak": "LARRAUN (M. Eguzkiza) EGUZKIZA ARGAÑA, M.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKT - PALETA GOMA BANAKA NESKA F30M",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3001"
+  },
+  {
+    "fecha": "2025-11-13",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (M. Saralegi - M. Eguzkiza) SARALEGI SUKUNZA, M. EGUZKIZA ARGAÑA, M.",
+    "kanpokoak": "AUÑAMENDI (N. Eciolaza - M. Ardanaz) ECIOLAZA ANCHO, N. ARDANAZ DUFUR, M.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(12-15) (15-11) (9-10)"
+    ],
+    "modalidad": "NKT - PALETA GOMA NESKA TRINKETEN",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3003"
+  },
+  {
+    "fecha": "2025-11-19",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (M. Saralegi - M. Eguzkiza) EGUZKIZA ARGAÑA, M. SARALEGI SUKUNZA, M.",
+    "kanpokoak": "OBERENA (I. Arbizu - H. Salanueva) ARBIZU LAPIEZA, I. SALANUEVA BELDARRAIN, H.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(4-15) (7-15)"
+    ],
+    "modalidad": "NKT - PALETA GOMA NESKA TRINKETEN",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3003"
+  },
+  {
+    "fecha": "2025-11-28",
+    "fronton": "Pamplona - Oberena Trinkete",
+    "etxekoa": "OBERENA (L. Artazcoz - P. Gorostiaga) ARTAZCOZ VELAZ, L. GOROSTIAGA PRUJA, P.",
+    "kanpokoak": "LARRAUN (M. Saralegi - M. Eguzkiza) GALARTZA ROTETA, M. EGUZKIZA ARGAÑA, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-8) (15-14)"
+    ],
+    "modalidad": "NKT - PALETA GOMA NESKA TRINKETEN",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3003"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "AUÑAMENDI (U. Erro - L. Iriarte) ERRO GARRALDA, U. ZIA MURILLO, E.",
+    "kanpokoak": "LARRAUN (I. Garaño - L. Legarra) GARAÑO GASTESI, I. LEGARRA IJURKO, L.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA BINAKA KADETE 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3006"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "LARRAUN (I. Garaño - L. Legarra) GARAÑO GASTESI, I. LEGARRA IJURKO, L.",
+    "kanpokoak": "PILOTAJAUKU (S. Alkorta - J. Mendia) ALKORTA ARIAS, S. MENDIA ASENSIO, J.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA BINAKA KADETE 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3006"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "PILOTAJAUKU (A. Mendia - I. Santano) MENDIA ASENSIO, A. SANTANO AZPEITIA, I.",
+    "kanpokoak": "LARRAUN (I. Garaño - L. Legarra) GARAÑO GASTESI, I. LEGARRA IJURKO, L.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA BINAKA KADETE 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3006"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "LARRAUN (I. Larreta) LARRETA GOIKOETXEA, I.",
+    "kanpokoak": "LARRAUN (G. Astiz) ASTIZ LEGARRA, G.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "AUÑAMENDI (I. Pedroarena) PEDROARENA GARRALDA, I.",
+    "kanpokoak": "LARRAUN (G. Astiz) ASTIZ LEGARRA, G.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "G.PILOTA (A. Garmendia) GARMENDIA ETXABE, A.",
+    "kanpokoak": "LARRAUN (I. Larreta) LARRETA GOIKOETXEA, I.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "LARRAUN (G. Astiz) ASTIZ LEGARRA, G.",
+    "kanpokoak": "G.PILOTA (A. Garmendia) GARMENDIA ETXABE, A.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "LARRAUN (I. Larreta) LARRETA GOIKOETXEA, I.",
+    "kanpokoak": "AUÑAMENDI (I. Pedroarena) PEDROARENA GARRALDA, I.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "LARRAUN (L. Bengoetxea) BENGOETXEA LARRARTE, L.",
+    "kanpokoak": "LARRAUN (U. Goñi) GOÑI ELUSTONDO, U.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-21",
+    "fronton": "",
+    "etxekoa": "LARRAUN (U. Goñi)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "OBERENA (I. Nuin) NUIN OLITE, I.",
+    "kanpokoak": "LARRAUN (L. Bengoetxea) BENGOETXEA LARRARTE, L.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "",
+    "etxekoa": "LARRAUN (L. Bengoetxea)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2025-11-22",
+    "fronton": "Baraibar - San Miguel",
+    "etxekoa": "LARRAUN (U. Goñi) GOÑI ELUSTONDO, U.",
+    "kanpokoak": "OBERENA (I. Nuin) NUIN OLITE, I.",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - PALETA GOMA NESKA KADETE 1. BANAKA",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3008"
+  },
+  {
+    "fecha": "2026-01-10",
+    "fronton": "Estella - Remontival",
+    "etxekoa": "SAN MIGUEL (J. Chasco - I. Gomez) CHASCO GANUZA, J. GOMEZ BAZTAN, I.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-5) (9-4)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "kanpokoak": "AGOITZ (L. Ardanaz - I. Erro) ARDANAZ ARCELUS, L. ERRO ARIZCUREN, I.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(5-9) (9-7) (0-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-24",
+    "fronton": "Bera - Eztegara",
+    "etxekoa": "BORTZIRIAK (J. Igoa - H. Otazo) IGOA ANSALAS, J. OTAZO ANSALAS, H.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-1) (9-4)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-31",
+    "fronton": "",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-02-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
+    "kanpokoak": "TXARUTA (I. Echenike - H. Eraso)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-10",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea) AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "BORTZIRIAK (I. Baleztena - A. Zubillaga) BALEZTENA GOÑI, A. ZUBILLAGA MITXEO, A.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-9) (4-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-24",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "AURRERA (H. Aizagirre - U. Oscariz) AIZAGIRRE ALKAIN, H. OSCARIZ ECHENIQUE, U.",
+    "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea) AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-1) (2-9) (1-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-02-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
+    "kanpokoak": "ATARRABIA (E. Beloki - L. Urtasun)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
+  },
+  {
+    "fecha": "2026-01-09",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "AURRERA (A. Amundarain - J. Saralegi) AMUNDARAIN DELGADO, A. SARALEGI OLANO, J.",
+    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(2-9) (9-8) (3-1)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
+  },
+  {
+    "fecha": "2026-01-25",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "kanpokoak": "ALDABIDE (M. Zabalza - M. Nuñez) NUÑEZ GURUTXARRI, M. ZABALZA AULESTIARTE, M.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-3) (9-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
+  },
+  {
+    "fecha": "2026-01-30",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (L. Arregui -I. San Vicente) ARREGUI MENDIZABAL, L. SAN VICENTE FERNANDEZ, I.",
+    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(9-1) (7-9) (3-1)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
+  },
+  {
+    "fecha": "2026-02-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
+    "kanpokoak": "UMORE ONA (A. Makazaga - A. Zubiri)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
+  },
+  {
+    "fecha": "2026-01-10",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "UMORE ONA (N. Zubiri - U. Zurutuza) ZUBIRI APEZETXEA, A. ZURUTUZA MAKAZAGA, U.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-9) (4-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
+  },
+  {
+    "fecha": "2026-01-16",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola) ARBIZU PEREZ DE MENDIGUREN, M. OFIALDEGUI ORQUIN, O.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-3) (9-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
+  },
+  {
+    "fecha": "2026-01-23",
+    "fronton": "Berriozar - Polideportivo",
+    "etxekoa": "BERRIOZAR (A. Martinez - I. Martinez) MARTINEZ CORDON, A. MARTINEZ IRIARTE, L.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-8) (9-7)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
+  },
+  {
+    "fecha": "2026-01-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "PILOTAJAUKU (A. Claver - A. Unamuno) CLAVER MAZKIARAN, A. UNAMUNO SANMIGUEL, A.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(3-9) (9-8) (1-3)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
+  },
+  {
+    "fecha": "2026-02-05",
+    "fronton": "Etxarren - Aranburu",
+    "etxekoa": "IRURTZUN (U. Arano - H. Zelaia)",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
+  },
+  {
+    "fecha": "2026-01-09",
+    "fronton": "Zizur Mayor - Ardoi",
+    "etxekoa": "ARDOI (A. Plagaro - I. Alcasena) ALCASENA PIEROLA, I. PLAGARO LIZARRAGA, A.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(7-9) (4-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "ALDABIDE (I. Zabalza - K. Lizarraga) LIZARRAGA YAMAGUTXI, K. ZABALZA LLANO, I.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-0) (9-5)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
+  },
+  {
+    "fecha": "2026-01-23",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (A. Garijo - J. Zabaleta) GARIJO BERAZA, A. ZABALETA SANTESTEBAN, J.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(8-9) (3-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
+  },
+  {
+    "fecha": "2026-01-31",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "PILOTAJAUKU (H. Olabarria - I. Zabala) OLABARRIA GOIKOETXEA, H. ZABALA CABADA, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(6-9) (7-9)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
+  },
+  {
+    "fecha": "2026-02-06",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (A. Unanua - B. Unanua)",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
+  },
+  {
     "fecha": "2026-01-10",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda) ARGAÑA ARRIBILLAGA, M. BALDA ETXEBERRIA, E.",
@@ -2458,6 +3672,164 @@
     "emaitza": "",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3036"
+  },
+  {
+    "fecha": "2026-01-17",
+    "fronton": "",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA KADETE TRINKETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
+  },
+  {
+    "fecha": "2026-01-20",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-8) (15-2)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA KADETE TRINKETE",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
+  },
+  {
+    "fecha": "2026-01-28",
+    "fronton": "Garralda - Trinkete",
+    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta) LARRAÑETA GRANADA, J. ZIGANDA GARRALDA, M.",
+    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-15) (7-15)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA KADETE TRINKETE",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3059"
+  },
+  {
+    "fecha": "2026-01-07",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(15-1) (9-15) (6-10)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-01-14",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez) *Equipo no presentado",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-0) (15-0)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-01-15",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MUÑOZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(15-13) (15-14)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-01-22",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(1-15) (9-15)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-01-24",
+    "fronton": "",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-01-31",
+    "fronton": "",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+    "kanpokoak": "ATSEDENA",
+    "tanteoa": "0 - 0",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-02-01",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez) GOMEZ BASURTO, A. GOÑI AZNAREZ, O.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(15-7) (14-15) (3-10)"
+    ],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-02-05",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
+  },
+  {
+    "fecha": "2026-02-08",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "tanteoa": "",
+    "sets": [],
+    "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
+    "emaitza": "",
+    "ofiziala": true,
+    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
   {
     "fecha": "2026-01-10",
