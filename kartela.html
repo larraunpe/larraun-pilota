@@ -263,11 +263,25 @@ function ordenar(data){
 
 function agrupar(data){
   const g={};
-  data.forEach(p=>{
-    const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
-    if(!g[key]) g[key]=[];
-    g[key].push(p);
-  });
+
+  data
+    .filter(p => {
+      const kanp = (p.kanpokoak || "").toLowerCase();
+      const etxe = (p.etxekoa || "").toLowerCase();
+
+      return (
+        !kanp.includes("descanso") &&
+        !kanp.includes("atseden") &&
+        etxe !== "-" &&
+        kanp !== "-"
+      );
+    })
+    .forEach(p=>{
+      const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+      if(!g[key]) g[key]=[];
+      g[key].push(p);
+    });
+
   return g;
 }
 
