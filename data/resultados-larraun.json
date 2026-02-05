@@ -2972,12 +2972,14 @@
   {
     "fecha": "2026-02-05",
     "fronton": "Etxarren - Aranburu",
-    "etxekoa": "IRURTZUN (U. Arano - H. Zelaia)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "IRURTZUN (U. Arano - H. Zelaia) ARANO IRIARTE, U. ZELAIA TABAR, H.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "(9-7) (9-2)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3021"
   },
@@ -3664,12 +3666,12 @@
   {
     "fecha": "2026-02-05",
     "fronton": "Etxarren - Aranburu",
-    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
-    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
-    "tanteoa": "",
+    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin) RAZKIN UNDIANO, O. ZUBIRIA GOMEZ, A.",
+    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola) ARTOLA ASTIBIA, A. ETXEPARE GONZALEZ, M.",
+    "tanteoa": "22 - 7",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE 2.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3036"
   },
@@ -3810,12 +3812,14 @@
   {
     "fecha": "2026-02-05",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(3-15) (7-15)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
