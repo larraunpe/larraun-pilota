@@ -266,9 +266,15 @@ function agrupar(data){
 
   data
     .filter(p => {
-      // ❌ eliminar descansos
-      const texto = (p.lehiaketa || "").toLowerCase();
-      return !texto.includes("descanso") && !texto.includes("atseden");
+      const kanp = (p.kanpokoak || "").toLowerCase();
+      const etxe = (p.etxekoa || "").toLowerCase();
+
+      return (
+        !kanp.includes("descanso") &&
+        !kanp.includes("atseden") &&
+        etxe !== "-" &&
+        kanp !== "-"
+      );
     })
     .forEach(p=>{
       const key=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
