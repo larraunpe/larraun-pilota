@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <title>Larraun Kartela</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -15,10 +15,7 @@ body{
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
-.exportar{
-  text-align:center;
-  margin:18px;
-}
+.exportar{text-align:center;margin:18px}
 
 /* ================= PÁGINA ================= */
 
@@ -26,16 +23,14 @@ body{
   width:900px;
   height:1400px;
   margin:25px auto;
-
   display:flex;
   flex-direction:column;
   position:relative;
-
-  background:#3f8159;
   overflow:hidden;
+  background:#3f8159;
 }
 
-/* ================= PUNTOS FONDO ================= */
+/* ================= PELOTAZOS ================= */
 
 .pelotazos{
   position:absolute;
@@ -60,26 +55,29 @@ body{
   z-index:1;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER (colchón restaurado) ================= */
 
 .header{
   height:150px;
   flex-shrink:0;
 
   background:#2448b5;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:0 20px;
+
   z-index:1;
+
+  box-shadow:
+    inset 0 10px 14px rgba(255,255,255,.35),
+    inset 0 -14px 18px rgba(0,0,0,.65);
 }
 
-.header img{
-  height:60px;
-}
+.header img{height:60px}
 
-/* ===== SVG CURVO GRANDE (arreglado para no cortar texto) ===== */
+/* ===== título curvo ===== */
 
 .titulo-curvo{
   width:560px;
@@ -87,17 +85,10 @@ body{
 }
 
 .titulo-curvo text{
-  fill:white;
+  fill:#fff;
   font-size:38px;
   font-weight:900;
   letter-spacing:2px;
-}
-
-/* pelota */
-.costura{
-  stroke:#c40000;
-  stroke-width:2;
-  fill:none;
 }
 
 /* ================= CONTENIDO ================= */
@@ -111,14 +102,8 @@ body{
 
 /* ================= BLOQUES ================= */
 
-.bloque{
-  margin-bottom:14px;
-}
-
-.bloque h2{
-  text-align:center;
-  color:#fff;
-}
+.bloque{margin-bottom:14px}
+.bloque h2{text-align:center;color:#fff;margin:10px 0}
 
 /* ================= PARTIDOS ================= */
 
@@ -136,17 +121,15 @@ body{
   padding:8px 12px;
 }
 
-.grupo-header.rojo{
-  background:#b00000;
-}
+.grupo-header.rojo{background:#b00000}
 
 .linea{
   display:flex;
   gap:8px;
   padding:7px 10px;
-  font-size:14px;
-  font-weight:900;
   border-top:1px solid #ddd;
+  font-weight:900;
+  font-size:14px;
 }
 
 .zkia{width:26px}
@@ -154,28 +137,20 @@ body{
 .kanpokoa{color:#b00000}
 .lehiaketa{margin-left:auto}
 
-/* ================= FOOTER ================= */
+/* ================= FOOTER (1:2 correcto) ================= */
 
-.footer{
-  flex-shrink:0;
-  display:flex;
-  flex-direction:column;
-}
+.footer{flex-shrink:0;display:flex;flex-direction:column}
 
-/* colchón */
 .pie-gris{
   height:80px;
   background:#2f2f2f;
   padding:6px;
 }
 
-/* suelo (doble altura) */
 .suelo{
   height:160px;
   background:#6b6b6b;
 }
-
-/* logos */
 
 .logos-grid{
   display:grid;
@@ -208,35 +183,41 @@ body{
 
 <script>
 
-/* ================= HEADER SVG CURVO ================= */
+/* ================= CONFIG ESTABLE ================= */
+/* altura real disponible del contenido */
+const CONTENIDO_MAX = 930;
+
+/* ================= LOGOS ================= */
+
+const LOGOS=[
+"aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg"
+];
+
+function logosHTML(){
+return LOGOS.map(f=>`<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`).join("");
+}
+
+/* ================= HEADER SVG ================= */
 
 function headerCurvo(){
 return `
 <svg viewBox="0 0 600 160" class="titulo-curvo">
+<defs>
+<path id="arco" d="M40,120 Q300,10 560,120"/>
+</defs>
 
-  <defs>
-    <path id="arco" d="M40,120 Q300,10 560,120" />
-  </defs>
+<text text-anchor="middle">
+<textPath href="#arco" startOffset="50%">
+LARRAUN PILOTA ELKARTEA
+</textPath>
+</text>
 
-  <text text-anchor="middle">
-    <textPath href="#arco" startOffset="50%">
-      LARRAUN PILOTA ELKARTEA
-    </textPath>
-  </text>
-
-  <!-- pelota -->
-  <g transform="translate(300,105)">
-    <circle r="20" fill="white" stroke="#ddd" stroke-width="2"/>
-
-    <!-- costuras -->
-    <path d="M-16,-8 Q0,-14 16,-8" class="costura"/>
-    <path d="M-16,8 Q0,14 16,8" class="costura"/>
-
-    <!-- lauburu simple -->
-    <path d="M0,-6 q6,0 6,6 q0,6 -6,6 q-6,0 -6,-6 q0,-6 6,-6"
-          fill="black" transform="scale(.45)"/>
-  </g>
-
+<g transform="translate(300,105)">
+<circle r="20" fill="white" stroke="#ccc" stroke-width="2"/>
+<path d="M-16,-8 Q0,-14 16,-8" stroke="#c40000" stroke-width="2" fill="none"/>
+<path d="M-16,8 Q0,14 16,8" stroke="#c40000" stroke-width="2" fill="none"/>
+<text y="6" text-anchor="middle" font-size="16" fill="black">✢</text>
+</g>
 </svg>`;
 }
 
@@ -265,7 +246,7 @@ ${headerCurvo()}
 <div class="chapa"></div>
 
 <div class="footer">
-<div class="pie-gris"><div class="logos-grid"></div></div>
+<div class="pie-gris"><div class="logos-grid">${logosHTML()}</div></div>
 <div class="suelo"></div>
 </div>
 `;
@@ -279,9 +260,9 @@ return p;
 
 /* ================= PELOTAZOS ================= */
 
-function generarPelotazos(pagina){
-const cont=pagina.querySelector(".pelotazos");
-for(let i=0;i<2500;i++){
+function generarPelotazos(p){
+const cont=p.querySelector(".pelotazos");
+for(let i=0;i<1800;i++){
 const d=document.createElement("div");
 const s=Math.random()*3+2;
 d.className="pelota";
@@ -311,37 +292,17 @@ document.body.removeChild(el);
 return h;
 }
 
-/* ================= PAGINADOR ================= */
+/* ================= CARGA Y PINTA ================= */
 
 Promise.all([
-fetch("/data/cartelera-larraun.json").then(r=>r.json()),
-fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales,noOficiales])=>{
-
-const bloques=[
-{titulo:"ORDUTEGIAK",data:limpiar(oficiales)},
-{titulo:"BESTE TXAPELKETAK OFIZIALAK",data:limpiar(noOficiales)},
-];
+fetch("/data/cartelera-larraun.json").then(r=>r.json())
+]).then(([oficiales])=>{
 
 let pagina=nuevaPagina();
 let cont=pagina.querySelector(".contenido");
-let max=cont.offsetHeight;
 let usado=0;
 
-bloques.forEach(b=>{
-
-const titulo=document.createElement("div");
-titulo.className="bloque";
-titulo.innerHTML=`<h2>${b.titulo}</h2>`;
-
-let h=alturaBloque(titulo);
-
-if(usado+h>max){ pagina=nuevaPagina(); cont=pagina.querySelector(".contenido"); usado=0; }
-
-cont.appendChild(titulo);
-usado+=h;
-
-b.data.forEach(p=>{
+limpiar(oficiales).forEach(p=>{
 
 const grupo=document.createElement("div");
 grupo.className="grupo";
@@ -355,14 +316,16 @@ grupo.innerHTML=`
 <div class="lehiaketa">${p.lehiaketa}</div>
 </div>`;
 
-h=alturaBloque(grupo);
+const h=alturaBloque(grupo);
 
-if(usado+h>max){ pagina=nuevaPagina(); cont=pagina.querySelector(".contenido"); usado=0; }
+if(usado+h>CONTENIDO_MAX){
+pagina=nuevaPagina();
+cont=pagina.querySelector(".contenido");
+usado=0;
+}
 
 cont.appendChild(grupo);
 usado+=h;
-
-});
 
 });
 
@@ -374,7 +337,7 @@ async function exportar(){
 const paginas=[...document.querySelectorAll(".pagina")];
 let i=1;
 for(const p of paginas){
-const canvas=await html2canvas(p,{scale:2,useCORS:true});
+const canvas=await html2canvas(p,{scale:2});
 const a=document.createElement("a");
 a.download=`kartela_${i++}.jpg`;
 a.href=canvas.toDataURL("image/jpeg",0.95);
