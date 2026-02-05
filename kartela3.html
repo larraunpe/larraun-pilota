@@ -29,20 +29,26 @@ body{
 
   display:flex;
   flex-direction:column;
-
   position:relative;
+
   background:#3f8159;
   overflow:hidden;
 }
 
-/* textura */
-.pagina::before{
-  content:"";
+/* ================= PUNTOS FONDO ================= */
+
+.pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  background:
-    repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 4px);
+  z-index:0;
+}
+
+.pelota{
+  position:absolute;
+  border-radius:50%;
+  background:#000;
+  opacity:.18;
 }
 
 /* ================= CHAPAS ================= */
@@ -51,12 +57,14 @@ body{
   height:12px;
   background:#000;
   flex-shrink:0;
+  z-index:1;
 }
 
 /* ================= HEADER ================= */
 
 .header{
-  flex:0 0 150px;
+  height:150px;
+  flex-shrink:0;
 
   background:#2448b5;
   display:flex;
@@ -64,36 +72,32 @@ body{
   justify-content:space-between;
 
   padding:0 20px;
-  color:#fff;
-
-  box-shadow:
-    inset 0 8px 10px rgba(255,255,255,.3),
-    inset 0 -12px 16px rgba(0,0,0,.6);
+  z-index:1;
 }
 
 .header img{
   height:60px;
 }
 
-/* ===== título curvado ===== */
+/* ===== SVG CURVO GRANDE (arreglado para no cortar texto) ===== */
 
 .titulo-curvo{
-  width:500px;
+  width:560px;
   height:130px;
 }
 
 .titulo-curvo text{
   fill:white;
-  font-weight:900;
   font-size:38px;
+  font-weight:900;
   letter-spacing:2px;
 }
 
 /* pelota */
-.pelota-svg{
-  fill:white;
-  stroke:#ccc;
+.costura{
+  stroke:#c40000;
   stroke-width:2;
+  fill:none;
 }
 
 /* ================= CONTENIDO ================= */
@@ -102,34 +106,34 @@ body{
   flex:1;
   padding:14px 18px;
   overflow:hidden;
+  z-index:1;
 }
 
 /* ================= BLOQUES ================= */
 
 .bloque{
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 
 .bloque h2{
   text-align:center;
-  color:white;
-  margin:10px 0;
+  color:#fff;
 }
 
 /* ================= PARTIDOS ================= */
 
 .grupo{
-  background:white;
+  background:#fff;
   border-radius:10px;
   overflow:hidden;
   margin-top:6px;
 }
 
 .grupo-header{
-  padding:8px 14px;
-  font-weight:bold;
-  color:#fff;
   background:#2448b5;
+  color:#fff;
+  font-weight:bold;
+  padding:8px 12px;
 }
 
 .grupo-header.rojo{
@@ -139,10 +143,10 @@ body{
 .linea{
   display:flex;
   gap:8px;
-  padding:8px 10px;
-  border-top:1px solid #ddd;
-  font-weight:900;
+  padding:7px 10px;
   font-size:14px;
+  font-weight:900;
+  border-top:1px solid #ddd;
 }
 
 .zkia{width:26px}
@@ -153,19 +157,22 @@ body{
 /* ================= FOOTER ================= */
 
 .footer{
-  flex:0 0 240px;
+  flex-shrink:0;
   display:flex;
   flex-direction:column;
 }
 
+/* colchón */
 .pie-gris{
+  height:80px;
   background:#2f2f2f;
-  padding:8px;
+  padding:6px;
 }
 
+/* suelo (doble altura) */
 .suelo{
+  height:160px;
   background:#6b6b6b;
-  flex:1;
 }
 
 /* logos */
@@ -173,33 +180,19 @@ body{
 .logos-grid{
   display:grid;
   grid-template-columns:repeat(10,1fr);
-  gap:8px;
+  gap:6px;
 }
 
 .logo-item{
   background:#fff;
-  padding:6px;
+  padding:4px;
   border-radius:6px;
 }
 
 .logo-item img{
   width:100%;
-  height:36px;
+  height:28px;
   object-fit:contain;
-}
-
-/* pelotazos */
-
-.pelotazos{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-.pelota{
-  position:absolute;
-  border-radius:50%;
-  background:#000;
 }
 
 </style>
@@ -215,93 +208,110 @@ body{
 
 <script>
 
-/* ================= LOGOS ================= */
-
-const LOGOS=[/* mismos logos */];
-
-function logosHTML(){
-  return LOGOS.map(f =>
-   `<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`
-  ).join("");
-}
-
-/* ================= HEADER SVG ================= */
+/* ================= HEADER SVG CURVO ================= */
 
 function headerCurvo(){
 return `
-<svg viewBox="0 0 500 130" class="titulo-curvo">
+<svg viewBox="0 0 600 160" class="titulo-curvo">
+
   <defs>
-    <path id="curva" d="M40,100 Q250,10 460,100" />
+    <path id="arco" d="M40,120 Q300,10 560,120" />
   </defs>
 
   <text text-anchor="middle">
-    <textPath href="#curva" startOffset="50%">
+    <textPath href="#arco" startOffset="50%">
       LARRAUN PILOTA ELKARTEA
     </textPath>
   </text>
 
-  <circle cx="250" cy="85" r="18" class="pelota-svg"/>
+  <!-- pelota -->
+  <g transform="translate(300,105)">
+    <circle r="20" fill="white" stroke="#ddd" stroke-width="2"/>
+
+    <!-- costuras -->
+    <path d="M-16,-8 Q0,-14 16,-8" class="costura"/>
+    <path d="M-16,8 Q0,14 16,8" class="costura"/>
+
+    <!-- lauburu simple -->
+    <path d="M0,-6 q6,0 6,6 q0,6 -6,6 q-6,0 -6,-6 q0,-6 6,-6"
+          fill="black" transform="scale(.45)"/>
+  </g>
+
 </svg>`;
 }
 
-/* ================= CREAR PÁGINA ================= */
+/* ================= PÁGINA ================= */
 
 function nuevaPagina(){
 
-  const p=document.createElement("div");
-  p.className="pagina";
+const p=document.createElement("div");
+p.className="pagina";
 
-  p.innerHTML=`
-    <div class="pelotazos"></div>
+p.innerHTML=`
+<div class="pelotazos"></div>
 
-    <div class="chapa"></div>
+<div class="chapa"></div>
 
-    <div class="header">
-      <img src="/images/logo-larraun.png">
-      ${headerCurvo()}
-      <img src="/images/logo-fnp.png">
-    </div>
+<div class="header">
+<img src="/images/logo-larraun.png">
+${headerCurvo()}
+<img src="/images/logo-fnp.png">
+</div>
 
-    <div class="chapa"></div>
+<div class="chapa"></div>
 
-    <div class="contenido"></div>
+<div class="contenido"></div>
 
-    <div class="chapa"></div>
+<div class="chapa"></div>
 
-    <div class="footer">
-      <div class="pie-gris">
-        <div class="logos-grid">${logosHTML()}</div>
-      </div>
-      <div class="suelo"></div>
-    </div>
-  `;
+<div class="footer">
+<div class="pie-gris"><div class="logos-grid"></div></div>
+<div class="suelo"></div>
+</div>
+`;
 
-  document.getElementById("paginas").appendChild(p);
+document.getElementById("paginas").appendChild(p);
 
-  return p;
+generarPelotazos(p);
+
+return p;
 }
 
-/* ================= MEDIR ================= */
+/* ================= PELOTAZOS ================= */
 
-function alturaBloque(el){
-  el.style.position="absolute";
-  el.style.visibility="hidden";
-  document.body.appendChild(el);
-  const h=el.getBoundingClientRect().height;
-  document.body.removeChild(el);
-  return h;
+function generarPelotazos(pagina){
+const cont=pagina.querySelector(".pelotazos");
+for(let i=0;i<2500;i++){
+const d=document.createElement("div");
+const s=Math.random()*3+2;
+d.className="pelota";
+d.style.width=d.style.height=s+"px";
+d.style.left=Math.random()*900+"px";
+d.style.top=Math.random()*1400+"px";
+cont.appendChild(d);
+}
 }
 
-/* ================= FILTRO DESCANSOS ================= */
+/* ================= UTIL ================= */
+
+function normalizaHora(h){
+return h ? h.slice(0,5) : "00:00";
+}
 
 function limpiar(data){
-  return data.filter(p=>{
-    const k=(p.kanpokoak||"").toLowerCase();
-    return !k.includes("descanso") && !k.includes("atseden");
-  });
+return data.filter(p=>!(p.kanpokoak||"").toLowerCase().includes("descanso"));
 }
 
-/* ================= PAGINADOR PERFECTO ================= */
+function alturaBloque(el){
+el.style.position="absolute";
+el.style.visibility="hidden";
+document.body.appendChild(el);
+const h=el.offsetHeight;
+document.body.removeChild(el);
+return h;
+}
+
+/* ================= PAGINADOR ================= */
 
 Promise.all([
 fetch("/data/cartelera-larraun.json").then(r=>r.json()),
@@ -310,56 +320,50 @@ fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
 
 const bloques=[
 {titulo:"ORDUTEGIAK",data:limpiar(oficiales)},
-{titulo:"BESTE TXAPELKETAK OFIZIALAK",data:limpiar(noOficiales.filter(p=>p.ofiziala==="true"))},
-{titulo:"TXAPELKETAK EZ OFIZIALAK",data:limpiar(noOficiales.filter(p=>p.ofiziala!=="true"))}
+{titulo:"BESTE TXAPELKETAK OFIZIALAK",data:limpiar(noOficiales)},
 ];
 
 let pagina=nuevaPagina();
 let cont=pagina.querySelector(".contenido");
-let max=cont.getBoundingClientRect().height;
+let max=cont.offsetHeight;
 let usado=0;
 
 bloques.forEach(b=>{
 
-  if(!b.data.length) return;
+const titulo=document.createElement("div");
+titulo.className="bloque";
+titulo.innerHTML=`<h2>${b.titulo}</h2>`;
 
-  const titulo=document.createElement("div");
-  titulo.className="bloque";
-  titulo.innerHTML=`<h2>${b.titulo}</h2>`;
+let h=alturaBloque(titulo);
 
-  let h=alturaBloque(titulo);
+if(usado+h>max){ pagina=nuevaPagina(); cont=pagina.querySelector(".contenido"); usado=0; }
 
-  if(usado+h>max){ pagina=nuevaPagina(); cont=pagina.querySelector(".contenido"); max=cont.getBoundingClientRect().height; usado=0;}
+cont.appendChild(titulo);
+usado+=h;
 
-  cont.appendChild(titulo);
-  usado+=h;
+b.data.forEach(p=>{
 
-  b.data.forEach(p=>{
+const grupo=document.createElement("div");
+grupo.className="grupo";
 
-    const grupo=document.createElement("div");
-    grupo.className="grupo";
+grupo.innerHTML=`
+<div class="grupo-header">📅 ${p.fecha} | ⏰ ${normalizaHora(p.hora)} | 📍 ${p.fronton}</div>
+<div class="linea">
+<div class="zkia">${p.zkia}</div>
+<div class="etxekoa">${p.etxekoa}</div>
+<div class="kanpokoa">${p.kanpokoak}</div>
+<div class="lehiaketa">${p.lehiaketa}</div>
+</div>`;
 
-    grupo.innerHTML=`
-      <div class="grupo-header">📅 ${p.fecha} | ⏰ ${p.hora} | 📍 ${p.fronton}</div>
-      <div class="linea">
-        <div class="zkia">${p.zkia}</div>
-        <div class="etxekoa">${p.etxekoa}</div>
-        <div class="kanpokoa">${p.kanpokoak}</div>
-        <div class="lehiaketa">${p.lehiaketa}</div>
-      </div>`;
+h=alturaBloque(grupo);
 
-    h=alturaBloque(grupo);
+if(usado+h>max){ pagina=nuevaPagina(); cont=pagina.querySelector(".contenido"); usado=0; }
 
-    if(usado+h>max){
-      pagina=nuevaPagina();
-      cont=pagina.querySelector(".contenido");
-      max=cont.getBoundingClientRect().height;
-      usado=0;
-    }
+cont.appendChild(grupo);
+usado+=h;
 
-    cont.appendChild(grupo);
-    usado+=h;
-  });
+});
+
 });
 
 });
