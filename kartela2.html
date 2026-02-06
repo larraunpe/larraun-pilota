@@ -196,27 +196,47 @@ lehiaketa:"CADETE"
 
 function headerCurvo(){
 return `
-<svg viewBox="0 0 600 160" class="titulo-curvo">
+<svg viewBox="0 0 600 200" class="titulo-curvo">
 
 <defs>
-<path id="arco" d="M40,120 Q300,10 560,120"/>
+  <path id="arco" d="M30,140 Q300,20 570,140"/>
+
+  <!-- volumen pelota -->
+  <radialGradient id="gPelota" cx="35%" cy="30%">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="60%" stop-color="#f2f2f2"/>
+    <stop offset="100%" stop-color="#cfcfcf"/>
+  </radialGradient>
 </defs>
 
-<text text-anchor="middle">
-<textPath href="#arco" startOffset="50%">
-LARRAUN PILOTA ELKARTEA
-</textPath>
+<!-- ===== TÍTULO (más alto y centrado) ===== -->
+<text text-anchor="middle" font-weight="900" font-size="42" fill="white">
+  <textPath href="#arco" startOffset="50%">
+    LARRAUN PILOTA ELKARTEA
+  </textPath>
 </text>
 
-<g transform="translate(300,105)">
-<circle r="20" fill="white" stroke="#ccc" stroke-width="2"/>
-<path d="M-16,-8 Q0,-14 16,-8" stroke="#c40000" stroke-width="2" fill="none"/>
-<path d="M-16,8 Q0,14 16,8" stroke="#c40000" stroke-width="2" fill="none"/>
-<text y="6" text-anchor="middle" font-size="14" fill="black">✢</text>
+<!-- ===== PELOTA REALISTA ===== -->
+<g transform="translate(300,150)">
+
+  <!-- sombra -->
+  <ellipse cx="0" cy="18" rx="30" ry="8" fill="black" opacity=".25"/>
+
+  <!-- pelota -->
+  <circle r="26" fill="url(#gPelota)" stroke="#bbb" stroke-width="2"/>
+
+  <!-- costuras -->
+  <path d="M-22,-10 Q0,-18 22,-10" stroke="#b40000" stroke-width="3" fill="none"/>
+  <path d="M-22,10 Q0,18 22,10" stroke="#b40000" stroke-width="3" fill="none"/>
+
+  <!-- lauburu -->
+  <text text-anchor="middle" y="7" font-size="16" fill="#111">✣</text>
+
 </g>
 
 </svg>`;
 }
+
 
 
 /* ================= CREAR PÁGINA ================= */
@@ -309,6 +329,25 @@ a.download="kartela.jpg";
 a.href=canvas.toDataURL("image/jpeg",0.95);
 a.click();
 });
+}
+/* ================= LOGOS ================= */
+
+const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
+"barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
+"carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
+"construccionesurangasaigos.jpg","fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg",
+"iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
+"maderasnasorena.jpg","maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
+"ventamugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg","ekin.jpg",
+"farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
+"izarberri.png","lakita.jpg","nekazari.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
+"talleresotxotorena.jpg","veterinarialekunberri.jpg"];
+const logos=document.getElementById("logos");
+  
+function logosHTML(){
+  return LOGOS.map(f =>
+   `<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`
+  ).join("");
 }
 
 </script>
