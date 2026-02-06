@@ -8,7 +8,7 @@
 
 <style>
 
-/* ========= BASE ========= */
+/* ================= BASE ================= */
 
 body{
   margin:0;
@@ -16,80 +16,83 @@ body{
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
-/* ========= PÁGINA ========= */
+/* ================= CARTEL FIJO ================= */
 
 .pagina{
   width:900px;
   height:1400px;
   margin:20px auto;
-
-  display:flex;
-  flex-direction:column;
-
   position:relative;
   overflow:hidden;
   background:#3f8159;
 }
 
-/* ========= PELOTAZOS ========= */
+/* ================= PELOTAZOS ================= */
 
 .pelotazos{
   position:absolute;
   inset:0;
-  pointer-events:none;
   z-index:0;
 }
 
 .pelota{
   position:absolute;
-  border-radius:50%;
   background:#000;
+  border-radius:50%;
+  opacity:.18;
 }
 
-/* ========= HEADER ========= */
-
-.chapa{height:12px;background:#000}
+/* ================= HEADER ================= */
 
 .header{
-  flex:0 0 130px;
-  background:#2448b5;
-  color:white;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:150px;
 
+  background:#2448b5;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-
-  padding:0 20px;
-  z-index:1;
+  justify-content:center;
 
   box-shadow:
-    inset 0 8px 10px rgba(255,255,255,.3),
-    inset 0 -12px 16px rgba(0,0,0,.6);
+    inset 0 10px 14px rgba(255,255,255,.35),
+    inset 0 -14px 18px rgba(0,0,0,.7);
+
+  z-index:2;
 }
 
-.header img{height:60px}
+/* ===== título curvo ===== */
 
-/* ========= CONTENIDO ========= */
+.titulo-curvo{
+  width:100%;
+  height:140px;
+}
+
+/* ================= CONTENIDO (altura exacta) ================= */
 
 .contenido{
-  flex:1;
-  padding:16px 20px;
+  position:absolute;
+  top:150px;
+  bottom:240px;   /* ← deja hueco real para el pie */
+  left:0;
+  right:0;
+
+  padding:14px 20px;
+  overflow:hidden;
   z-index:1;
 }
 
-/* ========= BLOQUES ========= */
-
-.bloque{
-  margin-bottom:16px;
-}
+/* ================= BLOQUES ================= */
 
 .bloque h2{
-  color:white;
   text-align:center;
-  margin:12px 0;
+  color:white;
+  margin:10px 0;
 }
 
-/* ========= PARTIDOS ========= */
+/* ================= PARTIDOS ================= */
 
 .grupo{
   background:white;
@@ -99,9 +102,9 @@ body{
 }
 
 .grupo-header{
-  padding:8px 14px;
-  font-weight:bold;
+  padding:8px 12px;
   color:white;
+  font-weight:bold;
   background:#2448b5;
 }
 
@@ -111,28 +114,27 @@ body{
 
 .linea{
   display:flex;
-  padding:8px;
   gap:8px;
+  padding:7px;
   border-top:1px solid #ddd;
   font-weight:900;
+  font-size:.9em;
 }
 
-.zkia{width:28px}
+.zkia{width:26px}
 .etxekoa{color:#2448b5}
 .kanpokoa{color:#b00000}
+.lehiaketa{margin-left:auto;text-align:right}
 
-.lehiaketa{
-  margin-left:auto;
-  text-align:right;
-}
-
-/* ========= FOOTER ========= */
+/* ================= FOOTER FIJO ================= */
 
 .footer{
-  flex:0 0 240px;
-  display:flex;
-  flex-direction:column;
-  z-index:1;
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:240px;
+  z-index:2;
 }
 
 .pie-gris{
@@ -142,11 +144,11 @@ body{
 }
 
 .suelo{
-  flex:1;
+  height:160px;
   background:#6b6b6b;
 }
 
-/* ========= LOGOS ========= */
+/* logos */
 
 .logos-grid{
   display:grid;
@@ -156,8 +158,8 @@ body{
 
 .logo-item{
   background:white;
-  border-radius:6px;
   padding:6px;
+  border-radius:6px;
 }
 
 .logo-item img{
@@ -168,7 +170,7 @@ body{
 
 .exportar{
   text-align:center;
-  margin:14px;
+  margin:15px;
 }
 
 </style>
@@ -184,20 +186,42 @@ body{
 
   <div class="pelotazos" id="pelotazos"></div>
 
-  <div class="chapa"></div>
-
+  <!-- HEADER CON TÍTULO CURVO -->
   <div class="header">
-    <img src="images/logo-larraun.png">
-    <h1>LARRAUN PILOTA ELKARTEA</h1>
-    <img src="images/logo-fnp.png">
+
+<svg viewBox="0 0 600 180" class="titulo-curvo">
+
+<defs>
+<path id="arco" d="M30,130 Q300,20 570,130"/>
+<radialGradient id="ballGrad" cx="35%" cy="30%">
+<stop offset="0%" stop-color="#fff"/>
+<stop offset="100%" stop-color="#cfcfcf"/>
+</radialGradient>
+</defs>
+
+<text text-anchor="middle" font-size="40" font-weight="900" fill="white">
+<textPath href="#arco" startOffset="50%">
+LARRAUN PILOTA ELKARTEA
+</textPath>
+</text>
+
+<!-- pelota realista -->
+<g transform="translate(300,145)">
+<ellipse cx="0" cy="18" rx="30" ry="8" fill="black" opacity=".25"/>
+<circle r="26" fill="url(#ballGrad)" stroke="#bbb" stroke-width="2"/>
+<path d="M-22,-10 Q0,-18 22,-10" stroke="#b40000" stroke-width="3" fill="none"/>
+<path d="M-22,10 Q0,18 22,10" stroke="#b40000" stroke-width="3" fill="none"/>
+<text text-anchor="middle" y="6" font-size="16">✣</text>
+</g>
+
+</svg>
+
   </div>
 
-  <div class="chapa"></div>
-
+  <!-- CONTENIDO -->
   <div class="contenido" id="contenido"></div>
 
-  <div class="chapa"></div>
-
+  <!-- FOOTER -->
   <div class="footer">
     <div class="pie-gris">
       <div class="logos-grid" id="logos"></div>
@@ -209,58 +233,51 @@ body{
 
 <script>
 
-/* ========= PELOTAZOS ========= */
+/* ===== pelotazos ===== */
 
-const pel = document.getElementById("pelotazos");
-
-for(let i=0;i<1600;i++){
-  const d=document.createElement("div");
-  d.className="pelota";
-  const s=Math.random()*4+2;
-
-  d.style.width=d.style.height=s+"px";
-  d.style.left=Math.random()*900+"px";
-  d.style.top=Math.random()*1160+"px"; /* no suelo */
-
-  d.style.opacity=Math.random()*0.25;
-  pel.appendChild(d);
+for(let i=0;i<1700;i++){
+ const d=document.createElement("div");
+ d.className="pelota";
+ const s=Math.random()*4+2;
+ d.style.width=d.style.height=s+"px";
+ d.style.left=Math.random()*900+"px";
+ d.style.top=Math.random()*1160+"px";
+ document.getElementById("pelotazos").appendChild(d);
 }
 
-/* ========= UTIL ========= */
+/* ===== util ===== */
 
-const esDescanso = t => /descanso|atseden/i.test(t||"");
+const esDescanso=t=>/descanso|atseden/i.test(t||"");
 
 function normalizaHora(h){
-  return h ? h.slice(0,5) : "00:00";
+ return h ? h.slice(0,5) : "00:00";
 }
 
-function ordenar(data){
-  return data.sort((a,b)=>{
-    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
-    return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
-  });
+function ordenar(d){
+ return d.sort((a,b)=>{
+  if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
+  return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
+ });
 }
 
 function agrupar(data){
-  const g={};
-  data.forEach(p=>{
-    const k=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
-    (g[k]=g[k]||[]).push(p);
-  });
-  return g;
+ const g={};
+ data.forEach(p=>{
+  const k=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+  (g[k]=g[k]||[]).push(p);
+ });
+ return g;
 }
 
-/* ========= LOGOS ========= */
+/* ===== logos ===== */
 
-const LOGOS=["aliprox.jpg","arbeondo.jpg","barainhoa.jpg","kotxera.jpg"];
-
-const logos=document.getElementById("logos");
-
-LOGOS.forEach(f=>{
-  logos.innerHTML+=`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`;
+["aliprox.jpg","arbeondo.jpg","barainhoa.jpg","kotxera.jpg"]
+.forEach(f=>{
+ document.getElementById("logos").innerHTML+=
+ `<div class="logo-item"><img src="images/patrocinio/${f}"></div>`;
 });
 
-/* ========= CARGAR PARTIDOS ========= */
+/* ===== cargar partidos ===== */
 
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
@@ -268,58 +285,55 @@ Promise.all([
 ]).then(([oficiales,noOficiales])=>{
 
 const bloques=[
- {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
- {titulo:"BESTE TXAPELKETAK OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
- {titulo:"TXAPELKETAK EZ OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
+ {titulo:"ORDUTEGIAK",data:ordenar(oficiales)},
+ {titulo:"BESTE TXAPELKETAK OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
+ {titulo:"TXAPELKETAK EZ OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
 ];
 
 const cont=document.getElementById("contenido");
 
 bloques.forEach(b=>{
-
  if(!b.data.length) return;
 
  cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
-
- const bloqueDiv=cont.lastChild;
+ const div=cont.lastChild;
 
  Object.values(agrupar(b.data)).forEach(partidos=>{
 
-   partidos=partidos.filter(p=>!esDescanso(p.etxekoa)&&!esDescanso(p.kanpokoak));
-   if(!partidos.length) return;
+  partidos=partidos.filter(p=>!esDescanso(p.etxekoa)&&!esDescanso(p.kanpokoak));
+  if(!partidos.length) return;
 
-   const p0=partidos[0];
-   const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
+  const p0=partidos[0];
+  const local=/lekunberri|aldatz/i.test(p0.fronton||"");
 
-   bloqueDiv.innerHTML+=`
-   <div class="grupo">
-     <div class="grupo-header ${!esLocal?'rojo':''}">
-       📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
-     </div>
-     ${partidos.map(p=>`
-       <div class="linea">
-         <div class="zkia">${p.zkia}</div>
-         <div class="etxekoa">${p.etxekoa}</div>
-         <div class="kanpokoa">${p.kanpokoak}</div>
-         <div class="lehiaketa">${p.lehiaketa}</div>
-       </div>
-     `).join("")}
-   </div>`;
+  div.innerHTML+=`
+  <div class="grupo">
+   <div class="grupo-header ${!local?'rojo':''}">
+   📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
+   </div>
+   ${partidos.map(p=>`
+    <div class="linea">
+      <div class="zkia">${p.zkia}</div>
+      <div class="etxekoa">${p.etxekoa}</div>
+      <div class="kanpokoa">${p.kanpokoak}</div>
+      <div class="lehiaketa">${p.lehiaketa}</div>
+    </div>`).join("")}
+  </div>`;
  });
 
 });
 
 });
 
-/* ========= EXPORTAR ========= */
+/* ===== exportar ===== */
 
 function exportar(){
  html2canvas(document.getElementById("pagina"),{scale:2})
  .then(c=>{
-   const a=document.createElement("a");
-   a.download="kartela.jpg";
-   a.href=c.toDataURL("image/jpeg",0.95);
-   a.click();
+  const a=document.createElement("a");
+  a.download="kartela.jpg";
+  a.href=c.toDataURL("image/jpeg",0.95);
+  a.click();
  });
 }
 
