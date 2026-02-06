@@ -278,4 +278,40 @@ cont.appendChild(d);
 
 /* ================= PINTAR ================= */
 
-const pagina=nuevaPa
+const pagina=nuevaPagina();
+const cont=pagina.querySelector(".contenido");
+
+PARTIDOS.forEach(p=>{
+
+const g=document.createElement("div");
+g.className="grupo";
+
+g.innerHTML=`
+<div class="grupo-header">📅 ${p.fecha} | ⏰ ${p.hora} | 📍 ${p.fronton}</div>
+<div class="linea">
+<div class="zkia">${p.zkia}</div>
+<div class="etxekoa">${p.etxekoa}</div>
+<div class="kanpokoa">${p.kanpokoak}</div>
+<div class="lehiaketa">${p.lehiaketa}</div>
+</div>`;
+
+cont.appendChild(g);
+
+});
+
+
+/* ================= EXPORTAR ================= */
+
+function exportar(){
+html2canvas(document.querySelector(".pagina"),{scale:2}).then(canvas=>{
+const a=document.createElement("a");
+a.download="kartela.jpg";
+a.href=canvas.toDataURL("image/jpeg",0.95);
+a.click();
+});
+}
+
+</script>
+
+</body>
+</html>
