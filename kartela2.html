@@ -16,12 +16,7 @@ body{
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
-.exportar{
-  text-align:center;
-  margin:18px;
-}
-
-/* ================= PAGINA ÚNICA ================= */
+/* ================= PÁGINA ================= */
 
 .pagina{
   width:900px;
@@ -31,125 +26,99 @@ body{
   display:flex;
   flex-direction:column;
 
+  background:#3f8159;
   position:relative;
   overflow:hidden;
-
-  background:#3f8159;
-}
-
-/* textura */
-.pagina::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 4px);
 }
 
 /* ================= HEADER ================= */
 
 .header{
-  height:130px;
+  flex:0 0 130px;
   background:#2448b5;
-  color:#fff;
+  color:white;
 
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:0 20px;
 
   box-shadow:
-    inset 0 10px 12px rgba(255,255,255,.3),
-    inset 0 -14px 18px rgba(0,0,0,.7);
+    inset 0 8px 10px rgba(255,255,255,.3),
+    inset 0 -12px 16px rgba(0,0,0,.6);
 }
 
-.header img{ height:60px }
+.header img{height:60px}
 
-.header h1{
-  font-size:34px;
-  letter-spacing:2px;
-  margin:0;
-}
-
-/* ================= CHAPA ================= */
-
-.chapa{
-  height:12px;
-  background:#000;
-}
+.chapa{height:12px;background:#000}
 
 /* ================= CONTENIDO ================= */
 
 .contenido{
-  flex:1;
-  padding:16px 20px;
-  overflow:hidden; /* 👈 nunca pisa el footer */
+  flex:1;                 /* ← ocupa todo el espacio libre */
+  overflow:auto;          /* ← nunca invade el footer */
+  padding:18px 22px;
 }
 
 /* ================= BLOQUES ================= */
 
-.bloque{
-  margin-bottom:18px;
-}
-
 .bloque h2{
-  color:#fff;
+  color:white;
   text-align:center;
-  margin:12px 0;
 }
 
 /* ================= PARTIDOS ================= */
 
 .grupo{
-  background:#fff;
+  background:white;
   border-radius:10px;
+  margin-top:8px;
   overflow:hidden;
-  margin-top:6px;
 }
 
 .grupo-header{
-  padding:8px 14px;
+  padding:8px 12px;
   font-weight:bold;
-  color:#fff;
   background:#2448b5;
+  color:white;
 }
 
-.grupo-header.rojo{
-  background:#b00000;
-}
+.grupo-header.rojo{background:#b00000}
 
 .linea{
   display:flex;
-  padding:8px 10px;
   gap:8px;
-  font-weight:900;
+  padding:8px;
   border-top:1px solid #ddd;
+  font-weight:900;
 }
 
 .zkia{width:28px}
 .etxekoa{color:#2448b5}
 .kanpokoa{color:#b00000}
-.lehiaketa{margin-left:auto}
+
+.lehiaketa{
+  margin-left:auto;
+  text-align:right;
+}
 
 /* ================= FOOTER FIJO ================= */
 
 .footer{
-  height:240px;
+  flex:0 0 240px;  /* altura fija */
   display:flex;
   flex-direction:column;
 }
 
 .pie-gris{
   background:#2f2f2f;
-  padding:8px;
-  height:80px; /* 1/3 */
+  padding:10px;
+  height:80px;      /* colchón */
 }
 
 .suelo{
   background:#6b6b6b;
-  flex:1; /* 2/3 */
+  flex:1;           /* suelo el doble */
 }
 
 /* logos */
@@ -161,15 +130,20 @@ body{
 }
 
 .logo-item{
-  background:#fff;
-  padding:6px;
+  background:white;
   border-radius:6px;
+  padding:6px;
 }
 
 .logo-item img{
   width:100%;
-  height:36px;
+  height:34px;
   object-fit:contain;
+}
+
+.exportar{
+  text-align:center;
+  margin:15px;
 }
 
 </style>
@@ -183,95 +157,122 @@ body{
 
 <div class="pagina" id="pagina">
 
-<div class="chapa"></div>
+  <div class="chapa"></div>
 
-<div class="header">
-  <img src="images/logo-larraun.png">
-  <h1>LARRAUN PILOTA ELKARTEA</h1>
-  <img src="images/logo-fnp.png">
-</div>
-
-<div class="chapa"></div>
-
-<div class="contenido" id="contenido"></div>
-
-<div class="chapa"></div>
-
-<div class="footer">
-  <div class="pie-gris">
-    <div class="logos-grid" id="logos"></div>
+  <div class="header">
+    <img src="images/logo-larraun.png">
+    <h1>LARRAUN PILOTA ELKARTEA</h1>
+    <img src="images/logo-fnp.png">
   </div>
-  <div class="suelo"></div>
-</div>
+
+  <div class="chapa"></div>
+
+  <div class="contenido" id="contenido"></div>
+
+  <div class="chapa"></div>
+
+  <div class="footer">
+    <div class="pie-gris">
+      <div class="logos-grid" id="logos"></div>
+    </div>
+    <div class="suelo"></div>
+  </div>
 
 </div>
 
 <script>
 
-/* ================= LOGOS ================= */
+/* ================= UTIL ================= */
 
-const LOGOS=[
-"aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg"
-];
-
-document.getElementById("logos").innerHTML =
-LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`).join("");
-
-/* ================= HELPERS ================= */
+function esDescanso(txt){
+  if(!txt) return false;
+  return /descanso|atseden/i.test(txt);
+}
 
 function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
 }
 
-function esDescanso(p){
-  const t=(p.etxekoa+p.kanpokoak).toLowerCase();
-  return t.includes("descanso") || t.includes("atseden");
+function ordenar(data){
+  return data.sort((a,b)=>{
+    if(a.fecha!==b.fecha) return a.fecha.localeCompare(b.fecha);
+    return normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
+  });
 }
 
-/* ================= CARGA PARTIDOS (SIN PAGINAR) ================= */
+function agrupar(data){
+  const g={};
+  data.forEach(p=>{
+    const k=`${p.fecha}|${normalizaHora(p.hora)}|${p.fronton}`;
+    (g[k]=g[k]||[]).push(p);
+  });
+  return g;
+}
+
+/* ================= LOGOS ================= */
+
+const LOGOS=["aliprox.jpg","arbeondo.jpg","barainhoa.jpg","kotxera.jpg"];
+
+const logos=document.getElementById("logos");
+
+LOGOS.forEach(f=>{
+  logos.innerHTML+=`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`;
+});
+
+/* ================= CARGAR PARTIDOS ================= */
 
 Promise.all([
-fetch("data/cartelera-larraun.json").then(r=>r.json()),
-fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+  fetch("data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
+
+const todos=[...oficiales,...noOficiales];
 
 const cont=document.getElementById("contenido");
 
-const todos=[...oficiales,...noOficiales]
-  .filter(p=>!esDescanso(p)) /* 👈 quitamos descansos */
-  .sort((a,b)=>a.fecha.localeCompare(b.fecha) || normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
+Object.values(agrupar(ordenar(todos))).forEach(partidos=>{
 
-todos.forEach(p=>{
+  /* quitar descansos */
+  partidos = partidos.filter(p =>
+    !esDescanso(p.etxekoa) && !esDescanso(p.kanpokoak)
+  );
 
-const div=document.createElement("div");
-div.className="grupo";
+  if(!partidos.length) return;
 
-div.innerHTML=`
-<div class="grupo-header">
-📅 ${p.fecha} | ⏰ ${normalizaHora(p.hora)} | 📍 ${p.fronton}
-</div>
-<div class="linea">
-<div class="zkia">${p.zkia||""}</div>
-<div class="etxekoa">${p.etxekoa||""}</div>
-<div class="kanpokoa">${p.kanpokoak||""}</div>
-<div class="lehiaketa">${p.lehiaketa||""}</div>
-</div>
-`;
+  const p0=partidos[0];
 
-cont.appendChild(div);
+  const grupo=document.createElement("div");
+  grupo.className="grupo";
 
+  grupo.innerHTML=`
+    <div class="grupo-header">
+      📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
+    </div>
+    ${partidos.map(p=>`
+      <div class="linea">
+        <div class="zkia">${p.zkia}</div>
+        <div class="etxekoa">${p.etxekoa}</div>
+        <div class="kanpokoa">${p.kanpokoak}</div>
+        <div class="lehiaketa">${p.lehiaketa}</div>
+      </div>
+    `).join("")}
+  `;
+
+  cont.appendChild(grupo);
 });
 
 });
 
 /* ================= EXPORTAR ================= */
 
-async function exportar(){
-const canvas=await html2canvas(document.getElementById("pagina"),{scale:2,useCORS:true});
-const a=document.createElement("a");
-a.download="kartela.jpg";
-a.href=canvas.toDataURL("image/jpeg",0.95);
-a.click();
+function exportar(){
+  html2canvas(document.getElementById("pagina"),{scale:2})
+  .then(c=>{
+    const a=document.createElement("a");
+    a.download="kartela.jpg";
+    a.href=c.toDataURL("image/jpeg",0.95);
+    a.click();
+  });
 }
 
 </script>
