@@ -89,11 +89,14 @@ body{
 
 /* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
-  bottom:28px;   /* sube */
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:40px;   /* más arriba */
   width:34px;
   height:34px;
+  z-index:20;
 }
-
 /* ================= CHAPAS ================= */
 
 .chapa{
@@ -179,33 +182,7 @@ body{
   padding:10px;
 }
 
-/* suelo con textura */
-.suelo{
-  height:260px;
-  background:#6b6b6b;
-  position:relative;
-}
 
-/* HUELLAS REALISTAS */
-.huella{
-  position:absolute;
-  width:30px;
-  height:48px;
-  background:rgba(0,0,0,.25);
-  border-radius:60% 60% 40% 40%;
-  transform:rotate(15deg);
-}
-
-.huella::after{
-  content:"";
-  position:absolute;
-  bottom:-8px;
-  left:5px;
-  width:20px;
-  height:12px;
-  background:rgba(0,0,0,.25);
-  border-radius:50%;
-}
 
 /* patrocinadores */
 
@@ -276,7 +253,7 @@ body{
   <div class="pie-gris">
     <div id="logos" class="logos-grid"></div>
   </div>
-  <div id="suelo" class="suelo"></div>
+ 
 </div>
 
 </div>
@@ -297,18 +274,7 @@ for(let i=0;i<4500;i++){
   pel.appendChild(d);
 }
 
-/* ================= HUELLAS ================= */
 
-const suelo=document.getElementById("suelo");
-
-for(let i=0;i<45;i++){
-  const h=document.createElement("div");
-  h.className="huella";
-  h.style.left=Math.random()*870+"px";
-  h.style.top=Math.random()*220+"px";
-  h.style.transform=`rotate(${Math.random()*40-20}deg)`;
-  suelo.appendChild(h);
-}
 
 /* ================= LOGOS PATROCINADORES ================= */
 
