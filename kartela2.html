@@ -33,14 +33,13 @@ body{
   overflow:hidden;
 }
 
-/* ================= CAPAS ================= */
+/* ================= PELOTAZOS (por delante) ================= */
 
-/* pelotazos POR DELANTE */
 .pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:5;
+  z-index:10;
 }
 
 .pelota-dot{
@@ -65,21 +64,19 @@ body{
     inset 0 -12px 16px rgba(0,0,0,.6);
 }
 
-/* logos MÁS GRANDES */
-.logo-izq,
-.logo-der{
+/* logos laterales MÁS GRANDES */
+.logo-izq,.logo-der{
   position:absolute;
-  top:20px;
-  height:75px;
+  top:18px;
+  height:85px;
 }
+.logo-izq{ left:14px; }
+.logo-der{ right:14px; }
 
-.logo-izq{ left:16px; }
-.logo-der{ right:16px; }
-
-/* título */
+/* título MÁS curvado */
 .titulo-curvo{
   width:100%;
-  height:90px;
+  height:100px;
 }
 
 .titulo-curvo text{
@@ -89,14 +86,14 @@ body{
   letter-spacing:2px;
 }
 
-/* pelota MÁS PEQUEÑA Y MÁS ARRIBA */
+/* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
-  bottom:-14px;
+  bottom:8px;
   left:50%;
   transform:translateX(-50%);
-  width:45px;
-  height:45px;
+  width:36px;
+  height:36px;
 }
 
 /* ================= CHAPAS ================= */
@@ -170,25 +167,35 @@ body{
   padding:10px;
 }
 
+/* suelo con textura */
 .suelo{
   height:260px;
-  background:
-    url("https://www.transparenttextures.com/patterns/asfalt-dark.png"),
-    #6b6b6b;
+  background:#6b6b6b;
   position:relative;
 }
 
-/* huellas */
+/* HUELLAS REALISTAS */
 .huella{
   position:absolute;
-  width:26px;
-  height:40px;
+  width:30px;
+  height:48px;
   background:rgba(0,0,0,.25);
-  border-radius:60% 60% 50% 50%;
-  transform:rotate(20deg);
+  border-radius:60% 60% 40% 40%;
+  transform:rotate(15deg);
 }
 
-/* logos patrocinadores */
+.huella::after{
+  content:"";
+  position:absolute;
+  bottom:-8px;
+  left:5px;
+  width:20px;
+  height:12px;
+  background:rgba(0,0,0,.25);
+  border-radius:50%;
+}
+
+/* patrocinadores */
 
 .logos-grid{
   display:grid;
@@ -219,17 +226,17 @@ body{
 
 <div id="pagina" class="pagina">
 
-<!-- pelotazos por delante -->
 <div class="pelotazos" id="pelotazos"></div>
 
 <!-- HEADER -->
 <div class="header">
 
-<img src="/images/logo-larraun.png" class="logo-izq">
-<img src="/images/logo-fnp.png" class="logo-der">
+<img src="images/logo-larraun.png" class="logo-izq">
+<img src="images/logo-fnp.png" class="logo-der">
 
-<svg class="titulo-curvo" viewBox="0 0 900 110">
-  <path id="arco" d="M80,90 Q450,10 820,90" fill="transparent"/>
+<svg class="titulo-curvo" viewBox="0 0 900 120">
+  <!-- MÁS curvatura -->
+  <path id="arco" d="M60,105 Q450,-10 840,105" fill="transparent"/>
   <text text-anchor="middle">
     <textPath href="#arco" startOffset="50%">
       LARRAUN PILOTA ELKARTEA
@@ -237,12 +244,12 @@ body{
   </text>
 </svg>
 
-<!-- pelota SVG -->
+<!-- pelota -->
 <svg class="pelota-real" viewBox="0 0 100 100">
   <circle cx="50" cy="50" r="45" fill="#fff" stroke="#ddd" stroke-width="3"/>
   <path d="M20,40 Q50,10 80,40" stroke="#c40000" stroke-width="3" fill="none"/>
   <path d="M20,60 Q50,90 80,60" stroke="#c40000" stroke-width="3" fill="none"/>
-  <text x="50" y="58" text-anchor="middle" font-size="26" fill="#c40000">✣</text>
+  <text x="50" y="60" text-anchor="middle" font-size="28" fill="#c40000">✣</text>
 </svg>
 
 </div>
@@ -264,7 +271,7 @@ body{
 
 <script>
 
-/* ================= PELOTAZOS (por delante) ================= */
+/* ================= PELOTAZOS ================= */
 
 const pel=document.getElementById("pelotazos");
 
@@ -274,7 +281,7 @@ for(let i=0;i<4500;i++){
   d.className="pelota-dot";
   d.style.width=d.style.height=s+"px";
   d.style.left=Math.random()*900+"px";
-  d.style.top=Math.random()*2200+"px";
+  d.style.top=Math.random()*2400+"px";
   pel.appendChild(d);
 }
 
@@ -282,13 +289,23 @@ for(let i=0;i<4500;i++){
 
 const suelo=document.getElementById("suelo");
 
-for(let i=0;i<40;i++){
+for(let i=0;i<45;i++){
   const h=document.createElement("div");
   h.className="huella";
-  h.style.left=Math.random()*880+"px";
-  h.style.top=Math.random()*240+"px";
+  h.style.left=Math.random()*870+"px";
+  h.style.top=Math.random()*220+"px";
+  h.style.transform=`rotate(${Math.random()*40-20}deg)`;
   suelo.appendChild(h);
 }
+
+/* ================= LOGOS PATROCINADORES ================= */
+
+const LOGOS=[
+"aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg"
+];
+
+document.getElementById("logos").innerHTML =
+LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`).join("");
 
 /* ================= DESCANSO ================= */
 
@@ -298,7 +315,7 @@ function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
 }
 
-/* ================= FETCH ================= */
+/* ================= FETCH PARTIDOS ================= */
 
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
