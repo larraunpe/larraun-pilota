@@ -16,14 +16,12 @@ body{
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
-/* ================= EXPORTAR ================= */
-
 .exportar{
   text-align:center;
   margin:18px;
 }
 
-/* ================= PÁGINA (ALTURA LIBRE) ================= */
+/* ================= PÁGINA ================= */
 
 .pagina{
   width:900px;
@@ -32,29 +30,32 @@ body{
   flex-direction:column;
   background:#3f8159;
   position:relative;
+  overflow:hidden;
 }
 
-/* ================= TEXTURA + PELOTAZOS ================= */
+/* ================= CAPAS ================= */
 
-.fondo{
+/* pelotazos POR DELANTE */
+.pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:0;
+  z-index:5;
 }
 
-.pelota{
+.pelota-dot{
   position:absolute;
   border-radius:50%;
   background:#000;
+  opacity:.18;
 }
 
 /* ================= HEADER ================= */
 
 .header{
   position:relative;
-  background:#2448b5;
   height:120px;
+  background:#2448b5;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -64,39 +65,40 @@ body{
     inset 0 -12px 16px rgba(0,0,0,.6);
 }
 
-/* logos laterales */
+/* logos MÁS GRANDES */
 .logo-izq,
 .logo-der{
   position:absolute;
-  top:28px;
-  height:55px;
+  top:20px;
+  height:75px;
 }
 
-.logo-izq{ left:18px; }
-.logo-der{ right:18px; }
+.logo-izq{ left:16px; }
+.logo-der{ right:16px; }
 
-/* título curvo compacto */
+/* título */
 .titulo-curvo{
   width:100%;
   height:90px;
 }
 
 .titulo-curvo text{
-  font-size:38px;
+  font-size:34px;
   font-weight:900;
   fill:white;
   letter-spacing:2px;
 }
 
-/* pelota */
+/* pelota MÁS PEQUEÑA Y MÁS ARRIBA */
 .pelota-real{
   position:absolute;
-  bottom:-28px;
+  bottom:-14px;
   left:50%;
   transform:translateX(-50%);
-  width:70px;
-  height:70px;
+  width:45px;
+  height:45px;
 }
+
 /* ================= CHAPAS ================= */
 
 .chapa{
@@ -114,15 +116,11 @@ body{
 
 /* ================= BLOQUES ================= */
 
-.bloque{
-  margin-bottom:26px;
-}
-
 .bloque h2{
   color:#fff;
   text-align:center;
   margin:16px 0;
-  font-size:24px;
+  font-size:22px;
 }
 
 /* ================= PARTIDOS ================= */
@@ -139,7 +137,7 @@ body{
   font-weight:bold;
   color:#fff;
   background:#2448b5;
-  font-size:14px;
+  font-size:13px;
 }
 
 .grupo-header.rojo{
@@ -152,7 +150,7 @@ body{
   padding:6px 10px;
   border-top:1px solid #ddd;
   font-weight:900;
-  font-size:14px;
+  font-size:13px;
 }
 
 .zkia{width:30px}
@@ -173,11 +171,24 @@ body{
 }
 
 .suelo{
-  background:#6b6b6b;
   height:260px;
+  background:
+    url("https://www.transparenttextures.com/patterns/asfalt-dark.png"),
+    #6b6b6b;
+  position:relative;
 }
 
-/* logos */
+/* huellas */
+.huella{
+  position:absolute;
+  width:26px;
+  height:40px;
+  background:rgba(0,0,0,.25);
+  border-radius:60% 60% 50% 50%;
+  transform:rotate(20deg);
+}
+
+/* logos patrocinadores */
 
 .logos-grid{
   display:grid;
@@ -208,77 +219,78 @@ body{
 
 <div id="pagina" class="pagina">
 
-<div class="fondo" id="pelotazos"></div>
+<!-- pelotazos por delante -->
+<div class="pelotazos" id="pelotazos"></div>
 
 <!-- HEADER -->
 <div class="header">
 
-  <!-- LOGOS LATERALES -->
-  <img src="/images/logo-larraun.png" class="logo-izq">
-  <img src="/images/logo-fnp.png" class="logo-der">
+<img src="/images/logo-larraun.png" class="logo-izq">
+<img src="/images/logo-fnp.png" class="logo-der">
 
-  <!-- TÍTULO CURVO -->
-  <svg class="titulo-curvo" viewBox="0 0 900 110">
-    <path id="arco" d="M80,90 Q450,10 820,90" fill="transparent"/>
-    <text text-anchor="middle">
-      <textPath href="#arco" startOffset="50%">
-        LARRAUN PILOTA ELKARTEA
-      </textPath>
-    </text>
-  </svg>
+<svg class="titulo-curvo" viewBox="0 0 900 110">
+  <path id="arco" d="M80,90 Q450,10 820,90" fill="transparent"/>
+  <text text-anchor="middle">
+    <textPath href="#arco" startOffset="50%">
+      LARRAUN PILOTA ELKARTEA
+    </textPath>
+  </text>
+</svg>
 
-  <!-- PELOTA SVG REALISTA -->
-  <svg class="pelota-real" viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="45" fill="#fff" stroke="#ddd" stroke-width="3"/>
-    <path d="M20,40 Q50,10 80,40" stroke="#c40000" stroke-width="3" fill="none"/>
-    <path d="M20,60 Q50,90 80,60" stroke="#c40000" stroke-width="3" fill="none"/>
-    <text x="50" y="56" text-anchor="middle" font-size="26" fill="#c40000">✣</text>
-  </svg>
+<!-- pelota SVG -->
+<svg class="pelota-real" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#fff" stroke="#ddd" stroke-width="3"/>
+  <path d="M20,40 Q50,10 80,40" stroke="#c40000" stroke-width="3" fill="none"/>
+  <path d="M20,60 Q50,90 80,60" stroke="#c40000" stroke-width="3" fill="none"/>
+  <text x="50" y="58" text-anchor="middle" font-size="26" fill="#c40000">✣</text>
+</svg>
 
 </div>
 
 <div class="chapa"></div>
 
-<!-- CONTENIDO -->
-<div class="contenido" id="contenido"></div>
+<div id="contenido" class="contenido"></div>
 
 <div class="chapa"></div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="pie-gris">
-    <div class="logos-grid" id="logos"></div>
+    <div id="logos" class="logos-grid"></div>
   </div>
-  <div class="suelo"></div>
+  <div id="suelo" class="suelo"></div>
 </div>
 
 </div>
 
 <script>
 
-/* ================= PELOTAZOS ================= */
+/* ================= PELOTAZOS (por delante) ================= */
 
-const pelotazos=document.getElementById("pelotazos");
+const pel=document.getElementById("pelotazos");
 
-for(let i=0;i<3500;i++){
+for(let i=0;i<4500;i++){
   const d=document.createElement("div");
   const s=Math.random()*4+2;
-  d.className="pelota";
+  d.className="pelota-dot";
   d.style.width=d.style.height=s+"px";
   d.style.left=Math.random()*900+"px";
-  d.style.top=Math.random()*1800+"px";
-  d.style.opacity=Math.random()*0.25;
-  pelotazos.appendChild(d);
+  d.style.top=Math.random()*2200+"px";
+  pel.appendChild(d);
 }
 
-/* ================= LOGOS ================= */
+/* ================= HUELLAS ================= */
 
-const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg"];
+const suelo=document.getElementById("suelo");
 
-document.getElementById("logos").innerHTML =
-LOGOS.map(f=>`<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`).join("");
+for(let i=0;i<40;i++){
+  const h=document.createElement("div");
+  h.className="huella";
+  h.style.left=Math.random()*880+"px";
+  h.style.top=Math.random()*240+"px";
+  suelo.appendChild(h);
+}
 
-/* ================= HELPERS ================= */
+/* ================= DESCANSO ================= */
 
 const esDescanso = t => !t || /descanso|atseden/i.test(t);
 
@@ -286,36 +298,31 @@ function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
 }
 
-/* ================= CARGAR PARTIDOS ================= */
+/* ================= FETCH ================= */
 
 Promise.all([
- fetch("/data/cartelera-larraun.json").then(r=>r.json()),
- fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
+ fetch("data/cartelera-larraun.json").then(r=>r.json()),
+ fetch("data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
 const cont=document.getElementById("contenido");
 
-function pintarBloque(titulo,data){
+function pintar(titulo,data){
 
- if(!data.length) return;
-
- const div=document.createElement("div");
- div.className="bloque";
- div.innerHTML=`<h2>${titulo}</h2>`;
- cont.appendChild(div);
+ const bloque=document.createElement("div");
+ bloque.innerHTML=`<h2>${titulo}</h2>`;
+ cont.appendChild(bloque);
 
  const grupos={};
 
  data.forEach(p=>{
-   if(esDescanso(p.etxekoa) || esDescanso(p.kanpokoak)) return;
-
+   if(esDescanso(p.etxekoa)||esDescanso(p.kanpokoak)) return;
    const key=p.fecha+"|"+p.hora+"|"+p.fronton;
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
  });
 
  Object.values(grupos).forEach(partidos=>{
-
    const p0=partidos[0];
    const local=/lekunberri|aldatz/i.test(p0.fronton||"");
 
@@ -333,18 +340,16 @@ function pintarBloque(titulo,data){
        <div class="kanpokoa">${p.kanpokoak}</div>
        <div class="lehiaketa">${p.lehiaketa}</div>
      </div>
-   `).join("")}
-   `;
+   `).join("")}`;
 
    cont.appendChild(g);
-
  });
 
 }
 
-pintarBloque("ORDUTEGIAK", oficiales);
-pintarBloque("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
-pintarBloque("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
+pintar("ORDUTEGIAK", oficiales);
+pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
+pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
 
 });
 
