@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <title>Larraun Kartela</title>
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
@@ -12,7 +13,7 @@
 body{
   margin:0;
   background:#1b4d31;
-  font-family:system-ui, sans-serif;
+  font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
 .exportar{
@@ -20,7 +21,7 @@ body{
   margin:18px;
 }
 
-/* ================= PÁGINA ================= */
+/* ================= PAGINA ÚNICA ================= */
 
 .pagina{
   width:900px;
@@ -29,38 +30,29 @@ body{
 
   display:flex;
   flex-direction:column;
-  overflow:hidden;
 
   position:relative;
+  overflow:hidden;
+
   background:#3f8159;
 }
 
-/* ================= PELOTAZOS ================= */
-
-.pelotazos{
+/* textura */
+.pagina::before{
+  content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
-}
-
-.pelota{
-  position:absolute;
-  border-radius:50%;
-  background:#000;
-  opacity:.18;
-}
-
-/* ================= CHAPAS ================= */
-
-.chapa{
-  height:12px;
-  background:#000;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 2px,rgba(0,0,0,.03) 2px 4px);
 }
 
 /* ================= HEADER ================= */
 
 .header{
-  height:150px;
+  height:130px;
+  background:#2448b5;
+  color:#fff;
 
   display:flex;
   align-items:center;
@@ -68,37 +60,44 @@ body{
 
   padding:0 20px;
 
-  background:#2448b5;
-
   box-shadow:
-    inset 0 12px 18px rgba(255,255,255,.35),
+    inset 0 10px 12px rgba(255,255,255,.3),
     inset 0 -14px 18px rgba(0,0,0,.7);
 }
 
-.header img{
-  height:60px;
-}
+.header img{ height:60px }
 
-/* ===== título curvo ===== */
-
-.titulo-curvo{
-  width:560px;
-  height:130px;
-}
-
-.titulo-curvo text{
-  fill:#fff;
-  font-size:38px;
-  font-weight:900;
+.header h1{
+  font-size:34px;
   letter-spacing:2px;
+  margin:0;
+}
+
+/* ================= CHAPA ================= */
+
+.chapa{
+  height:12px;
+  background:#000;
 }
 
 /* ================= CONTENIDO ================= */
 
 .contenido{
   flex:1;
-  padding:16px 18px;
-  overflow:hidden;
+  padding:16px 20px;
+  overflow:hidden; /* 👈 nunca pisa el footer */
+}
+
+/* ================= BLOQUES ================= */
+
+.bloque{
+  margin-bottom:18px;
+}
+
+.bloque h2{
+  color:#fff;
+  text-align:center;
+  margin:12px 0;
 }
 
 /* ================= PARTIDOS ================= */
@@ -107,47 +106,70 @@ body{
   background:#fff;
   border-radius:10px;
   overflow:hidden;
-  margin-bottom:8px;
+  margin-top:6px;
 }
 
 .grupo-header{
-  background:#2448b5;
-  color:#fff;
+  padding:8px 14px;
   font-weight:bold;
-  padding:8px 12px;
+  color:#fff;
+  background:#2448b5;
+}
+
+.grupo-header.rojo{
+  background:#b00000;
 }
 
 .linea{
   display:flex;
-  padding:7px 10px;
+  padding:8px 10px;
   gap:8px;
+  font-weight:900;
   border-top:1px solid #ddd;
-  font-weight:bold;
-  font-size:14px;
 }
 
-.zkia{width:26px}
+.zkia{width:28px}
 .etxekoa{color:#2448b5}
 .kanpokoa{color:#b00000}
 .lehiaketa{margin-left:auto}
 
-/* ================= FOOTER ================= */
+/* ================= FOOTER FIJO ================= */
 
 .footer{
+  height:240px;
   display:flex;
   flex-direction:column;
 }
 
-/* colchón */
 .pie-gris{
-  height:80px;
   background:#2f2f2f;
+  padding:8px;
+  height:80px; /* 1/3 */
 }
 
-/* suelo (doble) */
 .suelo{
-  height:160px;
   background:#6b6b6b;
+  flex:1; /* 2/3 */
+}
+
+/* logos */
+
+.logos-grid{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:8px;
+}
+
+.logo-item{
+  background:#fff;
+  padding:6px;
+  border-radius:6px;
+}
+
+.logo-item img{
+  width:100%;
+  height:36px;
+  object-fit:contain;
 }
 
 </style>
@@ -159,195 +181,97 @@ body{
 <button onclick="exportar()">📸 DESKARGATU JPG</button>
 </div>
 
-<div id="paginas"></div>
-
-<script>
-
-/* ======================================================
-   🔥 AQUÍ METES TUS PARTIDOS (SIN JSON, SIN FETCH)
-   ====================================================== */
-
-const PARTIDOS = [
-
-{
-fecha:"2026/02/07",
-hora:"16:30",
-fronton:"Lekunberri",
-zkia:"1",
-etxekoa:"LARRAUN A",
-kanpokoak:"IRUÑA B",
-lehiaketa:"INFANTIL"
-},
-
-{
-fecha:"2026/02/07",
-hora:"17:30",
-fronton:"Lekunberri",
-zkia:"2",
-etxekoa:"LARRAUN C",
-kanpokoak:"BURLADA",
-lehiaketa:"CADETE"
-}
-
-];
-
-
-/* ================= HEADER SVG ================= */
-
-function headerCurvo(){
-return `
-<svg viewBox="0 0 600 200" class="titulo-curvo">
-
-<defs>
-  <path id="arco" d="M30,140 Q300,20 570,140"/>
-
-  <!-- volumen pelota -->
-  <radialGradient id="gPelota" cx="35%" cy="30%">
-    <stop offset="0%" stop-color="#ffffff"/>
-    <stop offset="60%" stop-color="#f2f2f2"/>
-    <stop offset="100%" stop-color="#cfcfcf"/>
-  </radialGradient>
-</defs>
-
-<!-- ===== TÍTULO (más alto y centrado) ===== -->
-<text text-anchor="middle" font-weight="900" font-size="42" fill="white">
-  <textPath href="#arco" startOffset="50%">
-    LARRAUN PILOTA ELKARTEA
-  </textPath>
-</text>
-
-<!-- ===== PELOTA REALISTA ===== -->
-<g transform="translate(300,150)">
-
-  <!-- sombra -->
-  <ellipse cx="0" cy="18" rx="30" ry="8" fill="black" opacity=".25"/>
-
-  <!-- pelota -->
-  <circle r="26" fill="url(#gPelota)" stroke="#bbb" stroke-width="2"/>
-
-  <!-- costuras -->
-  <path d="M-22,-10 Q0,-18 22,-10" stroke="#b40000" stroke-width="3" fill="none"/>
-  <path d="M-22,10 Q0,18 22,10" stroke="#b40000" stroke-width="3" fill="none"/>
-
-  <!-- lauburu -->
-  <text text-anchor="middle" y="7" font-size="16" fill="#111">✣</text>
-
-</g>
-
-</svg>`;
-}
-
-
-
-/* ================= CREAR PÁGINA ================= */
-
-function nuevaPagina(){
-
-const p=document.createElement("div");
-p.className="pagina";
-
-p.innerHTML=`
-<div class="pelotazos"></div>
+<div class="pagina" id="pagina">
 
 <div class="chapa"></div>
 
 <div class="header">
-<img src="images/logo-larraun.png">
-${headerCurvo()}
-<img src="images/logo-fnp.png">
+  <img src="images/logo-larraun.png">
+  <h1>LARRAUN PILOTA ELKARTEA</h1>
+  <img src="images/logo-fnp.png">
 </div>
 
 <div class="chapa"></div>
 
-<div class="contenido"></div>
+<div class="contenido" id="contenido"></div>
 
 <div class="chapa"></div>
 
 <div class="footer">
-<div class="pie-gris"></div>
-<div class="suelo"></div>
+  <div class="pie-gris">
+    <div class="logos-grid" id="logos"></div>
+  </div>
+  <div class="suelo"></div>
+</div>
+
+</div>
+
+<script>
+
+/* ================= LOGOS ================= */
+
+const LOGOS=[
+"aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg"
+];
+
+document.getElementById("logos").innerHTML =
+LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`).join("");
+
+/* ================= HELPERS ================= */
+
+function normalizaHora(h){
+  return h ? h.slice(0,5) : "00:00";
+}
+
+function esDescanso(p){
+  const t=(p.etxekoa+p.kanpokoak).toLowerCase();
+  return t.includes("descanso") || t.includes("atseden");
+}
+
+/* ================= CARGA PARTIDOS (SIN PAGINAR) ================= */
+
+Promise.all([
+fetch("data/cartelera-larraun.json").then(r=>r.json()),
+fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales,noOficiales])=>{
+
+const cont=document.getElementById("contenido");
+
+const todos=[...oficiales,...noOficiales]
+  .filter(p=>!esDescanso(p)) /* 👈 quitamos descansos */
+  .sort((a,b)=>a.fecha.localeCompare(b.fecha) || normalizaHora(a.hora).localeCompare(normalizaHora(b.hora));
+
+todos.forEach(p=>{
+
+const div=document.createElement("div");
+div.className="grupo";
+
+div.innerHTML=`
+<div class="grupo-header">
+📅 ${p.fecha} | ⏰ ${normalizaHora(p.hora)} | 📍 ${p.fronton}
+</div>
+<div class="linea">
+<div class="zkia">${p.zkia||""}</div>
+<div class="etxekoa">${p.etxekoa||""}</div>
+<div class="kanpokoa">${p.kanpokoak||""}</div>
+<div class="lehiaketa">${p.lehiaketa||""}</div>
 </div>
 `;
 
-document.getElementById("paginas").appendChild(p);
-
-generarPelotazos(p);
-
-return p;
-}
-
-
-/* ================= PELOTAZOS ================= */
-
-function generarPelotazos(p){
-
-const cont=p.querySelector(".pelotazos");
-
-for(let i=0;i<1200;i++){
-const d=document.createElement("div");
-const s=Math.random()*3+2;
-d.className="pelota";
-d.style.width=d.style.height=s+"px";
-d.style.left=Math.random()*900+"px";
-d.style.top=Math.random()*1400+"px";
-cont.appendChild(d);
-}
-
-}
-
-
-/* ================= PINTAR ================= */
-
-const pagina=nuevaPagina();
-const cont=pagina.querySelector(".contenido");
-
-PARTIDOS.forEach(p=>{
-
-const g=document.createElement("div");
-g.className="grupo";
-
-g.innerHTML=`
-<div class="grupo-header">📅 ${p.fecha} | ⏰ ${p.hora} | 📍 ${p.fronton}</div>
-<div class="linea">
-<div class="zkia">${p.zkia}</div>
-<div class="etxekoa">${p.etxekoa}</div>
-<div class="kanpokoa">${p.kanpokoak}</div>
-<div class="lehiaketa">${p.lehiaketa}</div>
-</div>`;
-
-cont.appendChild(g);
+cont.appendChild(div);
 
 });
 
+});
 
 /* ================= EXPORTAR ================= */
 
-function exportar(){
-html2canvas(document.querySelector(".pagina"),{scale:2}).then(canvas=>{
+async function exportar(){
+const canvas=await html2canvas(document.getElementById("pagina"),{scale:2,useCORS:true});
 const a=document.createElement("a");
 a.download="kartela.jpg";
 a.href=canvas.toDataURL("image/jpeg",0.95);
 a.click();
-});
-}
-/* ================= LOGOS ================= */
-
-const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
-"barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
-"carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
-"construccionesurangasaigos.jpg","fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg",
-"iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
-"maderasnasorena.jpg","maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
-"ventamugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg","ekin.jpg",
-"farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
-"izarberri.png","lakita.jpg","nekazari.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
-"talleresotxotorena.jpg","veterinarialekunberri.jpg"];
-const logos=document.getElementById("logos");
-  
-function logosHTML(){
-  return LOGOS.map(f =>
-   `<div class="logo-item"><img src="/images/patrocinio/${f}"></div>`
-  ).join("");
 }
 
 </script>
