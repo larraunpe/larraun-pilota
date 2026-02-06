@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <title>Larraun Kartela</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
 
-/* ================= BASE ================= */
+/* ========= BASE ========= */
 
 body{
   margin:0;
@@ -16,22 +16,39 @@ body{
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
-/* ================= PÁGINA ================= */
+/* ========= PÁGINA ========= */
 
 .pagina{
   width:900px;
   height:1400px;
-  margin:25px auto;
+  margin:20px auto;
 
   display:flex;
   flex-direction:column;
 
-  background:#3f8159;
   position:relative;
   overflow:hidden;
+  background:#3f8159;
 }
 
-/* ================= HEADER ================= */
+/* ========= PELOTAZOS ========= */
+
+.pelotazos{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+.pelota{
+  position:absolute;
+  border-radius:50%;
+  background:#000;
+}
+
+/* ========= HEADER ========= */
+
+.chapa{height:12px;background:#000}
 
 .header{
   flex:0 0 130px;
@@ -41,7 +58,9 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:0 20px;
+  z-index:1;
 
   box-shadow:
     inset 0 8px 10px rgba(255,255,255,.3),
@@ -50,45 +69,50 @@ body{
 
 .header img{height:60px}
 
-.chapa{height:12px;background:#000}
-
-/* ================= CONTENIDO ================= */
+/* ========= CONTENIDO ========= */
 
 .contenido{
-  flex:1;                 /* ← ocupa todo el espacio libre */
-  overflow:auto;          /* ← nunca invade el footer */
-  padding:18px 22px;
+  flex:1;
+  padding:16px 20px;
+  z-index:1;
 }
 
-/* ================= BLOQUES ================= */
+/* ========= BLOQUES ========= */
+
+.bloque{
+  margin-bottom:16px;
+}
 
 .bloque h2{
   color:white;
   text-align:center;
+  margin:12px 0;
 }
 
-/* ================= PARTIDOS ================= */
+/* ========= PARTIDOS ========= */
 
 .grupo{
   background:white;
   border-radius:10px;
-  margin-top:8px;
   overflow:hidden;
+  margin-top:6px;
 }
 
 .grupo-header{
-  padding:8px 12px;
+  padding:8px 14px;
   font-weight:bold;
-  background:#2448b5;
   color:white;
+  background:#2448b5;
 }
 
-.grupo-header.rojo{background:#b00000}
+.grupo-header.rojo{
+  background:#b00000;
+}
 
 .linea{
   display:flex;
-  gap:8px;
   padding:8px;
+  gap:8px;
   border-top:1px solid #ddd;
   font-weight:900;
 }
@@ -102,26 +126,27 @@ body{
   text-align:right;
 }
 
-/* ================= FOOTER FIJO ================= */
+/* ========= FOOTER ========= */
 
 .footer{
-  flex:0 0 240px;  /* altura fija */
+  flex:0 0 240px;
   display:flex;
   flex-direction:column;
+  z-index:1;
 }
 
 .pie-gris{
+  height:80px;
   background:#2f2f2f;
   padding:10px;
-  height:80px;      /* colchón */
 }
 
 .suelo{
+  flex:1;
   background:#6b6b6b;
-  flex:1;           /* suelo el doble */
 }
 
-/* logos */
+/* ========= LOGOS ========= */
 
 .logos-grid{
   display:grid;
@@ -143,7 +168,7 @@ body{
 
 .exportar{
   text-align:center;
-  margin:15px;
+  margin:14px;
 }
 
 </style>
@@ -156,6 +181,8 @@ body{
 </div>
 
 <div class="pagina" id="pagina">
+
+  <div class="pelotazos" id="pelotazos"></div>
 
   <div class="chapa"></div>
 
@@ -182,12 +209,26 @@ body{
 
 <script>
 
-/* ================= UTIL ================= */
+/* ========= PELOTAZOS ========= */
 
-function esDescanso(txt){
-  if(!txt) return false;
-  return /descanso|atseden/i.test(txt);
+const pel = document.getElementById("pelotazos");
+
+for(let i=0;i<1600;i++){
+  const d=document.createElement("div");
+  d.className="pelota";
+  const s=Math.random()*4+2;
+
+  d.style.width=d.style.height=s+"px";
+  d.style.left=Math.random()*900+"px";
+  d.style.top=Math.random()*1160+"px"; /* no suelo */
+
+  d.style.opacity=Math.random()*0.25;
+  pel.appendChild(d);
 }
+
+/* ========= UTIL ========= */
+
+const esDescanso = t => /descanso|atseden/i.test(t||"");
 
 function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
@@ -209,7 +250,7 @@ function agrupar(data){
   return g;
 }
 
-/* ================= LOGOS ================= */
+/* ========= LOGOS ========= */
 
 const LOGOS=["aliprox.jpg","arbeondo.jpg","barainhoa.jpg","kotxera.jpg"];
 
@@ -219,60 +260,67 @@ LOGOS.forEach(f=>{
   logos.innerHTML+=`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`;
 });
 
-/* ================= CARGAR PARTIDOS ================= */
+/* ========= CARGAR PARTIDOS ========= */
 
 Promise.all([
-  fetch("data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+ fetch("data/cartelera-larraun.json").then(r=>r.json()),
+ fetch("data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-const todos=[...oficiales,...noOficiales];
+const bloques=[
+ {titulo:"ORDUTEGIAK", data:ordenar(oficiales)},
+ {titulo:"BESTE TXAPELKETAK OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
+ {titulo:"TXAPELKETAK EZ OFIZIALAK", data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
+];
 
 const cont=document.getElementById("contenido");
 
-Object.values(agrupar(ordenar(todos))).forEach(partidos=>{
+bloques.forEach(b=>{
 
-  /* quitar descansos */
-  partidos = partidos.filter(p =>
-    !esDescanso(p.etxekoa) && !esDescanso(p.kanpokoak)
-  );
+ if(!b.data.length) return;
 
-  if(!partidos.length) return;
+ cont.innerHTML+=`<div class="bloque"><h2>${b.titulo}</h2></div>`;
 
-  const p0=partidos[0];
+ const bloqueDiv=cont.lastChild;
 
-  const grupo=document.createElement("div");
-  grupo.className="grupo";
+ Object.values(agrupar(b.data)).forEach(partidos=>{
 
-  grupo.innerHTML=`
-    <div class="grupo-header">
-      📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
-    </div>
-    ${partidos.map(p=>`
-      <div class="linea">
-        <div class="zkia">${p.zkia}</div>
-        <div class="etxekoa">${p.etxekoa}</div>
-        <div class="kanpokoa">${p.kanpokoak}</div>
-        <div class="lehiaketa">${p.lehiaketa}</div>
-      </div>
-    `).join("")}
-  `;
+   partidos=partidos.filter(p=>!esDescanso(p.etxekoa)&&!esDescanso(p.kanpokoak));
+   if(!partidos.length) return;
 
-  cont.appendChild(grupo);
+   const p0=partidos[0];
+   const esLocal=/lekunberri|aldatz/i.test(p0.fronton||"");
+
+   bloqueDiv.innerHTML+=`
+   <div class="grupo">
+     <div class="grupo-header ${!esLocal?'rojo':''}">
+       📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
+     </div>
+     ${partidos.map(p=>`
+       <div class="linea">
+         <div class="zkia">${p.zkia}</div>
+         <div class="etxekoa">${p.etxekoa}</div>
+         <div class="kanpokoa">${p.kanpokoak}</div>
+         <div class="lehiaketa">${p.lehiaketa}</div>
+       </div>
+     `).join("")}
+   </div>`;
+ });
+
 });
 
 });
 
-/* ================= EXPORTAR ================= */
+/* ========= EXPORTAR ========= */
 
 function exportar(){
-  html2canvas(document.getElementById("pagina"),{scale:2})
-  .then(c=>{
-    const a=document.createElement("a");
-    a.download="kartela.jpg";
-    a.href=c.toDataURL("image/jpeg",0.95);
-    a.click();
-  });
+ html2canvas(document.getElementById("pagina"),{scale:2})
+ .then(c=>{
+   const a=document.createElement("a");
+   a.download="kartela.jpg";
+   a.href=c.toDataURL("image/jpeg",0.95);
+   a.click();
+ });
 }
 
 </script>
