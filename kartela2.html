@@ -39,14 +39,15 @@ body{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:10;
+  z-index:50;
+  mix-blend-mode:multiply; /* efecto tinta real */
 }
 
 .pelota-dot{
   position:absolute;
   border-radius:50%;
   background:#000;
-  opacity:.18;
+  opacity:.28;
 }
 
 /* ================= HEADER ================= */
@@ -88,12 +89,9 @@ body{
 
 /* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
-  position:absolute;
-  bottom:8px;
-  left:50%;
-  transform:translateX(-50%);
-  width:36px;
-  height:36px;
+  bottom:28px;   /* sube */
+  width:34px;
+  height:34px;
 }
 
 /* ================= CHAPAS ================= */
@@ -114,10 +112,24 @@ body{
 /* ================= BLOQUES ================= */
 
 .bloque h2{
-  color:#fff;
   text-align:center;
-  margin:16px 0;
-  font-size:22px;
+  margin:26px 0 18px 0;
+
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:2px;
+
+  /* color pared */
+  color:#f3f3f3;
+
+  /* efecto esculpido / frontón */
+  text-shadow:
+    0 3px 0 #ffffff,          /* brillo arriba */
+    0 -2px 0 rgba(0,0,0,.35), /* sombra abajo */
+    2px 2px 3px rgba(0,0,0,.45), /* profundidad */
+    -1px -1px 0 rgba(255,255,255,.5);
+
+  text-transform:uppercase;
 }
 
 /* ================= PARTIDOS ================= */
@@ -236,7 +248,7 @@ body{
 
 <svg class="titulo-curvo" viewBox="0 0 900 120">
   <!-- MÁS curvatura -->
-  <path id="arco" d="M60,105 Q450,-10 840,105" fill="transparent"/>
+  <path id="arco" d="M60,110 Q450,-60 840,110" fill="transparent"/>
   <text text-anchor="middle">
     <textPath href="#arco" startOffset="50%">
       LARRAUN PILOTA ELKARTEA
