@@ -1,3 +1,4 @@
+Lo del bloque de títulos no lo he entendido bien. Los demás cambios sí me gustan. Quiero que ORDUTEGUIA, BESTE TXAPELKETAK OFIZIALAK y TXAPELKETAK EZ OFIZIALAK estén centrados, con letra blanca como agrietada, con un efecto imponente de esculpido en la pared del frontón. Gracias
 <!DOCTYPE html>
 <html lang="eu">
 <head>
@@ -114,44 +115,42 @@ body{
 
 /* ================= BLOQUES ================= */
 
-/* ===== TITULOS SECCIONES (frontón esculpido) ===== */
-
-.contenido h2{
+.bloque h2{
   text-align:center;
-
-  margin:34px 0 22px 0;
+  margin:30px 0 20px 0;
 
   font-size:28px;
   font-weight:900;
   letter-spacing:3px;
   text-transform:uppercase;
 
-  color:#f5f5f5;
+  /* color piedra clara */
+  color:#f8f8f8;
 
-  /* efecto esculpido potente */
+  /* EFECTO ESCULPIDO EN FRONTÓN */
   text-shadow:
-    0 2px 0 #ffffff,               /* brillo arriba */
-    0 -3px 0 rgba(0,0,0,.65),      /* sombra abajo */
-    3px 3px 6px rgba(0,0,0,.6),    /* profundidad */
-    -1px -1px 0 rgba(255,255,255,.4);
+    0 2px 0 #ffffff,                /* luz arriba */
+    0 4px 0 #e6e6e6,
+    0 -2px 0 rgba(0,0,0,.45),       /* sombra tallado */
+    2px 3px 4px rgba(0,0,0,.55),    /* profundidad */
+    -1px -1px 0 rgba(255,255,255,.6);
 
-  /* sensación pintura agrietada */
-  filter: contrast(105%) brightness(105%);
+  /* textura piedra / grietas */
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,.06) 0px,
+      rgba(0,0,0,.06) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  filter:contrast(110%) brightness(115%);
 }
 
-
-  /* color pared */
-  color:#f3f3f3;
-
-  /* efecto esculpido / frontón */
-  text-shadow:
-    0 3px 0 #ffffff,          /* brillo arriba */
-    0 -2px 0 rgba(0,0,0,.35), /* sombra abajo */
-    2px 2px 3px rgba(0,0,0,.45), /* profundidad */
-    -1px -1px 0 rgba(255,255,255,.5);
-
-  text-transform:uppercase;
-}
 
 /* ================= PARTIDOS ================= */
 
