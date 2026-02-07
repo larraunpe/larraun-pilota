@@ -329,6 +329,7 @@ const cont=document.getElementById("contenido");
 function pintar(titulo,data){
 
  const bloque=document.createElement("div");
+ bloque.className="bloque";   // ← ESTA LÍNEA ES LA CLAVE
  bloque.innerHTML=`<h2>${titulo}</h2>`;
  cont.appendChild(bloque);
 
