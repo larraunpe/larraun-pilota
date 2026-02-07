@@ -92,11 +92,35 @@ body{
   position:absolute;
   left:50%;
   transform:translateX(-50%);
-  bottom:40px;   /* más arriba */
+  bottom:40px;
+
   width:34px;
   height:34px;
+
+  border-radius:50%;
+  background:#fff;
+  border:2px solid #ddd;
+
   z-index:20;
+
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.25);
 }
+
+/* costuras rojas */
+.pelota-real::before,
+.pelota-real::after{
+  content:"";
+  position:absolute;
+  width:80%;
+  height:40%;
+  left:10%;
+  border-top:2px solid #c40000;
+  border-radius:50%;
+}
+
+.pelota-real::before{ top:6px; }
+.pelota-real::after{ bottom:6px; }
+
 /* ================= CHAPAS ================= */
 
 .chapa{
@@ -251,13 +275,7 @@ body{
 </svg>
 
 <!-- pelota -->
-<svg class="pelota-real" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="45" fill="#fff" stroke="#ddd" stroke-width="3"/>
-  <path d="M20,40 Q50,10 80,40" stroke="#c40000" stroke-width="3" fill="none"/>
-  <path d="M20,60 Q50,90 80,60" stroke="#c40000" stroke-width="3" fill="none"/>
-  <text x="50" y="60" text-anchor="middle" font-size="28" fill="#c40000">✣</text>
-</svg>
-
+<div class="pelota-real"></div>
 </div>
 
 <div class="chapa"></div>
