@@ -335,6 +335,91 @@ function normalizaHora(h){
   return h ? h.slice(0,5) : "00:00";
 }
 
+/* ================= CONFIG A3 ================= */
+
+const PAGE_WIDTH = 1200;
+const PAGE_HEIGHT = 1700;
+
+const HEADER_HTML = document.querySelector(".header").outerHTML +
+                    document.querySelectorAll(".chapa")[0].outerHTML;
+
+const FOOTER_HTML = document.querySelectorAll(".chapa")[1].outerHTML +
+                    document.querySelector(".footer").outerHTML;
+
+
+/* ================= CREAR PÁGINA ================= */
+
+function nuevaPagina(){
+  const p = document.createElement("div");
+  p.className = "pagina-a3";
+  p.style.width = PAGE_WIDTH+"px";
+  p.style.height = PAGE_HEIGHT+"px";
+  p.style.background = "#3f8159";
+  p.style.display = "flex";
+  p.style.flexDirection = "column";
+  p.style.position = "relative";
+  p.style.margin = "40px auto";
+
+  p.innerHTML = HEADER_HTML +
+                `<div class="contenido-pagina" style="flex:1;padding:20px;overflow:hidden"></div>` +
+                FOOTER_HTML;
+
+  document.body.appendChild(p);
+
+  return p.querySelector(".contenido-pagina");
+}
+
+
+/* ================= PAGINADOR ================= */
+
+function paginarBloques(bloques){
+
+  let cont = nuevaPagina();
+
+  bloques.forEach(b=>{
+
+    const clon = b.cloneNode(true);
+
+    cont.appendChild(clon);
+
+    if(cont.scrollHeight > cont.clientHeight){
+
+      cont.removeChild(clon);
+
+      cont = nuevaPagina();
+
+      cont.appendChild(clon);
+    }
+
+  });
+}
+
+
+/* ================= EXPORTAR TODAS ================= */
+
+async function exportar(){
+
+  const paginas = document.querySelectorAll(".pagina-a3");
+
+  let i = 1;
+
+  for(const p of paginas){
+
+    const canvas = await html2canvas(p,{
+      scale:2,
+      useCORS:true
+    });
+
+    const a=document.createElement("a");
+    a.href=canvas.toDataURL("image/jpeg",0.95);
+    a.download=`kartela-${i}.jpg`;
+    a.click();
+
+    i++;
+  }
+}
+
+
 /* ================= FETCH PARTIDOS ================= */
 
 Promise.all([
@@ -342,25 +427,25 @@ Promise.all([
  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-const cont=document.getElementById("contenido");
+const bloques = [];
 
-function pintar(titulo,data){
+function crearBloque(titulo,data){
 
  const bloque=document.createElement("div");
- bloque.className="bloque";   // ← ESTA LÍNEA ES LA CLAVE
+ bloque.className="bloque";
  bloque.innerHTML=`<h2>${titulo}</h2>`;
- cont.appendChild(bloque);
 
  const grupos={};
 
  data.forEach(p=>{
-   if(esDescanso(p.etxekoa)||esDescanso(p.kanpokoak)) return;
+   if(!p.etxekoa || !p.kanpokoak) return;
    const key=p.fecha+"|"+p.hora+"|"+p.fronton;
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
  });
 
  Object.values(grupos).forEach(partidos=>{
+
    const p0=partidos[0];
    const local=/lekunberri|aldatz/i.test(p0.fronton||"");
 
@@ -369,7 +454,7 @@ function pintar(titulo,data){
 
    g.innerHTML=`
    <div class="grupo-header ${!local?'rojo':''}">
-   📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
+   📅 ${p0.fecha} | ⏰ ${p0.hora} | 📍 ${p0.fronton}
    </div>
    ${partidos.map(p=>`
      <div class="linea">
@@ -380,28 +465,24 @@ function pintar(titulo,data){
      </div>
    `).join("")}`;
 
-   cont.appendChild(g);
+   bloque.appendChild(g);
+
  });
 
+ bloques.push(bloque);
 }
 
-pintar("ORDUTEGIAK", oficiales);
-pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
-pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
+
+/* crear bloques */
+crearBloque("ORDUTEGIAK", oficiales);
+crearBloque("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
+crearBloque("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
+
+
+/* paginar */
+paginarBloques(bloques);
 
 });
-
-/* ================= EXPORTAR ================= */
-
-function exportar(){
- html2canvas(document.getElementById("pagina"),{scale:2,useCORS:true})
- .then(canvas=>{
-   const a=document.createElement("a");
-   a.href=canvas.toDataURL("image/jpeg",0.95);
-   a.download="kartela.jpg";
-   a.click();
- });
-}
 
 </script>
 
