@@ -332,23 +332,46 @@ function rellenarLogos(pagina){
 
 function paginarBloques(bloques){
 
- let contenidoActual=nuevaPagina();
+ let contenidoActual = nuevaPagina();
 
- bloques.forEach(bloque=>{
+ for(let i=0; i<bloques.length; i++){
 
+   const bloque = bloques[i];
+
+   // Si es un título y el siguiente es un grupo, probamos juntos
+   if(
+     bloque.classList.contains("bloque") &&
+     bloques[i+1] &&
+     bloques[i+1].classList.contains("grupo")
+   ){
+
+     contenidoActual.appendChild(bloque);
+     contenidoActual.appendChild(bloques[i+1]);
+
+     if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
+       // no caben juntos → nueva página
+       contenidoActual.removeChild(bloque);
+       contenidoActual.removeChild(bloques[i+1]);
+
+       contenidoActual = nuevaPagina();
+       contenidoActual.appendChild(bloque);
+       contenidoActual.appendChild(bloques[i+1]);
+     }
+
+     i++; // saltamos el grupo ya procesado
+     continue;
+   }
+
+   // comportamiento normal
    contenidoActual.appendChild(bloque);
 
    if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
-
-      contenidoActual.removeChild(bloque);
-      contenidoActual=nuevaPagina();
-      contenidoActual.appendChild(bloque);
+     contenidoActual.removeChild(bloque);
+     contenidoActual = nuevaPagina();
+     contenidoActual.appendChild(bloque);
    }
-
- });
-
+ }
 }
-
 
 /* ================= CREAR BLOQUES PARTIDOS ================= */
 
