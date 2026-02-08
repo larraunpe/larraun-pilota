@@ -353,7 +353,9 @@ function paginarBloques(bloques){
 /* ================= CREAR BLOQUES PARTIDOS ================= */
 
 function crearBloques(titulo,data){
- if(!data || data.length===0) return [];   // 👈 CLAVE
+
+ if(!data || data.length===0) return [];
+
  const arr=[];
 
  const h2=document.createElement("div");
@@ -370,25 +372,30 @@ function crearBloques(titulo,data){
  });
 
  Object.values(grupos).forEach(partidos=>{
+
+   const g=document.createElement("div");   // 👈 FALTABA ESTO
+   g.className="grupo";
+
    const fronton = partidos[0].fronton || "";
-const esLocal =
-  fronton.toLowerCase().includes("lekunberri") ||
-  fronton.toLowerCase().includes("aldatz");
 
-const colorClase = esLocal ? "" : " rojo";
+   const esLocal =
+     fronton.toLowerCase().includes("lekunberri") ||
+     fronton.toLowerCase().includes("aldatz");
 
-g.innerHTML=`
- <div class="grupo-header${colorClase}">
- ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
- </div>
- ${partidos.map(p=>`
-     <div class="linea">
-       <div class="zkia">${p.zkia}</div>
-       <div class="etxekoa">${p.etxekoa}</div>
-       <div class="kanpokoa">${p.kanpokoak}</div>
-       <div class="lehiaketa">${p.lehiaketa}</div>
+   const colorClase = esLocal ? "" : " rojo";
+
+   g.innerHTML=`
+     <div class="grupo-header${colorClase}">
+       ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
      </div>
-   `).join("")}
+     ${partidos.map(p=>`
+       <div class="linea">
+         <div class="zkia">${p.zkia}</div>
+         <div class="etxekoa">${p.etxekoa}</div>
+         <div class="kanpokoa">${p.kanpokoak}</div>
+         <div class="lehiaketa">${p.lehiaketa}</div>
+       </div>
+     `).join("")}
    `;
 
    arr.push(g);
@@ -396,6 +403,7 @@ g.innerHTML=`
 
  return arr;
 }
+
 
 
 /* ================= FETCH + CONSTRUIR ================= */
