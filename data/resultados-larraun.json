@@ -2798,12 +2798,14 @@
   {
     "fecha": "2026-02-08",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
-    "kanpokoak": "TXARUTA (I. Echenike - H. Eraso)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "kanpokoak": "TXARUTA (I. Echenike - H. Eraso) ECHENIKE ECHEVERRIA, I. ERASO GORTARI, H.",
+    "tanteoa": "2 - 1",
+    "sets": [
+      "(7-9) (9-5) (3-2)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
   },
@@ -2838,12 +2840,14 @@
   {
     "fecha": "2026-02-08",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
-    "kanpokoak": "ATARRABIA (E. Beloki - L. Urtasun)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea) AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "ATARRABIA (E. Beloki - L. Urtasun) BELOKI ARANGUREN, E. URTASUN AZKONA, L.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(7-9) (9-7) (2-3)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 1.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3019"
   },
@@ -2904,12 +2908,14 @@
   {
     "fecha": "2026-02-08",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
-    "kanpokoak": "UMORE ONA (A. Makazaga - A. Zubiri)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "kanpokoak": "UMORE ONA (A. Makazaga - A. Zubiri) MAKAZAGA ZABALA, A. ZUBIRI APEZETXEA, A.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(2-9) (3-9)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 2.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3020"
   },
@@ -3428,12 +3434,12 @@
   {
     "fecha": "2026-02-06",
     "fronton": "Bera - Eztegara",
-    "etxekoa": "BORTZIRIAK (A. Elizalde - E. Oyarzabal)",
-    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
-    "tanteoa": "",
+    "etxekoa": "BORTZIRIAK (A. Elizalde - E. Oyarzabal) ELIZALDE IRIBARREN, A. OYARZABAL BERRUETA, E.",
+    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
+    "tanteoa": "18 - 6",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA HAUR 3.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3029"
   },
