@@ -3042,12 +3042,14 @@
   {
     "fecha": "2026-02-06",
     "fronton": "Zizur Menor - Ikastola San Fermin",
-    "etxekoa": "IK. SAN FERMIN (A. Unanua - B. Unanua)",
-    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "IK. SAN FERMIN (A. Unanua - B. Unanua) UNANUA SENAR, A. UNANUA SENAR, B.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "(9-6) (7-9) (2-3)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA SEIN 4.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3022"
   },
