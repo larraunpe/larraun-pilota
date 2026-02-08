@@ -138,6 +138,22 @@ body{
   height:12px;
   background:#000;
 }
+/* ================= PELOTAZOS ================= */
+  .pelotazos{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:20;            /* por delante de TODO */
+  mix-blend-mode:multiply;
+}
+
+.pelota-dot{
+  position:absolute;
+  border-radius:50%;
+  background:#000;
+  opacity:.25;
+}
+
 /* ================= CONTENIDO ================= */
 
 .contenido{
@@ -298,11 +314,42 @@ function nuevaPagina(){
  p.className="pagina";
  p.innerHTML=crearHeader()+`<div class="contenido"></div>`+crearFooter();
  document.getElementById("contenedorPaginas").appendChild(p);
+ // capa de pelotazos
+ const pel=document.createElement("div");
+ pel.className="pelotazos";
+ p.appendChild(pel);
 
+ p.insertAdjacentHTML("beforeend",
+   crearHeader()+
+   `<div class="contenido"></div>`+
+   crearFooter()
+ );
+document.getElementById("contenedorPaginas").appendChild(p);
+
+ generarPelotazos(pel);   // 👈 MUY IMPORTANTE
+ rellenarLogos(p);
+
+ return p.querySelector(".contenido");
+}
  rellenarLogos(p);   // 👈 ESTA LÍNEA ES LA CLAVE
 
  return p.querySelector(".contenido");
 
+}
+
+function generarPelotazos(contenedor){
+
+ for(let i=0;i<4500;i++){
+   const d=document.createElement("div");
+   const s=Math.random()*4+2;
+
+   d.className="pelota-dot";
+   d.style.width=d.style.height=s+"px";
+   d.style.left=Math.random()*900+"px";
+   d.style.top=Math.random()*1270+"px";
+
+   contenedor.appendChild(d);
+ }
 }
 function rellenarLogos(pagina){
 
