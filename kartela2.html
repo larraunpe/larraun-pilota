@@ -353,7 +353,7 @@ function paginarBloques(bloques){
 /* ================= CREAR BLOQUES PARTIDOS ================= */
 
 function crearBloques(titulo,data){
-
+ if(!data || data.length===0) return [];   // 👈 CLAVE
  const arr=[];
 
  const h2=document.createElement("div");
@@ -370,14 +370,18 @@ function crearBloques(titulo,data){
  });
 
  Object.values(grupos).forEach(partidos=>{
-   const g=document.createElement("div");
-   g.className="grupo";
+   const fronton = partidos[0].fronton || "";
+const esLocal =
+  fronton.toLowerCase().includes("lekunberri") ||
+  fronton.toLowerCase().includes("aldatz");
 
-   g.innerHTML=`
-   <div class="grupo-header">
-   ${partidos[0].fecha} | ${partidos[0].hora} | ${partidos[0].fronton}
-   </div>
-   ${partidos.map(p=>`
+const colorClase = esLocal ? "" : " rojo";
+
+g.innerHTML=`
+ <div class="grupo-header${colorClase}">
+ ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
+ </div>
+ ${partidos.map(p=>`
      <div class="linea">
        <div class="zkia">${p.zkia}</div>
        <div class="etxekoa">${p.etxekoa}</div>
