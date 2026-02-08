@@ -53,17 +53,30 @@ body{
 /* ================= HEADER ================= */
 
 .header{
-  position:relative;
   height:120px;
-  background:#2448b5;
+  position:relative;
+
   display:flex;
   align-items:center;
   justify-content:center;
 
+  /* azul frontón */
+  background:
+    linear-gradient(
+      to bottom,
+      #3b6ae0 0%,
+      #2448b5 40%,
+      #1b3691 100%
+    );
+
+  /* efecto acolchonado */
   box-shadow:
-    inset 0 8px 10px rgba(255,255,255,.3),
-    inset 0 -12px 16px rgba(0,0,0,.6);
+    inset 0 12px 18px rgba(255,255,255,.35),   /* luz superior */
+    inset 0 -18px 22px rgba(0,0,0,.6),         /* sombra inferior */
+    inset 0 0 25px rgba(0,0,0,.35),            /* profundidad */
+    0 6px 12px rgba(0,0,0,.35);                /* sombra exterior */
 }
+
 
 /* logos laterales MÁS GRANDES */
 .logo-izq,.logo-der{
@@ -90,32 +103,42 @@ body{
 /* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
+  top:32px;          /* un poco más arriba */
   left:50%;
   transform:translateX(-50%);
-  bottom:40px;
 
-  width:34px;
-  height:34px;
-
+  width:30px;
+  height:30px;
   border-radius:50%;
-  background:#fff;
-  border:2px solid #ddd;
 
-  z-index:20;
+  /* degradado esférico */
+  background:
+    radial-gradient(circle at 35% 30%,
+      #ffffff 0%,
+      #f5f5f5 40%,
+      #e2e2e2 65%,
+      #cfcfcf 100%
+    );
 
-  box-shadow: inset 0 2px 4px rgba(0,0,0,.25);
+  border:1.5px solid #d9d9d9;
+
+  box-shadow:
+    inset -4px -6px 10px rgba(0,0,0,.35), /* sombra interna */
+    inset 4px 4px 8px rgba(255,255,255,.9), /* brillo */
+    0 3px 5px rgba(0,0,0,.4); /* sombra exterior */
 }
 
-/* costuras rojas */
+/* costuras rojas más finas y realistas */
 .pelota-real::before,
 .pelota-real::after{
   content:"";
   position:absolute;
   width:80%;
-  height:40%;
+  height:42%;
   left:10%;
-  border-top:2px solid #c40000;
+  border-top:1.8px solid #c40000;
   border-radius:50%;
+  opacity:.85;
 }
 
 .pelota-real::before{ top:6px; }
