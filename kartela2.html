@@ -39,21 +39,43 @@ body{
 
 .header{
   height:120px;
-  background:#2448b5;
   position:relative;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  /* degradado SIMPLE (html2canvas sí lo pinta bien) */
+  background:linear-gradient(#3d6fe6, #2448b5);
+
+  /* solo 1 sombra interior ligera (las múltiples fallan) */
+  box-shadow: inset 0 -10px 18px rgba(0,0,0,.35);
 }
 
+/* brillo superior falso (elemento real, no shadow) */
+.header::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:35px;
+
+  background:linear-gradient(rgba(255,255,255,.35), transparent);
+}
+
+
+
+/* logos laterales MÁS GRANDES */
 .logo-izq,.logo-der{
   position:absolute;
-  height:95px;
-  top:12px;
+  top:18px;
+  height:85px;
 }
 .logo-izq{ left:14px; }
 .logo-der{ right:14px; }
 
+/* título MÁS curvado */
 .titulo-curvo{
   width:100%;
   height:100px;
@@ -66,23 +88,56 @@ body{
   letter-spacing:2px;
 }
 
+/* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
-  top:40px;
+  top:32px;          /* un poco más arriba */
   left:50%;
   transform:translateX(-50%);
+
   width:30px;
   height:30px;
   border-radius:50%;
-  background:white;
-  border:2px solid #ddd;
+
+  /* degradado esférico */
+  background:
+    radial-gradient(circle at 35% 30%,
+      #ffffff 0%,
+      #f5f5f5 40%,
+      #e2e2e2 65%,
+      #cfcfcf 100%
+    );
+
+  border:1.5px solid #d9d9d9;
+
+  box-shadow:
+    inset -4px -6px 10px rgba(0,0,0,.35), /* sombra interna */
+    inset 4px 4px 8px rgba(255,255,255,.9), /* brillo */
+    0 3px 5px rgba(0,0,0,.4); /* sombra exterior */
 }
+
+/* costuras rojas más finas y realistas */
+.pelota-real::before,
+.pelota-real::after{
+  content:"";
+  position:absolute;
+  width:80%;
+  height:42%;
+  left:10%;
+  border-top:1.8px solid #c40000;
+  border-radius:50%;
+  opacity:.85;
+}
+
+.pelota-real::before{ top:6px; }
+.pelota-real::after{ bottom:6px; }
+
+/* ================= CHAPAS ================= */
 
 .chapa{
   height:12px;
   background:#000;
 }
-
 /* ================= CONTENIDO ================= */
 
 .contenido{
