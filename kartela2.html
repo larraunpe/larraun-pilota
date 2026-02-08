@@ -284,7 +284,7 @@ function crearFooter(){
 
 <div class="footer">
   <div class="pie-gris">
-    <div id="logos" class="logos-grid"></div>
+    <div class="logos-grid"></div>
   </div>
 </div>
 
@@ -298,8 +298,34 @@ function nuevaPagina(){
  p.className="pagina";
  p.innerHTML=crearHeader()+`<div class="contenido"></div>`+crearFooter();
  document.getElementById("contenedorPaginas").appendChild(p);
+
+ rellenarLogos(p);   // 👈 ESTA LÍNEA ES LA CLAVE
+
  return p.querySelector(".contenido");
+
 }
+function rellenarLogos(pagina){
+
+ const LOGOS=[
+ "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
+ "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
+ "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
+ "construccionesurangasaigos.jpg","fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg",
+ "iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
+ "maderasnasorena.jpg","maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
+ "ventamugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg","ekin.jpg",
+ "farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
+ "izarberri.png","lakita.jpg","nekazari.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
+ "talleresotxotorena.jpg","veterinarialekunberri.jpg"
+ ];
+
+ const grid=pagina.querySelector(".logos-grid");
+
+ grid.innerHTML = LOGOS
+   .map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`)
+   .join("");
+}
+
 
 
 /* ================= PAGINACIÓN REAL ================= */
