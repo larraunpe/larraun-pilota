@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="UTF-8" />
-<title>Larraun – EMAITZAK Kartela</title>
+<meta charset="UTF-8"/>
+<title>Larraun – EMAITZAK</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -18,12 +18,11 @@ body{
 
 .exportar{
   text-align:center;
-  margin:18px;
+  margin:16px;
 }
 
 button{
   padding:10px 18px;
-  font-size:14px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -34,7 +33,7 @@ button{
   width:900px;
   height:1270px;
   margin:30px auto;
-  background:#eaf3ff;
+  background:#eef4ff;
   display:flex;
   flex-direction:column;
   overflow:hidden;
@@ -44,121 +43,114 @@ button{
 /* ================= HEADER ================= */
 
 .header{
-  height:120px;
+  height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
-  color:white;
+}
+
+.header h1{
+  font-size:32px;
+  letter-spacing:3px;
 }
 
 .header img{
-  height:70px;
   position:absolute;
-  top:25px;
+  height:65px;
+  top:20px;
 }
-
-.logo-izq{ left:20px; }
-.logo-der{ right:20px; }
-
-.header h1{
-  margin:0;
-  font-size:34px;
-  letter-spacing:3px;
-}
+.logo-izq{ left:20px }
+.logo-der{ right:20px }
 
 /* ================= CONTENIDO ================= */
 
 .contenido{
   flex:1;
-  padding:16px;
+  padding:14px;
 }
 
-/* ================= TÍTULO BLOQUE ================= */
+/* ================= GRUPO ================= */
 
-.bloque h2{
-  text-align:center;
-  margin:10px 0 14px;
-  font-size:18px;
-  color:#2448b5;
-  letter-spacing:2px;
-}
-
-/* ================= LISTA RESULTADOS ================= */
-
-.lista{
+.grupo{
   background:#fff;
   border-radius:8px;
   overflow:hidden;
+  margin-bottom:10px;
 }
 
-/* FILA */
+/* cabecera partido */
+.grupo-header{
+  text-align:center;
+  font-size:11px;
+  padding:4px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.azul{ background:#dbe7ff; color:#0d47a1; }
+.rojo{ background:#ffe0e0; color:#b71c1c; }
+
+/* ================= FILA PARTIDO ================= */
 
 .fila{
   display:flex;
   align-items:center;
-  padding:6px 8px;
-  border-bottom:1px solid #ddd;
-  font-weight:bold;
+  padding:6px 10px;
+  border-top:1px solid #ddd;
+  font-weight:900;
   font-size:13px;
-  gap:6px;
 }
-
-/* colores resultado */
-.win{ background:#e7f6ea; }
-.lose{ background:#fdeaea; }
-.pending{ background:#f2f2f2; }
 
 /* logos */
 .logo{
   height:26px;
   width:26px;
   object-fit:contain;
+  margin:0 4px;
+}
+
+.logo-small{
+  height:18px;
+  width:18px;
 }
 
 /* nombres */
-.local{ color:#0d47a1; min-width:110px; }
-.visit{ color:#b71c1c; min-width:110px; }
+.local{ color:#0d47a1; width:160px; text-align:right; }
+.visit{ color:#b71c1c; width:160px; }
 
-/* marcador grande */
+/* marcador centrado */
 .score{
-  font-size:20px;
-  font-weight:900;
-  min-width:60px;
+  flex:1;
   text-align:center;
+  font-size:26px;
+  font-weight:900;
 }
 
-.blue{ color:#0d47a1; }
-.red{ color:#b71c1c; }
+.blue{ color:#0d47a1 }
+.red{ color:#b71c1c }
 
 /* sets */
 .sets{
   font-size:10px;
+  font-weight:normal;
   color:#000;
-  text-align:center;
-  line-height:10px;
 }
 
-/* modalidad */
-.modalidad{
-  margin-left:auto;
-  font-size:11px;
-  font-weight:600;
-}
-
-.modalidad a{
-  color:#2448b5;
-  text-decoration:none;
-}
+/* colores resultado */
+.win{ background:#e7f6ea }
+.lose{ background:#fdeaea }
+.pending{ background:#f3f3f3 }
 
 /* ================= FOOTER ================= */
 
 .footer{
   background:#444;
   color:#fff;
-  padding:10px;
   text-align:center;
+  padding:8px;
   font-size:11px;
 }
 
@@ -168,12 +160,40 @@ button{
 <body>
 
 <div class="exportar">
-  <button onclick="exportar()">📸 DESKARGATU JPG</button>
+<button onclick="exportar()">📸 DESKARGATU JPG</button>
 </div>
 
 <div id="contenedorPaginas"></div>
 
 <script>
+
+/* ======================================================
+   UTILIDADES FECHAS → SOLO 2 ÚLTIMAS SEMANAS (lun-dom)
+====================================================== */
+
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+
+function filtrarUltimasSemanas(data){
+
+  const today=new Date();
+  today.setHours(0,0,0,0);
+
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon);
+  lastMon.setDate(thisMon.getDate()-7);
+
+  return data.filter(p=>{
+    if(!p.fecha) return false;
+    const d=new Date(p.fecha+"T00:00");
+    return d>=lastMon && d<=today;
+  });
+}
 
 /* ======================================================
    CREAR PÁGINA
@@ -190,9 +210,7 @@ function nuevaPagina(){
       <h1>EMAITZAK</h1>
       <img src="images/logo-fnp.png" class="logo-der">
     </div>
-
     <div class="contenido"></div>
-
     <div class="footer">Larraun Pilota Elkartea</div>
   `;
 
@@ -202,84 +220,104 @@ function nuevaPagina(){
 }
 
 /* ======================================================
-   CREAR BLOQUES RESULTADOS
+   LOGOS PAREJAS
 ====================================================== */
 
-function crearBloque(titulo,data){
+function logosEquipo(nombre){
 
- if(!data.length) return [];
+  const contieneLarraun = nombre?.toUpperCase().includes("LARRAUN");
 
- const bloques=[];
+  if(contieneLarraun){
+    return `<img class="logo" src="images/logo-larraun.png">`;
+  }
 
- const t=document.createElement("div");
- t.className="bloque";
- t.innerHTML=`<h2>${titulo}</h2>`;
- bloques.push(t);
-
- const lista=document.createElement("div");
- lista.className="lista";
-
- data.forEach(p=>{
-
-   const fila=document.createElement("div");
-   fila.className="fila";
-
-   const estado=(p.emaitza||"").toLowerCase();
-
-   if(!estado) fila.classList.add("pending");
-   else if(estado==="irabazita") fila.classList.add("win");
-   else fila.classList.add("lose");
-
-   const [a,b]=(p.tanteoa||"-").split("-");
-
-   fila.innerHTML=`
-     <img class="logo" src="${p.localLogo||'images/logo-larraun.png'}">
-     <div class="local">${p.etxekoa||""}</div>
-
-     <div>
-       <div class="score">
-         <span class="blue">${a||""}</span>-
-         <span class="red">${b||""}</span>
-       </div>
-       ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
-     </div>
-
-     <div class="visit">${p.kanpokoak||""}</div>
-     <img class="logo" src="${p.visitLogo||''}">
-
-     <div class="modalidad">
-       ${p.url?`<a href="${p.url}" target="_blank">${p.modalidad}</a>`:p.modalidad||""}
-     </div>
-   `;
-
-   lista.appendChild(fila);
-
- });
-
- bloques.push(lista);
-
- return bloques;
+  return `<img class="logo-small" src="images/default.png">`;
 }
 
 /* ======================================================
-   PAGINACIÓN
+   CREAR BLOQUES
+====================================================== */
+
+function crearBloques(data){
+
+  const bloques=[];
+
+  /* agrupar por partido */
+  const grupos={};
+
+  data.forEach(p=>{
+    const key=p.fecha+"|"+p.hora+"|"+p.fronton+"|"+p.modalidad;
+    if(!grupos[key]) grupos[key]=[];
+    grupos[key].push(p);
+  });
+
+  Object.values(grupos).forEach(partidos=>{
+
+    const g=document.createElement("div");
+    g.className="grupo";
+
+    const p0=partidos[0];
+
+    const esLocal=p0.etxekoa?.toUpperCase().includes("LARRAUN");
+
+    g.innerHTML=`
+      <div class="grupo-header ${esLocal?'azul':'rojo'}">
+        ${p0.fronton} · ${p0.fecha} · ${p0.hora} · ${p0.modalidad}
+      </div>
+    `;
+
+    partidos.forEach(p=>{
+
+      const fila=document.createElement("div");
+
+      const estado=(p.emaitza||"").toLowerCase();
+      if(!estado) fila.className="fila pending";
+      else if(estado==="irabazita") fila.className="fila win";
+      else fila.className="fila lose";
+
+      const [a,b]=(p.tanteoa||"-").split("-");
+
+      fila.innerHTML=`
+        ${logosEquipo(p.etxekoa)}
+        <div class="local">${p.etxekoa}</div>
+
+        <div class="score">
+          <span class="blue">${a||""}</span>-
+          <span class="red">${b||""}</span>
+          ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+        </div>
+
+        <div class="visit">${p.kanpokoak}</div>
+        ${logosEquipo(p.kanpokoak)}
+      `;
+
+      g.appendChild(fila);
+    });
+
+    bloques.push(g);
+
+  });
+
+  return bloques;
+}
+
+/* ======================================================
+   PAGINAR
 ====================================================== */
 
 function paginar(bloques){
 
- let contenido=nuevaPagina();
+  let contenido=nuevaPagina();
 
- bloques.forEach(b=>{
+  bloques.forEach(b=>{
+    contenido.appendChild(b);
 
-   contenido.appendChild(b);
-
-   if(contenido.scrollHeight>contenido.clientHeight){
-     contenido.removeChild(b);
-     contenido=nuevaPagina();
-     contenido.appendChild(b);
-   }
-
- });
+    if(contenido.scrollHeight>contenido.clientHeight){
+      contenido.removeChild(b);
+      contenido=nuevaPagina();
+      contenido.appendChild(b);
+    }
+  });
 }
 
 /* ======================================================
@@ -291,13 +329,13 @@ Promise.all([
  fetch("data/resultados-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
- const bloques=[
-   ...crearBloque("EMAITZA OFIZIALAK",oficiales),
-   ...crearBloque("BESTE EMAITZAK",noOficiales)
- ];
+  let data=[...oficiales,...noOficiales];
 
- paginar(bloques);
+  data=filtrarUltimasSemanas(data);
 
+  const bloques=crearBloques(data);
+
+  paginar(bloques);
 });
 
 /* ======================================================
@@ -311,14 +349,11 @@ async function exportar(){
  let i=1;
 
  for(const p of paginas){
-
    const canvas=await html2canvas(p,{scale:2,useCORS:true});
-
    const a=document.createElement("a");
    a.href=canvas.toDataURL("image/jpeg",0.95);
    a.download=`emaitzak-${i}.jpg`;
    a.click();
-
    i++;
  }
 }
