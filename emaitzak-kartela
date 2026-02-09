@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Larraun – Emaitzak A3 JPG</title>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#e9ecef;
+  margin:0;
+  padding:20px;
+}
+
+/* ===== BOTÓN ===== */
+#generateBtn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:14px 24px;
+  font-size:16px;
+  background:#004d40;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:999;
+}
+
+/* =========================
+   POSTER A3
+   ========================= */
+
+/* A3 horizontal 300dpi */
+.poster{
+  width:4961px;
+  height:3508px;
+  background:#e3f2fd;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-sizing:border-box;
+  margin-bottom:40px;
+  overflow:hidden;
+}
+
+/* ===== CABECERA ===== */
+.header{
+  text-align:center;
+  padding:80px 0 20px;
+}
+
+.header-logos{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 300px;
+}
+
+.header-logos img{
+  height:240px;
+}
+
+.title{
+  font-size:260px;
+  font-weight:bold;
+  color:#004d40;
+  margin:20px 0 0;
+}
+
+.ball{
+  font-size:120px;
+}
+
+/* ===== INFO PARTIDO ===== */
+.meta{
+  text-align:center;
+  font-size:90px;
+  margin-top:20px;
+  color:#003366;
+}
+
+/* ===== CUERPO ===== */
+.match{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:120px;
+}
+
+/* ESCUDOS */
+.team-logo{
+  width:700px;
+  height:700px;
+  object-fit:contain;
+}
+
+/* NOMBRES */
+.team{
+  font-size:200px;
+  font-weight:bold;
+}
+
+.local{ color:#0d47a1; }
+.visitante{ color:#b71c1c; }
+
+/* MARCADOR */
+.score{
+  display:flex;
+  gap:40px;
+  font-size:420px;
+  font-weight:bold;
+}
+
+.score .blue{color:#0d47a1;}
+.score .red{color:#b71c1c;}
+
+/* SETS */
+.sets{
+  text-align:center;
+  font-size:120px;
+  margin-top:20px;
+  color:#000;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  background:#d6d6d6;
+  padding:50px;
+  text-align:center;
+}
+
+.footer img{
+  height:120px;
+  margin:0 30px;
+}
+
+/* RESULTADOS */
+.win { background:#e6f7ea; }
+.lose{ background:#ffeaea; }
+
+</style>
+</head>
+
+<body>
+
+<button id="generateBtn">⬇️ Generar JPG</button>
+
+<div id="posters"></div>
+
+<script>
+
+/* ========= EJEMPLO DE DATOS =========
+   puedes usar tus JSON igual que antes */
+const matches = [
+  {
+    fecha:"2026-02-08",
+    hora:"18:00",
+    fronton:"Lekunberri",
+    modalidad:"1ª Mano",
+    url:"https://fnp.eus",
+    etxekoa:"LARRAUN",
+    kanpokoak:"IRURTZUN",
+    tanteoa:"22-14",
+    sets:["22-10","18-22","22-14"],
+    localLogo:"/images/logo-larraun.png",
+    visitLogo:"/images/logo-irurtzun.png",
+    resultado:"win"
+  }
+];
+
+
+/* ===== CREAR POSTERS ===== */
+
+const container = document.getElementById("posters");
+
+matches.forEach(m => {
+
+  const [a,b]=m.tanteoa.split("-");
+
+  const div = document.createElement("div");
+  div.className = "poster " + (m.resultado==="win"?"win":"lose");
+
+  div.innerHTML = `
+    <div class="header">
+      <div class="header-logos">
+        <img src="/images/logo-larraun.png">
+        <img src="/images/logo-fnp.png">
+      </div>
+      <div class="title">EMAITZAK</div>
+      <div class="ball">⚾</div>
+      <div class="meta">
+        ${m.fronton} · ${m.fecha} ${m.hora} · 
+        <a href="${m.url}" target="_blank">${m.modalidad}</a>
+      </div>
+    </div>
+
+    <div class="match">
+      <img class="team-logo" src="${m.localLogo}">
+      <div class="team local">${m.etxekoa}</div>
+
+      <div>
+        <div class="score">
+          <span class="blue">${a}</span>
+          <span class="red">${b}</span>
+        </div>
+        ${m.sets ? `<div class="sets">${m.sets.join(" · ")}</div>`:""}
+      </div>
+
+      <div class="team visitante">${m.kanpokoak}</div>
+      <img class="team-logo" src="${m.visitLogo}">
+    </div>
+
+    <div class="footer">
+      <img src="/images/patro1.png">
+      <img src="/images/patro2.png">
+    </div>
+  `;
+
+  container.appendChild(div);
+});
+
+
+/* ===== GENERAR JPG ===== */
+
+document.getElementById("generateBtn").onclick = async () => {
+  const posters = document.querySelectorAll(".poster");
+
+  for(let i=0;i<posters.length;i++){
+    const canvas = await html2canvas(posters[i],{scale:1});
+    const link = document.createElement("a");
+    link.download = `emaitza_${i+1}.jpg`;
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.click();
+  }
+};
+
+</script>
+
+</body>
+</html>
