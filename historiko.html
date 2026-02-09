@@ -5,17 +5,17 @@
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
   max-width:1200px;
   margin:auto;
-  line-height:1.65;
+  line-height:1.7;
   color:#222;
 }
 
 /* HEADER */
 .lp-header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:20px;
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
 .lp-title{
@@ -24,22 +24,19 @@
   gap:18px;
 }
 
-.lp-title img{
-  height:70px;
-}
+.lp-title img{ height:70px; }
 
 .lp-title h1{
-  font-size:32px;
   margin:0;
-  color:#0b5d3b;
+  font-size:34px;
   font-weight:800;
   letter-spacing:1px;
+  color:#0b5d3b;
 }
 
-/* Language switch */
 .lang-switch button{
   background:#0b5d3b;
-  color:white;
+  color:#fff;
   border:none;
   padding:8px 14px;
   border-radius:8px;
@@ -47,48 +44,31 @@
   margin-left:6px;
 }
 
-/* Sections */
-.section{ margin-top:55px; }
+/* SECTIONS */
+.section{ margin-top:60px; }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:24px;
 }
 
 .card{
   background:#f5f7f6;
-  padding:22px;
-  border-radius:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  padding:26px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
-/* Highlight players */
-.highlight{
+.main{
   background:#0b5d3b;
   color:white;
 }
 
-.highlight a{ color:#fff; text-decoration:underline; }
+.main a{ color:#fff; text-decoration:underline; }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:18px;
-}
+.card h3{ margin-top:0; }
 
-th, td{
-  border:1px solid #ddd;
-  padding:8px;
-  text-align:center;
-}
-
-th{
-  background:#0b5d3b;
-  color:white;
-}
-
-/* Gallery */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -96,30 +76,25 @@ th{
 }
 
 figure{ margin:0; }
-figure img{
-  width:100%;
-  border-radius:10px;
-}
+figure img{ width:100%; border-radius:10px; }
 figcaption{
   font-size:14px;
-  margin-top:6px;
   color:#555;
+  margin-top:6px;
 }
 
-/* language visibility */
+/* Language */
 .lang-es{ display:none; }
 .lang-eu{ display:block; }
-
 </style>
 
 
 <!-- HEADER -->
 <div class="lp-header">
   <div class="lp-title">
-    <img src="images/logo.png" alt="Logo Larraun Pilota Elkartea">
+    <img src="images/logo.png" alt="Larraun Pilota Elkartea">
     <h1>LARRAUN PILOTA ELKARTEA</h1>
   </div>
-
   <div class="lang-switch">
     <button onclick="setLang('eu')">EU</button>
     <button onclick="setLang('es')">ES</button>
@@ -127,162 +102,198 @@ figcaption{
 </div>
 
 
-
-<!-- INTRO -->
+<!-- INTRODUCCIÓN -->
 <div class="section">
 
 <div class="lang-eu">
-<h2>Larraungo pilotaren historia</h2>
+<h2>Larraungo euskal pilotaren historia</h2>
 <p>
-Larraungo bailara Nafarroako pilotaren harrobi historikoetako bat izan da. 
-Herrietako frontoiek belaunaldi osoak hezi dituzte eta askok maila profesionalera jauzi egin dute.
+Larraungo bailara historikoki Nafarroako euskal pilotaren eremu garrantzitsuenetako bat izan da. 
+Bertako herrietako frontoietan sortu eta hezitako pilotari askok maila gorenera iritsi ziren, 
+eta haien arrastoak gaur egun ere bizirik dirau.
 </p>
 </div>
 
 <div class="lang-es">
-<h2>Historia de la pelota en Larraún</h2>
+<h2>Historia de la pelota vasca en Larraún</h2>
 <p>
-El Valle de Larraún ha sido una de las grandes canteras históricas de la pelota navarra. 
-Sus frontones han formado generaciones de pelotaris, muchos de los cuales alcanzaron el profesionalismo.
+El Valle de Larraún ha sido históricamente uno de los territorios más importantes de la pelota vasca en Navarra. 
+En sus frontones se formaron pelotaris que alcanzaron la élite profesional y dejaron una huella profunda 
+en la historia de este deporte.
 </p>
 </div>
 
 </div>
 
 
-
-<!-- DESTACADOS GRANDES -->
+<!-- PELOTARIS -->
 <div class="section grid">
 
-<!-- MARTINIKORENA -->
-<div class="card highlight">
-  <h3>Martinikorena</h3>
-  <p class="lang-eu">
-    Errazkinen jaiotako pilotari profesionala. Larraungo izen handienetako bat,
-    eskuzko pilotan maila gorenean aritu zena.
-  </p>
-  <p class="lang-es">
-    Pelotari profesional nacido en Errazkin. Una de las grandes referencias históricas
-    del valle en la pelota a mano.
-  </p>
-  <a href="https://es.wikipedia.org/wiki/Jos%C3%A9_Mart%C3%ADn_Martinikorena" target="_blank">
-    Biografía / Biografia
-  </a>
+<!-- 1 Galarza III -->
+<div class="card main">
+<h3>1 · Ladis Galarza – Galarza III (Baraibar)</h3>
+
+<p class="lang-eu">
+Larraungo pilotari handiena eta historian erreferentzia nagusietako bat. 
+Banakako txapelketako zazpi final jokatu zituen eta bi txapela eskuratu zituen, 
+Retegi II bezalako mito baten aurka lehia zuzenean arituz.
+</p>
+
+<p class="lang-es">
+La mayor figura pelotazale nacida en Larraún y uno de los grandes nombres de la historia del manomanista. 
+Disputó siete finales individuales y conquistó dos txapelas, protagonizando una rivalidad histórica 
+con Retegi II.
+</p>
+
+<a href="https://es.wikipedia.org/wiki/Ladis_Galarza" target="_blank">Wikipedia</a>
 </div>
 
 
-<!-- SOROA III -->
-<div class="card highlight">
-  <h3>Soroa III – Juan Miguel Soroa</h3>
-  <p class="lang-eu">
-    Uitzikoa. Maila profesionaleko pilotaria eta Nafarroako txapelketetan protagonista nagusia.
-  </p>
-  <p class="lang-es">
-    Natural de Uitzi. Pelotari profesional con presencia destacada en campeonatos navarros
-    y del circuito profesional.
-  </p>
-  <a href="https://es.wikipedia.org/wiki/Juan_Miguel_Soroa" target="_blank">
-    Biografía / Biografia
-  </a>
-</div>
-
-</div>
-
-
-
-<!-- GALARZA -->
-<div class="section grid">
-
+<!-- 2 Martinikorena -->
 <div class="card">
-  <h3>Ladis Galarza – Galarza III (Baraibar)</h3>
-  <p>2 txapelas manomanistas · 7 finales · Rival histórico de Retegi II</p>
-  <a href="https://es.wikipedia.org/wiki/Ladis_Galarza" target="_blank">Wikipedia</a>
+<h3>2 · Martinikorena (Errazkin)</h3>
+
+<p class="lang-eu">
+Errazkinen jaiotako pilotari profesionala, Larraungo pilotaren historian izen handia. 
+Bere garaian maila gorenean aritu zen eta belaunaldi askorentzat eredu izan zen.
+</p>
+
+<p class="lang-es">
+Pelotari profesional nacido en Errazkin, una de las grandes referencias históricas del valle. 
+Compitió al máximo nivel y fue un referente para generaciones posteriores.
+</p>
+
+<a href="https://es.wikipedia.org/wiki/Jos%C3%A9_Mart%C3%ADn_Martinikorena" target="_blank">Wikipedia</a>
 </div>
 
+
+<!-- 3 Galarza V -->
 <div class="card">
-  <h3>Enrique Galarza – Galarza V</h3>
-  <p>Continuidad de la saga familiar en el profesionalismo</p>
-  <a href="https://es.wikipedia.org/wiki/Enrique_Galarza" target="_blank">Wikipedia</a>
+<h3>3 · Enrique Galarza – Galarza V (Baraibar)</h3>
+
+<p class="lang-eu">
+Galarza familiaren jarraipena profesionalismoan. 
+Txapelketa ofizialetan presentzia sendoa izan zuen eta 
+Larraungo pilotaren maila mantentzen lagundu zuen.
+</p>
+
+<p class="lang-es">
+Continuidad de la saga Galarza en el ámbito profesional. 
+Tuvo una presencia sólida en competiciones oficiales y contribuyó a mantener 
+el prestigio pelotazale del valle.
+</p>
+
+<a href="https://es.wikipedia.org/wiki/Enrique_Galarza" target="_blank">Wikipedia</a>
+</div>
+
+
+<!-- 4 Soroa III -->
+<div class="card">
+<h3>4 · Soroa III – Juan Miguel Soroa (Uitzi)</h3>
+
+<p class="lang-eu">
+Uitzikoa. Maila profesionaleko pilotaria eta Nafarroako pilotaren historian izen ezaguna.
+</p>
+
+<p class="lang-es">
+Natural de Uitzi. Pelotari profesional con una trayectoria destacada 
+en la pelota navarra.
+</p>
+
+<a href="https://es.wikipedia.org/wiki/Juan_Miguel_Soroa" target="_blank">Wikipedia</a>
 </div>
 
 </div>
 
 
-
-<!-- TABLA -->
+<!-- HIJO -->
 <div class="section">
-<h2>Finales manomanistas de Galarza III</h2>
 
-<table>
-<tr><th>Año</th><th>Resultado</th></tr>
-<tr><td>1991</td><td>Txapela</td></tr>
-<tr><td>1992</td><td>Txapela</td></tr>
-<tr><td>1983–1985, 1988, 1993</td><td>Subcampeón</td></tr>
-</table>
+<div class="lang-eu">
+<p>
+Aipamen berezia merezi du <strong>Ladis Galarza Lizarza</strong>-k, Galarza III-ren semeak. 
+Profesional mailara iritsi zen eta familiaren eta bailararen pilotarekiko lotura 
+belaunaldi berrietara eramaten lagundu du.
+</p>
 </div>
 
+<div class="lang-es">
+<p>
+Mención especial merece <strong>Ladis Galarza Lizarza</strong>, hijo de Galarza III. 
+Alcanzó también el profesionalismo y representa la continuidad generacional 
+de la tradición pelotazale del valle.
+</p>
+</div>
+
+</div>
 
 
 <!-- GALERIA -->
 <div class="section">
-<h2>Argazki historikoak · Galería histórica</h2>
+<h2 class="lang-eu">Argazki historikoak</h2>
+<h2 class="lang-es">Galería histórica</h2>
 
 <div class="gallery">
-
 <figure>
 <img src="images/foto1.jpg">
-<figcaption>Larraun, campeón de interpueblos en 1986</figcaption>
+<figcaption>Larraun, interpueblos txapeldun 1986an</figcaption>
 </figure>
 
 <figure>
 <img src="images/foto2.jpg">
-<figcaption>Frontón Jaian Jai en 1900</figcaption>
+<figcaption>Jaian Jai frontoia, 1900 inguruan</figcaption>
 </figure>
 
 <figure>
 <img src="images/foto3.jpg">
-<figcaption>Equipo local de los años 80</figcaption>
+<figcaption>Lekunberriko pilota jaialdia, 1980ko hamarkada</figcaption>
 </figure>
-
-<figure>
-<img src="images/foto4.jpg">
-<figcaption>Festival de pelota en Lekunberri</figcaption>
-</figure>
-
 </div>
 </div>
 
 
-
-<!-- DOCUMENTOS JAIMERENA -->
+<!-- JAIMERENA -->
 <div class="section">
-<h2>Don Jesús Jaimerenaren dokumentuak · Documentos históricos</h2>
+
+<div class="lang-eu">
+<h2>Memoria idatzia · Don Jesús Jaimerena</h2>
+<p>
+Don Jesús Jaimerenak 1980ko hamarkadan idatzitako testuek balio berezia dute. 
+Ez dira soilik datu-bilduma bat: Larraungo pilotaren arima, giroa eta komunitatearen 
+bizipenak jasotzen dituzten lekukotasunak dira.
+</p>
+</div>
+
+<div class="lang-es">
+<h2>Memoria escrita · Don Jesús Jaimerena</h2>
+<p>
+Los textos escritos por Don Jesús Jaimerena en la década de 1980 tienen un valor especial. 
+No son solo una recopilación de datos, sino un testimonio humano y cercano del ambiente, 
+las personas y la importancia social de la pelota en Larraún.
+</p>
+</div>
 
 <div class="gallery">
-
 <figure>
 <img src="images/jaimerena1.jpg">
-<figcaption>Documento mecanografiado (años 80)</figcaption>
+<figcaption>Documento original mecanografiado</figcaption>
 </figure>
 
 <figure>
 <img src="images/jaimerena2.jpg">
 <figcaption>Notas históricas sobre la pelota en Larraún</figcaption>
 </figure>
-
-</div>
 </div>
 
+</div>
 
 
-<!-- SCRIPT IDIOMA -->
+<!-- SCRIPT -->
 <script>
 function setLang(lang){
-  document.querySelectorAll('.lang-eu').forEach(el=>el.style.display=(lang==='eu')?'block':'none');
-  document.querySelectorAll('.lang-es').forEach(el=>el.style.display=(lang==='es')?'block':'none');
+  document.querySelectorAll('.lang-eu').forEach(e=>e.style.display = lang==='eu'?'block':'none');
+  document.querySelectorAll('.lang-es').forEach(e=>e.style.display = lang==='es'?'block':'none');
 }
-
-/* por defecto euskera */
 setLang('eu');
 </script>
 
