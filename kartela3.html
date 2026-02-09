@@ -30,8 +30,12 @@ body{
   flex-direction:column;
   background:#3f8159;
   position:relative;
-  overflow:hidden;
+
+  overflow:visible;     /* ← CLAVE */
+  height:auto;          /* ← crece solo */
+  min-height:auto;      /* ← sin límite */
 }
+
 
 /* ================= PELOTAZOS (por delante) ================= */
 
@@ -325,15 +329,25 @@ body{
 
 const pel=document.getElementById("pelotazos");
 
-for(let i=0;i<4500;i++){
-  const d=document.createElement("div");
-  const s=Math.random()*4+2;
-  d.className="pelota-dot";
-  d.style.width=d.style.height=s+"px";
-  d.style.left=Math.random()*900+"px";
-  d.style.top=Math.random()*2400+"px";
-  pel.appendChild(d);
+function generarPelotazos(){
+
+  pel.innerHTML="";
+
+  const alto=document.getElementById("pagina").scrollHeight;
+
+  for(let i=0;i<alto/2;i++){
+    const d=document.createElement("div");
+    const s=Math.random()*4+2;
+
+    d.className="pelota-dot";
+    d.style.width=d.style.height=s+"px";
+    d.style.left=Math.random()*900+"px";
+    d.style.top=Math.random()*alto+"px";
+
+    pel.appendChild(d);
+  }
 }
+
 
 
 
@@ -416,7 +430,7 @@ pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==
 pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
 
 });
-
+setTimeout(generarPelotazos, 50);
 /* ================= EXPORTAR ================= */
 
 function exportar(){
