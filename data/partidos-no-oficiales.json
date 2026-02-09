@@ -1,82 +1,10 @@
 [
-  {
-    "fecha": "2026/02/05",
-    "hora": "18:30",
-    "zkia": "2",
-    "fronton": "Lesaka",
-    "etxekoa": "OSPELE - LARRAUN (L. Orbegozo - X. Tellechea)",
-    "kanpokoak": "OLABURU (A. Iturbe - K. Bikandi)",
-    "lehiaketa": "ARKUPE TXAPELKETA. HELDUAK KANPORAKETA",
-    "ofiziala": "false"
-  },
-  {
-    "fecha": "2026/02/05",
-    "hora": "18:30",
-    "zkia": "4",
-    "fronton": "Lesaka",
-    "etxekoa": "ILUNPE (Odriozola – Larrañaga)",
-    "kanpokoak": "LARRAUN (Iriarte – Garaño)",
-    "lehiaketa": "ARKUPE TXAPELKETA. HELDUAK KANPORAKETA",
-    "ofiziala": "false"
-  },
-  {
-    "fecha": "2026/02/05",
-    "hora": "20:00",
-    "zkia": "1",
-    "fronton": "Goizueta",
-    "etxekoa": "UMORE ONA (Apaolaza)",
-    "kanpokoak": "LARRAUN (Astiz)",
-    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",
-    "ofiziala": "true"
-  },
-  {
-    "fecha": "2026/02/05",
-    "hora": "20:00",
-    "zkia": "2",
-    "fronton": "Goizueta",
-    "etxekoa": "UMORE ONA (Apezetxea – Urruzola)",
-    "kanpokoak": "LARRAUN (Galarza – Sotil)",
-    "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA ",
-    "ofiziala": "true"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "16:00",
-    "zkia": "1",
-    "fronton": "OBERENA",
-    "etxekoa": "LARRAUN (EGUZKITZA-GALARTZA)",
-    "kanpokoak": "OLARRETA (BIDASOLO-ANITUA-URGOITI-SAEZ) ",
-    "lehiaketa": "EMAKUMEZKO - 1 MAILA PALETA GOMA  ",
-    "ofiziala": "true"
-  },
-  {
-    "fecha": "2026/02/07",
-    "hora": "16:00",
-    "zkia": "1",
-    "fronton": "Zizur – Fronton nagusia",
-    "etxekoa": "LARRAUN (Ijurko)",
-    "kanpokoak": "ESTERIBAR (Esain)",
-    "lehiaketa": "ZIZUR 4½ TXAPELKETA KADETE (2010) KANPORAKETA",
-    "ofiziala": "false"
-  },
-  {
-    "fecha": "2026/02/08",
-    "hora": "11:00",
-    "zkia": "2",
-    "fronton": "Zizur – Fronton txiki",
-    "etxekoa": "LARRAUN (Mitxaus)",
-    "kanpokoak": "ERREKA (Zubillaga)",
-    "lehiaketa": "ZIZUR 4½ TXAPELKETA KADETE (2017) KANPORAKETA",
-    "ofiziala": "false"
-  },
-  {
-    "fecha": "2026/02/08",
-    "hora": "10:00",
-    "zkia": "2",
-    "fronton": "Doneztebe",
-    "etxekoa": "LARRAUN - ERREKA (Laso - Ancizar)",
-    "kanpokoak": "BEHAR ZANA (Otaegi - Elola)",
-    "lehiaketa": "ARKUPEKO PILOTA TXAPELKETA GAZTEAK. FINAL LAURDENAK",
-    "ofiziala": false
-  }
+  {     "fecha": "2026/02/12",     "hora": "18:30",     "zkia": "1",     "fronton": "Lesaka",     "etxekoa": "LARRAUN (Iriarte – Garaño) ",     "kanpokoak": "ABANTZU (Odriozola – Sasiain)",     "lehiaketa": "ARKUPE TXAPELKETA. HELDUAK FINAL LAURDENAK",     "ofiziala": "false"   },
+  {     "fecha": "2026/02/14",     "hora": "16:00",     "zkia": "1",     "fronton": "Zizur – Fronton nagusia",     "etxekoa": "LARRAUN (Laso)",     "kanpokoak": "",     "lehiaketa": "ZIZUR 4½ TXAPELKETA GAZTEAK (2009) KANPORAKETA",     "ofiziala": "false"   },
+  {     "fecha": "2026/02/14",     "hora": "17:15",     "zkia": "1",     "fronton": "Zizur – Fronton nagusia",     "etxekoa": "LARRAUN (Eguzkiza)",     "kanpokoak": "",     "lehiaketa": "ZIZUR 4½ TXAPELKETA SENIOR KANPORAKETA",     "ofiziala": "false"   },
+  {     "fecha": "2026/02/15",     "hora": "17:15",     "zkia": "1",     "fronton": "Irurtzun – Bi Ahizpe",     "etxekoa": "IRURTZUN",     "kanpokoak": "LARRAUN (IJURKO BAKAIKUA, I - IJURKO BAKAIKUA, E)  ",     "lehiaketa": "EHKO EZKER HORMAKO KLUBEN ARTEKO TXAP. ESKUZ BINAKA - GIZONEZKO GAZTEAK LIGAXKA",     "ofiziala": "false"   },
+  {     "fecha": "2026/02/14",     "hora": "12:00",     "zkia": "1",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN",     "kanpokoak": "IRURTZUN",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/14",     "hora": "12:00",     "zkia": "2",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN",     "kanpokoak": "IRURTZUN",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BINAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/15",     "hora": "11:00",     "zkia": "1",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "URBION FILIAL",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/15",     "hora": "11:00",     "zkia": "2",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK",     "kanpokoak": "URBION FILIAL",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA LIGAXKA",     "ofiziala": "true"   }
 ]
