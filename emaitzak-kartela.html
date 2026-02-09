@@ -27,7 +27,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= A3 reducido ================= */
+/* ================= A3 REALISTA ================= */
 
 .pagina{
   width:900px;
@@ -36,14 +36,21 @@ button{
   background:#eef4ff;
   display:flex;
   flex-direction:column;
-  overflow:hidden;
   box-shadow:0 0 18px rgba(0,0,0,.4);
+}
+
+/* alturas FIJAS → evita cortes */
+.header{ height:110px; }
+.footer{ height:40px; }
+.contenido{
+  height:1120px; /* 1270 - header - footer */
+  overflow:hidden;
+  padding:12px;
 }
 
 /* ================= HEADER ================= */
 
 .header{
-  height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
   color:#fff;
   display:flex;
@@ -65,14 +72,7 @@ button{
 .logo-izq{ left:20px }
 .logo-der{ right:20px }
 
-/* ================= CONTENIDO ================= */
-
-.contenido{
-  flex:1;
-  padding:14px;
-}
-
-/* ================= GRUPO ================= */
+/* ================= GRUPOS ================= */
 
 .grupo{
   background:#fff;
@@ -81,76 +81,78 @@ button{
   margin-bottom:10px;
 }
 
-/* cabecera partido */
 .grupo-header{
   text-align:center;
   font-size:11px;
-  padding:4px;
+  padding:3px;
   font-weight:700;
   letter-spacing:1px;
 }
 
-.azul{ background:#dbe7ff; color:#0d47a1; }
-.rojo{ background:#ffe0e0; color:#b71c1c; }
+.azul{ background:#dbe7ff; color:#0d47a1 }
+.rojo{ background:#ffe0e0; color:#b71c1c }
 
-/* ================= FILA PARTIDO ================= */
+/* ================= FILA RESULTADO ================= */
 
 .fila{
   display:flex;
   align-items:center;
-  padding:6px 10px;
+  justify-content:center;
+  gap:6px;
+  padding:6px 6px;
   border-top:1px solid #ddd;
   font-weight:900;
-  font-size:13px;
 }
+
+/* estados */
+.win{ background:#e7f6ea }
+.lose{ background:#fdeaea }
+.pending{ background:#f3f3f3 }
 
 /* logos */
 .logo{
   height:26px;
   width:26px;
   object-fit:contain;
-  margin:0 4px;
 }
 
-.logo-small{
-  height:18px;
-  width:18px;
+/* nombres MUY pegados */
+.local{
+  color:#0d47a1;
+  text-align:right;
+  min-width:130px;
 }
 
-/* nombres */
-.local{ color:#0d47a1; width:160px; text-align:right; }
-.visit{ color:#b71c1c; width:160px; }
+.visit{
+  color:#b71c1c;
+  text-align:left;
+  min-width:130px;
+}
 
-/* marcador centrado */
+/* marcador gigante centro */
 .score{
-  flex:1;
-  text-align:center;
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
+  min-width:80px;
+  text-align:center;
 }
 
 .blue{ color:#0d47a1 }
 .red{ color:#b71c1c }
 
-/* sets */
 .sets{
   font-size:10px;
   font-weight:normal;
-  color:#000;
 }
-
-/* colores resultado */
-.win{ background:#e7f6ea }
-.lose{ background:#fdeaea }
-.pending{ background:#f3f3f3 }
 
 /* ================= FOOTER ================= */
 
 .footer{
   background:#444;
   color:#fff;
-  text-align:center;
-  padding:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:11px;
 }
 
@@ -168,7 +170,7 @@ button{
 <script>
 
 /* ======================================================
-   UTILIDADES FECHAS → SOLO 2 ÚLTIMAS SEMANAS (lun-dom)
+   FECHAS → últimas 2 semanas lunes→domingo
 ====================================================== */
 
 function monday(d){
@@ -179,8 +181,7 @@ function monday(d){
   return x;
 }
 
-function filtrarUltimasSemanas(data){
-
+function filtrar(data){
   const today=new Date();
   today.setHours(0,0,0,0);
 
@@ -189,10 +190,28 @@ function filtrarUltimasSemanas(data){
   lastMon.setDate(thisMon.getDate()-7);
 
   return data.filter(p=>{
-    if(!p.fecha) return false;
     const d=new Date(p.fecha+"T00:00");
     return d>=lastMon && d<=today;
   });
+}
+
+/* ======================================================
+   LOGOS AUTOMÁTICOS
+====================================================== */
+
+function logoClub(nombre){
+
+  if(!nombre) return "";
+
+  const n = nombre.toUpperCase().trim();
+
+  if(n.includes("LARRAUN"))
+    return `<img class="logo" src="images/logo-larraun.png">`;
+
+  const limpio = n.replace(/\s+/g,"");
+
+  return `<img class="logo" src="images/clubes/${limpio}.jpg"
+           onerror="this.style.display='none'">`;
 }
 
 /* ======================================================
@@ -220,29 +239,11 @@ function nuevaPagina(){
 }
 
 /* ======================================================
-   LOGOS PAREJAS
-====================================================== */
-
-function logosEquipo(nombre){
-
-  const contieneLarraun = nombre?.toUpperCase().includes("LARRAUN");
-
-  if(contieneLarraun){
-    return `<img class="logo" src="images/logo-larraun.png">`;
-  }
-
-  return `<img class="logo-small" src="images/default.png">`;
-}
-
-/* ======================================================
    CREAR BLOQUES
 ====================================================== */
 
 function crearBloques(data){
 
-  const bloques=[];
-
-  /* agrupar por partido */
   const grupos={};
 
   data.forEach(p=>{
@@ -251,14 +252,16 @@ function crearBloques(data){
     grupos[key].push(p);
   });
 
+  const bloques=[];
+
   Object.values(grupos).forEach(partidos=>{
+
+    const p0=partidos[0];
 
     const g=document.createElement("div");
     g.className="grupo";
 
-    const p0=partidos[0];
-
-    const esLocal=p0.etxekoa?.toUpperCase().includes("LARRAUN");
+    const esLocal=p0.etxekoa.toUpperCase().includes("LARRAUN");
 
     g.innerHTML=`
       <div class="grupo-header ${esLocal?'azul':'rojo'}">
@@ -271,14 +274,13 @@ function crearBloques(data){
       const fila=document.createElement("div");
 
       const estado=(p.emaitza||"").toLowerCase();
-      if(!estado) fila.className="fila pending";
-      else if(estado==="irabazita") fila.className="fila win";
-      else fila.className="fila lose";
+      fila.className="fila " +
+        (!estado?"pending":estado==="irabazita"?"win":"lose");
 
       const [a,b]=(p.tanteoa||"-").split("-");
 
       fila.innerHTML=`
-        ${logosEquipo(p.etxekoa)}
+        ${logoClub(p.etxekoa)}
         <div class="local">${p.etxekoa}</div>
 
         <div class="score">
@@ -288,14 +290,13 @@ function crearBloques(data){
         </div>
 
         <div class="visit">${p.kanpokoak}</div>
-        ${logosEquipo(p.kanpokoak)}
+        ${logoClub(p.kanpokoak)}
       `;
 
       g.appendChild(fila);
     });
 
     bloques.push(g);
-
   });
 
   return bloques;
@@ -329,9 +330,7 @@ Promise.all([
  fetch("data/resultados-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-  let data=[...oficiales,...noOficiales];
-
-  data=filtrarUltimasSemanas(data);
+  const data=filtrar([...oficiales,...noOficiales]);
 
   const bloques=crearBloques(data);
 
