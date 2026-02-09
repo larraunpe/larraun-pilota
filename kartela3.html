@@ -334,8 +334,8 @@ function generarPelotazos(){
   pel.innerHTML="";
 
   const alto=document.getElementById("pagina").scrollHeight;
-
-  for(let i=0;i<alto/2;i++){
+  const densidad = 0.35; // ajusta cantidad
+  for(let i=0;i<alto*densidad;i++){
     const d=document.createElement("div");
     const s=Math.random()*4+2;
 
@@ -428,9 +428,10 @@ function pintar(titulo,data){
 pintar("ORDUTEGIAK", oficiales);
 pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
 pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
+// 👇 MUY IMPORTANTE: después de pintar TODO
+generarPelotazos();
 
 });
-setTimeout(generarPelotazos, 50);
 /* ================= EXPORTAR ================= */
 
 function exportar(){
