@@ -1,0 +1,95 @@
+<section class="larraun-pilota-blog">
+
+<style>
+.larraun-pilota-blog{
+  max-width:1100px;
+  margin:auto;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.65;
+  color:#222;
+}
+
+.larraun-pilota-blog h2{
+  margin-top:60px;
+  border-bottom:3px solid #0b5d3b;
+  padding-bottom:10px;
+}
+
+.larraun-pilota-blog h3{
+  margin-top:40px;
+  color:#0b5d3b;
+}
+
+.hero{
+  background:#0b5d3b;
+  color:white;
+  padding:50px 25px;
+  border-radius:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:#f5f7f6;
+  padding:22px;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th, td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:center;
+}
+
+th{
+  background:#0b5d3b;
+  color:white;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:10px;
+}
+
+.lang{
+  background:#eef2f0;
+  padding:20px;
+  border-radius:12px;
+  margin-top:25px;
+}
+</style>
+
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Pelota Vasca en el Valle de Larraún<br> Larraungo Euskal Pilota</h1>
+  <p>
+    Historia, figuras profesionales y legado deportivo de uno de los valles con mayor tradición pelotazale de Navarra.
+  </p>
+</div>
+
+
+<!-- INTRODUCCIÓN -->
+<h2>Historia y tradición · Historia eta tradizioa</h2>
+
+<div class="lang">
+<p><strong>CASTELLANO</strong><br>
+El Valle de Larraún ha sido durante más de un siglo una de las grandes canteras de la pelota vasca navarra. 
+Sus frontones, trinquetes y plazas han visto crecer generaciones de pelotaris que pasa
