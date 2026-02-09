@@ -433,10 +433,20 @@ function crearBloques(titulo,data){
  const grupos={};
 
  data.forEach(p=>{
+
+   const e=(p.etxekoa||"").toLowerCase();
+   const k=(p.kanpokoak||"").toLowerCase();
+
+   // ⛔ saltar descansos
+   if(e.includes("descanso") || e.includes("atseden") ||
+      k.includes("descanso") || k.includes("atseden")) return;
+
    const key=p.fecha+"|"+p.hora+"|"+p.fronton;
+
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
- });
+});
+
 
  Object.values(grupos).forEach(partidos=>{
 
