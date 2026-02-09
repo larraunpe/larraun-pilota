@@ -3288,18 +3288,6 @@
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3026"
   },
   {
-    "fecha": "2026-01-09",
-    "fronton": "Alsasua - Burunda",
-    "etxekoa": "PILOTAJAUKU (M. Navarreta - E. Rivero)*Equipo no presentado",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
-    "tanteoa": "0 * - 18",
-    "sets": [],
-    "modalidad": "NKJ - ESKUZ BINAKA KIMU 4.",
-    "emaitza": "irabazita",
-    "ofiziala": true,
-    "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3026"
-  },
-  {
     "fecha": "2026-01-25",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
@@ -3314,12 +3302,12 @@
   {
     "fecha": "2026-02-07",
     "fronton": "Villava - Atarrabia",
-    "etxekoa": "ATARRABIA (O. Oroz - O. Etxabarri)",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "tanteoa": "",
+    "etxekoa": "ATARRABIA (O. Oroz - O. Etxabarri) ETXABARRI VELASCO, O. OROZ GARRO, O.",
+    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
+    "tanteoa": "14 - 18",
     "sets": [],
     "modalidad": "NKJ - ESKUZ BINAKA KIMU 4.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3026"
   },
@@ -3980,12 +3968,12 @@
   {
     "fecha": "2026-02-07",
     "fronton": "Burlada - Askatasuna",
-    "etxekoa": "ZUGARRALDE (M. Baleztena - A. Maiza)",
-    "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro)",
-    "tanteoa": "",
+    "etxekoa": "ZUGARRALDE (M. Baleztena - A. Maiza) BALEZTENA TABERNA, M. MAIZA ILUNDAIN, A.",
+    "kanpokoak": "LARRAUN (A. Eguzkiza - L. Navarro) *Equipo no presentado",
+    "tanteoa": "22 - 0 *",
     "sets": [],
     "modalidad": "KOPA - F36M ESKUZ BINAKA 1.",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3078"
   },
@@ -4077,8 +4065,8 @@
     "fecha": "2026-02-07",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
-    "kanpokoak": "SAN MIGUEL (I. Plaza - X. Mateo)",
-    "tanteoa": "22 - 0",
+    "kanpokoak": "SAN MIGUEL (I. Plaza - X. Mateo) *Equipo no presentado",
+    "tanteoa": "22 - 0 *",
     "sets": [],
     "modalidad": "KOPA - F36M ESKUZ BINAKA 1.",
     "emaitza": "irabazita",
