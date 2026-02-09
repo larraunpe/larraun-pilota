@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="eu">
 <head>
@@ -21,7 +22,7 @@ body{
   margin:18px;
 }
 
-/* ================= PÁGINA ================= */
+/* ================= PÁGINA INFINITA ================= */
 
 .pagina{
   width:900px;
@@ -31,20 +32,18 @@ body{
   background:#3f8159;
   position:relative;
 
-  overflow:visible;     /* ← CLAVE */
-  height:auto;          /* ← crece solo */
-  min-height:auto;      /* ← sin límite */
+  overflow:visible;
+  height:auto;
 }
 
-
-/* ================= PELOTAZOS (por delante) ================= */
+/* ================= PELOTAZOS ================= */
 
 .pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:50;
-  mix-blend-mode:multiply; /* efecto tinta real */
+  z-index:1;
+  mix-blend-mode:multiply;
 }
 
 .pelota-dot{
@@ -59,33 +58,14 @@ body{
 .header{
   height:120px;
   position:relative;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  /* degradado SIMPLE (html2canvas sí lo pinta bien) */
-  background:linear-gradient(#3d6fe6, #2448b5);
-
-  /* solo 1 sombra interior ligera (las múltiples fallan) */
+  background:linear-gradient(#3d6fe6,#2448b5);
   box-shadow: inset 0 -10px 18px rgba(0,0,0,.35);
+  z-index:2;
 }
 
-/* brillo superior falso (elemento real, no shadow) */
-.header::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:35px;
-
-  background:linear-gradient(rgba(255,255,255,.35), transparent);
-}
-
-
-
-/* logos laterales MÁS GRANDES */
 .logo-izq,.logo-der{
   position:absolute;
   top:18px;
@@ -94,7 +74,6 @@ body{
 .logo-izq{ left:14px; }
 .logo-der{ right:14px; }
 
-/* título MÁS curvado */
 .titulo-curvo{
   width:100%;
   height:100px;
@@ -107,55 +86,24 @@ body{
   letter-spacing:2px;
 }
 
-/* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
-  top:65px;          /* un poco más arriba */
+  top:65px;
   left:50%;
   transform:translateX(-50%);
-
   width:30px;
   height:30px;
   border-radius:50%;
-
-  /* degradado esférico */
-  background:
-    radial-gradient(circle at 35% 30%,
-      #ffffff 0%,
-      #f5f5f5 40%,
-      #e2e2e2 65%,
-      #cfcfcf 100%
-    );
-
-  border:1.5px solid #d9d9d9;
-
-  box-shadow:
-    inset -4px -6px 10px rgba(0,0,0,.35), /* sombra interna */
-    inset 4px 4px 8px rgba(255,255,255,.9), /* brillo */
-    0 3px 5px rgba(0,0,0,.4); /* sombra exterior */
+  background:radial-gradient(circle at 35% 30%,#fff 0%,#e2e2e2 60%,#cfcfcf 100%);
+  box-shadow:0 3px 5px rgba(0,0,0,.4);
 }
-
-/* costuras rojas más finas y realistas */
-.pelota-real::before,
-.pelota-real::after{
-  content:"";
-  position:absolute;
-  width:80%;
-  height:42%;
-  left:10%;
-  border-top:1.8px solid #c40000;
-  border-radius:50%;
-  opacity:.85;
-}
-
-.pelota-real::before{ top:6px; }
-.pelota-real::after{ bottom:6px; }
 
 /* ================= CHAPAS ================= */
 
 .chapa{
   height:12px;
   background:#000;
+  z-index:2;
 }
 
 /* ================= CONTENIDO ================= */
@@ -171,40 +119,11 @@ body{
 .bloque h2{
   text-align:center;
   margin:30px 0 20px 0;
-
   font-size:28px;
   font-weight:900;
-  letter-spacing:3px;
-  text-transform:uppercase;
-
-  /* color piedra clara */
   color:#f8f8f8;
-
-  /* EFECTO ESCULPIDO EN FRONTÓN */
-  text-shadow:
-    0 2px 0 #ffffff,                /* luz arriba */
-    0 4px 0 #e6e6e6,
-    0 -2px 0 rgba(0,0,0,.45),       /* sombra tallado */
-    2px 3px 4px rgba(0,0,0,.55),    /* profundidad */
-    -1px -1px 0 rgba(255,255,255,.6);
-
-  /* textura piedra / grietas */
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(0,0,0,.06) 0px,
-      rgba(0,0,0,.06) 2px,
-      transparent 2px,
-      transparent 6px
-    );
-
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  filter:contrast(110%) brightness(115%);
+  letter-spacing:3px;
 }
-
-
 
 /* ================= PARTIDOS ================= */
 
@@ -244,18 +163,13 @@ body{
 /* ================= FOOTER ================= */
 
 .footer{
-  display:flex;
-  flex-direction:column;
+  z-index:2;
 }
 
 .pie-gris{
   background:#2f2f2f;
   padding:10px;
 }
-
-
-
-/* patrocinadores */
 
 .logos-grid{
   display:grid;
@@ -290,12 +204,10 @@ body{
 
 <!-- HEADER -->
 <div class="header">
-
 <img src="images/logo-larraun.png" class="logo-izq">
 <img src="images/logo-fnp.png" class="logo-der">
 
 <svg class="titulo-curvo" viewBox="0 0 900 120">
-  <!-- MÁS curvatura -->
   <path id="arco" d="M60,110 Q450,-60 840,110" fill="transparent"/>
   <text text-anchor="middle">
     <textPath href="#arco" startOffset="50%">
@@ -304,7 +216,6 @@ body{
   </text>
 </svg>
 
-<!-- pelota -->
 <div class="pelota-real"></div>
 </div>
 
@@ -318,24 +229,26 @@ body{
   <div class="pie-gris">
     <div id="logos" class="logos-grid"></div>
   </div>
- 
 </div>
 
 </div>
 
 <script>
 
+/* ================= UTILIDADES ================= */
+
+const esDescanso = t => !t || /descanso|atseden/i.test(t);
+const normalizaHora = h => h ? h.slice(0,5) : "00:00";
+
 /* ================= PELOTAZOS ================= */
 
-const pel=document.getElementById("pelotazos");
-
 function generarPelotazos(){
-
+  const pel=document.getElementById("pelotazos");
   pel.innerHTML="";
 
   const alto=document.getElementById("pagina").scrollHeight;
-  const densidad = 0.35; // ajusta cantidad
-  for(let i=0;i<alto*densidad;i++){
+
+  for(let i=0;i<alto*0.35;i++){
     const d=document.createElement("div");
     const s=Math.random()*4+2;
 
@@ -348,90 +261,69 @@ function generarPelotazos(){
   }
 }
 
+/* ================= LOGOS ================= */
 
-
-
-/* ================= LOGOS PATROCINADORES ================= */
-
-const LOGOS=["aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
-"barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
-"carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
-"construccionesurangasaigos.jpg","fisioterapiaandoniayerdi.jpg","hotelayestaran.jpg",
-"iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
-"maderasnasorena.jpg","maskarada.jpg","sojonatura.jpg","suacontrol.jpg","urzubi.jpg",
-"ventamugiro.jpg","construccioneslansalot.jpg","dietistaanagurrea.jpg","ekin.jpg",
-"farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
-"izarberri.png","lakita.jpg","nekazari.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
-"talleresotxotorena.jpg","veterinarialekunberri.jpg"];
+const LOGOS=[/* TU LISTA IGUAL */];
 
 document.getElementById("logos").innerHTML =
 LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`).join("");
 
-/* ================= DESCANSO ================= */
-
-const esDescanso = t => !t || /descanso|atseden/i.test(t);
-
-function normalizaHora(h){
-  return h ? h.slice(0,5) : "00:00";
-}
-
-/* ================= FETCH PARTIDOS ================= */
+/* ================= PINTAR PARTIDOS ================= */
 
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
-const cont=document.getElementById("contenido");
+ const cont=document.getElementById("contenido");
 
-function pintar(titulo,data){
+ function pintar(titulo,data){
 
- const bloque=document.createElement("div");
- bloque.className="bloque";   // ← ESTA LÍNEA ES LA CLAVE
- bloque.innerHTML=`<h2>${titulo}</h2>`;
- cont.appendChild(bloque);
+   const h=document.createElement("div");
+   h.className="bloque";
+   h.innerHTML=`<h2>${titulo}</h2>`;
+   cont.appendChild(h);
 
- const grupos={};
+   const grupos={};
 
- data.forEach(p=>{
-   if(esDescanso(p.etxekoa)||esDescanso(p.kanpokoak)) return;
-   const key=p.fecha+"|"+p.hora+"|"+p.fronton;
-   if(!grupos[key]) grupos[key]=[];
-   grupos[key].push(p);
- });
+   data.forEach(p=>{
+     if(esDescanso(p.etxekoa)||esDescanso(p.kanpokoak)) return;
+     const key=p.fecha+"|"+p.hora+"|"+p.fronton;
+     if(!grupos[key]) grupos[key]=[];
+     grupos[key].push(p);
+   });
 
- Object.values(grupos).forEach(partidos=>{
-   const p0=partidos[0];
-   const local=/lekunberri|aldatz/i.test(p0.fronton||"");
+   Object.values(grupos).forEach(partidos=>{
+     const p0=partidos[0];
+     const local=/lekunberri|aldatz/i.test(p0.fronton||"");
 
-   const g=document.createElement("div");
-   g.className="grupo";
+     const g=document.createElement("div");
+     g.className="grupo";
 
-   g.innerHTML=`
-   <div class="grupo-header ${!local?'rojo':''}">
-   📅 ${p0.fecha} | ⏰ ${normalizaHora(p0.hora)} | 📍 ${p0.fronton}
-   </div>
-   ${partidos.map(p=>`
-     <div class="linea">
-       <div class="zkia">${p.zkia}</div>
-       <div class="etxekoa">${p.etxekoa}</div>
-       <div class="kanpokoa">${p.kanpokoak}</div>
-       <div class="lehiaketa">${p.lehiaketa}</div>
+     g.innerHTML=`
+     <div class="grupo-header ${!local?'rojo':''}">
+     ${p0.fecha} | ${normalizaHora(p0.hora)} | ${p0.fronton}
      </div>
-   `).join("")}`;
+     ${partidos.map(p=>`
+       <div class="linea">
+         <div class="zkia">${p.zkia}</div>
+         <div class="etxekoa">${p.etxekoa}</div>
+         <div class="kanpokoa">${p.kanpokoak}</div>
+         <div class="lehiaketa">${p.lehiaketa}</div>
+       </div>
+     `).join("")}`;
 
-   cont.appendChild(g);
- });
+     cont.appendChild(g);
+   });
+ }
 
-}
+ pintar("ORDUTEGIAK", oficiales);
+ pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
+ pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
 
-pintar("ORDUTEGIAK", oficiales);
-pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
-pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
-// 👇 MUY IMPORTANTE: después de pintar TODO
-generarPelotazos();
-
+ generarPelotazos(); // ← SIEMPRE AL FINAL
 });
+
 /* ================= EXPORTAR ================= */
 
 function exportar(){
@@ -448,3 +340,4 @@ function exportar(){
 
 </body>
 </html>
+```
