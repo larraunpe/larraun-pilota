@@ -3834,12 +3834,14 @@
   {
     "fecha": "2026-02-08",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "tanteoa": "",
-    "sets": [],
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)*Equipo no presentado",
+    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MUÑOZ, A. BENGOETXEA COMPAINS, J.",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "(0-15) (0-15)"
+    ],
     "modalidad": "NKJ - ESKUZ BINAKA GAZTE TRINKETE",
-    "emaitza": "",
+    "emaitza": "galduta",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3060"
   },
@@ -4076,10 +4078,10 @@
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "kanpokoak": "SAN MIGUEL (I. Plaza - X. Mateo)",
-    "tanteoa": "",
+    "tanteoa": "22 - 0",
     "sets": [],
     "modalidad": "KOPA - F36M ESKUZ BINAKA 1.",
-    "emaitza": "",
+    "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/ModalidadComp.asp?idioma=eu&idCompeticion=3078"
   }
