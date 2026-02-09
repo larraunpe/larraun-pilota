@@ -310,31 +310,28 @@ function crearFooter(){
 /* ================= CREAR NUEVA PÁGINA ================= */
 
 function nuevaPagina(){
+
  const p=document.createElement("div");
  p.className="pagina";
- p.innerHTML=crearHeader()+`<div class="contenido"></div>`+crearFooter();
- document.getElementById("contenedorPaginas").appendChild(p);
- // capa de pelotazos
+
+ /* capa pelotazos (primero, para que quede debajo del contenido pero visible) */
  const pel=document.createElement("div");
  pel.className="pelotazos";
  p.appendChild(pel);
 
+ /* header + contenido + footer SOLO UNA VEZ */
  p.insertAdjacentHTML("beforeend",
    crearHeader()+
    `<div class="contenido"></div>`+
    crearFooter()
  );
-document.getElementById("contenedorPaginas").appendChild(p);
 
- generarPelotazos(pel);   // 👈 MUY IMPORTANTE
+ document.getElementById("contenedorPaginas").appendChild(p);
+
+ generarPelotazos(pel);
  rellenarLogos(p);
 
  return p.querySelector(".contenido");
-}
- rellenarLogos(p);   // 👈 ESTA LÍNEA ES LA CLAVE
-
- return p.querySelector(".contenido");
-
 }
 
 function generarPelotazos(contenedor){
