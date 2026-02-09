@@ -1,54 +1,85 @@
-<section class="larraun-pilota-blog">
+<section id="larraun-pilota">
 
 <style>
-.larraun-pilota-blog{
-  max-width:1100px;
+#larraun-pilota{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  max-width:1200px;
   margin:auto;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height:1.65;
   color:#222;
 }
 
-.larraun-pilota-blog h2{
-  margin-top:60px;
-  border-bottom:3px solid #0b5d3b;
-  padding-bottom:10px;
+/* HEADER */
+.lp-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:40px;
 }
 
-.larraun-pilota-blog h3{
-  margin-top:40px;
+.lp-title{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.lp-title img{
+  height:70px;
+}
+
+.lp-title h1{
+  font-size:32px;
+  margin:0;
   color:#0b5d3b;
+  font-weight:800;
+  letter-spacing:1px;
 }
 
-.hero{
+/* Language switch */
+.lang-switch button{
   background:#0b5d3b;
   color:white;
-  padding:50px 25px;
-  border-radius:12px;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  margin-left:6px;
 }
+
+/* Sections */
+.section{ margin-top:55px; }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
 }
 
 .card{
   background:#f5f7f6;
   padding:22px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
+
+/* Highlight players */
+.highlight{
+  background:#0b5d3b;
+  color:white;
+}
+
+.highlight a{ color:#fff; text-decoration:underline; }
 
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:20px;
+  margin-top:18px;
 }
 
 th, td{
   border:1px solid #ddd;
-  padding:10px;
+  padding:8px;
   text-align:center;
 }
 
@@ -57,161 +88,202 @@ th{
   color:white;
 }
 
+/* Gallery */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
+  gap:18px;
 }
 
-.gallery img{
+figure{ margin:0; }
+figure img{
   width:100%;
   border-radius:10px;
 }
-
-.lang{
-  background:#eef2f0;
-  padding:20px;
-  border-radius:12px;
-  margin-top:25px;
+figcaption{
+  font-size:14px;
+  margin-top:6px;
+  color:#555;
 }
+
+/* language visibility */
+.lang-es{ display:none; }
+.lang-eu{ display:block; }
+
 </style>
 
 
-<!-- HERO -->
-<div class="hero">
-  <h1>Pelota Vasca en el Valle de Larraún<br> Larraungo Euskal Pilota</h1>
-  <p>
-    Historia, figuras profesionales y legado deportivo de uno de los valles con mayor tradición pelotazale de Navarra.
+<!-- HEADER -->
+<div class="lp-header">
+  <div class="lp-title">
+    <img src="images/logo.png" alt="Logo Larraun Pilota Elkartea">
+    <h1>LARRAUN PILOTA ELKARTEA</h1>
+  </div>
+
+  <div class="lang-switch">
+    <button onclick="setLang('eu')">EU</button>
+    <button onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+
+
+<!-- INTRO -->
+<div class="section">
+
+<div class="lang-eu">
+<h2>Larraungo pilotaren historia</h2>
+<p>
+Larraungo bailara Nafarroako pilotaren harrobi historikoetako bat izan da. 
+Herrietako frontoiek belaunaldi osoak hezi dituzte eta askok maila profesionalera jauzi egin dute.
+</p>
+</div>
+
+<div class="lang-es">
+<h2>Historia de la pelota en Larraún</h2>
+<p>
+El Valle de Larraún ha sido una de las grandes canteras históricas de la pelota navarra. 
+Sus frontones han formado generaciones de pelotaris, muchos de los cuales alcanzaron el profesionalismo.
+</p>
+</div>
+
+</div>
+
+
+
+<!-- DESTACADOS GRANDES -->
+<div class="section grid">
+
+<!-- MARTINIKORENA -->
+<div class="card highlight">
+  <h3>Martinikorena</h3>
+  <p class="lang-eu">
+    Errazkinen jaiotako pilotari profesionala. Larraungo izen handienetako bat,
+    eskuzko pilotan maila gorenean aritu zena.
   </p>
+  <p class="lang-es">
+    Pelotari profesional nacido en Errazkin. Una de las grandes referencias históricas
+    del valle en la pelota a mano.
+  </p>
+  <a href="https://es.wikipedia.org/wiki/Jos%C3%A9_Mart%C3%ADn_Martinikorena" target="_blank">
+    Biografía / Biografia
+  </a>
 </div>
 
 
-<!-- INTRODUCCIÓN -->
-<h2>Historia y tradición · Historia eta tradizioa</h2>
-
-<div class="lang">
-<p><strong>CASTELLANO</strong><br>
-El Valle de Larraún ha sido durante más de un siglo una de las grandes canteras de la pelota vasca navarra. 
-Sus frontones, trinquetes y plazas han visto crecer generaciones de pelotaris que pasaron del juego popular 
-a la competición federada y, en muchos casos, al profesionalismo. 
-Desde pueblos como Baraibar, Lekunberri, Errazkin, Uitzi o Gorriti surgieron jugadores que compitieron 
-en la élite del mano a mano, pala, remonte o cesta punta.
-</p>
-
-<p><strong>EUSKERA</strong><br>
-Larraungo bailara mende bat baino gehiagoz Nafarroako pilotaren harrobi nagusietako bat izan da. 
-Frontoi eta plazetan belaunaldi osoak hazi dira, afiziotik profesionaltasunera iritsiz. 
-Baraibar, Lekunberri, Errazkin, Uitzi edo Gorrititik goi mailako pilotariak sortu dira.
-</p>
+<!-- SOROA III -->
+<div class="card highlight">
+  <h3>Soroa III – Juan Miguel Soroa</h3>
+  <p class="lang-eu">
+    Uitzikoa. Maila profesionaleko pilotaria eta Nafarroako txapelketetan protagonista nagusia.
+  </p>
+  <p class="lang-es">
+    Natural de Uitzi. Pelotari profesional con presencia destacada en campeonatos navarros
+    y del circuito profesional.
+  </p>
+  <a href="https://es.wikipedia.org/wiki/Juan_Miguel_Soroa" target="_blank">
+    Biografía / Biografia
+  </a>
 </div>
-
-
-
-<!-- PELOTARIS PRINCIPALES -->
-<h2>Pelotaris profesionales destacados · Pilotari profesional nagusiak</h2>
-
-<div class="grid">
-
-  <div class="card">
-    <h3>Ladis Galarza – Galarza III</h3>
-    <p><strong>Baraibar (Larraun)</strong><br> Mano profesional</p>
-    <p>
-      Considerado la gran figura histórica del valle. Rival directo de Retegi II y protagonista
-      de la etapa dorada del manomanista. Alcanzó siete finales y conquistó dos txapelas.
-    </p>
-    <p><a href="https://es.wikipedia.org/wiki/Ladis_Galarza" target="_blank">Ver biografía completa</a></p>
-  </div>
-
-  <div class="card">
-    <h3>Enrique Galarza – Galarza V</h3>
-    <p><strong>Baraibar (Larraun)</strong><br> Mano profesional</p>
-    <p>
-      Continuó la saga familiar Galarza en el profesionalismo. Subcampeón del Manomanista
-      de Segunda Categoría y habitual del circuito competitivo.
-    </p>
-    <p><a href="https://es.wikipedia.org/wiki/Enrique_Galarza" target="_blank">Ver biografía completa</a></p>
-  </div>
-
-  <div class="card">
-    <h3>Ladis Galarza Lizarza</h3>
-    <p><strong>Baraibar (Larraun)</strong><br> Mano profesional</p>
-    <p>
-      Hijo de Galarza III. Debutó profesionalmente en 2009 y representa la continuidad
-      de la tradición pelotazale del valle en el siglo XXI.
-    </p>
-    <p><a href="https://es.wikipedia.org/wiki/Ladis_Galarza_Lizarza" target="_blank">Ver biografía completa</a></p>
-  </div>
 
 </div>
 
 
 
-<!-- TABLA TITULOS -->
-<h2>Finales Manomanistas de Galarza III · Banakako finalak</h2>
+<!-- GALARZA -->
+<div class="section grid">
+
+<div class="card">
+  <h3>Ladis Galarza – Galarza III (Baraibar)</h3>
+  <p>2 txapelas manomanistas · 7 finales · Rival histórico de Retegi II</p>
+  <a href="https://es.wikipedia.org/wiki/Ladis_Galarza" target="_blank">Wikipedia</a>
+</div>
+
+<div class="card">
+  <h3>Enrique Galarza – Galarza V</h3>
+  <p>Continuidad de la saga familiar en el profesionalismo</p>
+  <a href="https://es.wikipedia.org/wiki/Enrique_Galarza" target="_blank">Wikipedia</a>
+</div>
+
+</div>
+
+
+
+<!-- TABLA -->
+<div class="section">
+<h2>Finales manomanistas de Galarza III</h2>
 
 <table>
-<tr>
-<th>Año</th><th>Campeón</th><th>Subcampeón</th>
-</tr>
-<tr><td>1983</td><td>Retegi II</td><td>Galarza III</td></tr>
-<tr><td>1984</td><td>Retegi II</td><td>Galarza III</td></tr>
-<tr><td>1985</td><td>Retegi II</td><td>Galarza III</td></tr>
-<tr><td>1988</td><td>Retegi II</td><td>Galarza III</td></tr>
-<tr><td>1991</td><td>Galarza III</td><td>Retegi II</td></tr>
-<tr><td>1992</td><td>Galarza III</td><td>Retegi II</td></tr>
-<tr><td>1993</td><td>Retegi II</td><td>Galarza III</td></tr>
+<tr><th>Año</th><th>Resultado</th></tr>
+<tr><td>1991</td><td>Txapela</td></tr>
+<tr><td>1992</td><td>Txapela</td></tr>
+<tr><td>1983–1985, 1988, 1993</td><td>Subcampeón</td></tr>
 </table>
-
-
-
-<!-- OTROS PELOTARIS -->
-<h2>Otros pelotaris históricos del valle · Bailarako beste pilotari batzuk</h2>
-
-<div class="lang">
-<p>
-Errazkin: Oreja I, Oreja II, Oreja III, Martinikorena, Intxaurrondo, Artola, Ansorena I-II-III...<br>
-Baraibar: Goldarazena, Galarza IV, Chafee...<br>
-Gorriti: Bernal, Ezkurdia I, Ezkurdia II...<br>
-Uitzi: Martirena, Soroa III...<br>
-Lekunberri: Aldaregia, Saralegi...
-</p>
-
-<p>
-Estas generaciones consolidaron la pelota como el eje social y deportivo del valle, 
-llenando los frontones durante décadas y creando una auténtica cultura pelotazale.
-</p>
 </div>
 
 
 
-<!-- GALERÍA -->
-<h2>Galería histórica · Argazki zaharrak</h2>
+<!-- GALERIA -->
+<div class="section">
+<h2>Argazki historikoak · Galería histórica</h2>
 
 <div class="gallery">
-  <img src="images/foto1.jpg" alt="Frontón antiguo Larraun">
-  <img src="images/foto2.jpg" alt="Equipo histórico de pelotaris">
-  <img src="images/foto3.jpg" alt="Partido antiguo">
-  <img src="images/foto4.jpg" alt="Trinquete antiguo">
+
+<figure>
+<img src="images/foto1.jpg">
+<figcaption>Larraun, campeón de interpueblos en 1986</figcaption>
+</figure>
+
+<figure>
+<img src="images/foto2.jpg">
+<figcaption>Frontón Jaian Jai en 1900</figcaption>
+</figure>
+
+<figure>
+<img src="images/foto3.jpg">
+<figcaption>Equipo local de los años 80</figcaption>
+</figure>
+
+<figure>
+<img src="images/foto4.jpg">
+<figcaption>Festival de pelota en Lekunberri</figcaption>
+</figure>
+
 </div>
-<p style="font-size:14px;margin-top:10px;">
-*Sustituye estas imágenes por vuestras fotografías antiguas.*
-</p>
-
-
-
-<!-- COMPLEMENTO JAIMERENA -->
-<h2>Memoria documental · Dokumentazio historikoa</h2>
-
-<div class="lang">
-<p><strong>CASTELLANO</strong><br>
-Los escritos de los años 80 de Don Jesús Jaimerena ayudan a comprender esta etapa de esplendor y
-recogen testimonios, nombres y competiciones locales que forman parte de la memoria colectiva del valle.
-</p>
-
-<p><strong>EUSKERA</strong><br>
-Jesús Jaimerenaren 1980ko hamarkadako testuek garai hartako lekukotasunak eta oroitzapenak jasotzen dituzte,
-Larraungo pilotaren memoria historikoa osatuz.
-</p>
 </div>
+
+
+
+<!-- DOCUMENTOS JAIMERENA -->
+<div class="section">
+<h2>Don Jesús Jaimerenaren dokumentuak · Documentos históricos</h2>
+
+<div class="gallery">
+
+<figure>
+<img src="images/jaimerena1.jpg">
+<figcaption>Documento mecanografiado (años 80)</figcaption>
+</figure>
+
+<figure>
+<img src="images/jaimerena2.jpg">
+<figcaption>Notas históricas sobre la pelota en Larraún</figcaption>
+</figure>
+
+</div>
+</div>
+
+
+
+<!-- SCRIPT IDIOMA -->
+<script>
+function setLang(lang){
+  document.querySelectorAll('.lang-eu').forEach(el=>el.style.display=(lang==='eu')?'block':'none');
+  document.querySelectorAll('.lang-es').forEach(el=>el.style.display=(lang==='es')?'block':'none');
+}
+
+/* por defecto euskera */
+setLang('eu');
+</script>
 
 </section>
