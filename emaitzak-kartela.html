@@ -23,7 +23,7 @@ button{
   margin:18px;
 }
 
-/* ================= PÁGINA ================= */
+/* ================= PÁGINA A3 ================= */
 
 .pagina{
   width:900px;
@@ -33,14 +33,16 @@ button{
   display:flex;
   flex-direction:column;
   box-shadow:0 0 18px rgba(0,0,0,.35);
+  overflow:hidden; /* SIN SCROLL */
 }
 
 .header{height:110px}
 .footer{height:40px}
+
 .contenido{
   flex:1;
-  overflow:hidden;
-  padding:8px 12px;
+  padding:6px 10px;
+  overflow:hidden; /* SIN SCROLL */
 }
 
 /* ================= HEADER ================= */
@@ -71,10 +73,10 @@ button{
 .titulo-seccion{
   background:#222;
   color:#fff;
-  font-size:14px;
-  font-weight:800;
-  padding:5px 10px;
-  margin:6px 0 4px;
+  font-size:13px;
+  font-weight:900;
+  padding:4px;
+  margin:6px 0 3px;
   text-align:center;
 }
 
@@ -82,7 +84,7 @@ button{
   background:#fff;
   border-radius:8px;
   overflow:hidden;
-  margin-bottom:7px;
+  margin-bottom:6px;
 }
 
 .grupo-header{
@@ -95,14 +97,11 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILAS ================= */
+/* ================= FILA PARTIDO ================= */
 
 .fila{
   position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:7px 90px; /* espacio para marcador */
+  height:78px;
   border-top:1px solid #ddd;
 }
 
@@ -110,67 +109,80 @@ button{
 .lose{background:#fdeaea}
 .pending{background:#f3f3f3}
 
-/* LOGOS MÁS GRANDES */
-.logo{
-  height:64px;
-  width:64px;
-  object-fit:contain;
-}
+/* ===== ZONAS FIJAS (NO FLEX) ===== */
 
-/* EQUIPOS */
-
-.equipo{
+/* IZQUIERDA */
+.zona-local{
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:320px;
   display:flex;
   align-items:center;
   gap:10px;
-  width:43%;
+  justify-content:flex-start;
 }
 
-.local{
+/* DERECHA */
+.zona-visit{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:320px;
+  display:flex;
+  align-items:center;
+  gap:10px;
   justify-content:flex-end;
   text-align:right;
-  color:#0d47a1;
 }
 
-.visit{
-  justify-content:flex-start;
-  text-align:left;
-  color:#b71c1c;
-}
-
-/* nombres grandes */
-.nombre{
-  font-weight:900;
-  font-size:19px;
-  line-height:1.1;
-}
-
-/* pelotaris MUCHO más pequeño */
-.pelotaris{
-  font-size:7px;
-  opacity:.75;
-  margin-top:2px;
-}
-
-/* MARCADOR CENTRO ABSOLUTO */
+/* CENTRO MARCADOR */
 .score{
   position:absolute;
   left:50%;
-  transform:translateX(-50%);
-  font-size:34px;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:38px;
   font-weight:900;
+  min-width:120px;
   text-align:center;
-  min-width:100px;
 }
 
+/* ================= LOGOS ================= */
+
+.logo{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+}
+
+/* ================= TEXTOS ================= */
+
+.nombre{
+  font-weight:900;
+  font-size:20px;
+  line-height:1.05;
+  white-space:nowrap;
+}
+
+.local .nombre{color:#0d47a1}
+.visit .nombre{color:#b71c1c}
+
+/* pelotaris MUY pequeños */
+.pelotaris{
+  font-size:7px;
+  opacity:.75;
+}
+
+/* marcador colores */
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
 
-.sets{
-  font-size:10px;
-}
+.sets{font-size:10px}
 
-/* footer */
+/* ================= FOOTER ================= */
 
 .footer{
   background:#444;
@@ -181,7 +193,7 @@ button{
   font-size:11px;
 }
 
-a{color:inherit;text-decoration:underline}
+a{color:inherit}
 
 </style>
 </head>
@@ -189,7 +201,6 @@ a{color:inherit;text-decoration:underline}
 <body>
 
 <button onclick="exportar()">📸 DESKARGATU JPG</button>
-
 <div id="contenedor"></div>
 
 <script>
@@ -217,14 +228,14 @@ function filtrar(data){
   });
 }
 
-/* ================= LOGOS ================= */
+/* ================= LOGOS CLUB ================= */
 
 function normalizar(nombre){
   return nombre
     .toUpperCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .trim()
-    .replace(/\s+/g,"-");
+    .replace(/\s+/g,"-")
+    .trim();
 }
 
 function logoClub(nombre){
@@ -275,7 +286,7 @@ function crearFila(p){
 
   fila.innerHTML=`
 
-    <div class="equipo local">
+    <div class="zona-local local">
       ${logoClub(p.etxekoa)}
       <div>
         <div class="nombre">${p.etxekoa}</div>
@@ -289,7 +300,7 @@ function crearFila(p){
       ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
     </div>
 
-    <div class="equipo visit">
+    <div class="zona-visit visit">
       <div>
         <div class="nombre">${p.kanpokoak}</div>
         ${p.pelotaris_visit?`<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
@@ -303,7 +314,7 @@ function crearFila(p){
 
 /* ================= SECCIONES ================= */
 
-function crearSeccion(titulo, data, cont){
+function crearSeccion(titulo,data,cont){
 
   if(!data.length) return;
 
@@ -341,7 +352,7 @@ function crearSeccion(titulo, data, cont){
   });
 }
 
-/* ================= CARGA DATOS ================= */
+/* ================= DATOS ================= */
 
 Promise.all([
  fetch("data/resultados-larraun.json").then(r=>r.json()),
