@@ -23,7 +23,7 @@ button{
   margin:18px;
 }
 
-/* ================= PÁGINA A3 ================= */
+/* ================= PÁGINA ================= */
 
 .pagina{
   width:900px;
@@ -33,21 +33,11 @@ button{
   display:flex;
   flex-direction:column;
   box-shadow:0 0 18px rgba(0,0,0,.35);
-  overflow:hidden; /* SIN SCROLL */
+  overflow:hidden;
 }
-
-.header{height:110px}
-.footer{height:40px}
-
-.contenido{
-  flex:1;
-  padding:6px 10px;
-  overflow:hidden; /* SIN SCROLL */
-}
-
-/* ================= HEADER ================= */
 
 .header{
+  height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
   color:#fff;
   display:flex;
@@ -58,14 +48,26 @@ button{
 
 .header img{
   position:absolute;
-  height:72px;
+  height:80px;
 }
 
-.logo-izq{left:20px}
-.logo-der{right:20px}
+.logo-izq{ left:20px }
+.logo-der{ right:20px }
 
-.header h1{
-  letter-spacing:3px;
+.footer{
+  height:40px;
+  background:#444;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+}
+
+.contenido{
+  flex:1;
+  padding:6px 10px;
+  overflow:hidden;
 }
 
 /* ================= SECCIONES ================= */
@@ -97,64 +99,60 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILA PARTIDO ================= */
+/* ================= FILA ================= */
 
 .fila{
   position:relative;
-  height:78px;
+  height:88px;
   border-top:1px solid #ddd;
 }
 
-.win{background:#e7f6ea}
-.lose{background:#fdeaea}
-.pending{background:#f3f3f3}
+/* ===== zonas laterales enormes ===== */
 
-/* ===== ZONAS FIJAS (NO FLEX) ===== */
-
-/* IZQUIERDA */
 .zona-local{
   position:absolute;
-  left:10px;
+  left:0;
   top:50%;
   transform:translateY(-50%);
-  width:320px;
+  width:42%;
   display:flex;
   align-items:center;
-  gap:10px;
-  justify-content:flex-start;
+  gap:14px;
+  padding-left:10px;
 }
 
-/* DERECHA */
 .zona-visit{
   position:absolute;
-  right:10px;
+  right:0;
   top:50%;
   transform:translateY(-50%);
-  width:320px;
+  width:42%;
   display:flex;
   align-items:center;
-  gap:10px;
   justify-content:flex-end;
+  gap:14px;
+  padding-right:10px;
   text-align:right;
 }
 
-/* CENTRO MARCADOR */
+/* ===== marcador SIEMPRE centro real ===== */
+
 .score{
   position:absolute;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  font-size:38px;
+  font-size:44px;
   font-weight:900;
-  min-width:120px;
+  width:200px;
   text-align:center;
 }
 
 /* ================= LOGOS ================= */
 
 .logo{
-  width:70px;
-  height:70px;
+  width:110px;
+  height:110px;
   object-fit:contain;
 }
 
@@ -167,31 +165,29 @@ button{
   white-space:nowrap;
 }
 
-.local .nombre{color:#0d47a1}
-.visit .nombre{color:#b71c1c}
+.local .nombre{ color:#0d47a1 }
+.visit .nombre{ color:#b71c1c }
 
 /* pelotaris MUY pequeños */
 .pelotaris{
-  font-size:7px;
-  opacity:.75;
+  font-size:9px;
+  color:#666;
+  margin-top:2px;
+  line-height:1.05;
 }
 
 /* marcador colores */
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
 
-.sets{font-size:10px}
-
-/* ================= FOOTER ================= */
-
-.footer{
-  background:#444;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
+.sets{
+  font-size:10px;
 }
+
+/* estado */
+.win{background:#e7f6ea}
+.lose{background:#fdeaea}
+.pending{background:#f3f3f3}
 
 a{color:inherit}
 
@@ -228,49 +224,32 @@ function filtrar(data){
   });
 }
 
-/* ================= LOGOS CLUB ================= */
+/* ================= NOMBRE → LOGO ================= */
 
-function normalizar(nombre){
-  return nombre
-    .toUpperCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+function nombreAlogo(nombre){
+
+  if(!nombre) return "";
+
+  let base = nombre.split("(")[0];
+
+  base = base
+    .replace(/[.,]/g,"")
+    .trim()
     .replace(/\s+/g,"-")
-    .trim();
+    .toUpperCase();
+
+  return base;
 }
 
 function logoClub(nombre){
 
-  if(!nombre) return "";
-
-  const n=normalizar(nombre);
+  const n = nombreAlogo(nombre);
 
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
 
   return `<img class="logo" src="images/clubes/${n}.jpg"
           onerror="this.style.display='none'">`;
-}
-
-/* ================= PÁGINA ================= */
-
-function nuevaPagina(){
-
-  const p=document.createElement("div");
-  p.className="pagina";
-
-  p.innerHTML=`
-    <div class="header">
-      <img src="images/logo-larraun.png" class="logo-izq">
-      <h1>EMAITZAK</h1>
-      <img src="images/logo-fnp.png" class="logo-der">
-    </div>
-    <div class="contenido"></div>
-    <div class="footer">Larraun Pilota Elkartea</div>
-  `;
-
-  document.getElementById("contenedor").appendChild(p);
-
-  return p.querySelector(".contenido");
 }
 
 /* ================= FILA ================= */
@@ -352,7 +331,7 @@ function crearSeccion(titulo,data,cont){
   });
 }
 
-/* ================= DATOS ================= */
+/* ================= CARGA ================= */
 
 Promise.all([
  fetch("data/resultados-larraun.json").then(r=>r.json()),
@@ -370,19 +349,35 @@ Promise.all([
 
 });
 
+function nuevaPagina(){
+
+  const p=document.createElement("div");
+  p.className="pagina";
+
+  p.innerHTML=`
+    <div class="header">
+      <img src="images/logo-larraun.png" class="logo-izq">
+      <h1>EMAITZAK</h1>
+      <img src="images/logo-fnp.png" class="logo-der">
+    </div>
+    <div class="contenido"></div>
+    <div class="footer">Larraun Pilota Elkartea</div>
+  `;
+
+  document.getElementById("contenedor").appendChild(p);
+
+  return p.querySelector(".contenido");
+}
+
 /* ================= EXPORTAR ================= */
 
 async function exportar(){
- const paginas=document.querySelectorAll(".pagina");
- let i=1;
- for(const p of paginas){
-   const c=await html2canvas(p,{scale:2,useCORS:true});
-   const a=document.createElement("a");
-   a.href=c.toDataURL("image/jpeg",0.95);
-   a.download=`emaitzak-${i}.jpg`;
-   a.click();
-   i++;
- }
+ const p=document.querySelector(".pagina");
+ const c=await html2canvas(p,{scale:2,useCORS:true});
+ const a=document.createElement("a");
+ a.href=c.toDataURL("image/jpeg",0.95);
+ a.download="emaitzak.jpg";
+ a.click();
 }
 
 </script>
