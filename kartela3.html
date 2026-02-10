@@ -22,7 +22,7 @@ body{
   margin:18px;
 }
 
-/* ================= PÁGINA INFINITA ================= */
+/* ================= PÁGINA ================= */
 
 .pagina{
   width:900px;
@@ -31,9 +31,7 @@ body{
   flex-direction:column;
   background:#3f8159;
   position:relative;
-
   overflow:visible;
-  height:auto;
 }
 
 /* ================= PELOTAZOS ================= */
@@ -71,6 +69,7 @@ body{
   top:18px;
   height:85px;
 }
+
 .logo-izq{ left:14px; }
 .logo-der{ right:14px; }
 
@@ -200,7 +199,7 @@ body{
 
 <div id="pagina" class="pagina">
 
-<div class="pelotazos" id="pelotazos"></div>
+<div id="pelotazos" class="pelotazos"></div>
 
 <!-- HEADER -->
 <div class="header">
@@ -243,12 +242,16 @@ const normalizaHora = h => h ? h.slice(0,5) : "00:00";
 /* ================= PELOTAZOS ================= */
 
 function generarPelotazos(){
+
   const pel=document.getElementById("pelotazos");
   pel.innerHTML="";
 
-  const alto=document.getElementById("pagina").scrollHeight;
+  const pagina=document.getElementById("pagina");
+  const alto=pagina.scrollHeight;
 
-  for(let i=0;i<alto*0.35;i++){
+  const cantidad=Math.floor(alto*0.40);
+
+  for(let i=0;i<cantidad;i++){
     const d=document.createElement("div");
     const s=Math.random()*4+2;
 
@@ -263,7 +266,9 @@ function generarPelotazos(){
 
 /* ================= LOGOS ================= */
 
-const LOGOS=[/* TU LISTA IGUAL */];
+const LOGOS=[
+  // mete aquí tus archivos: "patro1.png", "patro2.png"
+];
 
 document.getElementById("logos").innerHTML =
 LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`).join("");
@@ -279,21 +284,25 @@ Promise.all([
 
  function pintar(titulo,data){
 
-   const h=document.createElement("div");
-   h.className="bloque";
-   h.innerHTML=`<h2>${titulo}</h2>`;
-   cont.appendChild(h);
-
    const grupos={};
 
    data.forEach(p=>{
      if(esDescanso(p.etxekoa)||esDescanso(p.kanpokoak)) return;
+
      const key=p.fecha+"|"+p.hora+"|"+p.fronton;
      if(!grupos[key]) grupos[key]=[];
      grupos[key].push(p);
    });
 
-   Object.values(grupos).forEach(partidos=>{
+   const valores=Object.values(grupos);
+   if(!valores.length) return; // ← NO BLOQUES VACÍOS
+
+   const bloque=document.createElement("div");
+   bloque.className="bloque";
+   bloque.innerHTML=`<h2>${titulo}</h2>`;
+   cont.appendChild(bloque);
+
+   valores.forEach(partidos=>{
      const p0=partidos[0];
      const local=/lekunberri|aldatz/i.test(p0.fronton||"");
 
@@ -321,19 +330,29 @@ Promise.all([
  pintar("BESTE TXAPELKETAK OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)==="true"));
  pintar("TXAPELKETAK EZ OFIZIALAK", noOficiales.filter(p=>String(p.ofiziala)!=="true"));
 
- generarPelotazos(); // ← SIEMPRE AL FINAL
+ generarPelotazos();
 });
 
-/* ================= EXPORTAR ================= */
+/* ================= EXPORTAR JPG LARGO ================= */
 
 function exportar(){
- html2canvas(document.getElementById("pagina"),{scale:2,useCORS:true})
+
+ const pagina=document.getElementById("pagina");
+
+ html2canvas(pagina,{
+   scale:2,
+   useCORS:true,
+   backgroundColor:null,
+   windowWidth:900,
+   windowHeight:pagina.scrollHeight
+ })
  .then(canvas=>{
    const a=document.createElement("a");
    a.href=canvas.toDataURL("image/jpeg",0.95);
-   a.download="kartela.jpg";
+   a.download="kartela-osoa.jpg";
    a.click();
  });
+
 }
 
 </script>
