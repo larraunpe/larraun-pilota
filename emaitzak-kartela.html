@@ -200,6 +200,7 @@ function filtrar(data){
   const thisMon=monday(today);
   const lastMon=new Date(thisMon);
   lastMon.setDate(thisMon.getDate()-7);
+  const no=quitarDuplicados(filtrar(noOficial));
 
   return data.filter(p=>{
     const f=new Date(p.fecha+"T00:00");
