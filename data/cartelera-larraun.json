@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/02/10",
-    "hora": "18:30 !Horario provisional",
+    "hora": "18:30",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
@@ -10,7 +10,16 @@
   },
   {
     "fecha": "2026/02/13",
-    "hora": "19:15 !Horario provisional",
+    "hora": "17:00",
+    "zkia": "1",
+    "fronton": "Pamplona - Mendillorri-Trinkete",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE FINALERDIA"
+  },
+  {
+    "fecha": "2026/02/13",
+    "hora": "19:15",
     "zkia": "1",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (O. Otxoa - A. Lizarraga)",
@@ -19,18 +28,9 @@
   },
   {
     "fecha": "2026/02/14",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE FINALERDIA"
-  },
-  {
-    "fecha": "2026/02/15",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
+    "hora": "11:30",
+    "zkia": "1",
+    "fronton": "Villava - Atarrabia",
     "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
     "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
