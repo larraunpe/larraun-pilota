@@ -37,7 +37,11 @@ button{
 
 .header{height:110px}
 .footer{height:40px}
-.contenido{height:1120px; overflow:hidden; padding:10px}
+.contenido{
+  flex:1;
+  overflow:hidden;
+  padding:8px 12px;
+}
 
 /* ================= HEADER ================= */
 
@@ -52,7 +56,7 @@ button{
 
 .header img{
   position:absolute;
-  height:70px;
+  height:72px;
 }
 
 .logo-izq{left:20px}
@@ -62,7 +66,7 @@ button{
   letter-spacing:3px;
 }
 
-/* ================= BLOQUES ================= */
+/* ================= SECCIONES ================= */
 
 .titulo-seccion{
   background:#222;
@@ -70,7 +74,7 @@ button{
   font-size:14px;
   font-weight:800;
   padding:5px 10px;
-  margin:8px 0 4px;
+  margin:6px 0 4px;
   text-align:center;
 }
 
@@ -78,12 +82,12 @@ button{
   background:#fff;
   border-radius:8px;
   overflow:hidden;
-  margin-bottom:8px;
+  margin-bottom:7px;
 }
 
 .grupo-header{
-  font-size:11px;
-  padding:4px;
+  font-size:10px;
+  padding:3px;
   text-align:center;
   font-weight:700;
 }
@@ -91,14 +95,14 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILA ================= */
+/* ================= FILAS ================= */
 
 .fila{
   position:relative;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:8px 70px;
+  padding:7px 90px; /* espacio para marcador */
   border-top:1px solid #ddd;
 }
 
@@ -106,49 +110,65 @@ button{
 .lose{background:#fdeaea}
 .pending{background:#f3f3f3}
 
-/* logos MÁS GRANDES */
+/* LOGOS MÁS GRANDES */
 .logo{
-  height:52px;
-  width:52px;
+  height:64px;
+  width:64px;
   object-fit:contain;
 }
 
-/* equipos */
+/* EQUIPOS */
+
 .equipo{
   display:flex;
   align-items:center;
-  gap:8px;
-  width:40%;
+  gap:10px;
+  width:43%;
 }
 
-.local{justify-content:flex-end; text-align:right}
-.visit{justify-content:flex-start}
+.local{
+  justify-content:flex-end;
+  text-align:right;
+  color:#0d47a1;
+}
 
-/* nombres */
+.visit{
+  justify-content:flex-start;
+  text-align:left;
+  color:#b71c1c;
+}
+
+/* nombres grandes */
 .nombre{
   font-weight:900;
-  font-size:16px;
+  font-size:19px;
+  line-height:1.1;
 }
 
+/* pelotaris MUCHO más pequeño */
 .pelotaris{
-  font-size:8px;
-  opacity:.8;
+  font-size:7px;
+  opacity:.75;
+  margin-top:2px;
 }
 
-/* marcador CENTRO ABSOLUTO */
+/* MARCADOR CENTRO ABSOLUTO */
 .score{
   position:absolute;
   left:50%;
   transform:translateX(-50%);
-  font-size:32px;
+  font-size:34px;
   font-weight:900;
   text-align:center;
-  min-width:90px;
+  min-width:100px;
 }
 
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
-.sets{font-size:10px}
+
+.sets{
+  font-size:10px;
+}
 
 /* footer */
 
@@ -199,35 +219,42 @@ function filtrar(data){
 
 /* ================= LOGOS ================= */
 
+function normalizar(nombre){
+  return nombre
+    .toUpperCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .trim()
+    .replace(/\s+/g,"-");
+}
+
 function logoClub(nombre){
 
   if(!nombre) return "";
 
-  const n=nombre.toUpperCase().trim();
+  const n=normalizar(nombre);
 
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
 
-  const limpio=n.replace(/\s+/g,"-");
-
-  return `<img class="logo" src="images/clubes/${limpio}.jpg"
+  return `<img class="logo" src="images/clubes/${n}.jpg"
           onerror="this.style.display='none'">`;
 }
 
 /* ================= PÁGINA ================= */
 
 function nuevaPagina(){
+
   const p=document.createElement("div");
   p.className="pagina";
 
   p.innerHTML=`
-  <div class="header">
-    <img src="images/logo-larraun.png" class="logo-izq">
-    <h1>EMAITZAK</h1>
-    <img src="images/logo-fnp.png" class="logo-der">
-  </div>
-  <div class="contenido"></div>
-  <div class="footer">Larraun Pilota Elkartea</div>
+    <div class="header">
+      <img src="images/logo-larraun.png" class="logo-izq">
+      <h1>EMAITZAK</h1>
+      <img src="images/logo-fnp.png" class="logo-der">
+    </div>
+    <div class="contenido"></div>
+    <div class="footer">Larraun Pilota Elkartea</div>
   `;
 
   document.getElementById("contenedor").appendChild(p);
@@ -235,7 +262,7 @@ function nuevaPagina(){
   return p.querySelector(".contenido");
 }
 
-/* ================= CREAR FILA ================= */
+/* ================= FILA ================= */
 
 function crearFila(p){
 
@@ -249,12 +276,11 @@ function crearFila(p){
   fila.innerHTML=`
 
     <div class="equipo local">
+      ${logoClub(p.etxekoa)}
       <div>
         <div class="nombre">${p.etxekoa}</div>
-        ${p.pelotaris_local ?
-          `<div class="pelotaris">${p.pelotaris_local}</div>`:""}
+        ${p.pelotaris_local?`<div class="pelotaris">${p.pelotaris_local}</div>`:""}
       </div>
-      ${logoClub(p.etxekoa)}
     </div>
 
     <div class="score">
@@ -264,19 +290,18 @@ function crearFila(p){
     </div>
 
     <div class="equipo visit">
-      ${logoClub(p.kanpokoak)}
       <div>
         <div class="nombre">${p.kanpokoak}</div>
-        ${p.pelotaris_visit ?
-          `<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
+        ${p.pelotaris_visit?`<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
       </div>
+      ${logoClub(p.kanpokoak)}
     </div>
   `;
 
   return fila;
 }
 
-/* ================= BLOQUES ================= */
+/* ================= SECCIONES ================= */
 
 function crearSeccion(titulo, data, cont){
 
@@ -323,17 +348,15 @@ Promise.all([
  fetch("data/resultados-no-oficiales.json").then(r=>r.json())
 ]).then(([larraun,noOficial])=>{
 
-  const contenido=nuevaPagina();
+  const cont=nuevaPagina();
 
-  const filtradosLar=filtrar(larraun);
-  const filtradosNo=filtrar(noOficial);
+  const lar=filtrar(larraun);
+  const no=filtrar(noOficial);
 
-  const ofizial=filtradosNo.filter(p=>p.ofiziala==="bai");
-  const ez=filtradosNo.filter(p=>p.ofiziala!=="bai");
+  crearSeccion("NKJ TXAPELKETAK", lar, cont);
+  crearSeccion("BESTE TXAPELKETAK OFIZIALAK", no.filter(p=>p.ofiziala==="bai"), cont);
+  crearSeccion("TXAPELKETAK EZ OFIZIALAK", no.filter(p=>p.ofiziala!=="bai"), cont);
 
-  crearSeccion("NKJ TXAPELKETAK", filtradosLar, contenido);
-  crearSeccion("BESTE TXAPELKETAK OFIZIALAK", ofizial, contenido);
-  crearSeccion("TXAPELKETAK EZ OFIZIALAK", ez, contenido);
 });
 
 /* ================= EXPORTAR ================= */
