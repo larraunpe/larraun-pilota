@@ -206,7 +206,25 @@ function filtrar(data){
     return f>=lastMon && f<=today;
   });
 }
+/* ================= duplicados ================= */
+function quitarDuplicados(lista){
+  const vistos=new Set();
+  return lista.filter(p=>{
+    const id =
+      p.fecha+"|"+
+      p.fronton+"|"+
+      p.modalidad+"|"+
+      p.etxekoa+"|"+
+      p.kanpokoak+"|"+
+      p.tanteoa;
 
+    if(vistos.has(id)) return false;
+    vistos.add(id);
+    return true;
+  });
+}
+
+  
 /* ================= NOMBRE → LOGO ================= */
 
 function nombreAlogo(nombre){
@@ -319,7 +337,7 @@ Promise.all([
 
   const cont=nuevaPagina();
 
-  crearSeccion("NKJ TXAPELKETAK", filtrar(larraun), cont);
+  crearSeccion("NKJ TXAPELKETAK", quitarDuplicados(filtrar(larraun)), cont);
   crearSeccion("BESTE TXAPELKETAK OFIZIALAK", filtrar(no).filter(p=>p.ofiziala==="bai"), cont);
   crearSeccion("TXAPELKETAK EZ OFIZIALAK", filtrar(no).filter(p=>p.ofiziala!=="bai"), cont);
 
