@@ -9,6 +9,15 @@
     "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE FINALERDIA"
   },
   {
+    "fecha": "2026/02/13",
+    "hora": "19:15 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (O. Otxoa - A. Lizarraga)",
+    "kanpokoak": "LARRAUN (J. Ezkurdia - X. Telletxea)",
+    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
+  },
+  {
     "fecha": "2026/02/14",
     "hora": "- !Horario provisional",
     "zkia": "-",
@@ -22,17 +31,17 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "IRURTZUN (O. Otxoa - A. Lizarraga)",
-    "kanpokoak": "LARRAUN (J. Ezkurdia - X. Telletxea)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
-  },
-  {
-    "fecha": "2026/02/15",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
     "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
+  },
+  {
+    "fecha": "2026/02/11",
+    "hora": "18:30",
+    "zkia": "1",
+    "fronton": "Irurtzun - BI AIZPE-Irurtzun",
+    "etxekoa": "IRURTZUN, C.D.",
+    "kanpokoak": "LARRAUN",
+    "lehiaketa": "ESKUZ BINAKA GIZONEZKO GAZTEAK LIGA"
   }
 ]
