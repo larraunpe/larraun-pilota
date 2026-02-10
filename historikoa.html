@@ -1,95 +1,259 @@
-<section class="larraun-pilota-blog">
+<section id="larraun-pilota">
 
 <style>
-.larraun-pilota-blog{
-  max-width:1100px;
+#larraun-pilota{
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  max-width:1200px;
   margin:auto;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height:1.65;
+  line-height:1.75;
   color:#222;
 }
 
-.larraun-pilota-blog h2{
-  margin-top:60px;
-  border-bottom:3px solid #0b5d3b;
-  padding-bottom:10px;
+.lp-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:50px;
 }
 
-.larraun-pilota-blog h3{
-  margin-top:40px;
-  color:#0b5d3b;
+.lp-title{display:flex;align-items:center;gap:18px;}
+.lp-title img{height:70px;}
+.lp-title h1{margin:0;color:#0b5d3b;font-size:34px;font-weight:800;}
+
+.lang-switch button{
+  background:#0b5d3b;color:#fff;border:none;
+  padding:8px 14px;border-radius:8px;cursor:pointer;margin-left:6px;
 }
 
-.hero{
-  background:#0b5d3b;
-  color:white;
-  padding:50px 25px;
-  border-radius:12px;
-}
+.section{margin-top:70px;}
+.longtext{font-size:17px;}
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:24px;
 }
 
 .card{
   background:#f5f7f6;
-  padding:22px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  padding:26px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:20px;
-}
-
-th, td{
-  border:1px solid #ddd;
-  padding:10px;
-  text-align:center;
-}
-
-th{
-  background:#0b5d3b;
-  color:white;
-}
+.main{background:#0b5d3b;color:#fff;}
+.main a{color:#fff;text-decoration:underline;}
 
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
+  gap:18px;
 }
 
-.gallery img{
-  width:100%;
-  border-radius:10px;
-}
+figure{margin:0;}
+figure img{width:100%;border-radius:10px;}
+figcaption{font-size:14px;margin-top:6px;color:#555;}
 
-.lang{
-  background:#eef2f0;
-  padding:20px;
-  border-radius:12px;
-  margin-top:25px;
-}
+.lang-es{display:none;}
+.lang-eu{display:block;}
 </style>
 
 
-<!-- HERO -->
-<div class="hero">
-  <h1>Pelota Vasca en el Valle de Larraún<br> Larraungo Euskal Pilota</h1>
-  <p>
-    Historia, figuras profesionales y legado deportivo de uno de los valles con mayor tradición pelotazale de Navarra.
-  </p>
+
+<!-- HEADER -->
+<div class="lp-header">
+  <div class="lp-title">
+    <img src="images/logo.png">
+    <h1>LARRAUN PILOTA ELKARTEA</h1>
+  </div>
+  <div class="lang-switch">
+    <button onclick="setLang('eu')">EU</button>
+    <button onclick="setLang('es')">ES</button>
+  </div>
 </div>
 
 
-<!-- INTRODUCCIÓN -->
-<h2>Historia y tradición · Historia eta tradizioa</h2>
 
-<div class="lang">
-<p><strong>CASTELLANO</strong><br>
-El Valle de Larraún ha sido durante más de un siglo una de las grandes canteras de la pelota vasca navarra. 
-Sus frontones, trinquetes y plazas han visto crecer generaciones de pelotaris que pasa
+<!-- ===================================================== -->
+<!-- REPORTAJE LARGO -->
+<!-- ===================================================== -->
+
+<div class="section longtext">
+
+<div class="lang-eu">
+<h2>Larraun, pilotaren bailara</h2>
+
+<p>
+Badira kirol batzuk leku jakin batzuekin lotzen direnak. Larraunen, euskal pilota ez da soilik kirol bat:
+bizimodu bat da, ohitura bat, belaunaldiz belaunaldi transmititu den nortasun ikurra.
+Frontoia ez da instalazio soil bat; herriko plaza da, topagunea, neguko arratsalde luzeetako zarata,
+eta udako jaietako bihotza.
+</p>
+
+<p>
+XX. mende osoan zehar, bailarako ia herri guztiek izan dute beren frontoia eta beren pilotariak.
+Haurrak eskuz ikasten hasten ziren, gazteek txapelketak jokatzen zituzten, eta onenek urrats bat
+harago eman eta profesionaletara salto egiten zuten. Horrela sortu zen Larraunen harrobia:
+lan isilean, baina etengabe.
+</p>
+
+<p>
+Urteek aurrera egin ahala, izen batzuk historia bihurtu ziren. Frontoietako harmailetan oraindik
+gogoratzen dira partidak, tantoak eta garaipenak. Izen horiek gaur egun ere erreferente dira:
+Galarza, Martinikorena, Soroa… pilotaren bidez bailara oso bat ordezkatu zuten pelotariak.
+</p>
+</div>
+
+
+<div class="lang-es">
+<h2>Larraún, un valle hecho pelota</h2>
+
+<p>
+Hay deportes que se identifican con un territorio. En Larraún, la pelota vasca no es solo una práctica
+deportiva: es cultura, memoria y comunidad. El frontón ha sido durante décadas la plaza del pueblo,
+el lugar donde se reúnen generaciones enteras y donde se forjan amistades, rivalidades y sueños.
+</p>
+
+<p>
+A lo largo de todo el siglo XX, prácticamente cada localidad del valle contó con su frontón y con sus
+pelotaris. Los niños aprendían a golpear la pelota desde pequeños, los jóvenes competían en torneos
+interpueblos y los mejores daban el salto al profesionalismo. De esa constancia nació una de las
+canteras más fértiles de Navarra.
+</p>
+
+<p>
+Con el tiempo, algunos nombres pasaron a la historia. Partidos memorables, finales ajustadas y
+txapelas celebradas con todo el valle dejaron huella. Apellidos como Galarza, Martinikorena o Soroa
+no solo representan a grandes deportistas, sino a generaciones enteras que vivieron la pelota como
+parte de su identidad.
+</p>
+</div>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- PELOTARIS PRINCIPALES -->
+<!-- ===================================================== -->
+
+<div class="section grid">
+
+<div class="card main">
+<h3>1 · Ladis Galarza – Galarza III</h3>
+<p>
+2 txapelas manomanistas · 7 finales · Campeón del Cuatro y Medio (1993) · Rival histórico de Retegi II
+</p>
+<a href="https://es.wikipedia.org/wiki/Ladis_Galarza" target="_blank">Wikipedia</a>
+</div>
+
+<div class="card">
+<h3>2 · Martinikorena (Errazkin)</h3>
+<a href="https://es.wikipedia.org/wiki/Jos%C3%A9_Mart%C3%ADn_Martinikorena" target="_blank">Wikipedia</a>
+</div>
+
+<div class="card">
+<h3>3 · Enrique Galarza – Galarza V</h3>
+<a href="https://es.wikipedia.org/wiki/Enrique_Galarza" target="_blank">Wikipedia</a>
+</div>
+
+<div class="card">
+<h3>4 · Soroa III – Juan Miguel Soroa</h3>
+<a href="https://es.wikipedia.org/wiki/Juan_Miguel_Soroa" target="_blank">Wikipedia</a>
+</div>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- CANERA / LOCALIDADES -->
+<!-- ===================================================== -->
+
+<div class="section longtext">
+
+<div class="lang-eu">
+<h2>Belaunaldi berriak eta herrietako pilotariak</h2>
+<p>
+Galarza familiaren jarraipena Ladis Galarza Lizarza semeak eman du, profesional mailara iritsiz.
+Baina Larraungo indarra ez da izen bakar batena: herri bakoitzean sortu dira pilotariak.
+Errazkin (Oreja, Martinikorena), Baraibar (Galarza, Goldarazena), Uitzi (Soroa),
+Gorriti (Ezkurdia), Lekunberri eta beste hainbat tokitan pilotaren harrobia bizirik mantendu da.
+</p>
+</div>
+
+<div class="lang-es">
+<h2>Cantera y pelotaris por localidades</h2>
+<p>
+La tradición continúa con Ladis Galarza Lizarza, hijo de Galarza III, que también alcanzó el
+profesionalismo. Pero la fuerza de Larraún no depende de un solo nombre: cada pueblo ha aportado
+jugadores. Errazkin (Oreja, Martinikorena), Baraibar (saga Galarza, Goldarazena), Uitzi (Soroa),
+Gorriti (Ezkurdia), Lekunberri y otras localidades han mantenido viva la cantera durante décadas.
+</p>
+</div>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- GALERIA -->
+<!-- ===================================================== -->
+
+<div class="section">
+<h2>Galería histórica</h2>
+
+<div class="gallery">
+<figure>
+<img src="images/foto1.jpg">
+<figcaption>Larraun, campeón de interpueblos en 1986</figcaption>
+</figure>
+
+<figure>
+<img src="images/foto2.jpg">
+<figcaption>Frontón Jaian Jai en 1900</figcaption>
+</figure>
+</div>
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- JAIMERENA -->
+<!-- ===================================================== -->
+
+<div class="section longtext">
+
+<div class="lang-eu">
+<h2>Don Jesús Jaimerena</h2>
+<p>
+Bere idatziek garaiko giroa eta oroitzapenak gordetzen dituzte. Memoria kolektiboaren parte dira.
+</p>
+</div>
+
+<div class="lang-es">
+<h2>Don Jesús Jaimerena</h2>
+<p>
+Sus escritos conservan el ambiente y los recuerdos de aquella época. Más que documentos,
+son memoria viva del valle y de su pasión por la pelota.
+</p>
+</div>
+
+<div class="gallery">
+<figure><img src="images/jaimerena1.jpg"></figure>
+<figure><img src="images/jaimerena2.jpg"></figure>
+</div>
+
+</div>
+
+
+
+<script>
+function setLang(lang){
+ document.querySelectorAll('.lang-eu').forEach(e=>e.style.display=lang==='eu'?'block':'none');
+ document.querySelectorAll('.lang-es').forEach(e=>e.style.display=lang==='es'?'block':'none');
+}
+setLang('eu');
+</script>
+
+</section>
