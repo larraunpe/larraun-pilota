@@ -99,52 +99,75 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILA ================= */
+/* ================= FILA NUEVA (GRID, SIN ABSOLUTE) ================= */
 
 .fila{
-  position:relative;
+  display:grid;
+  grid-template-columns: 45% 10% 45%;
+  align-items:center;
   height:88px;
   border-top:1px solid #ddd;
+  padding:0 10px;
 }
 
-/* ===== zonas laterales enormes ===== */
-
-.zona-local{
-  position:absolute;
-  left:0;
-  top:50%;
-  transform:translateY(-50%);
-  width:42%;
+/* zonas laterales */
+.zona-local,
+.zona-visit{
   display:flex;
   align-items:center;
   gap:14px;
-  padding-left:10px;
+  min-width:0;
+}
+
+.zona-local{
+  justify-content:flex-start;
 }
 
 .zona-visit{
-  position:absolute;
-  right:0;
-  top:50%;
-  transform:translateY(-50%);
-  width:42%;
-  display:flex;
-  align-items:center;
   justify-content:flex-end;
-  gap:14px;
-  padding-right:10px;
   text-align:right;
 }
 
+/* marcador */
+.score{
+  text-align:center;
+  font-size:44px;
+  font-weight:900;
+}
+
+/* logos grandes */
+.logo{
+  width:110px;
+  height:110px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+/* textos */
+.nombre{
+  font-weight:900;
+  font-size:20px;
+  line-height:1.05;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.pelotaris{
+  font-size:9px;
+  color:#666;
+  margin-top:2px;
+  line-height:1.05;
+}
+
+.local .nombre{ color:#0d47a1 }
+.visit .nombre{ color:#b71c1c }
 /* ===== marcador SIEMPRE centro real ===== */
 
 .score{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
   font-size:44px;
   font-weight:900;
-  width:200px;
   text-align:center;
 }
 
