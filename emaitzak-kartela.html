@@ -200,7 +200,7 @@ function filtrar(data){
   const thisMon=monday(today);
   const lastMon=new Date(thisMon);
   lastMon.setDate(thisMon.getDate()-7);
-  const no=quitarDuplicados(filtrar(noOficial));
+  
 
   return data.filter(p=>{
     const f=new Date(p.fecha+"T00:00");
@@ -210,6 +210,7 @@ function filtrar(data){
 /* ================= duplicados ================= */
 function quitarDuplicados(lista){
   const vistos=new Set();
+  const no=quitarDuplicados(filtrar(noOficial));
   return lista.filter(p=>{
     const id =
       p.fecha+"|"+
