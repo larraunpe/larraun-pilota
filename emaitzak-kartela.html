@@ -51,8 +51,8 @@ button{
   height:80px;
 }
 
-.logo-izq{ left:20px }
-.logo-der{ right:20px }
+.logo-izq{left:20px}
+.logo-der{right:20px}
 
 .footer{
   height:40px;
@@ -99,18 +99,23 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILA NUEVA (GRID, SIN ABSOLUTE) ================= */
+/* ================= FILA PARTIDO ================= */
 
 .fila{
   display:grid;
-  grid-template-columns: 45% 10% 45%;
+  grid-template-columns: 44% 12% 44%;
   align-items:center;
-  height:88px;
+  height:90px;
   border-top:1px solid #ddd;
-  padding:0 10px;
+  padding:0 12px;
 }
 
-/* zonas laterales */
+.win{background:#e7f6ea}
+.lose{background:#fdeaea}
+.pending{background:#f3f3f3}
+
+/* zonas */
+
 .zona-local,
 .zona-visit{
   display:flex;
@@ -119,98 +124,53 @@ button{
   min-width:0;
 }
 
-.zona-local{
-  justify-content:flex-start;
-}
+.zona-local{justify-content:flex-start}
+.zona-visit{justify-content:flex-end;text-align:right}
 
-.zona-visit{
-  justify-content:flex-end;
-  text-align:right;
-}
+/* logos extremos */
 
-/* marcador */
-.score{
-  text-align:center;
-  font-size:44px;
-  font-weight:900;
-}
-
-/* logos grandes */
 .logo{
-  width:110px;
-  height:110px;
+  width:78px;
+  height:78px;
   object-fit:contain;
   flex-shrink:0;
 }
 
 /* textos */
+
 .nombre{
   font-weight:900;
   font-size:20px;
   line-height:1.05;
-
+  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  white-space:nowrap;
 }
 
-.pelotaris{
-  font-size:9px;
-  color:#666;
-  margin-top:2px;
-  line-height:1.05;
-}
-
-.local .nombre{ color:#0d47a1 }
-.visit .nombre{ color:#b71c1c }
-/* ===== marcador SIEMPRE centro real ===== */
-
-.score{
-  font-size:44px;
-  font-weight:900;
-  text-align:center;
-}
-
-/* ================= LOGOS ================= */
-
-.logo{
-  width:110px;
-  height:110px;
-  object-fit:contain;
-}
-
-/* ================= TEXTOS ================= */
-
-.nombre{
-  font-weight:900;
-  font-size:20px;
-  line-height:1.05;
-  white-space:nowrap;
-}
-
-.local .nombre{ color:#0d47a1 }
-.visit .nombre{ color:#b71c1c }
+.local .nombre{color:#0d47a1}
+.visit .nombre{color:#b71c1c}
 
 /* pelotaris MUY pequeños */
 .pelotaris{
-  font-size:9px;
-  color:#666;
-  margin-top:2px;
+  font-size:7px;
+  opacity:.7;
   line-height:1.05;
 }
 
-/* marcador colores */
+/* marcador centro real */
+
+.score{
+  text-align:center;
+  font-size:44px;
+  font-weight:900;
+}
+
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
 
 .sets{
   font-size:10px;
 }
-
-/* estado */
-.win{background:#e7f6ea}
-.lose{background:#fdeaea}
-.pending{background:#f3f3f3}
 
 a{color:inherit}
 
@@ -253,15 +213,12 @@ function nombreAlogo(nombre){
 
   if(!nombre) return "";
 
-  let base = nombre.split("(")[0];
-
-  base = base
+  return nombre
+    .split("(")[0]
     .replace(/[.,]/g,"")
     .trim()
     .replace(/\s+/g,"-")
     .toUpperCase();
-
-  return base;
 }
 
 function logoClub(nombre){
@@ -287,7 +244,6 @@ function crearFila(p){
   const [a,b]=(p.tanteoa||"-").split("-");
 
   fila.innerHTML=`
-
     <div class="zona-local local">
       ${logoClub(p.etxekoa)}
       <div>
@@ -359,18 +315,17 @@ function crearSeccion(titulo,data,cont){
 Promise.all([
  fetch("data/resultados-larraun.json").then(r=>r.json()),
  fetch("data/resultados-no-oficiales.json").then(r=>r.json())
-]).then(([larraun,noOficial])=>{
+]).then(([larraun,no])=>{
 
   const cont=nuevaPagina();
 
-  const lar=filtrar(larraun);
-  const no=filtrar(noOficial);
-
-  crearSeccion("NKJ TXAPELKETAK", lar, cont);
-  crearSeccion("BESTE TXAPELKETAK OFIZIALAK", no.filter(p=>p.ofiziala==="bai"), cont);
-  crearSeccion("TXAPELKETAK EZ OFIZIALAK", no.filter(p=>p.ofiziala!=="bai"), cont);
+  crearSeccion("NKJ TXAPELKETAK", filtrar(larraun), cont);
+  crearSeccion("BESTE TXAPELKETAK OFIZIALAK", filtrar(no).filter(p=>p.ofiziala==="bai"), cont);
+  crearSeccion("TXAPELKETAK EZ OFIZIALAK", filtrar(no).filter(p=>p.ofiziala!=="bai"), cont);
 
 });
+
+/* ================= PÁGINA ================= */
 
 function nuevaPagina(){
 
