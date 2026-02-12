@@ -22,7 +22,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= PAGINA ================= */
+/* ================= PAGINA (ALTURA LIBRE) ================= */
 
 .pagina{
   width:900px;
@@ -66,21 +66,18 @@ button{
   padding:6px;
 }
 
-/* ================= FILA PROPORCIONAL ================= */
+/* ================= FILA EXACTA 2-11-4-11-2 ================= */
 
 .fila{
   display:grid;
   grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
   align-items:center;
   border-top:1px solid #ddd;
-  padding:6px 10px;
-  min-height:70px;
+  padding:8px 10px;
+  min-height:72px;
 }
 
-/* evita roturas */
-.fila > *{
-  min-width:0;
-}
+.fila > *{ min-width:0; }
 
 /* ================= LOGOS ================= */
 
@@ -88,40 +85,42 @@ button{
   width:60px;
   height:60px;
   object-fit:contain;
-  flex:0 0 60px;
 }
 
-/* ================= EQUIPOS ================= */
+/* ================= BLOQUES EQUIPO ================= */
 
 .local,.visit{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  white-space:pre-line;   /* respeta saltos */
-  font-size:18px;         /* base del bloque */
+  font-size:20px;
 }
 
-.visit{text-align:right;}
+.visit{ text-align:right; }
 
-.nombre{
+/* PARTE GRANDE (club + pareja) */
+.principal{
   font-weight:900;
-  font-size:1em;          /* tamaño grande */
   line-height:1.1;
 }
 
-.pelotaris{
-  font-size:.5em;         /* EXACTAMENTE la mitad */
+/* PARTE PEQUEÑA (pelotaris) */
+.detalle{
+  font-size:.45em;      /* mitad o menos */
   opacity:.6;
+  white-space:nowrap;   /* UNA sola línea */
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.local .nombre{color:#0d47a1}
-.visit .nombre{color:#b71c1c}
+.local .principal{color:#0d47a1}
+.visit .principal{color:#b71c1c}
 
 /* ================= MARCADOR ================= */
 
 .score{
   text-align:center;
-  font-size:36px;
+  font-size:38px;
   font-weight:900;
 }
 
@@ -139,7 +138,7 @@ button{
 
 <script>
 
-/* ================= LOGO ================= */
+/* ================= LOGOS ================= */
 
 function logoClub(nombre){
 
@@ -152,19 +151,25 @@ function logoClub(nombre){
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
 
-  return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.visibility='hidden'">`;
+  return `<img class="logo" src="images/clubes/${n}.jpg"
+          onerror="this.style.visibility='hidden'">`;
 }
 
-/* ================= BLOQUE EQUIPO ================= */
+/* ================= EQUIPO (SPLIT POR ")") ================= */
 
 function bloqueEquipo(texto, clase){
 
-  const lineas = texto.split(/\r?\n/);
+  if(!texto) return "";
+
+  const partes = texto.split(")");
+
+  const principal = partes[0] + ")";
+  const detalle   = partes.slice(1).join(")").trim();
 
   return `
     <div class="${clase}">
-      <div class="nombre">${lineas[0]}</div>
-      ${lineas[1] ? `<div class="pelotaris">${lineas[1]}</div>` : ""}
+      <div class="principal">${principal}</div>
+      ${detalle ? `<div class="detalle">${detalle}</div>` : ""}
     </div>
   `;
 }
@@ -175,10 +180,10 @@ function crearFila(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
 
-  const f=document.createElement("div");
-  f.className="fila";
+  const fila=document.createElement("div");
+  fila.className="fila";
 
-  f.innerHTML=`
+  fila.innerHTML=`
     ${logoClub(p.etxekoa)}
     ${bloqueEquipo(p.etxekoa,"local")}
     <div class="score"><span class="blue">${a}</span> - <span class="red">${b}</span></div>
@@ -186,64 +191,42 @@ function crearFila(p){
     ${logoClub(p.kanpokoak)}
   `;
 
-  return f;
+  return fila;
 }
 
-/* ================= FILTRO SEMANAS ================= */
-
-function filtrarSemanas(lista){
-
-  const hoy=new Date();
-
-  const day=(hoy.getDay()+6)%7;
-
-  const lunesActual=new Date(hoy);
-  lunesActual.setDate(hoy.getDate()-day);
-
-  const lunesPasado=new Date(lunesActual);
-  lunesPasado.setDate(lunesActual.getDate()-7);
-
-  return lista.filter(p=>{
-    if(!p.fecha) return true;
-    const f=new Date(p.fecha);
-    return f>=lunesPasado && f<=hoy;
-  });
-}
-
-/* ================= CARGA ================= */
+/* ================= CARGAR TODOS (SIN CORTES) ================= */
 
 fetch("data/resultados-larraun.json")
-  .then(r=>r.json())
-  .then(data=>{
+.then(r=>r.json())
+.then(data=>{
 
-    data = filtrarSemanas(data);
+  const pagina=document.createElement("div");
+  pagina.className="pagina";
 
-    const pagina=document.createElement("div");
-    pagina.className="pagina";
+  pagina.innerHTML=`
+    <div class="header">
+      <img src="images/logo-larraun.png" class="logo-izq">
+      <h1>EMAITZAK</h1>
+      <img src="images/logo-fnp.png" class="logo-der">
+    </div>
+    <div class="contenido" id="lista"></div>
+    <div class="footer">Larraun Pilota Elkartea</div>
+  `;
 
-    pagina.innerHTML=`
-      <div class="header">
-        <img src="images/logo-larraun.png" class="logo-izq">
-        <h1>EMAITZAK</h1>
-        <img src="images/logo-fnp.png" class="logo-der">
-      </div>
-      <div class="contenido" id="lista"></div>
-      <div class="footer">Larraun Pilota Elkartea</div>
-    `;
+  contenedor.appendChild(pagina);
 
-    contenedor.appendChild(pagina);
+  const lista=document.getElementById("lista");
 
-    const lista=document.getElementById("lista");
-
-    data.forEach(p=>lista.appendChild(crearFila(p)));
-  });
+  /* muestra TODOS los partidos */
+  data.forEach(p=>lista.appendChild(crearFila(p)));
+});
 
 /* ================= EXPORT ================= */
 
 async function exportar(){
- const c = await html2canvas(document.querySelector(".pagina"),{scale:2,useCORS:true});
+ const canvas = await html2canvas(document.querySelector(".pagina"),{scale:2,useCORS:true});
  const a=document.createElement("a");
- a.href=c.toDataURL("image/jpeg",0.95);
+ a.href=canvas.toDataURL("image/jpeg",0.95);
  a.download="emaitzak.jpg";
  a.click();
 }
