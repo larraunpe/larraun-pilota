@@ -7,9 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-
-/* ================= BASE ================= */
-
 body{
   margin:0;
   font-family:Arial, Helvetica, sans-serif;
@@ -28,15 +25,9 @@ button{
   width:900px;
   margin:auto;
   background:#eef4ff;
-  display:flex;
-  flex-direction:column;
 }
 
-.contenido{
-  padding:8px;
-}
-
-/* ================= HEADER ================= */
+/* ================= HEADER GENERAL ================= */
 
 .header{
   height:110px;
@@ -66,6 +57,8 @@ button{
   font-size:11px;
 }
 
+.contenido{ padding:8px; }
+
 /* ================= BLOQUES ================= */
 
 .titulo{
@@ -74,7 +67,7 @@ button{
   text-align:center;
   font-weight:900;
   padding:6px;
-  margin:10px 0 6px;
+  margin:12px 0 6px;
   border-radius:4px;
 }
 
@@ -86,12 +79,27 @@ button{
   overflow:hidden;
 }
 
-/* fondo resultado */
-.win{ background:#dff5e3; }
-.lose{ background:#f7dddd; }
-.pending{ background:#f1f1f1; }
+/* pelotazos verdes */
+.win{
+  background:
+  radial-gradient(circle at 20% 30%, #45c75a 0 18px, transparent 20px),
+  radial-gradient(circle at 80% 60%, #34a84b 0 18px, transparent 20px),
+  #d8f6df;
+}
 
-/* header partido */
+/* pelotazos rojos */
+.lose{
+  background:
+  radial-gradient(circle at 25% 35%, #e04848 0 18px, transparent 20px),
+  radial-gradient(circle at 75% 65%, #c93232 0 18px, transparent 20px),
+  #f7dede;
+}
+
+.pending{
+  background:#f1f1f1;
+}
+
+/* ================= HEADER PARTIDO ================= */
 
 .partido-header{
   font-size:11px;
@@ -99,10 +107,18 @@ button{
   text-align:center;
   padding:4px;
   color:white;
+  cursor:pointer;
+  text-decoration:none;
 }
 
-.azul{ background:#2f5fd2; }
-.rojo{ background:#b71c1c; }
+.azul{
+  background:#2f5fd2;
+}
+
+/* granate claro */
+.granate{
+  background:#8b2f3d;
+}
 
 /* ================= FILA ================= */
 
@@ -123,6 +139,9 @@ button{
   object-fit:contain;
 }
 
+.fila img:first-child{ justify-self:start; }
+.fila img:last-child{ justify-self:end; }
+
 /* ================= EQUIPOS ================= */
 
 .local,.visit{
@@ -135,15 +154,15 @@ button{
 
 .principal{
   font-weight:900;
-  line-height:1.1;
+  line-height:1.05;
 }
 
 .detalle{
   font-size:.45em;
-  opacity:.6;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  opacity:.65;
 }
 
 .local .principal{color:#0d47a1}
@@ -154,7 +173,7 @@ button{
 .score{
   text-align:center;
   font-weight:900;
-  font-size:32px;
+  font-size:30px; /* reducido para 2 cifras */
   font-variant-numeric:tabular-nums;
   display:flex;
   flex-direction:column;
@@ -180,19 +199,20 @@ button{
 
 <script>
 
-/* ================= FECHAS ================= */
+/* ================= SEMANAS ================= */
 
 function monday(d){
   const x=new Date(d);
   const day=x.getDay()||7;
   if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
   return x;
 }
 
 function filtrarSemanas(data){
 
   const today=new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(23,59,59,999);
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon);
@@ -202,6 +222,12 @@ function filtrarSemanas(data){
     const f=new Date(p.fecha+"T00:00");
     return f>=lastMon && f<=today;
   });
+}
+
+/* ================= OFICIAL ================= */
+
+function esOficial(v){
+  return v===true || v==="true" || v==="bai" || v==="BAI" || v===1;
 }
 
 /* ================= UTIL ================= */
@@ -225,7 +251,7 @@ function logoClub(nombre){
           onerror="this.style.visibility='hidden'">`;
 }
 
-/* salto automático tras ")" */
+/* salto tras ) */
 function bloqueEquipo(texto,clase){
 
   const partes=texto.split(")");
@@ -240,21 +266,17 @@ function bloqueEquipo(texto,clase){
   `;
 }
 
-/* ================= RESULTADO COLOR ================= */
+/* ================= RESULTADO ================= */
 
 function estadoResultado(p){
 
   if(!p.tanteoa) return "pending";
 
   const [a,b]=p.tanteoa.split("-").map(Number);
-
   const larraunLocal=p.etxekoa.toUpperCase().includes("LARRAUN");
 
-  if(larraunLocal){
-    return a>b ? "win":"lose";
-  }else{
-    return b>a ? "win":"lose";
-  }
+  if(larraunLocal) return a>b?"win":"lose";
+  return b>a?"win":"lose";
 }
 
 /* ================= PARTIDO ================= */
@@ -262,57 +284,50 @@ function estadoResultado(p){
 function crearPartido(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
-
   const estado=estadoResultado(p);
 
   const fronton=(p.fronton||"").toLowerCase();
+  const color=(fronton.includes("lekunberri")||fronton.includes("aldaz"))?"azul":"granate";
 
-  const color=
-    fronton.includes("lekunberri")||
-    fronton.includes("aldaz")
-      ?"azul":"rojo";
+  const url=p.url || "#";
 
   return `
-    <div class="partido ${estado}">
-      <div class="partido-header ${color}">
-        ${p.fecha} · ${p.fronton} · ${p.modalidad}
-      </div>
+  <div class="partido ${estado}">
+    <a href="${url}" target="_blank" class="partido-header ${color}">
+      ${p.fecha} · ${p.fronton} · ${p.modalidad}
+    </a>
 
-      <div class="fila">
+    <div class="fila">
 
-        ${logoClub(p.etxekoa)}
-        ${bloqueEquipo(p.etxekoa,"local")}
+      ${logoClub(p.etxekoa)}
+      ${bloqueEquipo(p.etxekoa,"local")}
 
-        <div class="score">
-          <div>
-            <span class="blue">${a||""}</span> -
-            <span class="red">${b||""}</span>
-          </div>
-          ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+      <div class="score">
+        <div>
+          <span class="blue">${a||""}</span> -
+          <span class="red">${b||""}</span>
         </div>
-
-        ${bloqueEquipo(p.kanpokoak,"visit")}
-        ${logoClub(p.kanpokoak)}
-
+        ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
       </div>
+
+      ${bloqueEquipo(p.kanpokoak,"visit")}
+      ${logoClub(p.kanpokoak)}
+
     </div>
-  `;
+  </div>`;
 }
 
 /* ================= SECCION ================= */
 
-function crearSeccion(titulo,data,contenedor){
+function crearSeccion(titulo,data,lista){
 
   if(!data.length) return;
 
-  const h=document.createElement("div");
-  h.className="titulo";
-  h.textContent=titulo;
-  contenedor.appendChild(h);
+  lista.insertAdjacentHTML("beforeend",`<div class="titulo">${titulo}</div>`);
 
-  data.forEach(p=>{
-    contenedor.insertAdjacentHTML("beforeend",crearPartido(p));
-  });
+  data
+   .sort((a,b)=>new Date(b.fecha)-new Date(a.fecha))
+   .forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
 }
 
 /* ================= CARGA ================= */
@@ -339,20 +354,19 @@ Promise.all([
 
   const lista=document.getElementById("lista");
 
-  crearSeccion("NKJ EMAITZAK",
-    filtrarSemanas(larraun),
+  crearSeccion("NKJ EMAITZAK", filtrarSemanas(larraun), lista);
+
+  crearSeccion(
+    "BESTE TXAPELKETAK OFIZIALAK",
+    filtrarSemanas(no.filter(p=>esOficial(p.ofiziala))),
     lista
   );
 
-  crearSeccion("BESTE TXAPELKETAK OFIZIALAK",
-    filtrarSemanas(no.filter(p=>p.ofiziala==="bai"||p.ofiziala===true)),
+  crearSeccion(
+    "TXAPELKETAK EZ OFIZIALAK",
+    filtrarSemanas(no.filter(p=>!esOficial(p.ofiziala))),
     lista
   );
-
-  crearSeccion("TXAPELKETAK EZ OFIZIALAK",
-    filtrarSemanas(no.filter(p=>!(p.ofiziala==="bai"||p.ofiziala===true)),
-    lista
-  ));
 });
 
 /* ================= EXPORT ================= */
