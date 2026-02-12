@@ -7,7 +7,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-<!-- ================= FUENTES SCOREBOARD ================= -->
+<!-- FUENTES -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
@@ -33,7 +33,7 @@ button{
   background:#eef4ff;
 }
 
-/* ================= HEADER PRINCIPAL ================= */
+/* ================= HEADER ================= */
 
 .header{
   height:115px;
@@ -43,45 +43,28 @@ button{
   align-items:center;
   justify-content:center;
   position:relative;
-
-  /* pixel LCD */
   font-family:'Press Start 2P', monospace;
   font-size:18px;
-  letter-spacing:2px;
 }
 
 .header img{
   position:absolute;
   height:80px;
 }
-
 .logo-izq{left:20px}
 .logo-der{right:20px}
 
-/* ================= FOOTER ================= */
-
-.footer{
-  height:40px;
-  background:#222;
-  color:#eee;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-}
-
-/* ================= BLOQUES ================= */
+/* ================= TITULOS BLOQUE ================= */
 
 .titulo{
-  font-family:'Orbitron', sans-serif;
+  font-family:'Orbitron';
   font-size:18px;
   font-weight:800;
   background:#111;
-  color:#fff;
+  color:white;
   text-align:center;
   padding:6px;
-  margin:14px 0 6px;
-  letter-spacing:1px;
+  margin:16px 0 8px;
 }
 
 /* ================= PARTIDO ================= */
@@ -92,35 +75,24 @@ button{
   overflow:hidden;
 }
 
-/* ===== pelotazos verdes (20 pequeños) ===== */
+/* ========= PELOTAS VERDES (40 pequeñas) ========= */
 .win{
   background:
-  radial-gradient(circle 10px at 10% 20%, #42d65a, transparent 11px),
-  radial-gradient(circle 8px  at 20% 70%, #34c653, transparent 9px),
-  radial-gradient(circle 12px at 30% 40%, #3fd15d, transparent 13px),
-  radial-gradient(circle 9px  at 40% 80%, #39c457, transparent 10px),
-  radial-gradient(circle 10px at 50% 30%, #33b94c, transparent 11px),
-  radial-gradient(circle 11px at 60% 60%, #3acb58, transparent 12px),
-  radial-gradient(circle 9px  at 70% 15%, #36c152, transparent 10px),
-  radial-gradient(circle 8px  at 80% 45%, #42d65a, transparent 9px),
-  radial-gradient(circle 10px at 90% 75%, #3bd35a, transparent 11px),
-  #e7faec;
+  repeating-radial-gradient(circle at 10% 20%, #3bd35a 0 4px, transparent 5px 40px),
+  repeating-radial-gradient(circle at 60% 60%, #34c653 0 3px, transparent 4px 35px),
+  #e9fbef;
 }
 
-/* ===== pelotazos rojos suaves ===== */
+/* ========= PELOTAS ROJAS CLARAS ========= */
 .lose{
   background:
-  radial-gradient(circle 10px at 12% 25%, #ff9a9a, transparent 11px),
-  radial-gradient(circle 9px  at 25% 70%, #ff8d8d, transparent 10px),
-  radial-gradient(circle 12px at 40% 45%, #ff9f9f, transparent 13px),
-  radial-gradient(circle 8px  at 55% 80%, #ff8a8a, transparent 9px),
-  radial-gradient(circle 10px at 70% 35%, #ff9494, transparent 11px),
-  radial-gradient(circle 9px  at 85% 60%, #ff8d8d, transparent 10px),
-  #ffeaea;
+  repeating-radial-gradient(circle at 20% 30%, #ffb3b3 0 4px, transparent 5px 40px),
+  repeating-radial-gradient(circle at 70% 70%, #ff9d9d 0 3px, transparent 4px 35px),
+  #fff0f0;
 }
 
 .pending{
-  background:#f2f2f2;
+  background:#f3f3f3;
 }
 
 /* ================= HEADER PARTIDO ================= */
@@ -160,11 +132,16 @@ button{
 .fila img:first-child{justify-self:start}
 .fila img:last-child{justify-self:end}
 
-/* ================= EQUIPOS ================= */
+/* ================= EQUIPOS (DOT MATRIX STYLE) ================= */
 
 .local,.visit{
   display:flex;
   flex-direction:column;
+
+  /* efecto dot matrix */
+  font-family:'Courier New', monospace;
+  letter-spacing:1px;
+
   font-size:20px;
 }
 
@@ -172,15 +149,14 @@ button{
 
 .principal{
   font-weight:900;
-  line-height:1.05;
 }
 
 .detalle{
   font-size:.45em;
+  opacity:.65;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  opacity:.65;
 }
 
 .local .principal{color:#0d47a1}
@@ -190,8 +166,8 @@ button{
 
 .score{
   text-align:center;
-  font-family:'Share Tech Mono', monospace; /* estilo DS-digital */
-  font-size:34px;
+  font-family:'Share Tech Mono', monospace;
+  font-size:30px;
   font-weight:900;
   letter-spacing:2px;
   display:flex;
@@ -207,6 +183,36 @@ button{
 
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
+
+/* ================= PATROCINADORES ================= */
+
+.patrocinio{
+  margin-top:40px;
+  padding:20px 10px 30px;
+  background:#ffffff;
+  border-top:3px solid #222;
+}
+
+.patrocinio h3{
+  text-align:center;
+  font-family:'Orbitron';
+  margin-bottom:16px;
+}
+
+.sponsors{
+  display:grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap:12px;
+  align-items:center;
+  justify-items:center;
+}
+
+.sponsors img{
+  max-width:70px;
+  max-height:45px;
+  object-fit:contain;
+  opacity:.9;
+}
 
 </style>
 </head>
@@ -240,26 +246,6 @@ function filtrarSemanas(data){
   });
 }
 
-/* ================= ORDEN ================= */
-
-function ordenar(lista){
-
-  return lista.sort((a,b)=>{
-
-    const pa=!a.tanteoa;
-    const pb=!b.tanteoa;
-
-    if(pa!==pb) return pa?1:-1; // pendientes al final
-
-    const da=new Date(a.fecha+" "+(a.hora||"00:00"));
-    const db=new Date(b.fecha+" "+(b.hora||"00:00"));
-
-    if(da-db!==0) return da-db;
-
-    return (a.fronton||"").localeCompare(b.fronton||"");
-  });
-}
-
 /* ================= UTIL ================= */
 
 function normalizar(n){
@@ -287,11 +273,8 @@ function bloqueEquipo(texto,clase){
 
 function estado(p){
   if(!p.tanteoa) return "pending";
-
   const [a,b]=p.tanteoa.split("-").map(Number);
-  const larraunLocal=p.etxekoa.toUpperCase().includes("LARRAUN");
-
-  return larraunLocal ? (a>b?"win":"lose") : (b>a?"win":"lose");
+  return p.etxekoa.includes("LARRAUN") ? (a>b?"win":"lose") : (b>a?"win":"lose");
 }
 
 /* ================= PARTIDO ================= */
@@ -315,7 +298,7 @@ function crearPartido(p){
       ${bloqueEquipo(p.etxekoa,"local")}
 
       <div class="score">
-        <div><span class="blue">${a||""}</span> - <span class="red">${b||""}</span></div>
+        <div><span class="blue">${a||""}</span> <span class="red">${b||""}</span></div>
         ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
       </div>
 
@@ -331,10 +314,29 @@ function crearSeccion(titulo,data,lista){
   if(!data.length) return;
 
   lista.insertAdjacentHTML("beforeend",`<div class="titulo">${titulo}</div>`);
+  data.forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
+}
 
-  ordenar(data).forEach(p=>{
-    lista.insertAdjacentHTML("beforeend",crearPartido(p));
+/* ================= PATROCINADORES ================= */
+
+function cargarPatrocinadores(){
+
+  const archivos=[
+    "aliprox.jpg",
+    "arbeondo.jpg",
+    "barilargi.jpg"
+  ];
+
+  let html=`<div class="patrocinio">
+  <h3>PATROCINATZAILEAK</h3>
+  <div class="sponsors">`;
+
+  archivos.forEach(a=>{
+    html+=`<img src="images/patrocinio/${a}">`;
   });
+
+  html+="</div></div>";
+  return html;
 }
 
 /* ================= CARGA ================= */
@@ -348,13 +350,14 @@ Promise.all([
   pagina.className="pagina";
 
   pagina.innerHTML=`
-  <div class="header">
-    <img src="images/logo-larraun.png" class="logo-izq">
-    EMAITZAK - LARRAUN PILOTA ELKARTEA
-    <img src="images/logo-fnp.png" class="logo-der">
-  </div>
-  <div id="lista"></div>
-  <div class="footer">Larraun Pilota Elkartea</div>
+    <div class="header">
+      <img src="images/logo-larraun.png" class="logo-izq">
+      EMAITZAK - LARRAUN PILOTA ELKARTEA
+      <img src="images/logo-fnp.png" class="logo-der">
+    </div>
+    <div id="lista"></div>
+    ${cargarPatrocinadores()}
+    <div class="footer">Larraun Pilota Elkartea</div>
   `;
 
   contenedor.appendChild(pagina);
