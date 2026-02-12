@@ -8,8 +8,6 @@
 
 <style>
 
-/* ================= BASE ================= */
-
 body{
   margin:0;
   font-family:Arial, Helvetica, sans-serif;
@@ -19,27 +17,26 @@ body{
 button{
   padding:10px 18px;
   font-weight:bold;
-  cursor:pointer;
   margin:18px;
+  cursor:pointer;
 }
 
-/* ================= PÁGINA ================= */
+/* ================= PAGINA ================= */
 
 .pagina{
   width:900px;
   height:1270px;
-  margin:20px auto;
+  margin:auto;
   background:#eef4ff;
   display:flex;
   flex-direction:column;
-  box-shadow:0 0 18px rgba(0,0,0,.35);
   overflow:hidden;
 }
 
 .header{
   height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -57,7 +54,7 @@ button{
 .footer{
   height:40px;
   background:#444;
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -66,7 +63,7 @@ button{
 
 .contenido{
   flex:1;
-  padding:6px 10px;
+  padding:6px;
   overflow:hidden;
 }
 
@@ -75,15 +72,15 @@ button{
 .titulo-seccion{
   background:#222;
   color:#fff;
+  text-align:center;
   font-size:13px;
   font-weight:900;
   padding:4px;
-  margin:6px 0 3px;
-  text-align:center;
+  margin:6px 0;
 }
 
 .grupo{
-  background:#fff;
+  background:white;
   border-radius:8px;
   overflow:hidden;
   margin-bottom:6px;
@@ -99,49 +96,41 @@ button{
 .azul{background:#dbe7ff;color:#0d47a1}
 .rojo{background:#ffe0e0;color:#b71c1c}
 
-/* ================= FILA PARTIDO ================= */
+/* ================= FILA ================= */
 
 .fila{
   display:grid;
-  grid-template-columns: 44% 12% 44%;
+  grid-template-columns: 1fr 150px 1fr;
   align-items:center;
-  height:90px;
-  border-top:1px solid #ddd;
-  padding:0 12px;
+  height:95px;
+  padding:0 6px;
 }
-
-.win{background:#e7f6ea}
-.lose{background:#fdeaea}
-.pending{background:#f3f3f3}
-
-/* zonas */
 
 .zona-local,
 .zona-visit{
   display:flex;
   align-items:center;
-  gap:14px;
-  min-width:0;
+  gap:12px;
 }
 
-.zona-local{justify-content:flex-start}
-.zona-visit{justify-content:flex-end;text-align:right}
+.zona-local{
+  justify-content:flex-start;
+}
 
-/* logos extremos */
+.zona-visit{
+  justify-content:flex-end;
+  text-align:right;
+}
 
 .logo{
-  width:78px;
-  height:78px;
+  width:90px;
+  height:90px;
   object-fit:contain;
-  flex-shrink:0;
 }
-
-/* textos */
 
 .nombre{
   font-weight:900;
-  font-size:20px;
-  line-height:1.05;
+  font-size:22px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -150,18 +139,14 @@ button{
 .local .nombre{color:#0d47a1}
 .visit .nombre{color:#b71c1c}
 
-/* pelotaris MUY pequeños */
 .pelotaris{
-  font-size:7px;
-  opacity:.7;
-  line-height:1.05;
+  font-size:9px;
+  opacity:.6;
 }
-
-/* marcador centro real */
 
 .score{
   text-align:center;
-  font-size:44px;
+  font-size:46px;
   font-weight:900;
 }
 
@@ -171,8 +156,6 @@ button{
 .sets{
   font-size:10px;
 }
-
-a{color:inherit}
 
 </style>
 </head>
@@ -200,17 +183,17 @@ function filtrar(data){
   const thisMon=monday(today);
   const lastMon=new Date(thisMon);
   lastMon.setDate(thisMon.getDate()-7);
-  
 
   return data.filter(p=>{
     const f=new Date(p.fecha+"T00:00");
     return f>=lastMon && f<=today;
   });
 }
-/* ================= duplicados ================= */
+
+/* ================= DEDUPLICADO (FIX) ================= */
+
 function quitarDuplicados(lista){
   const vistos=new Set();
-  const no=quitarDuplicados(filtrar(noOficial));
   return lista.filter(p=>{
     const id =
       p.fecha+"|"+
@@ -226,13 +209,9 @@ function quitarDuplicados(lista){
   });
 }
 
-  
-/* ================= NOMBRE → LOGO ================= */
+/* ================= LOGOS ================= */
 
-function nombreAlogo(nombre){
-
-  if(!nombre) return "";
-
+function normalizar(nombre){
   return nombre
     .split("(")[0]
     .replace(/[.,]/g,"")
@@ -243,25 +222,22 @@ function nombreAlogo(nombre){
 
 function logoClub(nombre){
 
-  const n = nombreAlogo(nombre);
+  const n=normalizar(nombre);
 
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
 
-  return `<img class="logo" src="images/clubes/${n}.jpg"
-          onerror="this.style.display='none'">`;
+  return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.display='none'">`;
 }
 
 /* ================= FILA ================= */
 
 function crearFila(p){
 
-  const fila=document.createElement("div");
-
-  const estado=(p.emaitza||"").toLowerCase();
-  fila.className="fila "+(!estado?"pending":estado==="irabazita"?"win":"lose");
-
   const [a,b]=(p.tanteoa||"-").split("-");
+
+  const fila=document.createElement("div");
+  fila.className="fila";
 
   fila.innerHTML=`
     <div class="zona-local local">
@@ -301,33 +277,12 @@ function crearSeccion(titulo,data,cont){
   t.textContent=titulo;
   cont.appendChild(t);
 
-  const grupos={};
+  const g=document.createElement("div");
+  g.className="grupo";
 
-  data.forEach(p=>{
-    const key=p.fecha+"|"+p.fronton+"|"+p.modalidad;
-    if(!grupos[key]) grupos[key]=[];
-    grupos[key].push(p);
-  });
+  quitarDuplicados(data).forEach(p=>g.appendChild(crearFila(p)));
 
-  Object.values(grupos).forEach(partidos=>{
-
-    const p0=partidos[0];
-
-    const g=document.createElement("div");
-    g.className="grupo";
-
-    const link=p0.url?`<a href="${p0.url}" target="_blank">${p0.modalidad}</a>`:p0.modalidad;
-
-    g.innerHTML=`
-      <div class="grupo-header ${p0.etxekoa.includes("LARRAUN")?'azul':'rojo'}">
-        ${p0.fronton} · ${p0.fecha} · ${link}
-      </div>
-    `;
-
-    partidos.forEach(p=>g.appendChild(crearFila(p)));
-
-    cont.appendChild(g);
-  });
+  cont.appendChild(g);
 }
 
 /* ================= CARGA ================= */
@@ -339,16 +294,15 @@ Promise.all([
 
   const cont=nuevaPagina();
 
-  crearSeccion("NKJ TXAPELKETAK", quitarDuplicados(filtrar(larraun)), cont);
+  crearSeccion("NKJ TXAPELKETAK", filtrar(larraun), cont);
   crearSeccion("BESTE TXAPELKETAK OFIZIALAK", filtrar(no).filter(p=>p.ofiziala==="bai"), cont);
   crearSeccion("TXAPELKETAK EZ OFIZIALAK", filtrar(no).filter(p=>p.ofiziala!=="bai"), cont);
 
 });
 
-/* ================= PÁGINA ================= */
+/* ================= PAGINA ================= */
 
 function nuevaPagina(){
-
   const p=document.createElement("div");
   p.className="pagina";
 
@@ -367,7 +321,7 @@ function nuevaPagina(){
   return p.querySelector(".contenido");
 }
 
-/* ================= EXPORTAR ================= */
+/* ================= EXPORT ================= */
 
 async function exportar(){
  const p=document.querySelector(".pagina");
