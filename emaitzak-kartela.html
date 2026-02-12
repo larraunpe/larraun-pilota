@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <title>Larraun – Emaitzak</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -22,7 +22,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= PAGINA (ALTURA LIBRE) ================= */
+/* ================= PAGINA ALTURA LIBRE ================= */
 
 .pagina{
   width:900px;
@@ -32,12 +32,16 @@ button{
   flex-direction:column;
 }
 
-/* ================= HEADER ================= */
+.contenido{
+  padding:8px;
+}
+
+/* ================= HEADER GENERAL ================= */
 
 .header{
   height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -55,26 +59,41 @@ button{
 .footer{
   height:40px;
   background:#444;
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:11px;
 }
 
-.contenido{
-  padding:6px;
+/* ================= CABECERA PARTIDO ================= */
+
+.partido{
+  margin-bottom:6px;
+  border-radius:6px;
+  overflow:hidden;
+  background:white;
 }
 
-/* ================= FILA EXACTA 2-11-4-11-2 ================= */
+.partido-header{
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+  padding:4px;
+  color:white;
+}
+
+.azul{ background:#2f5fd2; }
+.rojo{ background:#b71c1c; }
+
+/* ================= FILA 2-11-4-11-2 ================= */
 
 .fila{
   display:grid;
   grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
   align-items:center;
-  border-top:1px solid #ddd;
   padding:8px 10px;
-  min-height:72px;
+  border-top:1px solid #ddd;
 }
 
 .fila > *{ min-width:0; }
@@ -87,28 +106,25 @@ button{
   object-fit:contain;
 }
 
-/* ================= BLOQUES EQUIPO ================= */
+/* ================= EQUIPOS ================= */
 
 .local,.visit{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   font-size:20px;
 }
 
 .visit{ text-align:right; }
 
-/* PARTE GRANDE (club + pareja) */
 .principal{
   font-weight:900;
   line-height:1.1;
 }
 
-/* PARTE PEQUEÑA (pelotaris) */
 .detalle{
-  font-size:.45em;      /* mitad o menos */
+  font-size:.45em;
   opacity:.6;
-  white-space:nowrap;   /* UNA sola línea */
+  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
@@ -116,12 +132,23 @@ button{
 .local .principal{color:#0d47a1}
 .visit .principal{color:#b71c1c}
 
-/* ================= MARCADOR ================= */
+/* ================= MARCADOR (FIX DOS CIFRAS) ================= */
 
 .score{
   text-align:center;
-  font-size:38px;
   font-weight:900;
+  font-size:32px; /* ↓ más pequeño */
+  font-variant-numeric: tabular-nums; /* ancho fijo números */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  line-height:1.05;
+}
+
+.sets{
+  font-size:.33em; /* triple más pequeño */
+  opacity:.7;
+  margin-top:2px;
 }
 
 .blue{color:#0d47a1}
@@ -138,15 +165,19 @@ button{
 
 <script>
 
-/* ================= LOGOS ================= */
+/* ================= UTIL ================= */
 
-function logoClub(nombre){
-
-  const n = nombre.split("(")[0]
+function normalizar(nombre){
+  return nombre.split("(")[0]
     .replace(/[.,]/g,"")
     .trim()
     .replace(/\s+/g,"-")
     .toUpperCase();
+}
+
+function logoClub(nombre){
+
+  const n=normalizar(nombre);
 
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
@@ -155,21 +186,19 @@ function logoClub(nombre){
           onerror="this.style.visibility='hidden'">`;
 }
 
-/* ================= EQUIPO (SPLIT POR ")") ================= */
+/* ===== split automático tras ")" ===== */
 
-function bloqueEquipo(texto, clase){
+function bloqueEquipo(texto,clase){
 
-  if(!texto) return "";
+  const partes=texto.split(")");
 
-  const partes = texto.split(")");
-
-  const principal = partes[0] + ")";
-  const detalle   = partes.slice(1).join(")").trim();
+  const principal=partes[0]+")";
+  const detalle=partes.slice(1).join(")").trim();
 
   return `
     <div class="${clase}">
       <div class="principal">${principal}</div>
-      ${detalle ? `<div class="detalle">${detalle}</div>` : ""}
+      ${detalle?`<div class="detalle">${detalle}</div>`:""}
     </div>
   `;
 }
@@ -180,21 +209,48 @@ function crearFila(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
 
-  const fila=document.createElement("div");
-  fila.className="fila";
+  return `
+    <div class="fila">
+      ${logoClub(p.etxekoa)}
+      ${bloqueEquipo(p.etxekoa,"local")}
 
-  fila.innerHTML=`
-    ${logoClub(p.etxekoa)}
-    ${bloqueEquipo(p.etxekoa,"local")}
-    <div class="score"><span class="blue">${a}</span> - <span class="red">${b}</span></div>
-    ${bloqueEquipo(p.kanpokoak,"visit")}
-    ${logoClub(p.kanpokoak)}
+      <div class="score">
+        <div>
+          <span class="blue">${a}</span> -
+          <span class="red">${b}</span>
+        </div>
+        ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+      </div>
+
+      ${bloqueEquipo(p.kanpokoak,"visit")}
+      ${logoClub(p.kanpokoak)}
+    </div>
   `;
-
-  return fila;
 }
 
-/* ================= CARGAR TODOS (SIN CORTES) ================= */
+/* ================= PARTIDO COMPLETO ================= */
+
+function crearPartido(p){
+
+  const fronton=(p.fronton||"").toLowerCase();
+
+  const color =
+    fronton.includes("lekunberri") ||
+    fronton.includes("aldaz")
+      ? "azul"
+      : "rojo";
+
+  return `
+    <div class="partido">
+      <div class="partido-header ${color}">
+        ${p.fecha} · ${p.fronton} · ${p.modalidad}
+      </div>
+      ${crearFila(p)}
+    </div>
+  `;
+}
+
+/* ================= CARGA ================= */
 
 fetch("data/resultados-larraun.json")
 .then(r=>r.json())
@@ -217,14 +273,15 @@ fetch("data/resultados-larraun.json")
 
   const lista=document.getElementById("lista");
 
-  /* muestra TODOS los partidos */
-  data.forEach(p=>lista.appendChild(crearFila(p)));
+  data.forEach(p=>{
+    lista.insertAdjacentHTML("beforeend",crearPartido(p));
+  });
 });
 
 /* ================= EXPORT ================= */
 
 async function exportar(){
- const canvas = await html2canvas(document.querySelector(".pagina"),{scale:2,useCORS:true});
+ const canvas=await html2canvas(document.querySelector(".pagina"),{scale:2,useCORS:true});
  const a=document.createElement("a");
  a.href=canvas.toDataURL("image/jpeg",0.95);
  a.download="emaitzak.jpg";
