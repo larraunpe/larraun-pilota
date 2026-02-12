@@ -193,6 +193,24 @@ function logoClub(nombre){
           onerror="this.style.display='none'">`;
 }
 
+function bloqueEquipo(texto, clase){
+
+  if(!texto) return "";
+
+  const lineas = texto.split(/\r?\n/);
+
+  const principal = lineas[0];
+  const detalle   = lineas[1] || "";
+
+  return `
+    <div class="${clase}">
+      <div class="nombre">${principal}</div>
+      ${detalle ? `<div class="pelotaris">${detalle}</div>` : ""}
+    </div>
+  `;
+}
+
+
 function crearFila(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
@@ -203,20 +221,14 @@ function crearFila(p){
   fila.innerHTML=`
     ${logoClub(p.etxekoa)}
 
-    <div class="local">
-      <div class="nombre">${p.etxekoa}</div>
-      ${p.pelotaris_local?`<div class="pelotaris">${p.pelotaris_local}</div>`:""}
-    </div>
+    ${bloqueEquipo(p.etxekoa,"local")}
 
     <div class="score">
       <span class="blue">${a}</span> -
       <span class="red">${b}</span>
     </div>
 
-    <div class="visit">
-      <div class="nombre">${p.kanpokoak}</div>
-      ${p.pelotaris_visit?`<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
-    </div>
+    ${bloqueEquipo(p.kanpokoak,"visit")}
 
     ${logoClub(p.kanpokoak)}
   `;
