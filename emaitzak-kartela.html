@@ -16,16 +16,20 @@ body{
   background:#184d33;
 }
 
+button{
+  margin:18px;
+  padding:10px 18px;
+  cursor:pointer;
+}
+
 /* ================= PAGINA ================= */
 
 .pagina{
   width:900px;
-  height:1270px;
   margin:auto;
   background:#eef4ff;
   display:flex;
   flex-direction:column;
-  overflow:hidden;
 }
 
 /* ================= HEADER ================= */
@@ -33,7 +37,7 @@ body{
 .header{
   height:110px;
   background:linear-gradient(#3d6fe6,#2448b5);
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -51,7 +55,7 @@ body{
 .footer{
   height:40px;
   background:#444;
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -59,20 +63,23 @@ body{
 }
 
 .contenido{
-  flex:1;
   padding:6px;
-  overflow:hidden;
 }
 
-/* ================= FILA (PROPORCION EXACTA) ================= */
+/* ================= FILA PROPORCIONAL ================= */
 
 .fila{
   display:grid;
   grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
   align-items:center;
-  height:82px;
   border-top:1px solid #ddd;
-  padding:0 10px;
+  padding:6px 10px;
+  min-height:70px;
+}
+
+/* evita roturas */
+.fila > *{
+  min-width:0;
 }
 
 /* ================= LOGOS ================= */
@@ -81,47 +88,45 @@ body{
   width:60px;
   height:60px;
   object-fit:contain;
+  flex:0 0 60px;
 }
-
-.fila img:first-child{justify-self:start;}
-.fila img:last-child{justify-self:end;}
 
 /* ================= EQUIPOS ================= */
 
-.local, .visit{
-  min-width:0;
+.local,.visit{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  white-space:pre-line;   /* ← RESPETA LOS SALTOS */
+  white-space:pre-line;   /* respeta saltos */
+  font-size:18px;         /* base del bloque */
 }
 
 .visit{text-align:right;}
 
 .nombre{
   font-weight:900;
-  font-size:1.15vw;   /* ← AUTOESCALA según ancho */
+  font-size:1em;          /* tamaño grande */
   line-height:1.1;
 }
 
-.local .nombre{color:#0d47a1;}
-.visit .nombre{color:#b71c1c;}
-
 .pelotaris{
-  font-size:.65vw;   /* mitad tamaño real */
+  font-size:.5em;         /* EXACTAMENTE la mitad */
   opacity:.6;
 }
+
+.local .nombre{color:#0d47a1}
+.visit .nombre{color:#b71c1c}
 
 /* ================= MARCADOR ================= */
 
 .score{
   text-align:center;
-  font-size:2.8vw;
+  font-size:36px;
   font-weight:900;
 }
 
-.blue{color:#0d47a1;}
-.red{color:#b71c1c;}
+.blue{color:#0d47a1}
+.red{color:#b71c1c}
 
 </style>
 </head>
@@ -129,6 +134,7 @@ body{
 <body>
 
 <button onclick="exportar()">📸 DESKARGATU JPG</button>
+
 <div id="contenedor"></div>
 
 <script>
@@ -136,6 +142,7 @@ body{
 /* ================= LOGO ================= */
 
 function logoClub(nombre){
+
   const n = nombre.split("(")[0]
     .replace(/[.,]/g,"")
     .trim()
@@ -145,22 +152,19 @@ function logoClub(nombre){
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
 
-  return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.display='none'">`;
+  return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.visibility='hidden'">`;
 }
 
-/* ================= EQUIPO ================= */
+/* ================= BLOQUE EQUIPO ================= */
 
 function bloqueEquipo(texto, clase){
 
   const lineas = texto.split(/\r?\n/);
 
-  const principal = lineas[0];
-  const detalle = lineas[1] || "";
-
   return `
     <div class="${clase}">
-      <div class="nombre">${principal}</div>
-      ${detalle ? `<div class="pelotaris">${detalle}</div>` : ""}
+      <div class="nombre">${lineas[0]}</div>
+      ${lineas[1] ? `<div class="pelotaris">${lineas[1]}</div>` : ""}
     </div>
   `;
 }
@@ -171,10 +175,10 @@ function crearFila(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
 
-  const fila=document.createElement("div");
-  fila.className="fila";
+  const f=document.createElement("div");
+  f.className="fila";
 
-  fila.innerHTML=`
+  f.innerHTML=`
     ${logoClub(p.etxekoa)}
     ${bloqueEquipo(p.etxekoa,"local")}
     <div class="score"><span class="blue">${a}</span> - <span class="red">${b}</span></div>
@@ -182,28 +186,27 @@ function crearFila(p){
     ${logoClub(p.kanpokoak)}
   `;
 
-  return fila;
+  return f;
 }
 
 /* ================= FILTRO SEMANAS ================= */
 
-function filtrarSemanas(partidos){
+function filtrarSemanas(lista){
 
-  const hoy = new Date();
+  const hoy=new Date();
 
-  const diaSemana = (hoy.getDay()+6)%7; // lunes=0
+  const day=(hoy.getDay()+6)%7;
 
-  const lunesActual = new Date(hoy);
-  lunesActual.setDate(hoy.getDate() - diaSemana);
+  const lunesActual=new Date(hoy);
+  lunesActual.setDate(hoy.getDate()-day);
 
-  const lunesPasado = new Date(lunesActual);
-  lunesPasado.setDate(lunesActual.getDate() - 7);
+  const lunesPasado=new Date(lunesActual);
+  lunesPasado.setDate(lunesActual.getDate()-7);
 
-  return partidos.filter(p=>{
+  return lista.filter(p=>{
     if(!p.fecha) return true;
-
-    const f = new Date(p.fecha);
-    return f >= lunesPasado && f <= hoy;
+    const f=new Date(p.fecha);
+    return f>=lunesPasado && f<=hoy;
   });
 }
 
