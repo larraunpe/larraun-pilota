@@ -95,40 +95,39 @@ button{
 .fila{
   display:grid;
 
-  /* proporción 2-11-4-11-2 con fr (mucho más estable) */
-  grid-template-columns:
-    60px      /* logo */
-    11fr      /* etxekoa */
-    4fr       /* tanteoa */
-    11fr      /* kanpokoak */
-    60px;     /* logo */
+  /* proporción EXACTA 2-11-4-11-2 */
+  grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
 
   align-items:center;
-  height:90px;
-  padding:0 8px;
+
+  height:86px;
+  padding:0 12px;
+
   border-top:1px solid #ddd;
 }
 
-/* IMPORTANTÍSIMO para que NO se rompa */
-.fila > *{
-  min-width:0;
-}
 
 /* ================= LOGOS ================= */
 
 .logo{
-  width:56px;
-  height:56px;
+  width:64px;
+  height:64px;
   object-fit:contain;
-  justify-self:center;
+}
+
+.fila img:first-child{
+  justify-self:start;   /* izquierda total */
+}
+
+.fila img:last-child{
+  justify-self:end;     /* derecha total */
 }
 
 /* ================= TEXTOS ================= */
 
 .local, .visit{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  min-width:0;          /* ← obligatorio en grid */
+  overflow:hidden;
 }
 
 .visit{
@@ -137,28 +136,28 @@ button{
 
 .nombre{
   font-weight:900;
-  font-size:17px;
+  font-size:18px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
-
 .local .nombre{color:#0d47a1}
 .visit .nombre{color:#b71c1c}
-
 .pelotaris{
-  font-size:9px;
-  opacity:.6;
-  line-height:1.1;
+  font-size:8px;   /* MUCHO más pequeño (mitad real) */
+  opacity:.55;
 }
 
 /* ================= MARCADOR ================= */
 
 .score{
   text-align:center;
-  font-size:42px;
+  font-size:44px;
   font-weight:900;
+  display:flex;
+  justify-content:center;
 }
+
 
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
