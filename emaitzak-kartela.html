@@ -22,7 +22,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= PAGINA ALTURA LIBRE ================= */
+/* ================= PAGINA ================= */
 
 .pagina{
   width:900px;
@@ -36,7 +36,7 @@ button{
   padding:8px;
 }
 
-/* ================= HEADER GENERAL ================= */
+/* ================= HEADER ================= */
 
 .header{
   height:110px;
@@ -66,14 +66,32 @@ button{
   font-size:11px;
 }
 
-/* ================= CABECERA PARTIDO ================= */
+/* ================= BLOQUES ================= */
+
+.titulo{
+  background:#111;
+  color:white;
+  text-align:center;
+  font-weight:900;
+  padding:6px;
+  margin:10px 0 6px;
+  border-radius:4px;
+}
+
+/* ================= PARTIDO ================= */
 
 .partido{
   margin-bottom:6px;
   border-radius:6px;
   overflow:hidden;
-  background:white;
 }
+
+/* fondo resultado */
+.win{ background:#dff5e3; }
+.lose{ background:#f7dddd; }
+.pending{ background:#f1f1f1; }
+
+/* header partido */
 
 .partido-header{
   font-size:11px;
@@ -86,14 +104,13 @@ button{
 .azul{ background:#2f5fd2; }
 .rojo{ background:#b71c1c; }
 
-/* ================= FILA 2-11-4-11-2 ================= */
+/* ================= FILA ================= */
 
 .fila{
   display:grid;
   grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
   align-items:center;
   padding:8px 10px;
-  border-top:1px solid #ddd;
 }
 
 .fila > *{ min-width:0; }
@@ -132,21 +149,20 @@ button{
 .local .principal{color:#0d47a1}
 .visit .principal{color:#b71c1c}
 
-/* ================= MARCADOR (FIX DOS CIFRAS) ================= */
+/* ================= MARCADOR ================= */
 
 .score{
   text-align:center;
   font-weight:900;
-  font-size:32px; /* ↓ más pequeño */
-  font-variant-numeric: tabular-nums; /* ancho fijo números */
+  font-size:32px;
+  font-variant-numeric:tabular-nums;
   display:flex;
   flex-direction:column;
   align-items:center;
-  line-height:1.05;
 }
 
 .sets{
-  font-size:.33em; /* triple más pequeño */
+  font-size:.33em;
   opacity:.7;
   margin-top:2px;
 }
@@ -160,10 +176,33 @@ button{
 <body>
 
 <button onclick="exportar()">📸 DESKARGATU JPG</button>
-
 <div id="contenedor"></div>
 
 <script>
+
+/* ================= FECHAS ================= */
+
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  return x;
+}
+
+function filtrarSemanas(data){
+
+  const today=new Date();
+  today.setHours(0,0,0,0);
+
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon);
+  lastMon.setDate(thisMon.getDate()-7);
+
+  return data.filter(p=>{
+    const f=new Date(p.fecha+"T00:00");
+    return f>=lastMon && f<=today;
+  });
+}
 
 /* ================= UTIL ================= */
 
@@ -186,12 +225,10 @@ function logoClub(nombre){
           onerror="this.style.visibility='hidden'">`;
 }
 
-/* ===== split automático tras ")" ===== */
-
+/* salto automático tras ")" */
 function bloqueEquipo(texto,clase){
 
   const partes=texto.split(")");
-
   const principal=partes[0]+")";
   const detalle=partes.slice(1).join(")").trim();
 
@@ -203,58 +240,87 @@ function bloqueEquipo(texto,clase){
   `;
 }
 
-/* ================= FILA ================= */
+/* ================= RESULTADO COLOR ================= */
 
-function crearFila(p){
+function estadoResultado(p){
+
+  if(!p.tanteoa) return "pending";
+
+  const [a,b]=p.tanteoa.split("-").map(Number);
+
+  const larraunLocal=p.etxekoa.toUpperCase().includes("LARRAUN");
+
+  if(larraunLocal){
+    return a>b ? "win":"lose";
+  }else{
+    return b>a ? "win":"lose";
+  }
+}
+
+/* ================= PARTIDO ================= */
+
+function crearPartido(p){
 
   const [a,b]=(p.tanteoa||"-").split("-");
 
-  return `
-    <div class="fila">
-      ${logoClub(p.etxekoa)}
-      ${bloqueEquipo(p.etxekoa,"local")}
+  const estado=estadoResultado(p);
 
-      <div class="score">
-        <div>
-          <span class="blue">${a}</span> -
-          <span class="red">${b}</span>
-        </div>
-        ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+  const fronton=(p.fronton||"").toLowerCase();
+
+  const color=
+    fronton.includes("lekunberri")||
+    fronton.includes("aldaz")
+      ?"azul":"rojo";
+
+  return `
+    <div class="partido ${estado}">
+      <div class="partido-header ${color}">
+        ${p.fecha} · ${p.fronton} · ${p.modalidad}
       </div>
 
-      ${bloqueEquipo(p.kanpokoak,"visit")}
-      ${logoClub(p.kanpokoak)}
+      <div class="fila">
+
+        ${logoClub(p.etxekoa)}
+        ${bloqueEquipo(p.etxekoa,"local")}
+
+        <div class="score">
+          <div>
+            <span class="blue">${a||""}</span> -
+            <span class="red">${b||""}</span>
+          </div>
+          ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+        </div>
+
+        ${bloqueEquipo(p.kanpokoak,"visit")}
+        ${logoClub(p.kanpokoak)}
+
+      </div>
     </div>
   `;
 }
 
-/* ================= PARTIDO COMPLETO ================= */
+/* ================= SECCION ================= */
 
-function crearPartido(p){
+function crearSeccion(titulo,data,contenedor){
 
-  const fronton=(p.fronton||"").toLowerCase();
+  if(!data.length) return;
 
-  const color =
-    fronton.includes("lekunberri") ||
-    fronton.includes("aldaz")
-      ? "azul"
-      : "rojo";
+  const h=document.createElement("div");
+  h.className="titulo";
+  h.textContent=titulo;
+  contenedor.appendChild(h);
 
-  return `
-    <div class="partido">
-      <div class="partido-header ${color}">
-        ${p.fecha} · ${p.fronton} · ${p.modalidad}
-      </div>
-      ${crearFila(p)}
-    </div>
-  `;
+  data.forEach(p=>{
+    contenedor.insertAdjacentHTML("beforeend",crearPartido(p));
+  });
 }
 
 /* ================= CARGA ================= */
 
-fetch("data/resultados-larraun.json")
-.then(r=>r.json())
-.then(data=>{
+Promise.all([
+ fetch("data/resultados-larraun.json").then(r=>r.json()),
+ fetch("data/resultados-no-oficiales.json").then(r=>r.json())
+]).then(([larraun,no])=>{
 
   const pagina=document.createElement("div");
   pagina.className="pagina";
@@ -273,9 +339,20 @@ fetch("data/resultados-larraun.json")
 
   const lista=document.getElementById("lista");
 
-  data.forEach(p=>{
-    lista.insertAdjacentHTML("beforeend",crearPartido(p));
-  });
+  crearSeccion("NKJ EMAITZAK",
+    filtrarSemanas(larraun),
+    lista
+  );
+
+  crearSeccion("BESTE TXAPELKETAK OFIZIALAK",
+    filtrarSemanas(no.filter(p=>p.ofiziala==="bai"||p.ofiziala===true)),
+    lista
+  );
+
+  crearSeccion("TXAPELKETAK EZ OFIZIALAK",
+    filtrarSemanas(no.filter(p=>!(p.ofiziala==="bai"||p.ofiziala===true)),
+    lista
+  ));
 });
 
 /* ================= EXPORT ================= */
