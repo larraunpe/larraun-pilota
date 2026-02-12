@@ -100,11 +100,20 @@ button{
 
 .fila{
   display:grid;
-  grid-template-columns: 1fr 150px 1fr;
+
+  /* proporción EXACTA 2-11-4-11-2 */
+  grid-template-columns:
+    6.7%   /* logo local */
+    36.6%  /* etxekoa */
+    13.4%  /* tanteoa */
+    36.6%  /* kanpokoak */
+    6.7%;  /* logo visit */
+
   align-items:center;
   height:95px;
   padding:0 6px;
 }
+
 
 .zona-local,
 .zona-visit{
@@ -240,31 +249,31 @@ function crearFila(p){
   fila.className="fila";
 
   fila.innerHTML=`
-    <div class="zona-local local">
-      ${logoClub(p.etxekoa)}
-      <div>
-        <div class="nombre">${p.etxekoa}</div>
-        ${p.pelotaris_local?`<div class="pelotaris">${p.pelotaris_local}</div>`:""}
-      </div>
+
+    ${logoClub(p.etxekoa)}
+
+    <div class="local">
+      <div class="nombre">${p.etxekoa}</div>
+      ${p.pelotaris_local?`<div class="pelotaris">${p.pelotaris_local}</div>`:""}
     </div>
 
     <div class="score">
       <span class="blue">${a||""}</span> -
       <span class="red">${b||""}</span>
-      ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
     </div>
 
-    <div class="zona-visit visit">
-      <div>
-        <div class="nombre">${p.kanpokoak}</div>
-        ${p.pelotaris_visit?`<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
-      </div>
-      ${logoClub(p.kanpokoak)}
+    <div class="visit">
+      <div class="nombre">${p.kanpokoak}</div>
+      ${p.pelotaris_visit?`<div class="pelotaris">${p.pelotaris_visit}</div>`:""}
     </div>
+
+    ${logoClub(p.kanpokoak)}
+
   `;
 
   return fila;
 }
+
 
 /* ================= SECCIONES ================= */
 
