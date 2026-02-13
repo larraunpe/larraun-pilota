@@ -70,7 +70,20 @@ body{
   margin-bottom:8px;
   overflow:hidden;
 }
+/* línea pixelada inferior */
+.partido::after{
+  content:"";
+  position:absolute;
+  bottom:-3px;
+  left:0;
+  right:0;
+  height:4px;
 
+  background-image:
+    radial-gradient(#222 1.3px, transparent 1.3px);
+
+  background-size:6px 4px;
+}
 /* ===== PELOTAS REALES ===== */
 
 .partido::before{
@@ -147,7 +160,14 @@ body{
   font-family:'DotGothic16', monospace; /* matriz LED */
   letter-spacing:1px;
 }
-
+.pelotaris{
+  font-size:11px;     /* antes 8 */
+  font-weight:700;    /* negrita */
+  opacity:.9;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
 .visit{text-align:right}
 
@@ -171,17 +191,23 @@ body{
 /* ================= MARCADOR DIGITAL ================= */
 
 .score{
-  text-align:center;
-  font-family:'Share Tech Mono', monospace;
-  font-size:28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:1.05;
+  font-family:'Orbitron', monospace;
+  font-size:38px;
   font-weight:900;
-  letter-spacing:2px;
+  white-space:nowrap;
 }
 
 .sets{
-  font-size:.35em;
-  margin-top:2px;
+  font-size:12px;
+  margin-top:4px;
+  opacity:.8;
 }
+
 
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
@@ -189,25 +215,38 @@ body{
 
 /* ================= PATROCINADORES ================= */
 
-.patrocinio{
-  margin-top:40px;
-  padding:20px;
-  border-top:3px solid #111;
+/* ================= PATROCINADORES ================= */
+
+.patrocinadores{
+  background:#fff;
+  padding:18px 10px 22px;
+  text-align:center;
 }
 
-.sponsors{
+.patro-titulo{
+  font-family:'Orbitron',sans-serif;
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:14px;
+  letter-spacing:2px;
+}
+
+/* grid uniforme */
+.patro-grid{
   display:grid;
   grid-template-columns: repeat(10, 1fr);
-  gap:12px;
+  gap:14px;
+  align-items:center;
   justify-items:center;
 }
 
-.sponsors img{
-  max-width:70px;
-  max-height:45px;
+/* TODOS exactamente igual */
+.patro-grid img{
+  width:80px;
+  height:46px;
   object-fit:contain;
+  filter:grayscale(.15);
 }
-.rest::before{ background-image: var(--pelotas-grises); }
 
 </style>
 </head>
@@ -298,6 +337,23 @@ function bloqueEquipo(txt,clase){
     </div>`;
 }
 
+function bloque(titulo, lista){
+
+  if(!lista.length) return "";
+
+  const div=document.createElement("div");
+  div.className="bloque";
+
+  div.innerHTML=`
+    <div class="titulo-seccion">${titulo}</div>
+  `;
+
+  lista.forEach(p=>div.appendChild(crearPartido(p)));
+
+  return div;
+}
+
+
 function estado(p){
 
   if(p.modalidad?.toLowerCase().includes("atseden") || 
@@ -352,7 +408,7 @@ function crearPartido(p){
 
       <div class="score">
         <span class="blue">${a||""}</span> <span class="red">${b||""}</span>
-        ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
+        ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
       </div>
 
       ${bloqueEquipo(p.kanpokoak,"visit")}
@@ -371,6 +427,40 @@ Promise.all([
 
   const pagina=document.createElement("div");
   pagina.className="pagina";
+.then(([larraun, noOficiales])=>{
+
+  const contenido = document.getElementById("lista");
+
+  /* ================= FILTRAR 2 ÚLTIMAS SEMANAS ================= */
+
+  const todos = [...larraun, ...noOficiales];
+
+  const filtrados = filtrarUltimasSemanas(todos);
+
+
+  /* ================= SEPARAR BLOQUES ================= */
+
+  const nkj = filtrados.filter(p =>
+    larrraun.includes(p)
+  );
+
+  const ofizial = filtrados.filter(p =>
+    !larraun.includes(p) && p.ofiziala === true
+  );
+
+  const ezOfizial = filtrados.filter(p =>
+    !larraun.includes(p) && p.ofiziala === false
+  );
+
+
+  /* ================= RENDER BLOQUES (AQUÍ VA LO QUE PREGUNTAS) ================= */
+
+  contenido.appendChild(bloque("NKJ EMAITZAK", ordenar(nkj)));
+
+  contenido.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial)));
+
+  contenido.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial)));
+
 
   pagina.innerHTML=`
     <div class="header">
