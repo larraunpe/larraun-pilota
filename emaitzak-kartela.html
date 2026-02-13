@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <!-- FUENTES -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,13 +16,8 @@
 
 body{
   margin:0;
-  font-family:Arial, Helvetica, sans-serif;
   background:#184d33;
-}
-
-button{
-  margin:18px;
-  padding:10px 18px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* ================= PAGINA ================= */
@@ -30,21 +25,21 @@ button{
 .pagina{
   width:900px;
   margin:auto;
-  background:#eef4ff;
+  background:#fff;
 }
 
 /* ================= HEADER ================= */
 
 .header{
-  height:115px;
-  background:linear-gradient(#163a7a,#0b2350);
+  height:110px;
+  background:#0b2350;
   color:#9cff9c;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
-  font-family:'Press Start 2P', monospace;
-  font-size:18px;
+  font-family:'Orbitron';
+  font-size:20px;
 }
 
 .header img{
@@ -54,61 +49,57 @@ button{
 .logo-izq{left:20px}
 .logo-der{right:20px}
 
-/* ================= TITULOS BLOQUE ================= */
+
+/* ================= BLOQUES ================= */
 
 .titulo{
-  font-family:'Orbitron';
-  font-size:18px;
-  font-weight:800;
   background:#111;
-  color:white;
+  color:#fff;
+  font-weight:900;
   text-align:center;
   padding:6px;
-  margin:16px 0 8px;
+  margin:18px 0 10px;
 }
 
 /* ================= PARTIDO ================= */
 
 .partido{
-  margin-bottom:7px;
+  position:relative;
+  background:#fff;
   border-radius:6px;
+  margin-bottom:8px;
   overflow:hidden;
 }
 
-/* ========= PELOTAS VERDES (40 pequeñas) ========= */
-.win{
-  background:
-  repeating-radial-gradient(circle at 10% 20%, #3bd35a 0 4px, transparent 5px 40px),
-  repeating-radial-gradient(circle at 60% 60%, #34c653 0 3px, transparent 4px 35px),
-  #e9fbef;
+/* ===== PELOTAS REALES ===== */
+
+.partido::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
 }
 
-/* ========= PELOTAS ROJAS CLARAS ========= */
-.lose{
-  background:
-  repeating-radial-gradient(circle at 20% 30%, #ffb3b3 0 4px, transparent 5px 40px),
-  repeating-radial-gradient(circle at 70% 70%, #ff9d9d 0 3px, transparent 4px 35px),
-  #fff0f0;
-}
+.win::before{ background-image: var(--pelotas-verdes); }
+.lose::before{ background-image: var(--pelotas-rojas); }
 
-.pending{
-  background:#f3f3f3;
-}
 
-/* ================= HEADER PARTIDO ================= */
+/* ================= CABECERA PARTIDO ================= */
 
 .partido-header{
-  font-size:11px;
-  font-weight:800;
+  font-family:'Share Tech Mono', monospace; /* DOT MATRIX */
+  font-size:12px;
   text-align:center;
   padding:4px;
-  color:white;
+  color:#fff;
   text-decoration:none;
-  display:block;
+  letter-spacing:1px;
 }
 
-.azul{ background:#2f5fd2; }
-.granate{ background:#8b3a4a; }
+.azul{ background:#2f5fd2 }
+.granate{ background:#8b3a4a }
+
 
 /* ================= FILA ================= */
 
@@ -116,7 +107,7 @@ button{
   display:grid;
   grid-template-columns: 2fr 11fr 4fr 11fr 2fr;
   align-items:center;
-  padding:8px 10px;
+  padding:10px;
 }
 
 .fila > *{min-width:0}
@@ -128,32 +119,29 @@ button{
   height:60px;
   object-fit:contain;
 }
-
 .fila img:first-child{justify-self:start}
 .fila img:last-child{justify-self:end}
 
-/* ================= EQUIPOS (DOT MATRIX STYLE) ================= */
+
+/* ================= EQUIPOS (OCTIN SPORTS) ================= */
 
 .local,.visit{
   display:flex;
   flex-direction:column;
-
-  /* efecto dot matrix */
-  font-family:'Courier New', monospace;
-  letter-spacing:1px;
-
-  font-size:20px;
+  font-family:'Arial Black', Impact, sans-serif; /* estilo deportivo tipo Octin */
+  letter-spacing:.5px;
 }
 
 .visit{text-align:right}
 
 .principal{
+  font-size:19px;
   font-weight:900;
 }
 
 .detalle{
   font-size:.45em;
-  opacity:.65;
+  opacity:.6;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -162,48 +150,38 @@ button{
 .local .principal{color:#0d47a1}
 .visit .principal{color:#b71c1c}
 
+
 /* ================= MARCADOR DIGITAL ================= */
 
 .score{
   text-align:center;
   font-family:'Share Tech Mono', monospace;
-  font-size:30px;
+  font-size:28px;
   font-weight:900;
   letter-spacing:2px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
 }
 
 .sets{
-  font-size:.33em;
+  font-size:.35em;
   margin-top:2px;
-  opacity:.7;
 }
 
 .blue{color:#0d47a1}
 .red{color:#b71c1c}
 
+
 /* ================= PATROCINADORES ================= */
 
 .patrocinio{
   margin-top:40px;
-  padding:20px 10px 30px;
-  background:#ffffff;
-  border-top:3px solid #222;
-}
-
-.patrocinio h3{
-  text-align:center;
-  font-family:'Orbitron';
-  margin-bottom:16px;
+  padding:20px;
+  border-top:3px solid #111;
 }
 
 .sponsors{
   display:grid;
   grid-template-columns: repeat(10, 1fr);
   gap:12px;
-  align-items:center;
   justify-items:center;
 }
 
@@ -211,7 +189,6 @@ button{
   max-width:70px;
   max-height:45px;
   object-fit:contain;
-  opacity:.9;
 }
 
 </style>
@@ -219,12 +196,32 @@ button{
 
 <body>
 
-<button onclick="exportar()">📸 DESKARGATU JPG</button>
 <div id="contenedor"></div>
 
 <script>
 
-/* ================= SEMANAS ================= */
+/* ================= PELOTAS RANDOM ================= */
+
+function generarPelotas(color){
+
+  let dots=[];
+
+  for(let i=0;i<40;i++){
+    const x=Math.random()*100;
+    const y=Math.random()*100;
+    const r=2+Math.random()*3;
+
+    dots.push(`radial-gradient(circle ${r}px at ${x}% ${y}%, ${color} 98%, transparent)`);
+  }
+
+  return dots.join(",");
+}
+
+document.documentElement.style.setProperty('--pelotas-verdes', generarPelotas('#3bd35a'));
+document.documentElement.style.setProperty('--pelotas-rojas', generarPelotas('#ffb0b0'));
+
+
+/* ================= FECHAS 2 SEMANAS ================= */
 
 function monday(d){
   const x=new Date(d);
@@ -234,7 +231,7 @@ function monday(d){
   return x;
 }
 
-function filtrarSemanas(data){
+function filtrar(data){
   const today=new Date();
   const thisMon=monday(today);
   const lastMon=new Date(thisMon);
@@ -246,21 +243,21 @@ function filtrarSemanas(data){
   });
 }
 
+
 /* ================= UTIL ================= */
 
-function normalizar(n){
-  return n.split("(")[0].replace(/[.,]/g,"").trim().replace(/\s+/g,"-").toUpperCase();
-}
-
 function logoClub(nombre){
-  const n=normalizar(nombre);
+  const n=nombre.split("(")[0].replace(/[.,]/g,"").trim().replace(/\s+/g,"-").toUpperCase();
+
   if(n.includes("LARRAUN"))
     return `<img class="logo" src="images/logo-larraun.png">`;
+
   return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.visibility='hidden'">`;
 }
 
-function bloqueEquipo(texto,clase){
-  const partes=texto.split(")");
+function bloqueEquipo(txt,clase){
+
+  const partes=txt.split(")");
   const principal=partes[0]+")";
   const detalle=partes.slice(1).join(")").trim();
 
@@ -276,6 +273,7 @@ function estado(p){
   const [a,b]=p.tanteoa.split("-").map(Number);
   return p.etxekoa.includes("LARRAUN") ? (a>b?"win":"lose") : (b>a?"win":"lose");
 }
+
 
 /* ================= PARTIDO ================= */
 
@@ -298,7 +296,7 @@ function crearPartido(p){
       ${bloqueEquipo(p.etxekoa,"local")}
 
       <div class="score">
-        <div><span class="blue">${a||""}</span> <span class="red">${b||""}</span></div>
+        <span class="blue">${a||""}</span> <span class="red">${b||""}</span>
         ${p.sets?.length?`<div class="sets">${p.sets.join(" ")}</div>`:""}
       </div>
 
@@ -308,36 +306,6 @@ function crearPartido(p){
   </div>`;
 }
 
-/* ================= SECCION ================= */
-
-function crearSeccion(titulo,data,lista){
-  if(!data.length) return;
-
-  lista.insertAdjacentHTML("beforeend",`<div class="titulo">${titulo}</div>`);
-  data.forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
-}
-
-/* ================= PATROCINADORES ================= */
-
-function cargarPatrocinadores(){
-
-  const archivos=[
-    "aliprox.jpg",
-    "arbeondo.jpg",
-    "barilargi.jpg"
-  ];
-
-  let html=`<div class="patrocinio">
-  <h3>PATROCINATZAILEAK</h3>
-  <div class="sponsors">`;
-
-  archivos.forEach(a=>{
-    html+=`<img src="images/patrocinio/${a}">`;
-  });
-
-  html+="</div></div>";
-  return html;
-}
 
 /* ================= CARGA ================= */
 
@@ -355,29 +323,25 @@ Promise.all([
       EMAITZAK - LARRAUN PILOTA ELKARTEA
       <img src="images/logo-fnp.png" class="logo-der">
     </div>
+
     <div id="lista"></div>
-    ${cargarPatrocinadores()}
-    <div class="footer">Larraun Pilota Elkartea</div>
+
+    <div class="patrocinio">
+      <div class="sponsors">
+        <img src="images/patrocinio/aliprox.jpg">
+        <img src="images/patrocinio/arbeondo.jpg">
+        <img src="images/patrocinio/barilargi.jpg">
+      </div>
+    </div>
   `;
 
   contenedor.appendChild(pagina);
 
   const lista=document.getElementById("lista");
 
-  crearSeccion("NKJ EMAITZAK", filtrarSemanas(larraun), lista);
-  crearSeccion("BESTE TXAPELKETAK OFIZIALAK", filtrarSemanas(no.filter(p=>p.ofiziala)), lista);
-  crearSeccion("TXAPELKETAK EZ OFIZIALAK", filtrarSemanas(no.filter(p=>!p.ofiziala)), lista);
+  filtrar(larraun).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
+  filtrar(no).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
 });
-
-/* ================= EXPORT ================= */
-
-async function exportar(){
- const c=await html2canvas(document.querySelector(".pagina"),{scale:2,useCORS:true});
- const a=document.createElement("a");
- a.href=c.toDataURL("image/jpeg",0.95);
- a.download="emaitzak.jpg";
- a.click();
-}
 
 </script>
 
