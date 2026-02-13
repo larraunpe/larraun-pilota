@@ -142,11 +142,10 @@ let guardados = {};
    Cargar datos guardados
 ========================= */
 fetch("api/load.php")
-  .then(r=>r.json())
-  .then(d=>{
-    guardados = d || {};
-    crearTabla();
-  });
+  .then(r => r.ok ? r.json() : {})
+  .then(d => guardados = d || {})
+  .catch(() => guardados = {})
+  .finally(() => crearTabla());
 
 /* =========================
    Guardar en servidor
