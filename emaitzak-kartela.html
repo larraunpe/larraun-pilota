@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <!-- FUENTES -->
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DotGothic16&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -88,14 +88,30 @@ body{
 /* ================= CABECERA PARTIDO ================= */
 
 .partido-header{
-  font-family:'Share Tech Mono', monospace; /* DOT MATRIX */
+  font-family:'Share Tech Mono', monospace;
   font-size:12px;
   text-align:center;
   padding:4px;
   color:#fff;
   text-decoration:none;
   letter-spacing:1px;
+  position:relative;
+  overflow:hidden;
 }
+
+/* puntos digitales */
+.partido-header::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:100%;
+  width:100%;
+  height:2px;
+  transform:translateY(-50%);
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size:6px 2px;
+}
+
 
 .azul{ background:#2f5fd2 }
 .granate{ background:#8b3a4a }
@@ -128,9 +144,10 @@ body{
 .local,.visit{
   display:flex;
   flex-direction:column;
-  font-family:'Arial Black', Impact, sans-serif; /* estilo deportivo tipo Octin */
-  letter-spacing:.5px;
+  font-family:'DotGothic16', monospace; /* matriz LED */
+  letter-spacing:1px;
 }
+
 
 .visit{text-align:right}
 
@@ -190,6 +207,7 @@ body{
   max-height:45px;
   object-fit:contain;
 }
+.rest::before{ background-image: var(--pelotas-grises); }
 
 </style>
 </head>
@@ -206,7 +224,7 @@ function generarPelotas(color){
 
   let dots=[];
 
-  for(let i=0;i<40;i++){
+  for(let i=0;i<60;i++){ // +50%
     const x=Math.random()*100;
     const y=Math.random()*100;
     const r=2+Math.random()*3;
@@ -217,8 +235,10 @@ function generarPelotas(color){
   return dots.join(",");
 }
 
-document.documentElement.style.setProperty('--pelotas-verdes', generarPelotas('#3bd35a'));
-document.documentElement.style.setProperty('--pelotas-rojas', generarPelotas('#ffb0b0'));
+document.documentElement.style.setProperty('--pelotas-verdes', generarPelotas('#19c93f'));
+document.documentElement.style.setProperty('--pelotas-rojas', generarPelotas('#ff6b6b'));
+document.documentElement.style.setProperty('--pelotas-grises', generarPelotas('#bdbdbd'));
+
 
 
 /* ================= FECHAS 2 SEMANAS ================= */
@@ -247,13 +267,23 @@ function filtrar(data){
 /* ================= UTIL ================= */
 
 function logoClub(nombre){
-  const n=nombre.split("(")[0].replace(/[.,]/g,"").trim().replace(/\s+/g,"-").toUpperCase();
 
-  if(n.includes("LARRAUN"))
-    return `<img class="logo" src="images/logo-larraun.png">`;
+  if(nombre.toLowerCase().includes("atseden") ||
+     nombre.toLowerCase().includes("descanso")){
+      return `<img class="logo" src="images/ATSEDENA.jpg">`;
+  }
 
-  return `<img class="logo" src="images/clubes/${n}.jpg" onerror="this.style.visibility='hidden'">`;
+  const limpio = nombre
+    .split("(")[0]
+    .replace(/[.,]/g,"")
+    .trim()
+    .replace(/\s*–\s*/g,"-")   // LARRAUN – ARAXES
+    .replace(/\s+/g,"-")
+    .toUpperCase();
+
+  return `<img class="logo" src="images/clubes/${limpio}.jpg" onerror="this.style.visibility='hidden'">`;
 }
+
 
 function bloqueEquipo(txt,clase){
 
@@ -269,9 +299,34 @@ function bloqueEquipo(txt,clase){
 }
 
 function estado(p){
+
+  if(p.modalidad?.toLowerCase().includes("atseden") || 
+     p.modalidad?.toLowerCase().includes("descanso"))
+     return "rest";
+
   if(!p.tanteoa) return "pending";
+
   const [a,b]=p.tanteoa.split("-").map(Number);
+
   return p.etxekoa.includes("LARRAUN") ? (a>b?"win":"lose") : (b>a?"win":"lose");
+}
+function ordenar(lista){
+
+  return lista.sort((a,b)=>{
+
+    const isRest = p => p.modalidad?.toLowerCase().includes("atseden") ||
+                        p.modalidad?.toLowerCase().includes("descanso");
+
+    if(isRest(a) && !isRest(b)) return 1;
+    if(!isRest(a) && isRest(b)) return -1;
+
+    const fa=new Date(a.fecha+" "+(a.hora||"00:00"));
+    const fb=new Date(b.fecha+" "+(b.hora||"00:00"));
+
+    if(fa-fb!==0) return fa-fb;
+
+    return (a.fronton||"").localeCompare(b.fronton||"");
+  });
 }
 
 
@@ -339,8 +394,8 @@ Promise.all([
 
   const lista=document.getElementById("lista");
 
-  filtrar(larraun).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
-  filtrar(no).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
+  ordenar(filtrar(larraun)).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
+  ordenar(filtrar(no)).forEach(p=>lista.insertAdjacentHTML("beforeend",crearPartido(p)));
 });
 
 </script>
