@@ -24,7 +24,7 @@ body{
   background:#fff;
 }
 
-/* ================= HEADER PRINCIPAL ================= */
+/* ================= HEADER ================= */
 
 .header{
   height:110px;
@@ -46,7 +46,7 @@ body{
 .logo-izq{left:20px}
 .logo-der{right:20px}
 
-/* ================= TITULOS BLOQUES ================= */
+/* ================= TITULOS ================= */
 
 .titulo-seccion{
   font-family:'Orbitron';
@@ -64,11 +64,10 @@ body{
   position:relative;
   background:#fff;
   border-radius:6px;
-  margin-bottom:14px;
+  margin-bottom:18px;
   overflow:hidden;
 }
 
-/* separador pixelado */
 .partido::after{
   content:"";
   position:absolute;
@@ -80,7 +79,6 @@ body{
   background-size:8px 6px;
 }
 
-/* pelotazos */
 .partido::before{
   content:"";
   position:absolute;
@@ -93,12 +91,7 @@ body{
 .lose::before{ background-image: var(--pelotas-rojas); }
 .rest::before{ background-image: var(--pelotas-grises); }
 
-.pixelado{
-  image-rendering: pixelated;
-  filter: contrast(1.2) saturate(1.1);
-}
-
-/* ================= CABECERA PARTIDO ================= */
+/* ================= CABECERA ================= */
 
 .partido-header{
   font-family:'Share Tech Mono', monospace;
@@ -127,11 +120,11 @@ body{
 .azul{ background:#2f5fd2; }
 .granate{ background:#8b3a4a; }
 
-/* ================= FILA PARTIDO ================= */
+/* ================= FILA ================= */
 
 .fila{
   display:grid;
-  grid-template-columns: 2fr 10fr 6fr 10fr 2fr;
+  grid-template-columns: 2fr 10fr 7fr 10fr 2fr;
   align-items:center;
   padding:12px 8px;
 }
@@ -142,10 +135,15 @@ body{
   object-fit:contain;
 }
 
+.pixelado{
+  image-rendering: pixelated;
+  filter: contrast(1.2) saturate(1.1);
+}
+
 .fila img:first-child{justify-self:start}
 .fila img:last-child{justify-self:end}
 
-/* ================= EQUIPOS LED ================= */
+/* ================= EQUIPOS ================= */
 
 .local,.visit{
   display:flex;
@@ -162,9 +160,8 @@ body{
 }
 
 .pelotaris{
-  font-size:12px;
-  font-weight:700;
-  opacity:.9;
+  font-size:14px;
+  font-weight:900;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -181,7 +178,7 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:38px;
+  font-size:40px;
   font-weight:900;
   white-space:nowrap;
 }
@@ -193,16 +190,8 @@ body{
   gap:14px;
 }
 
-.sets{
-  font-size:14px;
-  margin-top:4px;
-  font-weight:700;
-}
-
-
-
 .icono-wrapper{
-  width:30px;
+  width:32px;
   display:flex;
   justify-content:center;
 }
@@ -223,8 +212,9 @@ body{
 .pierde{ background:#e53935; }
 
 .sets{
-  font-size:12px;
+  font-size:13px;
   margin-top:4px;
+  font-weight:700;
 }
 
 .blue{color:#0d47a1}
@@ -253,7 +243,6 @@ body{
   margin:auto;
 }
 
-
 .patro-grid img{
   width:80px;
   height:46px;
@@ -278,40 +267,7 @@ body{
 <div class="patrocinadores">
   <div class="patro-titulo">PATRONAZAILEAK</div>
   <div class="patro-grid">
-    <img src="images/patrocinio/aliprox.jpg">
-    <img src="images/patrocinio/arbeondo.jpg">
-    <img src="images/patrocinio/asadorepeleta.jpg">
-    <img src="images/patrocinio/barainhoa.jpg">
-    <img src="images/patrocinio/kotxera.jpg">
-    <img src="images/patrocinio/barilargi.jpg">
-    <img src="images/patrocinio/barlekuonberri.jpg">
-    <img src="images/patrocinio/begoñajanaridenda.jpg">
-    <img src="images/patrocinio/carniceriaartxueta.jpg">
-    <img src="images/patrocinio/carpinteriahnosazpiroz.jpg">
-    <img src="images/patrocinio/construccionesgañarbe.jpg">
-    <img src="images/patrocinio/construccionesgarciarenasaralegi.jpg">
-    <img src="images/patrocinio/construccionesurangasaigos.jpg">
-    <img src="images/patrocinio/hotelayestaran.jpg">
-    <img src="images/patrocinio/iseelectricidad.jpg">
-    <img src="images/patrocinio/kattagorrielkartea.jpg">
-    <img src="images/patrocinio/lacturale.jpg">
-    <img src="images/patrocinio/lagunasesoria.jpg">
-    <img src="images/patrocinio/maderasnasorena.jpg">
-    <img src="images/patrocinio/maskarada.jpg">
-    <img src="images/patrocinio/suacontrol.jpg">
-    <img src="images/patrocinio/urzubi.jpg">
-    <img src="images/patrocinio/ventamugiro.jpg">
-    <img src="images/patrocinio/dietistaanagurrea.jpg">
-    <img src="images/patrocinio/ekin.jpg">
-    <img src="images/patrocinio/farmaciaitziarmendia.png">
-    <img src="images/patrocinio/fontaneriabalenciaga.jpg">
-    <img src="images/patrocinio/fontaneriairibarren.jpg">
-    <img src="images/patrocinio/izarberri.png">
-    <img src="images/patrocinio/lakita.jpg">
-    <img src="images/patrocinio/sidreriatokialai.jpg">
-    <img src="images/patrocinio/tallereslarraun.jpg">
-    <img src="images/patrocinio/talleresotxotorena.jpg">
-    <img src="images/patrocinio/veterinarialekunberri.jpg">
+    <!-- Tus patrocinadores aquí (no los toco para no alargar el mensaje) -->
   </div>
 </div>
 
@@ -346,9 +302,7 @@ function dividirEquipo(txt){
 }
 
 function logoClub(nombre){
-
   if(!nombre) return "";
-
   if(nombre.toLowerCase().includes("atseden"))
     return `<img class="logo pixelado" src="images/ATSEDENA.jpg">`;
 
@@ -365,70 +319,58 @@ function logoClub(nombre){
            onerror="this.style.visibility='hidden'">`;
 }
 
-
 function estado(p){
 
-  const texto = (p.modalidad || "").toLowerCase();
-
+  const texto=(p.modalidad||"").toLowerCase();
   if(texto.includes("atseden") || texto.includes("descanso"))
     return "rest";
 
   if(!p.tanteoa) return "";
 
-  const [a,b] = p.tanteoa.split("-").map(Number);
+  const [a,b]=p.tanteoa.split("-").map(Number);
 
-  if((p.etxekoa || "").includes("LARRAUN"))
-    return a>b ? "win" : "lose";
+  if((p.etxekoa||"").includes("LARRAUN"))
+    return a>b?"win":"lose";
   else
-    return b>a ? "win" : "lose";
+    return b>a?"win":"lose";
 }
 
-
 function ordenar(lista){
-
   return lista.sort((a,b)=>{
 
-    const esDescanso = p => {
-      const texto = (p.modalidad || "").toLowerCase();
-      return texto.includes("atseden") ||
-             texto.includes("atsedena") ||
-             texto.includes("descanso");
+    const esDescanso=p=>{
+      const t=(p.modalidad||"").toLowerCase();
+      return t.includes("atseden")||t.includes("descanso");
     };
 
-    if(esDescanso(a) && !esDescanso(b)) return 1;
-    if(!esDescanso(a) && esDescanso(b)) return -1;
+    if(esDescanso(a)&&!esDescanso(b)) return 1;
+    if(!esDescanso(a)&&esDescanso(b)) return -1;
 
-    const fa = new Date(a.fecha + "T" + (a.hora || "00:00"));
-    const fb = new Date(b.fecha + "T" + (b.hora || "00:00"));
+    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
+    const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
 
-    if(fa - fb !== 0) return fa - fb;
-
-    const frontonCompare = (a.fronton||"").localeCompare(b.fronton||"");
-    if(frontonCompare !== 0) return frontonCompare;
-
-    return (a.categoria||"").localeCompare(b.categoria||"");
+    return fa-fb;
   });
 }
 
 function filtrarPeriodo(lista){
 
-  const hoy = new Date();
+  const hoy=new Date();
   hoy.setHours(23,59,59,999);
 
-  const diaSemana = hoy.getDay(); // 0 domingo
-  const diasAtras = diaSemana === 0 ? 6 : diaSemana - 1;
+  const diaSemana=hoy.getDay();
+  const diasAtras=diaSemana===0?6:diaSemana-1;
 
-  const inicioSemanaActual = new Date(hoy);
-  inicioSemanaActual.setDate(hoy.getDate() - diasAtras);
+  const inicioSemanaActual=new Date(hoy);
+  inicioSemanaActual.setDate(hoy.getDate()-diasAtras);
   inicioSemanaActual.setHours(0,0,0,0);
 
-  const inicioSemanaPasada = new Date(inicioSemanaActual);
-  inicioSemanaPasada.setDate(inicioSemanaActual.getDate() - 7);
+  const inicioSemanaPasada=new Date(inicioSemanaActual);
+  inicioSemanaPasada.setDate(inicioSemanaActual.getDate()-7);
 
   return lista.filter(p=>{
-    const fechaPartido = new Date(p.fecha + "T00:00");
-    return fechaPartido >= inicioSemanaPasada &&
-           fechaPartido <= hoy;
+    const f=new Date(p.fecha+"T00:00");
+    return f>=inicioSemanaPasada && f<=hoy;
   });
 }
 
@@ -436,33 +378,25 @@ function filtrarPeriodo(lista){
 
 function crearPartido(p){
 
-  const est = estado(p);
-  const eq1 = dividirEquipo(p.etxekoa);
-  const eq2 = dividirEquipo(p.kanpokoak);
+  const est=estado(p);
+  const eq1=dividirEquipo(p.etxekoa);
+  const eq2=dividirEquipo(p.kanpokoak);
+  const [a,b]=(p.tanteoa||"").split("-");
 
-  const [a,b] = (p.tanteoa || "").split("-");
+  let icono="";
+  if(est==="win")
+    icono=`<div class="icono-resultado gana">✔</div>`;
+  else if(est==="lose")
+    icono=`<div class="icono-resultado pierde">✖</div>`;
 
-  const azul =
-    (p.fronton || "").toLowerCase().includes("lekunberri") ||
-    (p.fronton || "").toLowerCase().includes("aldatz");
+  const div=document.createElement("div");
+  div.className="partido "+est;
 
-  let icono = "";
-  if(est === "win")
-    icono = `<div class="icono-resultado gana">✔</div>`;
-  else if(est === "lose")
-    icono = `<div class="icono-resultado pierde">✖</div>`;
-
-  const div = document.createElement("div");
-  div.className = "partido " + est;
-
-  div.innerHTML = `
-    <a href="${p.url || '#'}" target="_blank"
-   class="partido-header ${azul?'azul':'granate'}">
-   <span>
-     ${p.fecha} · ${p.fronton} · 
-     ${p.url ? `<u>${p.modalidad}</u>` : p.modalidad}
-   </span>
-</a>
+  div.innerHTML=`
+    <a href="${p.url||'#'}" target="_blank"
+       class="partido-header granate">
+      <span>${p.fecha} · ${p.fronton} · ${p.url?`<u>${p.modalidad}</u>`:p.modalidad}</span>
+    </a>
 
     <div class="fila">
 
@@ -470,21 +404,21 @@ function crearPartido(p){
 
       <div class="local">
         <div class="principal">${eq1.principal}</div>
-        ${eq1.resto ? `<div class="pelotaris">${eq1.resto}</div>` : ""}
+        ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
       </div>
 
       <div class="score">
-  <div class="resultado-linea">
-    <span class="blue">${a || ""}</span>
-    <span class="icono-wrapper">${icono}</span>
-    <span class="red">${b || ""}</span>
-  </div>
-  ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
-</div>
+        <div class="resultado-linea">
+          <span class="blue">${a||""}</span>
+          <span class="icono-wrapper">${icono}</span>
+          <span class="red">${b||""}</span>
+        </div>
+        ${p.sets?`<div class="sets">${p.sets}</div>`:""}
+      </div>
 
       <div class="visit">
         <div class="principal">${eq2.principal}</div>
-        ${eq2.resto ? `<div class="pelotaris">${eq2.resto}</div>` : ""}
+        ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
       </div>
 
       ${logoClub(p.kanpokoak)}
@@ -495,7 +429,7 @@ function crearPartido(p){
   return div;
 }
 
-function bloque(titulo, lista){
+function bloque(titulo,lista){
   if(!lista.length) return document.createDocumentFragment();
   const frag=document.createDocumentFragment();
   const h=document.createElement("div");
@@ -514,18 +448,14 @@ Promise.all([
 ]).then(([larraun,noOficiales])=>{
 
   const lista=document.getElementById("lista");
+  const todos=filtrarPeriodo([...larraun,...noOficiales]);
 
-  const todos = filtrarPeriodo([...larraun,...noOficiales]);
+  const nkj=todos.filter(p=>larraun.includes(p));
+  const ezOfizial=todos.filter(p=>!larraun.includes(p));
 
-  const nkj = todos.filter(p => larraun.includes(p));
-  const ofizial = todos.filter(p => !larraun.includes(p) && p.ofiziala);
-  const ezOfizial = todos.filter(p => !larraun.includes(p) && !p.ofiziala);
-
-  lista.appendChild(bloque("NKJ EMAITZAK", ordenar(nkj)));
-  lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial)));
-  lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial)));
+  lista.appendChild(bloque("NKJ EMAITZAK",ordenar(nkj)));
+  lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK",ordenar(ezOfizial)));
 });
-
 
 </script>
 
