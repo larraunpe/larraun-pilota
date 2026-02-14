@@ -329,7 +329,8 @@ function logoClub(nombre){
 }
 
 function estado(p){
-  if(p.modalidad?.toLowerCase().includes("atseden"))
+  if(nombre.toLowerCase().includes("atseden") ||
+   nombre.toLowerCase().includes("descanso"))
     return "rest";
 
   if(!p.tanteoa) return "";
