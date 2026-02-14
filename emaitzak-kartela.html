@@ -397,54 +397,15 @@ function filtrarPeriodo(lista){
 
 function crearPartido(p){
 
-  const est=estado(p);
-  const eq1=dividirEquipo(p.etxekoa);
-  const eq2=dividirEquipo(p.kanpokoak);
-
-  const [a,b]=(p.tanteoa||" ").split("-");
-
-  const azul=(p.fronton||"").toLowerCase().includes("lekunberri") ||
-              (p.fronton||"").toLowerCase().includes("aldaz");
-
-  const div=document.createElement("div");
-  div.className="partido "+est;
-
-  div.innerHTML=`
-    <a href="${p.url||'#'}" target="_blank" class="partido-header ${azul?'azul':'granate'}">
-      <span>${p.fecha} · ${p.fronton} · ${p.modalidad}</span>
-    </a>
-
-    <div class="fila">
-
-      ${logoClub(p.etxekoa)}
-
-      <div class="local">
-        <div class="principal">${eq1.principal}</div>
-        ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
-      </div>
-      let icono = "";
-
-if(est === "win")
-  icono = `<div class="icono-resultado gana">✔</div>`;
-else if(est === "lose")
-  icono = `<div class="icono-resultado pierde">✖</div>`;
-
-<div class="score">
-  <span class="blue">${a||""}</span>
-  ${icono}
-  <span class="red">${b||""}</span>
-  ${p.sets?`<div class="sets">${p.sets}</div>`:""}
-</div>function crearPartido(p){
-
   const est = estado(p);
   const eq1 = dividirEquipo(p.etxekoa);
   const eq2 = dividirEquipo(p.kanpokoak);
 
-  const [a,b] = (p.tanteoa || " ").split("-");
+  const [a,b] = (p.tanteoa || "").split("-");
 
   const azul =
     (p.fronton || "").toLowerCase().includes("lekunberri") ||
-    (p.fronton || "").toLowerCase().includes("aldaz");
+    (p.fronton || "").toLowerCase().includes("aldatz");
 
   let icono = "";
   if(est === "win")
@@ -474,7 +435,6 @@ else if(est === "lose")
         <span class="blue">${a || ""}</span>
         ${icono}
         <span class="red">${b || ""}</span>
-        ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
       </div>
 
       <div class="visit">
@@ -489,7 +449,6 @@ else if(est === "lose")
 
   return div;
 }
-
 
 function bloque(titulo, lista){
   if(!lista.length) return document.createDocumentFragment();
