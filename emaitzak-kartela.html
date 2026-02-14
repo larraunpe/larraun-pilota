@@ -174,12 +174,13 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:10px;
+  gap:12px;
   font-family:'Orbitron', monospace;
-  font-size:42px;
+  font-size:38px;
   font-weight:900;
   white-space:nowrap;
 }
+
 
 .icono-resultado{
   width:26px;
@@ -329,19 +330,22 @@ function logoClub(nombre){
 }
 
 function estado(p){
-  if(nombre.toLowerCase().includes("atseden") ||
-   nombre.toLowerCase().includes("descanso"))
+
+  const texto = (p.modalidad || "").toLowerCase();
+
+  if(texto.includes("atseden") || texto.includes("descanso"))
     return "rest";
 
   if(!p.tanteoa) return "";
 
-  const [a,b]=p.tanteoa.split("-").map(Number);
+  const [a,b] = p.tanteoa.split("-").map(Number);
 
-  if(p.etxekoa.includes("LARRAUN"))
-    return a>b?"win":"lose";
+  if((p.etxekoa || "").includes("LARRAUN"))
+    return a>b ? "win" : "lose";
   else
-    return b>a?"win":"lose";
+    return b>a ? "win" : "lose";
 }
+
 
 function ordenar(lista){
 
@@ -430,21 +434,52 @@ else if(est === "lose")
   ${icono}
   <span class="red">${b||""}</span>
   ${p.sets?`<div class="sets">${p.sets}</div>`:""}
-</div>
+</div>function crearPartido(p){
 
+  const est = estado(p);
+  const eq1 = dividirEquipo(p.etxekoa);
+  const eq2 = dividirEquipo(p.kanpokoak);
+
+  const [a,b] = (p.tanteoa || " ").split("-");
+
+  const azul =
+    (p.fronton || "").toLowerCase().includes("lekunberri") ||
+    (p.fronton || "").toLowerCase().includes("aldaz");
+
+  let icono = "";
+  if(est === "win")
+    icono = `<div class="icono-resultado gana">✔</div>`;
+  else if(est === "lose")
+    icono = `<div class="icono-resultado pierde">✖</div>`;
+
+  const div = document.createElement("div");
+  div.className = "partido " + est;
+
+  div.innerHTML = `
+    <a href="${p.url || '#'}" target="_blank"
+       class="partido-header ${azul?'azul':'granate'}">
+      <span>${p.fecha} · ${p.fronton} · ${p.modalidad}</span>
+    </a>
+
+    <div class="fila">
+
+      ${logoClub(p.etxekoa)}
+
+      <div class="local">
+        <div class="principal">${eq1.principal}</div>
+        ${eq1.resto ? `<div class="pelotaris">${eq1.resto}</div>` : ""}
+      </div>
 
       <div class="score">
-        <div>
-          <span class="blue">${a||""}</span>
-          &nbsp;
-          <span class="red">${b||""}</span>
-        </div>
-        ${p.sets?`<div class="sets">${p.sets}</div>`:""}
+        <span class="blue">${a || ""}</span>
+        ${icono}
+        <span class="red">${b || ""}</span>
+        ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
       </div>
 
       <div class="visit">
         <div class="principal">${eq2.principal}</div>
-        ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
+        ${eq2.resto ? `<div class="pelotaris">${eq2.resto}</div>` : ""}
       </div>
 
       ${logoClub(p.kanpokoak)}
@@ -454,6 +489,7 @@ else if(est === "lose")
 
   return div;
 }
+
 
 function bloque(titulo, lista){
   if(!lista.length) return document.createDocumentFragment();
