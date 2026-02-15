@@ -540,13 +540,18 @@ Promise.all([
 
   const nkj = todos.filter(p => larraun.includes(p));
 
-  const ofizial = todos.filter(p =>
-    !larraun.includes(p) && p.ofiziala === true
-  );
+  const esOfizial = p =>
+  p.ofiziala === true ||
+  p.ofiziala === "true";
 
-  const ezOfizial = todos.filter(p =>
-    !larraun.includes(p) && p.ofiziala !== true
-  );
+const ofizial = todos.filter(p =>
+  !larraun.includes(p) && esOfizial(p)
+);
+
+const ezOfizial = todos.filter(p =>
+  !larraun.includes(p) && !esOfizial(p)
+);
+
 
   lista.appendChild(bloque("NKJ EMAITZAK", ordenar(nkj), "bloque-nkj"));
   lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
