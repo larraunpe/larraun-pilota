@@ -64,19 +64,20 @@ body{
   position:relative;
   background:#fff;
   border-radius:6px;
-  margin-bottom:18px;
-  overflow:hidden;
+  margin-bottom:26px;
+  overflow:visible;   /* 🔥 IMPORTANTE */
 }
+
 
 .partido::after{
   content:"";
   position:absolute;
-  bottom:-8px;
   left:0;
   right:0;
-  height:6px;
+  bottom:-12px;
+  height:8px;
   background-image: radial-gradient(#0b2350 2px, transparent 2px);
-  background-size:8px 6px;
+  background-size:10px 8px;
 }
 
 .partido::before{
@@ -178,9 +179,10 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:40px;
+  font-size:42px;
   font-weight:900;
   white-space:nowrap;
+  letter-spacing:2px;
 }
 
 .resultado-linea{
@@ -302,7 +304,9 @@ function dividirEquipo(txt){
 }
 
 function logoClub(nombre){
+
   if(!nombre) return "";
+
   if(nombre.toLowerCase().includes("atseden"))
     return `<img class="logo pixelado" src="images/ATSEDENA.jpg">`;
 
@@ -310,13 +314,17 @@ function logoClub(nombre){
     .split("(")[0]
     .replace(/[.,]/g,"")
     .replace(/–/g,"-")
-    .replace(/\s+/g,"-")
-    .toUpperCase()
-    .trim();
+    .replace(/-/g," ")
+    .trim()
+    .toUpperCase();
 
-  return `<img class="logo pixelado" 
-           src="images/clubes/${limpio}.jpg"
-           onerror="this.style.visibility='hidden'">`;
+  const archivo = limpio.replace(/\s+/g,"-");
+
+  return `
+    <img class="logo pixelado"
+         src="images/clubes/${archivo}.jpg"
+         onerror="this.src='images/clubes/DEFAULT.jpg'">
+  `;
 }
 
 function estado(p){
