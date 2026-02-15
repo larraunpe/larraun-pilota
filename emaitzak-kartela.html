@@ -234,16 +234,20 @@ body{
 
 .patro-grid{
   display:grid;
-  grid-template-columns:repeat(9,1fr);
-  gap:18px;
+  grid-template-columns:repeat(9, minmax(0,1fr));
+  gap:14px;
+  width:100%;
+  max-width:860px;      /* 🔵 límite real dentro de la página */
+  margin:0 auto;
+  padding:0 20px;       /* 🔵 respeta márgenes */
+  box-sizing:border-box;
   justify-items:center;
   align-items:center;
-  max-width:820px;
-  margin:auto;
 }
 
 .patro-grid img{
-  width:80px;
+  width:100%;
+  max-width:80px;
   height:46px;
   object-fit:contain;
 }
