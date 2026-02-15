@@ -565,20 +565,24 @@ const ezOfizial = todos.filter(p =>
 
 document.getElementById("btnExportar").addEventListener("click", ()=>{
 
-  const elemento = document.querySelector(".pagina"); 
-  // usa el div principal que contiene todo
+  const elemento = document.querySelector(".pagina");
+
+  // ocultar botón para que no salga en la imagen
+  const btn = document.getElementById("btnExportar");
+  btn.style.display = "none";
 
   html2canvas(elemento, {
-    scale: 2, // más calidad
+    scale: 2,
     backgroundColor: "#ffffff",
-    useCORS: true,
-    scrollY: -window.scrollY
+    useCORS: true
   }).then(canvas => {
 
     const enlace = document.createElement("a");
     enlace.download = "larraun-emaitzak.jpg";
     enlace.href = canvas.toDataURL("image/jpeg", 0.95);
     enlace.click();
+
+    btn.style.display = "block";
 
   });
 
