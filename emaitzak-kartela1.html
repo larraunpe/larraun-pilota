@@ -85,7 +85,7 @@ body{
 }
 
 
-.partido::after{
+.::after{
   content:"";
   position:absolute;
   left:0;
@@ -527,6 +527,8 @@ function bloque(titulo, lista, clase){
   return frag;
 }
 
+<button id="btnExportar">DESCARGAR JPG</button>
+
 
 /* ================= CARGA ================= */
 
@@ -559,8 +561,33 @@ const ezOfizial = todos.filter(p =>
 
 });
 
+document.getElementById("btnExportar").addEventListener("click", ()=>{
+
+  const elemento = document.querySelector(".contenedor"); 
+  // usa el div principal que contiene todo
+
+  html2canvas(elemento, {
+    scale: 2, // más calidad
+    backgroundColor: "#ffffff",
+    useCORS: true,
+    scrollY: -window.scrollY
+  }).then(canvas => {
+
+    const enlace = document.createElement("a");
+    enlace.download = "larraun-emaitzak.jpg";
+    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+    enlace.click();
+
+  });
+
+});
+
+
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
 
 </body>
 </html>
