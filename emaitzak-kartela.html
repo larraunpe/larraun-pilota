@@ -50,13 +50,29 @@ body{
 
 .titulo-seccion{
   font-family:'Orbitron';
-  background:#111;
   color:#fff;
   text-align:center;
-  padding:6px;
+  padding:8px;
   margin:18px 0 12px;
   letter-spacing:2px;
+  font-size:18px;
 }
+
+/* 🔴 NKJ */
+.bloque-nkj{
+  background:#c60000;
+}
+
+/* 🟢 Oficial */
+.bloque-ofizial{
+  background:#0f7a2f;
+}
+
+/* ⚫ No oficial */
+.bloque-ezofizial{
+  background:#111;
+}
+
 
 /* ================= PARTIDO ================= */
 
@@ -383,21 +399,31 @@ function estado(p){
 }
 
 function ordenar(lista){
+
   return lista.sort((a,b)=>{
 
-    const esDescanso=p=>{
-      const t=(p.modalidad||"").toLowerCase();
-      return t.includes("atseden")||t.includes("descanso");
+    const esDescanso = p => {
+
+      const texto = (
+        (p.modalidad || "") + " " +
+        (p.etxekoa || "") + " " +
+        (p.kanpokoak || "")
+      ).toLowerCase();
+
+      return texto.includes("atseden") ||
+             texto.includes("atsedena") ||
+             texto.includes("descanso");
     };
 
-    if(esDescanso(a)&&!esDescanso(b)) return 1;
-    if(!esDescanso(a)&&esDescanso(b)) return -1;
+    if(esDescanso(a) && !esDescanso(b)) return 1;
+    if(!esDescanso(a) && esDescanso(b)) return -1;
 
     const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
     const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
 
     return fa-fb;
   });
+
 }
 
 function filtrarPeriodo(lista){
@@ -484,16 +510,23 @@ function crearPartido(p){
   return div;
 }
 
-function bloque(titulo,lista){
+function bloque(titulo, lista, clase){
+
   if(!lista.length) return document.createDocumentFragment();
-  const frag=document.createDocumentFragment();
-  const h=document.createElement("div");
-  h.className="titulo-seccion";
-  h.textContent=titulo;
+
+  const frag = document.createDocumentFragment();
+
+  const h = document.createElement("div");
+  h.className = "titulo-seccion " + clase;
+  h.textContent = titulo;
+
   frag.appendChild(h);
-  lista.forEach(p=>frag.appendChild(crearPartido(p)));
+
+  lista.forEach(p => frag.appendChild(crearPartido(p)));
+
   return frag;
 }
+
 
 /* ================= CARGA ================= */
 
@@ -505,12 +538,22 @@ Promise.all([
   const lista=document.getElementById("lista");
   const todos=filtrarPeriodo([...larraun,...noOficiales]);
 
-  const nkj=todos.filter(p=>larraun.includes(p));
-  const ezOfizial=todos.filter(p=>!larraun.includes(p));
+  const nkj = todos.filter(p => larraun.includes(p));
 
-  lista.appendChild(bloque("NKJ EMAITZAK",ordenar(nkj)));
-  lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK",ordenar(ezOfizial)));
+  const ofizial = todos.filter(p =>
+    !larraun.includes(p) && p.ofiziala === true
+  );
+
+  const ezOfizial = todos.filter(p =>
+    !larraun.includes(p) && p.ofiziala !== true
+  );
+
+  lista.appendChild(bloque("NKJ EMAITZAK", ordenar(nkj), "bloque-nkj"));
+  lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
+  lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial), "bloque-ezofizial"));
+
 });
+
 
 </script>
 
