@@ -283,7 +283,9 @@ body{
   EMAITZAK - LARRAUN PILOTA ELKARTEA
   <img src="images/logo-fnp.png" class="logo-der">
 </div>
+<button id="btnExportar">DESCARGAR JPG</button>
 
+<div id="lista"></div>
 <div id="lista"></div>
 
 <div class="patrocinadores">
@@ -527,7 +529,7 @@ function bloque(titulo, lista, clase){
   return frag;
 }
 
-<button id="btnExportar">DESCARGAR JPG</button>
+
 
 
 /* ================= CARGA ================= */
@@ -563,7 +565,7 @@ const ezOfizial = todos.filter(p =>
 
 document.getElementById("btnExportar").addEventListener("click", ()=>{
 
-  const elemento = document.querySelector(".contenedor"); 
+  const elemento = document.querySelector(".pagina"); 
   // usa el div principal que contiene todo
 
   html2canvas(elemento, {
@@ -585,7 +587,6 @@ document.getElementById("btnExportar").addEventListener("click", ()=>{
 
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 
 
