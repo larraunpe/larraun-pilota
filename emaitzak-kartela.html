@@ -118,7 +118,10 @@ body{
   background-size:6px 2px;
 }
 
-.azul{ background:#2f5fd2; }
+.azul{
+  background:#2f5fd2;
+  box-shadow: inset 0 0 8px rgba(255,255,255,.4);
+}
 .granate{ background:#8b3a4a; }
 
 /* ================= FILA ================= */
@@ -268,9 +271,43 @@ body{
 <div id="lista"></div>
 
 <div class="patrocinadores">
-  <div class="patro-titulo">PATRONAZAILEAK</div>
+  <div class="patro-titulo">BABESLEAK</div>
   <div class="patro-grid">
     <!-- Tus patrocinadores aquí (no los toco para no alargar el mensaje) -->
+      <img src="images/patrocinadores/aliprox.jpg" alt="aliprox.jpg">
+  <img src="images/patrocinadores/arbeondo.jpg" alt="arbeondo.jpg">
+  <img src="images/patrocinadores/asadorepeleta.jpg" alt="asadorepeleta.jpg">
+  <img src="images/patrocinadores/barainhoa.jpg" alt="barainhoa.jpg">
+  <img src="images/patrocinadores/kotxera.jpg" alt="kotxera.jpg">
+  <img src="images/patrocinadores/barilargi.jpg" alt="barilargi.jpg">
+  <img src="images/patrocinadores/barlekuonberri.jpg" alt="barlekuonberri.jpg">
+  <img src="images/patrocinadores/begoñajanaridenda.jpg" alt="begoñajanaridenda.jpg">
+  <img src="images/patrocinadores/carniceriaartxueta.jpg" alt="carniceriaartxueta.jpg">
+  <img src="images/patrocinadores/carpinteriahnosazpiroz.jpg" alt="carpinteriahnosazpiroz.jpg">
+  <img src="images/patrocinadores/construccionesgañarbe.jpg" alt="construccionesgañarbe.jpg">
+  <img src="images/patrocinadores/construccionesgarciarenasaralegi.jpg" alt="construccionesgarciarenasaralegi.jpg">
+  <img src="images/patrocinadores/construccionesurangasaigos.jpg" alt="construccionesurangasaigos.jpg">
+  <img src="images/patrocinadores/hotelayestaran.jpg" alt="hotelayestaran.jpg">
+  <img src="images/patrocinadores/iseelectricidad.jpg" alt="iseelectricidad.jpg">
+  <img src="images/patrocinadores/kattagorrielkartea.jpg" alt="kattagorrielkartea.jpg">
+  <img src="images/patrocinadores/lacturale.jpg" alt="lacturale.jpg">
+  <img src="images/patrocinadores/lagunasesoria.jpg" alt="lagunasesoria.jpg">
+  <img src="images/patrocinadores/maderasnasorena.jpg" alt="maderasnasorena.jpg">
+  <img src="images/patrocinadores/maskarada.jpg" alt="maskarada.jpg">
+  <img src="images/patrocinadores/suacontrol.jpg" alt="suacontrol.jpg">
+  <img src="images/patrocinadores/urzubi.jpg" alt="urzubi.jpg">
+  <img src="images/patrocinadores/ventamugiro.jpg" alt="ventamugiro.jpg">
+  <img src="images/patrocinadores/dietistaanagurrea.jpg" alt="dietistaanagurrea.jpg">
+  <img src="images/patrocinadores/ekin.jpg" alt="ekin.jpg">
+  <img src="images/patrocinadores/farmaciaitziarmendia.png" alt="farmaciaitziarmendia.png">
+  <img src="images/patrocinadores/fontaneriabalenciaga.jpg" alt="fontaneriabalenciaga.jpg">
+  <img src="images/patrocinadores/fontaneriairibarren.jpg" alt="fontaneriairibarren.jpg">
+  <img src="images/patrocinadores/izarberri.png,lakita.jpg" alt="izarberri.png,lakita.jpg">
+  <img src="images/patrocinadores/sidreriatokialai.jpg" alt="sidreriatokialai.jpg">
+  <img src="images/patrocinadores/tallereslarraun.jpg" alt="tallereslarraun.jpg">
+  <img src="images/patrocinadores/talleresotxotorena.jpg" alt="talleresotxotorena.jpg">
+  <img src="images/patrocinadores/veterinarialekunberri.jpg" alt="veterinarialekunberri.jpg">
+
   </div>
 </div>
 
@@ -387,6 +424,14 @@ function filtrarPeriodo(lista){
 
 function crearPartido(p){
 
+    const fronton = (p.fronton || "").toLowerCase();
+
+  const esAzul = fronton.includes("lekunberri") ||
+                 fronton.includes("aldatz");
+
+  const colorHeader = esAzul ? "azul" : "granate";
+
+
   const est=estado(p);
   const eq1=dividirEquipo(p.etxekoa);
   const eq2=dividirEquipo(p.kanpokoak);
@@ -403,7 +448,7 @@ function crearPartido(p){
 
   div.innerHTML=`
     <a href="${p.url||'#'}" target="_blank"
-       class="partido-header granate">
+       class="partido-header ${colorHeader}">
       <span>${p.fecha} · ${p.fronton} · ${p.url?`<u>${p.modalidad}</u>`:p.modalidad}</span>
     </a>
 
