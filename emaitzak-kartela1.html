@@ -563,31 +563,52 @@ const ezOfizial = todos.filter(p =>
 
 });
 
-document.getElementById("btnExportar").addEventListener("click", ()=>{
+document.getElementById("btnExportar").addEventListener("click", async () => {
 
+  const btn = document.getElementById("btnExportar");
   const elemento = document.querySelector(".pagina");
 
-  // ocultar botón para que no salga en la imagen
-  const btn = document.getElementById("btnExportar");
   btn.style.display = "none";
 
-  html2canvas(elemento, {
-    scale: 2,
-    backgroundColor: "#ffffff",
-    useCORS: true
-  }).then(canvas => {
+  try {
+
+    // Esperar a que las fuentes estén cargadas
+    await document.fonts.ready;
+
+    // Esperar a que todas las imágenes estén cargadas
+    const imagenes = Array.from(document.images);
+    await Promise.all(
+      imagenes.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = img.onerror = resolve;
+        });
+      })
+    );
+
+    // Pequeño delay para asegurar render final
+    await new Promise(r => setTimeout(r, 300));
+
+    const canvas = await html2canvas(elemento, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true,
+      allowTaint: true
+    });
 
     const enlace = document.createElement("a");
     enlace.download = "larraun-emaitzak.jpg";
     enlace.href = canvas.toDataURL("image/jpeg", 0.95);
     enlace.click();
 
-    btn.style.display = "block";
+  } catch (error) {
+    console.error("Error al generar la imagen:", error);
+    alert("Ha habido un problema al generar el JPG");
+  }
 
-  });
+  btn.style.display = "block";
 
 });
-
 
 
 </script>
