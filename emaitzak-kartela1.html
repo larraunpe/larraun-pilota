@@ -271,12 +271,54 @@ body{
   height:46px;
   object-fit:contain;
 }
+/* ================= BOTÓN FLOTANTE ================= */
+
+#btnExportar{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+  padding:10px 18px;
+  background:#0b2350;
+  color:#9cff9c;
+  border:none;
+  font-family:'Orbitron';
+  cursor:pointer;
+  border-radius:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+#btnExportar:hover{
+  transform:scale(1.05);
+}
+
+/* 🔥 NO IMPRIMIR */
+@media print {
+
+  .no-print{
+    display:none !important;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  @page{
+    size:A4;
+    margin:10mm;
+  }
+
+  .pagina{
+    width:100%;
+  }
+}
+
 
 </style>
 </head>
 
 <body>
-
+<button id="btnExportar" class="no-print">DESCARGAR JPG</button>
 <div class="pagina">
 
 <div class="header">
@@ -284,7 +326,7 @@ body{
   EMAITZAK - LARRAUN PILOTA ELKARTEA
   <img src="images/logo-fnp.png" class="logo-der">
 </div>
-<button id="btnExportar">DESCARGAR JPG</button>
+
 
 <div id="lista"></div>
 
