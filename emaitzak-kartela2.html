@@ -664,43 +664,43 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
   );
 
   const partidos = Array.from(document.querySelectorAll("#lista > *"));
-  const headerOriginal = document.querySelector(".header");
-  const footerOriginal = document.querySelector(".patrocinadores");
 
-  let paginas = [];
   let paginaActual = crearPagina();
   let contenido = paginaActual.querySelector(".contenido");
+  let footer = paginaActual.querySelector(".patrocinadores");
 
   for (let i = 0; i < partidos.length; i++) {
 
     const elemento = partidos[i].cloneNode(true);
     contenido.appendChild(elemento);
 
-if (paginaActual.scrollHeight > paginaActual.clientHeight) {
+    if (paginaActual.scrollHeight > paginaActual.clientHeight) {
 
-  contenido.removeChild(elemento);
+      contenido.removeChild(elemento);
 
-  if (!footer.classList.contains("compacto")) {
+      // 🔥 intento compacto
+      if (!footer.classList.contains("compacto")) {
 
-    footer.classList.add("compacto");
+        footer.classList.add("compacto");
 
-    if (paginaActual.scrollHeight <= paginaActual.clientHeight) {
+        if (paginaActual.scrollHeight <= paginaActual.clientHeight) {
+          contenido.appendChild(elemento);
+          continue;
+        }
+
+        footer.classList.remove("compacto");
+      }
+
+      // 🔥 nueva página
+      paginaActual = crearPagina();
+      contenido = paginaActual.querySelector(".contenido");
+      footer = paginaActual.querySelector(".patrocinadores");
+
       contenido.appendChild(elemento);
-      continue;
     }
-
-    footer.classList.remove("compacto");
   }
 
-  paginaActual = crearPagina();
-  contenido = paginaActual.querySelector(".contenido");
-  footer = paginaActual.querySelector(".patrocinadores");
-
-  contenido.appendChild(elemento);
-}
-
-
-  paginas = document.querySelectorAll(".pagina-a4");
+  const paginas = document.querySelectorAll(".pagina-a4");
 
   let index = 1;
 
@@ -723,7 +723,8 @@ if (paginaActual.scrollHeight > paginaActual.clientHeight) {
 
   btn.style.display = "block";
 });
-function crearPagina(){
+
+  function crearPagina(){
 
   const pagina = document.createElement("div");
   pagina.className = "pagina-a4";
