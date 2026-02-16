@@ -651,6 +651,11 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
   const btn = document.getElementById("btnExportar");
   btn.style.display = "none";
 
+  const contenedor = document.getElementById("contenedor-exportacion");
+contenedor.innerHTML = "";
+contenedor.style.display = "block";
+
+
   await document.fonts.ready;
 
   const imagenes = Array.from(document.images);
@@ -720,11 +725,14 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
 
     index++;
   }
+contenedor.style.display = "none";
 
   btn.style.display = "block";
 });
 
-  function crearPagina(){
+ function crearPagina(){
+
+  const contenedor = document.getElementById("contenedor-exportacion");
 
   const pagina = document.createElement("div");
   pagina.className = "pagina-a4";
@@ -734,13 +742,12 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
 
   const contenido = document.createElement("div");
   contenido.className = "contenido";
-  contenido.style.padding = "20px";
 
   pagina.appendChild(header);
   pagina.appendChild(contenido);
   pagina.appendChild(footer);
 
-  document.body.appendChild(pagina);
+  contenedor.appendChild(pagina);
 
   return pagina;
 }
@@ -750,6 +757,7 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
 </script>
 
 
+<div id="contenedor-exportacion" style="display:none;"></div>
 
 </body>
 </html>
