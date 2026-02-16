@@ -1,47 +1,11 @@
 [
   {
-    "fecha": "2026/02/10",
-    "hora": "18:30",
+    "fecha": "2026/02/21",
+    "hora": "11:00",
     "zkia": "1",
-    "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
-    "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE FINALERDIA"
-  },
-  {
-    "fecha": "2026/02/13",
-    "hora": "17:00",
-    "zkia": "1",
-    "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "lehiaketa": "TRINKETE ESKUZ NKJ - ESKUZ BINAKA GAZTE TRINKETE FINALERDIA"
-  },
-  {
-    "fecha": "2026/02/13",
-    "hora": "19:15",
-    "zkia": "1",
-    "fronton": "Irurtzun - Bi Aizpe 1",
-    "etxekoa": "IRURTZUN (O. Otxoa - A. Lizarraga)",
-    "kanpokoak": "LARRAUN (J. Ezkurdia - X. Telletxea)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
-  },
-  {
-    "fecha": "2026/02/14",
-    "hora": "11:30",
-    "zkia": "1",
-    "fronton": "Villava - Atarrabia",
-    "etxekoa": "BETI ONAK (A. Romero - A. Torrecillas)",
-    "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
-    "lehiaketa": "ESKUZ KOPA - F36M ESKUZ BINAKA 1. FINAL LAURDENAK"
-  },
-  {
-    "fecha": "2026/02/11",
-    "hora": "18:30",
-    "zkia": "1",
-    "fronton": "Irurtzun - BI AIZPE-Irurtzun",
-    "etxekoa": "IRURTZUN, C.D.",
-    "kanpokoak": "LARRAUN",
+    "fronton": "LEKUNBERRI - JAIAN JAI-Lekunberri",
+    "etxekoa": "LARRAUN",
+    "kanpokoak": "LAPKE",
     "lehiaketa": "ESKUZ BINAKA GIZONEZKO GAZTEAK LIGA"
   }
 ]
