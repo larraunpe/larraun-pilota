@@ -23,6 +23,17 @@ body{
   margin:auto;
   background:#fff;
 }
+.pagina-a4{
+  width:794px;       /* A4 real a 96dpi */
+  height:1123px;
+  background:#fff;
+  margin:auto;
+  position:relative;
+  overflow:hidden;
+  box-sizing:border-box;
+  padding-bottom:160px; /* espacio para patrocinadores */
+}
+
 
 /* ================= HEADER ================= */
 
@@ -90,11 +101,12 @@ body{
   position:absolute;
   left:0;
   right:0;
-  bottom:-12px;
+  bottom:-14px;
   height:8px;
   background-image: radial-gradient(#0b2350 2px, transparent 2px);
-  background-size:10px 8px;
+  background-size:12px 8px;
 }
+
 
 .partido::before{
   content:"";
@@ -270,12 +282,54 @@ body{
   height:46px;
   object-fit:contain;
 }
+/* ================= BOTÓN FLOTANTE ================= */
+
+#btnExportar{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+  padding:10px 18px;
+  background:#0b2350;
+  color:#9cff9c;
+  border:none;
+  font-family:'Orbitron';
+  cursor:pointer;
+  border-radius:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+#btnExportar:hover{
+  transform:scale(1.05);
+}
+
+/* 🔥 NO IMPRIMIR */
+@media print {
+
+  .no-print{
+    display:none !important;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  @page{
+    size:A4;
+    margin:10mm;
+  }
+
+  .pagina{
+    width:100%;
+  }
+}
+
 
 </style>
 </head>
 
 <body>
-
+<button id="btnExportar" class="no-print">DESCARGAR JPG</button>
 <div class="pagina">
 
 <div class="header">
@@ -283,6 +337,7 @@ body{
   EMAITZAK - LARRAUN PILOTA ELKARTEA
   <img src="images/logo-fnp.png" class="logo-der">
 </div>
+
 
 <div id="lista"></div>
 
@@ -528,6 +583,8 @@ function bloque(titulo, lista, clase){
 }
 
 
+
+
 /* ================= CARGA ================= */
 
 Promise.all([
@@ -559,8 +616,109 @@ const ezOfizial = todos.filter(p =>
 
 });
 
+document.getElementById("btnExportar").addEventListener("click", async () => {
+
+  const btn = document.getElementById("btnExportar");
+  btn.style.display = "none";
+
+  await document.fonts.ready;
+
+  const imagenes = Array.from(document.images);
+  await Promise.all(
+    imagenes.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        img.onload = img.onerror = resolve;
+      });
+    })
+  );
+
+  const partidos = Array.from(document.querySelectorAll("#lista > *"));
+  const headerOriginal = document.querySelector(".header");
+  const footerOriginal = document.querySelector(".patrocinadores");
+
+  let paginas = [];
+  let paginaActual = crearPagina();
+  let contenido = paginaActual.querySelector(".contenido");
+
+  for (let i = 0; i < partidos.length; i++) {
+
+    const elemento = partidos[i].cloneNode(true);
+    contenido.appendChild(elemento);
+
+    if (paginaActual.scrollHeight > paginaActual.clientHeight) {
+
+      contenido.removeChild(elemento);
+
+      // Si es cabecera de torneo, asegurar mínimo 2 partidos debajo
+      if (elemento.classList.contains("titulo-seccion")) {
+
+        let siguientes = partidos.slice(i, i + 3);
+
+        siguientes.forEach(el => {
+          contenido.appendChild(el.cloneNode(true));
+        });
+
+        i += 2;
+
+      } else {
+        paginaActual = crearPagina();
+        contenido = paginaActual.querySelector(".contenido");
+        contenido.appendChild(elemento);
+      }
+
+    }
+  }
+
+  paginas = document.querySelectorAll(".pagina-a4");
+
+  let index = 1;
+
+  for (let pagina of paginas) {
+
+    const canvas = await html2canvas(pagina, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true,
+      allowTaint: true
+    });
+
+    const enlace = document.createElement("a");
+    enlace.download = `larraun-emaitzak-${index}.jpg`;
+    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+    enlace.click();
+
+    index++;
+  }
+
+  btn.style.display = "block";
+});
+function crearPagina(){
+
+  const pagina = document.createElement("div");
+  pagina.className = "pagina-a4";
+
+  const header = document.querySelector(".header").cloneNode(true);
+  const footer = document.querySelector(".patrocinadores").cloneNode(true);
+
+  const contenido = document.createElement("div");
+  contenido.className = "contenido";
+  contenido.style.padding = "20px";
+
+  pagina.appendChild(header);
+  pagina.appendChild(contenido);
+  pagina.appendChild(footer);
+
+  document.body.appendChild(pagina);
+
+  return pagina;
+}
+
+
 
 </script>
+
+
 
 </body>
 </html>
