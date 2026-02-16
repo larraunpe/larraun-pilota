@@ -47,7 +47,23 @@ body{
 
 .patrocinadores{
   flex:0 0 auto;
-  margin-top:auto;   /* 🔥 esto empuja el footer abajo */
+  margin-top:auto;
+  padding:25px 10px;
+  text-align:center;
+  transition:all .2s ease;
+}
+
+.patrocinadores.compacto{
+  padding:12px 10px;
+}
+
+.patrocinadores.compacto .patro-grid{
+  gap:8px;
+}
+
+.patrocinadores.compacto img{
+  max-width:65px;
+  height:36px;
 }
 
 
@@ -660,29 +676,29 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
     const elemento = partidos[i].cloneNode(true);
     contenido.appendChild(elemento);
 
-    if (paginaActual.scrollHeight > paginaActual.clientHeight) {
+if (paginaActual.scrollHeight > paginaActual.clientHeight) {
 
-      contenido.removeChild(elemento);
+  contenido.removeChild(elemento);
 
-      // Si es cabecera de torneo, asegurar mínimo 2 partidos debajo
-      if (elemento.classList.contains("titulo-seccion")) {
+  if (!footer.classList.contains("compacto")) {
 
-        let siguientes = partidos.slice(i, i + 3);
+    footer.classList.add("compacto");
 
-        siguientes.forEach(el => {
-          contenido.appendChild(el.cloneNode(true));
-        });
-
-        i += 2;
-
-      } else {
-        paginaActual = crearPagina();
-        contenido = paginaActual.querySelector(".contenido");
-        contenido.appendChild(elemento);
-      }
-
+    if (paginaActual.scrollHeight <= paginaActual.clientHeight) {
+      contenido.appendChild(elemento);
+      continue;
     }
+
+    footer.classList.remove("compacto");
   }
+
+  paginaActual = crearPagina();
+  contenido = paginaActual.querySelector(".contenido");
+  footer = paginaActual.querySelector(".patrocinadores");
+
+  contenido.appendChild(elemento);
+}
+
 
   paginas = document.querySelectorAll(".pagina-a4");
 
