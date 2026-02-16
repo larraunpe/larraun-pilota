@@ -24,18 +24,32 @@ body{
   background:#fff;
 }
 .pagina-a4{
-  width:794px;       /* A4 real a 96dpi */
+  width:794px;
   height:1123px;
   background:#fff;
-  margin:auto;
-  position:relative;
-  overflow:hidden;
+  margin:40px auto;
+  display:flex;
+  flex-direction:column;
   box-sizing:border-box;
-  padding-bottom:160px; /* espacio para patrocinadores */
 }
 
 
 /* ================= HEADER ================= */
+  .header{
+  flex:0 0 auto;
+}
+
+.contenido{
+  flex:1 1 auto;
+  padding:20px 30px;
+  overflow:hidden;
+}
+
+.patrocinadores{
+  flex:0 0 auto;
+  margin-top:auto;   /* 🔥 esto empuja el footer abajo */
+}
+
 
 .header{
   height:110px;
