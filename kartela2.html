@@ -491,7 +491,7 @@ Promise.all([
 ]).then(([oficiales,noOficiales])=>{
 
  const bloques=[
-   ...crearBloques("ORDUTEGIAK",oficiales),
+   ...crearBloques("NEPF PARTIDUAK",oficiales),
    ...crearBloques("BESTE TXAPELKETAK OFIZIALAK",noOficiales.filter(p=>p.ofiziala==="true")),
    ...crearBloques("TXAPELKETAK EZ OFIZIALAK",noOficiales.filter(p=>p.ofiziala!=="true"))
  ];
