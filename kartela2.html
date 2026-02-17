@@ -430,22 +430,54 @@ function crearBloques(titulo,data){
  h2.innerHTML=`<h2>${titulo}</h2>`;
  arr.push(h2);
 
- const grupos={};
+ /* ==========================
+    1️⃣ FILTRAR DESCANSOS
+ ========================== */
 
- data.forEach(p=>{
+ const dataFiltrada = data.filter(p=>{
 
    const e=(p.etxekoa||"").toLowerCase();
    const k=(p.kanpokoak||"").toLowerCase();
 
-   // ⛔ saltar descansos
-   if(e.includes("descanso") || e.includes("atseden") ||
-      k.includes("descanso") || k.includes("atseden")) return;
+   return !(
+     e.includes("descanso") ||
+     e.includes("atseden") ||
+     k.includes("descanso") ||
+     k.includes("atseden")
+   );
+ });
 
-   const key=p.fecha+"|"+p.hora+"|"+p.fronton;
+ /* ==========================
+    2️⃣ ORDENAR
+ ========================== */
+
+ dataFiltrada.sort((a,b)=>{
+
+   const fechaA = new Date(a.fecha.replace(/\//g,"-"));
+   const fechaB = new Date(b.fecha.replace(/\//g,"-"));
+
+   if(fechaA - fechaB !== 0) return fechaA - fechaB;
+
+   if(a.hora !== b.hora){
+     return a.hora.localeCompare(b.hora);
+   }
+
+   return (a.fronton || "").localeCompare(b.fronton || "");
+ });
+
+ /* ==========================
+    3️⃣ AGRUPAR
+ ========================== */
+
+ const grupos={};
+
+ dataFiltrada.forEach(p=>{
+
+   const key = p.fecha+"|"+p.hora+"|"+p.fronton;
 
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
-});
+ });
 
 
  Object.values(grupos).forEach(partidos=>{
