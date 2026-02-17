@@ -315,7 +315,7 @@ fetch("/data/partidos-no-oficiales.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales])=>{
 
 const bloquesData=[
-{titulo:"ORDUTEGIAK",data:ordenar(oficiales)},
+{titulo:"NEPF PARTIDUAK",data:ordenar(oficiales)},
 {titulo:"BESTE TXAPELKETAK OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)==="true"))},
 {titulo:"TXAPELKETAK EZ OFIZIALAK",data:ordenar(noOficiales.filter(p=>String(p.ofiziala)!=="true"))}
 ];
