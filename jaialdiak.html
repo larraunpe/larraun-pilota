@@ -53,10 +53,12 @@ input:focus{
   outline:2px solid #7cb342;
 }
 
+/* ===== SOMBREADO SOLO SI SENIOR ===== */
 tr.senior-bai{
   background: linear-gradient(90deg, #fffde7, #ffffff);
 }
 
+/* ===== LATERAL SEGÚN LEKUA ===== */
 tr.lateral-jaianjai{
   box-shadow: inset 6px 0 0 #1565c0;
 }
@@ -69,6 +71,7 @@ tr.lateral-default{
   box-shadow: inset 6px 0 0 #3f51b5;
 }
 
+/* ===== TEXTO LEKUA ===== */
 .lekua-jaianjai{
   background:#e3f2fd;
   color:#0d47a1;
@@ -93,11 +96,13 @@ tr.lateral-default{
   border-radius:6px;
 }
 
+/* ===== SENIOR TEXTO ===== */
 .senior-bai-text{
   color:#e65100;
   font-weight:900;
 }
 
+/* ===== OHARRA ===== */
 .oharra{
   max-width:900px;
   margin:14px auto 0;
@@ -130,48 +135,16 @@ tr.lateral-default{
 </table>
 
 <div class="oharra">
-* Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri
+  * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri
 </div>
 
 <script>
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
 
-let guardados = {};
-
-/* =========================
-   Cargar datos guardados
-========================= */
-fetch("api/load.php")
-  .then(r => r.ok ? r.json() : {})
-  .then(d => guardados = d || {})
-  .catch(() => guardados = {})
-  .finally(() => crearTabla());
-
-/* =========================
-   Guardar en servidor
-========================= */
-function guardar(id, value){
-  fetch("https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec", {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/x-www-form-urlencoded"
-    },
-    body:`id=${encodeURIComponent(id)}&value=${encodeURIComponent(value)}`
-  });
-}
-
-/* =========================
-   Utilidades
-========================= */
 function normalizaHora(h){
   if(!h) return "00:00";
   return h.slice(0,5);
 }
-
-/* =========================
-   Crear tabla
-========================= */
-function crearTabla(){
 
 Promise.all([
   fetch("data/cartelera-larraun.json").then(r=>r.json()),
@@ -187,6 +160,7 @@ Promise.all([
 
   data.forEach(p => {
 
+    /* SOLO Lekunberri o Aldatz */
     if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
 
     const hora = normalizaHora(p.hora);
@@ -194,11 +168,11 @@ Promise.all([
 
     if(!jaialdiak[key]){
       jaialdiak[key] = {
-        fecha:p.fecha,
-        hora:hora,
-        fronton:p.fronton,
-        zb:0,
-        senior:"EZ"
+        fecha: p.fecha,
+        hora: hora,
+        fronton: p.fronton,
+        zb: 0,
+        senior: "EZ"
       };
     }
 
@@ -206,7 +180,7 @@ Promise.all([
 
     const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
     if(SENIOR_RE.test(testua)){
-      jaialdiak[key].senior="BAI";
+      jaialdiak[key].senior = "BAI";
     }
   });
 
@@ -218,10 +192,12 @@ Promise.all([
 
       const tr = document.createElement("tr");
 
+      /* Sombreado SOLO si SENIOR */
       if(j.senior === "BAI"){
         tr.classList.add("senior-bai");
       }
 
+      /* Lateral según LEKUA */
       if(/lekunberri\s*-\s*jaian\s*jai/i.test(j.fronton)){
         tr.classList.add("lateral-jaianjai");
       }
@@ -233,6 +209,7 @@ Promise.all([
       }
 
       const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
+      const guardado = localStorage.getItem(id) || "";
 
       tr.innerHTML = `
         <td>${j.fecha}</td>
@@ -253,18 +230,14 @@ Promise.all([
           <strong>${j.senior}</strong>
         </td>
         <td>
-          <input
-            value="${guardados[id] || ''}"
-            oninput="guardar('${id}', this.value)"
-          >
+          <input value="${guardado}"
+            oninput="localStorage.setItem('${id}', this.value)">
         </td>
       `;
 
       tbody.appendChild(tr);
     });
-
 });
-}
 </script>
 
 </body>
