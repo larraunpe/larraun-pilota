@@ -327,8 +327,7 @@ function nuevaPagina(){
 
  document.getElementById("contenedorPaginas").appendChild(p);
 
- generarPelotazos(pel);
- rellenarLogos(p);
+  rellenarLogos(p);
 
  return p.querySelector(".contenido");
 }
@@ -488,10 +487,14 @@ Promise.all([
 
  const contenido = nuevaPagina();
 
-bloques.forEach(b=>contenido.appendChild(b));
+ bloques.forEach(b=>contenido.appendChild(b));
 
+ // 🔥 AHORA sí sabemos la altura real
+ const pel = document.querySelector(".pelotazos");
+ generarPelotazos(pel);
 
 });
+
 
 
 /* ================= EXPORTAR TODAS LAS PÁGINAS ================= */
