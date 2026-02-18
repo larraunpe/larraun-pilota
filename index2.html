@@ -1,0 +1,2599 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Larraun Pilota Elkartea – Lekunberri eta Larraungo haraneko herrietako euskal pilota kluba. Eskola, entrenamenduak, partiden kartelera ofiziala (FNP) eta komunitatea.">
+<meta name="keywords" content="pelota vasca, pilota, Larraun, Lekunberri, Nafarroa, frontón, eskola, kimu, haur, kadete, gazte, helduak, pala, esku pilota">
+<meta name="author" content="Larraun Pilota Elkartea">
+<meta property="og:title" content="Larraun Pilota Elkartea">
+<meta property="og:description" content="Larraungoko euskal pilota kluba – Berriak, partidak, entrenamenduak eta komunitatea.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.larraunpilota.eus/">
+<meta property="og:image" content="https://www.larraunpilota.eus/og-index.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+
+<title>Larraun Pilota Elkartea</title>
+<link rel="icon" type="image/png" href="/logo-web.png">
+
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #b30000, #006400);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+header img {
+  max-width: 150px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #b30000;
+  margin-top: 0;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.eu { display: block; }
+.es { display: none; }
+
+.campeonatos-link {
+  margin-top: 30px;
+  background: #fff;
+  border-left: 5px solid #006400;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+  display: inline-block;
+  transition: 0.2s;
+}
+.reserva-link {
+  margin-top: 10px;
+  background: #006400;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9em;
+}
+
+.reserva-link:hover {
+  background: #004d00;
+}
+
+.archivo-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 22px;
+  background: #222;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+.info-campeonatos {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.info-campeonatos a {
+  font-weight: bold;
+  color: #006400;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.info-campeonatos a:hover {
+  text-decoration: underline;
+}
+.entrenatzailea {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9em;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+.julen-martija {
+  background: linear-gradient(135deg, #a8e6a3, #2e7d32);
+}
+.abel-barriola {
+  background: linear-gradient(135deg, #b3e5fc, #0288d1);
+}
+.enrike-galarza {
+  background: linear-gradient(135deg, #4682B4, #4682B4);
+}
+.maria-eguzkiza {
+  background: linear-gradient(135deg, #f8bbd0, #c2185b);
+}
+.xabi-azpiroz {
+  background: linear-gradient(135deg, #d1c4e9, #512da8);
+}
+.aitor-etxarri {
+  background: linear-gradient(135deg, #616161, #000000);
+}
+.entrenatzailea:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: all 0.2s ease;
+}
+.kategoria {
+  display: inline-block;
+  padding: 14px 18px;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 1.05em;
+}
+
+.kategoria-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+/* ===== MODALITATAK ===== */
+.modalitateak{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  margin:30px 0;
+}
+
+.modal-card{
+  position:relative;
+  height:160px;
+  border-radius:18px;
+  padding:20px;
+  color:#fff;
+  text-decoration:none;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.modal-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+.modal-card h2{
+  margin:0;
+  font-size:1.6em;
+  z-index:2;
+  position:relative;
+}
+
+.modal-card span{
+  font-size:1em;
+  opacity:.9;
+  z-index:2;
+  position:relative;
+}
+
+/* ===== MANO ===== */
+.modal-card.mano{
+  background:linear-gradient(135deg,#7ecbff,#2e7d32);
+}
+
+/* ===== PALA ===== */
+.modal-card.pala{
+  background:linear-gradient(135deg,#ffb347,#8b4500);
+}
+
+/* ===== SILUETAS (CENTRADAS HORIZONTAL + ABAJO) ===== */
+.modal-card.mano::after,
+.modal-card.pala::after{
+  content:"";
+  position:absolute;
+  bottom:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:160px;
+  height:160px;
+  background-repeat:no-repeat;
+  background-position:center bottom;
+  background-size:contain;
+  opacity:.35;
+  pointer-events:none;
+}
+
+/* imágenes (RUTAS RELATIVAS ✔) */
+.modal-card.mano::after{
+  background-image:url("images/silueta-pelotari.png");
+}
+
+.modal-card.pala::after{
+  background-image:url("images/silueta-pala-chica.png");
+}
+
+.kategoria-card p {
+  margin: 6px 0 0;
+  font-size: 0.95em;
+  color: #333;
+}
+
+  
+.archivo-link:hover {
+  background: #444;
+}
+
+.taldeak-auto {
+  margin-top: 40px;
+}
+
+.talde-blokea {
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+.talde-titulua {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #222;
+}
+  
+/* Cada día será una columna con posicionamiento relativo */
+.dia {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 40px; /* solo para separar del título */
+}
+
+/* Los eventos ahora se posicionan */
+
+.pelotari-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+#patrocinadores-home {
+  background: #eee;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.sponsor-carousel {
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.sponsor-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sponsor-item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-item img {
+  max-width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.sponsor-item:hover img {
+  filter: grayscale(0%);
+}
+
+.sponsor-link {
+  margin-top: 20px;
+}
+
+.sponsor-link a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+}
+
+
+.pelotari {
+  font-weight: bold;
+  font-size: 0.95em;
+}
+/* ===== TEMPORADAS ===== */
+.temporadas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.temporada-card {
+  background: #111;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease;
+}
+
+.temporada-card:hover {
+  transform: translateY(-4px);
+}
+
+/* VIDEO */
+.temporada-video {
+  position: relative;
+  display: block;
+}
+
+.temporada-video img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.temporada-video .play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4em;
+  color: rgba(255,255,255,0.9);
+}
+
+/* INFO */
+.temporada-info {
+  padding: 18px;
+  color: white;
+}
+
+.temporada-info h3 {
+  margin: 0 0 12px;
+}
+
+/* LINKS */
+.temporada-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.temporada-links a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.temporada-links .fb {
+  background: #1877f2;
+  color: white;
+}
+
+.temporada-links .yt {
+  background: #ff0000;
+  color: white;
+}
+
+/* ===== MENÚ ===== */
+nav {
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  padding: 14px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+nav a:hover {
+  background-color: #444;
+}
+
+.menu-toggle {
+  display: none;
+  background: #222;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  nav { display: none; flex-direction: column; }
+  nav.show { display: flex; }
+  nav a { border-top: 1px solid #444; }
+  .menu-toggle { display: block; }
+}
+
+/* ===== CARDS ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ===== CABECERA SUPERIOR DERECHA ===== */
+.top-right {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.top-right .campeonatos-link {
+  margin-top: 18px;
+  background: linear-gradient(90deg, #ffffff, #e8f5e8);
+}
+.top-left {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  z-index: 1000;
+}
+
+/* contenedor de enlaces para bajarlos */
+.links-derecha {
+  margin-top: 26px;   /* ← aquí controlas lo “bajo” que van */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.social-icons img {
+  width: 32px;
+  height: auto;
+  display: block;
+}
+
+.lang-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lang-switch button {
+  background-color: #eee;
+  color: #222;
+  padding: 8px 16px;
+  font-size: 0.95em;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.lang-switch button.active {
+  background-color: #222;
+  color: white;
+}
+  /* GALERÍA – CARPETAS */
+    .galeria-folders {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .folder {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 90px;
+      padding-left: 28px;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 1.4em;
+      font-weight: bold;
+      text-decoration: none;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .folder::before {
+      content: "📁";
+      font-size: 2em;
+      margin-right: 14px;
+    }
+
+    .folder::after {
+      content: "Ikusi galeria →";
+      position: absolute;
+      right: 26px;
+      font-size: 0.9em;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.25s ease;
+    }
+
+    .folder:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+
+    .folder:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .t2019 { background: linear-gradient(135deg,#2c3e50,#4ca1af); }
+    .t2020 { background: linear-gradient(135deg,#5f2c82,#49a09d); }
+    .t2021 { background: linear-gradient(135deg,#1d4350,#a43931); }
+    .t2022 { background: linear-gradient(135deg,#134e5e,#71b280); }
+    .t2023 { background: linear-gradient(135deg,#283c86,#45a247); }
+    .t2024 { background: linear-gradient(135deg,#3a1c71,#d76d77); }
+    .t2025 { background: linear-gradient(135deg,#000428,#004e92); }
+
+    @media (max-width: 700px) {
+      .folder { height: 70px; font-size: 1.2em; }
+      .folder::after { display: none; }
+    }
+
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+/* ===== MÓVIL ===== */
+@media (max-width: 600px) {
+  header h1 { font-size: 1.8em; }
+  section { padding: 30px 15px; }
+  .top-left,
+  .top-right {
+    position: static;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .links-derecha {
+  margin-top: 12px;
+  align-items: center;
+  }
+
+  .social-icons img {
+    width: 36px;
+  }
+
+  .lang-switch {
+    flex-direction: row;
+    gap: 8px;
+  }
+}
+
+  .-link {
+  margin-top: 20px; /* baja el recuadro */
+  background: #fff;
+  border-left: 4px solid #006400;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+  text-decoration: none;
+  color: #006400;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.campeonatos-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 600px) {
+  .campeonatos-link {
+    width: 90%;
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+.match {
+  background: #fff;
+  margin-bottom: 16px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-size: 0.95em;
+}
+
+.match-line {
+  margin: 4px 0;
+}
+.horarios-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.calendario {
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.calendario h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6em;
+}
+
+.fronton h3 { color:#2e7d32; }
+.trinquete h3 { color:#004e92; }
+
+.semana {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.dia h4 {
+  text-align: center;
+  background: rgba(255,255,255,0.85);
+  padding: 8px 0;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.evento {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  line-height: 1.3;
+}
+
+
+/* COLORES */
+.prebenjamin { background:#c2b280; }
+.benjamin { background:#ff9800; }
+.alevin { background:#ffeb3b; color:#333; }
+.infantil { background:#4caf50; color:#fff; }
+.cadete { background:#81d4fa; color:#003; }
+.juvenil { background:#0d47a1; color:#fff; }
+.nagusi { background:#4682B4; color:#fff; }
+
+/* Equipos */
+.etxekoa {
+  color: #0b2c5d; /* azul oscuro */
+}
+
+.kanpokoak {
+  color: #b00000; /* rojo */
+}
+
+/* LARRAUN destacado */
+.larraun {
+  font-weight: bold;
+  font-size: 1.05em;
+}
+
+/* Frontoia Lekunberri */
+.lekunberri {
+  font-weight: bold;
+  font-style: italic;
+}
+/* ===== PARTIDOS NO OFICIALES ===== */
+.match.no-oficial {
+  background: #fff7f4;
+  border-left: 6px dashed #b00000;
+}
+
+.match.no-oficial .badge-no-oficial {
+  display: inline-block;
+  background: #b00000;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* ===== FONDOS FRONTOIA / TRINKETE ===== */
+
+/* FRONTOIA – verde azulado muy claro */
+.calendario.fronton {
+  background: linear-gradient(135deg, #cfe8e2, #e2f3ef);
+}
+
+/* TRINKETE – marrón muy claro */
+.calendario.trinquete {
+  background: linear-gradient(135deg, #e6dccf, #f0e9df);
+}
+/* ===== HORARIOS PROPORCIONALES DEFINITIVOS ===== */
+
+.dia {
+  position: relative;
+  padding-top: 42px;
+  height: 520px;
+}
+
+.dia h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px 0;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  z-index: 5;
+  text-align: center;
+}
+
+.evento {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+}
+/* ===============================
+   TALDEAK · ENTRENAMENDUAK
+   =============================== */
+
+.entrenamenduak-taldeak {
+  padding: 40px 20px;
+  background: #f4f4f4;
+}
+
+.entrenamenduak-taldeak .grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+/* (el resto de tu CSS tal cual) */
+
+/* =========================================
+   TALDEAK · ENTRENAMENDUAK (CSS COMPLETO)
+   ========================================= */
+
+.entrenamenduak-taldeak .card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  overflow:hidden;
+}
+
+.entrenamenduak-taldeak .card h2{
+  margin:0;
+  padding:16px;
+  color:#fff;
+  font-size:1.2em;
+}
+
+/* ===== COLORES DE CABECERA ===== */
+.entrenamenduak-taldeak .esku-julen h2{background:#2e7d32;}
+.entrenamenduak-taldeak .esku-barriola h2{background:#1565c0;}
+.entrenamenduak-taldeak .pala h2{background:#6a1b9a;}
+
+/* ===== GRUPOS ===== */
+.entrenamenduak-taldeak .group{
+  margin-bottom:14px;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.entrenamenduak-taldeak .prebenjaminak{background:#f1e0c5;}
+.entrenamenduak-taldeak .benjaminak{background:#ffb74d;}
+.entrenamenduak-taldeak .alebinak{background:#fff176;}
+.entrenamenduak-taldeak .infantilak{background:#4caf50;}
+.entrenamenduak-taldeak .kadeteak{background:#81d4fa;}
+.entrenamenduak-taldeak .jubenilak{background:#0d47a1;}
+.entrenamenduak-taldeak .nagusiak{background:#4682B4;}
+
+.entrenamenduak-taldeak .group h3{
+  margin:0 0 6px;
+  font-size:0.95em;
+}
+
+/* ===== LISTAS ===== */
+.entrenamenduak-taldeak ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.entrenamenduak-taldeak li{
+  font-size:0.9em;
+  line-height:1.4;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SOMBREADO POR EDAD ===== */
+.entrenamenduak-taldeak li::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  border-radius:4px;
+}
+
+.entrenamenduak-taldeak li.edad-aurrebenjaminak::after{background:#f1e0c5;}
+.entrenamenduak-taldeak li.edad-benjaminak::after{background:#ffb74d;}
+.entrenamenduak-taldeak li.edad-alebinak::after{background:#fff176;}
+.entrenamenduak-taldeak li.edad-infantilak::after{background:#4caf50;}
+.entrenamenduak-taldeak li.edad-kadeteak::after{background:#81d4fa;}
+.entrenamenduak-taldeak li.edad-jubenilak::after{background:#0d47a1;}
+.entrenamenduak-taldeak li.edad-nagusiak::after{background:#4682B4;}
+
+/* ===== TEXTO BLANCO EN FONDOS OSCUROS ===== */
+.entrenamenduak-taldeak li.edad-jubenilak,
+.entrenamenduak-taldeak li.edad-infantilak,
+.entrenamenduak-taldeak li.edad-nagusiak{
+  color:#ffffff;
+  font-weight:600;
+}
+/* ===== TEXTO BLANCO EN CABECERAS DE GRUPOS OSCUROS ===== */
+.entrenamenduak-taldeak .infantilak h3,
+.entrenamenduak-taldeak .jubenilak h3,
+.entrenamenduak-taldeak .nagusiak h3 {
+  color: #ffffff;
+  font-weight: 700;
+}
+/* =========================================
+   MEJORA RESPONSIVE PROFESIONAL
+   ========================================= */
+
+/* 1️⃣ Evitar desbordamientos horizontales */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* 2️⃣ Imágenes siempre fluidas */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 3️⃣ Tipografía fluida */
+h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+h2 { font-size: clamp(1.3rem, 3.5vw, 1.8rem); }
+h3 { font-size: clamp(1.1rem, 3vw, 1.4rem); }
+p  { font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
+
+/* =========================================
+   4️⃣ CALENDARIO RESPONSIVE REAL
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  .semana {
+    grid-template-columns: 1fr;
+  }
+
+  .dia {
+    position: static !important;
+    height: auto !important;
+    padding-top: 0;
+  }
+
+  .dia h4 {
+    position: static !important;
+    margin-bottom: 10px;
+  }
+
+  .evento {
+    position: relative !important;
+    margin-bottom: 10px;
+  }
+}
+
+/* =========================================
+   5️⃣ HEADER MÁS EQUILIBRADO EN MÓVIL
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  header {
+    padding: 25px 15px 20px 15px;
+  }
+
+  header img {
+    max-width: 110px;
+  }
+
+  .top-left,
+  .top-right {
+    position: static;
+    align-items: center;
+    text-align: center;
+  }
+
+  .links-derecha {
+    align-items: center;
+  }
+
+  .campeonatos-link,
+  .reserva-link {
+    width: 100%;
+    max-width: 320px;
+  }
+
+}
+
+/* =========================================
+   6️⃣ CARDS MÁS ELEGANTES EN MÓVIL
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .card {
+    padding: 18px;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+}
+
+/* =========================================
+   7️⃣ MODALIDADES MÁS PROPORCIONADAS
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .modal-card {
+    height: 140px;
+  }
+
+  .modal-card h2 {
+    font-size: 1.3em;
+  }
+
+}
+
+
+
+</style>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.es').forEach(e => e.style.display = lang === 'es' ? 'block' : 'none');
+  document.querySelectorAll('.eu').forEach(e => e.style.display = lang === 'eu' ? 'block' : 'none');
+
+  document.getElementById('btn-es').classList.remove('active');
+  document.getElementById('btn-eu').classList.remove('active');
+  document.getElementById('btn-' + lang).classList.add('active');
+
+  formatDates(lang);
+}
+
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('show');
+}
+
+function openImage(src) {
+  const modal = document.createElement("div");
+  modal.style.position = "fixed";
+  modal.style.top = 0;
+  modal.style.left = 0;
+  modal.style.width = "100%";
+  modal.style.height = "100%";
+  modal.style.background = "rgba(0,0,0,0.9)";
+  modal.style.display = "flex";
+  modal.style.alignItems = "center";
+  modal.style.justifyContent = "center";
+  modal.style.zIndex = 9999;
+
+  modal.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">`;
+  modal.onclick = () => document.body.removeChild(modal);
+  document.body.appendChild(modal);
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsClub",
+  "name": "Larraun Pilota Elkartea",
+  "alternateName": "Larraun Pilota",
+  "sport": ["Basque Pelota", "Pala"],
+  "url": "https://www.larraunpilota.eus",
+  "logo": "https://www.larraunpilota.eus/images/logo-larraun.png",
+  "description": "Lekunberri eta Larraungo haraneko herrietako euskal pilota kluba. Eskola, partiduak eta entrenamenduak.",
+  "location": {
+    "@type": "Place",
+    "name": "Lekunberri Frontón"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+34 613 99 77 10",
+    "contactType": "Club contact",
+    "email": "larraunpe@gmail.com",
+    "availableLanguage": ["Spanish", "Basque"]
+  },
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61585064469809",
+    "https://www.instagram.com/larraunpilota?igsh=cmszMjdoMXhlbTdi",
+    "https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08"
+  ],
+  "memberOf": {
+    "@type": "SportsOrganization",
+    "name": "Federación Navarra de Pelota"
+  }
+}
+</script>
+
+</head>
+
+<body onload="setLang('eu')">
+
+<header>
+  <!-- IZQUIERDA: IDIOMAS -->
+  <div class="top-left">
+    <div class="lang-switch">
+      <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
+      <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
+    </div>
+  </div>
+
+  <!-- DERECHA: REDES + ENLACES -->
+  <div class="top-right">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">
+        <img src="images/icons/facebook1.jpg" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/larraunpilota" target="_blank">
+        <img src="images/icons/instagram.jpg" alt="Instagram">
+      </a>
+      <a href="https://whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank">
+        <img src="images/icons/whatsapp.jpg" alt="WhatsApp">
+      </a>
+    </div>
+
+    <div class="links-derecha">
+      <div class="eu">
+        <a href="campeonatos/index.html" class="campeonatos-link">🏆 Babestutako Txapelketak</a>
+      </div>
+      <div class="es">
+        <a href="campeonatos/index.html" class="campeonatos-link">🏆 Campeonatos patrocinados</a>
+      </div>
+
+      <div class="eu">
+        <a href="reservas.html" class="reserva-link">📅 Frontoi ala Trinquete erreserbak</a>
+      </div>
+      <div class="es">
+        <a href="reservas.html" class="reserva-link">📅 Reservas Frontón y Trinquete</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTRO -->
+  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea">
+  <h1>LARRAUN PILOTA ELKARTEA</h1>
+  <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
+  <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
+</header>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav id="menu">
+  <a class="eu" href="#inicio">Hasiera</a>
+  <a class="eu" href="#berriak">Berriak</a>
+  <a class="eu" href="#egitura">Kirol egitura</a>
+  <a class="eu" href="#entrenamenduak">Entrenamenduak</a>
+  <a class="eu" href="#kartelera">Kartelera</a>
+  <a class="eu" href="#emaitzak">Emaitzak</a>
+  <a class="eu" href="#galeria">Galeria</a>
+  <a class="eu" href="#kontaktua">Kontaktua</a>
+
+  <a class="es" href="#inicio">Inicio</a>
+  <a class="es" href="#berriak">Noticias</a>
+  <a class="es" href="#egitura">Estructura deportiva</a>
+  <a class="es" href="#entrenamenduak">Entrenamientos</a>
+  <a class="es" href="#kartelera">Cartelera</a>
+  <a class="es" href="#emaitzak">Resultados</a>
+  <a class="es" href="#galeria">Galería</a>
+  <a class="es" href="#kontaktua">Contacto</a>
+</nav>
+
+<section id="inicio">
+  <h2 class="eu">Ongi etorri</h2>
+  <h2 class="es">Bienvenidos</h2>
+
+  <p class="es">
+    Larraun Pilota Elkartea es mucho más que un club deportivo.
+    Es un punto de encuentro para los pueblos del valle de Larraún,
+    un espacio donde se transmite de generación en generación
+    la pasión por la <strong>pelota vasca</strong>, uno de los deportes
+    más arraigados a nuestra cultura y a nuestra forma de vivir.
+  </p>
+
+  <p class="es">
+    En nuestros frontones, la pelota ha sido siempre un lugar de
+    convivencia, esfuerzo y respeto, donde niños, jóvenes y adultos
+    han compartido entrenamientos, partidos y vivencias que forman
+    parte de la historia de nuestros pueblos.
+    La pelota no es solo competición: es educación, compañerismo
+    y vínculo entre localidades.
+  </p>
+
+  <p class="es">
+    Desde Lekunberri y el conjunto de las localidades del valle,
+    trabajamos para fomentar la práctica de la pelota vasca,
+    cuidar la cantera y mantener vivo un deporte que forma parte
+    de nuestra identidad, adaptándolo a los nuevos tiempos sin
+    perder sus valores tradicionales.
+  </p>
+
+  <p class="eu">
+    Larraun Pilota Elkartea kirol elkarte bat baino askoz gehiago da.
+    Larraungo herriak lotzen dituen topagunea da,
+    belaunaldiz belaunaldi <strong>euskal pilotarekiko zaletasuna</strong>
+    transmititzen den lekua, gure kulturaren eta bizimoduaren
+    parte garrantzitsua den kirola izanik.
+  </p>
+
+  <p class="eu">
+    Gure frontoietan, pilota betidanik izan da
+    elkarbizitzarako, ahaleginerako eta errespeturako gunea,
+    non haurrek, gazteek eta helduek entrenamenduak,
+    partidak eta bizipenak partekatu dituzten,
+    gure herrien historiaren parte bihurtuz.
+    Pilota ez da lehia bakarrik: hezkuntza,
+    laguntasuna eta herrien arteko lotura ere bada.
+  </p>
+
+  <p class="eu">
+    Lekunberritik eta haraneko gainerako herrietatik,
+    euskal pilotaren praktika sustatzeko lan egiten dugu,
+    harrobia zainduz eta gure nortasunaren parte den
+    kirol hau bizirik mantenduz,
+    balio tradizionalak galdu gabe garai berrietara egokituz.
+  </p>
+  <div style="margin-top:40px; text-align:center;">
+  <img 
+    src="images/historica-fronton.jpg"
+    alt="Imagen histórica de la pelota en Larraun"
+    style="max-width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.2); cursor:pointer;"
+    onclick="openImage(this.src)"
+  >
+
+  <p class="es" style="margin-top:10px; font-size:0.9em; color:#555;">
+    Larraun obtiene su sexta txapela en el Interpueblos de Nafarroa.
+  </p>
+
+  <p class="eu" style="margin-top:10px; font-size:0.9em; color:#555;">
+    Larraunek bere seigarren txapela lortzen du Nafarroako Herrien Arteko Txapelketan.
+  </p>
+</div>
+
+</section>
+
+<section id="berriak">
+  <h2 class="eu">Berriak</h2>
+  <h2 class="es">Noticias</h2>
+
+  <div class="cards">
+
+<!--NOTICIA 1 -->
+  <div class="card" data-date="2026-02-01">
+
+    <p class="news-date"
+       data-date="2026-02-01"
+       style="font-size:0.9em; color:#666;"></p>
+
+
+  <!-- Contenido -->
+  <div class="berria-content">
+
+    <!-- Castellano -->
+    <div class="es">
+      <p>
+        Hemos actualizado la sección de <strong>Galería</strong> de la web con los
+        <strong>pases de fotos en YouTube</strong> y los
+        <strong>álbumes completos de Facebook</strong> correspondientes a las
+        últimas temporadas.
+      </p>
+
+      <p>
+        De esta manera, mantenemos la web ligera y accesible, centralizando todo
+        el contenido audiovisual del club en nuestras redes sociales, donde se
+        publican imágenes y vídeos de entrenamientos, partidos y eventos.
+      </p>
+
+      <a href="#galeria" class="berria-btn">
+        📸 Ver galería
+      </a>
+    </div>
+
+    <!-- Euskera -->
+    <div class="eu">
+      <p>
+        Webguneko <strong>Galeria</strong> atala eguneratu dugu, azken denboraldietako
+        <strong>YouTubeko argazki-aurkezpenak</strong> eta
+        <strong>Facebookeko album osoak</strong> gehituz.
+      </p>
+
+      <p>
+        Horrela, webgunea arin eta erabilerraza mantentzen dugu, klubeko
+        ikus-entzunezko eduki guztia gure sare sozialetan bilduz: entrenamenduak,
+        partidak eta ekitaldiak bertan argitaratzen dira.
+      </p>
+
+      <a href="#galeria" class="berria-btn">
+        📸 Galeria ikusi
+      </a>
+    </div>
+
+  </div>
+
+  <!-- IMAGEN ENLAZADA A GALERIA -->
+  <div style="margin-top:15px; width:100%; text-align:center;">
+    <a href="https://larraunpilota.eus/#galeria"
+       target="_blank"
+       style="display:block; width:100%;">
+      <img 
+        src="images/cartelera/galeriactualizada.png"
+        alt="Galeria"
+        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
+        onclick="openImage(this.src)">
+    </a>
+  </div>
+ </div>
+ 
+
+<!--NOTICIA 1 -->
+  <div class="card" data-date="2025-12-25">
+
+    <p class="news-date"
+       data-date="2025-12-25"
+       style="font-size:0.9em; color:#666;"></p>
+
+
+  <!-- CASTELLANO -->
+  <p class="es">
+    <strong>¡Enhorabuena a la persona ganadora!</strong><br><br>
+    Muchísimas gracias a todas y todos por participar en nuestro sorteo de Navidad,  
+    por la ilusión compartida y por acompañarnos un año más.<br><br>
+    ✨ ¡Feliz Navidad y suerte para el próximo año! 🎁🎄
+  </p>
+
+  <!-- EUSKERA -->
+  <p class="eu">
+    <strong>Zorionak irabazleari!</strong><br><br>
+    Eskerrik asko guztioi Gabonetako zozketan parte hartzeagatik,  
+    ilusio partekatuagatik eta beste urte batez gurekin egoteagatik.<br><br>
+    ✨ Gabon zoriontsuak eta zorte on datorren urterako! 🎁🎄
+  </p>
+
+  <!-- IMAGEN ENLAZADA A FACEBOOK -->
+  <div style="margin-top:15px; width:100%; text-align:center;">
+    <a href="https://www.facebook.com/permalink.php?story_fbid=pfbid02tUqV4jL7DwT7Qd2NKVZCApxtKcbQ9t2W2EpX7yYfJQukmoLGFgwFiT9QzaNZaW9el&id=61585064469809"
+       target="_blank"
+       style="display:block; width:100%;">
+      <img 
+        src="images/cartelera/cartel-sorteo.jpg"
+        alt="Gabonetako Zozketa - Cesta de Navidad"
+        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
+        onclick="openImage(this.src)">
+    </a>
+  </div>
+ </div>
+ 
+
+<!--NOTICIA 2 -->
+<div class="card" data-date="2025-12-19">
+
+    <p class="news-date"
+       data-date="2025-12-19"
+       style="font-size:0.9em; color:#666;"></p>
+
+  <!-- CASTELLANO -->
+  <p class="es">
+    <strong>El 27 de diciembre a las 10 horas</strong> organizaremos partidos amistosos de pelota
+    mano y pala. Por favor escribid al móvil de contacto quienes queráis jugar,
+    antes del lunes, para organizar los partidos. Con los nuevos también
+    contamos si quieren. 
+  </p>
+
+  <!-- EUSKERA -->
+  <p class="eu">
+    <strong>Abenduaren 27an 10etan</strong>esku pilota eta palako pilota partidu amistosoak
+    antolatuko ditugu. Mesedez idatzi kontaktuko mugikorrara jokatu nahi duzuenok,
+    astelehena baino lehen, partiduak antolatzeko. Hasiberriekin ere kontatzen
+    dugu nahi badute.
+  </p>
+
+  <!-- IMAGEN ENLAZADA A CONTACTO -->
+  <div style="margin-top:15px; width:100%; text-align:center;">
+    <a href="https://larraunpe.github.io/larraun-pilota/#kontaktua"
+       target="_blank"
+       style="display:block; width:100%;">
+      <img 
+        src="images/cartelera/cartel-amistoso.jpg"
+        alt="Lagunartekoak - Amistosos"
+        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
+        onclick="openImage(this.src)">
+    </a>
+  </div>
+</div>
+
+ 
+ <!-- 🔽 ENLACE AL ARCHIVO (SOLO AQUÍ) -->
+  <div class="archivo-wrapper">
+    <a class="eu archivo-link" href="archivo-noticias.html?idioma=eu">
+      🗂️ Berri zaharren artxiboa
+    </a>
+    <a class="es archivo-link" href="archivo-noticias.html?idioma=ca">
+      🗂️ Archivo de noticias
+    </a>
+  </div>
+
+   </section>
+<section id="egitura">
+  <h2 class="eu">Kirol egitura</h2>
+  <h2 class="es">Estructura deportiva</h2>
+
+  <!-- aquí NO tocamos nada más -->
+
+<section id="modalitateak">
+
+  <h2 class="eu">Modalitateak</h2>
+  <h2 class="es">Modalidades</h2>
+
+  <!-- GRID MODALIDADES -->
+  <div class="modalitateak">
+
+    <a href="https://www.youtube.com/watch?v=nOcKn0ZYNLk"
+       class="modal-card mano"
+       target="_blank"
+       aria-label="Esku pilota / Mano">
+      <h3>Esku pilota</h3>
+      <h3>Mano</h3>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=neqw4GFbrUI"
+       class="modal-card pala"
+       target="_blank"
+       aria-label="Pala">
+      <h3>Pala</h3>
+    </a>
+
+  </div>
+
+  <!-- TEXTO EXPLICATIVO -->
+  <div style="margin-top:40px;">
+
+    <h3 class="es">La pelota vasca: tradición, deporte y futuro</h3>
+    <h3 class="eu">Euskal pilota: tradizioa, kirola eta etorkizuna</h3>
+
+    <p class="es">
+      La pelota vasca es uno de los deportes más emblemáticos de nuestra cultura,
+      un juego que ha sabido mantenerse vivo a lo largo de los siglos combinando
+      tradición, esfuerzo físico y valores comunitarios.
+    </p>
+
+    <p class="es">
+      Entre sus diferentes modalidades, la <strong>pelota a mano</strong> y la
+      <strong>pala</strong> ocupan un lugar destacado por su accesibilidad y
+      espectacularidad. La mano exige técnica, resistencia y lectura del juego,
+      mientras que la pala aporta velocidad y dinamismo.
+    </p>
+
+    <p class="es">
+      Practicar pelota vasca es mejorar la condición física, compartir valores y
+      formar parte de una tradición viva que sigue creciendo gracias a los clubes.
+    </p>
+
+    <p class="eu">
+      Euskal pilota gure kulturaren kirol adierazpen nagusietako bat da,
+      tradizioa, ahalegina eta balio sozialak uztartzen dituena.
+    </p>
+
+    <p class="eu">
+      <strong>Eskuzko pilota</strong> eta <strong>pala</strong> modalitate
+      eskuragarriak eta ikusgarriak dira, teknika, indarra eta jokoaren ulermena
+      lantzen dituztenak.
+    </p>
+
+    <p class="eu">
+      Euskal pilota praktikatzea kirola egitea baino gehiago da:
+      elkarbizitza, balioak eta bizirik dagoen tradizio baten parte izatea.
+    </p>
+
+  </div>
+
+</section>
+
+<section id="kategoriak">
+  <h2 class="eu">Kategoriak</h2>
+  <h2 class="es">Categorías</h2>
+
+  <!-- contenedor vacío -->
+  <div class="cards" id="kategoriak-container"></div>
+</section>
+
+
+<section id="entrenatzaileak">
+  <h2 class="eu">Entrenatzaileak</h2>
+  <h2 class="es">Entrenadores</h2>
+
+  <h3 class="eu">Eskuko entrenatzaileak</h3>
+  <h3 class="es">Entrenadores de mano</h3>
+
+  <div class="cards">
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea julen-martija">Julen Martija</span>
+    </h4>
+    <p class="eu">Kategoriak: Aurrebenjaminak, Sein eta Kimu</p>
+    <p class="es">Categorías: Prebenjamín, Benjamín y Alevín</p>
+  </div>
+
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea abel-barriola">Abel Barriola</span>
+    </h4>
+    <p class="eu">Kategoriak: Haur, Kadete eta Gazte</p>
+    <p class="es">Categorías: Infantil, Cadete y Juvenil</p>
+  </div>
+
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea enrike-galarza">Enrike Galarza</span>
+    </h4>
+    <p class="eu">Kategoriak: Helduak</p>
+    <p class="es">Categorías: Senior</p>
+  </div>
+</div>
+
+  <h3 class="eu">Palako entrenatzaileak</h3>
+  <h3 class="es">Entrenadores de pala</h3>
+
+  <div class="cards">
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea maria-eguzkiza">Maria Eguzkiza</span>
+    </h4>
+  </div>
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea xabi-azpiroz">Xabi Azpiroz</span>
+    </h4>
+  </div>
+</div>
+<h3 class="eu">Prestaketa fisikoko arduraduna</h3>
+<h3 class="es">Preparador físico</h3>
+
+<div class="cards">
+  <div class="card">
+    <h4>
+      <span class="entrenatzailea aitor-etxarri">Aitor Etxarri</span>
+    </h4>
+  </div>
+</div>
+
+</section>
+
+</section>
+
+<section id="entrenamenduak">
+  <h2 class="eu">Entrenamenduak</h2>
+  <h2 class="es">Entrenamientos</h2>
+
+  <h3 class="eu">Ordutegiak</h3>
+  <h3 class="es">Horarios</h3>
+  <div class="horarios-wrapper">
+
+  <!-- FRONTÓN -->
+  <div class="calendario fronton">
+    <h3>🏟️ FRONTOIA</h3>
+
+    <div class="semana">
+      <div class="dia">
+        <h4>Astelehena/Lunes</h4>
+        <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+        <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Asteartea/Martes</h4>
+        <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+        <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+        <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+        <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+        <div class="evento nagusi mano">🖐 Nagusiak A<br>20:15–21:30</div>
+      </div>
+
+      <div class="dia">
+        <h4>Asteazkena/Miércoles</h4>
+        <div class="evento benjamin pala">🏓 Benjaminak<br>16:00–17:00</div>
+        <div class="evento infantil pala">🏓 Infantilak<br>17:00–18:00</div>
+        <div class="evento cadete pala">🏓 Kadete 1<br>18:00–19:00</div>
+        <div class="evento cadete pala">🏓 Kadete 2<br>19:00–20:00</div>
+        <div class="evento nagusi pala">🏓 Nagusiak<br>20:00–21:00</div>
+      </div>
+
+      <div class="dia">
+        <h4>Osteguna/Jueves</h4>
+        <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+        <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+        <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+        <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Ostirala/Viernes</h4>
+        <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+        <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+        <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRINQUETE -->
+  <div class="calendario trinquete">
+    <h3>🏛️ TRINKETE</h3>
+
+    <div class="semana">
+      <div class="dia">
+        <h4>Astelehena/Lunes</h4>
+        <div class="evento benjamin pala">🏓 Benjaminak<br>16:30–17:30</div>
+        <div class="evento infantil pala">🏓 Infantilak<br>17:30–18:30</div>
+        <div class="evento cadete pala">🏓 Kadete 1<br>18:30–19:30</div>
+        <div class="evento cadete pala">🏓 Kadete 2<br>19:30–20:30</div>
+      </div>
+
+      <div class="dia">
+        <h4>Asteartea/Martes</h4>
+        <div class="evento nagusi mano">🖐 Nagusiak A<br>17:00–20:15</div>
+      </div>
+      <div class="dia">
+        <h4>Asteazkena/Miércoles</h4>
+        <div class="evento nagusi mano">🎾 Xare Nagusiak <br>18:15–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Osteguna/Jueves</h4>
+        <div class="evento nagusi mano">🖐 Nagusiak B<br>17:00–20:15</div>
+      </div>
+
+      <div class="dia">
+        <h4>Ostirala/Viernes</h4>
+        <div class="evento nagusi pala">🏓 Nagusiak<br>19:30–21:00</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- aquí va la imagen de ordutegia -->
+  <!--img src="images/ordutegia.jpg" alt="Ordutegiak" style="width:100%; max-width:1000px;"-->
+ 
+  <p class="eu">
+    ℹ️ Nahiz ta pilotaria kategori batekoa izan, beste kategori batean entrenatu dezake, 
+    entrenatzaileen irizpidearen arabera.
+  </p>
+  <p class="es">
+    ℹ️ Aunque el pelotari sea de una categoria determinada, puede que entrene en otra categoria
+    si los entrenadores lo estiman oportuno. .
+  </p>
+
+</section>
+  
+
+<section id="taldeak" class="entrenamenduak-taldeak">
+
+  <h3 class="eu">Taldeak</h3>
+  <h3 class="es">Grupos</h3>
+
+  <div class="grid">
+
+  <!-- ESKU PILOTA · JULEN MARTIJA -->
+  <div class="card esku-julen">
+    <h2>🖐 Eskupilota · Julen Martija</h2>
+    <div class="content">
+
+      <div class="group prebenjaminak">
+        <h3>Aurrebenjaminak</h3>
+        <ul>
+          <li>Lander Ariztimuño</li>
+          <li>Amets Mozo</li>
+          <li>Aimar Bidegain</li>
+          <li>Unai Erneta</li>
+          <li>Joar Ruiz</li>
+          <li>Markel Etxeberria</li>
+          <li>Luka Soria</li>
+          <li>Luar Ojuel</li>
+          <li>Ekhi Zubillaga</li>
+        </ul>
+      </div>
+
+      <div class="group benjaminak">
+        <h3>Benjaminak 1</h3>
+        <ul>
+          <li>Gorka Garcia</li>
+          <li>Liher Goikoetxea</li>
+          <li>Beñat Goikoetxea</li>
+          <li>Manex Sanz</li>
+          <li>Aiur Loyarte</li>
+          <li>Eneko Jaurrieta</li>
+          <li>Enai Albeniz</li>
+          <li>Martin Argaña</li>
+          <li>Aimar Ochoa</li>
+        </ul>
+      </div>
+       <div class="group benjaminak">
+        <h3>Benjaminak 2</h3>
+        <ul>
+          <li>Inhar Lociga</li>
+          <li>Urko Agirrezabala</li>
+          <li>Aratz Apezetxea</li>
+          <li>Urko Ariztimuño</li>
+          <li>Luken Oiartzun</li>
+          <li>Eneko Etxeberria</li>
+          <li>Suhar Galartza</li>
+          <li>Aitor Ruiz</li>
+          <li>Oier Mitxaus</li>
+        </ul>
+      </div>
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Diego Centeno</li>
+          <li>Mikel Argaña</li>
+          <li>Endika Balda</li>
+          <li>Ibai Ansorena</li>
+          <li>Ander Astiz</li>
+          <li>Joan Mendinueta</li>
+          <li>Adur Zubillaga</li>
+          <li>Ekhi Mozo</li>
+          <li>Ander Dorronsoro</li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ESKU PILOTA · ABEL + JULEN -->
+  <div class="card esku-barriola">
+    <h2>🖐 Eskupilota · Abel Barriola + Enrike Galarza</h2>
+    <div class="content">
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Aimar Bengoetxea</li>
+          <li>Mikel Bidegain</li>
+          <li>Xabier Goldaracena</li>
+          <li>Aimar Balenciaga</li>
+          <li>Julen Mitxaus</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak B</h3>
+        <ul>
+          <li>Janire Sotil</li>
+          <li>Martin Etxepare</li>
+          <li>Ilan Eguzkiza</li>
+          <li>Egoi Jaka</li>
+          <li>Amaiur Goikoetxea</li>
+          <li>Bikendi Legarra</li>
+        </ul>
+      </div>
+       <div class="group kadeteak">
+        <h3>Kadeteak A</h3>
+        <ul>
+          <li>Aitor Balda</li>
+          <li>Julen Bildarraz</li>
+          <li>Oihan Ijurko</li>
+          <li>Imanol Sotil</li>
+        </ul>
+      </div>
+
+      <div class="group jubenilak">
+        <h3>Jubenilak</h3>
+        <ul>
+          <li>Egoi Ijurko</li>
+          <li>Ibai Ijurko</li>
+          <li>Egoitz Oreja</li>
+          <li>Mikel Laso</li>
+          <li>Unai Otamendi</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Nagusiak B</h3>
+        <ul>
+          <li>Miguel Lazkoz</li>
+          <li>Julen Ezkurdia</li>
+          <li>Mattin Goikoetxea</li>
+          <li>Xuban Telletxea</li>
+        </ul>
+      </div>
+      <div class="group nagusiak">
+        <h3>Nagusiak A</h3>
+        <ul>
+          <li>Iñaki Galarza</li>
+          <li>Oinatz Iriarte</li>
+          <li>Intza Garaño</li>
+          <li>Aitor Eguzkiza</li>
+          <li>Endika Galarza</li>
+          <li>Lucas Navarro</li>
+          <li>Julen Sotil</li>
+          <li>Igor Nazabal</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PALA -->
+  <div class="card pala">
+    <h2>🏓 Pala · Maria Eguzkiza + Xabi Azpiroz</h2>
+    <div class="content">
+
+      <div class="group alebinak">
+        <h3>Alebinak</h3>
+        <ul>
+          <li>Nora Goldarazena</li>
+          <li>Sara Venzislavova</li>
+          <li>Nashla Watts</li>
+        </ul>
+      </div>
+
+      <div class="group infantilak">
+        <h3>Infantilak</h3>
+        <ul>
+          <li>Haizea Apezetxea</li>
+          <li>Nerea Saralegui</li>
+          <li>Zuriñe Imaz</li>
+          <li>Iraide Garaño</li>
+        </ul>
+      </div>
+
+      <div class="group kadeteak">
+        <h3>Kadeteak 1</h3>
+        <ul>
+          <li>Irati Balenciaga</li>
+          <li>Marian Saralegui</li>
+          <li>Martina Morais</li>
+          <li>Uxue Goñi</li>
+          <li>Laida Legarra</li>
+        </ul>
+      </div>
+      <div class="group kadeteak">
+        <h3>Kadeteak 2</h3>
+        <ul>
+          <li>Haizea Etxarri</li>
+          <li>Kiara Legarra</li>
+          <li>Joane Martinikorena</li>
+          <li>Izarne Larreta</li>
+          <li>Lorea Bengoetxea</li>
+          <li>Garazi Astiz</li>
+        </ul>
+      </div>
+
+      <div class="group nagusiak">
+        <h3>Jubenilak / Nagusiak</h3>
+        <ul>
+          <li>Maider Saralegi</li>
+          <li>Maddi Galartza</li>
+          <li>Maria Eguzkiza</li>
+          <li>Irati Garziarena</li>
+          <li>Naia Galarza</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+  
+</section>
+
+<section id="kartelera">
+  <h2 class="eu">Kartelera</h2>
+  <h2 class="es">Cartelera</h2>
+  <p class="eu">
+    ℹ️ Karteldegi hau automatikoki sortu eta eguneratzen da 
+    <a href="https://www.fnpelota.com/pub/cartelera.asp?idioma=ca"> Nafarroako Pilota 
+    Federazioaren webgunean</a> argitaratutako informaziotik eta torneo ezberdinen erakunde 
+    antolatzaileek emandako datuetatik.
+  </p>
+  <p class="es">
+    ℹ️ Esta cartelera se genera y actualiza automáticamente a partir de la información publicada 
+    en la <a href="https://www.fnpelota.com/pub/cartelera.asp?idioma=ca">web de la Federación 
+    Navarra de Pelota</a>, así como de los datos facilitados por las entidades organizadoras de 
+    los distintos torneos.
+  </p>
+  
+  <!-- CARTELERA INTERNA LARRAUN -->
+<iframe
+  src="cartel.html"
+  style="
+    width:100%;
+    height:900px;
+    border:0;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    background:transparent;
+  "
+  loading="lazy"
+  title="Kartelera Larraun">
+</iframe>
+
+  <div id="lista-partidos"></div>
+  <h3 class="eu" style="margin-top:30px;">Aste honetako kartela</h3>
+  <h3 class="es" style="margin-top:30px;">Cartel semanal</h3>
+  <div id="cartelera-visual"></div>
+
+  <img
+    src="asteko-partiduak.jpg"
+    alt="Kartel astea"
+    style="width:100%; max-width:1000px; cursor:pointer;"
+    onclick="ampliar(this)">
+<div class="info-campeonatos">
+  <p class="eu">
+    ℹ️ Txapelketa babestuei buruzko informazio osoa hemen dago eskuragarri:
+    <a href="campeonatos/index.html">🏆 Txapelketak</a>
+  </p>
+  <p class="es">
+    ℹ️ La información completa sobre los campeonatos patrocinados está disponible en:
+    <a href="campeonatos/index.html">🏆 Campeonatos</a>
+  </p>
+
+
+
+</section>
+<section id="emaitzak">
+  <h2 class="eu">Emaitzak</h2>
+  <h2 class="es">Resultados</h2>
+
+  <!-- RESULTADOS INTERNOS LARRAUN -->
+<iframe
+  src="resultados.html"
+  style="
+    width:100%;
+    height:1200px;
+    border:0;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    background:transparent;
+    margin-top:20px;
+  "
+  loading="lazy"
+  title="Resultados Larraun">
+</iframe>
+
+  <div id="lista-partidos"></div>
+  <h3 class="eu" style="margin-top:30px;">Azken emaitzak</h3>
+  <h3 class="es" style="margin-top:30px;">Últimos resultados</h3>
+  <div id="cartelera-visual"></div>
+
+  <img
+    src="asteko-emaitzak.jpg"
+    alt="Kartel astea"
+    style="width:100%; max-width:1000px; cursor:pointer;"
+    onclick="ampliar(this)">
+
+  <p class="eu">
+    Torneo ofizialetako emaitza osoak eta sailkapen eguneratuak Nafarroako Pilota Federazioaren webgunean 
+    kontsulta daitezke.
+  </p>
+  <p class="es">
+    Los resultados completos de los torneos oficiales, así como sus clasificaciones actualizadas, pueden 
+    consultarse en la web de la Federación Navarra de Pelota.
+  </p>
+
+  <p>
+    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=eu" target="_blank">
+      ➜ Emaitzak (Euskera)
+    </a>
+    |
+    <a href="https://www.fnpelota.com/pub/competicion.asp?idioma=ca" target="_blank">
+      ➜ Resultados (Castellano)
+    </a>
+  </p>
+  <p class="eu">
+    Gainerako emaitzak ezagutzeko, torneo bakoitzeko kanal ofizialetara jo beharko da.
+    Intereseko gune batzuk:
+    
+  </p>
+  <p class="es">
+    Para conocer el resto de resultados se deberá acudir a los canales oficiales de cada torneo.
+    Algunos sitios de interés:
+  </p>
+   </a>
+  
+      <a href="clubes" target="_blank" aria-label="21iguales">
+        <img src="images/icons/eepf-logo.png" alt="21iguales">
+      </a>
+   </a>
+  
+      <a href="https://fepelota.com/" target="_blank" aria-label="Pilotarentxokoa">
+        <img src="images/icons/FEPELOTA-LOGO.jpg" alt="Pilotarentxokoa">
+      </a>
+  </a>
+  
+      <a href="https://pilotarentxokoa.com/" target="_blank" aria-label="Pilotarentxokoa">
+        <img src="images/icons/garfe-pelota-pilotaren-txokoa.jpg" alt="Pilotarentxokoa">
+      </a>
+  </a>
+      <a href="https://www.21iguales.com/" target="_blank" aria-label="21iguales">
+        <img src="images/icons/21iguales.jpg" alt="21iguales">
+      </a>
+<div class="info-campeonatos">
+  <p class="eu">
+    ℹ️ Txapelketa babestuei buruzko informazio osoa hemen dago eskuragarri:
+    <a href="campeonatos/index.html">🏆 Txapelketak</a>
+  </p>
+  <p class="es">
+    ℹ️ La información completa sobre los campeonatos patrocinados está disponible en:
+    <a href="campeonatos/index.html">🏆 Campeonatos</a>
+  </p>
+</div>
+      
+  
+</section>
+
+<section id="galeria">
+
+  <h2>Galeria</h2>
+
+  <!-- TEXTO INTRO -->
+  <p class="es">
+    Las fotografías y carteles mostrados en esta galería están disponibles
+    en <strong>formato ampliado</strong> en el
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Facebook oficial del club
+      </a>
+    </strong>,
+    donde se publican semanalmente las actividades, partidos y eventos.
+    También disponemos de cuenta en
+    <strong>
+      <a href="https://www.instagram.com/larraunpilota"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Instagram
+      </a>
+    </strong>.
+  </p>
+
+  <p class="eu">
+    Galeria honetan agertzen diren argazkiak eta kartelak
+    <strong>tamaina handian</strong> ikus daitezke
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        klubaren Facebook ofizialean
+      </a>
+    </strong>,
+    bertan astero jarduerak, partidak eta ekitaldiak argitaratzen direlarik.
+    <strong>
+      <a href="https://www.instagram.com/larraunpilota"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Instagram
+      </a>
+    </strong>
+    kontu bat ere badugu.
+  </p>
+
+  <!-- GALERÍA DE FOTOS (PLANTILLAS) -->
+  <div class="cards">
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2025/2026</strong></div>
+      <div class="eu"><strong>2025/2026 Taldea</strong></div>
+      <img src="images/galeria/foto1.jpg" alt="Plantilla 2025/2026"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2024/2025</strong></div>
+      <div class="eu"><strong>2024/2025 Taldea</strong></div>
+      <img src="images/galeria/foto2024.jpg" alt="Plantilla 2024/2025"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2023/2024</strong></div>
+      <div class="eu"><strong>2023/2024 Taldea</strong></div>
+      <img src="images/galeria/foto2023.jpg" alt="Plantilla 2023/2024"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2022/2023</strong></div>
+      <div class="eu"><strong>2022/2023 Taldea</strong></div>
+      <img src="images/galeria/foto2022.jpg" alt="Plantilla 2022/2023"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2019/2020</strong></div>
+      <div class="eu"><strong>2019/2020 Taldea</strong></div>
+      <img src="images/galeria/foto2019.jpg" alt="Plantilla 2019/2020"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2018/2019</strong></div>
+      <div class="eu"><strong>2018/2019 Taldea</strong></div>
+      <img src="images/galeria/foto2018.jpg" alt="Plantilla 2018/2019"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Plantilla 2017/2018</strong></div>
+      <div class="eu"><strong>2017/2018 Taldea</strong></div>
+      <img src="images/galeria/foto2017.jpg" alt="Plantilla 2017/2018"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Jaian Jai 2011</strong></div>
+      <div class="eu"><strong>Jaian Jai 2011</strong></div>
+      <img src="images/galeria/foto2.jpg" alt="Jaian Jai 2011"
+           onclick="openImage(this.src)">
+    </div>
+
+    <div class="card">
+      <div class="es"><strong>Jaian Jai 1900</strong></div>
+      <div class="eu"><strong>Jaian Jai 1900</strong></div>
+      <img src="images/galeria/foto3.jpg" alt="Jaian Jai 1900"
+           onclick="openImage(this.src)">
+    </div>
+
+  </div>
+
+  <!-- AVISO FACEBOOK -->
+  <p class="es">
+    ℹ️ A continuación, los enlaces directos a los pases de fotos en YouTube y
+    a los álbumes de Facebook desde el PC.
+  </p>
+
+  <p class="es">
+    ⚠️ <strong>Facebook no permite</strong> enlazar publicaciones a un álbum
+    desde el móvil. Para acceder desde el móvil debe seleccionar el álbum
+    directamente desde el apartado
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Álbumes
+      </a>
+    </strong>.
+  </p>
+
+  <p class="eu">
+    ℹ️ Jarraian, zure ordenagailutik YouTubeko argazki-aurkezpenetarako eta
+    Facebookeko albumetarako estekak dituzu.
+  </p>
+
+  <p class="eu">
+    ⚠️ <strong>Facebook-ek ez du aukera ematen</strong> argitalpenak album batera
+    lotzeko mugikorretik. Mugikorrean sartzeko, zuzenean
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Bildumak
+      </a>
+    </strong>
+    ataletik hautatu behar duzu.
+  </p>
+
+  <!-- TEMPORADAS (YOUTUBE + FACEBOOK) -->
+  <div class="temporadas-grid">
+
+    <!-- 2016-2017 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=i9krS7GNfA4"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/i9krS7GNfA4/hqdefault.jpg"
+             alt="2016-2017 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2016-2017 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122110928277168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=i9krS7GNfA4"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2017-2018 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=m9IJjwt43kU"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/m9IJjwt43kU/hqdefault.jpg"
+             alt="2017-2018 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2017-2018 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122111157183168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=m9IJjwt43kU"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2018-2019 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=rl1vAaD_7FE"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/rl1vAaD_7FE/hqdefault.jpg"
+             alt="2018-2019 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2018-2019 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122111759355168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=rl1vAaD_7FE"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2019-2020 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=CVtRArl6Apo"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/CVtRArl6Apo/hqdefault.jpg"
+             alt="2019-2020 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2019-2020 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122112439041168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=CVtRArl6Apo"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2020-2021 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=cTd7AkO8My4"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/cTd7AkO8My4/hqdefault.jpg"
+             alt="2020-2021 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2020-2021 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122111851581168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=cTd7AkO8My4"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2021-2022 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=w-ksXzYHjds"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/w-ksXzYHjds/hqdefault.jpg"
+             alt="2021-2022 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2021-2022 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122112128955168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=w-ksXzYHjds"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2022-2023 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=WMcyas6HEVA"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/WMcyas6HEVA/hqdefault.jpg"
+             alt="2022-2023 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2022-2023 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122112549561168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=WMcyas6HEVA"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023-2024 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=MoemqrL99Ro"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/MoemqrL99Ro/hqdefault.jpg"
+             alt="2023-2024 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2023-2024 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122112549591168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=MoemqrL99Ro"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024-2025 -->
+    <div class="temporada-card">
+      <a href="https://www.youtube.com/watch?v=OsV9NTw38Vs"
+         target="_blank" class="temporada-video">
+        <img src="https://img.youtube.com/vi/OsV9NTw38Vs/hqdefault.jpg"
+             alt="2024-2025 - Larraun Pilota Elkartea">
+        <span class="play">▶</span>
+      </a>
+      <div class="temporada-info">
+        <h3>2024-2025 Denboraldia</h3>
+        <div class="temporada-links">
+          <a href="https://www.facebook.com/media/set/?set=a.122111157183168815"
+             target="_blank" class="fb">📸 Argazki albuma*</a>
+          <a href="https://www.youtube.com/watch?v=OsV9NTw38Vs"
+             target="_blank" class="yt">▶ Bideo osoa</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEXTO FINAL -->
+  <p class="es" style="text-align:center; margin-top:30px; color:#555;">
+    ℹ️ Las fotografías completas de cada temporada están disponibles en
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Facebook
+      </a>
+    </strong> para mantener la web ligera y rápida.
+  </p>
+
+  <p class="eu" style="text-align:center; margin-top:10px; color:#555;">
+    ℹ️ Denboraldi bakoitzeko argazki guztiak 
+    <strong>
+      <a href="https://www.facebook.com/profile.php?id=61585064469809&sk=photos_albums"
+         target="_blank"
+         style="color:#006400; text-decoration:none;">
+        Facebooken
+      </a>
+    </strong> daude,
+    webgunea arina izateko.
+  </p>
+
+</section>
+
+<section id="kontaktua">
+  <h2>Kontaktua</h2>
+  
+  <p>📍 Lekunberri</p>
+  <p class="eu">
+    📱 613 99 77 10 Astean zehar, 16etatik 20etara
+  </p>
+  <p class="es">
+    📱 613 99 77 10 Entre semana, de 16:00 a 20:00 horas
+  </p>
+  <p>✉️ larraunpe@gmail.com</p>
+  <p>📘 <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank">Facebook</a></p>
+  <div style="margin-top:30px;">
+  <iframe
+    src="https://www.google.com/maps?q=Frontón+Lekunberri+Navarra&output=embed"
+    width="100%"
+    height="350"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
+</div>
+
+</section>
+<section id="patrocinadores-home">
+  <h2 class="eu">Babesleak</h2>
+  <h2 class="es">Patrocinadores</h2>
+
+  <div class="sponsor-carousel">
+    <div class="sponsor-track" id="sponsor-track"></div>
+  </div>
+
+  <div class="sponsor-link">
+    <a href="patrocinio.html">→ Ikusi babesle guztiak</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Larraun Pilota Elkartea</p>
+  <p>
+  👀 <span id="visits">0</span>
+  <span class="eu">bisita</span>
+  <span class="es">visitas</span>
+</p>
+</footer>
+
+<script>
+window.addEventListener("load", () => {
+  const el = document.getElementById("visits");
+  if (!el) return;
+
+  let visits = localStorage.getItem("larraun_visits");
+
+  if (!visits) {
+    visits = 1;
+  } else {
+    visits = parseInt(visits, 10) + 1;
+  }
+
+  localStorage.setItem("larraun_visits", visits);
+  el.textContent = visits;
+});
+</script>
+
+
+<script>
+function formatDates(lang) {
+  document.querySelectorAll(".news-date").forEach(el => {
+    const [y, m, d] = el.dataset.date.split("-");
+    el.textContent =
+      lang === "eu"
+        ? `${y}/${m}/${d}`
+        : `${d}/${m}/${y}`;
+  });
+}
+</script>
+<script src="js/kategoriak.js"></script>
+<script>
+const SPONSORS = [
+  "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg",
+  "kotxera.jpg","barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg",
+  "carniceriaartxueta.jpg","carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg",
+  "construccionesgarciarenasaralegi.jpg","construccionesurangasaigos.jpg",
+  "hotelayestaran.jpg","iseelectricidad.jpg",
+  "kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg","maderasnasorena.jpg",
+  "maskarada.jpg","suacontrol.jpg","urzubi.jpg",
+  "ventamugiro.jpg","dietistaanagurrea.jpg",
+  "ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg",
+  "fontaneriairibarren.jpg","izarberri.png","lakita.jpg",
+  "sidreriatokialai.jpg","tallereslarraun.jpg","talleresotxotorena.jpg",
+  "veterinarialekunberri.jpg"
+];
+
+const track = document.getElementById("sponsor-track");
+const basePath = "/images/patrocinio/";
+const BATCH_SIZE = 12;
+let currentIndex = 0;
+
+function renderSponsors() {
+  track.style.opacity = 0;
+
+  setTimeout(() => {
+    track.innerHTML = "";
+
+    const slice = SPONSORS.slice(currentIndex, currentIndex + BATCH_SIZE);
+
+    slice.forEach(file => {
+      const div = document.createElement("div");
+      div.className = "sponsor-item";
+
+      const img = document.createElement("img");
+      img.src = basePath + file;
+      img.alt = file.replace(/[-_]/g, " ").split(".")[0];
+
+      div.appendChild(img);
+      track.appendChild(div);
+    });
+
+    track.style.opacity = 1;
+
+    currentIndex += BATCH_SIZE;
+    if (currentIndex >= SPONSORS.length) {
+      currentIndex = 0;
+    }
+  }, 300);
+}
+
+// primera carga
+renderSponsors();
+
+// rotación automática cada 5 segundos
+setInterval(renderSponsors, 5000);
+</script>
+
+<script>
+const START_MINUTES = 16 * 60;
+const PIXELS_PER_15_MIN = 20;
+const DAY_HEADER_HEIGHT = 42;
+
+function toMinutes(t) {
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+}
+
+document.querySelectorAll(".dia").forEach(dia => {
+  let maxBottom = 0;
+
+  dia.querySelectorAll(".evento").forEach(ev => {
+    const match = ev.innerText.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
+    if (!match) return;
+
+    const start = toMinutes(match[1]);
+    const end = toMinutes(match[2]);
+
+    const top = DAY_HEADER_HEIGHT +
+      ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+
+    const height =
+      ((end - start) / 15) * PIXELS_PER_15_MIN;
+
+    ev.style.top = top + "px";
+    ev.style.height = height + "px";
+
+    maxBottom = Math.max(maxBottom, top + height);
+  });
+
+  dia.style.height = Math.max(maxBottom + 10, 520) + "px";
+});
+</script>
+
+<script>
+function categoriaPorAnio(anio){
+  if (anio >= 2018) return "aurrebenjaminak";
+  if (anio >= 2016) return "benjaminak";
+  if (anio >= 2014) return "alebinak";
+  if (anio >= 2012) return "infantilak";
+  if (anio >= 2010) return "kadeteak";
+  if (anio >= 2008) return "jubenilak";
+  return "nagusiak";
+}
+
+fetch('/data/pelotariak.json')
+  .then(r => r.json())
+  .then(data => {
+    const edades = {};
+    data.forEach(p => {
+      edades[p.Izena.trim()] = categoriaPorAnio(p.URTEA);
+    });
+
+    document
+      .querySelectorAll(".entrenamenduak-taldeak li")
+      .forEach(li => {
+        const nombre = li.textContent.trim();
+        if (edades[nombre]) {
+          li.classList.add("edad-" + edades[nombre]);
+        }
+      });
+  });
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+</body>
+</html>
