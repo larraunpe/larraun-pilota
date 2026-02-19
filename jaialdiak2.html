@@ -272,6 +272,26 @@ Promise.all([
 
 });
 }
+async function cargarEpaileas() {
+
+  const response = await fetch("TU_URL_DEL_SCRIPT");
+  const datos = await response.json();
+
+  datos.forEach(item => {
+
+    const selector = document.querySelector(
+      `[data-fecha="${item.fecha}"][data-hora="${item.hora}"][data-fronton="${item.fronton}"]`
+    );
+
+    if (selector) {
+      selector.value = item.epailea;
+    }
+
+  });
+}
+
+window.addEventListener("DOMContentLoaded", cargarEpaileas);
+
 </script>
 
 </body>
