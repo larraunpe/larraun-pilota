@@ -6,108 +6,18 @@
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
 <style>
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  background:#f4f4f4;
-  padding:20px;
-}
-
-h1{
-  text-align:center;
-  color:#33691e;
-  margin-bottom:20px;
-}
-
-table{
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  border-collapse:collapse;
-  background:#fff;
-  box-shadow:0 4px 10px rgba(0,0,0,.2);
-}
-
-thead{
-  background:#7cb342;
-}
-
-th, td{
-  padding:10px;
-  border:1px solid #ccc;
-  text-align:center;
-}
-
-th{
-  font-weight:900;
-}
-
-input{
-  width:100%;
-  border:none;
-  background:#e8f5e9;
-  padding:6px;
-  font-size:1em;
-}
-
-input:focus{
-  outline:2px solid #7cb342;
-}
-
-tr.senior-bai{
-  background: linear-gradient(90deg, #fffde7, #ffffff);
-}
-
-tr.lateral-jaianjai{
-  box-shadow: inset 6px 0 0 #1565c0;
-}
-
-tr.lateral-trinkete{
-  box-shadow: inset 6px 0 0 #2e7d32;
-}
-
-tr.lateral-default{
-  box-shadow: inset 6px 0 0 #3f51b5;
-}
-
-.lekua-jaianjai{
-  background:#e3f2fd;
-  color:#0d47a1;
-  font-weight:700;
-  padding:4px 6px;
-  border-radius:6px;
-}
-
-.lekua-trinkete{
-  background:#e8f5e9;
-  color:#1b5e20;
-  font-weight:700;
-  padding:4px 6px;
-  border-radius:6px;
-}
-
-.lekua-default{
-  background:#e8eaf6;
-  color:#1a237e;
-  font-weight:700;
-  padding:4px 6px;
-  border-radius:6px;
-}
-
-.senior-bai-text{
-  color:#e65100;
-  font-weight:900;
-}
-
-.oharra{
-  max-width:900px;
-  margin:14px auto 0;
-  font-size:.95em;
-  color:#444;
-  background:#eeeeee;
-  padding:10px 14px;
-  border-left:6px solid #7cb342;
-  border-radius:6px;
-}
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+h1{text-align:center;color:#33691e;margin-bottom:20px;}
+table{width:100%;max-width:900px;margin:auto;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
+thead{background:#7cb342;}
+th,td{padding:10px;border:1px solid #ccc;text-align:center;}
+th{font-weight:900;}
+input{width:100%;border:none;background:#e8f5e9;padding:6px;font-size:1em;}
+input:focus{outline:2px solid #7cb342;}
+.senior-bai{background:linear-gradient(90deg,#fffde7,#ffffff);}
+.lateral-jaianjai{box-shadow:inset 6px 0 0 #1565c0;}
+.lateral-trinkete{box-shadow:inset 6px 0 0 #2e7d32;}
+.lateral-default{box-shadow:inset 6px 0 0 #3f51b5;}
 </style>
 </head>
 
@@ -116,45 +26,42 @@ tr.lateral-default{
 <h1>JAIALDIAK</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>EGUNA</th>
-      <th>ORDUA</th>
-      <th>LEKUA</th>
-      <th>ZB</th>
-      <th>SENIOR</th>
-      <th>EPAILEA(K)</th>
-    </tr>
-  </thead>
-  <tbody id="taula"></tbody>
+<thead>
+<tr>
+<th>EGUNA</th>
+<th>ORDUA</th>
+<th>LEKUA</th>
+<th>ZB</th>
+<th>SENIOR</th>
+<th>EPAILEA(K)</th>
+</tr>
+</thead>
+<tbody id="taula"></tbody>
 </table>
 
-<div class="oharra">
-* Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri
-</div>
-
 <script>
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
 
-let guardados = {};
+let datosSheets = [];
 
 /* =========================
-   Cargar datos guardados
+   Cargar datos desde Sheets
 ========================= */
-fetch("api/load.php")
-  .then(r => r.ok ? r.json() : {})
-  .then(d => guardados = d || {})
-  .catch(() => guardados = {})
+fetch(SCRIPT_URL)
+  .then(r => r.json())
+  .then(d => datosSheets = d || [])
+  .catch(() => datosSheets = [])
   .finally(() => crearTabla());
 
 /* =========================
-   Guardar en servidor
+   Guardar en Sheets
 ========================= */
 function guardar(fecha, hora, fronton, value){
 
-  fetch("https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec", {
+  fetch(SCRIPT_URL, {
     method:"POST",
-    mode:"no-cors",
     headers:{
       "Content-Type":"application/x-www-form-urlencoded"
     },
@@ -164,8 +71,8 @@ function guardar(fecha, hora, fronton, value){
       + `&fronton=${encodeURIComponent(fronton)}`
       + `&epailea=${encodeURIComponent(value)}`
   });
-}
 
+}
 
 /* =========================
    Utilidades
@@ -225,43 +132,34 @@ Promise.all([
 
       const tr = document.createElement("tr");
 
-      if(j.senior === "BAI"){
-        tr.classList.add("senior-bai");
-      }
+      if(j.senior === "BAI") tr.classList.add("senior-bai");
 
-      if(/lekunberri\s*-\s*jaian\s*jai/i.test(j.fronton)){
+      if(/jaian\s*jai/i.test(j.fronton)){
         tr.classList.add("lateral-jaianjai");
-      }
-      else if(/lekunberri\s*-\s*trinkete/i.test(j.fronton)){
+      } else if(/trinkete/i.test(j.fronton)){
         tr.classList.add("lateral-trinkete");
-      }
-      else{
+      } else {
         tr.classList.add("lateral-default");
       }
 
-      const id = `epailea_${j.fecha}_${j.hora}_${j.fronton}`;
+      // Buscar si existe guardado en Sheets
+      const guardado = datosSheets.find(item =>
+        item.fecha === j.fecha &&
+        item.hora === j.hora &&
+        item.fronton === j.fronton
+      );
+
+      const valorInicial = guardado ? guardado.epailea : "";
 
       tr.innerHTML = `
         <td>${j.fecha}</td>
         <td>${j.hora}</td>
-        <td>
-          <span class="${
-            /lekunberri\s*-\s*jaian\s*jai/i.test(j.fronton)
-              ? 'lekua-jaianjai'
-              : /lekunberri\s*-\s*trinkete/i.test(j.fronton)
-                ? 'lekua-trinkete'
-                : 'lekua-default'
-          }">
-            ${j.fronton}
-          </span>
-        </td>
+        <td>${j.fronton}</td>
         <td><strong>${j.zb}</strong></td>
-        <td class="${j.senior === 'BAI' ? 'senior-bai-text' : ''}">
-          <strong>${j.senior}</strong>
-        </td>
+        <td><strong>${j.senior}</strong></td>
         <td>
           <input
-            value="${guardados[id] || ''}"
+            value="${valorInicial}"
             onchange="guardar('${j.fecha}', '${j.hora}', '${j.fronton}', this.value)"
           >
         </td>
@@ -272,25 +170,6 @@ Promise.all([
 
 });
 }
-async function cargarEpaileas() {
-
-  const response = await fetch("TU_URL_DEL_SCRIPT");
-  const datos = await response.json();
-
-  datos.forEach(item => {
-
-    const selector = document.querySelector(
-      `[data-fecha="${item.fecha}"][data-hora="${item.hora}"][data-fronton="${item.fronton}"]`
-    );
-
-    if (selector) {
-      selector.value = item.epailea;
-    }
-
-  });
-}
-
-window.addEventListener("DOMContentLoaded", cargarEpaileas);
 
 </script>
 
