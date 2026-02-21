@@ -415,21 +415,23 @@ function formatearLehiaketa(texto){
 
   if(!texto) return "";
 
-  for(const clave in FASES){
+  const fasesOrdenadas = Object.values(FASES)
+    .sort((a,b)=> b.length - a.length);  // 🔥 más largas primero
 
-    const fase = FASES[clave];
+  for(const fase of fasesOrdenadas){
 
-    if(texto.includes(fase)){
+    const regex = new RegExp(`\\b${fase}\\b`, "g");
 
+    if(regex.test(texto)){
       texto = texto.replace(
-        fase,
+        regex,
         `<span class="fase">(${fase})</span>`
       );
     }
   }
 
   return texto;
-}  
+}
 function generarClasesCategorias(){
 
   const style = document.createElement("style");
@@ -439,7 +441,12 @@ function generarClasesCategorias(){
 
     css += `
       .cat-${cat}{
-        background:${CATEGORIAS[cat]};
+        background: linear-gradient(
+  90deg,
+  ${CATEGORIAS[cat]}22 0%,
+  ${CATEGORIAS[cat]}10 40%,
+  transparent 80%
+);
       }
     `;
   }
