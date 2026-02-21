@@ -8,6 +8,8 @@
 
 <style>
 
+  
+
 /* ================= BASE ================= */
 
 body{
@@ -236,7 +238,10 @@ body{
   text-align:right;
   font-size:12px;
 }
-
+.fase{
+  color:#5a2d0c;   /* marrón oscuro */
+  font-weight:900;
+}
 /* ================= FOOTER ================= */
 
 .footer{
@@ -289,6 +294,8 @@ body{
 <div id="contenedorPaginas"></div>
 
 <script>
+
+  let FASES = {};
 
 /* ================= CREAR HEADER/FOOTER REUTILIZABLE ================= */
 
@@ -397,7 +404,25 @@ function formatearEquipo(texto){
   // Inserta salto justo antes del paréntesis
   return texto.replace(" (","<br>(");
 }
-  
+function formatearLehiaketa(texto){
+
+  if(!texto) return "";
+
+  for(const clave in FASES){
+
+    const fase = FASES[clave];
+
+    if(texto.includes(fase)){
+
+      texto = texto.replace(
+        fase,
+        `<span class="fase">(${fase})</span>`
+      );
+    }
+  }
+
+  return texto;
+}  
 function crearBloques(titulo,data){
 
  if(!data || data.length===0) return [];
@@ -481,7 +506,7 @@ function crearBloques(titulo,data){
       <div class="zkia">${p.zkia}</div>
       <div class="etxekoa">${etx}</div>
       <div class="kanpokoa">${kan}</div>
-      <div class="lehiaketa">${p.lehiaketa}</div>
+      <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa)}</div>
     </div>
   `;
 }).join("")}
@@ -497,8 +522,11 @@ function crearBloques(titulo,data){
 
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
- fetch("data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales,noOficiales])=>{
+ fetch("data/partidos-no-oficiales.json").then(r=>r.json()),
+ fetch("data/fases.json").then(r=>r.json())
+]).then(([oficiales,noOficiales,fases])=>{
+
+ FASES = fases;
 
  const bloques=[
    ...crearBloques("NEPF PARTIDUAK",oficiales),
