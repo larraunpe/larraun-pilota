@@ -200,17 +200,36 @@ body{
 
 .linea{
   display:flex;
-  gap:8px;
   padding:6px 10px;
   border-top:1px solid #ddd;
   font-weight:900;
   font-size:13px;
+  align-items:center;
 }
 
-.zkia{width:30px}
-.etxekoa{color:#2448b5}
-.kanpokoa{color:#b00000}
-.lehiaketa{margin-left:auto}
+/* 4% */
+.zkia{
+  flex:0 0 4%;
+}
+
+/* 35% */
+.etxekoa{
+  flex:0 0 35%;
+  color:#2448b5;
+}
+
+/* 35% */
+.kanpokoa{
+  flex:0 0 35%;
+  color:#b00000;
+}
+
+/* 26% */
+.lehiaketa{
+  flex:0 0 26%;
+  text-align:right;
+  font-size:12px;
+}
 
 /* ================= FOOTER ================= */
 
