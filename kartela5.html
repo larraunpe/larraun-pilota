@@ -222,7 +222,14 @@ body{
   flex:0 0 35%;
   color:#b00000;
 }
-
+.equipo{
+  line-height:1.1;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  word-break:break-word;
+}
 /* 26% */
 .lehiaketa{
   flex:0 0 26%;
@@ -381,8 +388,16 @@ function rellenarLogos(pagina){
    .join("");
 }
 
+  
 /* ================= CREAR BLOQUES PARTIDOS ================= */
+function formatearEquipo(texto){
 
+  if(!texto) return "";
+
+  // Inserta salto justo antes del paréntesis
+  return texto.replace(" (","<br>(");
+}
+  
 function crearBloques(titulo,data){
 
  if(!data || data.length===0) return [];
@@ -450,8 +465,8 @@ function crearBloques(titulo,data){
      </div>
      ${partidos.map(p=>{
 
-  let etx = p.etxekoa || "";
-  let kan = p.kanpokoak || "";
+  let etx = formatearEquipo(p.etxekoa);
+  let kan = formatearEquipo(p.kanpokoak);
 
   if(etx.toLowerCase().includes("larraun")){
     etx = "<strong>"+etx+"</strong>";
