@@ -206,6 +206,7 @@ body{
   border-top:1px solid #ddd;
   font-size:13px;
   align-items:center;
+  border-radius:4px;
 }
 
 /* 4% */
@@ -237,10 +238,15 @@ body{
   flex:0 0 26%;
   text-align:right;
   font-size:12px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:4px;
 }
 .fase{
   color:#5a2d0c;   /* marrón oscuro */
   font-weight:900;
+  white-space:nowrap;   /* 🔥 nunca salta de línea */
 }
 /* ================= FOOTER ================= */
 
@@ -296,6 +302,7 @@ body{
 <script>
 
   let FASES = {};
+  let CATEGORIAS = {};
 
 /* ================= CREAR HEADER/FOOTER REUTILIZABLE ================= */
 
@@ -423,6 +430,39 @@ function formatearLehiaketa(texto){
 
   return texto;
 }  
+function generarClasesCategorias(){
+
+  const style = document.createElement("style");
+  let css = "";
+
+  for(const cat in CATEGORIAS){
+
+    css += `
+      .cat-${cat}{
+        background:${CATEGORIAS[cat]};
+      }
+    `;
+  }
+
+  style.innerHTML = css;
+  document.head.appendChild(style);
+}
+function obtenerClaseCategoria(texto){
+
+  if(!texto) return "";
+
+  const textoLower = texto.toLowerCase();
+
+  for(const cat in CATEGORIAS){
+
+    if(textoLower.includes(cat.toLowerCase())){
+      return "cat-"+cat;
+    }
+  }
+
+  return "";
+}
+
 function crearBloques(titulo,data){
 
  if(!data || data.length===0) return [];
@@ -502,7 +542,7 @@ function crearBloques(titulo,data){
   }
 
   return `
-    <div class="linea">
+    <div class="linea ${obtenerClaseCategoria(p.lehiaketa)}">
       <div class="zkia">${p.zkia}</div>
       <div class="etxekoa">${etx}</div>
       <div class="kanpokoa">${kan}</div>
@@ -523,10 +563,12 @@ function crearBloques(titulo,data){
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
  fetch("data/partidos-no-oficiales.json").then(r=>r.json()),
- fetch("data/fases.json").then(r=>r.json())
+ fetch("data/fases.json").then(r=>r.json()),
+ fetch("data/categorias-colores.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales,fases])=>{
 
  FASES = fases;
+ CATEGORIAS = categorias;
 
  const bloques=[
    ...crearBloques("NEPF PARTIDUAK",oficiales),
