@@ -25,15 +25,14 @@ body{
 /* A3 vertical realista */
 .pagina{
   width:900px;
-  height:1270px; /* proporción A3 */
   margin:30px auto;
   display:flex;
   flex-direction:column;
   background:#3f8159;
   position:relative;
-  overflow:hidden;
   box-shadow:0 0 18px rgba(0,0,0,.4);
 }
+
 
 /* ================= HEADER ================= */
 
@@ -91,7 +90,7 @@ body{
 /* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
-  top:65px;          /* un poco más arriba */
+  top:65px;
   left:50%;
   transform:translateX(-50%);
 
@@ -99,7 +98,6 @@ body{
   height:30px;
   border-radius:50%;
 
-  /* degradado esférico */
   background:
     radial-gradient(circle at 35% 30%,
       #ffffff 0%,
@@ -111,12 +109,11 @@ body{
   border:1.5px solid #d9d9d9;
 
   box-shadow:
-    inset -4px -6px 10px rgba(0,0,0,.35), /* sombra interna */
-    inset 4px 4px 8px rgba(255,255,255,.9), /* brillo */
-    0 3px 5px rgba(0,0,0,.4); /* sombra exterior */
+    inset -4px -6px 10px rgba(0,0,0,.35),
+    inset 4px 4px 8px rgba(255,255,255,.9),
+    0 3px 5px rgba(0,0,0,.4);
 }
 
-/* costuras rojas más finas y realistas */
 .pelota-real::before,
 .pelota-real::after{
   content:"";
@@ -138,12 +135,14 @@ body{
   height:12px;
   background:#000;
 }
+
 /* ================= PELOTAZOS ================= */
-  .pelotazos{
+
+.pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:20;            /* por delante de TODO */
+  z-index:20;
   mix-blend-mode:multiply;
 }
 
@@ -213,34 +212,27 @@ body{
 .kanpokoa{color:#b00000}
 .lehiaketa{margin-left:auto}
 
-/* ================= FOOTER COMPLETO ================= */
+/* ================= FOOTER ================= */
 
 .footer{
   display:flex;
   flex-direction:column;
 }
 
-/* chapa negra */
 .chapa{
   height:12px;
   background:#000;
 }
 
-/* colchón gris tipo frontón */
 .pie-gris{
   padding:14px 12px;
 
-  /* degradado compatible html2canvas */
   background:linear-gradient(#4a4a4a, #2f2f2f);
 
-  /* efecto acolchonado */
   box-shadow:
     inset 0 10px 14px rgba(255,255,255,.25),
     inset 0 -12px 18px rgba(0,0,0,.6);
 }
-
-
-/* patrocinadores */
 
 .logos-grid{
   display:grid;
@@ -259,17 +251,17 @@ body{
   height:36px;
   object-fit:contain;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="exportar">
-<button onclick="exportar()">📸 DESKARGATU ORRI GUZTIAK</button>
+<button onclick="exportar()">📸 DESKARGATU KARTELA</button>
 </div>
 
 <div id="contenedorPaginas"></div>
-
 
 <script>
 
@@ -314,12 +306,10 @@ function nuevaPagina(){
  const p=document.createElement("div");
  p.className="pagina";
 
- /* capa pelotazos (primero, para que quede debajo del contenido pero visible) */
  const pel=document.createElement("div");
  pel.className="pelotazos";
  p.appendChild(pel);
 
- /* header + contenido + footer SOLO UNA VEZ */
  p.insertAdjacentHTML("beforeend",
    crearHeader()+
    `<div class="contenido"></div>`+
@@ -328,7 +318,6 @@ function nuevaPagina(){
 
  document.getElementById("contenedorPaginas").appendChild(p);
 
- generarPelotazos(pel);
  rellenarLogos(p);
 
  return p.querySelector(".contenido");
@@ -336,18 +325,22 @@ function nuevaPagina(){
 
 function generarPelotazos(contenedor){
 
- for(let i=0;i<4500;i++){
+ const altura = document.querySelector(".pagina").scrollHeight;
+
+ for(let i=0;i<6000;i++){
+
    const d=document.createElement("div");
    const s=Math.random()*4+2;
 
    d.className="pelota-dot";
    d.style.width=d.style.height=s+"px";
    d.style.left=Math.random()*900+"px";
-   d.style.top=Math.random()*1270+"px";
+   d.style.top=Math.random()*altura+"px";
 
    contenedor.appendChild(d);
  }
 }
+
 function rellenarLogos(pagina){
 
  const LOGOS=[
@@ -370,53 +363,6 @@ function rellenarLogos(pagina){
    .join("");
 }
 
-
-
-/* ================= PAGINACIÓN REAL ================= */
-
-function paginarBloques(bloques){
-
- let contenidoActual = nuevaPagina();
-
- for(let i=0; i<bloques.length; i++){
-
-   const bloque = bloques[i];
-
-   // Si es un título y el siguiente es un grupo, probamos juntos
-   if(
-     bloque.classList.contains("bloque") &&
-     bloques[i+1] &&
-     bloques[i+1].classList.contains("grupo")
-   ){
-
-     contenidoActual.appendChild(bloque);
-     contenidoActual.appendChild(bloques[i+1]);
-
-     if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
-       // no caben juntos → nueva página
-       contenidoActual.removeChild(bloque);
-       contenidoActual.removeChild(bloques[i+1]);
-
-       contenidoActual = nuevaPagina();
-       contenidoActual.appendChild(bloque);
-       contenidoActual.appendChild(bloques[i+1]);
-     }
-
-     i++; // saltamos el grupo ya procesado
-     continue;
-   }
-
-   // comportamiento normal
-   contenidoActual.appendChild(bloque);
-
-   if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
-     contenidoActual.removeChild(bloque);
-     contenidoActual = nuevaPagina();
-     contenidoActual.appendChild(bloque);
-   }
- }
-}
-
 /* ================= CREAR BLOQUES PARTIDOS ================= */
 
 function crearBloques(titulo,data){
@@ -430,17 +376,46 @@ function crearBloques(titulo,data){
  h2.innerHTML=`<h2>${titulo}</h2>`;
  arr.push(h2);
 
+ const dataFiltrada = data.filter(p=>{
+
+   const e=(p.etxekoa||"").toLowerCase();
+   const k=(p.kanpokoak||"").toLowerCase();
+
+   return !(
+     e.includes("descanso") ||
+     e.includes("atseden") ||
+     k.includes("descanso") ||
+     k.includes("atseden")
+   );
+ });
+
+ dataFiltrada.sort((a,b)=>{
+
+   const fechaA = new Date(a.fecha.replace(/\//g,"-"));
+   const fechaB = new Date(b.fecha.replace(/\//g,"-"));
+
+   if(fechaA - fechaB !== 0) return fechaA - fechaB;
+
+   if(a.hora !== b.hora){
+     return a.hora.localeCompare(b.hora);
+   }
+
+   return (a.fronton || "").localeCompare(b.fronton || "");
+ });
+
  const grupos={};
 
- data.forEach(p=>{
-   const key=p.fecha+"|"+p.hora+"|"+p.fronton;
+ dataFiltrada.forEach(p=>{
+
+   const key = p.fecha+"|"+p.hora+"|"+p.fronton;
+
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
  });
 
  Object.values(grupos).forEach(partidos=>{
 
-   const g=document.createElement("div");   // 👈 FALTABA ESTO
+   const g=document.createElement("div");
    g.className="grupo";
 
    const fronton = partidos[0].fronton || "";
@@ -471,8 +446,6 @@ function crearBloques(titulo,data){
  return arr;
 }
 
-
-
 /* ================= FETCH + CONSTRUIR ================= */
 
 Promise.all([
@@ -486,31 +459,30 @@ Promise.all([
    ...crearBloques("TXAPELKETAK EZ OFIZIALAK",noOficiales.filter(p=>p.ofiziala!=="true"))
  ];
 
- paginarBloques(bloques);
+ const contenido = nuevaPagina();
+
+ bloques.forEach(b=>contenido.appendChild(b));
+
+ const pel = document.querySelector(".pelotazos");
+ generarPelotazos(pel);
 
 });
 
-
-/* ================= EXPORTAR TODAS LAS PÁGINAS ================= */
+/* ================= EXPORTAR ================= */
 
 async function exportar(){
 
- const paginas=document.querySelectorAll(".pagina");
+ const pagina=document.querySelector(".pagina");
 
- let i=1;
+ const canvas=await html2canvas(pagina,{
+   scale:2,
+   useCORS:true
+ });
 
- for(const p of paginas){
-
-   const canvas=await html2canvas(p,{scale:2,useCORS:true});
-
-   const a=document.createElement("a");
-   a.href=canvas.toDataURL("image/jpeg",0.95);
-   a.download=`kartela-${i}.jpg`;
-   a.click();
-
-   i++;
- }
-
+ const a=document.createElement("a");
+ a.href=canvas.toDataURL("image/jpeg",0.95);
+ a.download="kartela-completo.jpg";
+ a.click();
 }
 
 </script>
