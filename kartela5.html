@@ -564,7 +564,7 @@ Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
  fetch("data/partidos-no-oficiales.json").then(r=>r.json()),
  fetch("data/fases.json").then(r=>r.json()),
- fetch("data/categorias-colores.json").then(r=>r.json())
+ fetch("data/categoriacartel.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales,fases,categorias])=>{
 
  FASES = fases;
