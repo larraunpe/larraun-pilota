@@ -449,14 +449,28 @@ function crearBloques(titulo,data){
      <div class="grupo-header${colorClase}">
        ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
      </div>
-     ${partidos.map(p=>`
-       <div class="linea">
-         <div class="zkia">${p.zkia}</div>
-         <div class="etxekoa">${p.etxekoa}</div>
-         <div class="kanpokoa">${p.kanpokoak}</div>
-         <div class="lehiaketa">${p.lehiaketa}</div>
-       </div>
-     `).join("")}
+     ${partidos.map(p=>{
+
+  let etx = p.etxekoa || "";
+  let kan = p.kanpokoak || "";
+
+  if(etx.toLowerCase().includes("larraun")){
+    etx = "<strong>"+etx+"</strong>";
+  }
+
+  if(kan.toLowerCase().includes("larraun")){
+    kan = "<strong>"+kan+"</strong>";
+  }
+
+  return `
+    <div class="linea">
+      <div class="zkia">${p.zkia}</div>
+      <div class="etxekoa">${etx}</div>
+      <div class="kanpokoa">${kan}</div>
+      <div class="lehiaketa">${p.lehiaketa}</div>
+    </div>
+  `;
+}).join("")}
    `;
 
    arr.push(g);
