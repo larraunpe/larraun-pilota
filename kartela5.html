@@ -565,10 +565,12 @@ Promise.all([
  fetch("data/partidos-no-oficiales.json").then(r=>r.json()),
  fetch("data/fases.json").then(r=>r.json()),
  fetch("data/categorias-colores.json").then(r=>r.json())
-]).then(([oficiales,noOficiales,fases])=>{
+]).then(([oficiales,noOficiales,fases,categorias])=>{
 
  FASES = fases;
  CATEGORIAS = categorias;
+
+ generarClasesCategorias();   // 🔥 ESTO FALTABA
 
  const bloques=[
    ...crearBloques("NEPF PARTIDUAK",oficiales),
@@ -584,7 +586,6 @@ Promise.all([
  generarPelotazos(pel);
 
 });
-
 /* ================= EXPORTAR ================= */
 
 async function exportar(){
