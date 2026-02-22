@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>EMAITZAK - LARRAUN PILOTA ELKARTEA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DotGothic16&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BASE ================= */
+
+body{
+  margin:0;
+  background:#184d33;
+  font-family:Arial, sans-serif;
+}
+
+.pagina{
+  width:900px;
+  margin:auto;
+  background:#fff;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+  height:110px;
+  background:#0b2350;
+  color:#9cff9c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  font-family:'Orbitron';
+  font-size:22px;
+  letter-spacing:2px;
+}
+
+.header img{
+  position:absolute;
+  height:80px;
+}
+.logo-izq{left:20px}
+.logo-der{right:20px}
+
+/* ================= TITULOS ================= */
+
+.titulo-seccion{
+  font-family:'Orbitron';
+  color:#fff;
+  text-align:center;
+  padding:8px;
+  margin:18px 0 12px;
+  letter-spacing:2px;
+  font-size:18px;
+}
+
+/* 🔴 NKJ */
+.bloque-nkj{
+  background:#c60000;
+}
+
+/* 🟢 Oficial */
+.bloque-ofizial{
+  background:#0f7a2f;
+}
+
+/* ⚫ No oficial */
+.bloque-ezofizial{
+  background:#111;
+}
+
+
+/* ================= PARTIDO ================= */
+
+.partido{
+  position:relative;
+  background:#fff;
+  border-radius:6px;
+  margin-bottom:26px;
+  overflow:visible;   /* 🔥 IMPORTANTE */
+}
+
+
+.partido::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-14px;
+  height:8px;
+  background-image: radial-gradient(#0b2350 2px, transparent 2px);
+  background-size:12px 8px;
+}
+
+
+.partido::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.45;
+}
+
+.win::before{ background-image: var(--pelotas-verdes); }
+.lose::before{ background-image: var(--pelotas-rojas); }
+.rest::before{ background-image: var(--pelotas-grises); }
+
+/* ================= CABECERA ================= */
+
+.partido-header{
+  font-family:'Share Tech Mono', monospace;
+  font-size:12px;
+  padding:4px 8px;
+  color:#fff;
+  text-decoration:none;
+  letter-spacing:1px;
+  display:flex;
+  align-items:center;
+}
+
+.partido-header span{
+  white-space:nowrap;
+}
+
+.partido-header::after{
+  content:"";
+  flex:1;
+  height:2px;
+  margin-left:8px;
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size:6px 2px;
+}
+
+.azul{
+  background:#2f5fd2;
+  box-shadow: inset 0 0 8px rgba(255,255,255,.4);
+}
+.granate{ background:#8b3a4a; }
+
+/* ================= FILA ================= */
+
+.fila{
+  display:grid;
+  grid-template-columns: 2fr 10fr 7fr 10fr 2fr;
+  align-items:center;
+  padding:12px 8px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+}
+
+.pixelado{
+  image-rendering: pixelated;
+  filter: contrast(1.2) saturate(1.1);
+}
+
+.fila img:first-child{justify-self:start}
+.fila img:last-child{justify-self:end}
+
+/* ================= EQUIPOS ================= */
+
+.local,.visit{
+  display:flex;
+  flex-direction:column;
+  font-family:'DotGothic16', monospace;
+  letter-spacing:1px;
+}
+
+.visit{text-align:right}
+
+.principal{
+  font-size:18px;
+  font-weight:700;
+}
+
+.pelotaris{
+  font-size:7px;
+  font-weight:700;
+}
+
+.local .principal{color:#0d47a1}
+.visit .principal{color:#b71c1c}
+
+/* ================= MARCADOR ================= */
+
+.score{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Orbitron', monospace;
+  font-size:42px;
+  font-weight:900;
+  white-space:nowrap;
+  letter-spacing:2px;
+}
+
+.resultado-linea{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.icono-wrapper{
+  width:32px;
+  display:flex;
+  justify-content:center;
+}
+
+.icono-resultado{
+  width:26px;
+  height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:900;
+  border-radius:4px;
+  color:#fff;
+}
+
+.gana{ background:#17c417; }
+.pierde{ background:#e53935; }
+
+.sets{
+  font-size:13px;
+  margin-top:4px;
+  font-weight:700;
+}
+
+.blue{color:#0d47a1}
+.red{color:#b71c1c}
+
+.fase{
+  font-size:10px;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:6px;
+  background:#e7d3c2;
+  color:#5a2d0c;
+  white-space:nowrap;
+  letter-spacing:.5px;
+  margin-left:8px;
+}
+
+.fase-finala{
+  background:linear-gradient(45deg,#c9a227,#f7e27a);
+  color:#000;
+  font-weight:900;
+  box-shadow:0 0 6px rgba(0,0,0,.3);
+}
+
+/* ================= PATROCINADORES ================= */
+
+.patrocinadores{
+  padding:25px 10px;
+  text-align:center;
+}
+
+.patro-titulo{
+  font-family:'Orbitron';
+  font-size:20px;
+  margin-bottom:14px;
+}
+
+.patro-grid{
+  display:grid;
+  grid-template-columns:repeat(9, minmax(0,1fr));
+  gap:14px;
+  width:100%;
+  max-width:860px;      /* 🔵 límite real dentro de la página */
+  margin:0 auto;
+  padding:0 20px;       /* 🔵 respeta márgenes */
+  box-sizing:border-box;
+  justify-items:center;
+  align-items:center;
+}
+
+.patro-grid img{
+  width:100%;
+  max-width:80px;
+  height:46px;
+  object-fit:contain;
+}
+/* ================= BOTÓN FLOTANTE ================= */
+
+#btnExportar{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+  padding:10px 18px;
+  background:#0b2350;
+  color:#9cff9c;
+  border:none;
+  font-family:'Orbitron';
+  cursor:pointer;
+  border-radius:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+#btnExportar:hover{
+  transform:scale(1.05);
+}
+
+/* 🔥 NO IMPRIMIR */
+@media print {
+
+  .no-print{
+    display:none !important;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  @page{
+    size:A4;
+    margin:10mm;
+  }
+
+  .pagina{
+    width:100%;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+<button id="btnExportar" class="no-print">DESCARGAR JPG</button>
+<div class="pagina">
+
+<div class="header">
+  <img src="images/logo-larraun.png" class="logo-izq">
+  EMAITZAK - LARRAUN PILOTA ELKARTEA
+  <img src="images/logo-fnp.png" class="logo-der">
+</div>
+
+
+<div id="lista"></div>
+
+<div class="patrocinadores">
+  <div class="patro-titulo">BABESLEAK</div>
+  <div class="patro-grid">
+    <!-- Tus patrocinadores aquí (no los toco para no alargar el mensaje) -->
+      <img src="images/patrocinio/aliprox.jpg" alt="aliprox.jpg">
+  <img src="images/patrocinio/arbeondo.jpg" alt="arbeondo.jpg">
+  <img src="images/patrocinio/asadorepeleta.jpg" alt="asadorepeleta.jpg">
+  <img src="images/patrocinio/barainhoa.jpg" alt="barainhoa.jpg">
+  <img src="images/patrocinio/kotxera.jpg" alt="kotxera.jpg">
+  <img src="images/patrocinio/barilargi.jpg" alt="barilargi.jpg">
+  <img src="images/patrocinio/barlekuonberri.jpg" alt="barlekuonberri.jpg">
+  <img src="images/patrocinio/begoñajanaridenda.jpg" alt="begoñajanaridenda.jpg">
+  <img src="images/patrocinio/carniceriaartxueta.jpg" alt="carniceriaartxueta.jpg">
+  <img src="images/patrocinio/carpinteriahnosazpiroz.jpg" alt="carpinteriahnosazpiroz.jpg">
+  <img src="images/patrocinio/construccionesgañarbe.jpg" alt="construccionesgañarbe.jpg">
+  <img src="images/patrocinio/construccionesgarciarenasaralegi.jpg" alt="construccionesgarciarenasaralegi.jpg">
+  <img src="images/patrocinio/construccionesurangasaigos.jpg" alt="construccionesurangasaigos.jpg">
+  <img src="images/patrocinio/hotelayestaran.jpg" alt="hotelayestaran.jpg">
+  <img src="images/patrocinio/iseelectricidad.jpg" alt="iseelectricidad.jpg">
+  <img src="images/patrocinio/kattagorrielkartea.jpg" alt="kattagorrielkartea.jpg">
+  <img src="images/patrocinio/lacturale.jpg" alt="lacturale.jpg">
+  <img src="images/patrocinio/lagunasesoria.jpg" alt="lagunasesoria.jpg">
+  <img src="images/patrocinio/maderasnasorena.jpg" alt="maderasnasorena.jpg">
+  <img src="images/patrocinio/maskarada.jpg" alt="maskarada.jpg">
+  <img src="images/patrocinio/suacontrol.jpg" alt="suacontrol.jpg">
+  <img src="images/patrocinio/urzubi.jpg" alt="urzubi.jpg">
+  <img src="images/patrocinio/ventamugiro.jpg" alt="ventamugiro.jpg">
+  <img src="images/patrocinio/dietistaanagurrea.jpg" alt="dietistaanagurrea.jpg">
+  <img src="images/patrocinio/ekin.jpg" alt="ekin.jpg">
+  <img src="images/patrocinio/farmaciaitziarmendia.png" alt="farmaciaitziarmendia.png">
+  <img src="images/patrocinio/fontaneriabalenciaga.jpg" alt="fontaneriabalenciaga.jpg">
+  <img src="images/patrocinio/fontaneriairibarren.jpg" alt="fontaneriairibarren.jpg">
+  <img src="images/patrocinio/izarberri.png" alt="izarberri.png">
+  <img src="images/patrocinio/lakita.jpg" alt="lakita.jpg">
+  <img src="images/patrocinio/sidreriatokialai.jpg" alt="sidreriatokialai.jpg">
+  <img src="images/patrocinio/tallereslarraun.jpg" alt="tallereslarraun.jpg">
+  <img src="images/patrocinio/talleresotxotorena.jpg" alt="talleresotxotorena.jpg">
+  <img src="images/patrocinio/veterinarialekunberri.jpg" alt="veterinarialekunberri.jpg">
+
+  </div>
+</div>
+
+</div>
+
+<script>
+let FASES = {};
+let CATEGORIAS = {};  
+
+/* ================= PELOTAS ================= */
+
+function generarPelotas(color){
+  let dots=[];
+  for(let i=0;i<60;i++){
+    const x=Math.random()*100;
+    const y=Math.random()*100;
+    const r=2+Math.random()*3;
+    dots.push(`radial-gradient(circle ${r}px at ${x}% ${y}%, ${color} 98%, transparent)`);
+  }
+  return dots.join(",");
+}
+
+document.documentElement.style.setProperty('--pelotas-verdes', generarPelotas('#19c93f'));
+document.documentElement.style.setProperty('--pelotas-rojas', generarPelotas('#ff6b6b'));
+document.documentElement.style.setProperty('--pelotas-grises', generarPelotas('#bdbdbd'));
+
+/* ================= UTIL ================= */
+
+function dividirEquipo(txt){
+  txt = txt.replace(" (","<br>(");
+  const partes=txt.split(")");
+  const principal=partes[0]+")";
+  const resto=partes.slice(1).join(")").trim();
+  return {principal, resto};
+}
+
+function logoClub(nombre){
+
+  if(!nombre) return "";
+
+  if(nombre.toLowerCase().includes("atseden"))
+    return `<img class="logo pixelado" src="images/ATSEDENA.jpg">`;
+
+  const limpio = nombre
+    .split("(")[0]
+    .replace(/[.,]/g,"")
+    .replace(/–/g,"-")
+    .replace(/-/g," ")
+    .trim()
+    .toUpperCase();
+
+  const archivo = limpio.replace(/\s+/g,"-");
+
+  return `
+    <img class="logo pixelado"
+         src="images/clubes/${archivo}.jpg"
+         onerror="this.src='images/clubes/DEFAULT.jpg'">
+  `;
+}
+
+function estado(p){
+
+  const texto=(p.modalidad||"").toLowerCase();
+  if(texto.includes("atseden") || texto.includes("descanso"))
+    return "rest";
+
+  if(!p.tanteoa) return "";
+
+  const [a,b]=p.tanteoa.split("-").map(Number);
+
+  if((p.etxekoa||"").includes("LARRAUN"))
+    return a>b?"win":"lose";
+  else
+    return b>a?"win":"lose";
+}
+
+function ordenar(lista){
+
+  return lista.sort((a,b)=>{
+
+    const esDescanso = p => {
+
+      const texto = (
+        (p.modalidad || "") + " " +
+        (p.etxekoa || "") + " " +
+        (p.kanpokoak || "")
+      ).toLowerCase();
+
+      return texto.includes("atseden") ||
+             texto.includes("atsedena") ||
+             texto.includes("descanso");
+    };
+
+    if(esDescanso(a) && !esDescanso(b)) return 1;
+    if(!esDescanso(a) && esDescanso(b)) return -1;
+
+    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
+    const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
+
+    return fa-fb;
+  });
+
+}
+
+function filtrarPeriodo(lista){
+
+  const hoy=new Date();
+  hoy.setHours(23,59,59,999);
+
+  const diaSemana=hoy.getDay();
+  const diasAtras=diaSemana===0?6:diaSemana-1;
+
+  const inicioSemanaActual=new Date(hoy);
+  inicioSemanaActual.setDate(hoy.getDate()-diasAtras);
+  inicioSemanaActual.setHours(0,0,0,0);
+
+  const inicioSemanaPasada=new Date(inicioSemanaActual);
+  inicioSemanaPasada.setDate(inicioSemanaActual.getDate()-7);
+
+  return lista.filter(p=>{
+    const f=new Date(p.fecha+"T00:00");
+    return f>=inicioSemanaPasada && f<=hoy;
+  });
+}
+
+/* ================= RENDER ================= */
+function generarClasesCategorias(){
+
+  const style = document.createElement("style");
+  let css = "";
+
+  for(const cat in CATEGORIAS){
+
+    css += `
+      .cat-${cat}{
+        background: linear-gradient(
+          90deg,
+          ${CATEGORIAS[cat]}22 0%,
+          ${CATEGORIAS[cat]}10 40%,
+          transparent 80%
+        );
+      }
+    `;
+  }
+
+  style.innerHTML = css;
+  document.head.appendChild(style);
+}
+
+function obtenerClaseCategoria(texto){
+
+  if(!texto) return "";
+
+  const textoLower = texto.toLowerCase();
+
+  for(const cat in CATEGORIAS){
+    if(textoLower.includes(cat.toLowerCase())){
+      return "cat-"+cat;
+    }
+  }
+
+  return "";
+}
+
+function crearPartido(p){
+
+    const fronton = (p.fronton || "").toLowerCase();
+
+  const esAzul = fronton.includes("lekunberri") ||
+                 fronton.includes("aldatz");
+
+  const colorHeader = esAzul ? "azul" : "granate";
+
+
+  const est=estado(p);
+  const eq1=dividirEquipo(p.etxekoa);
+  const eq2=dividirEquipo(p.kanpokoak);
+  const [a,b]=(p.tanteoa||"").split("-");
+
+  let icono="";
+
+const faseTexto = p.lehiaketa || p.modalidad || "";
+const esFinala = faseTexto.toUpperCase().includes("FINALA");
+
+if(est==="win"){
+  if(esFinala)
+    icono=`<div class="icono-resultado gana">🥇</div>`;
+  else
+    icono=`<div class="icono-resultado gana">✔</div>`;
+}
+else if(est==="lose"){
+  if(esFinala)
+    icono=`<div class="icono-resultado pierde">🥈</div>`;
+  else
+    icono=`<div class="icono-resultado pierde">✖</div>`;
+}
+
+  const div=document.createElement("div");
+  div.className="partido "+est+" "+obtenerClaseCategoria(p.lehiaketa || p.modalidad);
+  
+  div.innerHTML=`
+    <a href="${p.url||'#'}" target="_blank"
+       class="partido-header ${colorHeader}">
+      <span>
+  ${p.fecha} · ${p.fronton} ·
+  ${p.url?`<u>${p.modalidad}</u>`:p.modalidad}
+  ${obtenerFaseEtiqueta(p.lehiaketa || p.modalidad)}
+</span>
+    </a>
+
+    <div class="fila">
+
+      ${logoClub(p.etxekoa)}
+
+      <div class="local">
+        <div class="principal">${eq1.principal}</div>
+        ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
+      </div>
+
+      <div class="score">
+        <div class="resultado-linea">
+          <span class="blue">${a||""}</span>
+          <span class="icono-wrapper">${icono}</span>
+          <span class="red">${b||""}</span>
+        </div>
+        ${p.sets?`<div class="sets">${p.sets}</div>`:""}
+      </div>
+
+      <div class="visit">
+        <div class="principal">${eq2.principal}</div>
+        ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
+      </div>
+
+      ${logoClub(p.kanpokoak)}
+
+    </div>
+  `;
+
+  return div;
+}
+
+function bloque(titulo, lista, clase){
+
+  if(!lista.length) return document.createDocumentFragment();
+
+  const frag = document.createDocumentFragment();
+
+  const h = document.createElement("div");
+  h.className = "titulo-seccion " + clase;
+  h.textContent = titulo;
+
+  frag.appendChild(h);
+
+  lista.forEach(p => frag.appendChild(crearPartido(p)));
+
+  return frag;
+}
+function obtenerFaseEtiqueta(texto){
+
+  if(!texto) return "";
+
+  const fasesOrdenadas = Object.values(FASES)
+    .sort((a,b)=> b.length - a.length);
+
+  for(const fase of fasesOrdenadas){
+
+    const regex = new RegExp(`\\b${fase}\\b`, "i");
+
+    if(regex.test(texto)){
+
+      let claseExtra = "";
+      if(fase.toUpperCase() === "FINALA"){
+        claseExtra = " fase-finala";
+      }
+
+      return `<span class="fase${claseExtra}">${fase}</span>`;
+    }
+  }
+
+  return "";
+}
+
+
+
+/* ================= CARGA ================= */
+
+Promise.all([
+ fetch("data/resultados-larraun.json").then(r=>r.json()),
+ fetch("data/resultados-no-oficiales.json").then(r=>r.json()),
+ fetch("data/fases.json").then(r=>r.json()),
+ fetch("data/categoriacartel.json").then(r=>r.json())
+]).then(([larraun,noOficiales,fases,categorias])=>{
+
+  FASES = fases;
+  CATEGORIAS = categorias;
+
+  generarClasesCategorias();
+
+  const lista=document.getElementById("lista");
+  const todos=filtrarPeriodo([...larraun,...noOficiales]);
+
+  const nkj = todos.filter(p => larraun.includes(p));
+
+  const esOfizial = p =>
+    p.ofiziala === true || p.ofiziala === "true";
+
+  const ofizial = todos.filter(p =>
+    !larraun.includes(p) && esOfizial(p)
+  );
+
+  const ezOfizial = todos.filter(p =>
+    !larraun.includes(p) && !esOfizial(p)
+  );
+
+  lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkj), "bloque-nkj"));
+  lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
+  lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial), "bloque-ezofizial"));
+
+});
+
+  document.getElementById("btnExportar").addEventListener("click", async () => {
+
+  const btn = document.getElementById("btnExportar");
+  const elemento = document.querySelector(".pagina");
+
+  btn.style.display = "none";
+
+  try {
+
+    // Esperar a que las fuentes estén cargadas
+    await document.fonts.ready;
+
+    // Esperar a que todas las imágenes estén cargadas
+    const imagenes = Array.from(document.images);
+    await Promise.all(
+      imagenes.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = img.onerror = resolve;
+        });
+      })
+    );
+
+    // Pequeño delay para asegurar render final
+    await new Promise(r => setTimeout(r, 300));
+
+    const canvas = await html2canvas(elemento, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true,
+      allowTaint: true
+    });
+
+    const enlace = document.createElement("a");
+    enlace.download = "larraun-emaitzak.jpg";
+    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+    enlace.click();
+
+  } catch (error) {
+    console.error("Error al generar la imagen:", error);
+    alert("Ha habido un problema al generar el JPG");
+  }
+
+  btn.style.display = "block";
+
+});
+
+
+</script>
+
+
+
+</body>
+</html>
