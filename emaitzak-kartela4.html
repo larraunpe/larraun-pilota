@@ -781,21 +781,7 @@ Promise.all([
   }
 }
 
-    contenedor.appendChild(elemento.cloneNode(true));
-
-    if (paginaActual.scrollHeight > 1587) {
-
-      contenedor.removeChild(contenedor.lastChild);
-      paginas.push(paginaActual);
-
-      paginaActual = crearPagina(headerHTML, footerHTML);
-      document.body.appendChild(paginaActual);
-      contenedor = paginaActual.querySelector(".contenido");
-
-      contenedor.appendChild(elemento.cloneNode(true));
-    }
-  }
-
+  
   paginas.push(paginaActual);
 
   let contador = 1;
