@@ -172,7 +172,13 @@ body{
   font-family:'DotGothic16', monospace;
   letter-spacing:1px;
 }
+.local{
+  padding-left:12px;   /* espacio entre logo y nombre */
+}
 
+.visit{
+  padding-right:12px;  /* espacio entre nombre y logo */
+}
 .visit{text-align:right}
 
 .principal{
@@ -185,8 +191,8 @@ body{
   font-weight:700;
 }
 
-.local .principal{color:#0d47a1}
-.visit .principal{color:#b71c1c}
+.local .principal{color:#082e8a}
+.visit .principal{color:#8e0000}
 
 /* ================= MARCADOR ================= */
 
@@ -530,15 +536,7 @@ function generarClasesCategorias(){
 
     css += `
       .cat-${cat}{
-        background-color: ${CATEGORIAS[cat]};
-      }
-
-      .cat-${cat} .principal{
-        color:#000;
-      }
-
-      .cat-${cat} .pelotaris{
-        color:#111;
+        background-color:${CATEGORIAS[cat]};
       }
     `;
   }
