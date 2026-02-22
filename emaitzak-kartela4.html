@@ -753,7 +753,7 @@ Promise.all([
     })
   );
 
-  const partidos = Array.from(document.querySelectorAll(".partido, .titulo-seccion"));
+  const bloques = Array.from(document.querySelector("#lista").children);
   const headerHTML = document.querySelector(".header").outerHTML;
   const footerHTML = document.querySelector(".patrocinadores").outerHTML;
 
@@ -763,7 +763,23 @@ Promise.all([
 
   let contenedor = paginaActual.querySelector(".contenido");
 
-  for (const elemento of partidos) {
+  for (const bloque of bloques) {
+
+  const clon = bloque.cloneNode(true);
+  contenedor.appendChild(clon);
+
+  if (paginaActual.scrollHeight > 1587) {
+
+    contenedor.removeChild(clon);
+    paginas.push(paginaActual);
+
+    paginaActual = crearPagina(headerHTML, footerHTML);
+    document.body.appendChild(paginaActual);
+    contenedor = paginaActual.querySelector(".contenido");
+
+    contenedor.appendChild(clon);
+  }
+}
 
     contenedor.appendChild(elemento.cloneNode(true));
 
@@ -817,52 +833,7 @@ function crearPagina(headerHTML, footerHTML){
 
   return pagina;
 }
-  const btn = document.getElementById("btnExportar");
-  const elemento = document.querySelector(".pagina");
-
-  btn.style.display = "none";
-
-  try {
-
-    // Esperar a que las fuentes estén cargadas
-    await document.fonts.ready;
-
-    // Esperar a que todas las imágenes estén cargadas
-    const imagenes = Array.from(document.images);
-    await Promise.all(
-      imagenes.map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = img.onerror = resolve;
-        });
-      })
-    );
-
-    // Pequeño delay para asegurar render final
-    await new Promise(r => setTimeout(r, 300));
-
-    const canvas = await html2canvas(elemento, {
-      scale: 2,
-      backgroundColor: "#ffffff",
-      useCORS: true,
-      allowTaint: true
-    });
-
-    const enlace = document.createElement("a");
-    enlace.download = "larraun-emaitzak.jpg";
-    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
-    enlace.click();
-
-  } catch (error) {
-    console.error("Error al generar la imagen:", error);
-    alert("Ha habido un problema al generar el JPG");
-  }
-
-  btn.style.display = "block";
-
-});
-
-
+  
 </script>
 
 
