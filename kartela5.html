@@ -248,11 +248,23 @@ body{
   gap:4px;
 }
 .fase{
-  color:#5a2d0c;   /* marrón oscuro */
-  font-weight:900;
-  white-space:nowrap;   /* 🔥 nunca salta de línea */
+  font-size:10px;              /* más pequeña */
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:6px;
+  background:#e7d3c2;          /* beige elegante */
+  color:#5a2d0c;
+  white-space:nowrap;
+  letter-spacing:.5px;
 }
-/* ================= FOOTER ================= */
+.fase-finala{
+  background:linear-gradient(45deg,#c9a227,#f7e27a);
+  color:#000;
+  font-weight:900;
+  font-size:11px;
+  box-shadow:0 0 6px rgba(0,0,0,.3);
+}
+ /* ================= FOOTER ================= */
 
 .footer{
   display:flex;
@@ -427,10 +439,16 @@ function formatearLehiaketa(texto){
     const regex = new RegExp(`\\b${fase}\\b`, "g");
 
     if(regex.test(texto)){
-      texto = texto.replace(
-        regex,
-        `<span class="fase">(${fase})</span>`
-      );
+      let claseExtra = "";
+
+if(fase.toUpperCase() === "FINALA"){
+  claseExtra = " fase-finala";
+}
+
+texto = texto.replace(
+  regex,
+  `<span class="fase${claseExtra}">${fase}</span>`
+);
     }
   }
 
