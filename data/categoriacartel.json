@@ -1,11 +1,12 @@
 {
-  "HAURRAK": "#c8f5c8",
+  "HAURRAK": "#aifa8f",
   "KADETE": "#c8e6ff",
-  "KIMU": "#fff3a3",
-  "ALEBINAK": "#fff3a3",
-  "GAZTE": "#2f5fa5",
+  "KIMU": "#f4fa8f",
+  "ALEBINAK": "#ff994a",
+  "GAZTE": "#6696ff",
   "SEIN": "#ffb347",
-  "AURREBENJAMINAK": "#c7b299",
-  "SENIOR": "#001f4d",
-  "HEDUAK": "#001f4d"
+  "AURREBENJAMINAK": "#fcc6bb",
+  "SENIOR": "#b7b5f5",
+  "MAILA": "#b7b5f5",
+  "HELDUAK": "b7b5f5"
 }
