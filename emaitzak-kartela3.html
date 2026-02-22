@@ -523,11 +523,11 @@ function generarClasesCategorias(){
 
     css += `
       .cat-${cat}{
-        background: linear-gradient(
+        background-image: linear-gradient(
           90deg,
-          ${CATEGORIAS[cat]}22 0%,
-          ${CATEGORIAS[cat]}10 40%,
-          transparent 80%
+          ${CATEGORIAS[cat]}33 0%,
+          ${CATEGORIAS[cat]}15 40%,
+          transparent 60%
         );
       }
     `;
@@ -591,11 +591,17 @@ else if(est==="lose"){
   div.innerHTML=`
     <a href="${p.url||'#'}" target="_blank"
        class="partido-header ${colorHeader}">
-      <span>
-  ${p.fecha} · ${p.fronton} ·
-  ${p.url?`<u>${p.modalidad}</u>`:p.modalidad}
-  ${obtenerFaseEtiqueta(p.lehiaketa || p.modalidad)}
-</span>
+      ${(()=>{
+   const faseData = extraerFase(p.lehiaketa || p.modalidad);
+
+   return `
+     <span>
+       ${p.fecha} · ${p.fronton} ·
+       ${p.url?`<u>${faseData.limpio}</u>`:faseData.limpio}
+       ${faseData.etiqueta}
+     </span>
+   `;
+})()}
     </a>
 
     <div class="fila">
@@ -645,9 +651,9 @@ function bloque(titulo, lista, clase){
 
   return frag;
 }
-function obtenerFaseEtiqueta(texto){
+function extraerFase(texto){
 
-  if(!texto) return "";
+  if(!texto) return { limpio:texto, etiqueta:"" };
 
   const fasesOrdenadas = Object.values(FASES)
     .sort((a,b)=> b.length - a.length);
@@ -658,18 +664,21 @@ function obtenerFaseEtiqueta(texto){
 
     if(regex.test(texto)){
 
+      const textoLimpio = texto.replace(regex,"").trim();
+
       let claseExtra = "";
       if(fase.toUpperCase() === "FINALA"){
         claseExtra = " fase-finala";
       }
 
-      return `<span class="fase${claseExtra}">${fase}</span>`;
+      const etiqueta = `<span class="fase${claseExtra}">${fase}</span>`;
+
+      return { limpio:textoLimpio, etiqueta };
     }
   }
 
-  return "";
+  return { limpio:texto, etiqueta:"" };
 }
-
 
 
 /* ================= CARGA ================= */
