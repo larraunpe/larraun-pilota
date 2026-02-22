@@ -31,7 +31,7 @@ function getHTML(url) {
       res.on("data", c => chunks.push(c));
       res.on("end", () => {
         const buffer = Buffer.concat(chunks);
-        resolve(buffer.toString("latin1")); // UTF correcto
+        resolve(buffer.toString("latin1"));
       });
     }).on("error", reject);
   });
@@ -103,15 +103,25 @@ function extraerSets(cell) {
 }
 
 // ======================================================
-// SCRAPE COMPETICIÓN
+// DETECTAR FASES ELIMINATORIAS
 // ======================================================
-async function scrapeCompeticion(id) {
-  const url = `${URL_BASE}${id}`;
-  const html = await getHTML(url);
+function extraerFasesEliminatorias(doc) {
+  const enlaces = [...doc.querySelectorAll("a[href*='idFaseEliminatoria']")];
+  const fases = new Set();
 
-  const dom = new JSDOM(html);
-  const doc = dom.window.document;
+  for (const a of enlaces) {
+    const href = a.getAttribute("href");
+    const match = href.match(/idFaseEliminatoria=(\d+)/);
+    if (match) fases.add(match[1]);
+  }
 
+  return [...fases];
+}
+
+// ======================================================
+// EXTRAER PARTIDOS DE UNA PÁGINA
+// ======================================================
+function extraerPartidosDeDocumento(doc, url) {
   const modalidad = obtenerModalidad(doc);
   const filas = [...doc.querySelectorAll("table tr")];
   if (filas.length < 3) return [];
@@ -131,9 +141,7 @@ async function scrapeCompeticion(id) {
     const etxekoaRaw = clean(tds[2].textContent);
     const kanpokoRaw = clean(tds[4].textContent);
 
-    // ================================
-    // 👉 PARTIDO DE DESCANSO
-    // ================================
+    // DESCANSO
     if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") {
       const equipoLarraun =
         contieneLarraun(etxekoaRaw) ? etxekoaRaw :
@@ -158,13 +166,7 @@ async function scrapeCompeticion(id) {
       continue;
     }
 
-    // ================================
-    // PARTIDO NORMAL
-    // ================================
-    const etxekoa = convertirPareja(etxekoaRaw);
-    const kanpokoak = convertirPareja(kanpokoRaw);
-
-    if (!contieneLarraun(etxekoa) && !contieneLarraun(kanpokoak)) continue;
+    if (!contieneLarraun(etxekoaRaw) && !contieneLarraun(kanpokoRaw)) continue;
 
     const tanteoa = clean(tds[3].childNodes[0]?.textContent);
     const sets = extraerSets(tds[3]);
@@ -172,15 +174,46 @@ async function scrapeCompeticion(id) {
     resultados.push({
       fecha: fechaObj.toISOString().slice(0, 10),
       fronton: clean(tds[1].textContent),
-      etxekoa,
-      kanpokoak,
+      etxekoa: convertirPareja(etxekoaRaw),
+      kanpokoak: convertirPareja(kanpokoRaw),
       tanteoa,
       sets,
       modalidad,
-      emaitza: calcularEmaitza(etxekoa, kanpokoak, tanteoa),
+      emaitza: calcularEmaitza(etxekoaRaw, kanpokoRaw, tanteoa),
       ofiziala: true,
       url
     });
+  }
+
+  return resultados;
+}
+
+// ======================================================
+// SCRAPE COMPETICIÓN COMPLETA (LIGA + FASES)
+// ======================================================
+async function scrapeCompeticion(id) {
+  const resultados = [];
+
+  const urlBase = `${URL_BASE}${id}`;
+  const htmlBase = await getHTML(urlBase);
+  const domBase = new JSDOM(htmlBase);
+  const docBase = domBase.window.document;
+
+  resultados.push(...extraerPartidosDeDocumento(docBase, urlBase));
+
+  const fases = extraerFasesEliminatorias(docBase);
+
+  for (const faseId of fases) {
+    const urlFase = `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${faseId}&temp=2025`;
+
+    try {
+      const htmlFase = await getHTML(urlFase);
+      const domFase = new JSDOM(htmlFase);
+      const docFase = domFase.window.document;
+
+      resultados.push(...extraerPartidosDeDocumento(docFase, urlFase));
+      await sleep(ESPERA_MS);
+    } catch {}
   }
 
   return resultados;
@@ -191,14 +224,24 @@ async function scrapeCompeticion(id) {
 // ======================================================
 (async () => {
   let todos = [];
+  const vistos = new Set();
 
   for (let id = ID_DESDE; id <= ID_HASTA; id++) {
     try {
       const res = await scrapeCompeticion(id);
-      if (res.length) {
-        console.log(`✔ id ${id}: ${res.length}`);
-        todos.push(...res);
+
+      const filtrados = res.filter(r => {
+        const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.url}`;
+        if (vistos.has(clave)) return false;
+        vistos.add(clave);
+        return true;
+      });
+
+      if (filtrados.length) {
+        console.log(`✔ id ${id}: ${filtrados.length}`);
+        todos.push(...filtrados);
       }
+
       await sleep(ESPERA_MS);
     } catch {}
   }
