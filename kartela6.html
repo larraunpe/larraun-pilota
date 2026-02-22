@@ -201,43 +201,35 @@ body{
 
 .linea{
   display:flex;
-  gap:8px;
-  padding:6px 10px;
-  border-top:1px solid #ddd;
-  font-weight:900;
-  font-size:13px;
-}
-
-.linea{
-  display:flex;
-  padding:6px 10px;
+  padding:6px 8px;
   border-top:1px solid #ddd;
   font-size:13px;
   align-items:center;
   font-weight:900;
   border-radius:4px;
+  box-sizing:border-box;      /* 🔥 clave */
 }
 
-/* 4% */
 .zkia{
   flex:0 0 4%;
+  min-width:0;
 }
 
-/* 32% */
 .etxekoa{
   flex:0 0 32%;
+  min-width:0;
   color:#103c54;
 }
 
-/* 32% */
 .kanpokoa{
   flex:0 0 32%;
+  min-width:0;
   color:#b00000;
 }
 
-/* 32% */
 .lehiaketa{
   flex:0 0 32%;
+  min-width:0;
   text-align:right;
   display:flex;
   justify-content:flex-end;
