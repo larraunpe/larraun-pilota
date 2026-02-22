@@ -441,12 +441,7 @@ function generarClasesCategorias(){
 
     css += `
       .cat-${cat}{
-        background: linear-gradient(
-  90deg,
-  ${CATEGORIAS[cat]}22 0%,
-  ${CATEGORIAS[cat]}10 40%,
-  transparent 80%
-);
+        background:${CATEGORIAS[cat]};
       }
     `;
   }
