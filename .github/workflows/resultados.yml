@@ -29,14 +29,13 @@ jobs:
       - name: 🔍 Prueba modalidad 3060 (debug)
         run: node scripts/prueba-modalidad.js
 
-
       - name: Ejecutar scraper de resultados
         run: |
           node scripts/scrape-resultados.js
           echo "📄 Resultados generados:"
           cat data/resultados-larraun.json || echo "❌ Archivo no generado"
 
-      - name: Commit automático si hay cambios
+      - name: Commit y Push seguros
         run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
@@ -47,5 +46,7 @@ jobs:
             echo "ℹ️ Sin cambios en resultados"
           else
             git commit -m "🏁 Actualiza resultados Larraun"
+
+            # 🔹 Pull con rebase antes de push para evitar errores
+            git pull origin main --rebase
             git push origin main
-          fi
