@@ -47,6 +47,7 @@ jobs:
           else
             git commit -m "🏁 Actualiza resultados Larraun"
 
-            git pull origin main --rebase
+            git pull origin main --rebase --autostash
             git push origin main
+
           fi
