@@ -123,16 +123,36 @@ function extraerFases(doc) {
 // ==============================
 
 function extraerModalidad(doc) {
-  const texto = doc.body.textContent;
-  const match = texto.match(/Modalitatea:\s*([\s\S]*?)\n\s*\n/);
-  return match ? clean(match[1]) : "";
+
+  const labels = [...doc.querySelectorAll("b")];
+
+  for (const b of labels) {
+    if (b.textContent.includes("Modalitatea")) {
+      const siguiente = b.parentElement.nextElementSibling;
+      if (siguiente)
+        return clean(siguiente.textContent);
+    }
+  }
+
+  return "";
 }
 
 function extraerFaseTexto(doc) {
-  const texto = doc.body.textContent;
-  const match = texto.match(/Fasea:\s*([\s\S]*?)\n\s*\n/);
-  return match ? clean(match[1]) : "LIGA";
+
+  const labels = [...doc.querySelectorAll("b")];
+
+  for (const b of labels) {
+    if (b.textContent.includes("Fasea")) {
+      const siguiente = b.parentElement.nextElementSibling;
+      if (siguiente)
+        return clean(siguiente.textContent);
+    }
+  }
+
+  return "LIGA";
 }
+
+
 
 // ==============================
 // EXTRAER PARTIDOS
@@ -215,7 +235,7 @@ function extraerPartidos(doc, modalidad, faseTexto) {
       const docBase = new JSDOM(htmlBase).window.document;
 
       const modalidadBase = extraerModalidad(docBase);
-      const faseBase = extraerFaseTexto(docBase);
+      const faseBase = "LIGA";
 
       const baseRes = extraerPartidos(docBase, modalidadBase, faseBase);
       todos.push(...baseRes);
