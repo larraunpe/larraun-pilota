@@ -6,7 +6,7 @@ const BASE = "https://www.fnpelota.com";
 const TEMPORADA = "2025";
 const ESPERA_MS = 300;
 
-// 🔴 AJUSTA ESTE RANGO si hace falta
+// 🔴 Ajusta si hace falta
 const ID_MIN = 3000;
 const ID_MAX = 3200;
 
@@ -28,7 +28,7 @@ function getHTML(url) {
     const options = {
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
         "Accept-Language": "eu-ES,eu;q=0.9,es;q=0.8",
         "Accept": "text/html"
       }
@@ -54,38 +54,65 @@ function getHTML(url) {
 
 const clean = t => (t || "").replace(/\s+/g, " ").trim();
 
+function normalizarTexto(t = "") {
+  return clean(t).toUpperCase();
+}
+
 function contieneLarraun(txt = "") {
-  const upper = txt.toUpperCase();
+  const upper = normalizarTexto(txt);
   if (upper.includes("LARRAUN")) return true;
-  return PAREJAS.some(p => upper.includes(p.match.toUpperCase()));
+
+  return PAREJAS.some(p =>
+    upper.includes(p.match.toUpperCase())
+  );
 }
 
 function convertirPareja(txt) {
   const limpio = clean(txt);
+
   for (const p of PAREJAS) {
-    if (limpio.includes(p.match)) return p.value;
+    if (normalizarTexto(limpio).includes(p.match.toUpperCase()))
+      return p.value;
   }
+
   return limpio;
 }
 
 function parseFechaEU(str) {
   const m = str.match(/(\d{4}\/\d{2}\/\d{2})/);
   if (!m) return null;
+
   const [y, mo, d] = m[1].split("/").map(Number);
   return new Date(y, mo - 1, d);
 }
 
+function normalizarTanteo(t) {
+  if (!t) return "";
+
+  const match = t.match(/(\d+)\s*-\s*(\d+)/);
+  if (!match) return "";
+
+  return `${parseInt(match[1])} - ${parseInt(match[2])}`;
+}
+
 function calcularEmaitza(etx, kanpo, tanteoa) {
-  if (!tanteoa || !tanteoa.includes("-")) return "";
+
+  const tanteo = normalizarTanteo(tanteoa);
+  if (!tanteo) return "";
 
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
-  const [a, b] = tanteoa.split("-").map(n => parseInt(n, 10));
-  if (isNaN(a) || isNaN(b)) return "";
+  if (!lE && !lK) return "";
 
-  if ((lE && a > b) || (lK && b > a)) return "irabazita";
-  return "galduta";
+  const [a, b] = tanteo.split(" - ").map(n => parseInt(n, 10));
+
+  if (lE && a > b) return "irabazita";
+  if (lE && a < b) return "galduta";
+  if (lK && b > a) return "irabazita";
+  if (lK && b < a) return "galduta";
+
+  return "";
 }
 
 function extraerFases(doc) {
@@ -101,7 +128,7 @@ function extraerFases(doc) {
   return [...fases];
 }
 
-function extraerPartidos(doc, url) {
+function extraerPartidos(doc) {
 
   const resultados = [];
 
@@ -125,8 +152,8 @@ function extraerPartidos(doc, url) {
     const kan = clean(tds[4].textContent);
 
     // DESCANSO
-    if (etx.toUpperCase().includes("DESCANSO") ||
-        kan.toUpperCase().includes("DESCANSO")) {
+    if (normalizarTexto(etx).includes("DESCANSO") ||
+        normalizarTexto(kan).includes("DESCANSO")) {
 
       const equipo =
         contieneLarraun(etx) ? etx :
@@ -144,8 +171,7 @@ function extraerPartidos(doc, url) {
         sets: [],
         modalidad: "",
         emaitza: "",
-        ofiziala: true,
-        url
+        ofiziala: true
       });
 
       continue;
@@ -154,7 +180,11 @@ function extraerPartidos(doc, url) {
     if (!contieneLarraun(etx) && !contieneLarraun(kan))
       continue;
 
-    const tanteoa = clean(tds[3].childNodes[0]?.textContent);
+    const tanteoaRaw = clean(tds[3].textContent);
+    const tanteoa = normalizarTanteo(tanteoaRaw);
+
+    // Ignorar si no hay resultado real
+    if (!tanteoa) continue;
 
     resultados.push({
       fecha: fechaObj.toISOString().slice(0, 10),
@@ -165,8 +195,7 @@ function extraerPartidos(doc, url) {
       sets: [],
       modalidad: "",
       emaitza: calcularEmaitza(etx, kan, tanteoa),
-      ofiziala: true,
-      url
+      ofiziala: true
     });
   }
 
@@ -189,15 +218,12 @@ function extraerPartidos(doc, url) {
     try {
 
       const htmlBase = await getHTML(urlBase);
-
-      console.log("Checking ID:", id, "HTML size:", htmlBase.length);
-
       if (htmlBase.length < 2000) continue;
 
       const domBase = new JSDOM(htmlBase);
       const docBase = domBase.window.document;
 
-      const baseRes = extraerPartidos(docBase, urlBase);
+      const baseRes = extraerPartidos(docBase);
       if (baseRes.length) {
         console.log("✔ Base:", id, baseRes.length);
         todos.push(...baseRes);
@@ -214,7 +240,7 @@ function extraerPartidos(doc, url) {
         const domFase = new JSDOM(htmlFase);
         const docFase = domFase.window.document;
 
-        const faseRes = extraerPartidos(docFase, urlFase);
+        const faseRes = extraerPartidos(docFase);
 
         if (faseRes.length) {
           console.log("✔ Fase:", id, fase, faseRes.length);
@@ -231,9 +257,9 @@ function extraerPartidos(doc, url) {
     await sleep(ESPERA_MS);
   }
 
-  // eliminar duplicados
+  // eliminar duplicados mejorado
   const finales = todos.filter(r => {
-    const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.url}`;
+    const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.tanteoa}`;
     if (vistos.has(clave)) return false;
     vistos.add(clave);
     return true;
