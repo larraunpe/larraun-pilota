@@ -7,8 +7,8 @@ const TEMPORADA = "2025";
 const ESPERA_MS = 300;
 
 // 🔴 Ajusta si hace falta
-const ID_MIN = 3000;
-const ID_MAX = 3200;
+const ID_MIN = 3059;
+const ID_MAX = 3060;
 
 // ==============================
 // PAREJAS
@@ -116,18 +116,19 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
 }
 
 function extraerFases(doc) {
-  const enlaces = [...doc.querySelectorAll("a[href*='idFaseEliminatoria']")];
+
+  const html = doc.documentElement.outerHTML;
+
+  const matches = [...html.matchAll(/idFaseEliminatoria=(\d+)/g)];
+
   const fases = new Set();
 
-  for (const a of enlaces) {
-    const href = a.getAttribute("href");
-    const match = href.match(/idFaseEliminatoria=(\d+)/);
-    if (match) fases.add(match[1]);
+  for (const m of matches) {
+    fases.add(m[1]);
   }
 
   return [...fases];
 }
-
 function extraerPartidos(doc) {
 
   const resultados = [];
