@@ -123,7 +123,17 @@ function extraerFasesEliminatorias(doc) {
 // ======================================================
 function extraerPartidosDeDocumento(doc, url) {
   const modalidad = obtenerModalidad(doc);
-  const filas = [...doc.querySelectorAll("table tr")];
+  const filas = tabla.querySelectorAll("tr");
+
+filas.forEach(fila => {
+
+  const columnas = fila.querySelectorAll("td");
+
+  // SOLO filas que tengan exactamente 5 columnas
+  if (columnas.length !== 5) return;
+
+  // Aquí procesas el partido
+});
   if (filas.length < 3) return [];
 
   const resultados = [];
