@@ -113,9 +113,15 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
 // ==============================
 
 function extraerFases(doc) {
-  const html = doc.documentElement.outerHTML;
-  const matches = [...html.matchAll(/idFaseEliminatoria=(\d+)/g)];
-  return [...new Set(matches.map(m => m[1]))];
+
+  const select = doc.querySelector("select[name='idFaseEliminatoria']");
+  if (!select) return [];
+
+  const opciones = [...select.querySelectorAll("option")];
+
+  return opciones
+    .map(o => o.value)
+    .filter(v => v && v !== "0");
 }
 
 // ==============================
