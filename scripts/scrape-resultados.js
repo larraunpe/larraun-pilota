@@ -130,16 +130,10 @@ function extraerFases(doc) {
 
 function extraerModalidad(doc) {
 
-  // 1️⃣ Buscar encabezado principal
-  const h2 = doc.querySelector("h2");
-  if (h2 && h2.textContent.trim().length > 10) {
-    return clean(h2.textContent);
-  }
+  const titulo = doc.querySelector(".titulo");
 
-  // 2️⃣ Fallback por si cambia el h2
-  const h3 = doc.querySelector("h3");
-  if (h3 && h3.textContent.trim().length > 10) {
-    return clean(h3.textContent);
+  if (titulo) {
+    return clean(titulo.textContent);
   }
 
   return "";
