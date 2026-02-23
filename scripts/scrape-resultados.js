@@ -9,16 +9,9 @@ const ESPERA_MS = 300;
 const ID_MIN = 3059;
 const ID_MAX = 3060;
 
-// ==============================
-// PAREJAS
-// ==============================
 const PAREJAS = JSON.parse(
   fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
-
-// ==============================
-// UTILIDADES
-// ==============================
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -108,53 +101,54 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
   return "";
 }
 
-// ==============================
-// EXTRAER FASES
-// ==============================
+/* =========================
+   EXTRAER FASES
+========================= */
 
 function extraerFases(doc) {
 
   const select = doc.querySelector("select[name='idFaseEliminatoria']");
   if (!select) return [];
 
-  const opciones = [...select.querySelectorAll("option")];
-
-  return opciones
+  return [...select.querySelectorAll("option")]
     .map(o => o.value)
     .filter(v => v && v !== "0");
 }
 
-// ==============================
-// MODALIDAD Y FASE
-// ==============================
+/* =========================
+   MODALIDAD CORRECTA
+========================= */
 
 function extraerModalidad(doc) {
 
-  const titulo = doc.querySelector(".titulo");
+  const select = doc.querySelector("select[name='idModalidad']");
+  if (!select) return "";
 
-  if (titulo) {
-    return clean(titulo.textContent);
-  }
+  const seleccionada =
+    select.querySelector("option[selected]") ||
+    select.querySelector("option:checked") ||
+    select.querySelector("option");
 
-  return "";
+  return seleccionada ? clean(seleccionada.textContent) : "";
 }
-
 
 function extraerFaseTexto(doc) {
 
   const select = doc.querySelector("select[name='idFaseEliminatoria']");
   if (!select) return "LIGA";
 
-  const seleccionada = select.querySelector("option[selected]");
-  if (seleccionada && seleccionada.value !== "0") {
-    return clean(seleccionada.textContent);
-  }
+  const seleccionada =
+    select.querySelector("option[selected]") ||
+    select.querySelector("option:checked");
 
-  return "LIGA";
+  return seleccionada
+    ? clean(seleccionada.textContent)
+    : "LIGA";
 }
-// ==============================
-// EXTRAER PARTIDOS
-// ==============================
+
+/* =========================
+   EXTRAER PARTIDOS
+========================= */
 
 function extraerPartidos(doc, modalidad, faseTexto) {
 
@@ -187,9 +181,12 @@ function extraerPartidos(doc, modalidad, faseTexto) {
     const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
     if (!tanteoMatch) continue;
 
-    const tanteoa = `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
+    const tanteoa =
+      `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
 
-    const setsMatches = [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
+    const setsMatches =
+      [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
+
     const sets = setsMatches.map(s =>
       `${parseInt(s[1])} - ${parseInt(s[2])}`
     );
@@ -211,9 +208,9 @@ function extraerPartidos(doc, modalidad, faseTexto) {
   return resultados;
 }
 
-// ==============================
-// MAIN
-// ==============================
+/* =========================
+   MAIN
+========================= */
 
 (async () => {
 
@@ -232,14 +229,9 @@ function extraerPartidos(doc, modalidad, faseTexto) {
 
       const docBase = new JSDOM(htmlBase).window.document;
 
-      const modalidadBase = extraerModalidad(docBase);
-      const faseBase = "LIGA";
-
-      const baseRes = extraerPartidos(docBase, modalidadBase, faseBase);
-      todos.push(...baseRes);
-
       const fases = extraerFases(docBase);
 
+      // 🔥 SOLO recorrer fases reales
       for (const fase of fases) {
 
         const urlFase =
@@ -248,10 +240,12 @@ function extraerPartidos(doc, modalidad, faseTexto) {
         const htmlFase = await getHTML(urlFase);
         const docFase = new JSDOM(htmlFase).window.document;
 
-        const modalidadFase = extraerModalidad(docFase);
+        const modalidad = extraerModalidad(docFase);
         const faseTexto = extraerFaseTexto(docFase);
 
-        const faseRes = extraerPartidos(docFase, modalidadFase, faseTexto);
+        const faseRes =
+          extraerPartidos(docFase, modalidad, faseTexto);
+
         todos.push(...faseRes);
 
         await sleep(ESPERA_MS);
@@ -265,7 +259,8 @@ function extraerPartidos(doc, modalidad, faseTexto) {
   }
 
   const finales = todos.filter(r => {
-    const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.tanteoa}`;
+    const clave =
+      `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.tanteoa}`;
     if (vistos.has(clave)) return false;
     vistos.add(clave);
     return true;
