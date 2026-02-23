@@ -129,22 +129,20 @@ function extraerFases(doc) {
 // ==============================
 
 function extraerModalidad(doc) {
-  return clean(doc.title || "");
-}
 
-function extraerFaseTexto(doc) {
-
-  const labels = [...doc.querySelectorAll("b")];
-
-  for (const b of labels) {
-    if (b.textContent.includes("Fasea")) {
-      const siguiente = b.parentElement.nextElementSibling;
-      if (siguiente)
-        return clean(siguiente.textContent);
-    }
+  // 1️⃣ Buscar encabezado principal
+  const h2 = doc.querySelector("h2");
+  if (h2 && h2.textContent.trim().length > 10) {
+    return clean(h2.textContent);
   }
 
-  return "LIGA";
+  // 2️⃣ Fallback por si cambia el h2
+  const h3 = doc.querySelector("h3");
+  if (h3 && h3.textContent.trim().length > 10) {
+    return clean(h3.textContent);
+  }
+
+  return "";
 }
 
 
