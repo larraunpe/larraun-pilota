@@ -140,7 +140,18 @@ function extraerModalidad(doc) {
 }
 
 
+function extraerFaseTexto(doc) {
 
+  const select = doc.querySelector("select[name='idFaseEliminatoria']");
+  if (!select) return "LIGA";
+
+  const seleccionada = select.querySelector("option[selected]");
+  if (seleccionada && seleccionada.value !== "0") {
+    return clean(seleccionada.textContent);
+  }
+
+  return "LIGA";
+}
 // ==============================
 // EXTRAER PARTIDOS
 // ==============================
