@@ -28,6 +28,15 @@
   },
   {
     "fecha": "2026/02/27",
+    "hora": "18:00 !Horario provisional",
+    "zkia": "5",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/02/27",
     "hora": "18:10 !Horario provisional",
     "zkia": "1",
     "fronton": "Zizur Menor - Ikastola San Fermin",
@@ -70,15 +79,6 @@
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
     "kanpokoak": "P.P.SAN SEBASTIAN (I. Partier - E. Goñi)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
-  },
-  {
-    "fecha": "2026/02/28",
-    "hora": "18:00 !Horario provisional",
-    "zkia": "5",
-    "fronton": "Irurtzun - Bi Aizpe 1",
-    "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
   },
   {
     "fecha": "2026/03/01",
