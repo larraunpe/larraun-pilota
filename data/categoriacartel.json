@@ -1,14 +1,14 @@
 {
   "HAURRAK": "#aifa8f",
   "KADETE": "#c8e6ff",
-  "KIMU": "#f4fa8f",
-  "ALEBINAK": "#ff994a",
+  "KIMU": "#FDFFDB",
+  "ALEBINAK": "#FDFFDB",
   "GAZTE": "#95d6fc",
-  "SEIN": "#ffb347",
+  "SEIN": "#FFCC85",
   "AURREBENJAMINAK": "#fcc6bb",
-  "SENIOR": "#b7b5f5",
-  "GOÑIREN": "#b7b5f5",
-  "SORALUZE": "#b7b5f5",
-  "MAILA": "#b7b5f5",
-  "HELDUAK": "#b7b5f5"
+  "SENIOR": "#D5D5F5",
+  "GOÑIREN": "#D5D5F5",
+  "SORALUZE": "#D5D5F5",
+  "MAILA": "#D5D5F5",
+  "HELDUAK": "#D5D5F5"
 }
