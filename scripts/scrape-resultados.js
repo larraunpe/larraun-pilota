@@ -129,18 +129,7 @@ function extraerFases(doc) {
 // ==============================
 
 function extraerModalidad(doc) {
-
-  const labels = [...doc.querySelectorAll("b")];
-
-  for (const b of labels) {
-    if (b.textContent.includes("Modalitatea")) {
-      const siguiente = b.parentElement.nextElementSibling;
-      if (siguiente)
-        return clean(siguiente.textContent);
-    }
-  }
-
-  return "";
+  return clean(doc.title || "");
 }
 
 function extraerFaseTexto(doc) {
