@@ -5158,5 +5158,29 @@
     "emaitza": "",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3120&idFaseEliminatoria=20709&temp=2025"
+  },
+    {
+    "fecha": "2026-02-21 ",
+    "fronton": "Pamplona - Mendillorri-Trinkete ",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "",
+    "tanteoa": "2-0",
+    "sets": ["(15-5) (15-3)"],
+    "modalidad": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O. FINALA",
+    "emaitza": "irabazita",
+    "ofiziala": "false",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3059&idFaseEliminatoria=20614&temp=2025"
+  },
+  {
+    "fecha": "2026-02-21 ",
+    "fronton": "Pamplona - Mendillorri-Trinkete ",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
+    "tanteoa": "2-0",
+    "sets": ["(15-5) (15-3)"],
+    "modalidad": "NKJ – ESKUZ BINAKA KADETE TRINKETE FINALA",
+    "emaitza": "irabazita",
+    "ofiziala": "false",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3059&idFaseEliminatoria=20614&temp=2025"
   }
 ]
