@@ -6,7 +6,6 @@ const BASE = "https://www.fnpelota.com";
 const TEMPORADA = "2025";
 const ESPERA_MS = 300;
 
-// 🔴 Ajusta si hace falta
 const ID_MIN = 3059;
 const ID_MAX = 3060;
 
@@ -20,6 +19,7 @@ const PAREJAS = JSON.parse(
 // ==============================
 // UTILIDADES
 // ==============================
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function getHTML(url) {
@@ -27,8 +27,7 @@ function getHTML(url) {
 
     const options = {
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "User-Agent": "Mozilla/5.0",
         "Accept-Language": "eu-ES,eu;q=0.9,es;q=0.8",
         "Accept": "text/html"
       }
@@ -58,6 +57,12 @@ function normalizarTexto(t = "") {
   return clean(t).toUpperCase();
 }
 
+function limpiarNombre(txt = "") {
+  const limpio = clean(txt);
+  const partes = limpio.split(")");
+  return partes.length > 1 ? partes[0] + ")" : limpio;
+}
+
 function contieneLarraun(txt = "") {
   const upper = normalizarTexto(txt);
   if (upper.includes("LARRAUN")) return true;
@@ -68,7 +73,7 @@ function contieneLarraun(txt = "") {
 }
 
 function convertirPareja(txt) {
-  const limpio = clean(txt);
+  const limpio = limpiarNombre(txt);
 
   for (const p of PAREJAS) {
     if (normalizarTexto(limpio).includes(p.match.toUpperCase()))
@@ -86,26 +91,14 @@ function parseFechaEU(str) {
   return new Date(y, mo - 1, d);
 }
 
-function normalizarTanteo(t) {
-  if (!t) return "";
-
-  const match = t.match(/(\d+)\s*-\s*(\d+)/);
-  if (!match) return "";
-
-  return `${parseInt(match[1])} - ${parseInt(match[2])}`;
-}
-
 function calcularEmaitza(etx, kanpo, tanteoa) {
-
-  const tanteo = normalizarTanteo(tanteoa);
-  if (!tanteo) return "";
 
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
 
   if (!lE && !lK) return "";
 
-  const [a, b] = tanteo.split(" - ").map(n => parseInt(n, 10));
+  const [a, b] = tanteoa.split(" - ").map(n => parseInt(n, 10));
 
   if (lE && a > b) return "irabazita";
   if (lE && a < b) return "galduta";
@@ -115,31 +108,37 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
   return "";
 }
 
+// ==============================
+// EXTRAER FASES
+// ==============================
+
 function extraerFases(doc) {
-
   const html = doc.documentElement.outerHTML;
-
   const matches = [...html.matchAll(/idFaseEliminatoria=(\d+)/g)];
-
-  const fases = new Set();
-
-  for (const m of matches) {
-    fases.add(m[1]);
-  }
-
-  return [...fases];
+  return [...new Set(matches.map(m => m[1]))];
 }
+
+// ==============================
+// MODALIDAD Y FASE
+// ==============================
+
 function extraerModalidad(doc) {
-
   const texto = doc.body.textContent;
-
   const match = texto.match(/Modalitatea:\s*([\s\S]*?)\n\s*\n/);
-
-  if (!match) return "";
-
-  return clean(match[1]);
+  return match ? clean(match[1]) : "";
 }
-function extraerPartidos(doc) {
+
+function extraerFaseTexto(doc) {
+  const texto = doc.body.textContent;
+  const match = texto.match(/Fasea:\s*([\s\S]*?)\n\s*\n/);
+  return match ? clean(match[1]) : "LIGA";
+}
+
+// ==============================
+// EXTRAER PARTIDOS
+// ==============================
+
+function extraerPartidos(doc, modalidad, faseTexto) {
 
   const resultados = [];
 
@@ -162,49 +161,20 @@ function extraerPartidos(doc) {
     const etx = clean(tds[2].textContent);
     const kan = clean(tds[4].textContent);
 
-    // DESCANSO
-    if (normalizarTexto(etx).includes("DESCANSO") ||
-        normalizarTexto(kan).includes("DESCANSO")) {
-
-      const equipo =
-        contieneLarraun(etx) ? etx :
-        contieneLarraun(kan) ? kan :
-        null;
-
-      if (!equipo) continue;
-
-      resultados.push({
-        fecha: fechaObj.toISOString().slice(0, 10),
-        fronton: "",
-        etxekoa: convertirPareja(equipo),
-        kanpokoak: "ATSEDENA",
-        tanteoa: "0 - 0",
-        sets,
-        modalidad: "",
-        emaitza: "",
-        ofiziala: true
-      });
-
-      continue;
-    }
-
     if (!contieneLarraun(etx) && !contieneLarraun(kan))
       continue;
 
     const tanteoCell = tds[3].textContent;
 
-// Tanteo principal 2 - 0
-const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
-if (!tanteoMatch) continue;
+    const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
+    if (!tanteoMatch) continue;
 
-const tanteoa = `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
+    const tanteoa = `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
 
-// Sets individuales (15-5) (15-3)
-const setsMatches = [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
-
-const sets = setsMatches.map(s =>
-  `${parseInt(s[1])} - ${parseInt(s[2])}`
-);
+    const setsMatches = [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
+    const sets = setsMatches.map(s =>
+      `${parseInt(s[1])} - ${parseInt(s[2])}`
+    );
 
     resultados.push({
       fecha: fechaObj.toISOString().slice(0, 10),
@@ -212,8 +182,9 @@ const sets = setsMatches.map(s =>
       etxekoa: convertirPareja(etx),
       kanpokoak: convertirPareja(kan),
       tanteoa,
-      sets: [],
-      modalidad: "",
+      sets,
+      modalidad,
+      fase: faseTexto,
       emaitza: calcularEmaitza(etx, kan, tanteoa),
       ofiziala: true
     });
@@ -225,6 +196,7 @@ const sets = setsMatches.map(s =>
 // ==============================
 // MAIN
 // ==============================
+
 (async () => {
 
   let todos = [];
@@ -240,17 +212,13 @@ const sets = setsMatches.map(s =>
       const htmlBase = await getHTML(urlBase);
       if (htmlBase.length < 2000) continue;
 
-      const domBase = new JSDOM(htmlBase);
-      const docBase = domBase.window.document;
+      const docBase = new JSDOM(htmlBase).window.document;
 
-      const baseRes = extraerPartidos(docFase).map(p => ({
-  ...p,
-  modalidad: modalidadFase
-}));
-      if (baseRes.length) {
-        console.log("✔ Base:", id, baseRes.length);
-        todos.push(...baseRes);
-      }
+      const modalidadBase = extraerModalidad(docBase);
+      const faseBase = extraerFaseTexto(docBase);
+
+      const baseRes = extraerPartidos(docBase, modalidadBase, faseBase);
+      todos.push(...baseRes);
 
       const fases = extraerFases(docBase);
 
@@ -260,19 +228,13 @@ const sets = setsMatches.map(s =>
           `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${fase}&temp=${TEMPORADA}`;
 
         const htmlFase = await getHTML(urlFase);
-        const domFase = new JSDOM(htmlFase);
-        const docFase = domFase.window.document;
+        const docFase = new JSDOM(htmlFase).window.document;
+
         const modalidadFase = extraerModalidad(docFase);
+        const faseTexto = extraerFaseTexto(docFase);
 
-        const faseRes = extraerPartidos(docFase).map(p => ({
-  ...p,
-  modalidad: modalidadFase
-}));
-
-        if (faseRes.length) {
-          console.log("✔ Fase:", id, fase, faseRes.length);
-          todos.push(...faseRes);
-        }
+        const faseRes = extraerPartidos(docFase, modalidadFase, faseTexto);
+        todos.push(...faseRes);
 
         await sleep(ESPERA_MS);
       }
@@ -284,7 +246,6 @@ const sets = setsMatches.map(s =>
     await sleep(ESPERA_MS);
   }
 
-  // eliminar duplicados mejorado
   const finales = todos.filter(r => {
     const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.tanteoa}`;
     if (vistos.has(clave)) return false;
