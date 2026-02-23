@@ -2244,13 +2244,13 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3059&temp=2025"
   },
   {
-    "fecha": "2026-02-21",
+    "fecha": "2026-01-20",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
     "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
     "tanteoa": "2 - 0",
-    "sets": "(15-5) (15-3)",
-    "modalidad": "NKJ – ESKUZ BINAKA KADETE TRINKETE",
+    "sets": [],
+    "modalidad": "",
     "emaitza": "irabazita",
     "ofiziala": true,
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3059&temp=2025"
@@ -3000,7 +3000,7 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3078&idFaseEliminatoria=20552&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
+    "fecha": "2026-02-27",
     "fronton": "Goizueta - Municipal",
     "etxekoa": "UMORE ONA (N. Zubiri - U. Zurutuza)",
     "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
@@ -3120,7 +3120,7 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3105&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
+    "fecha": "2026-02-27",
     "fronton": "Goizueta - Municipal",
     "etxekoa": "UMORE ONA (N. Zubiri - U. Zurutuza)",
     "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
@@ -3240,8 +3240,8 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3105&idFaseEliminatoria=20695&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
-    "fronton": "-",
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
     "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza)",
     "tanteoa": "",
@@ -3360,8 +3360,8 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
-    "fronton": "-",
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola)",
     "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza)",
     "tanteoa": "",
@@ -3900,7 +3900,7 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025"
   },
   {
-    "fecha": "2026-03-01",
+    "fecha": "2026-02-28",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
     "kanpokoak": "P.P.SAN SEBASTIAN (I. Partier - E. Goñi)",
@@ -3960,8 +3960,8 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
-    "fronton": "-",
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (I. Rojo - O. Rojo)",
     "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
     "tanteoa": "",
@@ -4080,7 +4080,7 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&idFaseEliminatoria=20701&temp=2025"
   },
   {
-    "fecha": "2026-03-01",
+    "fecha": "2026-02-28",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
     "kanpokoak": "P.P.SAN SEBASTIAN (I. Partier - E. Goñi)",
@@ -4140,8 +4140,8 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&idFaseEliminatoria=20701&temp=2025"
   },
   {
-    "fecha": "2026-02-28",
-    "fronton": "-",
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
     "etxekoa": "IK. SAN FERMIN (I. Rojo - O. Rojo)",
     "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
     "tanteoa": "",
@@ -4681,7 +4681,7 @@
   },
   {
     "fecha": "2026-02-28",
-    "fronton": "-",
+    "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "tanteoa": "",
@@ -4861,7 +4861,7 @@
   },
   {
     "fecha": "2026-02-28",
-    "fronton": "-",
+    "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "tanteoa": "",
