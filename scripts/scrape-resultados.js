@@ -129,6 +129,16 @@ function extraerFases(doc) {
 
   return [...fases];
 }
+function extraerModalidad(doc) {
+
+  const texto = doc.body.textContent;
+
+  const match = texto.match(/Modalitatea:\s*([\s\S]*?)\n\s*\n/);
+
+  if (!match) return "";
+
+  return clean(match[1]);
+}
 function extraerPartidos(doc) {
 
   const resultados = [];
@@ -169,7 +179,7 @@ function extraerPartidos(doc) {
         etxekoa: convertirPareja(equipo),
         kanpokoak: "ATSEDENA",
         tanteoa: "0 - 0",
-        sets: [],
+        sets,
         modalidad: "",
         emaitza: "",
         ofiziala: true
@@ -181,11 +191,20 @@ function extraerPartidos(doc) {
     if (!contieneLarraun(etx) && !contieneLarraun(kan))
       continue;
 
-    const tanteoaRaw = clean(tds[3].textContent);
-    const tanteoa = normalizarTanteo(tanteoaRaw);
+    const tanteoCell = tds[3].textContent;
 
-    // Ignorar si no hay resultado real
-    if (!tanteoa) continue;
+// Tanteo principal 2 - 0
+const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
+if (!tanteoMatch) continue;
+
+const tanteoa = `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
+
+// Sets individuales (15-5) (15-3)
+const setsMatches = [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
+
+const sets = setsMatches.map(s =>
+  `${parseInt(s[1])} - ${parseInt(s[2])}`
+);
 
     resultados.push({
       fecha: fechaObj.toISOString().slice(0, 10),
@@ -224,7 +243,10 @@ function extraerPartidos(doc) {
       const domBase = new JSDOM(htmlBase);
       const docBase = domBase.window.document;
 
-      const baseRes = extraerPartidos(docBase);
+      const baseRes = extraerPartidos(docFase).map(p => ({
+  ...p,
+  modalidad: modalidadFase
+}));
       if (baseRes.length) {
         console.log("✔ Base:", id, baseRes.length);
         todos.push(...baseRes);
@@ -240,8 +262,12 @@ function extraerPartidos(doc) {
         const htmlFase = await getHTML(urlFase);
         const domFase = new JSDOM(htmlFase);
         const docFase = domFase.window.document;
+        const modalidadFase = extraerModalidad(docFase);
 
-        const faseRes = extraerPartidos(docFase);
+        const faseRes = extraerPartidos(docFase).map(p => ({
+  ...p,
+  modalidad: modalidadFase
+}));
 
         if (faseRes.length) {
           console.log("✔ Fase:", id, fase, faseRes.length);
