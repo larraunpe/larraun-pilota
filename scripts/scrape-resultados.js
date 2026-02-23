@@ -122,25 +122,21 @@ function extraerFasesEliminatorias(doc) {
 // EXTRAER PARTIDOS DE UNA PÁGINA
 // ======================================================
 function extraerPartidosDeDocumento(doc, url) {
+
   const modalidad = obtenerModalidad(doc);
-  const filas = tabla.querySelectorAll("tr");
-
-filas.forEach(fila => {
-
-  const columnas = fila.querySelectorAll("td");
-
-  // SOLO filas que tengan exactamente 5 columnas
-  if (columnas.length !== 5) return;
-
-  // Aquí procesas el partido
-});
-  if (filas.length < 3) return [];
-
   const resultados = [];
 
+  const tabla = doc.querySelector(".table-container table.indent-bot");
+  if (!tabla) return [];
+
+  const filas = [...tabla.querySelectorAll("tr")];
+
   for (const fila of filas) {
+
     const tds = [...fila.querySelectorAll("td")];
-    if (tds.length < 5) continue;
+
+    // SOLO partidos reales → 5 columnas
+    if (tds.length !== 5) continue;
 
     const fechaHora = clean(tds[0].textContent);
     if (!fechaHora.includes("/")) continue;
@@ -151,32 +147,8 @@ filas.forEach(fila => {
     const etxekoaRaw = clean(tds[2].textContent);
     const kanpokoRaw = clean(tds[4].textContent);
 
-    // DESCANSO
-    if (etxekoaRaw === "Descanso" || kanpokoRaw === "Descanso") {
-      const equipoLarraun =
-        contieneLarraun(etxekoaRaw) ? etxekoaRaw :
-        contieneLarraun(kanpokoRaw) ? kanpokoRaw :
-        null;
-
-      if (!equipoLarraun) continue;
-
-      resultados.push({
-        fecha: fechaObj.toISOString().slice(0, 10),
-        fronton: "",
-        etxekoa: convertirPareja(equipoLarraun),
-        kanpokoak: "ATSEDENA",
-        tanteoa: "0 - 0",
-        sets: [],
-        modalidad,
-        emaitza: "",
-        ofiziala: true,
-        url
-      });
-
+    if (!contieneLarraun(etxekoaRaw) && !contieneLarraun(kanpokoRaw))
       continue;
-    }
-
-    if (!contieneLarraun(etxekoaRaw) && !contieneLarraun(kanpokoRaw)) continue;
 
     const tanteoa = clean(tds[3].childNodes[0]?.textContent);
     const sets = extraerSets(tds[3]);
