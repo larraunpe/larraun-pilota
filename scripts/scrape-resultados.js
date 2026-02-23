@@ -195,7 +195,9 @@ async function scrapeCompeticion(id) {
 
       resultados.push(...extraerPartidosDeDocumento(docFase, urlFase));
       await sleep(ESPERA_MS);
-    } catch {}
+    } catch (err) {
+  console.error(`Error en id ${id}:`, err.message);
+}
   }
 
   return resultados;
