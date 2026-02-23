@@ -6,11 +6,8 @@ import fs from "fs";
 // CONFIGURACIÓN
 // ======================================================
 const BASE = "https://www.fnpelota.com";
-const URL_BASE = `${BASE}/pub/ModalidadComp.asp?idioma=eu&idCompeticion=`;
-
-const ID_DESDE = 2700;
-const ID_HASTA = 3800;
-const ESPERA_MS = 300;
+const TEMPORADA = "2025";
+const ESPERA_MS = 250;
 
 // ======================================================
 // PAREJAS MIXTAS
@@ -40,8 +37,9 @@ function getHTML(url) {
 const clean = t => (t || "").replace(/\s+/g, " ").trim();
 
 function contieneLarraun(txt = "") {
-  if (txt.includes("LARRAUN")) return true;
-  return PAREJAS.some(p => txt.includes(p.match));
+  const upper = txt.toUpperCase();
+  if (upper.includes("LARRAUN")) return true;
+  return PAREJAS.some(p => upper.includes(p.match.toUpperCase()));
 }
 
 function convertirPareja(txt) {
@@ -53,7 +51,7 @@ function convertirPareja(txt) {
 }
 
 // ======================================================
-// FECHAS
+// FECHA
 // ======================================================
 function parseFechaEU(str) {
   const m = str.match(/(\d{4}\/\d{2}\/\d{2})/);
@@ -84,7 +82,7 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
 // MODALIDAD
 // ======================================================
 function obtenerModalidad(doc) {
-  const opt = doc.querySelector("select option[selected]");
+  const opt = doc.querySelector("select[name='selCompeticion'] option[selected]");
   return opt ? clean(opt.textContent) : "";
 }
 
@@ -119,7 +117,7 @@ function extraerFasesEliminatorias(doc) {
 }
 
 // ======================================================
-// EXTRAER PARTIDOS DE UNA PÁGINA
+// EXTRAER PARTIDOS
 // ======================================================
 function extraerPartidosDeDocumento(doc, url) {
 
@@ -135,7 +133,7 @@ function extraerPartidosDeDocumento(doc, url) {
 
     const tds = [...fila.querySelectorAll("td")];
 
-    // SOLO partidos reales → 5 columnas
+    // Solo partidos reales
     if (tds.length !== 5) continue;
 
     const fechaHora = clean(tds[0].textContent);
@@ -146,6 +144,37 @@ function extraerPartidosDeDocumento(doc, url) {
 
     const etxekoaRaw = clean(tds[2].textContent);
     const kanpokoRaw = clean(tds[4].textContent);
+
+    // ============================
+    // DESCANSO
+    // ============================
+    if (
+      etxekoaRaw.toUpperCase().includes("DESCANSO") ||
+      kanpokoRaw.toUpperCase().includes("DESCANSO")
+    ) {
+
+      const equipoLarraun =
+        contieneLarraun(etxekoaRaw) ? etxekoaRaw :
+        contieneLarraun(kanpokoRaw) ? kanpokoRaw :
+        null;
+
+      if (!equipoLarraun) continue;
+
+      resultados.push({
+        fecha: fechaObj.toISOString().slice(0, 10),
+        fronton: "",
+        etxekoa: convertirPareja(equipoLarraun),
+        kanpokoak: "ATSEDENA",
+        tanteoa: "0 - 0",
+        sets: [],
+        modalidad,
+        emaitza: "",
+        ofiziala: true,
+        url
+      });
+
+      continue;
+    }
 
     if (!contieneLarraun(etxekoaRaw) && !contieneLarraun(kanpokoRaw))
       continue;
@@ -171,33 +200,58 @@ function extraerPartidosDeDocumento(doc, url) {
 }
 
 // ======================================================
-// SCRAPE COMPETICIÓN COMPLETA (LIGA + FASES)
+// OBTENER COMPETICIONES AUTOMÁTICAMENTE
+// ======================================================
+async function obtenerCompeticionesTemporada() {
+
+  const url = `${BASE}/pub/competicionTemporada.asp?idioma=eu&temp=${TEMPORADA}`;
+  const html = await getHTML(url);
+  const dom = new JSDOM(html);
+  const doc = dom.window.document;
+
+  const opciones = [...doc.querySelectorAll("select option")];
+
+  const ids = opciones
+    .map(o => o.value)
+    .filter(v => /^\d+$/.test(v));
+
+  console.log(`📋 Competiciones detectadas: ${ids.length}`);
+
+  return ids;
+}
+
+// ======================================================
+// SCRAPE COMPETICIÓN COMPLETA
 // ======================================================
 async function scrapeCompeticion(id) {
+
   const resultados = [];
+  const urlBase = `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&temp=${TEMPORADA}`;
 
-  const urlBase = `${URL_BASE}${id}`;
-  const htmlBase = await getHTML(urlBase);
-  const domBase = new JSDOM(htmlBase);
-  const docBase = domBase.window.document;
+  try {
 
-  resultados.push(...extraerPartidosDeDocumento(docBase, urlBase));
+    const htmlBase = await getHTML(urlBase);
+    const domBase = new JSDOM(htmlBase);
+    const docBase = domBase.window.document;
 
-  const fases = extraerFasesEliminatorias(docBase);
+    resultados.push(...extraerPartidosDeDocumento(docBase, urlBase));
 
-  for (const faseId of fases) {
-    const urlFase = `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${faseId}&temp=2025`;
+    const fases = extraerFasesEliminatorias(docBase);
 
-    try {
+    for (const faseId of fases) {
+
+      const urlFase = `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${faseId}&temp=${TEMPORADA}`;
+
       const htmlFase = await getHTML(urlFase);
       const domFase = new JSDOM(htmlFase);
       const docFase = domFase.window.document;
 
       resultados.push(...extraerPartidosDeDocumento(docFase, urlFase));
       await sleep(ESPERA_MS);
-    } catch (err) {
-  console.error(`Error en id ${id}:`, err.message);
-}
+    }
+
+  } catch (err) {
+    console.error(`Error en competición ${id}:`, err.message);
   }
 
   return resultados;
@@ -207,30 +261,33 @@ async function scrapeCompeticion(id) {
 // MAIN
 // ======================================================
 (async () => {
+
   let todos = [];
   const vistos = new Set();
 
-  for (let id = ID_DESDE; id <= ID_HASTA; id++) {
-    try {
-      const res = await scrapeCompeticion(id);
+  const competiciones = await obtenerCompeticionesTemporada();
 
-      const filtrados = res.filter(r => {
-        const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.url}`;
-        if (vistos.has(clave)) return false;
-        vistos.add(clave);
-        return true;
-      });
+  for (const id of competiciones) {
 
-      if (filtrados.length) {
-        console.log(`✔ id ${id}: ${filtrados.length}`);
-        todos.push(...filtrados);
-      }
+    const res = await scrapeCompeticion(id);
 
-      await sleep(ESPERA_MS);
-    } catch {}
+    const filtrados = res.filter(r => {
+      const clave = `${r.fecha}-${r.etxekoa}-${r.kanpokoak}-${r.url}`;
+      if (vistos.has(clave)) return false;
+      vistos.add(clave);
+      return true;
+    });
+
+    if (filtrados.length) {
+      console.log(`✔ id ${id}: ${filtrados.length}`);
+      todos.push(...filtrados);
+    }
+
+    await sleep(ESPERA_MS);
   }
 
   fs.mkdirSync("data", { recursive: true });
+
   fs.writeFileSync(
     "data/resultados-larraun.json",
     JSON.stringify(todos, null, 2)
