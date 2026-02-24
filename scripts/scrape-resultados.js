@@ -33,39 +33,54 @@ async function fetchHtml(url) {
 // -----------------------------------------------------
 
 function extraerModalidad($) {
-  const titulo = $("h1").first().text().trim()
+  let titulo = $("h1").first().text().trim()
+
+  if (!titulo) {
+    titulo = $(".titulo").first().text().trim()
+  }
+
+  if (!titulo) {
+    titulo = $("title").text().trim()
+  }
+
   return titulo || ""
 }
 
 // -----------------------------------------------------
 
 function extraerFase($, url) {
-  // Si NO es eliminatoria → LIGAXKA
+  // LIGA
   if (!url.includes("idFaseEliminatoria")) {
     return "LIGAXKA"
   }
 
-  // Intento 1: opción selected
-  let fase = $('select[name="idFaseEliminatoria"] option:selected')
-    .text()
-    .trim()
+  // 1️⃣ Intentar desde texto visible
+  const bodyText = $("body").text()
 
-  if (fase) return fase
+  const match = bodyText.match(/FASE[A]?\s*[:\-]?\s*([A-ZÁÉÍÓÚÜÑ]+)/i)
 
-  // Intento 2: buscar option que coincida con el id de la URL
+  if (match && match[1]) {
+    return match[1].trim()
+  }
+
+  // 2️⃣ Intentar desde selector
   const idMatch = url.match(/idFaseEliminatoria=(\d+)/)
+
   if (idMatch) {
     const idBuscado = idMatch[1]
 
+    let fase = ""
+
     $('select[name="idFaseEliminatoria"] option').each((_, el) => {
-      const value = $(el).attr("value")
-      if (value === idBuscado) {
+      if ($(el).attr("value") === idBuscado) {
         fase = $(el).text().trim()
       }
     })
+
+    if (fase) return fase
   }
 
-  return fase || ""
+  return ""
 }
 
 // -----------------------------------------------------
