@@ -24,7 +24,7 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias
-        run: npm install jsdom
+        run: npm install axios cheerio
       
       - name: 🔍 Prueba modalidad 3060 (debug)
         run: node scripts/prueba-modalidad.js
