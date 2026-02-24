@@ -64,11 +64,34 @@ function parsearPartidos($, modalidad, fase, url) {
     // Necesitamos al menos 5 columnas reales
     if (celdas.length < 5) return
 
-    const fecha = $(celdas[0]).text().trim()
+    const fecha = $(celdas[0])
+  .clone()
+  .find("br")
+  .replaceWith(" ")
+  .end()
+  .text()
+  .replace(/\s+/g, " ")
+  .trim()
     const fronton = $(celdas[1]).text().trim()
-    const etxekoa = $(celdas[2]).find("b").text().trim()
+    const etxekoa = $(celdas[2])
+  .clone()
+  .find("br")
+  .replaceWith(" ")
+  .end()
+  .text()
+  .replace(/\s+/g, " ")
+  .trim()
+
+const kanpokoak = $(celdas[4])
+  .clone()
+  .find("br")
+  .replaceWith(" ")
+  .end()
+  .text()
+  .replace(/\s+/g, " ")
+  .trim()
     const tanteoCell = $(celdas[3])
-    const kanpokoak = $(celdas[4]).find("b").text().trim()
+    
 
     if (!fecha) return
 
