@@ -25,10 +25,11 @@ async function fetchHtml(url) {
       timeout: 15000,
     })
 
-    // ✅ decodificación correcta real
+    // Decodificar correctamente
     const html = iconv.decode(Buffer.from(response.data), "windows-1252")
-
-    return html
+    
+    // Normalizar caracteres Unicode (especialmente la Ñ)
+    return html.normalize('NFC')
   } catch (err) {
     console.log("Error cargando:", url)
     return null
@@ -75,21 +76,23 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA: siempre entre <br> y <br>
-// 🔹 FECHA: los primeros 10 caracteres siempre son YYYY/MM/DD
-let fechaTexto = $(celdas[0])
-  .text()
-  .replace(/\s+/g, " ")
-  .trim()
-
-let fecha = fechaTexto.substring(0, 10)
-    // 🔹 FRONTÓN
-    let fronton = $(celdas[1])
+    // 🔹 FECHA: extraer solo los primeros 10 caracteres (YYYY/MM/DD)
+    let fechaTexto = $(celdas[0])
       .text()
       .replace(/\s+/g, " ")
       .trim()
 
-    // 🔹 EQUIPOS
+    // Tomar solo los primeros 10 caracteres (YYYY/MM/DD)
+    let fecha = fechaTexto.substring(0, 10)
+    
+    // 🔹 FRONTÓN - limpiar caracteres especiales
+    let fronton = $(celdas[1])
+      .text()
+      .replace(/\s+/g, " ")
+      .trim()
+      .normalize('NFC')
+
+    // 🔹 EQUIPOS - limpiar caracteres especiales
     let etxekoa = $(celdas[2])
       .clone()
       .find("br")
@@ -98,6 +101,7 @@ let fecha = fechaTexto.substring(0, 10)
       .text()
       .replace(/\s+/g, " ")
       .trim()
+      .normalize('NFC')
 
     let kanpokoak = $(celdas[4])
       .clone()
@@ -107,6 +111,7 @@ let fecha = fechaTexto.substring(0, 10)
       .text()
       .replace(/\s+/g, " ")
       .trim()
+      .normalize('NFC')
 
     // 🔹 TANTEO
     const tanteoCell = $(celdas[3])
@@ -136,17 +141,15 @@ let fecha = fechaTexto.substring(0, 10)
     const emaitza =
       etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
 
-   
-
     partidos.push({
-      fecha,
+      fecha, // Ahora solo tiene YYYY/MM/DD
       fronton,
       etxekoa,
       kanpokoak,
       tanteoa,
       sets,
-      modalidad,
-      fase,
+      modalidad: modalidad.normalize('NFC'),
+      fase: fase.normalize('NFC'),
       url,
       emaitza,
       ofiziala: true,
