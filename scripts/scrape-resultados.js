@@ -75,28 +75,27 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA 
-const fechaRaw = $(celdas[0])
-  .clone()
-  .find("br")
-  .remove()
-  .end()
-  .text()
-  .replace(/\u00a0/g, " ")
-  .replace(/\s+/g, " ")
-  .trim()
+    // 🔹 FECHA (solo YYYY/MM/DD, sin hora)
+    const fechaRaw = $(celdas[0])
+      .clone()
+      .find("br")
+      .remove()
+      .end()
+      .text()
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
 
-// 🔥 Extraemos solo YYYY/MM/DD
-const matchFecha = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
+    const matchFecha = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
+    const fecha = matchFecha ? matchFecha[0] : fechaRaw
 
-const fecha = matchFecha ? matchFecha[0] : fechaRaw
-    // 🔹 Frontón
+    // 🔹 FRONTÓN
     const fronton = $(celdas[1])
       .text()
       .replace(/\s+/g, " ")
       .trim()
 
-    // 🔹 Equipos completos (con jugadores)
+    // 🔹 EQUIPOS
     const etxekoa = $(celdas[2])
       .clone()
       .find("br")
@@ -115,9 +114,8 @@ const fecha = matchFecha ? matchFecha[0] : fechaRaw
       .replace(/\s+/g, " ")
       .trim()
 
-    // 🔹 Tanteo + sets
+    // 🔹 TANTEO
     const tanteoCell = $(celdas[3])
-
     const tanteoa = tanteoCell
       .contents()
       .filter(function () {
@@ -127,30 +125,25 @@ const fecha = matchFecha ? matchFecha[0] : fechaRaw
       .replace(/\s+/g, " ")
       .trim()
 
+    // 🔹 SETS
     const sets = []
-
     tanteoCell.find("span.small").each((_, el) => {
       const texto = $(el).text()
       const matches = texto.match(/\((.*?)\)/g)
-
       if (matches) {
-        matches.forEach((m) => {
-          sets.push(m.replace(/[()]/g, "").trim())
-        })
+        matches.forEach((m) => sets.push(m.replace(/[()]/g, "").trim()))
       }
     })
 
     if (!fecha || !tanteoa) return
 
+    // 🔹 EMATZA (ganador/perdedor)
     const [etx, kan] = tanteoa.split("-").map((x) => x.trim())
-
-    let emaitza = ""
-    if (etx && kan) {
-      emaitza = Number(etx) > Number(kan) ? "irabazita" : "galduta"
-    }
+    const emaitza =
+      etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
 
     partidos.push({
-      fecha,
+      fecha,          // ✅ Solo YYYY/MM/DD
       fronton,
       etxekoa,
       kanpokoak,
