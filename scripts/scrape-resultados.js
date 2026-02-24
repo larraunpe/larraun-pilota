@@ -154,18 +154,30 @@ function extraerPartidos(doc, modalidad, faseTexto) {
 
   const resultados = [];
 
-  const tabla = doc.querySelector(".table-container table.indent-bot");
-  if (!tabla) return [];
+  // Buscar TODAS las tablas
+  const tablas = [...doc.querySelectorAll("table")];
 
-  const filas = [...tabla.querySelectorAll("tr")];
+  let tablaPartidos = null;
+
+  for (const tabla of tablas) {
+    if (tabla.textContent.includes("/") &&
+        tabla.textContent.includes("-")) {
+      tablaPartidos = tabla;
+      break;
+    }
+  }
+
+  if (!tablaPartidos) return [];
+
+  const filas = [...tablaPartidos.querySelectorAll("tr")];
 
   for (const fila of filas) {
 
     const tds = [...fila.querySelectorAll("td")];
-    if (tds.length !== 5) continue;
+    if (tds.length < 5) continue;
 
     const fechaHora = clean(tds[0].textContent);
-    if (!fechaHora.includes("/")) continue;
+    if (!fechaHora.match(/\d{4}\/\d{2}\/\d{2}/)) continue;
 
     const fechaObj = parseFechaEU(fechaHora);
     if (!fechaObj) continue;
