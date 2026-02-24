@@ -1,1 +1,139 @@
-[]
+[
+  {
+    "fecha": "2026-01-20",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria)",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "15 - 8",
+      "15 - 2"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-01-28",
+    "fronton": "Garralda - Trinkete",
+    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta)",
+    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus)",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "3 - 15",
+      "7 - 15"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-01-07",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "15 - 1",
+      "9 - 15",
+      "6 - 10"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-01-14",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "15 - 0",
+      "15 - 0"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-01-15",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "tanteoa": "2 - 0",
+    "sets": [
+      "15 - 13",
+      "15 - 14"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-01-22",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "1 - 15",
+      "9 - 15"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-02-01",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "kanpokoak": "ARDOI (O. Goñi - A. Gomez)",
+    "tanteoa": "1 - 2",
+    "sets": [
+      "15 - 7",
+      "14 - 15",
+      "3 - 10"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-02-05",
+    "fronton": "Pamplona - Larrabide - Trinkete",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "3 - 15",
+      "7 - 15"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-02-08",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "tanteoa": "0 - 2",
+    "sets": [
+      "0 - 15",
+      "0 - 15"
+    ],
+    "modalidad": "",
+    "fase": "LIGA",
+    "emaitza": "galduta",
+    "ofiziala": true
+  }
+]
