@@ -26,7 +26,7 @@ async function fetchHtml(url) {
     })
 
     // ✅ decodificación correcta real
-    const html = iconv.decode(Buffer.from(response.data), "iso-8859-1")
+    const html = iconv.decode(Buffer.from(response.data), "windows-1252")
 
     return html
   } catch (err) {
@@ -76,16 +76,13 @@ function parsearPartidos($, modalidad, fase, url) {
     if (celdas.length < 5) return
 
     // 🔹 FECHA: siempre entre <br> y <br>
-const celdaFechaHtml = $(celdas[0]).html()
+// 🔹 FECHA: los primeros 10 caracteres siempre son YYYY/MM/DD
+let fechaTexto = $(celdas[0])
+  .text()
+  .replace(/\s+/g, " ")
+  .trim()
 
-let fecha = ""
-
-if (celdaFechaHtml) {
-  const partes = celdaFechaHtml.split("<br>")
-  if (partes.length >= 2) {
-    fecha = partes[1].trim().substring(0, 10)
-  }
-}
+let fecha = fechaTexto.substring(0, 10)
     // 🔹 FRONTÓN
     let fronton = $(celdas[1])
       .text()
@@ -139,10 +136,7 @@ if (celdaFechaHtml) {
     const emaitza =
       etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
 
-    // 🔹 Reemplazar � por ñ
-    fronton = fronton.replace(/�/g, "ñ")
-    etxekoa = etxekoa.replace(/�/g, "ñ")
-    kanpokoak = kanpokoak.replace(/�/g, "ñ")
+   
 
     partidos.push({
       fecha,
