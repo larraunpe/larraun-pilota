@@ -1,9 +1,9 @@
 [
   {
-    "fecha": "2026/01/1518:30",
+    "fecha": "2026/01/15 18:30",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "LAGUNAK (I. Arrieta - O. Etxeberria)",
-    "kanpokoak": "AU�AMENDI (M. Ziganda - J. Larra�eta) �",
+    "etxekoa": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
+    "kanpokoak": "AU�AMENDI (M. Ziganda - J. Larra�eta) � ZIGANDA GARRALDA, M. LARRA�ETA GRANADA, J.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-9",
@@ -16,10 +16,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/2019:00",
+    "fecha": "2026/01/20 19:00",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
-    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria)",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-8",
@@ -32,10 +32,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/2818:30",
+    "fecha": "2026/01/28 18:30",
     "fronton": "Garralda - Trinkete",
-    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta)",
-    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus)",
+    "etxekoa": "AUÑAMENDI (M. Ziganda - J. Larrañeta) LARRA�ETA GRANADA, J. ZIGANDA GARRALDA, M.",
+    "kanpokoak": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
     "tanteoa": "0 - 2",
     "sets": [
       "3-15",
@@ -48,10 +48,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/1317:00",
+    "fecha": "2026/02/13 17:00",
     "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "LAGUNAK (I. Arrieta - O. Etxeberria)",
-    "kanpokoak": "AU�AMENDI (M. Ziganda - J. Larra�eta) �",
+    "etxekoa": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
+    "kanpokoak": "AU�AMENDI (M. Ziganda - J. Larra�eta) � ZIGANDA GARRALDA, M. LARRA�ETA GRANADA, J.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-9",
@@ -64,10 +64,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/2109:30",
+    "fecha": "2026/02/21 09:30",
     "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus)",
-    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria)",
+    "etxekoa": "LARRAUN (I. Sotil - U. Arcelus) ARCELUS UGALDE, U. SOTIL MIKEO, I.",
+    "kanpokoak": "LAGUNAK (I. Arrieta - O. Etxeberria) ARRIETA ELCANO, I. ETXEBERRIA IRIGOYEN, O.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-5",
@@ -80,10 +80,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/0718:00",
+    "fecha": "2026/01/07 18:00",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
     "tanteoa": "1 - 2",
     "sets": [
       "15-1",
@@ -97,10 +97,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/1009:00",
+    "fecha": "2026/01/10 09:00",
     "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "ARDOI (O. Goñi - A. Gomez)",
-    "kanpokoak": "BERRIOZAR (J. Monleon - H. Martiartu)",
+    "etxekoa": "ARDOI (O. Goñi - A. Gomez) GO�I AZNAREZ, O. ARROZPIDE BEORLEGUI, O.",
+    "kanpokoak": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-4",
@@ -113,10 +113,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/1419:00",
+    "fecha": "2026/01/14 19:00",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "ARDOI (O. Go�i - A. Gomez)",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "kanpokoak": "ARDOI (O. Go�i - A. Gomez) *Equipo no presentado",
     "tanteoa": "2 - 0",
     "sets": [
       "15-0",
@@ -129,10 +129,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/1518:30",
+    "fecha": "2026/01/15 18:30",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-13",
@@ -145,10 +145,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/2218:15",
+    "fecha": "2026/01/22 18:15",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
     "tanteoa": "0 - 2",
     "sets": [
       "1-15",
@@ -161,10 +161,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/2218:15",
+    "fecha": "2026/01/22 18:15",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "ARDOI (O. Goñi - A. Gomez)",
-    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "etxekoa": "ARDOI (O. Goñi - A. Gomez) GO�I AZNAREZ, O. GOMEZ BASURTO, A.",
+    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
     "tanteoa": "1 - 2",
     "sets": [
       "12-15",
@@ -178,10 +178,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/01/2918:00",
+    "fecha": "2026/01/29 18:00",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "BERRIOZAR (J. Monleon - H. Martiartu)",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-2",
@@ -194,10 +194,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/0112:00",
+    "fecha": "2026/02/01 12:00",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "kanpokoak": "ARDOI (O. Go�i - A. Gomez)",
+    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
+    "kanpokoak": "ARDOI (O. Go�i - A. Gomez) GOMEZ BASURTO, A. GO�I AZNAREZ, O.",
     "tanteoa": "1 - 2",
     "sets": [
       "15-7",
@@ -211,10 +211,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/0518:00",
+    "fecha": "2026/02/05 18:00",
     "fronton": "Pamplona - Larrabide - Trinkete",
-    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu) MONLEON ILUNDAIN, J. MARTIARTU BARROSO, H.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
     "tanteoa": "0 - 2",
     "sets": [
       "3-15",
@@ -227,10 +227,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/0812:00",
+    "fecha": "2026/02/08 12:00",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) *Equipo no presentado",
+    "kanpokoak": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
     "tanteoa": "0 - 2",
     "sets": [
       "0-15",
@@ -243,10 +243,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/1317:00",
+    "fecha": "2026/02/13 17:00",
     "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, I. IJURKO BAKAIKUA, E.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-1",
@@ -259,10 +259,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/1018:30",
+    "fecha": "2026/02/10 18:30",
     "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-    "kanpokoak": "ARDOI (O. Go�i - A. Gomez)",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "kanpokoak": "ARDOI (O. Go�i - A. Gomez) GOMEZ BASURTO, A. GO�I AZNAREZ, O.",
     "tanteoa": "0 - 2",
     "sets": [
       "5-15",
@@ -275,10 +275,10 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026/02/2109:30",
+    "fecha": "2026/02/21 09:30",
     "fronton": "Pamplona - Mendillorri-Trinkete",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "ARDOI (O. Go�i - A. Gomez)",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea) ANTIMASBERES MU�OZ, A. BENGOETXEA COMPAINS, J.",
+    "kanpokoak": "ARDOI (O. Go�i - A. Gomez) GOMEZ BASURTO, A. GO�I AZNAREZ, O.",
     "tanteoa": "2 - 0",
     "sets": [
       "15-14",
