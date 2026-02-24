@@ -1,13 +1,12 @@
 import axios from "axios"
 import * as cheerio from "cheerio"
-import fs from "fs"
+import iconv from "iconv-lite"
 
 const BASE =
   "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu"
 
 const TEMPORADA = 2025
 
-// 🔎 RANGOS CONFIGURABLES
 const ID_COMPETICION_DESDE = 3059
 const ID_COMPETICION_HASTA = 3060
 
@@ -18,13 +17,19 @@ const ID_FASE_HASTA = 20616
 
 async function fetchHtml(url) {
   try {
-    const { data } = await axios.get(url, {
-      headers: { "User-Agent": "Mozilla/5.0" },
+    const response = await axios.get(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+      },
+      responseType: "arraybuffer", // 🔥 CLAVE PARA CODIFICACIÓN
       timeout: 15000,
     })
-    return data
+
+    // 🔥 Decodificamos como ISO-8859-1 (como sirve FNPelota)
+    const html = iconv.decode(response.data, "latin1")
+    return html
   } catch (err) {
-    console.log("❌ Error cargando:", url)
+    console.log("Error cargando:", url)
     return null
   }
 }
@@ -32,20 +37,28 @@ async function fetchHtml(url) {
 // -----------------------------------------------------
 
 function extraerModalidad($) {
-  // La modalidad REAL está en <h6>
-  const titulo = $("h6").first().text().trim()
-  return titulo || ""
+  let titulo = $("h1").first().text().trim()
+
+  if (!titulo) {
+    titulo = $(".titulo").first().text().trim()
+  }
+
+  if (!titulo) {
+    titulo = $("title").text().trim()
+  }
+
+  return titulo.replace(/\s+/g, " ").trim()
 }
 
 // -----------------------------------------------------
 
 function extraerFase($, url) {
-  // Si no hay parámetro → liga
   if (!url.includes("idFaseEliminatoria")) {
     return "LIGAXKA"
   }
 
   const selected = $('select[name="selFase"] option[selected]')
+
   if (selected.length) {
     return selected.text().trim()
   }
@@ -60,44 +73,57 @@ function parsearPartidos($, modalidad, fase, url) {
 
   $("table tr").each((_, row) => {
     const celdas = $(row).find("td")
-
-    // Necesitamos al menos 5 columnas reales
     if (celdas.length < 5) return
 
-    const fecha = $(celdas[0])
-  .clone()
-  .find("br")
-  .replaceWith(" ")
-  .end()
-  .text()
-  .replace(/\s+/g, " ")
-  .trim()
-    const fronton = $(celdas[1]).text().trim()
+    // 🔹 FECHA + HORA (robusto)
+    const fechaRaw = $(celdas[0])
+      .clone()
+      .find("br")
+      .replaceWith(" ")
+      .end()
+      .text()
+      .replace(/\s+/g, " ")
+      .trim()
+
+    let fecha = ""
+    let hora = ""
+
+    const match = fechaRaw.match(/^(\d{4}\/\d{2}\/\d{2})\s+(\d{2}:\d{2})$/)
+
+    if (match) {
+      fecha = match[1]
+      hora = match[2]
+    } else {
+      fecha = fechaRaw
+    }
+
+    // 🔹 Frontón
+    const fronton = $(celdas[1])
+      .text()
+      .replace(/\s+/g, " ")
+      .trim()
+
+    // 🔹 Equipos completos (con jugadores)
     const etxekoa = $(celdas[2])
-  .clone()
-  .find("br")
-  .replaceWith(" ")
-  .end()
-  .text()
-  .replace(/\s+/g, " ")
-  .trim()
+      .clone()
+      .find("br")
+      .replaceWith(" ")
+      .end()
+      .text()
+      .replace(/\s+/g, " ")
+      .trim()
 
-const kanpokoak = $(celdas[4])
-  .clone()
-  .find("br")
-  .replaceWith(" ")
-  .end()
-  .text()
-  .replace(/\s+/g, " ")
-  .trim()
+    const kanpokoak = $(celdas[4])
+      .clone()
+      .find("br")
+      .replaceWith(" ")
+      .end()
+      .text()
+      .replace(/\s+/g, " ")
+      .trim()
+
+    // 🔹 Tanteo + sets
     const tanteoCell = $(celdas[3])
-    
-
-    if (!fecha) return
-
-    // -------------------
-    // EXTRAER TANTEO
-    // -------------------
 
     const tanteoa = tanteoCell
       .contents()
@@ -105,13 +131,8 @@ const kanpokoak = $(celdas[4])
         return this.type === "text"
       })
       .text()
+      .replace(/\s+/g, " ")
       .trim()
-
-    if (!tanteoa) return
-
-    // -------------------
-    // EXTRAER SETS
-    // -------------------
 
     const sets = []
 
@@ -126,25 +147,18 @@ const kanpokoak = $(celdas[4])
       }
     })
 
-    // -------------------
-    // RESULTADO
-    // -------------------
+    if (!fecha || !tanteoa) return
+
+    const [etx, kan] = tanteoa.split("-").map((x) => x.trim())
 
     let emaitza = ""
-
-    const partes = tanteoa.split("-").map((x) => x.trim())
-
-    if (partes.length === 2) {
-      const [etx, kan] = partes
-      if (!isNaN(etx) && !isNaN(kan)) {
-        emaitza = Number(etx) > Number(kan)
-          ? "irabazita"
-          : "galduta"
-      }
+    if (etx && kan) {
+      emaitza = Number(etx) > Number(kan) ? "irabazita" : "galduta"
     }
 
     partidos.push({
       fecha,
+      hora,
       fronton,
       etxekoa,
       kanpokoak,
@@ -186,7 +200,6 @@ async function main() {
     idComp <= ID_COMPETICION_HASTA;
     idComp++
   ) {
-    // 1️⃣ LIGA
     const urlLiga = `${BASE}&idCompeticion=${idComp}&temp=${TEMPORADA}`
 
     if (!urlsVisitadas.has(urlLiga)) {
@@ -195,16 +208,12 @@ async function main() {
       resultados.push(...partidos)
     }
 
-    // 2️⃣ ELIMINATORIAS
     for (
       let idFase = ID_FASE_DESDE;
       idFase <= ID_FASE_HASTA;
       idFase++
     ) {
-      const urlFase =
-        `${BASE}&idCompeticion=${idComp}` +
-        `&idFaseEliminatoria=${idFase}` +
-        `&temp=${TEMPORADA}`
+      const urlFase = `${BASE}&idCompeticion=${idComp}&idFaseEliminatoria=${idFase}&temp=${TEMPORADA}`
 
       if (!urlsVisitadas.has(urlFase)) {
         urlsVisitadas.add(urlFase)
@@ -214,23 +223,16 @@ async function main() {
     }
   }
 
-  // 🔥 Eliminar duplicados exactos
   const unique = Array.from(
     new Map(
       resultados.map((p) => [
-        `${p.fecha}-${p.etxekoa}-${p.kanpokoak}-${p.tanteoa}`,
+        `${p.fecha}-${p.hora}-${p.etxekoa}-${p.kanpokoak}-${p.tanteoa}`,
         p,
       ])
     ).values()
   )
 
-  // 💾 Guardar archivo JSON
-  fs.writeFileSync(
-    "data/resultados-larraun.json",
-    JSON.stringify(unique, null, 2)
-  )
-
-  console.log("✅ Resultados guardados:", unique.length)
+  console.log(JSON.stringify(unique, null, 2))
 }
 
 main()
