@@ -141,16 +141,22 @@ function extraerFaseTexto(doc) {
     select.querySelector("option[selected]") ||
     select.querySelector("option:checked");
 
-  return seleccionada
-    ? clean(seleccionada.textContent)
+  if (seleccionada)
+    return clean(seleccionada.textContent);
+
+  // fallback: primera opción válida
+  const primera = [...select.querySelectorAll("option")]
+    .find(o => o.value && o.value !== "0");
+
+  return primera
+    ? clean(primera.textContent)
     : "LIGA";
 }
-
 /* =========================
    EXTRAER PARTIDOS
 ========================= */
 
-function extraerPartidos(doc, modalidad, faseTexto) {
+function extraerPartidos(doc, modalidad, faseTexto, url) {
 
   const resultados = [];
 
@@ -212,6 +218,7 @@ function extraerPartidos(doc, modalidad, faseTexto) {
       sets,
       modalidad,
       fase: faseTexto,
+      url,
       emaitza: calcularEmaitza(etx, kan, tanteoa),
       ofiziala: true
     });
@@ -258,7 +265,7 @@ function extraerPartidos(doc, modalidad, faseTexto) {
           const faseTexto = extraerFaseTexto(docFase);
 
           const faseRes =
-            extraerPartidos(docFase, modalidad, faseTexto);
+  extraerPartidos(docFase, modalidad, faseTexto, urlFase);
 
           todos.push(...faseRes);
 
@@ -272,7 +279,7 @@ function extraerPartidos(doc, modalidad, faseTexto) {
         const faseTexto = "LIGA";
 
         const baseRes =
-          extraerPartidos(docBase, modalidad, faseTexto);
+  extraerPartidos(docBase, modalidad, faseTexto, urlBase);
 
         todos.push(...baseRes);
       }
