@@ -21,12 +21,17 @@ async function fetchHtml(url) {
       headers: {
         "User-Agent": "Mozilla/5.0",
       },
-      responseType: "arraybuffer", // 🔥 CLAVE PARA CODIFICACIÓN
+      responseType: "arraybuffer",
       timeout: 15000,
     })
 
-    // 🔥 Decodificamos como ISO-8859-1 (como sirve FNPelota)
-    const html = iconv.decode(response.data, "win1252")
+    let html = iconv.decode(response.data, "win1252")
+
+    // 🔥 limpieza definitiva de caracteres corruptos
+    html = html
+      .replace(/�/g, "ñ")
+      .replace(/�/g, "Ñ")
+
     return html
   } catch (err) {
     console.log("Error cargando:", url)
@@ -76,27 +81,25 @@ function parsearPartidos($, modalidad, fase, url) {
     if (celdas.length < 5) return
 
     // 🔹 FECHA + HORA (robusto)
-    const fechaRaw = $(celdas[0])
+ const fechaRaw = $(celdas[0])
   .clone()
   .find("br")
   .replaceWith(" ")
   .end()
   .text()
-  .replace(/\u00a0/g, " ") // elimina nbsp
+  .replace(/\u00a0/g, " ")
   .replace(/\s+/g, " ")
   .trim()
 
 let fecha = ""
 let hora = ""
 
-const partes = fechaRaw.split(" ")
+// 🔥 separación ultra robusta
+const matchFecha = fechaRaw.match(/(\d{4}\/\d{2}\/\d{2})/)
+const matchHora = fechaRaw.match(/(\d{2}:\d{2})/)
 
-if (partes.length >= 2) {
-  fecha = partes[0]
-  hora = partes[1]
-} else {
-  fecha = fechaRaw
-}
+if (matchFecha) fecha = matchFecha[1]
+if (matchHora) hora = matchHora[1]
 
     // 🔹 Frontón
     const fronton = $(celdas[1])
