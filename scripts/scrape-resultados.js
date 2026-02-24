@@ -26,7 +26,7 @@ async function fetchHtml(url) {
     })
 
     // 🔥 Decodificamos como ISO-8859-1 (como sirve FNPelota)
-    const html = iconv.decode(response.data, "latin1")
+    const html = iconv.decode(response.data, "win1252")
     return html
   } catch (err) {
     console.log("Error cargando:", url)
@@ -77,25 +77,26 @@ function parsearPartidos($, modalidad, fase, url) {
 
     // 🔹 FECHA + HORA (robusto)
     const fechaRaw = $(celdas[0])
-      .clone()
-      .find("br")
-      .replaceWith(" ")
-      .end()
-      .text()
-      .replace(/\s+/g, " ")
-      .trim()
+  .clone()
+  .find("br")
+  .replaceWith(" ")
+  .end()
+  .text()
+  .replace(/\u00a0/g, " ") // elimina nbsp
+  .replace(/\s+/g, " ")
+  .trim()
 
-    let fecha = ""
-    let hora = ""
+let fecha = ""
+let hora = ""
 
-    const match = fechaRaw.match(/^(\d{4}\/\d{2}\/\d{2})\s+(\d{2}:\d{2})$/)
+const partes = fechaRaw.split(" ")
 
-    if (match) {
-      fecha = match[1]
-      hora = match[2]
-    } else {
-      fecha = fechaRaw
-    }
+if (partes.length >= 2) {
+  fecha = partes[0]
+  hora = partes[1]
+} else {
+  fecha = fechaRaw
+}
 
     // 🔹 Frontón
     const fronton = $(celdas[1])
