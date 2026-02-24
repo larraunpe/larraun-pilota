@@ -49,40 +49,20 @@ function extraerModalidad($) {
 // -----------------------------------------------------
 
 function extraerFase($, url) {
-  // LIGA
+  // Si no hay parámetro de fase → es liga
   if (!url.includes("idFaseEliminatoria")) {
     return "LIGAXKA"
   }
 
-  // 1️⃣ Intentar desde texto visible
-  const bodyText = $("body").text()
+  // Buscar option selected
+  const selected = $('select[name="selFase"] option[selected]')
 
-  const match = bodyText.match(/FASE[A]?\s*[:\-]?\s*([A-ZÁÉÍÓÚÜÑ]+)/i)
-
-  if (match && match[1]) {
-    return match[1].trim()
-  }
-
-  // 2️⃣ Intentar desde selector
-  const idMatch = url.match(/idFaseEliminatoria=(\d+)/)
-
-  if (idMatch) {
-    const idBuscado = idMatch[1]
-
-    let fase = ""
-
-    $('select[name="idFaseEliminatoria"] option').each((_, el) => {
-      if ($(el).attr("value") === idBuscado) {
-        fase = $(el).text().trim()
-      }
-    })
-
-    if (fase) return fase
+  if (selected.length) {
+    return selected.text().trim()
   }
 
   return ""
 }
-
 // -----------------------------------------------------
 
 function parsearPartidos($, modalidad, fase, url) {
@@ -91,15 +71,32 @@ function parsearPartidos($, modalidad, fase, url) {
   $("table tr").each((_, row) => {
     const celdas = $(row).find("td")
 
-    if (celdas.length < 6) return
+    if (celdas.length < 5) return
 
     const fecha = $(celdas[0]).text().trim()
     const fronton = $(celdas[1]).text().trim()
-    const etxekoa = $(celdas[2]).text().trim()
-    const kanpokoak = $(celdas[3]).text().trim()
-    const tanteoa = $(celdas[4]).text().trim()
-    const setsRaw = $(celdas[5]).text().trim()
+    const etxekoa = $(celdas[2]).find("b").text().trim()
+const kanpokoak = $(celdas[4]).find("b").text().trim()
+const tanteoa = tanteoCell
+  .contents()
+  .filter(function () {
+    return this.type === "text"
+  })
+  .text()
+  .trim()
 
+const sets = []
+
+tanteoCell.find("span.small").each((_, el) => {
+  const texto = $(el).text()
+  const matches = texto.match(/\((.*?)\)/g)
+
+  if (matches) {
+    matches.forEach((m) => {
+      sets.push(m.replace(/[()]/g, "").trim())
+    })
+  }
+})
     if (!fecha || !tanteoa) return
 
     const sets = setsRaw
