@@ -75,8 +75,8 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA (solo YYYY/MM/DD, sin hora)
-    const fechaRaw = $(celdas[0])
+    // 🔹 FECHA: solo 10 caracteres (YYYY/MM/DD)
+    let fecha = $(celdas[0])
       .clone()
       .find("br")
       .remove()
@@ -85,18 +85,16 @@ function parsearPartidos($, modalidad, fase, url) {
       .replace(/\u00a0/g, " ")
       .replace(/\s+/g, " ")
       .trim()
-
-    const matchFecha = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
-    const fecha = matchFecha ? matchFecha[0] : fechaRaw
+      .substring(0, 10) // <-- mantiene solo YYYY/MM/DD
 
     // 🔹 FRONTÓN
-    const fronton = $(celdas[1])
+    let fronton = $(celdas[1])
       .text()
       .replace(/\s+/g, " ")
       .trim()
 
     // 🔹 EQUIPOS
-    const etxekoa = $(celdas[2])
+    let etxekoa = $(celdas[2])
       .clone()
       .find("br")
       .replaceWith(" ")
@@ -105,7 +103,7 @@ function parsearPartidos($, modalidad, fase, url) {
       .replace(/\s+/g, " ")
       .trim()
 
-    const kanpokoak = $(celdas[4])
+    let kanpokoak = $(celdas[4])
       .clone()
       .find("br")
       .replaceWith(" ")
@@ -137,13 +135,18 @@ function parsearPartidos($, modalidad, fase, url) {
 
     if (!fecha || !tanteoa) return
 
-    // 🔹 EMATZA (ganador/perdedor)
+    // 🔹 EMATZA
     const [etx, kan] = tanteoa.split("-").map((x) => x.trim())
     const emaitza =
       etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
 
+    // 🔹 Reemplazar � por ñ
+    fronton = fronton.replace(/�/g, "ñ")
+    etxekoa = etxekoa.replace(/�/g, "ñ")
+    kanpokoak = kanpokoak.replace(/�/g, "ñ")
+
     partidos.push({
-      fecha,          // ✅ Solo YYYY/MM/DD
+      fecha,
       fronton,
       etxekoa,
       kanpokoak,
@@ -159,7 +162,6 @@ function parsearPartidos($, modalidad, fase, url) {
 
   return partidos
 }
-
 // -----------------------------------------------------
 
 async function scrapeUrl(url) {
