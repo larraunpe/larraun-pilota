@@ -97,6 +97,48 @@ function limpiarTexto(texto) {
 
 // -----------------------------------------------------
 
+function formatearEquipo(texto) {
+  if (!texto) return texto;
+  
+  // Eliminar espacios múltiples y limpiar
+  return texto.replace(/\s+/g, " ").trim();
+}
+
+// -----------------------------------------------------
+
+function formatearSets(sets) {
+  if (!sets || sets.length === 0) return [];
+  
+  // Formatear cada set como "(XX-YY)" y unirlos en un solo string
+  const setsFormateados = sets.map(set => `(${set})`);
+  return [setsFormateados.join(" ")];
+}
+
+// -----------------------------------------------------
+
+function formatearModalidad(modalidad, fase) {
+  if (!modalidad) return "";
+  
+  // Limpiar la modalidad
+  let modalidadLimpia = modalidad
+    .replace(/\s+/g, " ")
+    .trim();
+  
+  // Eliminar "NKJ - TRINKETE TRINKETE ESKUZ" repetido si existe
+  modalidadLimpia = modalidadLimpia
+    .replace(/NKJ - TRINKETE\s+TRINKETE ESKUZ\s+/g, "")
+    .replace(/TRINKETE ESKUZ\s+/g, "");
+  
+  // Si hay fase y no es LIGAXKA, añadirla
+  if (fase && fase !== "LIGAXKA") {
+    return `${modalidadLimpia} ${fase}`.trim();
+  }
+  
+  return modalidadLimpia;
+}
+
+// -----------------------------------------------------
+
 function parsearPartidos($, modalidad, fase, url) {
   const partidos = [];
 
@@ -104,14 +146,14 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td");
     if (celdas.length < 5) return;
 
-    // 🔹 FECHA - tomar solo los primeros 10 caracteres (YYYY/MM/DD)
+    // 🔹 FECHA - tomar solo los primeros 10 caracteres y convertir / a -
     let fechaTexto = $(celdas[0])
       .text()
       .replace(/\s+/g, " ")
       .trim();
 
-    // FORZAR a tomar solo los primeros 10 caracteres
-    let fecha = fechaTexto.substring(0, 10);
+    // Tomar solo los primeros 10 caracteres y reemplazar / por -
+    let fecha = fechaTexto.substring(0, 10).replace(/\//g, "-");
 
     // 🔹 FRONTÓN
     let fronton = limpiarTexto(
@@ -121,7 +163,7 @@ function parsearPartidos($, modalidad, fase, url) {
         .trim()
     );
 
-    // 🔹 EQUIPOS
+    // 🔹 EQUIPOS - formatear sin espacios extra
     let etxekoa = limpiarTexto(
       $(celdas[2])
         .clone()
@@ -129,9 +171,8 @@ function parsearPartidos($, modalidad, fase, url) {
         .replaceWith(" ")
         .end()
         .text()
-        .replace(/\s+/g, " ")
-        .trim()
     );
+    etxekoa = formatearEquipo(etxekoa);
 
     let kanpokoak = limpiarTexto(
       $(celdas[4])
@@ -140,11 +181,10 @@ function parsearPartidos($, modalidad, fase, url) {
         .replaceWith(" ")
         .end()
         .text()
-        .replace(/\s+/g, " ")
-        .trim()
     );
+    kanpokoak = formatearEquipo(kanpokoak);
 
-    // 🔹 TANTEO
+    // 🔹 TANTEO - eliminar espacios
     const tanteoCell = $(celdas[3]);
     const tanteoa = tanteoCell
       .contents()
@@ -152,18 +192,21 @@ function parsearPartidos($, modalidad, fase, url) {
         return this.type === "text";
       })
       .text()
-      .replace(/\s+/g, " ")
+      .replace(/\s+/g, "")
       .trim();
 
     // 🔹 SETS
-    const sets = [];
+    const setsTemp = [];
     tanteoCell.find("span.small").each((_, el) => {
       const texto = $(el).text();
       const matches = texto.match(/\((.*?)\)/g);
       if (matches) {
-        matches.forEach((m) => sets.push(m.replace(/[()]/g, "").trim()));
+        matches.forEach((m) => setsTemp.push(m.replace(/[()]/g, "").trim()));
       }
     });
+    
+    // Formatear sets como se solicita
+    const sets = formatearSets(setsTemp);
 
     if (!fecha || !tanteoa) return;
 
@@ -179,7 +222,7 @@ function parsearPartidos($, modalidad, fase, url) {
       kanpokoak,
       tanteoa,
       sets,
-      modalidad: limpiarTexto(modalidad),
+      modalidad: formatearModalidad(limpiarTexto(modalidad), limpiarTexto(fase)),
       fase: limpiarTexto(fase),
       url,
       emaitza,
@@ -268,14 +311,16 @@ async function main() {
     ).values()
   );
 
-  // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres
+  // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres y formato correcto
   unique.forEach((p) => {
     if (p.fecha && p.fecha.length > 10) {
-      p.fecha = p.fecha.substring(0, 10);
+      p.fecha = p.fecha.substring(0, 10).replace(/\//g, "-");
     }
+    // Eliminar el campo fase ya que ahora está incluido en modalidad
+    delete p.fase;
   });
 
-  // Guardar en archivo en lugar de console.log
+  // Guardar en archivo
   await guardarResultados(unique);
 }
 
