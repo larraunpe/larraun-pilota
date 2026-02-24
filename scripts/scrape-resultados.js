@@ -25,8 +25,8 @@ async function fetchHtml(url) {
       timeout: 15000,
     })
 
-    // 🔥 decodificación correcta real para esta web
-    const html = iconv.decode(response.data, "win1252")
+    // ✅ decodificación correcta real
+    const html = iconv.decode(Buffer.from(response.data), "iso-8859-1")
 
     return html
   } catch (err) {
@@ -75,20 +75,17 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA: solo YYYY/MM/DD usando regex
-    let fechaRaw = $(celdas[0])
-      .clone()
-      .find("br")
-      .remove()
-      .end()
-      .text()
-      .replace(/\u00a0/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
+    // 🔹 FECHA: siempre entre <br> y <br>
+const celdaFechaHtml = $(celdas[0]).html()
 
-    const fechaMatch = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
-    const fecha = fechaMatch ? fechaMatch[0] : fechaRaw
+let fecha = ""
 
+if (celdaFechaHtml) {
+  const partes = celdaFechaHtml.split("<br>")
+  if (partes.length >= 2) {
+    fecha = partes[1].trim().substring(0, 10)
+  }
+}
     // 🔹 FRONTÓN
     let fronton = $(celdas[1])
       .text()
