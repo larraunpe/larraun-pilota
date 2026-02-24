@@ -25,12 +25,8 @@ async function fetchHtml(url) {
       timeout: 15000,
     })
 
-    let html = iconv.decode(response.data, "win1252")
-
-    // 🔥 limpieza definitiva de caracteres corruptos
-    html = html
-      .replace(/�/g, "ñ")
-      .replace(/�/g, "Ñ")
+    // 🔥 decodificación correcta real para esta web
+    const html = iconv.decode(response.data, "win1252")
 
     return html
   } catch (err) {
@@ -38,7 +34,6 @@ async function fetchHtml(url) {
     return null
   }
 }
-
 // -----------------------------------------------------
 
 function extraerModalidad($) {
@@ -80,27 +75,21 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA + HORA (robusto)
- const fechaRaw = $(celdas[0])
+    // 🔹 FECHA 
+const fechaRaw = $(celdas[0])
   .clone()
   .find("br")
-  .replaceWith(" ")
+  .remove()
   .end()
   .text()
   .replace(/\u00a0/g, " ")
   .replace(/\s+/g, " ")
   .trim()
 
-let fecha = ""
-let hora = ""
+// 🔥 Extraemos solo YYYY/MM/DD
+const matchFecha = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
 
-// 🔥 separación ultra robusta
-const matchFecha = fechaRaw.match(/(\d{4}\/\d{2}\/\d{2})/)
-const matchHora = fechaRaw.match(/(\d{2}:\d{2})/)
-
-if (matchFecha) fecha = matchFecha[1]
-if (matchHora) hora = matchHora[1]
-
+const fecha = matchFecha ? matchFecha[0] : fechaRaw
     // 🔹 Frontón
     const fronton = $(celdas[1])
       .text()
@@ -162,7 +151,6 @@ if (matchHora) hora = matchHora[1]
 
     partidos.push({
       fecha,
-      hora,
       fronton,
       etxekoa,
       kanpokoak,
@@ -230,7 +218,7 @@ async function main() {
   const unique = Array.from(
     new Map(
       resultados.map((p) => [
-        `${p.fecha}-${p.hora}-${p.etxekoa}-${p.kanpokoak}-${p.tanteoa}`,
+        `${p.fecha}-${p.etxekoa}-${p.kanpokoak}-${p.tanteoa}`,
         p,
       ])
     ).values()
