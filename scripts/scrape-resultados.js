@@ -27,9 +27,7 @@ async function fetchHtml(url) {
 
     // Decodificar correctamente
     const html = iconv.decode(Buffer.from(response.data), "windows-1252")
-    
-    // Normalizar caracteres Unicode (especialmente la Ñ)
-    return html.normalize('NFC')
+    return html
   } catch (err) {
     console.log("Error cargando:", url)
     return null
@@ -69,6 +67,29 @@ function extraerFase($, url) {
 
 // -----------------------------------------------------
 
+function limpiarTexto(texto) {
+  if (!texto) return texto
+  
+  // Reemplazar caracteres mal codificados
+  return texto
+    .replace(/�/g, 'Ñ')
+    .replace(/�/g, 'ñ')
+    .replace(/�/g, 'Í')
+    .replace(/�/g, 'í')
+    .replace(/�/g, 'Ó')
+    .replace(/�/g, 'ó')
+    .replace(/�/g, 'Á')
+    .replace(/�/g, 'á')
+    .replace(/�/g, 'É')
+    .replace(/�/g, 'é')
+    .replace(/�/g, 'Ú')
+    .replace(/�/g, 'ú')
+    .replace(/�/g, 'Ü')
+    .replace(/�/g, 'ü')
+}
+
+// -----------------------------------------------------
+
 function parsearPartidos($, modalidad, fase, url) {
   const partidos = []
 
@@ -76,42 +97,39 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA: extraer solo los primeros 10 caracteres (YYYY/MM/DD)
+    // 🔹 FECHA - AHORA SÍ, SOLO LOS PRIMEROS 10 CARACTERES
     let fechaTexto = $(celdas[0])
       .text()
       .replace(/\s+/g, " ")
       .trim()
-
-    // Tomar solo los primeros 10 caracteres (YYYY/MM/DD)
+    
+    // FORZAR a tomar solo los primeros 10 caracteres (YYYY/MM/DD)
     let fecha = fechaTexto.substring(0, 10)
     
-    // 🔹 FRONTÓN - limpiar caracteres especiales
-    let fronton = $(celdas[1])
+    // 🔹 FRONTÓN
+    let fronton = limpiarTexto($(celdas[1])
       .text()
       .replace(/\s+/g, " ")
-      .trim()
-      .normalize('NFC')
+      .trim())
 
-    // 🔹 EQUIPOS - limpiar caracteres especiales
-    let etxekoa = $(celdas[2])
+    // 🔹 EQUIPOS
+    let etxekoa = limpiarTexto($(celdas[2])
       .clone()
       .find("br")
       .replaceWith(" ")
       .end()
       .text()
       .replace(/\s+/g, " ")
-      .trim()
-      .normalize('NFC')
+      .trim())
 
-    let kanpokoak = $(celdas[4])
+    let kanpokoak = limpiarTexto($(celdas[4])
       .clone()
       .find("br")
       .replaceWith(" ")
       .end()
       .text()
       .replace(/\s+/g, " ")
-      .trim()
-      .normalize('NFC')
+      .trim())
 
     // 🔹 TANTEO
     const tanteoCell = $(celdas[3])
@@ -142,14 +160,14 @@ function parsearPartidos($, modalidad, fase, url) {
       etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
 
     partidos.push({
-      fecha, // Ahora solo tiene YYYY/MM/DD
+      fecha, // Ahora SÍ debería ser solo YYYY/MM/DD
       fronton,
       etxekoa,
       kanpokoak,
       tanteoa,
       sets,
-      modalidad: modalidad.normalize('NFC'),
-      fase: fase.normalize('NFC'),
+      modalidad: limpiarTexto(modalidad),
+      fase: limpiarTexto(fase),
       url,
       emaitza,
       ofiziala: true,
@@ -214,6 +232,13 @@ async function main() {
       ])
     ).values()
   )
+
+  // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres
+  unique.forEach(p => {
+    if (p.fecha && p.fecha.length > 10) {
+      p.fecha = p.fecha.substring(0, 10)
+    }
+  })
 
   console.log(JSON.stringify(unique, null, 2))
 }
