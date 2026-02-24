@@ -1,12 +1,9 @@
 [
-  {
-    "fecha": "2026/02/27",
-    "hora": "19:00",
-    "zkia": "1",
-    "fronton": "Mungia",
-    "etxekoa": "LARRAUN – TOLOSA (Nazabal – Olano)",
-    "kanpokoak": "LAGUN ONAK – TXUKUN LAKUA (Torralba – Moto)",
-    "lehiaketa": "MUNGIAKO TXAPELKETA PROMESAK FINALA",
-    "ofiziala": "false"
-  }
+  {     "fecha": "2026/02/27",     "hora": "19:00",     "zkia": "1",     "fronton": "Mungia",     "etxekoa": "LARRAUN – TOLOSA (Nazabal – Olano)",     "kanpokoak": "LAGUN ONAK – TXUKUN LAKUA (Torralba – Moto)",     "lehiaketa": "MUNGIAKO TXAPELKETA PROMESAK FINALA",     "ofiziala": "false"   },
+  {     "fecha": "2026/02/28",     "hora": "16:30",     "zkia": "3",     "fronton": "Mendaro",     "etxekoa": "LARRAUN - GURE (GARCIARENA – GAINTZARAIN)",     "kanpokoak": "HORI HORI A (AGIRRESAROBE - BERRUETA) ",     "lehiaketa": "EMAKUMEZKO - 2 MAILA PALETA GOMA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/26",     "hora": "17:30",     "zkia": "1",     "fronton": "Najera",     "etxekoa": "NAJERINO (Hormaetxe)",     "kanpokoak": "LARRAUN (Astiz)",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/26",     "hora": "17:30",     "zkia": "2",     "fronton": "Najera",     "etxekoa": "NAJERINO (Prado – Merino II)",     "kanpokoak": "LARRAUN (Galarza – Sotil)",     "lehiaketa": "ESPAINAKO TXAPELKETA OHOREZKO MAILA BANAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/28",     "hora": "11:30",     "zkia": "1",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK (I. Garaño)",     "kanpokoak": "URBION FILIAL (I. Ibarra)",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BANAKA LIGAXKA",     "ofiziala": "true"   },
+  {     "fecha": "2026/02/28",     "hora": "11:30",     "zkia": "2",     "fronton": "Lekunberri - Jaian Jai",     "etxekoa": "LARRAUN PROMESAK (O. Iriarte – E. Galarza)",     "kanpokoak": "URBION FILIAL (R. Camara – H. Figueroa)",     "lehiaketa": "ESPAINAKO TXAPELKETA BIGARREN MAILA BINAKA LIGAXKA",     "ofiziala": "true"   },
+
 ]
