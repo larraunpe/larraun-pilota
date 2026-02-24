@@ -4,7 +4,7 @@ import iconv from "iconv-lite"
 
 const BASE =
   "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu"
-
+a
 const TEMPORADA = 2025
 
 const ID_COMPETICION_DESDE = 3059
