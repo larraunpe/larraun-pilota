@@ -1,6 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import iconv from "iconv-lite";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
 const TEMPORADA = 2025;
@@ -10,6 +13,11 @@ const ID_COMPETICION_HASTA = 3060;
 
 const ID_FASE_DESDE = 20613;
 const ID_FASE_HASTA = 20616;
+
+// Obtener la ruta del directorio actual
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const OUTPUT_FILE = path.join(__dirname, "..", "data", "resultados-larraun.json");
 
 // -----------------------------------------------------
 
@@ -198,7 +206,29 @@ async function scrapeUrl(url) {
 
 // -----------------------------------------------------
 
+async function guardarResultados(resultados) {
+  try {
+    // Asegurar que el directorio data existe
+    const dataDir = path.join(__dirname, "..", "data");
+    try {
+      await fs.access(dataDir);
+    } catch {
+      await fs.mkdir(dataDir, { recursive: true });
+    }
+
+    // Guardar el archivo
+    await fs.writeFile(OUTPUT_FILE, JSON.stringify(resultados, null, 2), "utf-8");
+    console.log(`✅ Resultados guardados en ${OUTPUT_FILE}`);
+    console.log(`📊 Total de partidos: ${resultados.length}`);
+  } catch (error) {
+    console.error("❌ Error guardando el archivo:", error.message);
+  }
+}
+
+// -----------------------------------------------------
+
 async function main() {
+  console.log("🔄 Iniciando scraping...");
   const resultados = [];
   const urlsVisitadas = new Set();
 
@@ -211,6 +241,7 @@ async function main() {
 
     if (!urlsVisitadas.has(urlLiga)) {
       urlsVisitadas.add(urlLiga);
+      console.log(`📋 Procesando competición ID: ${idComp}`);
       const partidos = await scrapeUrl(urlLiga);
       resultados.push(...partidos);
     }
@@ -220,12 +251,14 @@ async function main() {
 
       if (!urlsVisitadas.has(urlFase)) {
         urlsVisitadas.add(urlFase);
+        console.log(`🏆 Procesando fase ID: ${idFase} (Competición: ${idComp})`);
         const partidos = await scrapeUrl(urlFase);
         resultados.push(...partidos);
       }
     }
   }
 
+  // Eliminar duplicados
   const unique = Array.from(
     new Map(
       resultados.map((p) => [
@@ -242,7 +275,8 @@ async function main() {
     }
   });
 
-  console.log(JSON.stringify(unique, null, 2));
+  // Guardar en archivo en lugar de console.log
+  await guardarResultados(unique);
 }
 
 main();
