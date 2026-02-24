@@ -243,24 +243,38 @@ function extraerPartidos(doc, modalidad, faseTexto) {
 
       const fases = extraerFases(docBase);
 
-      // 🔥 SOLO recorrer fases reales
-      for (const fase of fases) {
+      // 🔥 CASO 1: Hay fases
+      if (fases.length > 0) {
 
-        const urlFase =
-          `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${fase}&temp=${TEMPORADA}`;
+        for (const fase of fases) {
 
-        const htmlFase = await getHTML(urlFase);
-        const docFase = new JSDOM(htmlFase).window.document;
+          const urlFase =
+            `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${fase}&temp=${TEMPORADA}`;
 
-        const modalidad = extraerModalidad(docFase);
-        const faseTexto = extraerFaseTexto(docFase);
+          const htmlFase = await getHTML(urlFase);
+          const docFase = new JSDOM(htmlFase).window.document;
 
-        const faseRes =
-          extraerPartidos(docFase, modalidad, faseTexto);
+          const modalidad = extraerModalidad(docFase);
+          const faseTexto = extraerFaseTexto(docFase);
 
-        todos.push(...faseRes);
+          const faseRes =
+            extraerPartidos(docFase, modalidad, faseTexto);
 
-        await sleep(ESPERA_MS);
+          todos.push(...faseRes);
+
+          await sleep(ESPERA_MS);
+        }
+
+      } else {
+        // 🔥 CASO 2: No hay fases → procesar base
+
+        const modalidad = extraerModalidad(docBase);
+        const faseTexto = "LIGA";
+
+        const baseRes =
+          extraerPartidos(docBase, modalidad, faseTexto);
+
+        todos.push(...baseRes);
       }
 
     } catch (err) {
