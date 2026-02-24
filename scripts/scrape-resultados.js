@@ -1,17 +1,15 @@
-import axios from "axios"
-import * as cheerio from "cheerio"
-import iconv from "iconv-lite"
+import axios from "axios";
+import * as cheerio from "cheerio";
+import iconv from "iconv-lite";
 
-const BASE =
-  "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu"
-a
-const TEMPORADA = 2025
+const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
+const TEMPORADA = 2025;
 
-const ID_COMPETICION_DESDE = 3059
-const ID_COMPETICION_HASTA = 3060
+const ID_COMPETICION_DESDE = 3059;
+const ID_COMPETICION_HASTA = 3060;
 
-const ID_FASE_DESDE = 20613
-const ID_FASE_HASTA = 20616
+const ID_FASE_DESDE = 20613;
+const ID_FASE_HASTA = 20616;
 
 // -----------------------------------------------------
 
@@ -23,144 +21,151 @@ async function fetchHtml(url) {
       },
       responseType: "arraybuffer",
       timeout: 15000,
-    })
+    });
 
     // Decodificar correctamente
-    const html = iconv.decode(Buffer.from(response.data), "windows-1252")
-    return html
+    const html = iconv.decode(Buffer.from(response.data), "windows-1252");
+    return html;
   } catch (err) {
-    console.log("Error cargando:", url)
-    return null
+    console.log("Error cargando:", url);
+    return null;
   }
 }
+
 // -----------------------------------------------------
 
 function extraerModalidad($) {
-  let titulo = $("h1").first().text().trim()
+  let titulo = $("h1").first().text().trim();
 
   if (!titulo) {
-    titulo = $(".titulo").first().text().trim()
+    titulo = $(".titulo").first().text().trim();
   }
 
   if (!titulo) {
-    titulo = $("title").text().trim()
+    titulo = $("title").text().trim();
   }
 
-  return titulo.replace(/\s+/g, " ").trim()
+  return titulo.replace(/\s+/g, " ").trim();
 }
 
 // -----------------------------------------------------
 
 function extraerFase($, url) {
   if (!url.includes("idFaseEliminatoria")) {
-    return "LIGAXKA"
+    return "LIGAXKA";
   }
 
-  const selected = $('select[name="selFase"] option[selected]')
+  const selected = $('select[name="selFase"] option[selected]');
 
   if (selected.length) {
-    return selected.text().trim()
+    return selected.text().trim();
   }
 
-  return ""
+  return "";
 }
 
 // -----------------------------------------------------
 
 function limpiarTexto(texto) {
-  if (!texto) return texto
-  
+  if (!texto) return texto;
+
   // Reemplazar caracteres mal codificados
   return texto
-    .replace(/�/g, 'Ñ')
-    .replace(/�/g, 'ñ')
-    .replace(/�/g, 'Í')
-    .replace(/�/g, 'í')
-    .replace(/�/g, 'Ó')
-    .replace(/�/g, 'ó')
-    .replace(/�/g, 'Á')
-    .replace(/�/g, 'á')
-    .replace(/�/g, 'É')
-    .replace(/�/g, 'é')
-    .replace(/�/g, 'Ú')
-    .replace(/�/g, 'ú')
-    .replace(/�/g, 'Ü')
-    .replace(/�/g, 'ü')
+    .replace(/�/g, "Ñ")
+    .replace(/�/g, "ñ")
+    .replace(/�/g, "Í")
+    .replace(/�/g, "í")
+    .replace(/�/g, "Ó")
+    .replace(/�/g, "ó")
+    .replace(/�/g, "Á")
+    .replace(/�/g, "á")
+    .replace(/�/g, "É")
+    .replace(/�/g, "é")
+    .replace(/�/g, "Ú")
+    .replace(/�/g, "ú")
+    .replace(/�/g, "Ü")
+    .replace(/�/g, "ü");
 }
 
 // -----------------------------------------------------
 
 function parsearPartidos($, modalidad, fase, url) {
-  const partidos = []
+  const partidos = [];
 
   $("table tr").each((_, row) => {
-    const celdas = $(row).find("td")
-    if (celdas.length < 5) return
+    const celdas = $(row).find("td");
+    if (celdas.length < 5) return;
 
-    // 🔹 FECHA - AHORA SÍ, SOLO LOS PRIMEROS 10 CARACTERES
+    // 🔹 FECHA - tomar solo los primeros 10 caracteres (YYYY/MM/DD)
     let fechaTexto = $(celdas[0])
       .text()
       .replace(/\s+/g, " ")
-      .trim()
-    
-    // FORZAR a tomar solo los primeros 10 caracteres (YYYY/MM/DD)
-    let fecha = fechaTexto.substring(0, 10)
-    
+      .trim();
+
+    // FORZAR a tomar solo los primeros 10 caracteres
+    let fecha = fechaTexto.substring(0, 10);
+
     // 🔹 FRONTÓN
-    let fronton = limpiarTexto($(celdas[1])
-      .text()
-      .replace(/\s+/g, " ")
-      .trim())
+    let fronton = limpiarTexto(
+      $(celdas[1])
+        .text()
+        .replace(/\s+/g, " ")
+        .trim()
+    );
 
     // 🔹 EQUIPOS
-    let etxekoa = limpiarTexto($(celdas[2])
-      .clone()
-      .find("br")
-      .replaceWith(" ")
-      .end()
-      .text()
-      .replace(/\s+/g, " ")
-      .trim())
+    let etxekoa = limpiarTexto(
+      $(celdas[2])
+        .clone()
+        .find("br")
+        .replaceWith(" ")
+        .end()
+        .text()
+        .replace(/\s+/g, " ")
+        .trim()
+    );
 
-    let kanpokoak = limpiarTexto($(celdas[4])
-      .clone()
-      .find("br")
-      .replaceWith(" ")
-      .end()
-      .text()
-      .replace(/\s+/g, " ")
-      .trim())
+    let kanpokoak = limpiarTexto(
+      $(celdas[4])
+        .clone()
+        .find("br")
+        .replaceWith(" ")
+        .end()
+        .text()
+        .replace(/\s+/g, " ")
+        .trim()
+    );
 
     // 🔹 TANTEO
-    const tanteoCell = $(celdas[3])
+    const tanteoCell = $(celdas[3]);
     const tanteoa = tanteoCell
       .contents()
       .filter(function () {
-        return this.type === "text"
+        return this.type === "text";
       })
       .text()
       .replace(/\s+/g, " ")
-      .trim()
+      .trim();
 
     // 🔹 SETS
-    const sets = []
+    const sets = [];
     tanteoCell.find("span.small").each((_, el) => {
-      const texto = $(el).text()
-      const matches = texto.match(/\((.*?)\)/g)
+      const texto = $(el).text();
+      const matches = texto.match(/\((.*?)\)/g);
       if (matches) {
-        matches.forEach((m) => sets.push(m.replace(/[()]/g, "").trim()))
+        matches.forEach((m) => sets.push(m.replace(/[()]/g, "").trim()));
       }
-    })
+    });
 
-    if (!fecha || !tanteoa) return
+    if (!fecha || !tanteoa) return;
 
     // 🔹 EMATZA
-    const [etx, kan] = tanteoa.split("-").map((x) => x.trim())
+    const [etx, kan] = tanteoa.split("-").map((x) => x.trim());
     const emaitza =
-      etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : ""
+      etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : "";
 
     partidos.push({
-      fecha, // Ahora SÍ debería ser solo YYYY/MM/DD
+      fecha,
       fronton,
       etxekoa,
       kanpokoak,
@@ -171,55 +176,52 @@ function parsearPartidos($, modalidad, fase, url) {
       url,
       emaitza,
       ofiziala: true,
-    })
-  })
+    });
+  });
 
-  return partidos
+  return partidos;
 }
+
 // -----------------------------------------------------
 
 async function scrapeUrl(url) {
-  const html = await fetchHtml(url)
-  if (!html) return []
+  const html = await fetchHtml(url);
+  if (!html) return [];
 
-  const $ = cheerio.load(html)
+  const $ = cheerio.load(html);
 
-  const modalidad = extraerModalidad($)
-  const fase = extraerFase($, url)
+  const modalidad = extraerModalidad($);
+  const fase = extraerFase($, url);
 
-  return parsearPartidos($, modalidad, fase, url)
+  return parsearPartidos($, modalidad, fase, url);
 }
 
 // -----------------------------------------------------
 
 async function main() {
-  const resultados = []
-  const urlsVisitadas = new Set()
+  const resultados = [];
+  const urlsVisitadas = new Set();
 
   for (
     let idComp = ID_COMPETICION_DESDE;
     idComp <= ID_COMPETICION_HASTA;
     idComp++
   ) {
-    const urlLiga = `${BASE}&idCompeticion=${idComp}&temp=${TEMPORADA}`
+    const urlLiga = `${BASE}&idCompeticion=${idComp}&temp=${TEMPORADA}`;
 
     if (!urlsVisitadas.has(urlLiga)) {
-      urlsVisitadas.add(urlLiga)
-      const partidos = await scrapeUrl(urlLiga)
-      resultados.push(...partidos)
+      urlsVisitadas.add(urlLiga);
+      const partidos = await scrapeUrl(urlLiga);
+      resultados.push(...partidos);
     }
 
-    for (
-      let idFase = ID_FASE_DESDE;
-      idFase <= ID_FASE_HASTA;
-      idFase++
-    ) {
-      const urlFase = `${BASE}&idCompeticion=${idComp}&idFaseEliminatoria=${idFase}&temp=${TEMPORADA}`
+    for (let idFase = ID_FASE_DESDE; idFase <= ID_FASE_HASTA; idFase++) {
+      const urlFase = `${BASE}&idCompeticion=${idComp}&idFaseEliminatoria=${idFase}&temp=${TEMPORADA}`;
 
       if (!urlsVisitadas.has(urlFase)) {
-        urlsVisitadas.add(urlFase)
-        const partidos = await scrapeUrl(urlFase)
-        resultados.push(...partidos)
+        urlsVisitadas.add(urlFase);
+        const partidos = await scrapeUrl(urlFase);
+        resultados.push(...partidos);
       }
     }
   }
@@ -231,16 +233,16 @@ async function main() {
         p,
       ])
     ).values()
-  )
+  );
 
   // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres
-  unique.forEach(p => {
+  unique.forEach((p) => {
     if (p.fecha && p.fecha.length > 10) {
-      p.fecha = p.fecha.substring(0, 10)
+      p.fecha = p.fecha.substring(0, 10);
     }
-  })
+  });
 
-  console.log(JSON.stringify(unique, null, 2))
+  console.log(JSON.stringify(unique, null, 2));
 }
 
-main()
+main();
