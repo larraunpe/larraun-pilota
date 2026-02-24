@@ -75,8 +75,8 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td")
     if (celdas.length < 5) return
 
-    // 🔹 FECHA: solo 10 caracteres (YYYY/MM/DD)
-    let fecha = $(celdas[0])
+    // 🔹 FECHA: solo YYYY/MM/DD usando regex
+    let fechaRaw = $(celdas[0])
       .clone()
       .find("br")
       .remove()
@@ -85,7 +85,9 @@ function parsearPartidos($, modalidad, fase, url) {
       .replace(/\u00a0/g, " ")
       .replace(/\s+/g, " ")
       .trim()
-      .substring(0, 10) // <-- mantiene solo YYYY/MM/DD
+
+    const fechaMatch = fechaRaw.match(/\d{4}\/\d{2}\/\d{2}/)
+    const fecha = fechaMatch ? fechaMatch[0] : fechaRaw
 
     // 🔹 FRONTÓN
     let fronton = $(celdas[1])
