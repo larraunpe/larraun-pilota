@@ -9,6 +9,9 @@ const ESPERA_MS = 300;
 const ID_MIN = 3059;
 const ID_MAX = 3060;
 
+const FASE_MIN = 20613;
+const FASE_MAX = 20616;
+
 const PAREJAS = JSON.parse(
   fs.readFileSync("data/parejas-mixtas.json", "utf8")
 );
@@ -18,26 +21,20 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 function getHTML(url) {
   return new Promise((resolve, reject) => {
 
-    const options = {
+    https.get(url, {
       headers: {
         "User-Agent": "Mozilla/5.0",
-        "Accept-Language": "eu-ES,eu;q=0.9,es;q=0.8",
-        "Accept": "text/html"
+        "Accept-Language": "eu-ES,eu;q=0.9,es;q=0.8"
       }
-    };
+    }, res => {
 
-    https.get(url, options, res => {
-
-      if (res.statusCode !== 200) {
-        reject(new Error("Status " + res.statusCode));
-        return;
-      }
+      if (res.statusCode !== 200)
+        return reject(new Error("Status " + res.statusCode));
 
       const chunks = [];
       res.on("data", c => chunks.push(c));
       res.on("end", () => {
-        const buffer = Buffer.concat(chunks);
-        resolve(buffer.toString("latin1"));
+        resolve(Buffer.concat(chunks).toString("latin1"));
       });
 
     }).on("error", reject);
@@ -50,12 +47,6 @@ function normalizarTexto(t = "") {
   return clean(t).toUpperCase();
 }
 
-function limpiarNombre(txt = "") {
-  const limpio = clean(txt);
-  const partes = limpio.split(")");
-  return partes.length > 1 ? partes[0] + ")" : limpio;
-}
-
 function contieneLarraun(txt = "") {
   const upper = normalizarTexto(txt);
   if (upper.includes("LARRAUN")) return true;
@@ -66,14 +57,11 @@ function contieneLarraun(txt = "") {
 }
 
 function convertirPareja(txt) {
-  const limpio = limpiarNombre(txt);
-
   for (const p of PAREJAS) {
-    if (normalizarTexto(limpio).includes(p.match.toUpperCase()))
+    if (normalizarTexto(txt).includes(p.match.toUpperCase()))
       return p.value;
   }
-
-  return limpio;
+  return clean(txt);
 }
 
 function parseFechaEU(str) {
@@ -88,7 +76,6 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
 
   const lE = contieneLarraun(etx);
   const lK = contieneLarraun(kanpo);
-
   if (!lE && !lK) return "";
 
   const [a, b] = tanteoa.split(" - ").map(n => parseInt(n, 10));
@@ -101,135 +88,80 @@ function calcularEmaitza(etx, kanpo, tanteoa) {
   return "";
 }
 
-/* =========================
-   EXTRAER FASES
-========================= */
-
-function extraerFases(doc) {
-
-  const select = doc.querySelector("select[name='idFaseEliminatoria']");
-  if (!select) return [];
-
-  return [...select.querySelectorAll("option")]
-    .map(o => o.value)
-    .filter(v => v && v !== "0");
-}
-
-/* =========================
-   MODALIDAD CORRECTA
-========================= */
-
 function extraerModalidad(doc) {
-
-  const select = doc.querySelector("select[name='idModalidad']");
-  if (!select) return "";
-
-  const seleccionada =
-    select.querySelector("option[selected]") ||
-    select.querySelector("option:checked") ||
-    select.querySelector("option");
-
-  return seleccionada ? clean(seleccionada.textContent) : "";
+  const titulo = doc.querySelector(".titulo");
+  return titulo ? clean(titulo.textContent) : "";
 }
 
 function extraerFaseTexto(doc) {
-
   const select = doc.querySelector("select[name='idFaseEliminatoria']");
-  if (!select) return "LIGA";
+  if (!select) return "";
 
-  const seleccionada =
+  const selected =
     select.querySelector("option[selected]") ||
     select.querySelector("option:checked");
 
-  if (seleccionada)
-    return clean(seleccionada.textContent);
-
-  // fallback: primera opción válida
-  const primera = [...select.querySelectorAll("option")]
-    .find(o => o.value && o.value !== "0");
-
-  return primera
-    ? clean(primera.textContent)
-    : "LIGA";
+  return selected ? clean(selected.textContent) : "";
 }
-/* =========================
-   EXTRAER PARTIDOS
-========================= */
 
-function extraerPartidos(doc, modalidad, faseTexto, url) {
+function extraerPartidos(doc, modalidad, fase, url) {
 
   const resultados = [];
-
-  // Buscar TODAS las tablas
   const tablas = [...doc.querySelectorAll("table")];
 
-  let tablaPartidos = null;
-
   for (const tabla of tablas) {
-    if (tabla.textContent.includes("/") &&
-        tabla.textContent.includes("-")) {
-      tablaPartidos = tabla;
-      break;
+
+    const filas = [...tabla.querySelectorAll("tr")];
+
+    for (const fila of filas) {
+
+      const tds = [...fila.querySelectorAll("td")];
+      if (tds.length < 5) continue;
+
+      const fechaHora = clean(tds[0].textContent);
+      if (!fechaHora.match(/\d{4}\/\d{2}\/\d{2}/)) continue;
+
+      const fechaObj = parseFechaEU(fechaHora);
+      if (!fechaObj) continue;
+
+      const etx = clean(tds[2].textContent);
+      const kan = clean(tds[4].textContent);
+
+      if (!contieneLarraun(etx) && !contieneLarraun(kan))
+        continue;
+
+      const tanteoCell = tds[3].textContent;
+      const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
+      if (!tanteoMatch) continue;
+
+      const tanteoa =
+        `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
+
+      const setsMatches =
+        [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
+
+      const sets = setsMatches.map(s =>
+        `${parseInt(s[1])} - ${parseInt(s[2])}`
+      );
+
+      resultados.push({
+        fecha: fechaObj.toISOString().slice(0, 10),
+        fronton: clean(tds[1].textContent),
+        etxekoa: convertirPareja(etx),
+        kanpokoak: convertirPareja(kan),
+        tanteoa,
+        sets,
+        modalidad,
+        fase,
+        url,
+        emaitza: calcularEmaitza(etx, kan, tanteoa),
+        ofiziala: true
+      });
     }
-  }
-
-  if (!tablaPartidos) return [];
-
-  const filas = [...tablaPartidos.querySelectorAll("tr")];
-
-  for (const fila of filas) {
-
-    const tds = [...fila.querySelectorAll("td")];
-    if (tds.length < 5) continue;
-
-    const fechaHora = clean(tds[0].textContent);
-    if (!fechaHora.match(/\d{4}\/\d{2}\/\d{2}/)) continue;
-
-    const fechaObj = parseFechaEU(fechaHora);
-    if (!fechaObj) continue;
-
-    const etx = clean(tds[2].textContent);
-    const kan = clean(tds[4].textContent);
-
-    if (!contieneLarraun(etx) && !contieneLarraun(kan))
-      continue;
-
-    const tanteoCell = tds[3].textContent;
-
-    const tanteoMatch = tanteoCell.match(/(\d+)\s*-\s*(\d+)/);
-    if (!tanteoMatch) continue;
-
-    const tanteoa =
-      `${parseInt(tanteoMatch[1])} - ${parseInt(tanteoMatch[2])}`;
-
-    const setsMatches =
-      [...tanteoCell.matchAll(/\((\d+)\s*-\s*(\d+)\)/g)];
-
-    const sets = setsMatches.map(s =>
-      `${parseInt(s[1])} - ${parseInt(s[2])}`
-    );
-
-    resultados.push({
-      fecha: fechaObj.toISOString().slice(0, 10),
-      fronton: clean(tds[1].textContent),
-      etxekoa: convertirPareja(etx),
-      kanpokoak: convertirPareja(kan),
-      tanteoa,
-      sets,
-      modalidad,
-      fase: faseTexto,
-      url,
-      emaitza: calcularEmaitza(etx, kan, tanteoa),
-      ofiziala: true
-    });
   }
 
   return resultados;
 }
-
-/* =========================
-   MAIN
-========================= */
 
 (async () => {
 
@@ -238,57 +170,50 @@ function extraerPartidos(doc, modalidad, faseTexto, url) {
 
   for (let id = ID_MIN; id <= ID_MAX; id++) {
 
-    const urlBase =
+    // 🔵 LIGA
+    const urlLiga =
       `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&temp=${TEMPORADA}`;
 
     try {
 
-      const htmlBase = await getHTML(urlBase);
-      if (htmlBase.length < 2000) continue;
+      const htmlLiga = await getHTML(urlLiga);
+      const docLiga = new JSDOM(htmlLiga).window.document;
 
-      const docBase = new JSDOM(htmlBase).window.document;
+      const modalidad = extraerModalidad(docLiga);
+      const fase = "LIGAXKA";
 
-      const fases = extraerFases(docBase);
+      todos.push(
+        ...extraerPartidos(docLiga, modalidad, fase, urlLiga)
+      );
 
-      // 🔥 CASO 1: Hay fases
-      if (fases.length > 0) {
-
-        for (const fase of fases) {
-
-          const urlFase =
-            `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${fase}&temp=${TEMPORADA}`;
-
-          const htmlFase = await getHTML(urlFase);
-          const docFase = new JSDOM(htmlFase).window.document;
-
-          const modalidad = extraerModalidad(docFase);
-          const faseTexto = extraerFaseTexto(docFase);
-
-          const faseRes =
-  extraerPartidos(docFase, modalidad, faseTexto, urlFase);
-
-          todos.push(...faseRes);
-
-          await sleep(ESPERA_MS);
-        }
-
-      } else {
-        // 🔥 CASO 2: No hay fases → procesar base
-
-        const modalidad = extraerModalidad(docBase);
-        const faseTexto = "LIGA";
-
-        const baseRes =
-  extraerPartidos(docBase, modalidad, faseTexto, urlBase);
-
-        todos.push(...baseRes);
-      }
-
-    } catch (err) {
-      console.log("Error ID", id);
-    }
+    } catch {}
 
     await sleep(ESPERA_MS);
+
+    // 🔴 FASES FINALES
+    for (let f = FASE_MIN; f <= FASE_MAX; f++) {
+
+      const urlFase =
+        `${BASE}/pub/modalidadComp.asp?idioma=eu&idCompeticion=${id}&idFaseEliminatoria=${f}&temp=${TEMPORADA}`;
+
+      try {
+
+        const htmlFase = await getHTML(urlFase);
+        if (htmlFase.length < 2000) continue;
+
+        const docFase = new JSDOM(htmlFase).window.document;
+
+        const modalidad = extraerModalidad(docFase);
+        const fase = extraerFaseTexto(docFase);
+
+        todos.push(
+          ...extraerPartidos(docFase, modalidad, fase, urlFase)
+        );
+
+      } catch {}
+
+      await sleep(ESPERA_MS);
+    }
   }
 
   const finales = todos.filter(r => {
