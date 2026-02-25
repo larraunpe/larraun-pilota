@@ -43,14 +43,11 @@ async function fetchHtml(url) {
 // -----------------------------------------------------
 
 function extraerModalidad($) {
-  let titulo = $("h1").first().text().trim();
+  // PRIORIDAD ABSOLUTA: h6
+  let titulo = $("h6").first().text().trim();
 
   if (!titulo) {
-    titulo = $(".titulo").first().text().trim();
-  }
-
-  if (!titulo) {
-    titulo = $("title").text().trim();
+    return "";
   }
 
   return titulo.replace(/\s+/g, " ").trim();
