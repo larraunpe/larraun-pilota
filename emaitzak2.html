@@ -82,16 +82,16 @@ main{padding:20px;}
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 .match.finala.win::before {
   background: repeating-linear-gradient(
     45deg,
     transparent,
-    transparent 10px,
-    rgba(255, 215, 0, 0.5) 10px,
-    rgba(255, 215, 0, 0.5) 20px
+    transparent 12px,
+    rgba(255, 215, 0, 0.6) 12px,
+    rgba(255, 215, 0, 0.6) 24px
   );
 }
 
@@ -99,9 +99,9 @@ main{padding:20px;}
   background: repeating-linear-gradient(
     45deg,
     transparent,
-    transparent 10px,
-    rgba(192, 192, 192, 0.5) 10px,
-    rgba(192, 192, 192, 0.5) 20px
+    transparent 12px,
+    rgba(192, 192, 192, 0.6) 12px,
+    rgba(192, 192, 192, 0.6) 24px
   );
 }
 
@@ -110,129 +110,169 @@ main{padding:20px;}
   position: absolute;
   top: 10px;
   right: 12px;
-  font-size: .7em;
+  font-size: .75em;
   font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 20px;
-  background: #6c757d;
-  color: #fff;
-  z-index: 2;
+  padding: 5px 12px;
+  border-radius: 25px;
+  background: #495057;
+  color: white;
+  z-index: 3;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .fase-etiqueta.fase-especial {
   background: #ffc107;
   color: #212529;
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-  border: 1px solid #ffa500;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  border: 1px solid #ff8c00;
+  font-weight: 800;
 }
 
-/* ===== BADGES (AHORA CERCA DEL MARCADOR) ===== */
-.badge-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 5px 0 10px 0;
-  position: relative;
-  z-index: 2;
-}
-
-.badge{
-  font-size:.7em;
-  font-weight:bold;
+/* ===== BADGE OFIZIALA (IZQUIERDA, JUNTO AL MARCADOR) ===== */
+.badge-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
   padding: 4px 12px;
   border-radius: 20px;
-  background:#b00000;
-  color:#fff;
-  display: inline-block;
+  background: #198754;
+  color: white;
   text-transform: uppercase;
+  margin-right: 10px;
+  vertical-align: middle;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #146c43;
 }
-.badge.beste-ofiziala{
-  background:#198754;
+
+.badge-ez-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #b00000;
+  color: white;
+  text-transform: uppercase;
+  margin-right: 10px;
+  vertical-align: middle;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #8b0000;
+}
+
+/* ===== MARCADOR CON BADGE ===== */
+.scoreboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.scoreboard {
+  display: flex;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.scorebox {
+  min-width: 60px;
+  padding: 8px 0;
+  text-align: center;
+  color: white;
+  border-radius: 4px;
+}
+
+.scorebox.blue {
+  background: #0d47a1;
+  margin-right: 2px;
+  box-shadow: 0 2px 4px rgba(13, 71, 161, 0.3);
+}
+
+.scorebox.red {
+  background: #b71c1c;
+  margin-left: 2px;
+  box-shadow: 0 2px 4px rgba(183, 28, 28, 0.3);
 }
 
 /* ===== TEXTO ===== */
 .line{
-  margin:6px 0;
+  margin: 8px 0;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
-.meta{font-size:.9em;color:#333;}
+
+.meta{
+  font-size: 0.9em;
+  color: #2c3e50;
+}
 
 .etxekoa-line{
-  color:#0d47a1;
-  font-weight:bold;
-  font-size:1.05em;
-  text-transform:uppercase;
+  color: #0d47a1;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
+
 .kanpokoa-line{
-  color:#b71c1c;
-  font-weight:bold;
-  font-size:1.05em;
-  text-transform:uppercase;
+  color: #b71c1c;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* FRONTÓN DESTACADO */
 .fronton-destacado{
-  background:#e3f2fd;
-  padding:2px 6px;
-  border-radius:4px;
-  font-style:italic;
-  font-weight:bold;
+  background: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-style: italic;
+  font-weight: 600;
+  display: inline-block;
 }
-
-/* ===== MARCADOR ===== */
-.scoreboard{
-  display:flex;
-  justify-content:center;
-  margin:10px 0;
-  font-size:1.6em;
-  font-weight:bold;
-  position: relative;
-  z-index: 2;
-}
-.scorebox{
-  min-width:56px;
-  padding:6px 0;
-  text-align:center;
-  color:#fff;
-}
-.scorebox.blue{background:#0d47a1;}
-.scorebox.red{background:#b71c1c;}
 
 .sets{
-  text-align:center;
-  font-size:.95em;
-  color:#333;
+  text-align: center;
+  font-size: 0.95em;
+  color: #34495e;
+  margin: 8px 0;
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  font-weight: 500;
 }
 
 .modalidad{
-  font-size:.9em;
-  color:#004d40;
-  font-weight:600;
+  font-size: 0.9em;
+  color: #004d40;
+  font-weight: 600;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
+
 .modalidad a{
-  color:#004d40;
-  text-decoration:none;
+  color: #004d40;
+  text-decoration: none;
+  border-bottom: 1px dotted #004d40;
 }
-.modalidad a:hover{text-decoration:underline;}
+
+.modalidad a:hover{
+  border-bottom: 1px solid #004d40;
+}
 
 .rest-separator{
-  margin:20px 0 10px;
-  text-align:center;
-  font-weight:bold;
-  color:#666;
-  letter-spacing:1px;
+  margin: 25px 0 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #7f8c8d;
+  letter-spacing: 2px;
+  font-size: 0.9em;
 }
 </style>
 </head>
@@ -248,7 +288,7 @@ main{padding:20px;}
 <main id="content"></main>
 
 <script>
-// Mapeo de fases (desde tu JSON)
+// Mapeo de fases (solo queremos mostrar estos textos)
 const FASE_MAPPING = {
   "LIGAXKA": "LIGAXKA",
   "KANPORAKETA": "KANPORAKETA",
@@ -308,8 +348,8 @@ Promise.all(
               ? String(o.ofiziala).toLowerCase()==="true"
               : true,
           _date: parseDate(o.fecha),
-          // Normalizamos la fase usando el mapping
-          fase_normalizada: FASE_MAPPING[o.modalidad] || o.modalidad || ""
+          // Normalizamos la fase usando el mapping - esto es lo que se mostrará
+          fase_mostrar: FASE_MAPPING[o.modalidad] || o.modalidad || ""
         }))
       )
   )
@@ -358,19 +398,40 @@ Promise.all(
         cls += "lose";
       }
 
-      // Añadimos clase 'finala' si la fase es FINALA (para las franjas)
-      if (m.fase_normalizada === "FINALA") {
+      // Añadimos clase 'finala' si la fase a mostrar es FINALA (para las franjas)
+      if (m.fase_mostrar === "FINALA") {
         cls += " finala";
       }
 
-      let marcador="";
-      if(m.tanteoa&&m.tanteoa.includes("-")){
-        const[a,b]=m.tanteoa.split("-").map(x=>x.trim());
-        marcador=`
-        <div class="scoreboard">
-          <div class="scorebox blue">${a}</div>
-          <div class="scorebox red">${b}</div>
+      // Construir el marcador con el badge integrado
+      let marcadorHTML = "";
+      if(m.tanteoa && m.tanteoa.includes("-")){
+        const [a,b] = m.tanteoa.split("-").map(x=>x.trim());
+        
+        // Badge para OFIZIALA/EZ OFIZIALA (solo si corresponde)
+        let badgeHTML = "";
+        if (esBesteOfizial) {
+          badgeHTML = `<span class="badge-ofiziala">OFIZIALA</span>`;
+        } else if (esNoOficial) {
+          badgeHTML = `<span class="badge-ez-ofiziala">EZ OFIZIALA</span>`;
+        }
+        
+        marcadorHTML = `
+        <div class="scoreboard-wrapper">
+          ${badgeHTML}
+          <div class="scoreboard">
+            <div class="scorebox blue">${a}</div>
+            <div class="scorebox red">${b}</div>
+          </div>
         </div>`;
+      } else {
+        // Si no hay marcador, igual mostramos el badge solo si existe
+        if (esBesteOfizial || esNoOficial) {
+          let badgeHTML = esBesteOfizial ? 
+            '<span class="badge-ofiziala">OFIZIALA</span>' : 
+            '<span class="badge-ez-ofiziala">EZ OFIZIALA</span>';
+          marcadorHTML = `<div class="scoreboard-wrapper">${badgeHTML}</div>`;
+        }
       }
 
       const modalidadHTML=
@@ -379,20 +440,11 @@ Promise.all(
         : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
 
       // Determinar la clase especial para la fase (si es FINALA)
-      const faseEspecial = m.fase_normalizada === "FINALA" ? "fase-especial" : "";
+      const faseEspecial = m.fase_mostrar === "FINALA" ? "fase-especial" : "";
       
       // Crear la etiqueta de fase (solo si hay fase)
-      const faseEtiqueta = m.fase_normalizada ? 
-        `<div class="fase-etiqueta ${faseEspecial}">${m.fase_normalizada}</div>` : "";
-
-      // Crear contenedor de badges (OFIZIALA/EZ OFIZIALA) - ahora cerca del marcador
-      let badgesHTML = "";
-      if (esNoOficial || esBesteOfizial) {
-        badgesHTML = '<div class="badge-container">';
-        if (esNoOficial) badgesHTML += '<span class="badge">EZ OFIZIALA</span>';
-        if (esBesteOfizial) badgesHTML += '<span class="badge beste-ofiziala">OFIZIALA</span>';
-        badgesHTML += '</div>';
-      }
+      const faseEtiqueta = m.fase_mostrar ? 
+        `<div class="fase-etiqueta ${faseEspecial}">${m.fase_mostrar}</div>` : "";
 
       c.innerHTML+=`
       <div class="${cls}">
@@ -402,8 +454,8 @@ Promise.all(
         <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
         <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
 
-        ${marcador}
-        ${badgesHTML}
+        ${marcadorHTML}
+        
         ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
 
         <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
