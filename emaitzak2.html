@@ -314,6 +314,14 @@ function extraerFase(modalidadTexto) {
   return "";
 }
 
+// Función para verificar si el partido involucra a Larraun
+function involucraALarraun(partido) {
+  const etxekoa = (partido.etxekoa || "").toUpperCase();
+  const kanpokoa = (partido.kanpokoak || "").toUpperCase();
+  
+  return etxekoa.includes("LARRAUN") || kanpokoa.includes("LARRAUN");
+}
+
 const SOURCES=[
   {url:"/data/resultados-larraun.json", origen:"oficial"},
   {url:"/data/resultados-no-oficiales.json", origen:"no-oficial"}
@@ -367,7 +375,10 @@ Promise.all(
   )
 ).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
-  const data=all.flat().filter(m=>m._date&&m._date<=today);
+  
+  // Filtramos para quedarnos solo con partidos que involucran a Larraun
+  const data = all.flat()
+    .filter(m => m._date && m._date <= today && involucraALarraun(m));
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
