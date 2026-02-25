@@ -126,12 +126,13 @@ function formatearModalidad(modalidad, fase) {
     .replace(/NKJ - TRINKETE\s+TRINKETE ESKUZ\s+/g, "")
     .replace(/TRINKETE ESKUZ\s+/g, "");
   
-  // Si hay fase y no es LIGAXKA, añadirla
-  if (fase && fase !== "LIGAXKA") {
-    return `${modalidadLimpia} ${fase}`.trim();
+  // 🔹 NUEVO: Si la fase está vacía o es LIGAXKA, añadir LIGAXKA explícitamente
+  if (!fase || fase === "LIGAXKA") {
+    return `${modalidadLimpia} LIGAXKA`.trim();
   }
   
-  return modalidadLimpia;
+  // Si hay fase y no es LIGAXKA, añadirla
+  return `${modalidadLimpia} ${fase}`.trim();
 }
 
 // -----------------------------------------------------
@@ -180,6 +181,11 @@ function parsearPartidos($, modalidad, fase, url) {
         .text()
     );
     kanpokoak = formatearEquipo(kanpokoak);
+
+    // 🔹 FILTRAR: Solo guardar partidos donde aparezca LARRAUN
+    if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) {
+      return; // Saltar este partido
+    }
 
     // 🔹 TANTEO - eliminar espacios
     const tanteoCell = $(celdas[3]);
