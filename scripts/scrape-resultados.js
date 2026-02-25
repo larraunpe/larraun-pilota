@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
+import iconv from "iconv-lite";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -7,7 +8,6 @@ import { fileURLToPath } from "url";
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
 const TEMPORADA = 2025;
 
-// 🔎 RANGOS CONFIGURABLES
 const ID_COMPETICION_DESDE = 3059;
 const ID_COMPETICION_HASTA = 3060;
 
@@ -23,13 +23,17 @@ const OUTPUT_FILE = path.join(__dirname, "..", "data", "resultados-larraun.json"
 
 async function fetchHtml(url) {
   try {
-    const { data } = await axios.get(url, {
+    const response = await axios.get(url, {
       headers: {
         "User-Agent": "Mozilla/5.0",
       },
+      responseType: "arraybuffer",
       timeout: 15000,
     });
-    return data;
+
+    // Decodificar correctamente
+    const html = iconv.decode(Buffer.from(response.data), "windows-1252");
+    return html;
   } catch (err) {
     console.log("Error cargando:", url);
     return null;
@@ -39,70 +43,98 @@ async function fetchHtml(url) {
 // -----------------------------------------------------
 
 function extraerModalidad($) {
-  // Buscar en diferentes lugares donde podría estar la modalidad
-  
-  // 1️⃣ Buscar en el select de competiciones (si existe)
-  const compSelected = $('select[name="idCompeticion"] option:selected').text().trim();
-  if (compSelected && compSelected !== "Seleccionar competición") {
-    return compSelected;
+  let titulo = $("h1").first().text().trim();
+
+  if (!titulo) {
+    titulo = $(".titulo").first().text().trim();
   }
-  
-  // 2️⃣ Buscar en el título de la página pero filtrando
-  const titulo = $("h1").first().text().trim();
-  
-  // Si el título contiene información útil y no es el nombre de la federación
-  if (titulo && !titulo.includes("Nafarroako Euskal Pilota Federakuntza")) {
-    return titulo;
+
+  if (!titulo) {
+    titulo = $("title").text().trim();
   }
-  
-  // 3️⃣ Buscar en el breadcrumb o navegación
-  const breadcrumb = $(".breadcrumb").text().trim();
-  if (breadcrumb) {
-    const partes = breadcrumb.split(">").map(p => p.trim());
-    // La última parte suele ser la modalidad
-    if (partes.length > 0) {
-      return partes[partes.length - 1];
-    }
-  }
-  
-  // 4️⃣ Buscar en alguna etiqueta con clase "titulo" o similar
-  const tituloClase = $(".titulo").first().text().trim();
-  if (tituloClase && !tituloClase.includes("Federakuntza")) {
-    return tituloClase;
-  }
-  
-  return "";
+
+  return titulo.replace(/\s+/g, " ").trim();
 }
 
 // -----------------------------------------------------
 
 function extraerFase($, url) {
-  // Si NO es eliminatoria → LIGAXKA
   if (!url.includes("idFaseEliminatoria")) {
     return "LIGAXKA";
   }
 
-  // Intento 1: opción selected
-  let fase = $('select[name="idFaseEliminatoria"] option:selected')
-    .text()
-    .trim();
+  const selected = $('select[name="selFase"] option[selected]');
 
-  if (fase) return fase;
-
-  // Intento 2: buscar option que coincida con el id de la URL
-  const idMatch = url.match(/idFaseEliminatoria=(\d+)/);
-  if (idMatch) {
-    const idBuscado = idMatch[1];
-
-    $('select[name="idFaseEliminatoria"] option').each((_, el) => {
-      const value = $(el).attr("value");
-      if (value === idBuscado) {
-        fase = $(el).text().trim();
-      }
-    });
+  if (selected.length) {
+    return selected.text().trim();
   }
 
-  return fase || "";
+  return "";
+}
+
+// -----------------------------------------------------
+
+function limpiarTexto(texto) {
+  if (!texto) return texto;
+
+  // Reemplazar caracteres mal codificados
+  return texto
+    .replace(/�/g, "Ñ")
+    .replace(/�/g, "ñ")
+    .replace(/�/g, "Í")
+    .replace(/�/g, "í")
+    .replace(/�/g, "Ó")
+    .replace(/�/g, "ó")
+    .replace(/�/g, "Á")
+    .replace(/�/g, "á")
+    .replace(/�/g, "É")
+    .replace(/�/g, "é")
+    .replace(/�/g, "Ú")
+    .replace(/�/g, "ú")
+    .replace(/�/g, "Ü")
+    .replace(/�/g, "ü");
+}
+
+// -----------------------------------------------------
+
+function formatearEquipo(texto) {
+  if (!texto) return texto;
+  
+  // Eliminar espacios múltiples y limpiar
+  return texto.replace(/\s+/g, " ").trim();
+}
+
+// -----------------------------------------------------
+
+function formatearSets(sets) {
+  if (!sets || sets.length === 0) return [];
+  
+  // Formatear cada set como "(XX-YY)" y unirlos en un solo string
+  const setsFormateados = sets.map(set => `(${set})`);
+  return [setsFormateados.join(" ")];
+}
+
+// -----------------------------------------------------
+
+function formatearModalidad(modalidad, fase) {
+  if (!modalidad) return "";
+  
+  // Limpiar la modalidad
+  let modalidadLimpia = modalidad
+    .replace(/\s+/g, " ")
+    .trim();
+  
+  // Eliminar "NKJ - TRINKETE TRINKETE ESKUZ" repetido si existe
+  modalidadLimpia = modalidadLimpia
+    .replace(/NKJ - TRINKETE\s+TRINKETE ESKUZ\s+/g, "")
+    .replace(/TRINKETE ESKUZ\s+/g, "");
+  
+  // Si hay fase y no es LIGAXKA, añadirla
+  if (fase && fase !== "LIGAXKA") {
+    return `${modalidadLimpia} ${fase}`.trim();
+  }
+  
+  return modalidadLimpia;
 }
 
 // -----------------------------------------------------
@@ -112,50 +144,76 @@ function parsearPartidos($, modalidad, fase, url) {
 
   $("table tr").each((_, row) => {
     const celdas = $(row).find("td");
+    if (celdas.length < 5) return;
 
-    if (celdas.length < 6) return;
-
-    // 🔹 FECHA - tomar solo primeros 10 caracteres y convertir / a -
-    let fechaTexto = $(celdas[0]).text().trim();
-    let fecha = fechaTexto.substring(0, 10).replace(/\//g, "-");
-
-    const fronton = $(celdas[1]).text().trim();
-    
-    // 🔹 EQUIPOS - limpiar espacios
-    const etxekoa = $(celdas[2]).text().replace(/\s+/g, " ").trim();
-    const kanpokoak = $(celdas[3]).text().replace(/\s+/g, " ").trim();
-    
-    // 🔹 TANTEO - eliminar espacios
-    const tanteoa = $(celdas[4]).text().replace(/\s+/g, "").trim();
-    
-    // 🔹 SETS
-    const setsRaw = $(celdas[5]).text().trim();
-    
-    if (!fecha || !tanteoa) return;
-
-    // Formatear sets como (XX-YY) (XX-YY)
-    const setsArray = setsRaw
-      .split(/\s+/)
-      .filter((s) => s.includes("-"));
-    
-    const sets = setsArray.length > 0 ? ["(" + setsArray.join(") (") + ")"] : [];
-
-    const [etx, kan] = tanteoa.split("-").map((x) => x.trim());
-
-    let emaitza = "";
-    if (etx && kan) {
-      emaitza = Number(etx) > Number(kan) ? "irabazita" : "galduta";
-    }
-
-    // 🔹 MODALIDAD - limpiar y formatear
-    let modalidadLimpia = modalidad
+    // 🔹 FECHA - tomar solo los primeros 10 caracteres y convertir / a -
+    let fechaTexto = $(celdas[0])
+      .text()
       .replace(/\s+/g, " ")
       .trim();
-    
-    // Eliminar texto de la federación si aparece
-    modalidadLimpia = modalidadLimpia
-      .replace(/Nafarroako Euskal Pilota Federakuntza/i, "")
+
+    // Tomar solo los primeros 10 caracteres y reemplazar / por -
+    let fecha = fechaTexto.substring(0, 10).replace(/\//g, "-");
+
+    // 🔹 FRONTÓN
+    let fronton = limpiarTexto(
+      $(celdas[1])
+        .text()
+        .replace(/\s+/g, " ")
+        .trim()
+    );
+
+    // 🔹 EQUIPOS - formatear sin espacios extra
+    let etxekoa = limpiarTexto(
+      $(celdas[2])
+        .clone()
+        .find("br")
+        .replaceWith(" ")
+        .end()
+        .text()
+    );
+    etxekoa = formatearEquipo(etxekoa);
+
+    let kanpokoak = limpiarTexto(
+      $(celdas[4])
+        .clone()
+        .find("br")
+        .replaceWith(" ")
+        .end()
+        .text()
+    );
+    kanpokoak = formatearEquipo(kanpokoak);
+
+    // 🔹 TANTEO - eliminar espacios
+    const tanteoCell = $(celdas[3]);
+    const tanteoa = tanteoCell
+      .contents()
+      .filter(function () {
+        return this.type === "text";
+      })
+      .text()
+      .replace(/\s+/g, "")
       .trim();
+
+    // 🔹 SETS
+    const setsTemp = [];
+    tanteoCell.find("span.small").each((_, el) => {
+      const texto = $(el).text();
+      const matches = texto.match(/\((.*?)\)/g);
+      if (matches) {
+        matches.forEach((m) => setsTemp.push(m.replace(/[()]/g, "").trim()));
+      }
+    });
+    
+    // Formatear sets como se solicita
+    const sets = formatearSets(setsTemp);
+
+    if (!fecha || !tanteoa) return;
+
+    // 🔹 EMATZA
+    const [etx, kan] = tanteoa.split("-").map((x) => x.trim());
+    const emaitza =
+      etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : "";
 
     partidos.push({
       fecha,
@@ -164,8 +222,8 @@ function parsearPartidos($, modalidad, fase, url) {
       kanpokoak,
       tanteoa,
       sets,
-      modalidad: modalidadLimpia,
-      fase,
+      modalidad: formatearModalidad(limpiarTexto(modalidad), limpiarTexto(fase)),
+      fase: limpiarTexto(fase),
       url,
       emaitza,
       ofiziala: true,
@@ -222,7 +280,6 @@ async function main() {
     idComp <= ID_COMPETICION_HASTA;
     idComp++
   ) {
-    // 1️⃣ LIGAXKA
     const urlLiga = `${BASE}&idCompeticion=${idComp}&temp=${TEMPORADA}`;
 
     if (!urlsVisitadas.has(urlLiga)) {
@@ -232,12 +289,7 @@ async function main() {
       resultados.push(...partidos);
     }
 
-    // 2️⃣ ELIMINATORIAS
-    for (
-      let idFase = ID_FASE_DESDE;
-      idFase <= ID_FASE_HASTA;
-      idFase++
-    ) {
+    for (let idFase = ID_FASE_DESDE; idFase <= ID_FASE_HASTA; idFase++) {
       const urlFase = `${BASE}&idCompeticion=${idComp}&idFaseEliminatoria=${idFase}&temp=${TEMPORADA}`;
 
       if (!urlsVisitadas.has(urlFase)) {
@@ -249,7 +301,7 @@ async function main() {
     }
   }
 
-  // 🔥 Eliminar duplicados exactos
+  // Eliminar duplicados
   const unique = Array.from(
     new Map(
       resultados.map((p) => [
@@ -259,12 +311,16 @@ async function main() {
     ).values()
   );
 
-  // Eliminar el campo fase del resultado final
-  unique.forEach(p => {
+  // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres y formato correcto
+  unique.forEach((p) => {
+    if (p.fecha && p.fecha.length > 10) {
+      p.fecha = p.fecha.substring(0, 10).replace(/\//g, "-");
+    }
+    // Eliminar el campo fase ya que ahora está incluido en modalidad
     delete p.fase;
   });
 
-  // Guardar en archivo en lugar de console.log
+  // Guardar en archivo
   await guardarResultados(unique);
 }
 
