@@ -131,7 +131,14 @@ main{padding:20px;}
   font-weight: 800;
 }
 
-/* ===== BADGE OFIZIALA (IZQUIERDA, JUNTO AL MARCADOR) ===== */
+/* ===== BADGE OFIZIALA (DEBAJO DEL EQUIPO VISITANTE) ===== */
+.badge-ofiziala-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 3;
+}
+
 .badge-ofiziala {
   display: inline-block;
   font-size: .7em;
@@ -141,8 +148,6 @@ main{padding:20px;}
   background: #198754;
   color: white;
   text-transform: uppercase;
-  margin-right: 10px;
-  vertical-align: middle;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border: 1px solid #146c43;
 }
@@ -156,26 +161,17 @@ main{padding:20px;}
   background: #b00000;
   color: white;
   text-transform: uppercase;
-  margin-right: 10px;
-  vertical-align: middle;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border: 1px solid #8b0000;
 }
 
-/* ===== MARCADOR CON BADGE ===== */
-.scoreboard-wrapper {
+/* ===== MARCADOR ===== */
+.scoreboard {
   display: flex;
-  align-items: center;
   justify-content: center;
   margin: 12px 0;
   position: relative;
   z-index: 3;
-}
-
-.scoreboard {
-  display: flex;
-  font-size: 1.6em;
-  font-weight: bold;
 }
 
 .scorebox {
@@ -288,19 +284,35 @@ main{padding:20px;}
 <main id="content"></main>
 
 <script>
-// Mapeo de fases (solo queremos mostrar estos textos)
-const FASE_MAPPING = {
-  "LIGAXKA": "LIGAXKA",
-  "KANPORAKETA": "KANPORAKETA",
-  "FINAL ZORTZIRENAK": "FINAL ZORTZIRENAK",
-  "FINAL LAURDENEN LIGAXKA": "FINAL LAURDENEN LIGAXKA",
-  "FINAL LAURDENAK": "FINAL LAURDENAK",
-  "FINAL AURREKOAK": "FINAL AURREKOAK",
-  "FINALA": "FINALA",
-  "LIGA": "LIGA",
-  "FINAL ERDIAK": "FINAL ERDIAK",
-  "SEMIFINALA": "SEMIFINALA"
-};
+// Mapeo de fases - estos son los textos que buscamos en modalidad
+const FASES = [
+  "LIGAXKA",
+  "KANPORAKETA",
+  "FINAL ZORTZIRENAK",
+  "FINAL LAURDENEN LIGAXKA",
+  "FINAL LAURDENAK",
+  "FINAL AURREKOAK",
+  "FINALA",
+  "LIGA",
+  "FINAL ERDIAK",
+  "SEMIFINALA"
+];
+
+// Función para extraer la fase del texto completo de modalidad
+function extraerFase(modalidadTexto) {
+  if (!modalidadTexto) return "";
+  
+  // Buscamos si alguna de las fases está contenida en el texto
+  for (const fase of FASES) {
+    if (modalidadTexto.includes(fase)) {
+      return fase;
+    }
+  }
+  
+  // Si no encontramos ninguna fase conocida, devolvemos el texto completo
+  // o una cadena vacía si no queremos mostrar nada
+  return "";
+}
 
 const SOURCES=[
   {url:"/data/resultados-larraun.json", origen:"oficial"},
@@ -348,8 +360,8 @@ Promise.all(
               ? String(o.ofiziala).toLowerCase()==="true"
               : true,
           _date: parseDate(o.fecha),
-          // Normalizamos la fase usando el mapping - esto es lo que se mostrará
-          fase_mostrar: FASE_MAPPING[o.modalidad] || o.modalidad || ""
+          // Extraemos la fase del texto de modalidad
+          fase_mostrar: extraerFase(o.modalidad)
         }))
       )
   )
@@ -403,35 +415,29 @@ Promise.all(
         cls += " finala";
       }
 
-      // Construir el marcador con el badge integrado
+      // Marcador
       let marcadorHTML = "";
       if(m.tanteoa && m.tanteoa.includes("-")){
         const [a,b] = m.tanteoa.split("-").map(x=>x.trim());
-        
-        // Badge para OFIZIALA/EZ OFIZIALA (solo si corresponde)
-        let badgeHTML = "";
-        if (esBesteOfizial) {
-          badgeHTML = `<span class="badge-ofiziala">OFIZIALA</span>`;
-        } else if (esNoOficial) {
-          badgeHTML = `<span class="badge-ez-ofiziala">EZ OFIZIALA</span>`;
-        }
-        
         marcadorHTML = `
-        <div class="scoreboard-wrapper">
-          ${badgeHTML}
-          <div class="scoreboard">
-            <div class="scorebox blue">${a}</div>
-            <div class="scorebox red">${b}</div>
-          </div>
+        <div class="scoreboard">
+          <div class="scorebox blue">${a}</div>
+          <div class="scorebox red">${b}</div>
         </div>`;
-      } else {
-        // Si no hay marcador, igual mostramos el badge solo si existe
-        if (esBesteOfizial || esNoOficial) {
-          let badgeHTML = esBesteOfizial ? 
-            '<span class="badge-ofiziala">OFIZIALA</span>' : 
-            '<span class="badge-ez-ofiziala">EZ OFIZIALA</span>';
-          marcadorHTML = `<div class="scoreboard-wrapper">${badgeHTML}</div>`;
-        }
+      }
+
+      // Badge de OFIZIALA/EZ OFIZIALA (ahora debajo del equipo visitante)
+      let badgeHTML = "";
+      if (esBesteOfizial) {
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ofiziala">OFIZIALA</span>
+        </div>`;
+      } else if (esNoOficial) {
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ez-ofiziala">EZ OFIZIALA</span>
+        </div>`;
       }
 
       const modalidadHTML=
@@ -453,7 +459,9 @@ Promise.all(
         <div class="line meta">📅 ${m.fecha}</div>
         <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
         <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
-
+        
+        ${badgeHTML}
+        
         ${marcadorHTML}
         
         ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
