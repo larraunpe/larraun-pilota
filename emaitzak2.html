@@ -53,8 +53,6 @@ main{padding:20px;}
   box-shadow:0 2px 6px rgba(0,0,0,.15);
   position:relative;
   overflow:hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 /* LATERAL */
@@ -74,8 +72,8 @@ main{padding:20px;}
 /* NO OFICIALES */
 .match.no-oficial{background:#f1f1f1;}
 
-/* ===== FRANJAS INCLINADAS ===== */
-.match::before {
+/* ===== FRANJAS INCLINADAS (SOLO PARA FINALA) ===== */
+.match.finala::before {
   content: "";
   position: absolute;
   top: 0;
@@ -84,12 +82,10 @@ main{padding:20px;}
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  opacity: 0.4;
 }
 
-.match.win::before {
-  opacity: 0.4;
+.match.finala.win::before {
   background: repeating-linear-gradient(
     45deg,
     transparent,
@@ -99,8 +95,7 @@ main{padding:20px;}
   );
 }
 
-.match.lose::before {
-  opacity: 0.4;
+.match.finala.lose::before {
   background: repeating-linear-gradient(
     45deg,
     transparent,
@@ -110,7 +105,7 @@ main{padding:20px;}
   );
 }
 
-/* ===== ETIQUETA DE FASE ===== */
+/* ===== ETIQUETA DE FASE (ESQUINA DERECHA) ===== */
 .fase-etiqueta {
   position: absolute;
   top: 10px;
@@ -132,40 +127,38 @@ main{padding:20px;}
   color: #212529;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
   border: 1px solid #ffa500;
-  animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.7); }
-  50% { box-shadow: 0 0 18px rgba(255, 215, 0, 0.9); }
-  100% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.7); }
+/* ===== BADGES (AHORA CERCA DEL MARCADOR) ===== */
+.badge-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 5px 0 10px 0;
+  position: relative;
+  z-index: 2;
 }
 
-/* ===== BADGES ===== */
 .badge{
-  position:absolute;
-  top:10px;
-  right:12px;
   font-size:.7em;
   font-weight:bold;
-  padding:4px 8px;
-  border-radius:6px;
+  padding: 4px 12px;
+  border-radius: 20px;
   background:#b00000;
   color:#fff;
-  z-index: 2;
+  display: inline-block;
+  text-transform: uppercase;
 }
 .badge.beste-ofiziala{
   background:#198754;
 }
 
-/* Ajuste para que los badges no se solapen con la etiqueta de fase */
-.match .badge {
-  right: auto;
-  left: 12px;
-}
-
 /* ===== TEXTO ===== */
-.line{margin:6px 0; position: relative; z-index: 2;}
+.line{
+  margin:6px 0;
+  position: relative;
+  z-index: 2;
+}
 .meta{font-size:.9em;color:#333;}
 
 .etxekoa-line{
@@ -240,11 +233,6 @@ main{padding:20px;}
   font-weight:bold;
   color:#666;
   letter-spacing:1px;
-}
-
-/* Mapeo de fases (lo usaremos en JS) */
-.fase-mapping {
-  display: none;
 }
 </style>
 </head>
@@ -370,6 +358,11 @@ Promise.all(
         cls += "lose";
       }
 
+      // Añadimos clase 'finala' si la fase es FINALA (para las franjas)
+      if (m.fase_normalizada === "FINALA") {
+        cls += " finala";
+      }
+
       let marcador="";
       if(m.tanteoa&&m.tanteoa.includes("-")){
         const[a,b]=m.tanteoa.split("-").map(x=>x.trim());
@@ -392,10 +385,17 @@ Promise.all(
       const faseEtiqueta = m.fase_normalizada ? 
         `<div class="fase-etiqueta ${faseEspecial}">${m.fase_normalizada}</div>` : "";
 
+      // Crear contenedor de badges (OFIZIALA/EZ OFIZIALA) - ahora cerca del marcador
+      let badgesHTML = "";
+      if (esNoOficial || esBesteOfizial) {
+        badgesHTML = '<div class="badge-container">';
+        if (esNoOficial) badgesHTML += '<span class="badge">EZ OFIZIALA</span>';
+        if (esBesteOfizial) badgesHTML += '<span class="badge beste-ofiziala">OFIZIALA</span>';
+        badgesHTML += '</div>';
+      }
+
       c.innerHTML+=`
       <div class="${cls}">
-        ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-        ${esBesteOfizial ? `<div class="badge beste-ofiziala">OFIZIALA</div>` : ""}
         ${faseEtiqueta}
 
         <div class="line meta">📅 ${m.fecha}</div>
@@ -403,6 +403,7 @@ Promise.all(
         <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
 
         ${marcador}
+        ${badgesHTML}
         ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
 
         <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
