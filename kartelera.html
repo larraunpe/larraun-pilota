@@ -57,12 +57,26 @@ body {
   background: #f9f9f9;
   position: relative;
   border-left: 6px solid #b00000;
+  overflow: hidden; /* Para que las líneas oblicuas no se salgan del contenedor */
 }
 
 .partido.no-oficial {
   background: #f3f3f3;
 }
 
+/* Estilo para partidos con fase "FINALA" */
+.partido.finala {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 215, 0, 0.15),
+    rgba(255, 215, 0, 0.15) 10px,
+    rgba(255, 255, 255, 0.5) 10px,
+    rgba(255, 255, 255, 0.5) 20px
+  );
+  border-left: 6px solid #d4af37; /* Dorado más oscuro para el borde */
+}
+
+/* Estilos para badges/etiquetas */
 .badge {
   position: absolute;
   top: 12px;
@@ -73,10 +87,35 @@ body {
   border-radius: 6px;
   background: #b30000;
   color: #fff;
+  z-index: 2;
 }
 
 .badge.beste-ofiziala {
   background: #198754;
+}
+
+/* Nueva etiqueta para el logo de la FNP (partidos oficiales de federación) */
+.badge-fnp {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 50px;
+  height: 30px;
+  background: white;
+  border-radius: 50% / 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  border: 1px solid #ddd;
+  padding: 3px 5px;
+  z-index: 2;
+}
+
+.badge-fnp img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .fecha {
@@ -100,11 +139,16 @@ body {
   font-weight: bold; 
 }
 
-.etxekoa.larraun {
+/* Estilo común para cuando "LARRAUN" aparece en cualquier equipo */
+.etxekoa.larraun, .kanpokoak.larraun {
   color: #0b2c5d;
   font-weight: bold;
   font-size: 1.1em;
   text-transform: uppercase;
+}
+
+.kanpokoak.larraun {
+  color: #b00000; /* Mantenemos el color distintivo para el equipo visitante */
 }
 
 .fronton { 
@@ -121,10 +165,37 @@ body {
   color: #003366;
 }
 
+/* Contenedor para la parte inferior de la tarjeta */
+.partido-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
 .lehiaketa { 
-  margin-top: 6px; 
   font-size: 0.9em; 
   color: #555; 
+}
+
+/* Etiqueta para la fase extraída */
+.fase-etiqueta {
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #333;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Colores específicos para algunas fases (opcional) */
+.fase-etiqueta.fase-finala {
+  background: #d4af37;
+  color: #1a1a1a;
 }
 
 .footer {
@@ -172,19 +243,30 @@ function cargarFases(){
     });
 }
 
-// Formatea el texto de lehiaketa: fase en negrita + resto entre paréntesis
-function formatearLehiaketa(textoOriginal, fases){
-  if(!textoOriginal) return "";
-  const clave = Object.keys(fases).find(fase => textoOriginal.toUpperCase().startsWith(fase));
-  if(clave){
-    const resto = textoOriginal.slice(clave.length).trim();
-    if(resto){
-      return `<b>${clave}</b> (${resto})`;
-    } else {
-      return `<b>${clave}</b>`;
+// Extrae la fase del texto de lehiaketa si coincide con alguna del listado
+function extraerFase(textoOriginal, fases) {
+  if (!textoOriginal) return { fase: null, resto: textoOriginal || "" };
+  
+  // Ordenar las fases por longitud descendente para que coincida primero con la más larga
+  const fasesOrdenadas = Object.keys(fases).sort((a, b) => b.length - a.length);
+  
+  for (let fase of fasesOrdenadas) {
+    // Buscar la fase al inicio del string o después de un espacio/puntuación
+    const regex = new RegExp(`(^|[\\s,;:.-])${fase}($|[\\s,;:.-])`, 'i');
+    if (regex.test(textoOriginal)) {
+      // Extraer la fase y el resto del texto
+      const resto = textoOriginal.replace(regex, '').trim();
+      return { fase, resto };
     }
   }
-  return textoOriginal;
+  return { fase: null, resto: textoOriginal };
+}
+
+// Formatea el texto de lehiaketa: resto sin la fase
+function formatearLehiaketa(textoOriginal, fases){
+  if(!textoOriginal) return "";
+  const { resto } = extraerFase(textoOriginal, fases);
+  return resto || " "; // Si no queda resto, un espacio en blanco para mantener la estructura
 }
 
 /* ================= CARGAR PARTIDOS ================= */
@@ -214,6 +296,7 @@ Promise.all([
     const valorOfiziala = String(p.ofiziala).toLowerCase();
     const esBesteOfizial = p.origen === "no-oficiales" && valorOfiziala === "true";
     const esNoOficial = p.origen === "no-oficiales" && valorOfiziala === "false";
+    const esOficialFederacion = p.origen === "cartelera"; // Partidos de cartelera-larraun.json
 
     // destacar Lekunberri/Aldatz
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
@@ -222,15 +305,39 @@ Promise.all([
     // clases para fronton
     const frontonClass = esLekunberri ? "fronton lekunberri" : "fronton";
 
-    // resaltar pelotaris de Larraun
+    // resaltar pelotaris de Larraun en ambos equipos
     const etxekoaClass = p.etxekoa?.toUpperCase().includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
     const kanpokoakClass = p.kanpokoak?.toUpperCase().includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
 
     div.className = "partido" + (esNoOficial ? " no-oficial" : "");
 
+    // Extraer fase del texto de lehiaketa o modalidad
+    const textoLehiaketa = p.lehiaketa || p.modalidad || "";
+    const { fase } = extraerFase(textoLehiaketa, fases);
+    
+    // Si la fase es "FINALA", añadir clase especial al partido
+    if (fase && fase.toUpperCase() === "FINALA") {
+      div.classList.add("finala");
+    }
+
+    // Construir el badge correspondiente según el origen
+    let badgeHtml = '';
+    if (esNoOficial) {
+      badgeHtml = `<div class="badge">EZ OFIZIALA</div>`;
+    } else if (esBesteOfizial) {
+      badgeHtml = `<div class="badge beste-ofiziala">OFIZIALA</div>`;
+    } else if (esOficialFederacion) {
+      // Para partidos de cartelera-larraun.json, añadir el logo de la FNP en etiqueta ovalada
+      badgeHtml = `<div class="badge-fnp"><img src="images/logo-fnp.png" alt="FNP"></div>`;
+    }
+
+    // Formatear la etiqueta de fase si existe
+    const faseHtml = fase ? 
+      `<span class="fase-etiqueta ${fase === 'FINALA' ? 'fase-finala' : ''}">${fase}</span>` : 
+      '';
+
     div.innerHTML = `
-      ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-      ${esBesteOfizial ? `<div class="badge beste-ofiziala">OFIZIALA</div>` : ""}
+      ${badgeHtml}
 
       <div class="fecha">
         🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
@@ -243,7 +350,11 @@ Promise.all([
       </div>
 
       <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
-      <div class="lehiaketa">🏆 ${formatearLehiaketa(p.lehiaketa || p.modalidad, fases)}</div>
+      
+      <div class="partido-footer">
+        <div class="lehiaketa">🏆 ${formatearLehiaketa(textoLehiaketa, fases)}</div>
+        ${faseHtml}
+      </div>
     `;
 
     cont.appendChild(div);
