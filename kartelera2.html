@@ -76,6 +76,7 @@ body {
   border-left: 6px solid #d4af37; /* Dorado más oscuro para el borde */
 }
 
+/* Estilos para badges/etiquetas */
 .badge {
   position: absolute;
   top: 12px;
@@ -86,10 +87,35 @@ body {
   border-radius: 6px;
   background: #b30000;
   color: #fff;
+  z-index: 2;
 }
 
 .badge.beste-ofiziala {
   background: #198754;
+}
+
+/* Nueva etiqueta para el logo de la FNP (partidos oficiales de federación) */
+.badge-fnp {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 50px;
+  height: 30px;
+  background: white;
+  border-radius: 50% / 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  border: 1px solid #ddd;
+  padding: 3px 5px;
+  z-index: 2;
+}
+
+.badge-fnp img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .fecha {
@@ -270,6 +296,7 @@ Promise.all([
     const valorOfiziala = String(p.ofiziala).toLowerCase();
     const esBesteOfizial = p.origen === "no-oficiales" && valorOfiziala === "true";
     const esNoOficial = p.origen === "no-oficiales" && valorOfiziala === "false";
+    const esOficialFederacion = p.origen === "cartelera"; // Partidos de cartelera-larraun.json
 
     // destacar Lekunberri/Aldatz
     const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
@@ -293,14 +320,24 @@ Promise.all([
       div.classList.add("finala");
     }
 
+    // Construir el badge correspondiente según el origen
+    let badgeHtml = '';
+    if (esNoOficial) {
+      badgeHtml = `<div class="badge">EZ OFIZIALA</div>`;
+    } else if (esBesteOfizial) {
+      badgeHtml = `<div class="badge beste-ofiziala">OFIZIALA</div>`;
+    } else if (esOficialFederacion) {
+      // Para partidos de cartelera-larraun.json, añadir el logo de la FNP en etiqueta ovalada
+      badgeHtml = `<div class="badge-fnp"><img src="images/logo-fnp.png" alt="FNP"></div>`;
+    }
+
     // Formatear la etiqueta de fase si existe
     const faseHtml = fase ? 
       `<span class="fase-etiqueta ${fase === 'FINALA' ? 'fase-finala' : ''}">${fase}</span>` : 
       '';
 
     div.innerHTML = `
-      ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-      ${esBesteOfizial ? `<div class="badge beste-ofiziala">OFIZIALA</div>` : ""}
+      ${badgeHtml}
 
       <div class="fecha">
         🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
