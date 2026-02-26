@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larraun Pilota – Aste honetako partidak</title>
+<link rel="icon" type="image/png" href="/kartelera.png">
+<meta property="og:title" content="Kartelera – Larraun Pilota Elkartea">
+<meta property="og:description" content="Pilotarien aste honetako partidak web formatuan">
+<meta property="og:image" content="https://larraunpilota.eus/kartelera.png">
+<meta property="og:url" content="https://larraunpilota.eus/kartelera.html">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eaeaea;
+}
+
+.cartel {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid #b30000;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.header img { height: 80px; }
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 2.2em;
+  color: #b30000;
+}
+
+.partidos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.partido {
+  padding: 16px 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #f9f9f9;
+  position: relative;
+  border-left: 6px solid #b00000;
+  overflow: hidden; /* Para que las líneas oblicuas no se salgan del contenedor */
+}
+
+.partido.no-oficial {
+  background: #f3f3f3;
+}
+
+/* Estilo para partidos con fase "FINALA" */
+.partido.finala {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 215, 0, 0.15),
+    rgba(255, 215, 0, 0.15) 10px,
+    rgba(255, 255, 255, 0.5) 10px,
+    rgba(255, 255, 255, 0.5) 20px
+  );
+  border-left: 6px solid #d4af37; /* Dorado más oscuro para el borde */
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #b30000;
+  color: #fff;
+}
+
+.badge.beste-ofiziala {
+  background: #198754;
+}
+
+.fecha {
+  font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
+.equipos { 
+  margin-bottom: 8px; 
+  line-height: 1.4; 
+}
+
+.etxekoa { 
+  color: #0b2c5d; 
+  font-weight: bold; 
+}
+
+.kanpokoak { 
+  color: #b00000; 
+  font-weight: bold; 
+}
+
+/* Estilo común para cuando "LARRAUN" aparece en cualquier equipo */
+.etxekoa.larraun, .kanpokoak.larraun {
+  color: #0b2c5d;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+
+.kanpokoak.larraun {
+  color: #b00000; /* Mantenemos el color distintivo para el equipo visitante */
+}
+
+.fronton { 
+  margin-top: 6px; 
+  font-style: italic; 
+  color: #333; 
+}
+
+.fronton.lekunberri {
+  background: #e6f2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* Contenedor para la parte inferior de la tarjeta */
+.partido-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.lehiaketa { 
+  font-size: 0.9em; 
+  color: #555; 
+}
+
+/* Etiqueta para la fase extraída */
+.fase-etiqueta {
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #333;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Colores específicos para algunas fases (opcional) */
+.fase-etiqueta.fase-finala {
+  background: #d4af37;
+  color: #1a1a1a;
+}
+
+.footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cartel">
+
+  <div class="header">
+    <img src="images/logo-larraun.png">
+    <h1>ASTE HONETAKO PARTIDAK</h1>
+    <img src="images/logo-fnp.png">
+  </div>
+
+  <div class="partidos" id="lista-partidos"></div>
+
+  <div class="footer">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div>@larraunpilota</div>
+  </div>
+
+</div>
+
+<script>
+/* ================= FUNCIONES DE FASES ================= */
+let fases = {};
+
+// Cargar fases desde JSON
+function cargarFases(){
+  return fetch("/data/fases.json")
+    .then(r => r.json())
+    .catch(err => {
+      console.error("No se pudieron cargar las fases:", err);
+      return {};
+    });
+}
+
+// Extrae la fase del texto de lehiaketa si coincide con alguna del listado
+function extraerFase(textoOriginal, fases) {
+  if (!textoOriginal) return { fase: null, resto: textoOriginal || "" };
+  
+  // Ordenar las fases por longitud descendente para que coincida primero con la más larga
+  const fasesOrdenadas = Object.keys(fases).sort((a, b) => b.length - a.length);
+  
+  for (let fase of fasesOrdenadas) {
+    // Buscar la fase al inicio del string o después de un espacio/puntuación
+    const regex = new RegExp(`(^|[\\s,;:.-])${fase}($|[\\s,;:.-])`, 'i');
+    if (regex.test(textoOriginal)) {
+      // Extraer la fase y el resto del texto
+      const resto = textoOriginal.replace(regex, '').trim();
+      return { fase, resto };
+    }
+  }
+  return { fase: null, resto: textoOriginal };
+}
+
+// Formatea el texto de lehiaketa: resto sin la fase
+function formatearLehiaketa(textoOriginal, fases){
+  if(!textoOriginal) return "";
+  const { resto } = extraerFase(textoOriginal, fases);
+  return resto || " "; // Si no queda resto, un espacio en blanco para mantener la estructura
+}
+
+/* ================= CARGAR PARTIDOS ================= */
+Promise.all([
+  cargarFases(),
+  fetch("data/cartelera-larraun.json").then(r => r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r => r.json())
+]).then(([fases, oficiales, noOficiales]) => {
+
+  const partidos = [
+    ...oficiales.map(p => ({ ...p, origen: "cartelera" })),
+    ...noOficiales.map(p => ({ ...p, origen: "no-oficiales" }))
+  ];
+
+  partidos.sort((a, b) => {
+    const da = new Date(`${a.fecha} ${a.hora || "00:00"}`);
+    const db = new Date(`${b.fecha} ${b.hora || "00:00"}`);
+    return da - db;
+  });
+
+  const cont = document.getElementById("lista-partidos");
+
+  partidos.forEach(p => {
+    const div = document.createElement("div");
+
+    // determinar badge
+    const valorOfiziala = String(p.ofiziala).toLowerCase();
+    const esBesteOfizial = p.origen === "no-oficiales" && valorOfiziala === "true";
+    const esNoOficial = p.origen === "no-oficiales" && valorOfiziala === "false";
+
+    // destacar Lekunberri/Aldatz
+    const esLekunberri = /lekunberri|aldatz/i.test(p.fronton || "");
+    div.style.borderLeftColor = esLekunberri ? "#0b5ed7" : "#b00000";
+
+    // clases para fronton
+    const frontonClass = esLekunberri ? "fronton lekunberri" : "fronton";
+
+    // resaltar pelotaris de Larraun en ambos equipos
+    const etxekoaClass = p.etxekoa?.toUpperCase().includes("LARRAUN") ? "etxekoa larraun" : "etxekoa";
+    const kanpokoakClass = p.kanpokoak?.toUpperCase().includes("LARRAUN") ? "kanpokoak larraun" : "kanpokoak";
+
+    div.className = "partido" + (esNoOficial ? " no-oficial" : "");
+
+    // Extraer fase del texto de lehiaketa o modalidad
+    const textoLehiaketa = p.lehiaketa || p.modalidad || "";
+    const { fase } = extraerFase(textoLehiaketa, fases);
+    
+    // Si la fase es "FINALA", añadir clase especial al partido
+    if (fase && fase.toUpperCase() === "FINALA") {
+      div.classList.add("finala");
+    }
+
+    // Formatear la etiqueta de fase si existe
+    const faseHtml = fase ? 
+      `<span class="fase-etiqueta ${fase === 'FINALA' ? 'fase-finala' : ''}">${fase}</span>` : 
+      '';
+
+    div.innerHTML = `
+      ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
+      ${esBesteOfizial ? `<div class="badge beste-ofiziala">OFIZIALA</div>` : ""}
+
+      <div class="fecha">
+        🗓 ${p.fecha}${p.hora ? " · ⏰ " + p.hora : ""}
+        ${p.zkia ? "🔢 " + p.zkia : ""}
+      </div>
+
+      <div class="equipos">
+        <div class="${etxekoaClass}">🏠 ${p.etxekoa || ""}</div>
+        <div class="${kanpokoakClass}">✈️ ${p.kanpokoak || ""}</div>
+      </div>
+
+      <div class="${frontonClass}">📍 ${p.fronton || ""}</div>
+      
+      <div class="partido-footer">
+        <div class="lehiaketa">🏆 ${formatearLehiaketa(textoLehiaketa, fases)}</div>
+        ${faseHtml}
+      </div>
+    `;
+
+    cont.appendChild(div);
+  });
+});
+</script>
+
+</body>
+</html>
