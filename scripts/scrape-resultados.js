@@ -5,6 +5,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
 const TEMPORADA = 2025;
 
