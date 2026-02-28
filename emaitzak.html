@@ -131,7 +131,36 @@ main{padding:20px;}
   font-weight: 800;
 }
 
-/* ===== BADGE OFIZIALA (DEBAJO DEL EQUIPO VISITANTE) ===== */
+/* ===== NUEVO: ETIQUETA FNP PARA PARTIDOS OFICIALES ===== */
+.badge-fnp-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 3;
+}
+
+.badge-fnp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px 4px 8px;
+  border-radius: 20px;
+  background: #003366;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #002244;
+}
+
+.badge-fnp img {
+  height: 16px;
+  width: auto;
+  border-radius: 2px;
+}
+
+/* ===== BADGE OFIZIALA/EZ OFIZIALA ===== */
 .badge-ofiziala-container {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -405,6 +434,7 @@ Promise.all(
         descansoMostrado=true;
       }
 
+      const esOficialFNP = m.origen === "oficial"; // Partidos de resultados-larraun.json
       const esBesteOfizial = m.origen==="no-oficial" && m.ofiziala===true;
       const esNoOficial   = m.origen==="no-oficial" && m.ofiziala===false;
 
@@ -437,14 +467,26 @@ Promise.all(
         </div>`;
       }
 
-      // Badge de OFIZIALA/EZ OFIZIALA (ahora debajo del equipo visitante)
+      // Badge según el origen del partido
       let badgeHTML = "";
-      if (esBesteOfizial) {
+      
+      if (esOficialFNP) {
+        // PARTIDO OFICIAL DE FNP - Mostrar logo
+        badgeHTML = `
+        <div class="badge-fnp-container">
+          <span class="badge-fnp">
+            <img src="/images/logo-fnp.png" alt="FNP">
+            FNP OFIZIALA
+          </span>
+        </div>`;
+      } else if (esBesteOfizial) {
+        // OTROS PARTIDOS OFICIALES (no FNP)
         badgeHTML = `
         <div class="badge-ofiziala-container">
           <span class="badge-ofiziala">OFIZIALA</span>
         </div>`;
       } else if (esNoOficial) {
+        // PARTIDOS NO OFICIALES
         badgeHTML = `
         <div class="badge-ofiziala-container">
           <span class="badge-ez-ofiziala">EZ OFIZIALA</span>
