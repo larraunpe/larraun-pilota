@@ -56,7 +56,7 @@ main{padding:20px;}
 }
 
 /* LATERAL */
-.match::before{
+.match::after{
   content:"";
   position:absolute;
   left:0;
@@ -65,95 +65,239 @@ main{padding:20px;}
   width:6px;
   background:#000;
 }
-.match.win::before{background:#1b8f3a;}
-.match.lose::before{background:#b00000;}
-.match.pending::before{background:#000;}
+.match.win::after{background:#1b8f3a;}
+.match.lose::after{background:#b00000;}
+.match.pending::after{background:#000;}
 
 /* NO OFICIALES */
 .match.no-oficial{background:#f1f1f1;}
 
-/* ===== BADGES ===== */
-.badge{
-  position:absolute;
-  top:10px;
-  right:12px;
-  font-size:.7em;
-  font-weight:bold;
-  padding:4px 8px;
-  border-radius:6px;
-  background:#b00000;
-  color:#fff;
+/* ===== FRANJAS INCLINADAS (SOLO PARA FINALA) ===== */
+.match.finala::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
 }
-.badge.beste-ofiziala{
-  background:#198754;
+
+.match.finala.win::before {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 12px,
+    rgba(255, 215, 0, 0.6) 12px,
+    rgba(255, 215, 0, 0.6) 24px
+  );
+}
+
+.match.finala.lose::before {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 12px,
+    rgba(192, 192, 192, 0.6) 12px,
+    rgba(192, 192, 192, 0.6) 24px
+  );
+}
+
+/* ===== ETIQUETA DE FASE (ESQUINA DERECHA) ===== */
+.fase-etiqueta {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: .75em;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 25px;
+  background: #495057;
+  color: white;
+  z-index: 3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.fase-etiqueta.fase-especial {
+  background: #ffc107;
+  color: #212529;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  border: 1px solid #ff8c00;
+  font-weight: 800;
+}
+
+/* ===== NUEVO: ETIQUETA FNP PARA PARTIDOS OFICIALES ===== */
+.badge-fnp-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 3;
+}
+
+.badge-fnp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px 4px 8px;
+  border-radius: 20px;
+  background: #003366;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #002244;
+}
+
+.badge-fnp img {
+  height: 16px;
+  width: auto;
+  border-radius: 2px;
+}
+
+/* ===== BADGE OFIZIALA/EZ OFIZIALA ===== */
+.badge-ofiziala-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 3;
+}
+
+.badge-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #198754;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #146c43;
+}
+
+.badge-ez-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #b00000;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #8b0000;
+}
+
+/* ===== MARCADOR ===== */
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.scorebox {
+  min-width: 60px;
+  padding: 8px 0;
+  text-align: center;
+  color: white;
+  border-radius: 4px;
+}
+
+.scorebox.blue {
+  background: #0d47a1;
+  margin-right: 2px;
+  box-shadow: 0 2px 4px rgba(13, 71, 161, 0.3);
+}
+
+.scorebox.red {
+  background: #b71c1c;
+  margin-left: 2px;
+  box-shadow: 0 2px 4px rgba(183, 28, 28, 0.3);
 }
 
 /* ===== TEXTO ===== */
-.line{margin:6px 0;}
-.meta{font-size:.9em;color:#333;}
+.line{
+  margin: 8px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.meta{
+  font-size: 0.9em;
+  color: #2c3e50;
+}
 
 .etxekoa-line{
-  color:#0d47a1;
-  font-weight:bold;
-  font-size:1.05em;
-  text-transform:uppercase;
+  color: #0d47a1;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 3;
 }
+
 .kanpokoa-line{
-  color:#b71c1c;
-  font-weight:bold;
-  font-size:1.05em;
-  text-transform:uppercase;
+  color: #b71c1c;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 3;
 }
 
 /* FRONTÓN DESTACADO */
 .fronton-destacado{
-  background:#e3f2fd;
-  padding:2px 6px;
-  border-radius:4px;
-  font-style:italic;
-  font-weight:bold;
+  background: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-style: italic;
+  font-weight: 600;
+  display: inline-block;
 }
-
-/* ===== MARCADOR ===== */
-.scoreboard{
-  display:flex;
-  justify-content:center;
-  margin:10px 0;
-  font-size:1.6em;
-  font-weight:bold;
-}
-.scorebox{
-  min-width:56px;
-  padding:6px 0;
-  text-align:center;
-  color:#fff;
-}
-.scorebox.blue{background:#0d47a1;}
-.scorebox.red{background:#b71c1c;}
 
 .sets{
-  text-align:center;
-  font-size:.95em;
-  color:#333;
+  text-align: center;
+  font-size: 0.95em;
+  color: #34495e;
+  margin: 8px 0;
+  position: relative;
+  z-index: 3;
+  font-weight: 500;
 }
 
 .modalidad{
-  font-size:.9em;
-  color:#004d40;
-  font-weight:600;
+  font-size: 0.9em;
+  color: #004d40;
+  font-weight: 600;
+  position: relative;
+  z-index: 3;
 }
+
 .modalidad a{
-  color:#004d40;
-  text-decoration:none;
+  color: #004d40;
+  text-decoration: none;
+  border-bottom: 1px dotted #004d40;
 }
-.modalidad a:hover{text-decoration:underline;}
+
+.modalidad a:hover{
+  border-bottom: 1px solid #004d40;
+}
 
 .rest-separator{
-  margin:20px 0 10px;
-  text-align:center;
-  font-weight:bold;
-  color:#666;
-  letter-spacing:1px;
+  margin: 25px 0 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #7f8c8d;
+  letter-spacing: 2px;
+  font-size: 0.9em;
 }
 </style>
 </head>
@@ -169,6 +313,44 @@ main{padding:20px;}
 <main id="content"></main>
 
 <script>
+// Mapeo de fases - estos son los textos que buscamos en modalidad
+const FASES = [
+  "LIGAXKA",
+  "KANPORAKETA",
+  "FINAL ZORTZIRENAK",
+  "FINAL LAURDENEN LIGAXKA",
+  "FINAL LAURDENAK",
+  "FINAL AURREKOAK",
+  "FINALA",
+  "LIGA",
+  "FINAL ERDIAK",
+  "SEMIFINALA"
+];
+
+// Función para extraer la fase del texto completo de modalidad
+function extraerFase(modalidadTexto) {
+  if (!modalidadTexto) return "";
+  
+  // Buscamos si alguna de las fases está contenida en el texto
+  for (const fase of FASES) {
+    if (modalidadTexto.includes(fase)) {
+      return fase;
+    }
+  }
+  
+  // Si no encontramos ninguna fase conocida, devolvemos el texto completo
+  // o una cadena vacía si no queremos mostrar nada
+  return "";
+}
+
+// Función para verificar si el partido involucra a Larraun
+function involucraALarraun(partido) {
+  const etxekoa = (partido.etxekoa || "").toUpperCase();
+  const kanpokoa = (partido.kanpokoak || "").toUpperCase();
+  
+  return etxekoa.includes("LARRAUN") || kanpokoa.includes("LARRAUN");
+}
+
 const SOURCES=[
   {url:"/data/resultados-larraun.json", origen:"oficial"},
   {url:"/data/resultados-no-oficiales.json", origen:"no-oficial"}
@@ -214,13 +396,18 @@ Promise.all(
             s.origen==="no-oficial"
               ? String(o.ofiziala).toLowerCase()==="true"
               : true,
-          _date: parseDate(o.fecha)
+          _date: parseDate(o.fecha),
+          // Extraemos la fase del texto de modalidad
+          fase_mostrar: extraerFase(o.modalidad)
         }))
       )
   )
 ).then(all=>{
   const today=new Date(); today.setHours(0,0,0,0);
-  const data=all.flat().filter(m=>m._date&&m._date<=today);
+  
+  // Filtramos para quedarnos solo con partidos que involucran a Larraun
+  const data = all.flat()
+    .filter(m => m._date && m._date <= today && involucraALarraun(m));
 
   const thisMon=monday(today);
   const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
@@ -247,6 +434,7 @@ Promise.all(
         descansoMostrado=true;
       }
 
+      const esOficialFNP = m.origen === "oficial"; // Partidos de resultados-larraun.json
       const esBesteOfizial = m.origen==="no-oficial" && m.ofiziala===true;
       const esNoOficial   = m.origen==="no-oficial" && m.ofiziala===false;
 
@@ -263,14 +451,45 @@ Promise.all(
         cls += "lose";
       }
 
+      // Añadimos clase 'finala' si la fase a mostrar es FINALA (para las franjas)
+      if (m.fase_mostrar === "FINALA") {
+        cls += " finala";
+      }
 
-      let marcador="";
-      if(m.tanteoa&&m.tanteoa.includes("-")){
-        const[a,b]=m.tanteoa.split("-").map(x=>x.trim());
-        marcador=`
+      // Marcador
+      let marcadorHTML = "";
+      if(m.tanteoa && m.tanteoa.includes("-")){
+        const [a,b] = m.tanteoa.split("-").map(x=>x.trim());
+        marcadorHTML = `
         <div class="scoreboard">
           <div class="scorebox blue">${a}</div>
           <div class="scorebox red">${b}</div>
+        </div>`;
+      }
+
+      // Badge según el origen del partido
+      let badgeHTML = "";
+      
+      if (esOficialFNP) {
+        // PARTIDO OFICIAL DE FNP - Mostrar logo
+        badgeHTML = `
+        <div class="badge-fnp-container">
+          <span class="badge-fnp">
+            <img src="/images/logo-fnp.png" alt="FNP">
+            FNP OFIZIALA
+          </span>
+        </div>`;
+      } else if (esBesteOfizial) {
+        // OTROS PARTIDOS OFICIALES (no FNP)
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ofiziala">OFIZIALA</span>
+        </div>`;
+      } else if (esNoOficial) {
+        // PARTIDOS NO OFICIALES
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ez-ofiziala">EZ OFIZIALA</span>
         </div>`;
       }
 
@@ -279,16 +498,25 @@ Promise.all(
         ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
         : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
 
+      // Determinar la clase especial para la fase (si es FINALA)
+      const faseEspecial = m.fase_mostrar === "FINALA" ? "fase-especial" : "";
+      
+      // Crear la etiqueta de fase (solo si hay fase)
+      const faseEtiqueta = m.fase_mostrar ? 
+        `<div class="fase-etiqueta ${faseEspecial}">${m.fase_mostrar}</div>` : "";
+
       c.innerHTML+=`
       <div class="${cls}">
-        ${esNoOficial ? `<div class="badge">EZ OFIZIALA</div>` : ""}
-        ${esBesteOfizial ? `<div class="badge beste-ofiziala">OFIZIALA</div>` : ""}
+        ${faseEtiqueta}
 
         <div class="line meta">📅 ${m.fecha}</div>
         <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
         <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
-
-        ${marcador}
+        
+        ${badgeHTML}
+        
+        ${marcadorHTML}
+        
         ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
 
         <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
