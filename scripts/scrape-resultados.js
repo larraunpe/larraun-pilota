@@ -5,7 +5,6 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
 const TEMPORADA = 2025;
 
@@ -184,7 +183,8 @@ function parsearPartidos($, modalidad, fase, url) {
     kanpokoak = formatearEquipo(kanpokoak);
 
     // 🔹 FILTRAR: Solo guardar partidos donde aparezca LARRAUN
-    if (!etxekoa.includes("LARRAUN") && !kanpokoak.includes("LARRAUN")) {
+    const contieneLarraun = etxekoa.includes("LARRAUN") || kanpokoak.includes("LARRAUN");
+    if (!contieneLarraun) {
       return; // Saltar este partido
     }
 
@@ -214,10 +214,41 @@ function parsearPartidos($, modalidad, fase, url) {
 
     if (!fecha || !tanteoa) return;
 
-    // 🔹 EMATZA
-    const [etx, kan] = tanteoa.split("-").map((x) => x.trim());
-    const emaitza =
-      etx && kan ? (Number(etx) > Number(kan) ? "irabazita" : "galduta") : "";
+    // 🔹 CORRECCIÓN: EMATZA basado en QUIÉN GANA y si LARRAUN es ese equipo
+    let emaitza = "";
+    
+    if (tanteoa && tanteoa.includes("-")) {
+      const [puntosEtx, puntosKan] = tanteoa.split("-").map(x => Number(x.trim()));
+      
+      // CASO ESPECIAL: Derbi entre dos equipos de Larraun
+      const ambosLarraun = etxekoa.includes("LARRAUN") && kanpokoak.includes("LARRAUN");
+      
+      if (ambosLarraun) {
+        // En un derbi entre equipos del club, siempre es una victoria para Larraun
+        emaitza = "irabazita";
+      } else {
+        // Determinar quién ganó el partido
+        const ganaEtxekoa = puntosEtx > puntosKan;
+        const ganaKanpokoa = puntosKan > puntosEtx;
+        
+        // Si Larraun es el equipo local y ganó, o si es visitante y ganó
+        const larraunGana = (etxekoa.includes("LARRAUN") && ganaEtxekoa) || 
+                            (kanpokoak.includes("LARRAUN") && ganaKanpokoa);
+        
+        // Si Larraun es el equipo local y perdió, o si es visitante y perdió
+        const larraunPierde = (etxekoa.includes("LARRAUN") && ganaKanpokoa) || 
+                              (kanpokoak.includes("LARRAUN") && ganaEtxekoa);
+        
+        if (larraunGana) {
+          emaitza = "irabazita";
+        } else if (larraunPierde) {
+          emaitza = "galduta";
+        } else {
+          // Empate (pocas veces ocurre en pelota, pero por si acaso)
+          emaitza = "berdinketa";
+        }
+      }
+    }
 
     partidos.push({
       fecha,
