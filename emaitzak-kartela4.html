@@ -454,6 +454,8 @@ function logoClub(nombre){
 
   const limpio = nombre
     .split("(")[0]
+    .normalize("NFD")                 // ✅ separa acentos
+    .replace(/[\u0300-\u036f]/g, "")  // ✅ elimina acentos
     .replace(/[.,]/g,"")
     .replace(/–/g,"-")
     .replace(/-/g," ")
