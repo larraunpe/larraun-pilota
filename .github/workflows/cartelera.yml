@@ -2,8 +2,8 @@ name: Actualizar cartelera Larraun
 
 on:
   schedule:
-    - cron: "0 8,15,20 * * 1,2"
-      timezone: Europe/Madrid
+    # 08:00, 15:00 y 20:00 Europe/Madrid (invierno UTC+1)
+    - cron: "0 7,14,19 * * 1,2"
   workflow_dispatch:
 
 jobs:
@@ -11,22 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       # ⛔️ importante: NO guardar dependencias en git
-      - run: npm install jsdom --no-save
+      - name: Instalar jsdom
+        run: npm install jsdom --no-save
 
-      - run: node scripts/scrape-cartelera.js
+      - name: Ejecutar scraper
+        run: node scripts/scrape-cartelera.js
 
-      - run: |
+      - name: Commit cambios
+        run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
 
           git add data/cartelera-larraun.json
           git commit -m "🔄 Actualiza cartelera Larraun" || echo "Sin cambios"
           git push
-
