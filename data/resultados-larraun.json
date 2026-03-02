@@ -358,6 +358,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola) IRAOLA ASTIZ, I. OFIALDEGUI ORQUIN, O.",
+    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(6-9) (7-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-01",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
@@ -408,6 +422,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (I. Rojo - O. Rojo) LASTERRA TAZON, L. ROJO BASTERRA, O.",
+    "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga) ANSORENA BELDARRAIN, I. ZUBILLAGA ALVAREZ, A.",
+    "tanteoa": "8-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-01",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Bildarraz - I. Sotil) BILDARRAZ ANSORENA, J. SOTIL MIKEO, I.",
@@ -436,11 +462,11 @@
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (A. Zubiria - O. Razkin) RAZKIN UNDIANO, O. ZUBIRIA GOMEZ, A.",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
-    "tanteoa": "22-13",
+    "tanteoa": "13-22",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3119&temp=2025",
-    "emaitza": "galduta",
+    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
