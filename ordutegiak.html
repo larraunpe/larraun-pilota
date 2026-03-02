@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ordutegiak – Larraun Pilota</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#ececec;
+}
+
+.wrapper{
+  max-width:1100px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+/* ================= HEADER ================= */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:4px solid #b30000;
+  padding-bottom:20px;
+  margin-bottom:30px;
+}
+
+.header img{
+  height:75px;
+}
+
+.header h1{
+  flex:1;
+  text-align:center;
+  margin:0;
+  font-size:2.6em;
+  letter-spacing:3px;
+  color:#111;
+}
+
+/* ================= CATEGORY ================= */
+
+.kategoria{
+  margin-bottom:35px;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.kategoria-title{
+  padding:12px 18px;
+  font-weight:bold;
+  font-size:1.3em;
+  color:white;
+}
+
+.partidos{
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* ================= PARTIDO ================= */
+
+.partido{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  border-radius:10px;
+  padding:12px 15px;
+  box-shadow:0 3px 8px rgba(0,0,0,.15);
+}
+
+.info{
+  display:flex;
+  flex-direction:column;
+}
+
+.fecha{
+  font-weight:bold;
+  font-size:.95em;
+}
+
+.equipos{
+  font-size:1.05em;
+}
+
+.fronton{
+  font-style:italic;
+  color:#444;
+}
+
+.hora{
+  font-size:1.4em;
+  font-weight:bold;
+  color:#b30000;
+}
+
+/* responsive */
+@media(max-width:700px){
+  .partido{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+
+  .hora{
+    align-self:flex-end;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="header">
+<img src="images/logo-larraun.png">
+<h1>ORDUTEGIAK</h1>
+<img src="images/logo-fnp.png">
+</div>
+
+<div id="ordutegiak"></div>
+
+</div>
+
+<script>
+
+/* ================= SEMANA ACTUAL ================= */
+
+function getWeekRange(){
+  const now = new Date();
+  const day = now.getDay() || 7;
+
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - day + 1);
+  monday.setHours(0,0,0,0);
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate()+6);
+  sunday.setHours(23,59,59);
+
+  return {monday,sunday};
+}
+
+/* ================= NIVEL ================= */
+
+function extraerNivel(txt=""){
+  const m = txt.match(/(\d+)/);
+  return m ? parseInt(m[1]) : 99;
+}
+
+/* ================= ORDEN DIA ================= */
+
+function fechaObj(p){
+  return new Date(`${p.fecha} ${p.hora||"00:00"}`);
+}
+
+/* ================= CARGA ================= */
+
+Promise.all([
+ fetch("/data/cartelera-larraun.json").then(r=>r.json()),
+ fetch("/data/categoriacartel.json").then(r=>r.json())
+])
+.then(([partidos,categorias])=>{
+
+const {monday,sunday}=getWeekRange();
+
+/* SOLO SEMANA ACTUAL */
+partidos = partidos.filter(p=>{
+ const d=fechaObj(p);
+ return d>=monday && d<=sunday;
+});
+
+/* MAP CATEGORIAS */
+const ordenCategorias = Object.keys(categorias);
+
+/* AGRUPAR */
+const grupos={};
+
+ordenCategorias.forEach(c=>grupos[c]=[]);
+
+partidos.forEach(p=>{
+ const cat = p.categoria;
+ if(grupos[cat]) grupos[cat].push(p);
+});
+
+/* CONTENEDOR */
+const cont=document.getElementById("ordutegiak");
+
+/* ================= PINTAR ================= */
+
+ordenCategorias.forEach(cat=>{
+
+const lista=grupos[cat];
+if(!lista.length) return;
+
+/* ordenar */
+lista.sort((a,b)=>{
+
+const fa=fechaObj(a);
+const fb=fechaObj(b);
+
+if(fa-fb!==0) return fa-fb;
+
+if(a.fronton!==b.fronton)
+ return a.fronton.localeCompare(b.fronton);
+
+return extraerNivel(b.categoria)
+     - extraerNivel(a.categoria);
+});
+
+/* bloque */
+const bloque=document.createElement("div");
+bloque.className="kategoria";
+
+bloque.innerHTML=`
+<div class="kategoria-title"
+style="background:${categorias[cat].color}">
+${cat}
+</div>
+<div class="partidos"></div>
+`;
+
+const listaDiv=bloque.querySelector(".partidos");
+
+/* partidos */
+lista.forEach(p=>{
+
+const div=document.createElement("div");
+div.className="partido";
+
+div.innerHTML=`
+<div class="info">
+<div class="fecha">🗓 ${p.fecha}</div>
+<div class="equipos">
+${p.etxekoa} vs ${p.kanpokoak}
+</div>
+<div class="fronton">📍 ${p.fronton}</div>
+</div>
+
+<div class="hora">
+${p.hora||""}
+</div>
+`;
+
+listaDiv.appendChild(div);
+});
+
+cont.appendChild(bloque);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
