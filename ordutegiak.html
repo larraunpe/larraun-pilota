@@ -22,8 +22,6 @@ body{
   box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
-/* ================= HEADER ================= */
-
 .header{
   display:flex;
   align-items:center;
@@ -33,20 +31,17 @@ body{
   margin-bottom:30px;
 }
 
-.header img{
-  height:75px;
-}
+.header img{ height:75px; }
 
 .header h1{
   flex:1;
   text-align:center;
   margin:0;
-  font-size:2.6em;
+  font-size:2.5em;
   letter-spacing:3px;
-  color:#111;
 }
 
-/* ================= CATEGORY ================= */
+/* ===== CATEGORIA ===== */
 
 .kategoria{
   margin-bottom:35px;
@@ -68,7 +63,7 @@ body{
   gap:10px;
 }
 
-/* ================= PARTIDO ================= */
+/* ===== PARTIDO ===== */
 
 .partido{
   display:flex;
@@ -85,14 +80,7 @@ body{
   flex-direction:column;
 }
 
-.fecha{
-  font-weight:bold;
-  font-size:.95em;
-}
-
-.equipos{
-  font-size:1.05em;
-}
+.fecha{ font-weight:bold; }
 
 .fronton{
   font-style:italic;
@@ -105,17 +93,22 @@ body{
   color:#b30000;
 }
 
-/* responsive */
-@media(max-width:700px){
-  .partido{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:6px;
-  }
+.badge{
+  background:#ffc107;
+  font-size:.7em;
+  padding:3px 6px;
+  border-radius:6px;
+  margin-left:6px;
+  font-weight:bold;
+}
 
-  .hora{
-    align-self:flex-end;
-  }
+@media(max-width:700px){
+.partido{
+ flex-direction:column;
+ align-items:flex-start;
+ gap:6px;
+}
+.hora{ align-self:flex-end; }
 }
 
 </style>
@@ -137,37 +130,40 @@ body{
 
 <script>
 
-/* ================= SEMANA ACTUAL ================= */
-
-function getWeekRange(){
-  const now = new Date();
-  const day = now.getDay() || 7;
-
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - day + 1);
-  monday.setHours(0,0,0,0);
-
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate()+6);
-  sunday.setHours(23,59,59);
-
-  return {monday,sunday};
+/* ========= LIMPIAR HORA ========= */
+function limpiarHora(hora=""){
+ const m = hora.match(/\d{1,2}:\d{2}/);
+ return m ? m[0] : "00:00";
 }
 
-/* ================= NIVEL ================= */
-
-function extraerNivel(txt=""){
-  const m = txt.match(/(\d+)/);
-  return m ? parseInt(m[1]) : 99;
-}
-
-/* ================= ORDEN DIA ================= */
-
+/* ========= FECHA OBJ ========= */
 function fechaObj(p){
-  return new Date(`${p.fecha} ${p.hora||"00:00"}`);
+ return new Date(`${p.fecha} ${limpiarHora(p.hora)}`);
 }
 
-/* ================= CARGA ================= */
+/* ========= NIVEL ========= */
+function extraerNivel(txt=""){
+ const m = txt.match(/(\d+)/);
+ return m ? parseInt(m[1]) : 99;
+}
+
+/* ========= SEMANA ACTUAL ========= */
+function semanaActual(){
+ const now=new Date();
+ const day=now.getDay()||7;
+
+ const monday=new Date(now);
+ monday.setDate(now.getDate()-day+1);
+ monday.setHours(0,0,0,0);
+
+ const sunday=new Date(monday);
+ sunday.setDate(monday.getDate()+6);
+ sunday.setHours(23,59,59);
+
+ return {monday,sunday};
+}
+
+/* ========= CARGAR ========= */
 
 Promise.all([
  fetch("/data/cartelera-larraun.json").then(r=>r.json()),
@@ -175,32 +171,28 @@ Promise.all([
 ])
 .then(([partidos,categorias])=>{
 
-const {monday,sunday}=getWeekRange();
+const {monday,sunday}=semanaActual();
 
-/* SOLO SEMANA ACTUAL */
+/* solo semana actual */
 partidos = partidos.filter(p=>{
  const d=fechaObj(p);
  return d>=monday && d<=sunday;
 });
 
-/* MAP CATEGORIAS */
-const ordenCategorias = Object.keys(categorias);
-
-/* AGRUPAR */
+/* preparar grupos */
+const ordenCategorias=Object.keys(categorias);
 const grupos={};
-
 ordenCategorias.forEach(c=>grupos[c]=[]);
 
+/* agrupar */
 partidos.forEach(p=>{
- const cat = p.categoria;
- if(grupos[cat]) grupos[cat].push(p);
+ if(grupos[p.categoria])
+   grupos[p.categoria].push(p);
 });
 
-/* CONTENEDOR */
 const cont=document.getElementById("ordutegiak");
 
-/* ================= PINTAR ================= */
-
+/* pintar */
 ordenCategorias.forEach(cat=>{
 
 const lista=grupos[cat];
@@ -214,14 +206,14 @@ const fb=fechaObj(b);
 
 if(fa-fb!==0) return fa-fb;
 
-if(a.fronton!==b.fronton)
- return a.fronton.localeCompare(b.fronton);
+if((a.fronton||"")!=(b.fronton||""))
+ return (a.fronton||"").localeCompare(b.fronton||"");
 
 return extraerNivel(b.categoria)
      - extraerNivel(a.categoria);
 });
 
-/* bloque */
+/* bloque categoria */
 const bloque=document.createElement("div");
 bloque.className="kategoria";
 
@@ -238,20 +230,23 @@ const listaDiv=bloque.querySelector(".partidos");
 /* partidos */
 lista.forEach(p=>{
 
+const provisional =
+ p.hora && p.hora.includes("!")
+ ? `<span class="badge">PROB.</span>`
+ : "";
+
 const div=document.createElement("div");
 div.className="partido";
 
 div.innerHTML=`
 <div class="info">
 <div class="fecha">🗓 ${p.fecha}</div>
-<div class="equipos">
-${p.etxekoa} vs ${p.kanpokoak}
-</div>
-<div class="fronton">📍 ${p.fronton}</div>
+<div>${p.etxekoa} vs ${p.kanpokoak}</div>
+<div class="fronton">📍 ${p.fronton||""}</div>
 </div>
 
 <div class="hora">
-${p.hora||""}
+${limpiarHora(p.hora)} ${provisional}
 </div>
 `;
 
