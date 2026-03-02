@@ -2,8 +2,9 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ordutegiak</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ORDUTEGIAK</title>
 
 <style>
 
@@ -26,8 +27,7 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 border-bottom:4px solid #b30000;
-margin-bottom:30px;
-padding-bottom:15px;
+margin-bottom:25px;
 }
 
 .header img{height:70px;}
@@ -35,7 +35,7 @@ padding-bottom:15px;
 .header h1{
 flex:1;
 text-align:center;
-letter-spacing:3px;
+letter-spacing:4px;
 }
 
 .kategoria{
@@ -78,7 +78,7 @@ background:#ffc107;
 padding:3px 6px;
 border-radius:6px;
 font-size:.7em;
-margin-left:5px;
+margin-left:6px;
 }
 
 </style>
@@ -100,31 +100,47 @@ margin-left:5px;
 
 <script>
 
-/* ========= LIMPIAR HORA ========= */
+/* ========= HORA ========= */
 function limpiarHora(h=""){
-const m=h.match(/\d{1,2}:\d{2}/);
+const m=h?.match(/\d{1,2}:\d{2}/);
 return m?m[0]:"00:00";
 }
 
 /* ========= FECHA ========= */
 function fechaObj(p){
 
-if(!p.fecha) return new Date();
-
-const match = p.fecha.match(/(\d{2})\/(\d{2})/);
-
+const match=p.fecha?.match(/(\d{2})\/(\d{2})/);
 if(!match) return new Date();
 
-const dia = match[1];
-const mes = match[2];
-const año = new Date().getFullYear();
+const año=new Date().getFullYear();
 
 return new Date(
-`${año}-${mes}-${dia}T${limpiarHora(p.hora)}`
+`${año}-${match[2]}-${match[1]}T${limpiarHora(p.hora)}`
 );
 }
+
+/* ========= EXTRAER TEXTO CATEGORIA ========= */
+function textoCategoria(p){
+return (
+p.categoria ||
+p.lehiaketa ||
+p.modalidad ||
+"BESTE"
+).toUpperCase();
+}
+
+/* ========= DETECTAR ========= */
+function detectarCategoria(p,categorias){
+
+const texto=textoCategoria(p);
+
+return Object.keys(categorias)
+.find(c=>texto.includes(c.toUpperCase()));
+}
+
 /* ========= SEMANA ========= */
 function semanaActual(){
+
 const now=new Date();
 const day=now.getDay()||7;
 
@@ -139,68 +155,41 @@ sunday.setHours(23,59,59);
 return {monday,sunday};
 }
 
-/* ========= DETECTAR CATEGORIA ========= */
-function detectarCategoria(catPartido, categorias){
-
-if(!catPartido) return null;
-
-catPartido = catPartido.toUpperCase();
-
-return Object.keys(categorias)
-.find(c => catPartido.includes(c.toUpperCase()));
-}
-
-/* ========= CARGA ========= */
+/* ========= LOAD ========= */
 
 Promise.all([
-fetch("/data/cartelera-larraun.json").then(r=>r.json()),
-fetch("/data/categoriacartel.json").then(r=>r.json())
+fetch("data/cartelera-larraun.json").then(r=>r.json()),
+fetch("data/categoriacartel.json").then(r=>r.json())
 ])
 .then(([partidos,categorias])=>{
 
+const cont=document.getElementById("ordutegiak");
 const {monday,sunday}=semanaActual();
 
-/* semana actual */
+/* filtrar semana */
 partidos=partidos.filter(p=>{
 const d=fechaObj(p);
 return d>=monday && d<=sunday;
 });
 
-/* crear grupos */
+/* grupos */
 const grupos={};
 Object.keys(categorias)
 .forEach(c=>grupos[c]=[]);
 
-/* asignar categoria correcta */
+/* asignar */
 partidos.forEach(p=>{
-
-const catBase =
-detectarCategoria(p.categoria,categorias);
-
-if(catBase)
-grupos[catBase].push(p);
-
+const cat=detectarCategoria(p,categorias);
+if(cat) grupos[cat].push(p);
 });
 
 /* pintar */
-const cont=document.getElementById("ordutegiak");
-
 Object.keys(categorias).forEach(cat=>{
 
 const lista=grupos[cat];
 if(!lista.length) return;
 
-/* ordenar */
-lista.sort((a,b)=>{
-
-const fa=fechaObj(a);
-const fb=fechaObj(b);
-
-if(fa-fb!==0) return fa-fb;
-
-return (a.fronton||"")
-.localeCompare(b.fronton||"");
-});
+lista.sort((a,b)=>fechaObj(a)-fechaObj(b));
 
 const bloque=document.createElement("div");
 bloque.className="kategoria";
@@ -238,13 +227,17 @@ ${limpiarHora(p.hora)} ${provisional}
 `;
 
 listaDiv.appendChild(div);
-
 });
 
 cont.appendChild(bloque);
 
 });
 
+})
+.catch(e=>{
+document.getElementById("ordutegiak")
+.innerHTML="<b>⚠️ Error cargando datos</b>";
+console.error(e);
 });
 
 </script>
