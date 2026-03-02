@@ -55,12 +55,12 @@
       flex-direction: column;
       gap: 30px;
     }
-    /* kategoria blokea: kolore sendo bakarra */
+    /* kategoria blokea: kolore sendo bakarra (atzealdea) */
     .kategoria-blokea {
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      background: #ffffff;
+      background-color: #ffffff; /* default, gero js-ez aldatuko */
     }
     .kategoria-titulua {
       padding: 14px 24px;
@@ -68,8 +68,8 @@
       font-weight: 700;
       letter-spacing: 0.5px;
       color: #1a1a1a;
-      border-bottom: 3px solid rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.9);
+      border-bottom: 3px solid;  /* kolorea js-tik */
+      background: rgba(255,255,255,0.85);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -77,10 +77,10 @@
     .kategoria-titulua span.emoji-big {
       font-size: 2.2rem;
     }
-    /* egun eta frontoi taldekatzeak */
+    /* egun blokea: ezkerreko marra kolore berekoa */
     .egun-saila {
       margin: 20px 20px 25px 20px;
-      border-left: 5px solid;  /* kolorea javascriptetik */
+      border-left: 6px solid;  /* kolorea js-tik */
       background: #ffffffd9;
       border-radius: 18px 8px 8px 18px;
       padding: 12px 15px 8px 15px;
@@ -130,7 +130,7 @@
     }
     .partido-txikia {
       display: flex;
-      align-items: flex-start;  /* aldaketa: goitik lerrokatu */
+      align-items: flex-start;
       gap: 18px;
       background: #ffffff;
       padding: 14px 18px;
@@ -138,7 +138,7 @@
       border-radius: 16px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       transition: transform 0.1s ease;
-      border-left: 4px solid;  /* kolorea javascriptetik */
+      border-left: 6px solid;  /* kolorea js-tik (kategoriaren bera) */
     }
     .partido-txikia:hover {
       transform: scale(1.003);
@@ -169,12 +169,11 @@
     .partido-info {
       flex: 1;
     }
-    /* Taldeak lerro bereizietan */
     .parejak {
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
-      flex-direction: column;  /* lerro banatan */
+      flex-direction: column;
       gap: 5px;
     }
     .etxekoa, .kanpokoak {
@@ -188,9 +187,8 @@
     .kanpokoak {
       color: #b00000;
     }
-    /* LARRAUN agertzen denean: tamaina handiagoa + ikurra */
     .larraun-handiagoa {
-      font-size: 1.3rem;  /* bi puntu handiago (~1.3rem vs 1.1rem) */
+      font-size: 1.3rem;
       font-weight: 800;
       background: #fff0f0;
       padding: 2px 8px;
@@ -223,7 +221,6 @@
       border-radius: 20px;
       text-transform: uppercase;
     }
-    /* footer dotorea */
     .footer-ordutegiak {
       margin-top: 45px;
       padding-top: 20px;
@@ -270,9 +267,9 @@
 
 <script>
   (async function() {
-    // ---------- 1. Kategoriak kargatu (EDADMIN, EDADMAX eta kolorea) ----------
-    let kategoriakMap = new Map();         // izena (uppercase) -> { kolorea, edadMin, edadMax, izenaOriginal }
-    let kategoriaOrdenList = [];           // ordenaturik gero
+    // ---------- 1. Kategoriak kargatu (EDADMIN, kolorea) ----------
+    let kategoriakMap = new Map();         // izena (uppercase) -> { kolorea, edadMin, izenaOriginal }
+    let kategoriaOrdenList = [];           // gero ordena zehazteko
 
     try {
       const katResp = await fetch('/data/categoriacartel.json');
@@ -284,17 +281,15 @@
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           if (!izena) return;
           const kolorea = item[izena] || '#e0e0e0';
-          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 99;
-          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 99;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999; // 999 gazteenak ez badira
           kategoriakMap.set(izena.toUpperCase().trim(), {
             kolorea: kolorea,
             edadMin: edadMin,
-            edadMax: edadMax,
             izena: izena
           });
         });
 
-        // ordenatu edadMinaren arabera (gazteenak lehen)
+        // ordenatu edadMinaren arabera (txikienetik handienera) => gazteenak lehen
         kategoriaOrdenList = Array.from(kategoriakMap.entries())
           .map(([upKey, value]) => ({
             izena: value.izena,
@@ -302,7 +297,10 @@
             kolorea: value.kolorea,
             edadMin: value.edadMin
           }))
-          .sort((a, b) => (a.edadMin || 99) - (b.edadMin || 99));
+          .sort((a, b) => a.edadMin - b.edadMin);  // <-- GAZTETIK ZAHARRERA
+
+        // debug: ikusi ordena
+        console.log('Kategoriak ordenatuta (gaztetik zaharrenera):', kategoriaOrdenList.map(k => `${k.izena} (${k.edadMin})`));
       } else {
         console.warn('ez da kategoriacartel.json kargatu, kolore hutsak');
       }
@@ -343,7 +341,7 @@
       return;
     }
 
-    // ---------- 3. Kategoria esleitu LEHENETSIA: kategoria izenak zuzenean detektatu ----------
+    // ---------- 3. Kategoria esleitu partida bakoitzari ----------
     function kategoriaIzena(testua) {
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
@@ -351,12 +349,10 @@
       const posibleKategoriak = Array.from(kategoriakMap.keys()); // "SEIN", "ESKUZ KOPA", "KIMU"...
       for (let k of posibleKategoriak) {
         if (up.includes(k)) {
-          // itzuli mapako izen originala (letra mantenduz)
-          const originala = kategoriakMap.get(k).izena;
-          return originala;
+          return kategoriakMap.get(k).izena; // itzuli mapako izen originala
         }
       }
-      // bigarren aukera: hitz arruntak
+      // bigarren aukera: hitz arruntak (behin-behinekoak)
       if (up.includes('HAUR')) return 'HAURRAK';
       if (up.includes('KADETE')) return 'KADETE';
       if (up.includes('KIMU')) return 'KIMU';
@@ -375,11 +371,13 @@
     });
 
     // ---------- 4. Kategorien ordena: lehenik gazteenak (edadMin) ----------
+    // Horretarako, kategoriakMap-ekin eraikitako ordenaPrior erabili
     const ordenaPrior = new Map();
     kategoriaOrdenList.forEach((kat, idx) => {
       ordenaPrior.set(kat.upKey, idx);
     });
 
+    // Bistaratuko diren kategoria izenak ordenatu
     const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a,b) => {
       const aUp = a.toUpperCase().trim();
       const bUp = b.toUpperCase().trim();
@@ -398,18 +396,19 @@
     for (let katIzen of kategoriaIzenak) {
       const partidaLista = partidakKategoriaka.get(katIzen);
       const katUp = katIzen.toUpperCase().trim();
-      const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#f0f0f0', edadMin: 99 };
-      const backgroundColor = koloreInfo.kolorea || '#f0f0f0';  // kolore sendo kategoria
-      const bordeKolorea = backgroundColor;  // marra laterala eta tituluaren azpiko marra ere kolore bera
+      // Kategoriaren kolorea mapetik hartu (ez badago, grisa)
+      const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#cccccc', edadMin: 999 };
+      const bordeKolorea = koloreInfo.kolorea;   // Hau izango da marra eta titulu azpiko kolorea
 
       const katBlokea = document.createElement('div');
       katBlokea.className = 'kategoria-blokea';
-      katBlokea.style.backgroundColor = backgroundColor;
+      // Atzealdeko kolorea (kategoria osoaren backgrounda)
+      katBlokea.style.backgroundColor = koloreInfo.kolorea;
 
-      // titulua
+      // titulua (kategoriaren izenburua)
       const tituluaDiv = document.createElement('div');
       tituluaDiv.className = 'kategoria-titulua';
-      tituluaDiv.style.borderBottomColor = backgroundColor;  // tonu ilunagoa erabili ordez, zuzenean kolorea
+      tituluaDiv.style.borderBottomColor = koloreInfo.kolorea;  // azpiko marra kolore berekoa
       tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
       katBlokea.appendChild(tituluaDiv);
 
@@ -464,7 +463,7 @@
 
           currentDateDiv = document.createElement('div');
           currentDateDiv.className = 'egun-saila';
-          // marra ezkerrekoa kategoriaren kolorearekin
+          // ezkerreko marra kategoriaren kolorearekin
           currentDateDiv.style.borderLeftColor = bordeKolorea;
           currentDateDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
           katBlokea.appendChild(currentDateDiv);
@@ -490,12 +489,12 @@
 
         const partidaDiv = document.createElement('div');
         partidaDiv.className = 'partido-txikia';
-        partidaDiv.style.borderLeftColor = bordeKolorea; // marra kategorien kolorearekin
+        // ezkerreko marra kategoriaren kolorearekin
+        partidaDiv.style.borderLeftColor = bordeKolorea;
 
         const orduGarbi = parseOrdua(p.hora || '');
         const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
 
-        // etxekoa eta kanpokoa lerro bereiziak, LARRAUN handiago
         const etxekoaTestua = p.etxekoa || '?';
         const kanpokoaTestua = p.kanpokoak || '?';
 
