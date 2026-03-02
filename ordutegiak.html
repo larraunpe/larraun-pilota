@@ -108,9 +108,21 @@ return m?m[0]:"00:00";
 
 /* ========= FECHA ========= */
 function fechaObj(p){
-return new Date(`${p.fecha} ${limpiarHora(p.hora)}`);
-}
 
+if(!p.fecha) return new Date();
+
+const match = p.fecha.match(/(\d{2})\/(\d{2})/);
+
+if(!match) return new Date();
+
+const dia = match[1];
+const mes = match[2];
+const año = new Date().getFullYear();
+
+return new Date(
+`${año}-${mes}-${dia}T${limpiarHora(p.hora)}`
+);
+}
 /* ========= SEMANA ========= */
 function semanaActual(){
 const now=new Date();
