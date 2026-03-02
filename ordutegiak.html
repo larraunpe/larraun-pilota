@@ -6,7 +6,7 @@
   <title>Larraun Pilota – ORDUTEGIAK (asterako provisionalak)</title>
   <link rel="icon" type="image/png" href="/kartelera.png">
   <meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
-  <meta property="og:description" content="Asterako partiden ordutegi provisionalak, kategoriaka antolatuta">
+  <meta property="og:description" content="Asterako partiden ordutegi provisionalak, kategoriaka antolatuta (euskara, kolore sendoak)">
   <meta property="og:image" content="https://larraunpilota.eus/kartelera.png">
   <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
   <style>
@@ -45,12 +45,9 @@
       font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
-      background: linear-gradient(145deg, #b30000 20%, #6f0000 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #b30000; /* kolore gorri bizia, ez degradatu */
       margin: 0 20px;
-      text-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
     }
     /* kategoriak ordenatzeko kontainerra */
     .kategoriak-ordena {
@@ -58,36 +55,33 @@
       flex-direction: column;
       gap: 30px;
     }
-    /* kategoria blokea */
+    /* kategoria blokea: kolore sendo bakarra, inolako degradatu gabe */
     .kategoria-blokea {
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      transition: all 0.1s ease;
-      background: white; /* oinarria, gero kolorea gainjarriko da */
+      background: #ffffff; /* oinarria, gero kolore sendoarekin estaliko dugu */
     }
     .kategoria-titulua {
-      padding: 12px 24px;
+      padding: 14px 24px;
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: 0.5px;
       color: #1a1a1a;
-      border-bottom: 3px solid rgba(0,0,0,0.15);
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(2px);
+      border-bottom: 3px solid rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.9); /* zuri apur bat gardena, baina ez degradatua */
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .kategoria-titulua span.emoji-big {
       font-size: 2.2rem;
-      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
     }
     /* egun eta frontoi taldekatzeak */
     .egun-saila {
       margin: 20px 20px 25px 20px;
       border-left: 5px solid #b30000;
-      background: rgba(255, 255, 255, 0.6);
+      background: #ffffffd9;  /* zuri trinko, ez gardentasun aldaketarik */
       border-radius: 18px 8px 8px 18px;
       padding: 12px 15px 8px 15px;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
@@ -102,6 +96,7 @@
       margin-bottom: 15px;
       border-bottom: 2px dashed #aaa;
       padding-bottom: 6px;
+      text-transform: capitalize;
     }
     .egun-izena .eguna-zenb {
       font-size: 1rem;
@@ -130,18 +125,17 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      background: #ffffffdb;
+      background: #ffffff;  /* zuri osoa, ez opaku */
       padding: 12px 18px;
       margin-bottom: 8px;
       border-radius: 16px;
-      backdrop-filter: blur(2px);
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       transition: transform 0.1s ease;
-      border-left: 4px solid #b30000; /* kolore etxearen antzera */
+      border-left: 4px solid #b30000;
     }
     .partido-txikia:hover {
       transform: scale(1.003);
-      background: white;
+      background: #fcfcfc;
     }
     .ordu-blokea {
       min-width: 110px;
@@ -207,6 +201,15 @@
       font-size: 0.8rem;
       font-weight: 600;
     }
+    .fase-tag {
+      background: #d4af37;
+      color: #1a1a1a;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
     /* footer dotorea */
     .footer-ordutegiak {
       margin-top: 45px;
@@ -225,27 +228,12 @@
       padding: 6px 18px;
       border-radius: 40px;
     }
-    /* ez badago partidurik */
     .ez-partidurik {
       padding: 20px;
       text-align: center;
       font-size: 1.5rem;
       color: #777;
       font-style: italic;
-    }
-    /* laguntzeko: kategoria kolorea partido txikian margo arin bat */
-    .partido-txikia.kolore-ezazu {
-      background: rgba(255, 255, 255, 0.85);
-    }
-    /* etiqueta fasea /finala bezala (berreskuratuta) */
-    .fase-tag {
-      background: #d4af37;
-      color: #1a1a1a;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 20px;
-      text-transform: uppercase;
     }
   </style>
 </head>
@@ -258,7 +246,6 @@
   </div>
 
   <div id="kategoriak-container" class="kategoriak-ordena">
-    <!-- scriptak beteko du -->
     <div class="ez-partidurik" id="loading-placeholder">⏳ partidak kargatzen...</div>
   </div>
 
@@ -270,28 +257,50 @@
 
 <script>
   (async function() {
-    // 1. Kategoria mapa kargatu (data/categoriacartel.json)
-    let kategoriakMap = new Map();         // izena -> { ordena, kolorea, izena }
+    // ---------- 1. Kategoriak kargatu EDADMIN eta EDADMAX erabiliz ----------
+    let kategoriakMap = new Map();         // izena (uppercase) -> { kolorea, edadMin, edadMax, izenaOriginal }
     let kategoriaOrdenList = [];           // gero ordenatzeko
 
     try {
       const katResp = await fetch('/data/categoriacartel.json');
       if (katResp.ok) {
-        const kategoriaArray = await katResp.json();  // espero array [ {izena, kolorea, ordena} , ... ]
-        // adibidez: [{"izena":"KIMU","kolorea":"#C9E4FF","ordena":10}, ...]
-        kategoriaArray.forEach(k => {
-          kategoriakMap.set(k.izena.toUpperCase().trim(), { ordena: k.ordena, kolorea: k.kolorea, izena: k.izena });
+        const kategoriaArray = await katResp.json();
+        // espero formatua: [ { "HAURRAK": "#aifa8f", "EDADMIN":"13", "EDADMAX":"14" }, ... ]
+        // moldatu gure map-era
+        kategoriaArray.forEach(item => {
+          // item-en giltza bakarra izango da kategoria izena (adib. "HAURRAK", "KADETE"...)
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX' && key !== 'ordena' && key !== 'kolorea');
+          if (!izena) return;
+          const kolorea = item[izena] || item.kolorea || '#e0e0e0';
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 99;
+          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 99;
+          // ordena propiorik ez badago, edadMin erabiliko dugu ordenatzeko (gazteenak lehen)
+          kategoriakMap.set(izena.toUpperCase().trim(), {
+            kolorea: kolorea,
+            edadMin: edadMin,
+            edadMax: edadMax,
+            izena: izena
+          });
         });
-        // ordena zerrenda gorde
-        kategoriaOrdenList = kategoriaArray.sort((a,b) => (a.ordena || 999) - (b.ordena || 999));
+
+        // kategoriak ordenatu edadMinaren arabera (txikitik handira) -> gazteenak lehen
+        kategoriaOrdenList = Array.from(kategoriakMap.entries())
+          .map(([upKey, value]) => ({
+            izena: value.izena,
+            upKey: upKey,
+            kolorea: value.kolorea,
+            edadMin: value.edadMin,
+            edadMax: value.edadMax
+          }))
+          .sort((a, b) => (a.edadMin || 99) - (b.edadMin || 99));
       } else {
-        console.warn('ez da kategoriacartel.json kargatu, koloreak hutsik geratuko dira');
+        console.warn('ez da kategoriacartel.json kargatu, kolore hutsak erabiliko dira');
       }
     } catch (e) {
       console.warn('kategoriak ez daude erabilgarri:', e);
     }
 
-    // 2. partidak eskuratu (soilik cartelera-larraun.json)
+    // ---------- 2. Partidak kargatu (soilik cartelera-larraun.json) ----------
     let partidak = [];
     try {
       const partidosResp = await fetch('/data/cartelera-larraun.json');
@@ -302,12 +311,11 @@
       return;
     }
 
-    // 3. aste honetako partidak iragaztea? kontuan hartu astea 2026/03/02 – 2026/03/08 (astelehena-igandea)
-    //   definitu aste hasiera: 2026-03-02 00:00  eta bukaera: 2026-03-08 23:59 (egun horiek barne)
-    const astekoLehen = new Date(2026, 2, 2);  // martxoak 2
+    // Astea 2026/03/02 – 2026/03/08 (astelehena-igandea)
+    const astekoLehen = new Date(2026, 2, 2);
     const astekoAzken = new Date(2026, 2, 8, 23, 59, 59);
 
-    function dateStrToDate(fechaStr) {   // '2026/03/05' -> Date
+    function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
       const parts = fechaStr.split('/');
       if (parts.length !== 3) return null;
@@ -326,32 +334,37 @@
       return;
     }
 
-    // 4. bakoitzari bere kategoria esleitu lehiaketa edo modalitatetik
-    //    Lehiaketa string dugu: "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
-    //    atera kategoria (KIMU, SEIN, GAZTE, KADETE, HAUR...)
+    // ---------- 3. Kategoria esleitu partida bakoitzari ----------
     function kategoriaIzena(testua) {
       if (!testua) return '';
       const up = testua.toUpperCase();
-      // ordena ezagunak: KIMU, SEIN, GAZTE, KADETE, HAUR, ESKUZ...
-      const posibleak = ['KIMU', 'SEIN', 'GAZTE', 'KADETE', 'HAUR', 'BENJAMIN', 'ALEVIN', 'INFANTIL', 'JUVENIL', 'ESKUZ'];
+      // kategoria ezagunen zerrenda (kategoriakMap-etik hartu)
+      const posibleak = Array.from(kategoriakMap.keys()); // "HAURRAK", "KADETE"...
       for (let k of posibleak) {
-        if (up.includes(k)) return k.charAt(0) + k.slice(1).toLowerCase();  // lehen letra maiuskula
+        if (up.includes(k)) return k.charAt(0) + k.slice(1).toLowerCase(); // itzuli formatu egokian
       }
-      return 'BESTELAKO';
+      // default: atera baldin badago Haur, Kimu... hitz arruntak
+      if (up.includes('HAUR')) return 'Haurrak';
+      if (up.includes('KADETE')) return 'Kadete';
+      if (up.includes('KIMU')) return 'Kimu';
+      if (up.includes('GAZTE')) return 'Gazte';
+      if (up.includes('ALEBIN')) return 'Alebinak';
+      return 'Beste';
     }
 
-    // 5. partidak kategoriaka multzokatu
-    const partidakKategoriaka = new Map();  // kategoriaIzena -> array partida
-
+    const partidakKategoriaka = new Map();
     partidakAsteHonetan.forEach(p => {
       const iz = kategoriaIzena(p.lehiaketa || p.modalidad || '');
       if (!partidakKategoriaka.has(iz)) partidakKategoriaka.set(iz, []);
       partidakKategoriaka.get(iz).push(p);
     });
 
-    // 6. kategoriak ordenatu: lehenik kategoriacartel.json ordenaren arabera; gero alfabetikoki bestelakoak
+    // ---------- 4. Kategorien ordena: lehenik gazteenak (edadMin txikiena) ----------
+    // Sortu ordena-prioritatea kategoriakMap-etik edadMin balioaren arabera
     const ordenaPrior = new Map();
-    kategoriaOrdenList.forEach((k, idx) => ordenaPrior.set(k.izena.toUpperCase().trim(), idx));
+    kategoriaOrdenList.forEach((kat, idx) => {
+      ordenaPrior.set(kat.upKey, idx);
+    });
 
     const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a,b) => {
       const aUp = a.toUpperCase().trim();
@@ -359,25 +372,25 @@
       const idxA = ordenaPrior.has(aUp) ? ordenaPrior.get(aUp) : 999;
       const idxB = ordenaPrior.has(bUp) ? ordenaPrior.get(bUp) : 999;
       if (idxA !== idxB) return idxA - idxB;
-      // bestela alfabetikoa
       return a.localeCompare(b);
     });
 
-    // 7. HTML eraiki kategoriaka
+    // ---------- 5. HTML eraiki ----------
     const container = document.getElementById('kategoriak-container');
-    container.innerHTML = '';  // placeholder kendu
+    container.innerHTML = '';
+
+    // Días de la semana en euskera
+    const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
 
     for (let katIzen of kategoriaIzenak) {
       const partidaLista = partidakKategoriaka.get(katIzen);
-      // bilatu kategoriaren kolorea mapatik
       const katUp = katIzen.toUpperCase().trim();
-      const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#f0f0f0' };  // kolore grisa defektuz
-      const backgroundColor = koloreInfo.kolorea || '#f0f0f0';
+      const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#f0f0f0', edadMin: 99 };
+      const backgroundColor = koloreInfo.kolorea || '#f0f0f0';  // kolore sendo bakarra
 
-      // kategoria blokea
       const katBlokea = document.createElement('div');
       katBlokea.className = 'kategoria-blokea';
-      katBlokea.style.background = backgroundColor; // kolore nagusia fondo bezala
+      katBlokea.style.backgroundColor = backgroundColor; // kolore osoa, aldaketarik gabe
 
       // titulua
       const tituluaDiv = document.createElement('div');
@@ -385,55 +398,44 @@
       tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
       katBlokea.appendChild(tituluaDiv);
 
-      // partidak ordenatu: egunaren arabera (lehen astelehena… igandea), gero ordua
-      // ordua: '18:00 !Horario provisional' hori '18:00' hartu; ' - !Horario...' kasuan 00:00
+      // Ordua parseatzeko funtzioa
       function parseOrdua(horaStr) {
         if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
         const match = horaStr.match(/(\d{1,2}:\d{2})/);
         return match ? match[1] : '00:00';
       }
 
-      // egunak ordena: astelehena(1) - igandea(7)
-      function egunOrdinal(fechaStr) {
-        const d = dateStrToDate(fechaStr);
-        return d ? d.getDay() : 0;  // 0=igandea, 1=astelehena ...  6=larunbata
-        // guk nahi: astelehena lehenengo. beranduago birordenatuko
+      // Maila zenbakia ateratzeko (KIMU 4, KIMU 2...)
+      function extractLevelNumber(txt) {
+        const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
+        return match ? parseInt(match[2], 10) : 999;
       }
 
-      // salikatu: egun > ordu > frontoi > maila (kantitatea: KIMU 4 < KIMU 2...)
-      // lehenik sort() konparatzaile konplexua
+      // Ordenatu: egun, ordu, frontoi, maila (baxu -> altu)
       partidaLista.sort((a, b) => {
         const dA = dateStrToDate(a.fecha);
         const dB = dateStrToDate(b.fecha);
         if (!dA && !dB) return 0;
         if (!dA) return 1;
         if (!dB) return -1;
-        // egunaren arabera
         if (dA.getTime() !== dB.getTime()) return dA - dB;
 
-        // ordua
         const horaA = parseOrdua(a.hora || '00:00');
         const horaB = parseOrdua(b.hora || '00:00');
         if (horaA !== horaB) return horaA.localeCompare(horaB);
 
-        // frontoi izena
         const frontA = a.fronton || '';
         const frontB = b.fronton || '';
         if (frontA !== frontB) return frontA.localeCompare(frontB);
 
-        // maila bereizteko: lehiaketa stringetik KIMU X atera
-        function extractLevel(txt) {
-          const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR)\s*(\d+)/i);
-          return match ? parseInt(match[2], 10) : 999;
-        }
-        const levelA = extractLevel(a.lehiaketa);
-        const levelB = extractLevel(b.lehiaketa);
-        if (levelA !== levelB) return levelA - levelB;  // txikiagoa (4) lehenago? 4<2? ez, 4 maila baxuagoa da? eskatuta: KIMU 4 baxuago, beraz 4<2? baina 4 zenbaki handiago? interpretatu: 'KIMU 4' maila baxuago, berdin 4>2? baina ordena "baxuago" lehen. Beraz alderantziz: maila handiena (4) baino nahi dugu baxuena (4 baino 2 handiago?). Zalantza: normalean 4 = hasiera, 2 = aurreratuago. Beraz 4 (hasiberria) < 2 (aurreratua). Orduan level altuago (2) joan behar da azken. Erabili: return levelA - levelB; horrela 4-2 =2 positiboa: 4>2, beranduago. Baina eskaera: "primero irán los de nivel más bajo y después los de nivel más alto." Nivel bajo=KIMU 4, nivel alto=KIMU 2. Beraz 4 lehen, 2 gero. Horretarako alderantziz: levelB - levelA. Hala 4 (baxu) vs 2 (altu): 2-4=-2 -> 4 aurretik. Bai.
-          return levelB - levelA; // horrela 4 (baxu) -2 (altu) konparazioan 2-4 = -2, 4 lehen
-        });
+        const levelA = extractLevelNumber(a.lehiaketa);
+        const levelB = extractLevelNumber(b.lehiaketa);
+        // maila baxuago (zenbaki handiago) lehenago: 4 (baxu) < 2 (altu)? nahi dugu 4 lehen, 2 gero.
+        // Horretarako alderantziz: levelB - levelA (4-2=2, ordena: a (4) lehen)
+        return levelB - levelA;
+      });
 
-      // Orain partidaLista ordenatuta: egun, ordu, frontoi, maila baxu->altu
-      // Egun bakoitzeko eta frontoi bakoitzeko elkartu
+      // Eraikuntza: egun eta frontoi bakoitzeko
       let currentDateStr = null;
       let currentDateDiv = null;
       let currentFrontoi = null;
@@ -441,22 +443,20 @@
 
       partidaLista.forEach(p => {
         const fechaStr = p.fecha;
-        // data aldaketa?
         if (fechaStr !== currentDateStr) {
           currentDateStr = fechaStr;
-          // data berria hasi
           const dObj = dateStrToDate(fechaStr);
-          const egunIzena = dObj ? dObj.toLocaleDateString('eu', { weekday: 'long' }) : '(data gabe)';
-          const egunFormat = dObj ? `${egunIzena}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
+          const egunIndizea = dObj ? dObj.getDay() : 0; // 0=igandea, 1=astelehena...
+          const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+          const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
 
           currentDateDiv = document.createElement('div');
           currentDateDiv.className = 'egun-saila';
           currentDateDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
           katBlokea.appendChild(currentDateDiv);
-          currentFrontoi = null; // frontoi berria hasi behar
+          currentFrontoi = null;
         }
 
-        // frontoi aldaketa?
         const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
         if (frontIzen !== currentFrontoi) {
           currentFrontoi = frontIzen;
@@ -466,48 +466,38 @@
           currentDateDiv.appendChild(frontoiDiv);
         }
 
-        // partida txartel txikia
         const partidaDiv = document.createElement('div');
         partidaDiv.className = 'partido-txikia';
 
-        // ordua
         const orduGarbi = parseOrdua(p.hora || '');
         const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
-        partidaDiv.innerHTML += `<div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>`;
-
-        // informazioa
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'partido-info';
-
         const etxekoaClass = 'etxekoa' + (p.etxekoa?.toUpperCase().includes('LARRAUN') ? ' larraun-berezia' : '');
         const kanpokoClass = 'kanpokoak' + (p.kanpokoak?.toUpperCase().includes('LARRAUN') ? ' larraun-berezia' : '');
 
-        infoDiv.innerHTML = `
-          <div class="parejak">
-            <span class="${etxekoaClass}">🏠 ${p.etxekoa || '?'}</span>
-            <span class="${kanpokoClass}">✈️ ${p.kanpokoak || '?'}</span>
-          </div>
-          <div class="lehiaketa-labur">
-            <span>🏆 ${p.lehiaketa || p.modalidad || ''}</span>
-            ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
-            ${p.lehiaketa?.toUpperCase().includes('FINALA') ? '<span class="fase-tag">⚡ FINALA</span>' : ''}
+        partidaDiv.innerHTML = `
+          <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
+          <div class="partido-info">
+            <div class="parejak">
+              <span class="${etxekoaClass}">🏠 ${p.etxekoa || '?'}</span>
+              <span class="${kanpokoClass}">✈️ ${p.kanpokoak || '?'}</span>
+            </div>
+            <div class="lehiaketa-labur">
+              <span>🏆 ${p.lehiaketa || p.modalidad || ''}</span>
+              ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
+              ${p.lehiaketa?.toUpperCase().includes('FINALA') ? '<span class="fase-tag">⚡ FINALA</span>' : ''}
+            </div>
           </div>
         `;
-
-        partidaDiv.appendChild(infoDiv);
         frontoiDiv.appendChild(partidaDiv);
       });
 
       container.appendChild(katBlokea);
-    } // kategoria guztiak
+    }
 
-    // 8. oraindik partidurik ez bada atera?
     if (container.children.length === 0) {
       container.innerHTML = '<div class="ez-partidurik">🔍 Ez da partidarik aurkitu aste honetarako.</div>';
     }
   })();
 </script>
-
-<!-- datu faltsuak / iruzkina: fetch ezin bada, guk simula genezake, baina benetako kargarekin uzten dugu -->
 </body>
 </html>
