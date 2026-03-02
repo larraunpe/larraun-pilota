@@ -3,112 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ordutegiak – Larraun Pilota</title>
+<title>Ordutegiak</title>
 
 <style>
 
 body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  background:#ececec;
+margin:0;
+font-family:Arial;
+background:#ececec;
 }
 
 .wrapper{
-  max-width:1100px;
-  margin:auto;
-  background:white;
-  padding:30px;
-  box-shadow:0 10px 35px rgba(0,0,0,.25);
+max-width:1100px;
+margin:auto;
+background:white;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
 .header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:4px solid #b30000;
-  padding-bottom:20px;
-  margin-bottom:30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:4px solid #b30000;
+margin-bottom:30px;
+padding-bottom:15px;
 }
 
-.header img{ height:75px; }
+.header img{height:70px;}
 
 .header h1{
-  flex:1;
-  text-align:center;
-  margin:0;
-  font-size:2.5em;
-  letter-spacing:3px;
+flex:1;
+text-align:center;
+letter-spacing:3px;
 }
 
-/* ===== CATEGORIA ===== */
-
 .kategoria{
-  margin-bottom:35px;
-  border-radius:14px;
-  overflow:hidden;
+margin-bottom:30px;
+border-radius:12px;
+overflow:hidden;
 }
 
 .kategoria-title{
-  padding:12px 18px;
-  font-weight:bold;
-  font-size:1.3em;
-  color:white;
+color:white;
+padding:12px 16px;
+font-weight:bold;
+font-size:1.3em;
 }
 
 .partidos{
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
 }
-
-/* ===== PARTIDO ===== */
 
 .partido{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:white;
-  border-radius:10px;
-  padding:12px 15px;
-  box-shadow:0 3px 8px rgba(0,0,0,.15);
-}
-
-.info{
-  display:flex;
-  flex-direction:column;
-}
-
-.fecha{ font-weight:bold; }
-
-.fronton{
-  font-style:italic;
-  color:#444;
+display:flex;
+justify-content:space-between;
+background:white;
+padding:12px;
+border-radius:10px;
+box-shadow:0 3px 8px rgba(0,0,0,.15);
 }
 
 .hora{
-  font-size:1.4em;
-  font-weight:bold;
-  color:#b30000;
+font-size:1.4em;
+font-weight:bold;
+color:#b30000;
 }
 
 .badge{
-  background:#ffc107;
-  font-size:.7em;
-  padding:3px 6px;
-  border-radius:6px;
-  margin-left:6px;
-  font-weight:bold;
-}
-
-@media(max-width:700px){
-.partido{
- flex-direction:column;
- align-items:flex-start;
- gap:6px;
-}
-.hora{ align-self:flex-end; }
+background:#ffc107;
+padding:3px 6px;
+border-radius:6px;
+font-size:.7em;
+margin-left:5px;
 }
 
 </style>
@@ -131,69 +101,79 @@ body{
 <script>
 
 /* ========= LIMPIAR HORA ========= */
-function limpiarHora(hora=""){
- const m = hora.match(/\d{1,2}:\d{2}/);
- return m ? m[0] : "00:00";
+function limpiarHora(h=""){
+const m=h.match(/\d{1,2}:\d{2}/);
+return m?m[0]:"00:00";
 }
 
-/* ========= FECHA OBJ ========= */
+/* ========= FECHA ========= */
 function fechaObj(p){
- return new Date(`${p.fecha} ${limpiarHora(p.hora)}`);
+return new Date(`${p.fecha} ${limpiarHora(p.hora)}`);
 }
 
-/* ========= NIVEL ========= */
-function extraerNivel(txt=""){
- const m = txt.match(/(\d+)/);
- return m ? parseInt(m[1]) : 99;
-}
-
-/* ========= SEMANA ACTUAL ========= */
+/* ========= SEMANA ========= */
 function semanaActual(){
- const now=new Date();
- const day=now.getDay()||7;
+const now=new Date();
+const day=now.getDay()||7;
 
- const monday=new Date(now);
- monday.setDate(now.getDate()-day+1);
- monday.setHours(0,0,0,0);
+const monday=new Date(now);
+monday.setDate(now.getDate()-day+1);
+monday.setHours(0,0,0,0);
 
- const sunday=new Date(monday);
- sunday.setDate(monday.getDate()+6);
- sunday.setHours(23,59,59);
+const sunday=new Date(monday);
+sunday.setDate(monday.getDate()+6);
+sunday.setHours(23,59,59);
 
- return {monday,sunday};
+return {monday,sunday};
 }
 
-/* ========= CARGAR ========= */
+/* ========= DETECTAR CATEGORIA ========= */
+function detectarCategoria(catPartido, categorias){
+
+if(!catPartido) return null;
+
+catPartido = catPartido.toUpperCase();
+
+return Object.keys(categorias)
+.find(c => catPartido.includes(c.toUpperCase()));
+}
+
+/* ========= CARGA ========= */
 
 Promise.all([
- fetch("/data/cartelera-larraun.json").then(r=>r.json()),
- fetch("/data/categoriacartel.json").then(r=>r.json())
+fetch("/data/cartelera-larraun.json").then(r=>r.json()),
+fetch("/data/categoriacartel.json").then(r=>r.json())
 ])
 .then(([partidos,categorias])=>{
 
 const {monday,sunday}=semanaActual();
 
-/* solo semana actual */
-partidos = partidos.filter(p=>{
- const d=fechaObj(p);
- return d>=monday && d<=sunday;
+/* semana actual */
+partidos=partidos.filter(p=>{
+const d=fechaObj(p);
+return d>=monday && d<=sunday;
 });
 
-/* preparar grupos */
-const ordenCategorias=Object.keys(categorias);
+/* crear grupos */
 const grupos={};
-ordenCategorias.forEach(c=>grupos[c]=[]);
+Object.keys(categorias)
+.forEach(c=>grupos[c]=[]);
 
-/* agrupar */
+/* asignar categoria correcta */
 partidos.forEach(p=>{
- if(grupos[p.categoria])
-   grupos[p.categoria].push(p);
-});
 
-const cont=document.getElementById("ordutegiak");
+const catBase =
+detectarCategoria(p.categoria,categorias);
+
+if(catBase)
+grupos[catBase].push(p);
+
+});
 
 /* pintar */
-ordenCategorias.forEach(cat=>{
+const cont=document.getElementById("ordutegiak");
+
+Object.keys(categorias).forEach(cat=>{
 
 const lista=grupos[cat];
 if(!lista.length) return;
@@ -206,14 +186,10 @@ const fb=fechaObj(b);
 
 if(fa-fb!==0) return fa-fb;
 
-if((a.fronton||"")!=(b.fronton||""))
- return (a.fronton||"").localeCompare(b.fronton||"");
-
-return extraerNivel(b.categoria)
-     - extraerNivel(a.categoria);
+return (a.fronton||"")
+.localeCompare(b.fronton||"");
 });
 
-/* bloque categoria */
 const bloque=document.createElement("div");
 bloque.className="kategoria";
 
@@ -227,22 +203,21 @@ ${cat}
 
 const listaDiv=bloque.querySelector(".partidos");
 
-/* partidos */
 lista.forEach(p=>{
 
 const provisional =
- p.hora && p.hora.includes("!")
- ? `<span class="badge">PROB.</span>`
- : "";
+p.hora?.includes("!")
+? `<span class="badge">PROB.</span>`
+:"";
 
 const div=document.createElement("div");
 div.className="partido";
 
 div.innerHTML=`
-<div class="info">
-<div class="fecha">🗓 ${p.fecha}</div>
-<div>${p.etxekoa} vs ${p.kanpokoak}</div>
-<div class="fronton">📍 ${p.fronton||""}</div>
+<div>
+<div><b>${p.etxekoa}</b> vs ${p.kanpokoak}</div>
+<div>📍 ${p.fronton||""}</div>
+<div>🗓 ${p.fecha}</div>
 </div>
 
 <div class="hora">
@@ -251,6 +226,7 @@ ${limpiarHora(p.hora)} ${provisional}
 `;
 
 listaDiv.appendChild(div);
+
 });
 
 cont.appendChild(bloque);
