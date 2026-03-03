@@ -923,84 +923,308 @@ footer {
   font-weight: 700;
 }
 
-/* =========================================
-   MEJORA RESPONSIVE PROFESIONAL
-   ========================================= */
+/* ===== MEJORAS PARA MÓVIL (VISTA LIMPIA Y ORDENADA) ===== */
+@media (max-width: 768px) {
 
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  overflow-x: hidden;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
-h2 { font-size: clamp(1.3rem, 3.5vw, 1.8rem); }
-h3 { font-size: clamp(1.1rem, 3vw, 1.4rem); }
-p  { font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
-
-@media (max-width: 900px) {
-
-  .semana {
-    grid-template-columns: 1fr;
+  /* Ajustes generales */
+  section {
+    padding: 30px 15px;
   }
 
-  .dia {
-    position: static !important;
-    height: auto !important;
-    padding-top: 0;
+  h2 {
+    font-size: 1.8rem;
+    text-align: center;
   }
 
-  .dia h4 {
-    position: static !important;
-    margin-bottom: 10px;
-  }
-
-  .evento {
-    position: relative !important;
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-
+  /* Cabecera más compacta */
   header {
-    padding: 25px 15px 20px 15px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   header img {
-    max-width: 110px;
+    max-width: 100px;
+    margin-top: 50px; /* Espacio para los botones de idioma */
   }
 
-  .top-left,
+  header h1 {
+    font-size: 1.4rem;
+    margin: 10px 0 5px;
+  }
+
+  header p {
+    font-size: 0.9rem;
+  }
+
+  /* Reposicionar elementos de la cabecera para móvil */
+  .top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
   .top-right {
-    position: static;
-    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .lang-switch {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .lang-switch button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .social-icons {
+    justify-content: flex-end;
+  }
+
+  .social-icons img {
+    width: 28px;
+  }
+
+  .links-derecha {
+    margin-top: 10px;
+    align-items: flex-end;
+  }
+
+  .campeonatos-link, .reserva-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
     text-align: center;
+  }
+
+  /* Cards (Noticias, Estructura, etc.) - Una columna */
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card img {
+    max-height: 200px;
+  }
+
+  /* Modalidades - Una columna */
+  .modalitateak {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .modal-card {
+    height: 120px;
+    padding: 15px;
+  }
+
+  .modal-card h2 {
+    font-size: 1.4rem;
+    text-align: left;
+  }
+
+  /* Sección de Entrenadores */
+  .entrenatzaileak .cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* HORARIOS - LO MÁS CRÍTICO: Cambiar a lista vertical */
+  .horarios-wrapper {
+    gap: 30px;
+  }
+
+  .calendario {
+    padding: 20px 15px;
+  }
+
+  .calendario h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  /* Cambiamos .semana de grid a bloque */
+  .semana {
+    display: block;
+  }
+
+  /* Cada día será un bloque independiente */
+  .dia {
+    position: static !important; /* Quitamos posicionamiento absoluto */
+    height: auto !important;     /* Altura automática */
+    padding: 0;
+    margin-bottom: 25px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .dia h4 {
+    position: static;
+    background: #333;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+  }
+
+  /* Los eventos ahora en bloque, no absolutos */
+  .evento {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    height: auto !important;
+    margin: 5px 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Eliminar el posicionamiento absoluto de los eventos */
+  .dia .evento {
+    position: relative;
+    width: auto;
+  }
+
+  /* Grid de grupos de entrenamiento */
+  .entrenamenduak-taldeak .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tabla de pelotaris (si la hay) */
+  .pelotari-lista {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  /* Galería de fotos */
+  .galeria-folders .folder {
+    height: 60px;
+    font-size: 1rem;
+    padding-left: 15px;
+  }
+
+  .folder::before {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+
+  .folder::after {
+    display: none; /* Ocultamos el texto "Ikusi galeria →" en móvil */
+  }
+
+  /* Temporadas en la galería */
+  .temporadas-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Patrocinadores */
+  .sponsor-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .sponsor-item {
+    padding: 10px;
+  }
+
+  .sponsor-item img {
+    max-height: 50px;
+  }
+
+  /* Iframes (cartelera, resultados) */
+  iframe {
+    height: 600px; /* Un poco más alto en móvil para que se vea bien */
+  }
+
+  /* Mapa */
+  #kontaktua iframe {
+    height: 250px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .top-left, .top-right {
+    position: static;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .top-left {
+    order: 1;
+  }
+
+  .top-right {
+    order: 2;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+    margin-bottom: 5px;
   }
 
   .links-derecha {
     align-items: center;
+    width: 100%;
   }
 
-  .campeonatos-link,
-  .reserva-link {
-    width: 100%;
-    max-width: 320px;
+  .campeonatos-link, .reserva-link {
+    width: 90%;
+    margin: 5px 0;
+  }
+
+  header img {
+    margin-top: 10px;
+    order: 3;
+  }
+
+  header h1, header p {
+    order: 4;
+  }
+
+  /* Botones de idioma horizontales para móvil pequeño */
+  .lang-switch {
+    flex-direction: row;
+    justify-content: center;
   }
 
   .modal-card {
-    height: 140px;
+    height: 100px;
   }
 
-}
+  .modal-card h2 {
+    font-size: 1.2rem;
+  }
 
+  .sponsor-track {
+    grid-template-columns: 1fr;
+  }
+}
 
 </style>
 
@@ -1223,6 +1447,98 @@ function openImage(src) {
 
   <div class="cards">
 
+    <!-- NOTICIA - IGOR NAZABAL -->
+<div class="card" data-date="2026-02-27">
+
+  <p class="news-date"
+     data-date="2026-02-27"
+     style="font-size:0.9em; color:#666;"></p>
+
+
+  <!-- CASTELLANO -->
+  <p class="es">
+    <strong>¡Igor Nazabal, campeón del Mungiako Txapelketa Promesak!</strong><br><br>
+
+    Este pasado fin de semana nuestro pelotari <strong>Igor Nazabal</strong> se proclamó 
+    campeón del <strong>Mungiako Txapelketa Promesak</strong>, formando pareja con 
+    <strong>Ekain Olano</strong>.<br><br>
+
+    La final, disputada en el frontón de Mungia, fue muy igualada y emocionante, 
+    imponiéndose la pareja <strong>Nazabal – Olano</strong> por un ajustado 
+    <strong>22-20</strong> frente a <em>Torralba – Moto</em> 
+    (Lagun Onak – Txukun Lakua).<br><br>
+
+    Desde <strong>Larraun Pilota Elkartea</strong> queremos felicitar a Igor y a su compañero 
+    por este gran logro y por el trabajo realizado durante todo el campeonato.<br><br>
+
+    🏆 ¡Zorionak txapeldunak!
+  </p>
+
+  <!-- EUSKERA -->
+  <p class="eu">
+    <strong>Igor Nazabal, Mungiako Txapelketa Promesak txapelketako txapeldun!</strong><br><br>
+
+    Asteburu honetan gure klubeko pilotariak, <strong>Igor Nazabalek</strong>, 
+    <strong>Mungiako Txapelketa Promesak</strong> txapelketa irabazi du 
+    <strong>Ekain Olanorekin</strong> batera.<br><br>
+
+    Mungiako frontoian jokatutako finala oso lehiatua eta emozionantea izan zen, 
+    eta <strong>Nazabal – Olano</strong> bikoteak garaipena lortu zuen 
+    <strong>22-20</strong> emaitzarekin, <em>Torralba – Moto</em> 
+    (Lagun Onak – Txukun Lakua) bikotearen aurka.<br><br>
+
+    <strong>Larraun Pilota Elkarteatik</strong> zorionik beroenak eman nahi dizkiegu 
+    Igorri eta bere bikotekideari egindako lan bikainagatik eta lortutako 
+    txapelagatik.<br><br>
+
+    🏆 Zorionak txapeldunei!
+  </p>
+
+  <!-- IMAGEN ENLAZADA -->
+  <div style="margin-top:15px; width:100%; text-align:center;">
+    <a href="https://www.facebook.com/permalink.php?story_fbid=pfbid0kYSk3jH6rMebU2wUrSfkU25s2YCV4PhgV9itkLvJJvqe23DpnUyyYyzth5b1jfmol&id=100063559117815&rdid=rhruKHcvConY9J5g"
+       target="_blank"
+       style="display:block; width:100%;">
+      <img 
+        src="images/noticias/nazabal-mungia.png"
+        alt="Igor Nazabal - Mungiako Txapelketa Promesak"
+        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
+        onclick="openImage(this.src)">
+    </a>
+  </div>
+
+</div>
+
+    <!--NOTICIA SOTIL --> 
+<div class="card" data-date="2025-02-25">
+  <p class="news-date" data-date="2025-02-25" style="font-size:0.9em; color:#666;"></p>
+
+  <!-- CASTELLANO -->
+  <p class="es">
+    <strong>¡Gran fin de semana para los hermanos Sotil!</strong><br><br>
+    El pasado fin de semana, dos hermanos del club, <strong>Imanol Sotil</strong> y <strong>Julen Sotil</strong>, se proclamaron campeones en sus respectivos torneos.<br><br>
+    Imanol, junto a <strong>Unai Arcelus</strong>, se alzó con el título del <strong>“NKJ - ESKUZ BINAKA KADETE TRINKETE”</strong>.<br>
+    Por su parte, Julen, acompañado de <strong>Eneko Labaka</strong>, ganó el <strong>“LEZAMAKO ESKUALDE TXAPELKETA”</strong>.<br><br>
+    ¡Zorionak a los dos! 👏🏼
+  </p>
+
+  <!-- EUSKERA -->
+  <p class="eu">
+    <strong>Asteburu handia Sotil anaientzat!</strong><br><br>
+    Joan den asteburuan, klubeko bi anaiek, <strong>Imanol Sotil</strong> eta <strong>Julen Sotil</strong>, txapeldun izan ziren beren txapelketetan.<br><br>
+    Imanolek, <strong>Unai Arcelus</strong> lagun, <strong>“NKJ - ESKUZ BINAKA KADETE TRINKETE”</strong> txapelketa irabazi zuen.<br>
+    Julenek, berriz, <strong>Eneko Labaka</strong>rekin batera, <strong>“LEZAMAKO ESKUALDE TXAPELKETA”</strong> eskuratu zuen.<br><br>
+    Zorionak biei! 👏🏼
+  </p>
+
+  <!-- IMAGEN ENLAZADA AL VIDEO DE YOUTUBE -->
+  <div style="margin-top:15px; width:100%; text-align:center;">
+    <a href="https://www.youtube.com/watch?v=sDnZHTn5GSc" target="_blank" style="display:block; width:100%;">
+      <img src="images/cartelera/montaje-sotil.png" alt="Imanol eta Julen Sotil - Campeones" style="width:100%; height:auto; border-radius:6px; cursor:pointer;" onclick="openImage(this.src)">
+    </a>
+  </div>
+</div>
+
 <!--NOTICIA 1 -->
   <div class="card" data-date="2026-02-01">
 
@@ -1290,81 +1606,7 @@ function openImage(src) {
  </div>
  
 
-<!--NOTICIA 1 -->
-  <div class="card" data-date="2025-12-25">
 
-    <p class="news-date"
-       data-date="2025-12-25"
-       style="font-size:0.9em; color:#666;"></p>
-
-
-  <!-- CASTELLANO -->
-  <p class="es">
-    <strong>¡Enhorabuena a la persona ganadora!</strong><br><br>
-    Muchísimas gracias a todas y todos por participar en nuestro sorteo de Navidad,  
-    por la ilusión compartida y por acompañarnos un año más.<br><br>
-    ✨ ¡Feliz Navidad y suerte para el próximo año! 🎁🎄
-  </p>
-
-  <!-- EUSKERA -->
-  <p class="eu">
-    <strong>Zorionak irabazleari!</strong><br><br>
-    Eskerrik asko guztioi Gabonetako zozketan parte hartzeagatik,  
-    ilusio partekatuagatik eta beste urte batez gurekin egoteagatik.<br><br>
-    ✨ Gabon zoriontsuak eta zorte on datorren urterako! 🎁🎄
-  </p>
-
-  <!-- IMAGEN ENLAZADA A FACEBOOK -->
-  <div style="margin-top:15px; width:100%; text-align:center;">
-    <a href="https://www.facebook.com/permalink.php?story_fbid=pfbid02tUqV4jL7DwT7Qd2NKVZCApxtKcbQ9t2W2EpX7yYfJQukmoLGFgwFiT9QzaNZaW9el&id=61585064469809"
-       target="_blank"
-       style="display:block; width:100%;">
-      <img 
-        src="images/cartelera/cartel-sorteo.jpg"
-        alt="Gabonetako Zozketa - Cesta de Navidad"
-        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
-        onclick="openImage(this.src)">
-    </a>
-  </div>
- </div>
- 
-
-<!--NOTICIA 2 -->
-<div class="card" data-date="2025-12-19">
-
-    <p class="news-date"
-       data-date="2025-12-19"
-       style="font-size:0.9em; color:#666;"></p>
-
-  <!-- CASTELLANO -->
-  <p class="es">
-    <strong>El 27 de diciembre a las 10 horas</strong> organizaremos partidos amistosos de pelota
-    mano y pala. Por favor escribid al móvil de contacto quienes queráis jugar,
-    antes del lunes, para organizar los partidos. Con los nuevos también
-    contamos si quieren. 
-  </p>
-
-  <!-- EUSKERA -->
-  <p class="eu">
-    <strong>Abenduaren 27an 10etan</strong>esku pilota eta palako pilota partidu amistosoak
-    antolatuko ditugu. Mesedez idatzi kontaktuko mugikorrara jokatu nahi duzuenok,
-    astelehena baino lehen, partiduak antolatzeko. Hasiberriekin ere kontatzen
-    dugu nahi badute.
-  </p>
-
-  <!-- IMAGEN ENLAZADA A CONTACTO -->
-  <div style="margin-top:15px; width:100%; text-align:center;">
-    <a href="https://larraunpe.github.io/larraun-pilota/#kontaktua"
-       target="_blank"
-       style="display:block; width:100%;">
-      <img 
-        src="images/cartelera/cartel-amistoso.jpg"
-        alt="Lagunartekoak - Amistosos"
-        style="width:100%; height:auto; border-radius:6px; cursor:pointer;"
-        onclick="openImage(this.src)">
-    </a>
-  </div>
-</div>
 
  
  <!-- 🔽 ENLACE AL ARCHIVO (SOLO AQUÍ) -->
@@ -1867,7 +2109,7 @@ function openImage(src) {
   
   <!-- CARTELERA INTERNA LARRAUN -->
 <iframe
-  src="cartel.html"
+  src="kartelera.html"
   style="
     width:100%;
     height:900px;
@@ -2555,3 +2797,6 @@ fetch('/data/pelotariak.json')
 </body>
 </html>
 
+
+</body>
+</html>
