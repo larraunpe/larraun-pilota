@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>Larraun Pilota – ORDUTEGIAK (asterako provisionalak)</title>
   <link rel="icon" type="image/png" href="/kartelera.png">
   <meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
@@ -15,225 +15,444 @@
       margin: 0;
       font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
       background: #f0f2f5;
-      padding: 20px;
+      padding: 10px;
     }
     .ordutegi-kartela {
       max-width: 1200px;
       margin: 0 auto;
       background: white;
-      border-radius: 32px 32px 24px 24px;
-      box-shadow: 0 20px 40px rgba(0, 20, 30, 0.25);
+      border-radius: 24px 24px 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 20, 30, 0.2);
       overflow: hidden;
-      padding: 30px 35px 35px 35px;
+      padding: 20px 15px 25px 15px;
     }
+    @media (min-width: 768px) {
+      body { padding: 20px; }
+      .ordutegi-kartela {
+        border-radius: 32px 32px 24px 24px;
+        padding: 30px 35px 35px 35px;
+      }
+    }
+    
+    /* HEADER responsiboa */
     .header-ordutegiak {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 30px;
-      padding-bottom: 15px;
-      border-bottom: 4px solid #b30000;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #b30000;
+      flex-wrap: wrap;
+      gap: 10px;
     }
+    @media (min-width: 768px) {
+      .header-ordutegiak {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 4px solid #b30000;
+      }
+    }
+    
     .header-ordutegiak img {
-      height: 80px;
+      height: 50px;
       width: auto;
       object-fit: contain;
     }
+    @media (min-width: 768px) {
+      .header-ordutegiak img {
+        height: 80px;
+      }
+    }
+    
     .header-ordutegiak h1 {
-      font-size: 3rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: #b30000;
-      margin: 0 20px;
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+      margin: 0 5px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+      text-align: center;
     }
+    @media (min-width: 480px) {
+      .header-ordutegiak h1 { font-size: 2.2rem; }
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak h1 {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        margin: 0 20px;
+      }
+    }
+    
+    /* Kategoria blokeak */
     .kategoriak-ordena {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 20px;
     }
+    @media (min-width: 768px) {
+      .kategoriak-ordena { gap: 30px; }
+    }
+    
     .kategoria-blokea {
-      border-radius: 24px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background-color: #ffffff;
     }
+    @media (min-width: 768px) {
+      .kategoria-blokea { border-radius: 24px; }
+    }
+    
+    /* Titulua etiketa moduan - responsiboa */
     .kategoria-titulua {
-      padding: 14px 24px;
-      font-size: 2rem;
-      font-weight: 700;
+      padding: 12px 16px;
+      font-size: 1.5rem;
+      font-weight: 800;
       letter-spacing: 0.5px;
       color: #1a1a1a;
-      border-bottom: 3px solid;
-      background: rgba(255, 255, 255, 0.85);
+      border-bottom: none;
+      background: rgba(255, 255, 255, 0.95);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+      flex-wrap: wrap;
     }
+    @media (min-width: 480px) {
+      .kategoria-titulua {
+        padding: 14px 20px;
+        font-size: 1.8rem;
+        gap: 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      .kategoria-titulua {
+        padding: 16px 28px;
+        font-size: 2.4rem;
+        gap: 16px;
+      }
+    }
+    
     .kategoria-titulua span.emoji-big {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
+      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
     }
+    @media (min-width: 768px) {
+      .kategoria-titulua span.emoji-big { font-size: 2.8rem; }
+    }
+    
+    /* Egunak */
     .egun-saila {
-      margin: 20px 20px 25px 20px;
+      margin: 12px 10px 15px 10px;
       border-left: 6px solid;
-      background: #ffffffd9;
-      border-radius: 18px 8px 8px 18px;
-      padding: 12px 15px 8px 15px;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+      background: #ffffff;
+      border-radius: 14px 6px 6px 14px;
+      padding: 10px 12px 6px 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
+    @media (min-width: 768px) {
+      .egun-saila {
+        margin: 20px 20px 25px 20px;
+        border-left: 8px solid;
+        border-radius: 18px 8px 8px 18px;
+        padding: 12px 15px 8px 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+    }
+    
     .egun-izena {
-      font-size: 1.6rem;
-      font-weight: 600;
+      font-size: 1.3rem;
+      font-weight: 700;
       color: #0b2c5d;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 15px;
-      border-bottom: 2px dashed #aaa;
+      gap: 6px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #b0b0b0;
       padding-bottom: 6px;
       text-transform: capitalize;
+      flex-wrap: wrap;
     }
-    .egun-izena .eguna-zenb {
-      font-size: 1rem;
-      background: #eee;
-      padding: 4px 12px;
-      border-radius: 40px;
-      color: #333;
-      font-weight: 500;
+    @media (min-width: 768px) {
+      .egun-izena {
+        font-size: 1.8rem;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+      }
     }
+    
+    /* Frontoiak */
     .frontoi-taldea {
-      margin-bottom: 20px;
-      margin-left: 8px;
+      margin-bottom: 15px;
+      margin-left: 4px;
     }
+    @media (min-width: 768px) {
+      .frontoi-taldea {
+        margin-bottom: 20px;
+        margin-left: 8px;
+      }
+    }
+    
     .frontoi-izena {
-      font-weight: 600;
-      font-size: 1.3rem;
+      font-weight: 700;
+      font-size: 1.1rem;
       background: #f2f2f2;
       display: inline-block;
-      padding: 5px 20px 5px 16px;
-      border-radius: 40px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 4px #0000000d;
+      padding: 5px 16px 5px 14px;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      border: 2px solid #aaa;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      word-break: break-word;
+      max-width: 100%;
     }
+    @media (min-width: 768px) {
+      .frontoi-izena {
+        font-size: 1.4rem;
+        padding: 6px 24px 6px 20px;
+        border-radius: 40px;
+        margin-bottom: 12px;
+      }
+    }
+    
     .frontoi-izena.berezia {
       background: #0b5ed7 !important;
       color: white !important;
       border-color: #003f8c;
-      box-shadow: 0 4px 0 #002856;
+      box-shadow: 0 3px 0 #002856;
     }
+    
+    /* Partidak */
     .partido-txikia {
       display: flex;
       align-items: flex-start;
-      gap: 18px;
+      gap: 10px;
       background: #ffffff;
-      padding: 14px 18px;
+      padding: 12px 12px;
       margin-bottom: 8px;
-      border-radius: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      transition: transform 0.1s ease;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
       border-left: 6px solid;
+      flex-wrap: wrap;
     }
-    .partido-txikia:hover {
-      transform: scale(1.003);
-      background: #fcfcfc;
+    @media (min-width: 480px) {
+      .partido-txikia {
+        gap: 15px;
+        padding: 14px 16px;
+      }
     }
+    @media (min-width: 768px) {
+      .partido-txikia {
+        gap: 20px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+        border-left: 8px solid;
+      }
+    }
+    
+    /* Ordu blokea */
     .ordu-blokea {
-      min-width: 110px;
-      font-weight: 700;
-      font-size: 1.3rem;
+      min-width: 80px;
+      font-weight: 800;
+      font-size: 1.1rem;
       background: #0b2c5d;
       color: white;
-      padding: 6px 14px;
-      border-radius: 40px;
+      padding: 5px 10px;
+      border-radius: 30px;
       text-align: center;
-      box-shadow: 0 4px 0 #04162e;
+      box-shadow: 0 3px 0 #04162e;
       flex-shrink: 0;
+      align-self: flex-start;
     }
+    @media (min-width: 480px) {
+      .ordu-blokea {
+        min-width: 100px;
+        font-size: 1.2rem;
+        padding: 6px 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea {
+        min-width: 120px;
+        font-size: 1.4rem;
+        padding: 8px 16px;
+        box-shadow: 0 4px 0 #04162e;
+      }
+    }
+    
     .ordu-blokea.provisorio {
       background: #b34a00;
-      box-shadow: 0 4px 0 #6b2d00;
+      box-shadow: 0 3px 0 #6b2d00;
     }
+    @media (min-width: 768px) {
+      .ordu-blokea.provisorio { box-shadow: 0 4px 0 #6b2d00; }
+    }
+    
     .ordu-blokea small {
-      font-size: 0.7rem;
-      font-weight: 400;
+      font-size: 0.65rem;
+      font-weight: 500;
       display: block;
-      opacity: 0.9;
+      opacity: 0.95;
     }
+    @media (min-width: 768px) {
+      .ordu-blokea small { font-size: 0.75rem; }
+    }
+    
+    /* Informazioa */
     .partido-info {
       flex: 1;
+      min-width: 200px;
     }
+    
     .parejak {
-      font-weight: 600;
-      font-size: 1.1rem;
+      font-weight: 700;
+      font-size: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
+    @media (min-width: 480px) {
+      .parejak { font-size: 1.1rem; gap: 5px; }
+    }
+    @media (min-width: 768px) {
+      .parejak { font-size: 1.2rem; gap: 6px; }
+    }
+    
     .etxekoa, .kanpokoak {
       display: flex;
       align-items: center;
       gap: 5px;
+      flex-wrap: wrap;
+      word-break: break-word;
     }
+    
     .etxekoa { color: #0b2c5d; }
     .kanpokoak { color: #b00000; }
+    
     .larraun-handiagoa {
-      font-size: 1.3rem;
-      font-weight: 800;
-      background: #fff0f0;
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: #ffe6e6;
       padding: 2px 8px;
       border-radius: 30px;
-      border: 1px solid currentColor;
+      border: 2px solid #b30000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: inline-block;
     }
+    @media (min-width: 480px) {
+      .larraun-handiagoa { font-size: 1.2rem; padding: 3px 10px; }
+    }
+    @media (min-width: 768px) {
+      .larraun-handiagoa { font-size: 1.5rem; padding: 3px 12px; }
+    }
+    
     .lehiaketa-labur {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      color: #444;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #333;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       flex-wrap: wrap;
     }
+    @media (min-width: 768px) {
+      .lehiaketa-labur {
+        margin-top: 10px;
+        font-size: 1rem;
+        gap: 12px;
+      }
+    }
+    
     .zkia-etiketa {
       background: #333;
       color: white;
       border-radius: 30px;
-      padding: 2px 10px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
+    @media (min-width: 768px) {
+      .zkia-etiketa {
+        padding: 4px 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
     .fase-tag {
       background: #d4af37;
       color: #1a1a1a;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      padding: 3px 10px;
+      padding: 3px 8px;
       border-radius: 20px;
       text-transform: uppercase;
     }
+    @media (min-width: 768px) {
+      .fase-tag {
+        font-size: 0.85rem;
+        padding: 4px 12px;
+      }
+    }
+    
+    /* Footer */
     .footer-ordutegiak {
-      margin-top: 45px;
-      padding-top: 20px;
+      margin-top: 25px;
+      padding-top: 15px;
       border-top: 2px solid #bbb;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      font-size: 1rem;
+      gap: 10px;
+      font-size: 0.9rem;
       color: #1f1f1f;
-      font-weight: 500;
+      font-weight: 600;
+      text-align: center;
     }
+    @media (min-width: 480px) {
+      .footer-ordutegiak {
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .footer-ordutegiak {
+        margin-top: 45px;
+        padding-top: 20px;
+        border-top: 3px solid #aaa;
+        font-size: 1.1rem;
+      }
+    }
+    
     .footer-ordutegiak .social {
       background: #b30000;
       color: white;
-      padding: 6px 18px;
+      padding: 6px 16px;
       border-radius: 40px;
+      display: inline-block;
     }
+    @media (min-width: 768px) {
+      .footer-ordutegiak .social {
+        padding: 8px 22px;
+      }
+    }
+    
     .ez-partidurik {
       padding: 20px;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #777;
       font-style: italic;
+    }
+    @media (min-width: 768px) {
+      .ez-partidurik {
+        padding: 30px;
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
@@ -250,7 +469,7 @@
   </div>
 
   <div class="footer-ordutegiak">
-    <div>📍 Larraun Pilota Elkartea — asteroko ordutegi provisionalak</div>
+    <div>📍 Larraun Pilota Elkartea</div>
     <div class="social">@larraunpilota</div>
   </div>
 </div>
@@ -262,11 +481,9 @@
     let kategoriakMap = new Map(); // izena (uppercase) -> { kolorea, edadMin, izenaOriginal }
 
     try {
-      // Kargatu JSON berria: /data/categoriaedad.json
       const katResp = await fetch('/data/categoriaedad.json');
       if (katResp.ok) {
         kategoriakRaw = await katResp.json();
-        // Formatua: [ { "HAURRAK": "#aifa8f", "EDADMIN": "13", "EDADMAX": "14" }, ... ]
         kategoriakRaw.forEach(item => {
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           if (!izena) return;
@@ -279,7 +496,7 @@
           });
         });
 
-        // Kategoria ordena sortu: EDADMIN txikienetik handienera, eta berdina bada alfabetikoz
+        // Kategoria ordena: EDADMIN txikienetik handienera, berdina bada alfabetikoz
         kategoriakRaw.sort((a, b) => {
           const izenaA = Object.keys(a).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           const izenaB = Object.keys(b).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
@@ -291,13 +508,8 @@
           if (edadMinA !== edadMinB) return edadMinA - edadMinB;
           return izenaA.localeCompare(izenaB);
         });
-
-        console.log('Kategoriak ordenatuta:', kategoriakRaw.map(k => {
-          const iz = Object.keys(k).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          return `${iz} (${k.EDADMIN})`;
-        }));
       } else {
-        console.warn('ez da categoriaedad.json kargatu, kolore hutsak');
+        console.warn('ez da categoriaedad.json kargatu');
       }
     } catch (e) {
       console.warn('kategoriak kargatzean errorea:', e);
@@ -350,14 +562,13 @@
     function kategoriaIzena(testua) {
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
-      // Lehentasunez kategoria ezagun guztiak probatu (kategoriakMap-en giltzak)
       const posibleKategoriak = Array.from(kategoriakMap.keys());
       for (let k of posibleKategoriak) {
         if (up.includes(k)) {
           return kategoriakMap.get(k).izena;
         }
       }
-      // Hitz arruntak (behin-behinekoak)
+      // Hitz arruntak
       if (up.includes('HAUR')) return 'HAURRAK';
       if (up.includes('KADETE')) return 'KADETE';
       if (up.includes('KIMU')) return 'KIMU';
@@ -375,8 +586,7 @@
       partidakKategoriaka.get(iz).push(p);
     });
 
-    // ---------- 5. Kategorien ordena: kategoriakRaw-ren ordena erabili (dagoeneko ordenatuta) ----------
-    // Sortu ordenaPrior Map-a kategoriakRaw-en ordenan oinarrituta
+    // ---------- 5. Kategorien ordena ----------
     const ordenaPrior = new Map();
     kategoriakRaw.forEach((item, index) => {
       const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
@@ -385,7 +595,6 @@
       }
     });
 
-    // Bistaratuko diren kategoria izenak ordenatu kategoriakRaw-en ordenaren arabera
     const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a, b) => {
       const aUp = a.toUpperCase().trim();
       const bUp = b.toUpperCase().trim();
@@ -404,36 +613,30 @@
     for (let katIzen of kategoriaIzenak) {
       const partidaLista = partidakKategoriaka.get(katIzen);
       const katUp = katIzen.toUpperCase().trim();
-      // Kategoriaren kolorea mapetik hartu (ez badago, grisa)
       const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#cccccc', edadMin: 999 };
       const bordeKolorea = koloreInfo.kolorea;
 
       const katBlokea = document.createElement('div');
       katBlokea.className = 'kategoria-blokea';
-      // Atzealdeko kolorea (kategoria osoaren backgrounda)
       katBlokea.style.backgroundColor = bordeKolorea;
 
-      // titulua (kategoriaren izenburua)
       const tituluaDiv = document.createElement('div');
       tituluaDiv.className = 'kategoria-titulua';
-      tituluaDiv.style.borderBottomColor = bordeKolorea;
+      tituluaDiv.style.backgroundColor = `rgba(255, 255, 255, 0.95)`;
       tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
       katBlokea.appendChild(tituluaDiv);
 
-      // Ordua parseatzeko
       function parseOrdua(horaStr) {
         if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
         const match = horaStr.match(/(\d{1,2}:\d{2})/);
         return match ? match[1] : '00:00';
       }
 
-      // Maila zenbakia ateratzeko (KIMU 4...)
       function extractLevelNumber(txt) {
         const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
         return match ? parseInt(match[2], 10) : 999;
       }
 
-      // Ordenatu: egun, ordu, frontoi, maila (baxu -> altu)
       partidaLista.sort((a, b) => {
         const dA = dateStrToDate(a.fecha);
         const dB = dateStrToDate(b.fecha);
@@ -452,7 +655,7 @@
 
         const levelA = extractLevelNumber(a.lehiaketa);
         const levelB = extractLevelNumber(b.lehiaketa);
-        return levelB - levelA; // 4 (baxu) lehen
+        return levelB - levelA;
       });
 
       let currentDateStr = null;
