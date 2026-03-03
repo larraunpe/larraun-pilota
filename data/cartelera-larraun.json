@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/03/05",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (I. Olza - E. Eguaras)",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/03/06",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "1",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (A. Claver - A. Unamuno)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/03/06",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "1",
     "fronton": "Mutilva Baja - Polideportivo",
     "etxekoa": "ARANPILOTA (L. Otxotorena - A. Perez)",
@@ -28,7 +28,16 @@
   },
   {
     "fecha": "2026/03/06",
-    "hora": "18:30 !Horario provisional",
+    "hora": "18:30",
+    "zkia": "1",
+    "fronton": "Pamplona - San Juan Verde",
+    "etxekoa": "SAN JUAN (E. Ortigosa - J. Lakuntza)",
+    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/06",
+    "hora": "18:30",
     "zkia": "2",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (M. Iraizoz - A. Vertiz)",
@@ -36,8 +45,17 @@
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
   },
   {
+    "fecha": "2026/03/06",
+    "hora": "20:15",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
+    "kanpokoak": "ULTZAMA (J. Macaya - X. Baraibar)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+  },
+  {
     "fecha": "2026/03/07",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (A. Ongay)",
@@ -46,7 +64,7 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (A. Garcia - J. Okiñena)",
@@ -55,8 +73,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "3",
+    "hora": "10:00",
+    "zkia": "2",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (A. Gascue)",
     "kanpokoak": "LARRAUN (M. Goikoetxea)",
@@ -64,8 +82,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "4",
+    "hora": "10:00",
+    "zkia": "3",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (A. Martikorena)",
     "kanpokoak": "LARRAUN (M. Lazkoz)",
@@ -73,8 +91,17 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
+    "kanpokoak": "ABAXITABIDEA (J. Amorena - E. Otamendi)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/07",
+    "hora": "10:00",
+    "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
     "kanpokoak": "ZUGARRALDE (A. Marinero - A. Gonzalez)",
@@ -82,8 +109,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "2",
+    "hora": "10:00",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
     "kanpokoak": "ULTZAMA (P. Aldaz - M. Perez)",
@@ -91,8 +118,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "3",
+    "hora": "10:00",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko)",
     "kanpokoak": "SAN MIGUEL (A. Azanza - O. Zudaire)",
@@ -100,8 +127,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "4",
+    "hora": "10:00",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Navarro)",
     "kanpokoak": "ULTZAMA (U. Ansorena)",
@@ -109,8 +136,8 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "5",
+    "hora": "10:00",
+    "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (X. Telletxea)",
     "kanpokoak": "IRURTZUN (H. Salcedo)",
@@ -118,7 +145,7 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Ororbia - Ororbia",
     "etxekoa": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
@@ -127,7 +154,7 @@
   },
   {
     "fecha": "2026/03/07",
-    "hora": "16:30 !Horario provisional",
+    "hora": "16:30",
     "zkia": "1",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (A. Imaz - A. Merino)",
@@ -136,7 +163,7 @@
   },
   {
     "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -145,17 +172,8 @@
   },
   {
     "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
-    "kanpokoak": "ULTZAMA (J. Macaya - X. Baraibar)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
     "kanpokoak": "P.P.SAN SEBASTIAN (A. Casado - O. Salvo)",
@@ -163,8 +181,8 @@
   },
   {
     "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "4",
+    "hora": "10:00",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
     "kanpokoak": "SAN MIGUEL (A. Etxeberria - M. Mancisidor)",
@@ -172,30 +190,12 @@
   },
   {
     "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "5",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
-    "kanpokoak": "ABAXITABIDEA (J. Amorena - E. Otamendi)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/08",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "6",
+    "hora": "10:00",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
     "kanpokoak": "SAN JUAN (J. Abaurrea - I. Martinez)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "SAN JUAN (E. Ortigosa - J. Lakuntza)",
-    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
   },
   {
     "fecha": "2026/03/07",
