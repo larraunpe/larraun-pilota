@@ -1,0 +1,16 @@
+[
+  { "HAURRAK": "#aifa8f","EDADMIN":"13", "EDADMAX": "14"},
+  {"KADETE": "#c8e6ff","EDADMIN":"15", "EDADMAX": "16"},
+  {"KIMU": "#FDFFDB","EDADMIN":"11", "EDADMAX": "12"},
+  {"ALEBINAK": "#FDFFDB","EDADMIN":"11", "EDADMAX": "12"},
+  {"GAZTE": "#95d6fc","EDADMIN":"17", "EDADMAX": "18"},
+  {"PROMESAK": "#95d6fc","EDADMIN":"19", "EDADMAX": "99"},
+  {"SEIN": "#FFCC85","EDADMIN":"9", "EDADMAX": "10"},
+  {"AURREBENJAMINAK": "#fcc6bb","EDADMIN":"6", "EDADMAX": "8"},
+  {"SENIOR": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"},
+  {"ESKUZ KOPA": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"},
+  {"GOÑIREN": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"},
+  {"SORALUZE": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"},
+  {"MAILA": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"},
+  {"HELDUAK": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99"}
+]
