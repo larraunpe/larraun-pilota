@@ -1,6 +1,6 @@
 {
-  "HAUR": "#99ff99","EDADMIN":"13", "EDADMAX": "14",
-  "HAURRAK": "#99ff99","EDADMIN":"13", "EDADMAX": "14",
+  "HAUR": "#ccffcc","EDADMIN":"13", "EDADMAX": "14",
+  "HAURRAK": "#ccffcc","EDADMIN":"13", "EDADMAX": "14",
   "KADETE": "#c8e6ff","EDADMIN":"15", "EDADMAX": "16",
   "KIMU": "#FDFFDB","EDADMIN":"11", "EDADMAX": "12",
   "ALEBINAK": "#FDFFDB","EDADMIN":"11", "EDADMAX": "12",
@@ -9,7 +9,7 @@
   "SEIN": "#FFCC85","EDADMIN":"9", "EDADMAX": "10",
   "AURREBENJAMINAK": "#fcc6bb","EDADMIN":"6", "EDADMAX": "8",
   "SENIOR": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
-  "ESKUZ KOPA": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
+  "KOPA": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
   "GOÑIREN": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
   "SORALUZE": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
   "MAILA": "#D5D5F5","EDADMIN":"19", "EDADMAX": "99",
