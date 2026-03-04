@@ -85,7 +85,55 @@
       }
     }
     
-    /* SELECTOR DE CATEGORÍAS - NUEVO */
+    /* SELECTOR DE FUENTE DE DATOS - NUEVO */
+    .iturria-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .iturria-selector {
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+    }
+    
+    .iturria-botoia {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      flex: 0 1 auto;
+    }
+    @media (min-width: 768px) {
+      .iturria-botoia {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .iturria-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .iturria-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    /* SELECTOR DE CATEGORÍAS */
     .kategoria-selector {
       display: flex;
       flex-wrap: wrap;
@@ -163,7 +211,7 @@
       .kategoria-blokea { border-radius: 24px; }
     }
     
-    /* Titulua etiketa moduan - responsiboa */
+    /* Titulua etiketa moduan */
     .kategoria-titulua {
       padding: 12px 16px;
       font-size: 1.5rem;
@@ -523,11 +571,14 @@
 <div class="ordutegi-kartela">
   <div class="header-ordutegiak">
     <img src="images/logo-larraun.png" alt="Larraun Pilota">
-    <h1>FNP ORDUTEGIAK</h1>
+    <h1>ORDUTEGIAK</h1>
     <img src="images/logo-fnp.png" alt="FNP">
   </div>
 
-  <!-- SELECTOR DE CATEGORÍAS - NUEVO -->
+  <!-- SELECTOR DE FUENTE DE DATOS -->
+  <div id="iturria-selector-container" class="iturria-selector"></div>
+
+  <!-- SELECTOR DE CATEGORÍAS -->
   <div id="kategoria-selector-container" class="kategoria-selector"></div>
 
   <div id="kategoriak-container" class="kategoriak-ordena">
@@ -545,35 +596,71 @@
     // ---------- 1. Kategoriak kargatu (categoriaedad.json erabiliz) ----------
     let kategoriakRaw = [];
     let kategoriakMap = new Map(); // izena (uppercase) -> { kolorea, edadMin, izenaOriginal }
+    let edadMinToKategoria = new Map(); // edadMin -> lehen kategoria izena
 
     try {
       const katResp = await fetch('/data/categoriaedad.json');
       if (katResp.ok) {
         kategoriakRaw = await katResp.json();
+        
+        // Lehen pasada: edadMin bakoitzari lehen kategoria esleitu
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          
+          // edadMin hau ez badago map-ean, gorde lehen kategoria
+          if (!edadMinToKategoria.has(edadMin)) {
+            edadMinToKategoria.set(edadMin, izena);
+          }
+        });
+
+        // Bigarren pasada: kategoria guztien informazioa gorde
         kategoriakRaw.forEach(item => {
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           if (!izena) return;
           const kolorea = item[izena];
           const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
+          
           kategoriakMap.set(izena.toUpperCase().trim(), {
             kolorea: kolorea,
             edadMin: edadMin,
-            izena: izena
+            izena: izena,
+            kategoriaNagusia: kategoriaNagusia
           });
         });
 
         // Kategoria ordena: EDADMIN txikienetik handienera, berdina bada alfabetikoz
-        kategoriakRaw.sort((a, b) => {
-          const izenaA = Object.keys(a).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          const izenaB = Object.keys(b).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          if (!izenaA || !izenaB) return 0;
-          
-          const edadMinA = a.EDADMIN ? parseInt(a.EDADMIN, 10) : 999;
-          const edadMinB = b.EDADMIN ? parseInt(b.EDADMIN, 10) : 999;
-          
-          if (edadMinA !== edadMinB) return edadMinA - edadMinB;
-          return izenaA.localeCompare(izenaB);
+        // Baina kategoria nagusiak soilik hartu
+        const kategoriaNagusiakSet = new Set();
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin);
+          if (kategoriaNagusia) {
+            kategoriaNagusiakSet.add(kategoriaNagusia);
+          }
         });
+
+        // Array bihurtu eta ordenatu
+        const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
+          const item = kategoriakRaw.find(i => {
+            const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+            return iIzena === izena;
+          });
+          return {
+            izena: izena,
+            edadMin: item ? parseInt(item.EDADMIN, 10) : 999
+          };
+        });
+
+        kategoriakRaw = kategoriaNagusiakArray.sort((a, b) => {
+          if (a.edadMin !== b.edadMin) return a.edadMin - b.edadMin;
+          return a.izena.localeCompare(b.izena);
+        }).map(item => ({ [item.izena]: kategoriakMap.get(item.izena.toUpperCase().trim())?.kolorea || '#cccccc', EDADMIN: item.edadMin }));
+
       } else {
         console.warn('ez da categoriaedad.json kargatu');
       }
@@ -581,12 +668,42 @@
       console.warn('kategoriak kargatzean errorea:', e);
     }
 
-    // ---------- 2. Partidak kargatu ----------
-    let partidak = [];
+    // ---------- 2. Iturriaren selectorea sortu ----------
+    const iturriaSelectorContainer = document.getElementById('iturria-selector-container');
+    
+    const iturriak = [
+      { id: 'fnp', izena: 'FNP' },
+      { id: 'beste-ofizialak', izena: 'BESTE OFIZIALAK' },
+      { id: 'ez-ofizialak', izena: 'EZ OFIZIALAK' }
+    ];
+    
+    const iturriaBotoiak = [];
+    let iturriaAktibo = 'fnp'; // Defektuz FNP
+    
+    iturriak.forEach(iturri => {
+      const botoia = document.createElement('button');
+      botoia.className = `iturria-botoia ${iturri.id === iturriaAktibo ? 'aktibo' : ''}`;
+      botoia.textContent = iturri.izena;
+      botoia.setAttribute('data-iturria', iturri.id);
+      iturriaSelectorContainer.appendChild(botoia);
+      iturriaBotoiak.push(botoia);
+    });
+
+    // ---------- 3. Partidak kargatu (hasieran FNP) ----------
+    let partidakOficiales = [];
+    let partidakNoOficiales = [];
+
     try {
-      const partidosResp = await fetch('/data/cartelera-larraun.json');
-      if (!partidosResp.ok) throw new Error('ezin partidak kargatu');
-      partidak = await partidosResp.json();
+      const [oficialesResp, noOficialesResp] = await Promise.all([
+        fetch('/data/cartelera-larraun.json'),
+        fetch('/data/resultados-no-oficiales.json')
+      ]);
+      
+      if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
+      if (!noOficialesResp.ok) throw new Error('ezin partida ez ofizialak kargatu');
+      
+      partidakOficiales = await oficialesResp.json();
+      partidakNoOficiales = await noOficialesResp.json();
     } catch (e) {
       document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
       return;
@@ -603,37 +720,52 @@
       return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
     }
 
-    const partidakAsteHonetan = partidak.filter(p => {
-      if (!p.fecha) return false;
-      const d = dateStrToDate(p.fecha);
-      return d && d >= astekoLehen && d <= astekoAzken;
-    });
+    // ---------- 4. Partidak iragazi eta prozesatu ----------
+    function getPartidakByIturria(iturria) {
+      let partidakIturria;
+      
+      if (iturria === 'fnp') {
+        partidakIturria = partidakOficiales;
+      } else {
+        // Iragazi no-ofizialak ofiziala balioaren arabera
+        const ofizialaBalioa = iturria === 'beste-ofizialak' ? 'true' : 'false';
+        partidakIturria = partidakNoOficiales.filter(p => 
+          String(p.ofiziala).toLowerCase() === ofizialaBalioa
+        );
+      }
 
-    if (partidakAsteHonetan.length === 0) {
-      document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partida ofizialik.</div>';
-      return;
+      // Aste honetako partidak
+      const partidakAsteHonetan = partidakIturria.filter(p => {
+        if (!p.fecha) return false;
+        const d = dateStrToDate(p.fecha);
+        return d && d >= astekoLehen && d <= astekoAzken;
+      });
+
+      // "Descanso" -> "Atsedena"
+      partidakAsteHonetan.forEach(p => {
+        if (p.etxekoa && p.etxekoa.includes('Descanso')) {
+          p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
+        }
+        if (p.kanpokoak && p.kanpokoak.includes('Descanso')) {
+          p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+        }
+      });
+
+      return partidakAsteHonetan;
     }
 
-    // ---------- 3. "Descanso" -> "Atsedena" bihurtu ----------
-    partidakAsteHonetan.forEach(p => {
-      if (p.etxekoa && p.etxekoa.includes('Descanso')) {
-        p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
-      }
-      if (p.kanpokoak && p.kanpokoak.includes('Descanso')) {
-        p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
-      }
-    });
-
-    // ---------- 4. Kategoria esleitu partida bakoitzari ----------
-    function kategoriaIzena(testua) {
+    // ---------- 5. Kategoria esleitu partida bakoitzari (kategoria nagusia erabiliz) ----------
+    function kategoriaNagusia(testua) {
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
-      const posibleKategoriak = Array.from(kategoriakMap.keys());
-      for (let k of posibleKategoriak) {
+      
+      // Bilatu partida honen kategoria
+      for (let [k, info] of kategoriakMap.entries()) {
         if (up.includes(k)) {
-          return kategoriakMap.get(k).izena;
+          return info.kategoriaNagusia;
         }
       }
+      
       // Hitz arruntak
       if (up.includes('HAUR')) return 'HAURRAK';
       if (up.includes('KADETE')) return 'KADETE';
@@ -645,224 +777,252 @@
       return 'Beste';
     }
 
-    const partidakKategoriaka = new Map();
-    partidakAsteHonetan.forEach(p => {
-      const iz = kategoriaIzena(p.lehiaketa || p.modalidad || '');
-      if (!partidakKategoriaka.has(iz)) partidakKategoriaka.set(iz, []);
-      partidakKategoriaka.get(iz).push(p);
-    });
+    // ---------- 6. HTML birsortzeko funtzioa ----------
+    function renderPartidak(iturria) {
+      const partidakAsteHonetan = getPartidakByIturria(iturria);
 
-    // ---------- 5. Kategorien ordena ----------
-    const ordenaPrior = new Map();
-    kategoriakRaw.forEach((item, index) => {
-      const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-      if (izena) {
-        ordenaPrior.set(izena.toUpperCase().trim(), index);
-      }
-    });
-
-    const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a, b) => {
-      const aUp = a.toUpperCase().trim();
-      const bUp = b.toUpperCase().trim();
-      const idxA = ordenaPrior.has(aUp) ? ordenaPrior.get(aUp) : 999;
-      const idxB = ordenaPrior.has(bUp) ? ordenaPrior.get(bUp) : 999;
-      if (idxA !== idxB) return idxA - idxB;
-      return a.localeCompare(b);
-    });
-
-    // ---------- 6. Selector de categorías - NUEVO ----------
-    const selectorContainer = document.getElementById('kategoria-selector-container');
-    
-    // Botón "Guztiak" (Todos)
-    const guztiakBotoia = document.createElement('button');
-    guztiakBotoia.className = 'kategoria-botoia guztiak aktibo';
-    guztiakBotoia.textContent = 'Guztiak';
-    guztiakBotoia.setAttribute('data-kategoria', 'guztiak');
-    selectorContainer.appendChild(guztiakBotoia);
-    
-    // Botones para cada categoría disponible
-    const kategoriaBotoiak = [];
-    kategoriaIzenak.forEach(katIzen => {
-      const botoia = document.createElement('button');
-      botoia.className = 'kategoria-botoia';
-      botoia.textContent = katIzen;
-      botoia.setAttribute('data-kategoria', katIzen);
-      selectorContainer.appendChild(botoia);
-      kategoriaBotoiak.push(botoia);
-    });
-
-    // ---------- 7. HTML eraiki (hasieran ezkutatu gabe) ----------
-    const container = document.getElementById('kategoriak-container');
-    container.innerHTML = '';
-
-    const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
-
-    // Objektu bat gordetzeko sortutako kategoria blokeak
-    const kategoriaBlokeak = {};
-
-    for (let katIzen of kategoriaIzenak) {
-      const partidaLista = partidakKategoriaka.get(katIzen);
-      const katUp = katIzen.toUpperCase().trim();
-      const koloreInfo = kategoriakMap.get(katUp) || { kolorea: '#cccccc', edadMin: 999 };
-      const bordeKolorea = koloreInfo.kolorea;
-
-      const katBlokea = document.createElement('div');
-      katBlokea.className = 'kategoria-blokea';
-      katBlokea.style.backgroundColor = bordeKolorea;
-      katBlokea.setAttribute('data-kategoria', katIzen);
-
-      const tituluaDiv = document.createElement('div');
-      tituluaDiv.className = 'kategoria-titulua';
-      tituluaDiv.style.backgroundColor = `rgba(255, 255, 255, 0.95)`;
-      tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
-      katBlokea.appendChild(tituluaDiv);
-
-      function parseOrdua(horaStr) {
-        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
-        const match = horaStr.match(/(\d{1,2}:\d{2})/);
-        return match ? match[1] : '00:00';
+      if (partidakAsteHonetan.length === 0) {
+        document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partida ofizialik.</div>';
+        document.getElementById('kategoria-selector-container').innerHTML = '';
+        return;
       }
 
-      function extractLevelNumber(txt) {
-        const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
-        return match ? parseInt(match[2], 10) : 999;
-      }
-
-      partidaLista.sort((a, b) => {
-        const dA = dateStrToDate(a.fecha);
-        const dB = dateStrToDate(b.fecha);
-        if (!dA && !dB) return 0;
-        if (!dA) return 1;
-        if (!dB) return -1;
-        if (dA.getTime() !== dB.getTime()) return dA - dB;
-
-        const horaA = parseOrdua(a.hora || '00:00');
-        const horaB = parseOrdua(b.hora || '00:00');
-        if (horaA !== horaB) return horaA.localeCompare(horaB);
-
-        const frontA = a.fronton || '';
-        const frontB = b.fronton || '';
-        if (frontA !== frontB) return frontA.localeCompare(frontB);
-
-        const levelA = extractLevelNumber(a.lehiaketa);
-        const levelB = extractLevelNumber(b.lehiaketa);
-        return levelB - levelA;
+      // Partidak kategoriaka antolatu (kategoria nagusiaren arabera)
+      const partidakKategoriaka = new Map();
+      partidakAsteHonetan.forEach(p => {
+        const iz = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
+        if (!partidakKategoriaka.has(iz)) partidakKategoriaka.set(iz, []);
+        partidakKategoriaka.get(iz).push(p);
       });
 
-      let currentDateStr = null;
-      let currentDateDiv = null;
-      let currentFrontoi = null;
-      let frontoiDiv = null;
-
-      partidaLista.forEach(p => {
-        const fechaStr = p.fecha;
-        if (fechaStr !== currentDateStr) {
-          currentDateStr = fechaStr;
-          const dObj = dateStrToDate(fechaStr);
-          const egunIndizea = dObj ? dObj.getDay() : 0;
-          const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
-          const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
-
-          currentDateDiv = document.createElement('div');
-          currentDateDiv.className = 'egun-saila';
-          currentDateDiv.style.borderLeftColor = bordeKolorea;
-          currentDateDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
-          katBlokea.appendChild(currentDateDiv);
-          currentFrontoi = null;
+      // Kategorien ordena (kategoriakRaw-en ordena)
+      const ordenaPrior = new Map();
+      kategoriakRaw.forEach((item, index) => {
+        const izena = Object.keys(item)[0];
+        if (izena) {
+          ordenaPrior.set(izena.toUpperCase().trim(), index);
         }
+      });
 
-        const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
-        if (frontIzen !== currentFrontoi) {
-          currentFrontoi = frontIzen;
-          frontoiDiv = document.createElement('div');
-          frontoiDiv.className = 'frontoi-taldea';
+      const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a, b) => {
+        const aUp = a.toUpperCase().trim();
+        const bUp = b.toUpperCase().trim();
+        const idxA = ordenaPrior.has(aUp) ? ordenaPrior.get(aUp) : 999;
+        const idxB = ordenaPrior.has(bUp) ? ordenaPrior.get(bUp) : 999;
+        if (idxA !== idxB) return idxA - idxB;
+        return a.localeCompare(b);
+      });
 
-          const frontoiSpan = document.createElement('div');
-          frontoiSpan.className = 'frontoi-izena';
-          if (/lekunberri|aldatz/i.test(frontIzen)) {
-            frontoiSpan.classList.add('berezia');
+      // Selector de categorías
+      const selectorContainer = document.getElementById('kategoria-selector-container');
+      selectorContainer.innerHTML = '';
+      
+      const guztiakBotoia = document.createElement('button');
+      guztiakBotoia.className = 'kategoria-botoia guztiak aktibo';
+      guztiakBotoia.textContent = 'Guztiak';
+      guztiakBotoia.setAttribute('data-kategoria', 'guztiak');
+      selectorContainer.appendChild(guztiakBotoia);
+      
+      const kategoriaBotoiak = [];
+      kategoriaIzenak.forEach(katIzen => {
+        const botoia = document.createElement('button');
+        botoia.className = 'kategoria-botoia';
+        botoia.textContent = katIzen;
+        botoia.setAttribute('data-kategoria', katIzen);
+        selectorContainer.appendChild(botoia);
+        kategoriaBotoiak.push(botoia);
+      });
+
+      // HTML eraiki
+      const container = document.getElementById('kategoriak-container');
+      container.innerHTML = '';
+
+      const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
+
+      const kategoriaBlokeak = {};
+
+      for (let katIzen of kategoriaIzenak) {
+        const partidaLista = partidakKategoriaka.get(katIzen);
+        const katUp = katIzen.toUpperCase().trim();
+        
+        // Bilatu kolorea - kategoria nagusiaren kolorea
+        let kolorea = '#cccccc';
+        for (let [k, info] of kategoriakMap.entries()) {
+          if (info.kategoriaNagusia === katIzen) {
+            kolorea = info.kolorea;
+            break;
           }
-          frontoiSpan.textContent = '🎯 ' + frontIzen;
-          frontoiDiv.appendChild(frontoiSpan);
-          currentDateDiv.appendChild(frontoiDiv);
+        }
+        const bordeKolorea = kolorea;
+
+        const katBlokea = document.createElement('div');
+        katBlokea.className = 'kategoria-blokea';
+        katBlokea.style.backgroundColor = bordeKolorea;
+        katBlokea.setAttribute('data-kategoria', katIzen);
+
+        const tituluaDiv = document.createElement('div');
+        tituluaDiv.className = 'kategoria-titulua';
+        tituluaDiv.style.backgroundColor = `rgba(255, 255, 255, 0.95)`;
+        tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
+        katBlokea.appendChild(tituluaDiv);
+
+        function parseOrdua(horaStr) {
+          if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
+          const match = horaStr.match(/(\d{1,2}:\d{2})/);
+          return match ? match[1] : '00:00';
         }
 
-        const partidaDiv = document.createElement('div');
-        partidaDiv.className = 'partido-txikia';
-        partidaDiv.style.borderLeftColor = bordeKolorea;
+        function extractLevelNumber(txt) {
+          const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
+          return match ? parseInt(match[2], 10) : 999;
+        }
 
-        const orduGarbi = parseOrdua(p.hora || '');
-        const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
+        partidaLista.sort((a, b) => {
+          const dA = dateStrToDate(a.fecha);
+          const dB = dateStrToDate(b.fecha);
+          if (!dA && !dB) return 0;
+          if (!dA) return 1;
+          if (!dB) return -1;
+          if (dA.getTime() !== dB.getTime()) return dA - dB;
 
-        const etxekoaTestua = p.etxekoa || '?';
-        const kanpokoaTestua = p.kanpokoak || '?';
+          const horaA = parseOrdua(a.hora || '00:00');
+          const horaB = parseOrdua(b.hora || '00:00');
+          if (horaA !== horaB) return horaA.localeCompare(horaB);
 
-        const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
-        const kanpokoaLarraun = kanpokoaTestua.toUpperCase().includes('LARRAUN');
+          const frontA = a.fronton || '';
+          const frontB = b.fronton || '';
+          if (frontA !== frontB) return frontA.localeCompare(frontB);
 
-        const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
-        const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
-
-        partidaDiv.innerHTML = `
-          <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
-          <div class="partido-info">
-            <div class="parejak">
-              <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
-              <span class="${kanpokoClass}">✈️ ${kanpokoaTestua}</span>
-            </div>
-            <div class="lehiaketa-labur">
-              <span>🏆 ${p.lehiaketa || p.modalidad || ''}</span>
-              ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
-              ${p.lehiaketa?.toUpperCase().includes('FINALA') ? '<span class="fase-tag">⚡ FINALA</span>' : ''}
-            </div>
-          </div>
-        `;
-        frontoiDiv.appendChild(partidaDiv);
-      });
-
-      container.appendChild(katBlokea);
-      kategoriaBlokeak[katIzen] = katBlokea;
-    }
-
-    if (container.children.length === 0) {
-      container.innerHTML = '<div class="ez-partidurik">🔍 Ez da partidarik aurkitu aste honetarako.</div>';
-    }
-
-    // ---------- 8. Filtroaren funtzionalitatea - NUEVO ----------
-    function filterKategoriak(kategoria) {
-      // Botón "Guztiak" siempre visible
-      if (kategoria === 'guztiak') {
-        Object.values(kategoriaBlokeak).forEach(blokea => {
-          blokea.classList.remove('kategoria-ezkutuan');
+          const levelA = extractLevelNumber(a.lehiaketa);
+          const levelB = extractLevelNumber(b.lehiaketa);
+          return levelB - levelA;
         });
-      } else {
-        Object.values(kategoriaBlokeak).forEach(blokea => {
-          if (blokea.getAttribute('data-kategoria') === kategoria) {
+
+        let currentDateStr = null;
+        let currentDateDiv = null;
+        let currentFrontoi = null;
+        let frontoiDiv = null;
+
+        partidaLista.forEach(p => {
+          const fechaStr = p.fecha;
+          if (fechaStr !== currentDateStr) {
+            currentDateStr = fechaStr;
+            const dObj = dateStrToDate(fechaStr);
+            const egunIndizea = dObj ? dObj.getDay() : 0;
+            const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+            const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
+
+            currentDateDiv = document.createElement('div');
+            currentDateDiv.className = 'egun-saila';
+            currentDateDiv.style.borderLeftColor = bordeKolorea;
+            currentDateDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
+            katBlokea.appendChild(currentDateDiv);
+            currentFrontoi = null;
+          }
+
+          const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
+          if (frontIzen !== currentFrontoi) {
+            currentFrontoi = frontIzen;
+            frontoiDiv = document.createElement('div');
+            frontoiDiv.className = 'frontoi-taldea';
+
+            const frontoiSpan = document.createElement('div');
+            frontoiSpan.className = 'frontoi-izena';
+            if (/lekunberri|aldatz/i.test(frontIzen)) {
+              frontoiSpan.classList.add('berezia');
+            }
+            frontoiSpan.textContent = '🎯 ' + frontIzen;
+            frontoiDiv.appendChild(frontoiSpan);
+            currentDateDiv.appendChild(frontoiDiv);
+          }
+
+          const partidaDiv = document.createElement('div');
+          partidaDiv.className = 'partido-txikia';
+          partidaDiv.style.borderLeftColor = bordeKolorea;
+
+          const orduGarbi = parseOrdua(p.hora || '');
+          const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
+
+          const etxekoaTestua = p.etxekoa || '?';
+          const kanpokoaTestua = p.kanpokoak || '?';
+
+          const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
+          const kanpokoaLarraun = kanpokoaTestua.toUpperCase().includes('LARRAUN');
+
+          const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
+          const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
+
+          partidaDiv.innerHTML = `
+            <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
+            <div class="partido-info">
+              <div class="parejak">
+                <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
+                <span class="${kanpokoClass}">✈️ ${kanpokoaTestua}</span>
+              </div>
+              <div class="lehiaketa-labur">
+                <span>🏆 ${p.lehiaketa || p.modalidad || ''}</span>
+                ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
+                ${p.lehiaketa?.toUpperCase().includes('FINALA') ? '<span class="fase-tag">⚡ FINALA</span>' : ''}
+              </div>
+            </div>
+          `;
+          frontoiDiv.appendChild(partidaDiv);
+        });
+
+        container.appendChild(katBlokea);
+        kategoriaBlokeak[katIzen] = katBlokea;
+      }
+
+      // Filtroaren funtzionalitatea
+      function filterKategoriak(kategoria) {
+        if (kategoria === 'guztiak') {
+          Object.values(kategoriaBlokeak).forEach(blokea => {
             blokea.classList.remove('kategoria-ezkutuan');
-          } else {
-            blokea.classList.add('kategoria-ezkutuan');
-          }
+          });
+        } else {
+          Object.values(kategoriaBlokeak).forEach(blokea => {
+            if (blokea.getAttribute('data-kategoria') === kategoria) {
+              blokea.classList.remove('kategoria-ezkutuan');
+            } else {
+              blokea.classList.add('kategoria-ezkutuan');
+            }
+          });
+        }
+
+        guztiakBotoia.classList.remove('aktibo');
+        kategoriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+
+        if (kategoria === 'guztiak') {
+          guztiakBotoia.classList.add('aktibo');
+        } else {
+          const botoiaAktiboa = kategoriaBotoiak.find(b => b.getAttribute('data-kategoria') === kategoria);
+          if (botoiaAktiboa) botoiaAktiboa.classList.add('aktibo');
+        }
+      }
+
+      guztiakBotoia.addEventListener('click', () => filterKategoriak('guztiak'));
+      kategoriaBotoiak.forEach(botoia => {
+        botoia.addEventListener('click', (e) => {
+          const kategoria = e.target.getAttribute('data-kategoria');
+          filterKategoriak(kategoria);
         });
-      }
-
-      // Actualizar clases activas de los botones
-      guztiakBotoia.classList.remove('aktibo');
-      kategoriaBotoiak.forEach(b => b.classList.remove('aktibo'));
-
-      if (kategoria === 'guztiak') {
-        guztiakBotoia.classList.add('aktibo');
-      } else {
-        const botoiaAktiboa = kategoriaBotoiak.find(b => b.getAttribute('data-kategoria') === kategoria);
-        if (botoiaAktiboa) botoiaAktiboa.classList.add('aktibo');
-      }
+      });
     }
 
-    // Event listeners
-    guztiakBotoia.addEventListener('click', () => filterKategoriak('guztiak'));
-    kategoriaBotoiak.forEach(botoia => {
+    // Hasierako render
+    renderPartidak('fnp');
+
+    // Iturria aldatzean render berria
+    iturriaBotoiak.forEach(botoia => {
       botoia.addEventListener('click', (e) => {
-        const kategoria = e.target.getAttribute('data-kategoria');
-        filterKategoriak(kategoria);
+        const iturria = e.target.getAttribute('data-iturria');
+        
+        // Actualizar clases activas
+        iturriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+        e.target.classList.add('aktibo');
+        
+        // Render berria
+        renderPartidak(iturria);
       });
     });
 
