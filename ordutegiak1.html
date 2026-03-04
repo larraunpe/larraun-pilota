@@ -696,7 +696,7 @@
     try {
       const [oficialesResp, noOficialesResp] = await Promise.all([
         fetch('/data/cartelera-larraun.json'),
-        fetch('/data/resultados-no-oficiales.json')
+        fetch('/data/partidos-no-oficiales.json')
       ]);
       
       if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
