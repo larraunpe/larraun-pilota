@@ -85,6 +85,64 @@
       }
     }
     
+    /* SELECTOR DE CATEGORÍAS - NUEVO */
+    .kategoria-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .kategoria-selector {
+        gap: 15px;
+        margin-bottom: 35px;
+      }
+    }
+    
+    .kategoria-botoia {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+    @media (min-width: 480px) {
+      .kategoria-botoia {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .kategoria-botoia {
+        padding: 12px 28px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .kategoria-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .kategoria-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    .kategoria-botoia.guztiak {
+      background: #333;
+      color: white;
+    }
+    
     /* Kategoria blokeak */
     .kategoriak-ordena {
       display: flex;
@@ -454,6 +512,11 @@
         font-size: 1.8rem;
       }
     }
+
+    /* Kategoria ezkutatzeko klasea */
+    .kategoria-ezkutuan {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -463,6 +526,9 @@
     <h1>FNP ORDUTEGIAK</h1>
     <img src="images/logo-fnp.png" alt="FNP">
   </div>
+
+  <!-- SELECTOR DE CATEGORÍAS - NUEVO -->
+  <div id="kategoria-selector-container" class="kategoria-selector"></div>
 
   <div id="kategoriak-container" class="kategoriak-ordena">
     <div class="ez-partidurik" id="loading-placeholder">⏳ partidak kargatzen...</div>
@@ -604,11 +670,35 @@
       return a.localeCompare(b);
     });
 
-    // ---------- 6. HTML eraiki ----------
+    // ---------- 6. Selector de categorías - NUEVO ----------
+    const selectorContainer = document.getElementById('kategoria-selector-container');
+    
+    // Botón "Guztiak" (Todos)
+    const guztiakBotoia = document.createElement('button');
+    guztiakBotoia.className = 'kategoria-botoia guztiak aktibo';
+    guztiakBotoia.textContent = 'Guztiak';
+    guztiakBotoia.setAttribute('data-kategoria', 'guztiak');
+    selectorContainer.appendChild(guztiakBotoia);
+    
+    // Botones para cada categoría disponible
+    const kategoriaBotoiak = [];
+    kategoriaIzenak.forEach(katIzen => {
+      const botoia = document.createElement('button');
+      botoia.className = 'kategoria-botoia';
+      botoia.textContent = katIzen;
+      botoia.setAttribute('data-kategoria', katIzen);
+      selectorContainer.appendChild(botoia);
+      kategoriaBotoiak.push(botoia);
+    });
+
+    // ---------- 7. HTML eraiki (hasieran ezkutatu gabe) ----------
     const container = document.getElementById('kategoriak-container');
     container.innerHTML = '';
 
     const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
+
+    // Objektu bat gordetzeko sortutako kategoria blokeak
+    const kategoriaBlokeak = {};
 
     for (let katIzen of kategoriaIzenak) {
       const partidaLista = partidakKategoriaka.get(katIzen);
@@ -619,6 +709,7 @@
       const katBlokea = document.createElement('div');
       katBlokea.className = 'kategoria-blokea';
       katBlokea.style.backgroundColor = bordeKolorea;
+      katBlokea.setAttribute('data-kategoria', katIzen);
 
       const tituluaDiv = document.createElement('div');
       tituluaDiv.className = 'kategoria-titulua';
@@ -730,11 +821,51 @@
       });
 
       container.appendChild(katBlokea);
+      kategoriaBlokeak[katIzen] = katBlokea;
     }
 
     if (container.children.length === 0) {
       container.innerHTML = '<div class="ez-partidurik">🔍 Ez da partidarik aurkitu aste honetarako.</div>';
     }
+
+    // ---------- 8. Filtroaren funtzionalitatea - NUEVO ----------
+    function filterKategoriak(kategoria) {
+      // Botón "Guztiak" siempre visible
+      if (kategoria === 'guztiak') {
+        Object.values(kategoriaBlokeak).forEach(blokea => {
+          blokea.classList.remove('kategoria-ezkutuan');
+        });
+      } else {
+        Object.values(kategoriaBlokeak).forEach(blokea => {
+          if (blokea.getAttribute('data-kategoria') === kategoria) {
+            blokea.classList.remove('kategoria-ezkutuan');
+          } else {
+            blokea.classList.add('kategoria-ezkutuan');
+          }
+        });
+      }
+
+      // Actualizar clases activas de los botones
+      guztiakBotoia.classList.remove('aktibo');
+      kategoriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+
+      if (kategoria === 'guztiak') {
+        guztiakBotoia.classList.add('aktibo');
+      } else {
+        const botoiaAktiboa = kategoriaBotoiak.find(b => b.getAttribute('data-kategoria') === kategoria);
+        if (botoiaAktiboa) botoiaAktiboa.classList.add('aktibo');
+      }
+    }
+
+    // Event listeners
+    guztiakBotoia.addEventListener('click', () => filterKategoriak('guztiak'));
+    kategoriaBotoiak.forEach(botoia => {
+      botoia.addEventListener('click', (e) => {
+        const kategoria = e.target.getAttribute('data-kategoria');
+        filterKategoriak(kategoria);
+      });
+    });
+
   })();
 </script>
 </body>
