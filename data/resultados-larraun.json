@@ -359,6 +359,34 @@
   },
   {
     "fecha": "2026-02-27",
+    "fronton": "Zizur Menor - Ikastola San Fermin",
+    "etxekoa": "IK. SAN FERMIN (O. Ofialdegui - I. Iraola) IRAOLA ASTIZ, I. OFIALDEGUI ORQUIN, O.",
+    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(6-9) (7-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-01",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "MUTILENDAKO (A. Iturralde - N. Oses) ITURRALDE ERREA, A. OSES VIGUIRISTI, N.",
+    "tanteoa": "2-1",
+    "sets": [
+      "(9-6) (6-9) (3-2)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-02-27",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B.",
     "kanpokoak": "OBERENA (A. Azemar - M. Andueza) AZEMAR ITOIZ, A. ANDUEZA OLLO, M.",
