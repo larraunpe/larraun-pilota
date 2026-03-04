@@ -3,7 +3,7 @@ name: Actualizar cartelera Larraun
 on:
   schedule:
     # 08:00, 15:00 y 20:00 Europe/Madrid (invierno UTC+1)
-    - cron: "0 7,14,19 * * 1,2"
+    - cron: "0 7,8,13,14,15,18,19,20 * * 1,2"
   workflow_dispatch:
 
 jobs:
