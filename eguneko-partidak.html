@@ -85,72 +85,45 @@
       }
     }
     
-    /* SELECTOR DE FUENTE DE DATOS */
-    .iturria-selector {
+    /* SELECTORES - Estilo unificado */
+    .selectores-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 15px;
+      margin-bottom: 25px;
       justify-content: center;
-      padding: 0 5px;
+      align-items: center;
+    }
+    
+    .selector-grupo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .selector-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     @media (min-width: 768px) {
-      .iturria-selector {
-        gap: 15px;
-        margin-bottom: 25px;
+      .selector-label {
+        font-size: 0.9rem;
       }
     }
     
-    .iturria-botoia {
-      padding: 10px 20px;
-      font-size: 1rem;
-      font-weight: 700;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      background: #f0f0f0;
-      color: #333;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: all 0.2s ease;
-      border: 2px solid transparent;
-      flex: 0 1 auto;
-    }
-    @media (min-width: 768px) {
-      .iturria-botoia {
-        padding: 12px 30px;
-        font-size: 1.1rem;
-      }
-    }
-    
-    .iturria-botoia:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    
-    .iturria-botoia.aktibo {
-      background: #b30000;
-      color: white;
-      border-color: #800000;
-    }
-    
-    /* TALDE NAGUSIEN SELECTORRA */
-    .talde-selector {
+    .selector-opciones {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 8px;
       justify-content: center;
-      padding: 0 5px;
-    }
-    @media (min-width: 768px) {
-      .talde-selector {
-        gap: 15px;
-        margin-bottom: 25px;
-      }
     }
     
-    .talde-botoia {
-      padding: 8px 20px;
+    .selector-botoia {
+      padding: 8px 16px;
       font-size: 0.9rem;
       font-weight: 700;
       border: none;
@@ -163,30 +136,30 @@
       border: 2px solid transparent;
     }
     @media (min-width: 480px) {
-      .talde-botoia {
-        padding: 10px 25px;
+      .selector-botoia {
+        padding: 10px 20px;
         font-size: 1rem;
       }
     }
     @media (min-width: 768px) {
-      .talde-botoia {
-        padding: 12px 32px;
+      .selector-botoia {
+        padding: 12px 28px;
         font-size: 1.1rem;
       }
     }
     
-    .talde-botoia:hover {
+    .selector-botoia:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     
-    .talde-botoia.aktibo {
+    .selector-botoia.aktibo {
       background: #b30000;
       color: white;
       border-color: #800000;
     }
     
-    /* EGUNEN KONTENEDOREAK */
+    /* EGUNEN KONTENEDOREA */
     .egunak-container {
       margin-top: 10px;
     }
@@ -527,7 +500,7 @@
     }
 
     /* Ezkutatzeko klaseak */
-    .talde-ezkutuan {
+    .eguna-ezkutuan {
       display: none !important;
     }
   </style>
@@ -540,8 +513,20 @@
     <img src="images/logo-fnp.png" alt="FNP">
   </div>
 
-  <!-- TALDE NAGUSIEN SELECTORRA -->
-  <div id="talde-selector-container" class="talde-selector"></div>
+  <!-- SELECTORES EN LINEA -->
+  <div class="selectores-container">
+    <!-- SELECTOR DE TALDE NAGUSIAK -->
+    <div class="selector-grupo">
+      <div class="selector-label">TALDEA</div>
+      <div id="talde-selector-container" class="selector-opciones"></div>
+    </div>
+    
+    <!-- SELECTOR DE EGUNAK (BERRIA) -->
+    <div class="selector-grupo">
+      <div class="selector-label">EGUNA</div>
+      <div id="eguna-selector-container" class="selector-opciones"></div>
+    </div>
+  </div>
 
   <!-- EGUNEN KONTENEDOREA -->
   <div id="egunak-container" class="egunak-container"></div>
@@ -755,7 +740,7 @@
       }
     }
 
-    // ---------- 7. Talde nagusien selectorea sortu ----------
+    // ---------- 7. Talde nagusien selectorea sortu (TXIKIAK defektuz) ----------
     const taldeSelectorContainer = document.getElementById('talde-selector-container');
     
     const taldeNagusiak = [
@@ -765,19 +750,66 @@
     ];
     
     const taldeBotoiak = [];
-    let taldeAktibo = 'neskak';
+    let taldeAktibo = 'txikiak'; // <-- CAMBIADO: TXIKIAK por defecto
     
     taldeNagusiak.forEach(talde => {
       const botoia = document.createElement('button');
-      botoia.className = `talde-botoia ${talde.id === taldeAktibo ? 'aktibo' : ''}`;
+      botoia.className = `selector-botoia ${talde.id === taldeAktibo ? 'aktibo' : ''}`;
       botoia.textContent = talde.izena;
       botoia.setAttribute('data-talde', talde.id);
       taldeSelectorContainer.appendChild(botoia);
       taldeBotoiak.push(botoia);
     });
 
-    // ---------- 8. HTML eraiki (eguneka antolatuta) ----------
-    function renderEgunak(taldeAktibo) {
+    // ---------- 8. Egunen selectorea sortzeko funtzioa ----------
+    let egunaBotoiak = [];
+    let egunaAktibo = null;
+    
+    function createEgunaSelector(egunak) {
+      const egunaSelectorContainer = document.getElementById('eguna-selector-container');
+      egunaSelectorContainer.innerHTML = '';
+      egunaBotoiak = [];
+      
+      if (egunak.length === 0) {
+        const mensaje = document.createElement('span');
+        mensaje.className = 'selector-botoia';
+        mensaje.textContent = 'Ez dago egunik';
+        mensaje.style.opacity = '0.5';
+        mensaje.style.cursor = 'default';
+        egunaSelectorContainer.appendChild(mensaje);
+        return;
+      }
+      
+      const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
+      
+      egunak.forEach((fechaStr, index) => {
+        const dObj = dateStrToDate(fechaStr);
+        const egunIndizea = dObj ? dObj.getDay() : 0;
+        const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+        // Formato corto para el botón: "astelehena" -> "Al", "asteartea" -> "Ar", etc.
+        let egunLabur = egunIzenaEus.substring(0, 2).toUpperCase();
+        if (egunIzenaEus === 'asteazkena') egunLabur = 'AZ';
+        if (egunIzenaEus === 'osteguna') egunLabur = 'OG';
+        if (egunIzenaEus === 'ostirala') egunLabur = 'OL';
+        if (egunIzenaEus === 'larunbata') egunLabur = 'LR';
+        
+        const botoia = document.createElement('button');
+        botoia.className = `selector-botoia ${index === 0 ? 'aktibo' : ''}`; // Lehenengoa aktibo
+        botoia.textContent = egunLabur;
+        botoia.setAttribute('data-eguna', fechaStr);
+        botoia.setAttribute('title', `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}`);
+        egunaSelectorContainer.appendChild(botoia);
+        egunaBotoiak.push(botoia);
+      });
+      
+      // Lehenengoa aktibo
+      if (egunak.length > 0) {
+        egunaAktibo = egunak[0];
+      }
+    }
+
+    // ---------- 9. HTML eraiki (eguneka antolatuta) ----------
+    function renderEgunak(taldeAktibo, egunaAktibo = null) {
       const container = document.getElementById('egunak-container');
       container.innerHTML = '';
 
@@ -809,6 +841,9 @@
         const dB = dateStrToDate(b);
         return dA - dB;
       });
+
+      // Egunen selectorea sortu (lehenengo egunarekin aktibo)
+      createEgunaSelector(egunakOrdenatuak);
 
       // Ordua parseatzeko
       function parseOrdua(horaStr) {
@@ -849,6 +884,12 @@
 
         const egunDiv = document.createElement('div');
         egunDiv.className = 'egun-saila';
+        egunDiv.setAttribute('data-eguna', fechaStr);
+        // Ezkutatu eguna ez bada aktiboa
+        if (egunaAktibo && fechaStr !== egunaAktibo) {
+          egunDiv.classList.add('eguna-ezkutuan');
+        }
+        
         egunDiv.style.borderLeftColor = taldeAktibo === 'neskak' ? '#d63384' : (taldeAktibo === 'txikiak' ? '#0d6efd' : '#198754');
         egunDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
 
@@ -927,12 +968,33 @@
 
         container.appendChild(egunDiv);
       });
+      
+      // Egunen botoiei event listener-ak gehitu
+      egunaBotoiak.forEach(botoia => {
+        botoia.addEventListener('click', (e) => {
+          const eguna = e.target.getAttribute('data-eguna');
+          egunaAktibo = eguna;
+          
+          // Aktualizar clases de los botones
+          egunaBotoiak.forEach(b => b.classList.remove('aktibo'));
+          e.target.classList.add('aktibo');
+          
+          // Mostrar solo el día seleccionado
+          document.querySelectorAll('.egun-saila').forEach(el => {
+            if (el.getAttribute('data-eguna') === eguna) {
+              el.classList.remove('eguna-ezkutuan');
+            } else {
+              el.classList.add('eguna-ezkutuan');
+            }
+          });
+        });
+      });
     }
 
-    // ---------- 9. Hasierako render ----------
-    renderEgunak('neskak');
+    // ---------- 10. Hasierako render (TXIKIAK defektuz) ----------
+    renderEgunak('txikiak');
 
-    // ---------- 10. Taldea aldatzean ----------
+    // ---------- 11. Taldea aldatzean ----------
     taldeBotoiak.forEach(botoia => {
       botoia.addEventListener('click', (e) => {
         const taldea = e.target.getAttribute('data-talde');
@@ -941,7 +1003,7 @@
         taldeBotoiak.forEach(b => b.classList.remove('aktibo'));
         e.target.classList.add('aktibo');
         
-        renderEgunak(taldea);
+        renderEgunak(taldea, null); // null = resetear día activo
       });
     });
 
