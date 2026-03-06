@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Larraun Pilota – ORDUTEGIAK (asterako provisionalak)</title>
+  <link rel="icon" type="image/png" href="/egutegia.png">
+  <meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
+  <meta property="og:description" content="Asterako partiden ordutegi provisionalak, talde nagusitan antolatuta">
+  <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
+  <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
+  <style> 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f0f2f5;
+      padding: 10px;
+    }
+    .ordutegi-kartela {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px 24px 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 20, 30, 0.2);
+      overflow: hidden;
+      padding: 20px 15px 25px 15px;
+    }
+    @media (min-width: 768px) {
+      body { padding: 20px; }
+      .ordutegi-kartela {
+        border-radius: 32px 32px 24px 24px;
+        padding: 30px 35px 35px 35px;
+      }
+    }
+    
+    /* HEADER responsiboa */
+    .header-ordutegiak {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #b30000;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 4px solid #b30000;
+      }
+    }
+    
+    .header-ordutegiak img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak img {
+        height: 80px;
+      }
+    }
+    
+    .header-ordutegiak h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #b30000;
+      margin: 0 5px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    @media (min-width: 480px) {
+      .header-ordutegiak h1 { font-size: 2.2rem; }
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak h1 {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        margin: 0 20px;
+      }
+    }
+    
+    /* SELECTOR DE FUENTE DE DATOS */
+    .iturria-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .iturria-selector {
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+    }
+    
+    .iturria-botoia {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      flex: 0 1 auto;
+    }
+    @media (min-width: 768px) {
+      .iturria-botoia {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .iturria-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .iturria-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    /* TALDE NAGUSIEN SELECTORRA (BERRIA) */
+    .talde-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .talde-selector {
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+    }
+    
+    .talde-botoia {
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+    @media (min-width: 480px) {
+      .talde-botoia {
+        padding: 10px 25px;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .talde-botoia {
+        padding: 12px 32px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .talde-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .talde-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    /* TALDE NAGUSIEN KONTENEDOREAK (BERRIA) */
+    .talde-nagusia-kontenedorea {
+      margin-bottom: 30px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+    
+    .talde-nagusia-titulua {
+      padding: 14px 20px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    @media (min-width: 768px) {
+      .talde-nagusia-titulua {
+        padding: 16px 28px;
+        font-size: 2.2rem;
+      }
+    }
+    
+    /* Egunak talde nagusien barruan */
+    .talde-nagusia-egunak {
+      padding: 10px 15px;
+      background: #fafafa;
+    }
+    
+    .egun-saila {
+      margin: 15px 5px 20px 5px;
+      border-left: 6px solid;
+      background: #ffffff;
+      border-radius: 14px 6px 6px 14px;
+      padding: 10px 12px 6px 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    @media (min-width: 768px) {
+      .egun-saila {
+        margin: 20px 10px 25px 10px;
+        border-left: 8px solid;
+        border-radius: 18px 8px 8px 18px;
+        padding: 12px 15px 8px 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+    }
+    
+    .egun-izena {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2c5d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #b0b0b0;
+      padding-bottom: 6px;
+      text-transform: capitalize;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 768px) {
+      .egun-izena {
+        font-size: 1.8rem;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+      }
+    }
+    
+    /* Frontoiak */
+    .frontoi-taldea {
+      margin-bottom: 15px;
+      margin-left: 4px;
+    }
+    @media (min-width: 768px) {
+      .frontoi-taldea {
+        margin-bottom: 20px;
+        margin-left: 8px;
+      }
+    }
+    
+    .frontoi-izena {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #f2f2f2;
+      display: inline-block;
+      padding: 5px 16px 5px 14px;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      border: 2px solid #aaa;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      word-break: break-word;
+      max-width: 100%;
+    }
+    @media (min-width: 768px) {
+      .frontoi-izena {
+        font-size: 1.4rem;
+        padding: 6px 24px 6px 20px;
+        border-radius: 40px;
+        margin-bottom: 12px;
+      }
+    }
+    
+    .frontoi-izena.berezia {
+      background: #0b5ed7 !important;
+      color: white !important;
+      border-color: #003f8c;
+      box-shadow: 0 3px 0 #002856;
+    }
+    
+    /* Partidak */
+    .partido-txikia {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #ffffff;
+      padding: 12px 12px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 480px) {
+      .partido-txikia {
+        gap: 15px;
+        padding: 14px 16px;
+      }
+    }
+    @media (min-width: 768px) {
+      .partido-txikia {
+        gap: 20px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+        border-left: 8px solid;
+      }
+    }
+    
+    /* Ordu blokea */
+    .ordu-blokea {
+      min-width: 80px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      background: #0b2c5d;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 3px 0 #04162e;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    @media (min-width: 480px) {
+      .ordu-blokea {
+        min-width: 100px;
+        font-size: 1.2rem;
+        padding: 6px 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea {
+        min-width: 120px;
+        font-size: 1.4rem;
+        padding: 8px 16px;
+        box-shadow: 0 4px 0 #04162e;
+      }
+    }
+    
+    .ordu-blokea.provisorio {
+      background: #b34a00;
+      box-shadow: 0 3px 0 #6b2d00;
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea.provisorio { box-shadow: 0 4px 0 #6b2d00; }
+    }
+    
+    .ordu-blokea small {
+      font-size: 0.65rem;
+      font-weight: 500;
+      display: block;
+      opacity: 0.95;
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea small { font-size: 0.75rem; }
+    }
+    
+    /* Informazioa */
+    .partido-info {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .parejak {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    @media (min-width: 480px) {
+      .parejak { font-size: 1.1rem; gap: 5px; }
+    }
+    @media (min-width: 768px) {
+      .parejak { font-size: 1.2rem; gap: 6px; }
+    }
+    
+    .etxekoa, .kanpokoak {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      word-break: break-word;
+    }
+    
+    .etxekoa { color: #0b2c5d; }
+    .kanpokoak { color: #b00000; }
+    
+    .larraun-handiagoa {
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: #ffe6e6;
+      padding: 2px 8px;
+      border-radius: 30px;
+      border: 2px solid #b30000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    @media (min-width: 480px) {
+      .larraun-handiagoa { font-size: 1.2rem; padding: 3px 10px; }
+    }
+    @media (min-width: 768px) {
+      .larraun-handiagoa { font-size: 1.5rem; padding: 3px 12px; }
+    }
+    
+    .lehiaketa-labur {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #333;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 768px) {
+      .lehiaketa-labur {
+        margin-top: 10px;
+        font-size: 1rem;
+        gap: 12px;
+      }
+    }
+    
+    /* ETIKETA BERRIAK (iturria eta fasea) */
+    .iturria-etiketa {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 30px;
+      background: #555;
+      color: white;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    @media (min-width: 768px) {
+      .iturria-etiketa {
+        font-size: 0.8rem;
+        padding: 4px 12px;
+      }
+    }
+    
+    .iturria-etiketa.fnp {
+      background: #0b2c5d;
+    }
+    
+    .iturria-etiketa.beste-ofizialak {
+      background: #198754;
+    }
+    
+    .iturria-etiketa.ez-ofizialak {
+      background: #b34a00;
+    }
+    
+    .fase-etiketa {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 30px;
+      background: #6c757d;
+      color: white;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    @media (min-width: 768px) {
+      .fase-etiketa {
+        font-size: 0.8rem;
+        padding: 4px 12px;
+      }
+    }
+    
+    .fase-etiketa.finala {
+      background: #d4af37;
+      color: #1a1a1a;
+      font-weight: 900;
+      box-shadow: 0 2px 6px rgba(212, 175, 55, 0.4);
+    }
+    
+    .zkia-etiketa {
+      background: #333;
+      color: white;
+      border-radius: 30px;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    @media (min-width: 768px) {
+      .zkia-etiketa {
+        padding: 4px 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Footer */
+    .footer-ordutegiak {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 2px solid #bbb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #1f1f1f;
+      font-weight: 600;
+      text-align: center;
+    }
+    @media (min-width: 480px) {
+      .footer-ordutegiak {
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .footer-ordutegiak {
+        margin-top: 45px;
+        padding-top: 20px;
+        border-top: 3px solid #aaa;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .footer-ordutegiak .social {
+      background: #b30000;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      display: inline-block;
+    }
+    @media (min-width: 768px) {
+      .footer-ordutegiak .social {
+        padding: 8px 22px;
+      }
+    }
+    
+    .ez-partidurik {
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #777;
+      font-style: italic;
+    }
+    @media (min-width: 768px) {
+      .ez-partidurik {
+        padding: 30px;
+        font-size: 1.8rem;
+      }
+    }
+
+    /* Ezkutatzeko klaseak */
+    .kategoria-ezkutuan, .partida-ezkutuan, .talde-ezkutuan {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+<div class="ordutegi-kartela">
+  <div class="header-ordutegiak">
+    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <h1>ORDUTEGIAK</h1>
+    <img src="images/logo-fnp.png" alt="FNP">
+  </div>
+
+  <!-- SELECTOR DE FUENTE DE DATOS -->
+  <div id="iturria-selector-container" class="iturria-selector"></div>
+
+  <!-- TALDE NAGUSIEN SELECTORRA (BERRIA) -->
+  <div id="talde-selector-container" class="talde-selector"></div>
+
+  <div id="taldeak-container"></div>
+
+  <div class="footer-ordutegiak">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div class="social">@larraunpilota</div>
+  </div>
+</div>
+
+<script>
+  (async function() {
+    // ---------- 1. Kategoriak kargatu (categoriaedad.json erabiliz) ----------
+    let kategoriakRaw = [];
+    let kategoriakMap = new Map(); // izena (uppercase) -> { kolorea, edadMin, edadMax, izenaOriginal }
+    let edadMinToKategoria = new Map(); // edadMin -> lehen kategoria izena
+
+    try {
+      const katResp = await fetch('/data/categoriaedad.json');
+      if (katResp.ok) {
+        kategoriakRaw = await katResp.json();
+        
+        // Lehen pasada: edadMin bakoitzari lehen kategoria esleitu
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 999;
+          
+          // edadMin hau ez badago map-ean, gorde lehen kategoria
+          if (!edadMinToKategoria.has(edadMin)) {
+            edadMinToKategoria.set(edadMin, izena);
+          }
+        });
+
+        // Bigarren pasada: kategoria guztien informazioa gorde
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const kolorea = item[izena];
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
+          
+          kategoriakMap.set(izena.toUpperCase().trim(), {
+            kolorea: kolorea,
+            edadMin: edadMin,
+            edadMax: edadMax,
+            izena: izena,
+            kategoriaNagusia: kategoriaNagusia
+          });
+        });
+
+        // Kategoria nagusiak ordenatu
+        const kategoriaNagusiakSet = new Set();
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin);
+          if (kategoriaNagusia) {
+            kategoriaNagusiakSet.add(kategoriaNagusia);
+          }
+        });
+
+        // Array bihurtu eta ordenatu
+        const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
+          const item = kategoriakRaw.find(i => {
+            const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+            return iIzena === izena;
+          });
+          return {
+            izena: izena,
+            edadMin: item ? parseInt(item.EDADMIN, 10) : 999,
+            edadMax: item ? parseInt(item.EDADMAX, 10) : 999
+          };
+        });
+
+        kategoriakRaw = kategoriaNagusiakArray.sort((a, b) => {
+          if (a.edadMin !== b.edadMin) return a.edadMin - b.edadMin;
+          return a.izena.localeCompare(b.izena);
+        }).map(item => ({ 
+          [item.izena]: kategoriakMap.get(item.izena.toUpperCase().trim())?.kolorea || '#cccccc', 
+          EDADMIN: item.edadMin,
+          EDADMAX: item.edadMax 
+        }));
+
+      } else {
+        console.warn('ez da categoriaedad.json kargatu');
+      }
+    } catch (e) {
+      console.warn('kategoriak kargatzean errorea:', e);
+    }
+
+    // ---------- 2. Iturriaren selectorea sortu ----------
+    const iturriaSelectorContainer = document.getElementById('iturria-selector-container');
+    
+    const iturriak = [
+      { id: 'fnp', izena: 'FNP' },
+      { id: 'beste-ofizialak', izena: 'BESTE OFIZIALAK' },
+      { id: 'ez-ofizialak', izena: 'EZ OFIZIALAK' }
+    ];
+    
+    const iturriaBotoiak = [];
+    let iturriaAktibo = 'fnp';
+    
+    iturriak.forEach(iturri => {
+      const botoia = document.createElement('button');
+      botoia.className = `iturria-botoia ${iturri.id === iturriaAktibo ? 'aktibo' : ''}`;
+      botoia.textContent = iturri.izena;
+      botoia.setAttribute('data-iturria', iturri.id);
+      iturriaSelectorContainer.appendChild(botoia);
+      iturriaBotoiak.push(botoia);
+    });
+
+    // ---------- 3. Talde nagusien selectorea sortu (BERRIA) ----------
+    const taldeSelectorContainer = document.getElementById('talde-selector-container');
+    
+    const taldeNagusiak = [
+      { id: 'neskak', izena: 'NESKAK' },
+      { id: 'txikiak', izena: 'TXIKIAK' },
+      { id: 'nagusiak', izena: 'NAGUSIAK' }
+    ];
+    
+    const taldeBotoiak = [];
+    let taldeAktibo = 'neskak'; // Hasieran NESKAK
+    
+    taldeNagusiak.forEach(talde => {
+      const botoia = document.createElement('button');
+      botoia.className = `talde-botoia ${talde.id === taldeAktibo ? 'aktibo' : ''}`;
+      botoia.textContent = talde.izena;
+      botoia.setAttribute('data-talde', talde.id);
+      taldeSelectorContainer.appendChild(botoia);
+      taldeBotoiak.push(botoia);
+    });
+
+    // ---------- 4. Partidak kargatu ----------
+    let partidakOficiales = [];
+    let partidakNoOficiales = [];
+
+    try {
+      const [oficialesResp, noOficialesResp] = await Promise.all([
+        fetch('/data/cartelera-larraun.json'),
+        fetch('/data/partidos-no-oficiales.json')
+      ]);
+      
+      if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
+      if (!noOficialesResp.ok) throw new Error('ezin partida ez ofizialak kargatu');
+      
+      partidakOficiales = await oficialesResp.json();
+      partidakNoOficiales = await noOficialesResp.json();
+    } catch (e) {
+      document.getElementById('taldeak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
+      return;
+    }
+
+    // Astea 2026/03/02 – 2026/03/08 (egokitu aste honetara)
+    const astekoLehen = new Date(2026, 2, 2);
+    const astekoAzken = new Date(2026, 2, 8, 23, 59, 59);
+
+    function dateStrToDate(fechaStr) {
+      if (!fechaStr) return null;
+      const parts = fechaStr.split('/');
+      if (parts.length !== 3) return null;
+      return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    }
+
+    // ---------- 5. Partidak iragazi iturriaren arabera ----------
+    function getPartidakByIturria(iturria) {
+      let partidakIturria;
+      
+      if (iturria === 'fnp') {
+        partidakIturria = partidakOficiales;
+      } else {
+        const ofizialaBalioa = iturria === 'beste-ofizialak' ? 'true' : 'false';
+        partidakIturria = partidakNoOficiales.filter(p => 
+          String(p.ofiziala).toLowerCase() === ofizialaBalioa
+        );
+      }
+
+      // Aste honetako partidak
+      const partidakAsteHonetan = partidakIturria.filter(p => {
+        if (!p.fecha) return false;
+        const d = dateStrToDate(p.fecha);
+        return d && d >= astekoLehen && d <= astekoAzken;
+      });
+
+      // "Descanso" -> "Atsedena"
+      partidakAsteHonetan.forEach(p => {
+        if (p.etxekoa && p.etxekoa.includes('Descanso')) {
+          p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
+        }
+        if (p.kanpokoak && p.kanpokoak.includes('Descanso')) {
+          p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+        }
+      });
+
+      return partidakAsteHonetan;
+    }
+
+    // ---------- 6. Kategoria nagusia esleitu ----------
+    function kategoriaNagusia(testua) {
+      if (!testua) return 'Beste';
+      const up = testua.toUpperCase();
+      
+      for (let [k, info] of kategoriakMap.entries()) {
+        if (up.includes(k)) {
+          return info.kategoriaNagusia;
+        }
+      }
+      
+      if (up.includes('HAUR')) return 'HAURRAK';
+      if (up.includes('KADETE')) return 'KADETE';
+      if (up.includes('KIMU')) return 'KIMU';
+      if (up.includes('GAZTE')) return 'GAZTE';
+      if (up.includes('ALEBIN')) return 'ALEBINAK';
+      if (up.includes('SEIN')) return 'SEIN';
+      if (up.includes('ESKUZ KOPA')) return 'ESKUZ KOPA';
+      return 'Beste';
+    }
+
+    // ---------- 7. Talde nagusia esleitu (BERRIA) ----------
+    function taldeNagusia(partida, kategoriaIzena) {
+      const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
+      
+      // 1. NESKAK taldea: EMAKUME edo NESKA erroa dutenak
+      if (testua.includes('NESKA') || testua.includes('NESKAK') || testua.includes('NESKAKO') || 
+          testua.includes('EMAKUME') || testua.includes('EMAKUMEZKO') || testua.includes('EMAKUMENO')) {
+        return 'neskak';
+      }
+      
+      // Bilatu kategoriaren EDADMAX
+      let edadMax = 99;
+      for (let [k, info] of kategoriakMap.entries()) {
+        if (info.kategoriaNagusia === kategoriaIzena) {
+          edadMax = info.edadMax;
+          break;
+        }
+      }
+      
+      // 2. TXIKIAK taldea: EDADMAX <= 12
+      if (edadMax <= 12) {
+        return 'txikiak';
+      }
+      
+      // 3. NAGUSIAK taldea: gainerakoak
+      return 'nagusiak';
+    }
+
+    // ---------- 8. Iturriaren etiketa lortu ----------
+    function getIturriaEtiketa(iturria) {
+      switch(iturria) {
+        case 'fnp': return { text: 'FNP', class: 'fnp' };
+        case 'beste-ofizialak': return { text: 'BESTE OFIZIALA', class: 'beste-ofizialak' };
+        case 'ez-ofizialak': return { text: 'EZ OFIZIALA', class: 'ez-ofizialak' };
+        default: return { text: iturria, class: '' };
+      }
+    }
+
+    // ---------- 9. HTML birsortzeko funtzioa ----------
+    function renderPartidak(iturria, taldeAktibo) {
+      const partidakAsteHonetan = getPartidakByIturria(iturria);
+
+      if (partidakAsteHonetan.length === 0) {
+        document.getElementById('taldeak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partidarik.</div>';
+        return;
+      }
+
+      // Partidak talde nagusitan antolatu
+      const partidakTaldeka = {
+        neskak: [],
+        txikiak: [],
+        nagusiak: []
+      };
+      
+      const partidaKategoriak = new Map(); // partida -> kategoria
+      
+      partidakAsteHonetan.forEach(p => {
+        const katIzen = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
+        partidaKategoriak.set(p, katIzen);
+        const taldea = taldeNagusia(p, katIzen);
+        partidakTaldeka[taldea].push(p);
+      });
+
+      // Egunak euskaraz
+      const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
+
+      // Ordua parseatzeko funtzioa
+      function parseOrdua(horaStr) {
+        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
+        const match = horaStr.match(/(\d{1,2}:\d{2})/);
+        return match ? match[1] : '00:00';
+      }
+
+      // Maila zenbakia ateratzeko
+      function extractLevelNumber(txt) {
+        const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
+        return match ? parseInt(match[2], 10) : 999;
+      }
+
+      // Partidak ordenatu
+      function ordenatuPartidak(partidak) {
+        return partidak.sort((a, b) => {
+          const dA = dateStrToDate(a.fecha);
+          const dB = dateStrToDate(b.fecha);
+          if (!dA && !dB) return 0;
+          if (!dA) return 1;
+          if (!dB) return -1;
+          if (dA.getTime() !== dB.getTime()) return dA - dB;
+
+          const horaA = parseOrdua(a.hora || '00:00');
+          const horaB = parseOrdua(b.hora || '00:00');
+          if (horaA !== horaB) return horaA.localeCompare(horaB);
+
+          const frontA = a.fronton || '';
+          const frontB = b.fronton || '';
+          if (frontA !== frontB) return frontA.localeCompare(frontB);
+
+          const levelA = extractLevelNumber(a.lehiaketa);
+          const levelB = extractLevelNumber(b.lehiaketa);
+          return levelB - levelA;
+        });
+      }
+
+      // Talde bakoitzaren HTML eraiki
+      const taldeakContainer = document.getElementById('taldeak-container');
+      taldeakContainer.innerHTML = '';
+
+      const iturriaInfo = getIturriaEtiketa(iturria);
+
+      // Talde izenak eta koloreak
+      const taldeKoloreak = {
+        neskak: '#d63384',
+        txikiak: '#0d6efd',
+        nagusiak: '#198754'
+      };
+
+      ['neskak', 'txikiak', 'nagusiak'].forEach(taldeId => {
+        const partidak = partidakTaldeka[taldeId];
+        if (partidak.length === 0) return;
+
+        const taldeDiv = document.createElement('div');
+        taldeDiv.className = `talde-nagusia-kontenedorea ${taldeId === taldeAktibo ? '' : 'talde-ezkutuan'}`;
+        taldeDiv.setAttribute('data-talde', taldeId);
+
+        // Titulua
+        const tituluaDiv = document.createElement('div');
+        tituluaDiv.className = 'talde-nagusia-titulua';
+        tituluaDiv.style.backgroundColor = taldeKoloreak[taldeId];
+        
+        let taldeIzena = '';
+        if (taldeId === 'neskak') taldeIzena = 'NESKAK';
+        else if (taldeId === 'txikiak') taldeIzena = 'TXIKIAK (12 urtez azpikoak)';
+        else taldeIzena = 'NAGUSIAK (13 urtez gaindikoak)';
+        
+        tituluaDiv.innerHTML = `<span>⚾</span> ${taldeIzena} <span style="font-size:0.8rem; margin-left:auto;">${partidak.length} partida</span>`;
+        taldeDiv.appendChild(tituluaDiv);
+
+        // Egunak antolatu
+        const partidakOrdenatuak = ordenatuPartidak(partidak);
+        
+        let currentDateStr = null;
+        let currentEgunDiv = null;
+        let currentFrontoi = null;
+        let frontoiDiv = null;
+
+        partidakOrdenatuak.forEach(p => {
+          const katIzen = partidaKategoriak.get(p);
+          
+          // Kategoriaren kolorea lortu
+          let kolorea = '#cccccc';
+          for (let [k, info] of kategoriakMap.entries()) {
+            if (info.kategoriaNagusia === katIzen) {
+              kolorea = info.kolorea;
+              break;
+            }
+          }
+
+          const fechaStr = p.fecha;
+          if (fechaStr !== currentDateStr) {
+            currentDateStr = fechaStr;
+            const dObj = dateStrToDate(fechaStr);
+            const egunIndizea = dObj ? dObj.getDay() : 0;
+            const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+            const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
+
+            currentEgunDiv = document.createElement('div');
+            currentEgunDiv.className = 'egun-saila';
+            currentEgunDiv.style.borderLeftColor = kolorea;
+            currentEgunDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
+            taldeDiv.appendChild(currentEgunDiv);
+            currentFrontoi = null;
+          }
+
+          const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
+          if (frontIzen !== currentFrontoi) {
+            currentFrontoi = frontIzen;
+            frontoiDiv = document.createElement('div');
+            frontoiDiv.className = 'frontoi-taldea';
+
+            const frontoiSpan = document.createElement('div');
+            frontoiSpan.className = 'frontoi-izena';
+            if (/lekunberri|aldatz/i.test(frontIzen)) {
+              frontoiSpan.classList.add('berezia');
+            }
+            frontoiSpan.textContent = '🎯 ' + frontIzen;
+            frontoiDiv.appendChild(frontoiSpan);
+            currentEgunDiv.appendChild(frontoiDiv);
+          }
+
+          const partidaDiv = document.createElement('div');
+          partidaDiv.className = 'partido-txikia';
+          partidaDiv.style.borderLeftColor = kolorea;
+
+          const orduGarbi = parseOrdua(p.hora || '');
+          const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
+
+          const etxekoaTestua = p.etxekoa || '?';
+          const kanpokoaTestua = p.kanpokoak || '?';
+
+          const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
+          const kanpokoaLarraun = kanpokoaTestua.toUpperCase().includes('LARRAUN');
+
+          const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
+          const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
+
+          // Fasea detektatu
+          const faseTestua = p.lehiaketa || p.modalidad || '';
+          const finala = faseTestua.toUpperCase().includes('FINALA');
+
+          partidaDiv.innerHTML = `
+            <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
+            <div class="partido-info">
+              <div class="parejak">
+                <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
+                <span class="${kanpokoClass}">✈️ ${kanpokoaTestua}</span>
+              </div>
+              <div class="lehiaketa-labur">
+                <span class="iturria-etiketa ${iturriaInfo.class}">${iturriaInfo.text}</span>
+                <span>🏆 ${faseTestua}</span>
+                ${finala ? '<span class="fase-etiketa finala">⚡ FINALA</span>' : ''}
+                ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
+              </div>
+            </div>
+          `;
+
+          frontoiDiv.appendChild(partidaDiv);
+        });
+
+        taldeakContainer.appendChild(taldeDiv);
+      });
+    }
+
+    // ---------- 10. Hasierako render ----------
+    renderPartidak('fnp', 'neskak');
+
+    // ---------- 11. Iturria aldatzean ----------
+    iturriaBotoiak.forEach(botoia => {
+      botoia.addEventListener('click', (e) => {
+        const iturria = e.target.getAttribute('data-iturria');
+        
+        iturriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+        e.target.classList.add('aktibo');
+        
+        renderPartidak(iturria, taldeAktibo);
+      });
+    });
+
+    // ---------- 12. Taldea aldatzean ----------
+    taldeBotoiak.forEach(botoia => {
+      botoia.addEventListener('click', (e) => {
+        const taldea = e.target.getAttribute('data-talde');
+        taldeAktibo = taldea;
+        
+        taldeBotoiak.forEach(b => b.classList.remove('aktibo'));
+        e.target.classList.add('aktibo');
+        
+        // Erakutsi talde egokia, ezkutatu besteak
+        document.querySelectorAll('.talde-nagusia-kontenedorea').forEach(el => {
+          if (el.getAttribute('data-talde') === taldea) {
+            el.classList.remove('talde-ezkutuan');
+          } else {
+            el.classList.add('talde-ezkutuan');
+          }
+        });
+      });
+    });
+
+  })();
+</script>
+</body>
+</html>
