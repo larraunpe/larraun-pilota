@@ -156,29 +156,29 @@ async function crearTabla() {
           tr.classList.add("lateral-default");
         }
 
-        // --- Buscar el árbitro guardado en epaileakData (no en datosSheets) ---
-        const guardado = epaileakData.find(item =>
-          item.fecha === j.fecha &&
-          item.hora === j.hora &&
-          item.fronton === j.fronton
-        );
+// Buscar el árbitro guardado en epaileakData
+const guardado = epaileakData.find(item =>
+  item.fecha === j.fecha &&
+  item.hora === j.hora &&
+  item.fronton === j.fronton
+);
 
-        const valorInicial = guardado ? guardado.epailea : "";
+const valorInicial = guardado ? guardado.epailea : "";
 
-        // Crear la fila con el input y su evento onchange
-        tr.innerHTML = `
-          <td>${j.fecha}</td>
-          <td>${j.hora}</td>
-          <td>${j.fronton}</td>
-          <td><strong>${j.zb}</strong></td>
-          <td><strong>${j.senior}</strong></td>
-          <td>
-            <input
-              value="${valorInicial.replace(/"/g, '&quot;')}" <!-- Escapamos comillas -->
-              onchange="guardar('${j.fecha}', '${j.hora}', '${j.fronton}', this.value)"
-            >
-          </td>
-        `;
+// Crear la fila con el input - AHORA CON COMILLAS ESCAPADAS CORRECTAMENTE
+tr.innerHTML = `
+  <td>${j.fecha}</td>
+  <td>${j.hora}</td>
+  <td>${j.fronton}</td>
+  <td><strong>${j.zb}</strong></td>
+  <td><strong>${j.senior}</strong></td>
+  <td>
+    <input
+      value="${valorInicial.replace(/"/g, '&quot;')}"
+      onchange="guardar('${j.fecha.replace(/'/g, "\\'")}', '${j.hora.replace(/'/g, "\\'")}', '${j.fronton.replace(/'/g, "\\'")}', this.value)"
+    >
+  </td>
+`;
 
         tbody.appendChild(tr);
       });
