@@ -6,80 +6,127 @@
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
 <style>
-/* --- (Tus estilos CSS permanecen IGUALES) --- */
-body{font-family:Arial;background:#f4f4f4;padding:20px;}
+body{font-family:Arial;background:#f4f4f4;padding:20px;margin:0;}
 h1{text-align:center;color:#33691e;margin-bottom:20px;}
-table{width:100%;max-width:900px;margin:auto;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
-thead{background:#7cb342;}
-th,td{padding:10px;border:1px solid #ccc;text-align:center;}
+.table-container{overflow-x:auto;max-width:1000px;margin:auto;}
+table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
+thead{background:#7cb342;color:white;}
+th,td{padding:12px 8px;border:1px solid #ccc;text-align:center;}
 th{font-weight:900;}
-input{width:100%;border:none;background:#e8f5e9;padding:6px;font-size:1em;}
-input:focus{outline:2px solid #7cb342;}
+input{width:100%;border:none;background:#e8f5e9;padding:8px;font-size:1em;box-sizing:border-box;}
+input:focus{outline:2px solid #7cb342;background:#fff;}
 .senior-bai{background:linear-gradient(90deg,#fffde7,#ffffff);}
 .lateral-jaianjai{box-shadow:inset 6px 0 0 #1565c0;}
 .lateral-trinkete{box-shadow:inset 6px 0 0 #2e7d32;}
 .lateral-default{box-shadow:inset 6px 0 0 #3f51b5;}
+.loading{text-align:center;padding:40px;font-size:1.2em;color:#666;}
+.error{text-align:center;padding:40px;color:#c62828;background:#ffebee;}
+.guardado{background:#e8f5e9!important;transition:background 0.3s;}
 </style>
 </head>
 
 <body>
 
-<h1>JAIALDIAK</h1>
+<h1>⛔ JAIALDIAK ⛔</h1>
 
-<table>
-<thead>
-<tr>
-<th>EGUNA</th>
-<th>ORDUA</th>
-<th>LEKUA</th>
-<th>ZB</th>
-<th>SENIOR</th>
-<th>EPAILEA(K)</th>
-</tr>
-</thead>
-<tbody id="taula"></tbody>
-</table>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>EGUNA</th>
+        <th>ORDUA</th>
+        <th>LEKUA</th>
+        <th>ZB</th>
+        <th>SENIOR</th>
+        <th>EPAILEA(K)</th>
+      </tr>
+    </thead>
+    <tbody id="taula">
+      <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
+    </tbody>
+  </table>
+</div>
 
 <script>
+// --- CONFIGURACIÓN ---
+// ¡ACTUALIZA ESTA URL CON LA NUEVA DE TU SCRIPT!
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
-const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
+const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA|ABSOLUTO)/i;
 
-// --- Variable global para guardar los árbitros ---
-let epaileakData = []; // Aquí guardaremos los datos de doGet
+// Estado de la aplicación
+let epaileakData = [];
 
 /* =========================
-   Función para cargar los árbitros desde Google Sheets
+   Cargar árbitros desde Google Sheets
 ========================= */
 async function cargarEpaileak() {
   try {
+    console.log("Cargando árbitros...");
     const response = await fetch(SCRIPT_URL);
-    epaileakData = await response.json() || [];
-    console.log("Árbitros cargados:", epaileakData.length);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    epaileakData = Array.isArray(data) ? data : [];
+    console.log(`${epaileakData.length} árbitros cargados`);
+    return epaileakData;
   } catch (error) {
     console.error("Error al cargar árbitros:", error);
-    epaileakData = []; // En caso de error, array vacío
+    epaileakData = [];
+    return [];
   }
 }
 
 /* =========================
-   Función para guardar en Sheets
+   Guardar en Google Sheets
 ========================= */
-function guardar(fecha, hora, fronton, value) {
-  // Usamos fetch con POST, pero no esperamos respuesta para no bloquear
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&fronton=${encodeURIComponent(fronton)}&epailea=${encodeURIComponent(value)}`
-  }).catch(error => console.error("Error al guardar:", error));
+async function guardar(fecha, hora, fronton, value, inputElement) {
+  // Feedback visual: cambiar color mientras guarda
+  const originalBg = inputElement.style.backgroundColor;
+  inputElement.style.backgroundColor = "#fff9c4"; // amarillo suave
+  
+  try {
+    const params = new URLSearchParams({
+      fecha: fecha,
+      hora: hora,
+      fronton: fronton,
+      epailea: value
+    });
 
-  // --- MEJORA: Actualizar epaileakData para que si se re-dibuja la tabla, el nuevo valor persista ---
-  const index = epaileakData.findIndex(item =>
-    item.fecha === fecha && item.hora === hora && item.fronton === fronton
-  );
-  if (index !== -1) {
-    epaileakData[index].epailea = value; // Actualiza existente
-  } else {
-    epaileakData.push({ fecha, hora, fronton, epailea: value }); // Añade nuevo
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString()
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const result = await response.json();
+    console.log("Guardado OK:", result);
+    
+    // Feedback visual: verde de éxito
+    inputElement.style.backgroundColor = "#c8e6c9"; // verde claro
+    setTimeout(() => {
+      inputElement.style.backgroundColor = originalBg;
+    }, 500);
+
+    // Actualizar epaileakData
+    const index = epaileakData.findIndex(item =>
+      item.fecha === fecha && item.hora === hora && item.fronton === fronton
+    );
+    
+    if (index !== -1) {
+      epaileakData[index].epailea = value;
+    } else {
+      epaileakData.push({ fecha, hora, fronton, epailea: value });
+    }
+
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    // Feedback visual: rojo de error
+    inputElement.style.backgroundColor = "#ffcdd2"; // rojo claro
+    setTimeout(() => {
+      inputElement.style.backgroundColor = originalBg;
+    }, 1000);
   }
 }
 
@@ -92,18 +139,22 @@ function normalizaHora(h) {
 }
 
 /* =========================
-   Función principal para crear la tabla
+   Crear tabla (versión robusta sin innerHTML problemático)
 ========================= */
 async function crearTabla() {
   const tbody = document.getElementById("taula");
-  tbody.innerHTML = ''; // Limpiar tabla
+  tbody.innerHTML = '<tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>';
 
   try {
-    // 1. Cargar los dos archivos JSON en paralelo
+    // 1. Cargar JSONs
+    console.log("Cargando JSONs...");
     const [oficialesResp, noOficialesResp] = await Promise.all([
       fetch("data/cartelera-larraun.json"),
       fetch("data/partidos-no-oficiales.json")
     ]);
+
+    if (!oficialesResp.ok) throw new Error("No se pudo cargar cartelera-larraun.json");
+    if (!noOficialesResp.ok) throw new Error("No se pudo cargar partidos-no-oficiales.json");
 
     const oficiales = await oficialesResp.json();
     const noOficiales = await noOficialesResp.json();
@@ -114,7 +165,7 @@ async function crearTabla() {
       ...noOficiales
     ];
 
-    // 3. Procesar para crear la estructura de la tabla (como tu hacías)
+    // 3. Procesar partidos para agrupar por horario
     const jaialdiak = {};
     data.forEach(p => {
       if (!/lekunberri|aldatz/i.test(p.fronton || "")) return;
@@ -140,67 +191,102 @@ async function crearTabla() {
       }
     });
 
-    // 4. Ordenar y dibujar filas
-    Object.values(jaialdiak)
-      .sort((a, b) => new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora))
-      .forEach(j => {
-        const tr = document.createElement("tr");
+    // 4. Ordenar
+    const filas = Object.values(jaialdiak).sort((a, b) => 
+      new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora)
+    );
 
-        // Aplicar clases CSS
-        if (j.senior === "BAI") tr.classList.add("senior-bai");
-        if (/jaian\s*jai/i.test(j.fronton)) {
-          tr.classList.add("lateral-jaianjai");
-        } else if (/trinkete/i.test(j.fronton)) {
-          tr.classList.add("lateral-trinkete");
-        } else {
-          tr.classList.add("lateral-default");
-        }
+    // 5. Limpiar y construir tabla (versión DOM puro)
+    tbody.innerHTML = "";
 
-// Buscar el árbitro guardado en epaileakData
-const guardado = epaileakData.find(item =>
-  item.fecha === j.fecha &&
-  item.hora === j.hora &&
-  item.fronton === j.fronton
-);
+    filas.forEach(j => {
+      const tr = document.createElement("tr");
 
-const valorInicial = guardado ? guardado.epailea : "";
+      // Aplicar clases CSS
+      if (j.senior === "BAI") tr.classList.add("senior-bai");
+      
+      if (/jaian\s*jai/i.test(j.fronton)) {
+        tr.classList.add("lateral-jaianjai");
+      } else if (/trinkete/i.test(j.fronton)) {
+        tr.classList.add("lateral-trinkete");
+      } else {
+        tr.classList.add("lateral-default");
+      }
 
-// Crear la fila con el input - AHORA CON COMILLAS ESCAPADAS CORRECTAMENTE
-tr.innerHTML = `
-  <td>${j.fecha}</td>
-  <td>${j.hora}</td>
-  <td>${j.fronton}</td>
-  <td><strong>${j.zb}</strong></td>
-  <td><strong>${j.senior}</strong></td>
-  <td>
-    <input
-      value="${valorInicial.replace(/"/g, '&quot;')}"
-      onchange="guardar('${j.fecha.replace(/'/g, "\\'")}', '${j.hora.replace(/'/g, "\\'")}', '${j.fronton.replace(/'/g, "\\'")}', this.value)"
-    >
-  </td>
-`;
+      // Buscar árbitro guardado
+      const guardado = epaileakData.find(item =>
+        item.fecha === j.fecha &&
+        item.hora === j.hora &&
+        item.fronton === j.fronton
+      );
+      const valorInicial = guardado ? guardado.epailea : "";
 
-        tbody.appendChild(tr);
-      });
+      // --- Crear celdas una por una (SIN innerHTML problemático) ---
+      
+      // Fecha
+      const tdFecha = document.createElement("td");
+      tdFecha.textContent = j.fecha;
+      tr.appendChild(tdFecha);
+
+      // Hora
+      const tdHora = document.createElement("td");
+      tdHora.textContent = j.hora;
+      tr.appendChild(tdHora);
+
+      // Frontón
+      const tdFronton = document.createElement("td");
+      tdFronton.textContent = j.fronton;
+      tr.appendChild(tdFronton);
+
+      // ZB (número de partidos)
+      const tdZb = document.createElement("td");
+      tdZb.innerHTML = `<strong>${j.zb}</strong>`;
+      tr.appendChild(tdZb);
+
+      // Senior
+      const tdSenior = document.createElement("td");
+      tdSenior.innerHTML = `<strong>${j.senior}</strong>`;
+      tr.appendChild(tdSenior);
+
+      // Input para árbitro
+      const tdInput = document.createElement("td");
+      const input = document.createElement("input");
+      input.value = valorInicial;
+      input.placeholder = "...";
+      
+      // Evento change usando closure para capturar los valores correctos
+      input.onchange = function() {
+        guardar(j.fecha, j.hora, j.fronton, this.value, this);
+      };
+      
+      tdInput.appendChild(input);
+      tr.appendChild(tdInput);
+
+      tbody.appendChild(tr);
+    });
+
+    console.log(`Tabla creada con ${filas.length} filas`);
 
   } catch (error) {
-    console.error("Error al crear la tabla:", error);
-    tbody.innerHTML = '<tr><td colspan="6">Error al cargar los datos. Intenta de nuevo.</td></tr>';
+    console.error("Error creando tabla:", error);
+    tbody.innerHTML = `<tr><td colspan="6" class="error">Errorea: ${error.message}</td></tr>`;
   }
 }
 
 /* =========================
-   FLUJO PRINCIPAL: Cargar todo de manera SEGURA y SECUENCIAL
+   INICIALIZACIÓN
 ========================= */
 (async function init() {
-  // 1. Primero, aseguramos que los árbitros estén cargados
+  // 1. Cargar árbitros
   await cargarEpaileak();
-
-  // 2. Luego, creamos la tabla (que usará epaileakData)
+  
+  // 2. Crear tabla
   await crearTabla();
-
-  // 3. (Opcional) Recargar periódicamente? Mejor no, para no perder cambios no guardados.
-  // Si quieres actualizar cada cierto tiempo, puedes hacerlo con cuidado.
+  
+  // 3. Opcional: recargar datos cada 5 minutos? (descomentar si quieres)
+  // setInterval(() => {
+  //   cargarEpaileak().then(() => crearTabla());
+  // }, 300000);
 })();
 
 </script>
