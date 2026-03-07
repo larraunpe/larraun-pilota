@@ -7,7 +7,7 @@
 
 <style>
 body{font-family:Arial;background:#f4f4f4;padding:20px;margin:0;}
-h1{text-align:center;color:#33691e;margin-bottom:20px;}
+h1{text-align:center;color:#33691e;margin-bottom:20px;font-weight:normal;}
 .table-container{overflow-x:auto;max-width:1000px;margin:auto;}
 table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
 thead{background:#7cb342;color:white;}
@@ -15,10 +15,19 @@ th,td{padding:12px 8px;border:1px solid #ccc;text-align:center;}
 th{font-weight:900;}
 input{width:100%;border:none;background:#e8f5e9;padding:8px;font-size:1em;box-sizing:border-box;}
 input:focus{outline:2px solid #7cb342;background:#fff;}
-.senior-bai{background:linear-gradient(90deg,#fffde7,#ffffff);}
+
+/* Senior BAI en azul */
+.senior-bai {
+  background-color: #2196F3 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Estilo para la fila completa (mantenemos los laterales) */
 .lateral-jaianjai{box-shadow:inset 6px 0 0 #1565c0;}
 .lateral-trinkete{box-shadow:inset 6px 0 0 #2e7d32;}
 .lateral-default{box-shadow:inset 6px 0 0 #3f51b5;}
+
 .loading{text-align:center;padding:40px;font-size:1.2em;color:#666;}
 .error{text-align:center;padding:40px;color:#c62828;background:#ffebee;}
 .guardado{background:#e8f5e9!important;transition:background 0.3s;}
@@ -27,7 +36,7 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
 
 <body>
 
-<h1>⛔ JAIALDIAK ⛔</h1>
+<h1>JAIALDIAK</h1>
 
 <div class="table-container">
   <table>
@@ -49,8 +58,8 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
 
 <script>
 // --- CONFIGURACIÓN ---
-// ¡ACTUALIZA ESTA URL CON LA NUEVA DE TU SCRIPT!
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-zUzbOBE3vIwdCJzWkCz2b5A2HzXcwGBJv46FeyzNaFPz6vrqFTwvVTxIEyuR8dCm/exec";
+// IMPORTANTE: Reemplaza con tu URL de Google Apps Script
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA|ABSOLUTO)/i;
 
 // Estado de la aplicación
@@ -82,7 +91,7 @@ async function cargarEpaileak() {
 async function guardar(fecha, hora, fronton, value, inputElement) {
   // Feedback visual: cambiar color mientras guarda
   const originalBg = inputElement.style.backgroundColor;
-  inputElement.style.backgroundColor = "#fff9c4"; // amarillo suave
+  inputElement.style.backgroundColor = "#fff9c4";
   
   try {
     const params = new URLSearchParams({
@@ -104,7 +113,7 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
     console.log("Guardado OK:", result);
     
     // Feedback visual: verde de éxito
-    inputElement.style.backgroundColor = "#c8e6c9"; // verde claro
+    inputElement.style.backgroundColor = "#c8e6c9";
     setTimeout(() => {
       inputElement.style.backgroundColor = originalBg;
     }, 500);
@@ -122,8 +131,7 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
 
   } catch (error) {
     console.error("Error al guardar:", error);
-    // Feedback visual: rojo de error
-    inputElement.style.backgroundColor = "#ffcdd2"; // rojo claro
+    inputElement.style.backgroundColor = "#ffcdd2";
     setTimeout(() => {
       inputElement.style.backgroundColor = originalBg;
     }, 1000);
@@ -139,7 +147,7 @@ function normalizaHora(h) {
 }
 
 /* =========================
-   Crear tabla (versión robusta sin innerHTML problemático)
+   Crear tabla
 ========================= */
 async function crearTabla() {
   const tbody = document.getElementById("taula");
@@ -196,15 +204,13 @@ async function crearTabla() {
       new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora)
     );
 
-    // 5. Limpiar y construir tabla (versión DOM puro)
+    // 5. Limpiar y construir tabla
     tbody.innerHTML = "";
 
     filas.forEach(j => {
       const tr = document.createElement("tr");
 
-      // Aplicar clases CSS
-      if (j.senior === "BAI") tr.classList.add("senior-bai");
-      
+      // Aplicar clases CSS (laterales de color)
       if (/jaian\s*jai/i.test(j.fronton)) {
         tr.classList.add("lateral-jaianjai");
       } else if (/trinkete/i.test(j.fronton)) {
@@ -221,7 +227,7 @@ async function crearTabla() {
       );
       const valorInicial = guardado ? guardado.epailea : "";
 
-      // --- Crear celdas una por una (SIN innerHTML problemático) ---
+      // --- Crear celdas ---
       
       // Fecha
       const tdFecha = document.createElement("td");
@@ -243,9 +249,16 @@ async function crearTabla() {
       tdZb.innerHTML = `<strong>${j.zb}</strong>`;
       tr.appendChild(tdZb);
 
-      // Senior
+      // Senior - AHORA EN AZUL SI ES "BAI"
       const tdSenior = document.createElement("td");
-      tdSenior.innerHTML = `<strong>${j.senior}</strong>`;
+      if (j.senior === "BAI") {
+        tdSenior.style.backgroundColor = "#2196F3";
+        tdSenior.style.color = "white";
+        tdSenior.style.fontWeight = "bold";
+        tdSenior.innerHTML = `<strong>BAI</strong>`;
+      } else {
+        tdSenior.innerHTML = `<strong>EZ</strong>`;
+      }
       tr.appendChild(tdSenior);
 
       // Input para árbitro
@@ -254,7 +267,6 @@ async function crearTabla() {
       input.value = valorInicial;
       input.placeholder = "...";
       
-      // Evento change usando closure para capturar los valores correctos
       input.onchange = function() {
         guardar(j.fecha, j.hora, j.fronton, this.value, this);
       };
@@ -282,11 +294,6 @@ async function crearTabla() {
   
   // 2. Crear tabla
   await crearTabla();
-  
-  // 3. Opcional: recargar datos cada 5 minutos? (descomentar si quieres)
-  // setInterval(() => {
-  //   cargarEpaileak().then(() => crearTabla());
-  // }, 300000);
 })();
 
 </script>
