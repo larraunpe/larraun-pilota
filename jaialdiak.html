@@ -6,6 +6,7 @@
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
 <style>
+/* --- (Tus estilos CSS permanecen IGUALES) --- */
 body{font-family:Arial;background:#f4f4f4;padding:20px;}
 h1{text-align:center;color:#33691e;margin-bottom:20px;}
 table{width:100%;max-width:900px;margin:auto;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
@@ -40,138 +41,168 @@ input:focus{outline:2px solid #7cb342;}
 </table>
 
 <script>
-
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
 
-let datosSheets = [];
+// --- Variable global para guardar los árbitros ---
+let epaileakData = []; // Aquí guardaremos los datos de doGet
 
 /* =========================
-   Cargar datos desde Sheets
+   Función para cargar los árbitros desde Google Sheets
 ========================= */
-fetch(SCRIPT_URL)
-  .then(r => r.json())
-  .then(d => datosSheets = d || [])
-  .catch(() => datosSheets = [])
-  .finally(() => crearTabla());
+async function cargarEpaileak() {
+  try {
+    const response = await fetch(SCRIPT_URL);
+    epaileakData = await response.json() || [];
+    console.log("Árbitros cargados:", epaileakData.length);
+  } catch (error) {
+    console.error("Error al cargar árbitros:", error);
+    epaileakData = []; // En caso de error, array vacío
+  }
+}
 
 /* =========================
-   Guardar en Sheets
+   Función para guardar en Sheets
 ========================= */
-function guardar(fecha, hora, fronton, value){
-
+function guardar(fecha, hora, fronton, value) {
+  // Usamos fetch con POST, pero no esperamos respuesta para no bloquear
   fetch(SCRIPT_URL, {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/x-www-form-urlencoded"
-    },
-    body:
-      `fecha=${encodeURIComponent(fecha)}`
-      + `&hora=${encodeURIComponent(hora)}`
-      + `&fronton=${encodeURIComponent(fronton)}`
-      + `&epailea=${encodeURIComponent(value)}`
-  });
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&fronton=${encodeURIComponent(fronton)}&epailea=${encodeURIComponent(value)}`
+  }).catch(error => console.error("Error al guardar:", error));
 
+  // --- MEJORA: Actualizar epaileakData para que si se re-dibuja la tabla, el nuevo valor persista ---
+  const index = epaileakData.findIndex(item =>
+    item.fecha === fecha && item.hora === hora && item.fronton === fronton
+  );
+  if (index !== -1) {
+    epaileakData[index].epailea = value; // Actualiza existente
+  } else {
+    epaileakData.push({ fecha, hora, fronton, epailea: value }); // Añade nuevo
+  }
 }
 
 /* =========================
    Utilidades
 ========================= */
-function normalizaHora(h){
-  if(!h) return "00:00";
-  return h.slice(0,5);
+function normalizaHora(h) {
+  if (!h) return "00:00";
+  return h.slice(0, 5);
 }
 
 /* =========================
-   Crear tabla
+   Función principal para crear la tabla
 ========================= */
-function crearTabla(){
-
-Promise.all([
-  fetch("data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales, noOficiales]) => {
-
-  const data = [
-    ...oficiales.map(p => ({ ...p, ofiziala:true })),
-    ...noOficiales
-  ];
-
-  const jaialdiak = {};
-
-  data.forEach(p => {
-
-    if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
-
-    const hora = normalizaHora(p.hora);
-    const key = `${p.fecha}|${hora}|${p.fronton}`;
-
-    if(!jaialdiak[key]){
-      jaialdiak[key] = {
-        fecha:p.fecha,
-        hora:hora,
-        fronton:p.fronton,
-        zb:0,
-        senior:"EZ"
-      };
-    }
-
-    jaialdiak[key].zb++;
-
-    const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
-    if(SENIOR_RE.test(testua)){
-      jaialdiak[key].senior="BAI";
-    }
-  });
-
+async function crearTabla() {
   const tbody = document.getElementById("taula");
+  tbody.innerHTML = ''; // Limpiar tabla
 
-  Object.values(jaialdiak)
-    .sort((a,b)=> new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora))
-    .forEach(j => {
+  try {
+    // 1. Cargar los dos archivos JSON en paralelo
+    const [oficialesResp, noOficialesResp] = await Promise.all([
+      fetch("data/cartelera-larraun.json"),
+      fetch("data/partidos-no-oficiales.json")
+    ]);
 
-      const tr = document.createElement("tr");
+    const oficiales = await oficialesResp.json();
+    const noOficiales = await noOficialesResp.json();
 
-      if(j.senior === "BAI") tr.classList.add("senior-bai");
+    // 2. Combinar datos
+    const data = [
+      ...oficiales.map(p => ({ ...p, ofiziala: true })),
+      ...noOficiales
+    ];
 
-      if(/jaian\s*jai/i.test(j.fronton)){
-        tr.classList.add("lateral-jaianjai");
-      } else if(/trinkete/i.test(j.fronton)){
-        tr.classList.add("lateral-trinkete");
-      } else {
-        tr.classList.add("lateral-default");
+    // 3. Procesar para crear la estructura de la tabla (como tu hacías)
+    const jaialdiak = {};
+    data.forEach(p => {
+      if (!/lekunberri|aldatz/i.test(p.fronton || "")) return;
+
+      const hora = normalizaHora(p.hora);
+      const key = `${p.fecha}|${hora}|${p.fronton}`;
+
+      if (!jaialdiak[key]) {
+        jaialdiak[key] = {
+          fecha: p.fecha,
+          hora: hora,
+          fronton: p.fronton,
+          zb: 0,
+          senior: "EZ"
+        };
       }
 
-      // Buscar si existe guardado en Sheets
-      const guardado = datosSheets.find(item =>
-        item.fecha === j.fecha &&
-        item.hora === j.hora &&
-        item.fronton === j.fronton
-      );
+      jaialdiak[key].zb++;
 
-      const valorInicial = guardado ? guardado.epailea : "";
-
-      tr.innerHTML = `
-        <td>${j.fecha}</td>
-        <td>${j.hora}</td>
-        <td>${j.fronton}</td>
-        <td><strong>${j.zb}</strong></td>
-        <td><strong>${j.senior}</strong></td>
-        <td>
-          <input
-            value="${valorInicial}"
-            onchange="guardar('${j.fecha}', '${j.hora}', '${j.fronton}', this.value)"
-          >
-        </td>
-      `;
-
-      tbody.appendChild(tr);
+      const testua = `${p.lehiaketa || ""} ${p.modalitatea || ""}`;
+      if (SENIOR_RE.test(testua)) {
+        jaialdiak[key].senior = "BAI";
+      }
     });
 
-});
+    // 4. Ordenar y dibujar filas
+    Object.values(jaialdiak)
+      .sort((a, b) => new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora))
+      .forEach(j => {
+        const tr = document.createElement("tr");
+
+        // Aplicar clases CSS
+        if (j.senior === "BAI") tr.classList.add("senior-bai");
+        if (/jaian\s*jai/i.test(j.fronton)) {
+          tr.classList.add("lateral-jaianjai");
+        } else if (/trinkete/i.test(j.fronton)) {
+          tr.classList.add("lateral-trinkete");
+        } else {
+          tr.classList.add("lateral-default");
+        }
+
+        // --- Buscar el árbitro guardado en epaileakData (no en datosSheets) ---
+        const guardado = epaileakData.find(item =>
+          item.fecha === j.fecha &&
+          item.hora === j.hora &&
+          item.fronton === j.fronton
+        );
+
+        const valorInicial = guardado ? guardado.epailea : "";
+
+        // Crear la fila con el input y su evento onchange
+        tr.innerHTML = `
+          <td>${j.fecha}</td>
+          <td>${j.hora}</td>
+          <td>${j.fronton}</td>
+          <td><strong>${j.zb}</strong></td>
+          <td><strong>${j.senior}</strong></td>
+          <td>
+            <input
+              value="${valorInicial.replace(/"/g, '&quot;')}" <!-- Escapamos comillas -->
+              onchange="guardar('${j.fecha}', '${j.hora}', '${j.fronton}', this.value)"
+            >
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+  } catch (error) {
+    console.error("Error al crear la tabla:", error);
+    tbody.innerHTML = '<tr><td colspan="6">Error al cargar los datos. Intenta de nuevo.</td></tr>';
+  }
 }
 
-</script>
+/* =========================
+   FLUJO PRINCIPAL: Cargar todo de manera SEGURA y SECUENCIAL
+========================= */
+(async function init() {
+  // 1. Primero, aseguramos que los árbitros estén cargados
+  await cargarEpaileak();
 
+  // 2. Luego, creamos la tabla (que usará epaileakData)
+  await crearTabla();
+
+  // 3. (Opcional) Recargar periódicamente? Mejor no, para no perder cambios no guardados.
+  // Si quieres actualizar cada cierto tiempo, puedes hacerlo con cuidado.
+})();
+
+</script>
 </body>
 </html>
