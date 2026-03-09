@@ -10,7 +10,7 @@
   <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
   <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
   <style>
-    /* (mantenemos todos los estilos igual) */
+    /* (estilos igual que antes) */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       margin: 0;
@@ -35,7 +35,6 @@
       }
     }
     
-    /* HEADER responsiboa */
     .header-ordutegiak {
       display: flex;
       align-items: center;
@@ -86,7 +85,6 @@
       }
     }
     
-    /* SELECTOR DE FUENTE DE DATOS - NUEVO */
     .iturria-selector {
       display: flex;
       flex-wrap: wrap;
@@ -134,7 +132,6 @@
       border-color: #800000;
     }
     
-    /* SELECTOR DE CATEGORÍAS */
     .kategoria-selector {
       display: flex;
       flex-wrap: wrap;
@@ -192,7 +189,6 @@
       color: white;
     }
     
-    /* Kategoria blokeak */
     .kategoriak-ordena {
       display: flex;
       flex-direction: column;
@@ -212,7 +208,6 @@
       .kategoria-blokea { border-radius: 24px; }
     }
     
-    /* Titulua etiketa moduan */
     .kategoria-titulua {
       padding: 12px 16px;
       font-size: 1.5rem;
@@ -250,7 +245,6 @@
       .kategoria-titulua span.emoji-big { font-size: 2.8rem; }
     }
     
-    /* Egunak */
     .egun-saila {
       margin: 12px 10px 15px 10px;
       border-left: 6px solid;
@@ -291,7 +285,6 @@
       }
     }
     
-    /* Frontoiak */
     .frontoi-taldea {
       margin-bottom: 15px;
       margin-left: 4px;
@@ -332,7 +325,6 @@
       box-shadow: 0 3px 0 #002856;
     }
     
-    /* Partidak */
     .partido-txikia {
       display: flex;
       align-items: flex-start;
@@ -361,7 +353,6 @@
       }
     }
     
-    /* Ordu blokea */
     .ordu-blokea {
       min-width: 80px;
       font-weight: 800;
@@ -409,7 +400,6 @@
       .ordu-blokea small { font-size: 0.75rem; }
     }
     
-    /* Informazioa */
     .partido-info {
       flex: 1;
       min-width: 200px;
@@ -505,7 +495,6 @@
       }
     }
     
-    /* Footer */
     .footer-ordutegiak {
       margin-top: 25px;
       padding-top: 15px;
@@ -562,7 +551,6 @@
       }
     }
 
-    /* Kategoria ezkutatzeko klasea */
     .kategoria-ezkutuan {
       display: none !important;
     }
@@ -576,10 +564,7 @@
     <img src="images/logo-fnp.png" alt="FNP">
   </div>
 
-  <!-- SELECTOR DE FUENTE DE DATOS -->
   <div id="iturria-selector-container" class="iturria-selector"></div>
-
-  <!-- SELECTOR DE CATEGORÍAS -->
   <div id="kategoria-selector-container" class="kategoria-selector"></div>
 
   <div id="kategoriak-container" class="kategoriak-ordena">
@@ -594,29 +579,26 @@
 
 <script>
   (async function() {
-    // ---------- 1. Kategoriak kargatu (categoriaedad.json erabiliz) ----------
+    // ---------- 1. Kategoriak kargatu ----------
     let kategoriakRaw = [];
-    let kategoriakMap = new Map(); // izena (uppercase) -> { kolorea, edadMin, izenaOriginal }
-    let edadMinToKategoria = new Map(); // edadMin -> lehen kategoria izena
+    let kategoriakMap = new Map();
+    let edadMinToKategoria = new Map();
 
     try {
       const katResp = await fetch('/data/categoriaedad.json');
       if (katResp.ok) {
         kategoriakRaw = await katResp.json();
         
-        // Lehen pasada: edadMin bakoitzari lehen kategoria esleitu
         kategoriakRaw.forEach(item => {
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           if (!izena) return;
           const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
           
-          // edadMin hau ez badago map-ean, gorde lehen kategoria
           if (!edadMinToKategoria.has(edadMin)) {
             edadMinToKategoria.set(edadMin, izena);
           }
         });
 
-        // Bigarren pasada: kategoria guztien informazioa gorde
         kategoriakRaw.forEach(item => {
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
           if (!izena) return;
@@ -632,8 +614,6 @@
           });
         });
 
-        // Kategoria ordena: EDADMIN txikienetik handienera, berdina bada alfabetikoz
-        // Baina kategoria nagusiak soilik hartu
         const kategoriaNagusiakSet = new Set();
         kategoriakRaw.forEach(item => {
           const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
@@ -645,7 +625,6 @@
           }
         });
 
-        // Array bihurtu eta ordenatu
         const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
           const item = kategoriakRaw.find(i => {
             const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
@@ -669,7 +648,7 @@
       console.warn('kategoriak kargatzean errorea:', e);
     }
 
-    // ---------- 2. Iturriaren selectorea sortu ----------
+    // ---------- 2. Iturriaren selectorea ----------
     const iturriaSelectorContainer = document.getElementById('iturria-selector-container');
     
     const iturriak = [
@@ -679,7 +658,7 @@
     ];
     
     const iturriaBotoiak = [];
-    let iturriaAktibo = 'fnp'; // Defektuz FNP
+    let iturriaAktibo = 'fnp';
     
     iturriak.forEach(iturri => {
       const botoia = document.createElement('button');
@@ -690,7 +669,7 @@
       iturriaBotoiak.push(botoia);
     });
 
-    // ---------- 3. Partidak kargatu (hasieran FNP) ----------
+    // ---------- 3. Partidak kargatu ----------
     let partidakOficiales = [];
     let partidakNoOficiales = [];
 
@@ -710,10 +689,9 @@
       return;
     }
 
-    // Astea 2026/03/02 – 2026/03/08 (egokitu aste honetara)
-    const astekoLehen = new Date(2026, 2, 2);
-    const astekoAzken = new Date(2026, 2, 8, 23, 59, 59);
-
+    // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO ----------
+    // Calculamos la semana actual dinámicamente basada en la fecha de los partidos
+    // Primero, encontramos la fecha más temprana y más tardía en los datos
     function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
       const parts = fechaStr.split('/');
@@ -721,28 +699,61 @@
       return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
     }
 
-    // ---------- 4. Partidak iragazi eta prozesatu ----------
+    // Obtener todas las fechas de los partidos oficiales
+    const todasLasFechas = partidakOficiales
+      .map(p => p.fecha)
+      .filter(f => f)
+      .map(f => dateStrToDate(f))
+      .filter(d => d !== null);
+
+    if (todasLasFechas.length > 0) {
+      // Encontrar la fecha mínima y máxima
+      const fechaMin = new Date(Math.min(...todasLasFechas.map(d => d.getTime())));
+      const fechaMax = new Date(Math.max(...todasLasFechas.map(d => d.getTime())));
+      
+      // Calcular el inicio de la semana (lunes) y fin de la semana (domingo)
+      const diaSemana = fechaMin.getDay(); // 0 = domingo, 1 = lunes, etc.
+      const diffToMonday = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
+      
+      const astekoLehen = new Date(fechaMin);
+      astekoLehen.setDate(fechaMin.getDate() - diffToMonday);
+      astekoLehen.setHours(0, 0, 0, 0);
+      
+      const astekoAzken = new Date(astekoLehen);
+      astekoAzken.setDate(astekoLehen.getDate() + 6);
+      astekoAzken.setHours(23, 59, 59, 999);
+      
+      console.log('Astea:', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
+      
+      // Guardamos en variables globales para usarlas en getPartidakByIturria
+      window.astekoLehen = astekoLehen;
+      window.astekoAzken = astekoAzken;
+    } else {
+      // Fallback a fechas fijas si no hay datos
+      window.astekoLehen = new Date(2026, 2, 9);  // 9 de marzo de 2026
+      window.astekoAzken = new Date(2026, 2, 15, 23, 59, 59); // 15 de marzo de 2026
+    }
+
+    // ---------- 5. Partidak iragazi ----------
     function getPartidakByIturria(iturria) {
       let partidakIturria;
       
       if (iturria === 'fnp') {
         partidakIturria = partidakOficiales;
       } else {
-        // Iragazi no-ofizialak ofiziala balioaren arabera
         const ofizialaBalioa = iturria === 'beste-ofizialak' ? 'true' : 'false';
         partidakIturria = partidakNoOficiales.filter(p => 
           String(p.ofiziala).toLowerCase() === ofizialaBalioa
         );
       }
 
-      // Aste honetako partidak
+      // Aste honetako partidak usando las fechas calculadas
       const partidakAsteHonetan = partidakIturria.filter(p => {
         if (!p.fecha) return false;
         const d = dateStrToDate(p.fecha);
-        return d && d >= astekoLehen && d <= astekoAzken;
+        return d && d >= window.astekoLehen && d <= window.astekoAzken;
       });
 
-      // "Descanso" -> "Atsedena"
       partidakAsteHonetan.forEach(p => {
         if (p.etxekoa && p.etxekoa.includes('Descanso')) {
           p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
@@ -755,19 +766,17 @@
       return partidakAsteHonetan;
     }
 
-    // ---------- 5. Kategoria esleitu partida bakoitzari (kategoria nagusia erabiliz) ----------
+    // ---------- 6. Kategoria esleitu ----------
     function kategoriaNagusia(testua) {
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
       
-      // Bilatu partida honen kategoria
       for (let [k, info] of kategoriakMap.entries()) {
         if (up.includes(k)) {
           return info.kategoriaNagusia;
         }
       }
       
-      // Hitz arruntak
       if (up.includes('HAUR')) return 'HAURRAK';
       if (up.includes('KADETE')) return 'KADETE';
       if (up.includes('KIMU')) return 'KIMU';
@@ -778,7 +787,7 @@
       return 'Beste';
     }
 
-    // ---------- 6. HTML birsortzeko funtzioa ----------
+    // ---------- 7. HTML birsortu ----------
     function renderPartidak(iturria) {
       const partidakAsteHonetan = getPartidakByIturria(iturria);
 
@@ -788,7 +797,6 @@
         return;
       }
 
-      // Partidak kategoriaka antolatu (kategoria nagusiaren arabera)
       const partidakKategoriaka = new Map();
       partidakAsteHonetan.forEach(p => {
         const iz = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
@@ -796,7 +804,6 @@
         partidakKategoriaka.get(iz).push(p);
       });
 
-      // Kategorien ordena (kategoriakRaw-en ordena)
       const ordenaPrior = new Map();
       kategoriakRaw.forEach((item, index) => {
         const izena = Object.keys(item)[0];
@@ -814,7 +821,6 @@
         return a.localeCompare(b);
       });
 
-      // Selector de categorías
       const selectorContainer = document.getElementById('kategoria-selector-container');
       selectorContainer.innerHTML = '';
       
@@ -834,7 +840,6 @@
         kategoriaBotoiak.push(botoia);
       });
 
-      // HTML eraiki
       const container = document.getElementById('kategoriak-container');
       container.innerHTML = '';
 
@@ -846,7 +851,6 @@
         const partidaLista = partidakKategoriaka.get(katIzen);
         const katUp = katIzen.toUpperCase().trim();
         
-        // Bilatu kolorea - kategoria nagusiaren kolorea
         let kolorea = '#cccccc';
         for (let [k, info] of kategoriakMap.entries()) {
           if (info.kategoriaNagusia === katIzen) {
@@ -867,13 +871,13 @@
         tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
         katBlokea.appendChild(tituluaDiv);
 
-        // FUNCIÓN CORREGIDA: Ahora devuelve "23:59" para horas inválidas o con "-"
+        // Función parseOrdua corregida
         function parseOrdua(horaStr) {
           if (!horaStr || horaStr.trim() === '' || horaStr.trim() === '-' || horaStr.startsWith('-')) {
-            return '23:59'; // Cambiado de 00:00 a 23:59 para que aparezcan al final
+            return '23:59';
           }
           const match = horaStr.match(/(\d{1,2}:\d{2})/);
-          return match ? match[1] : '23:59'; // También aquí, si no encuentra formato hora, va al final
+          return match ? match[1] : '23:59';
         }
 
         function extractLevelNumber(txt) {
@@ -945,7 +949,6 @@
           partidaDiv.style.borderLeftColor = bordeKolorea;
 
           const orduGarbi = parseOrdua(p.hora || '');
-          // Mostrar "PENDIENTE" si la hora es 23:59 (nuestra marca de "sin hora")
           const orduErakutsi = orduGarbi === '23:59' ? '⏳ PENDIENTE' : orduGarbi;
           const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
 
@@ -979,7 +982,6 @@
         kategoriaBlokeak[katIzen] = katBlokea;
       }
 
-      // Filtroaren funtzionalitatea
       function filterKategoriak(kategoria) {
         if (kategoria === 'guztiak') {
           Object.values(kategoriaBlokeak).forEach(blokea => {
@@ -1018,16 +1020,11 @@
     // Hasierako render
     renderPartidak('fnp');
 
-    // Iturria aldatzean render berria
     iturriaBotoiak.forEach(botoia => {
       botoia.addEventListener('click', (e) => {
         const iturria = e.target.getAttribute('data-iturria');
-        
-        // Actualizar clases activas
         iturriaBotoiak.forEach(b => b.classList.remove('aktibo'));
         e.target.classList.add('aktibo');
-        
-        // Render berria
         renderPartidak(iturria);
       });
     });
