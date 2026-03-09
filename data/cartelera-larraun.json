@@ -11,6 +11,15 @@
   {
     "fecha": "2026/03/13",
     "hora": "18:00 !Horario provisional",
+    "zkia": "4",
+    "fronton": "Salinas de Pamplona - Mutilendako",
+    "etxekoa": "MUTILENDAKO (J. Cotelo - U. Nuin)",
+    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/13",
+    "hora": "18:00 !Horario provisional",
     "zkia": "1",
     "fronton": "Elizondo - Baztan",
     "etxekoa": "BORTZIRIAK (E. Igoa - M. Iñarrea)",
@@ -178,15 +187,6 @@
     "etxekoa": "PILOTAJAUKU (H. Olabarria - I. Zabala)",
     "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/14",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "MUTILENDAKO (J. Cotelo - U. Nuin)",
-    "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
   },
   {
     "fecha": "2026/03/14",
