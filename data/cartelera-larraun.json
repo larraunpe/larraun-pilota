@@ -46,6 +46,15 @@
   },
   {
     "fecha": "2026/03/13",
+    "hora": "18:30 !Horario provisional",
+    "zkia": "5",
+    "fronton": "Larraintzar - Ulzama",
+    "etxekoa": "ULTZAMA (M. Ariztegi - I. Gastearena)",
+    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/13",
     "hora": "20:15 !Horario provisional",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
@@ -169,15 +178,6 @@
     "etxekoa": "PILOTAJAUKU (H. Olabarria - I. Zabala)",
     "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/14",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "ULTZAMA (M. Ariztegi - I. Gastearena)",
-    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
   },
   {
     "fecha": "2026/03/14",
