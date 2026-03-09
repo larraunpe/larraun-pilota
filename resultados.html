@@ -1,448 +1,495 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
-import iconv from "iconv-lite";
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<title>Larraun – Emaitzak</title>
+<link rel="icon" type="image/png" href="/emaitzak.png">
+<meta property="og:title" content="Emaitzak – Larraun Pilota Elkartea">
+<meta property="og:description" content="Pilotarien azken emaitzak">
+<meta property="og:image" content="https://larraunpilota.eus/emaitzak.png">
+<meta property="og:url" content="https://larraunpilota.eus/emaitzak.html">
 
-const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
-const TEMPORADA = 2025;
-
-const ID_COMPETICION_DESDE = 3059;
-const ID_COMPETICION_HASTA = 3260;
-
-const ID_FASE_DESDE = 20617;
-const ID_FASE_HASTA = 20617;
-
-// Obtener la ruta del directorio actual
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const OUTPUT_FILE = path.join(__dirname, "..", "data", "resultados-larraun.json");
-const MIXTAS_FILE = path.join(__dirname, "..", "data", "mixtas.json");
-
-// Variable global para almacenar las equivalencias
-let equivalenciasMixtas = {};
-
-// -----------------------------------------------------
-
-async function cargarEquivalencias() {
-  try {
-    const data = await fs.readFile(MIXTAS_FILE, "utf-8");
-    const mixtas = JSON.parse(data);
-    
-    // Convertir el array de objetos a un objeto de equivalencias
-    mixtas.forEach(item => {
-      const [original, normalizado] = Object.entries(item)[0];
-      equivalenciasMixtas[original] = normalizado;
-    });
-    
-    console.log("✅ Equivalencias de parejas mixtas cargadas:");
-    Object.entries(equivalenciasMixtas).forEach(([original, normalizado]) => {
-      console.log(`   "${original}" → "${normalizado}"`);
-    });
-  } catch (error) {
-    console.error("❌ Error cargando equivalencias:", error.message);
-    equivalenciasMixtas = {};
-  }
+<style>
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:0;
 }
 
-// -----------------------------------------------------
+/* ===== HEADER ===== */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px;
+  background:#ffffff;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+header img{height:48px;}
+header h1{
+  margin:0;
+  font-size:2em;
+  color:#004d40;
+  letter-spacing:2px;
+}
 
-function aplicarEquivalencia(texto) {
-  if (!texto) return texto;
+/* ===== CONTENIDO ===== */
+main{padding:20px;}
+
+.week-title{
+  margin:30px 0 10px;
+  font-size:1.4em;
+  font-weight:bold;
+  color:#004d40;
+}
+
+/* ===== TARJETA ===== */
+.match{
+  background:#fff;
+  margin-bottom:14px;
+  padding:14px 18px 14px 26px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  position:relative;
+  overflow:hidden;
+}
+
+/* LATERAL */
+.match::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:6px;
+  background:#000;
+}
+.match.win::after{background:#1b8f3a;}
+.match.lose::after{background:#b00000;}
+.match.pending::after{background:#000;}
+
+/* NO OFICIALES */
+.match.no-oficial{background:#f1f1f1;}
+
+/* ===== FRANJAS INCLINADAS (SOLO PARA FINALA) ===== */
+.match.finala::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+.match.finala.win::before {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 12px,
+    rgba(255, 215, 0, 0.6) 12px,
+    rgba(255, 215, 0, 0.6) 24px
+  );
+}
+
+.match.finala.lose::before {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 12px,
+    rgba(192, 192, 192, 0.6) 12px,
+    rgba(192, 192, 192, 0.6) 24px
+  );
+}
+
+/* ===== ETIQUETA DE FASE (ESQUINA DERECHA) ===== */
+.fase-etiqueta {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: .75em;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 25px;
+  background: #495057;
+  color: white;
+  z-index: 3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.fase-etiqueta.fase-especial {
+  background: #ffc107;
+  color: #212529;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  border: 1px solid #ff8c00;
+  font-weight: 800;
+}
+
+/* ===== BADGE OFIZIALA (DEBAJO DEL EQUIPO VISITANTE) ===== */
+.badge-ofiziala-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 3;
+}
+
+.badge-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #198754;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #146c43;
+}
+
+.badge-ez-ofiziala {
+  display: inline-block;
+  font-size: .7em;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #b00000;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #8b0000;
+}
+
+/* ===== MARCADOR ===== */
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.scorebox {
+  min-width: 60px;
+  padding: 8px 0;
+  text-align: center;
+  color: white;
+  border-radius: 4px;
+}
+
+.scorebox.blue {
+  background: #0d47a1;
+  margin-right: 2px;
+  box-shadow: 0 2px 4px rgba(13, 71, 161, 0.3);
+}
+
+.scorebox.red {
+  background: #b71c1c;
+  margin-left: 2px;
+  box-shadow: 0 2px 4px rgba(183, 28, 28, 0.3);
+}
+
+/* ===== TEXTO ===== */
+.line{
+  margin: 8px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.meta{
+  font-size: 0.9em;
+  color: #2c3e50;
+}
+
+.etxekoa-line{
+  color: #0d47a1;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 3;
+}
+
+.kanpokoa-line{
+  color: #b71c1c;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 3;
+}
+
+/* FRONTÓN DESTACADO */
+.fronton-destacado{
+  background: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-style: italic;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.sets{
+  text-align: center;
+  font-size: 0.95em;
+  color: #34495e;
+  margin: 8px 0;
+  position: relative;
+  z-index: 3;
+  font-weight: 500;
+}
+
+.modalidad{
+  font-size: 0.9em;
+  color: #004d40;
+  font-weight: 600;
+  position: relative;
+  z-index: 3;
+}
+
+.modalidad a{
+  color: #004d40;
+  text-decoration: none;
+  border-bottom: 1px dotted #004d40;
+}
+
+.modalidad a:hover{
+  border-bottom: 1px solid #004d40;
+}
+
+.rest-separator{
+  margin: 25px 0 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #7f8c8d;
+  letter-spacing: 2px;
+  font-size: 0.9em;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="/images/logo-larraun.png" alt="Larraun">
+  <h1>EMAITZAK</h1>
+  <img src="/images/logo-fnp.png" alt="FNP">
+</header>
+
+<main id="content"></main>
+
+<script>
+// Mapeo de fases - estos son los textos que buscamos en modalidad
+const FASES = [
+  "LIGAXKA",
+  "KANPORAKETA",
+  "FINAL ZORTZIRENAK",
+  "FINAL LAURDENEN LIGAXKA",
+  "FINAL LAURDENAK",
+  "FINAL AURREKOAK",
+  "FINALA",
+  "LIGA",
+  "FINAL ERDIAK",
+  "SEMIFINALA"
+];
+
+// Función para extraer la fase del texto completo de modalidad
+function extraerFase(modalidadTexto) {
+  if (!modalidadTexto) return "";
   
-  // Buscar si el texto completo coincide exactamente con alguna clave
-  if (equivalenciasMixtas[texto]) {
-    return equivalenciasMixtas[texto];
-  }
-  
-  // Buscar si el texto contiene alguna de las claves (para casos como "ABAXITABIDEA (X. Goldaracena - E. Astibia)")
-  for (const [original, normalizado] of Object.entries(equivalenciasMixtas)) {
-    if (texto.includes(original)) {
-      return normalizado;
+  // Buscamos si alguna de las fases está contenida en el texto
+  for (const fase of FASES) {
+    if (modalidadTexto.includes(fase)) {
+      return fase;
     }
   }
   
-  return texto;
-}
-
-// -----------------------------------------------------
-
-function contieneLarraun(texto) {
-  if (!texto) return false;
-  
-  // Aplicar equivalencia primero
-  const textoConEquivalencia = aplicarEquivalencia(texto);
-  
-  // Verificar si contiene LARRAUN después de aplicar equivalencia
-  return textoConEquivalencia.includes("LARRAUN");
-}
-
-// -----------------------------------------------------
-
-async function fetchHtml(url) {
-  try {
-    const response = await axios.get(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-      },
-      responseType: "arraybuffer",
-      timeout: 15000,
-    });
-
-    // Decodificar correctamente
-    const html = iconv.decode(Buffer.from(response.data), "windows-1252");
-    return html;
-  } catch (err) {
-    console.log("Error cargando:", url);
-    return null;
-  }
-}
-
-// -----------------------------------------------------
-
-function extraerModalidad($) {
-  // PRIORIDAD ABSOLUTA: h6
-  let titulo = $("h6").first().text().trim();
-
-  if (!titulo) {
-    return "";
-  }
-
-  return titulo.replace(/\s+/g, " ").trim();
-}
-
-// -----------------------------------------------------
-
-function extraerFase($, url) {
-  if (!url.includes("idFaseEliminatoria")) {
-    return "LIGAXKA";
-  }
-
-  const selected = $('select[name="selFase"] option[selected]');
-
-  if (selected.length) {
-    return selected.text().trim();
-  }
-
+  // Si no encontramos ninguna fase conocida, devolvemos el texto completo
+  // o una cadena vacía si no queremos mostrar nada
   return "";
 }
 
-// -----------------------------------------------------
-
-function limpiarTexto(texto) {
-  if (!texto) return texto;
-
-  // Reemplazar caracteres mal codificados
-  return texto
-    .replace(/�/g, "Ñ")
-    .replace(/�/g, "ñ")
-    .replace(/�/g, "Í")
-    .replace(/�/g, "í")
-    .replace(/�/g, "Ó")
-    .replace(/�/g, "ó")
-    .replace(/�/g, "Á")
-    .replace(/�/g, "á")
-    .replace(/�/g, "É")
-    .replace(/�/g, "é")
-    .replace(/�/g, "Ú")
-    .replace(/�/g, "ú")
-    .replace(/�/g, "Ü")
-    .replace(/�/g, "ü");
+// Función para verificar si el partido involucra a Larraun
+function involucraALarraun(partido) {
+  const etxekoa = (partido.etxekoa || "").toUpperCase();
+  const kanpokoa = (partido.kanpokoak || "").toUpperCase();
+  
+  return etxekoa.includes("LARRAUN") || kanpokoa.includes("LARRAUN");
 }
 
-// -----------------------------------------------------
+const SOURCES=[
+  {url:"/data/resultados-larraun.json", origen:"oficial"},
+  {url:"/data/resultados-no-oficiales.json", origen:"no-oficial"}
+];
 
-function formatearEquipo(texto) {
-  if (!texto) return texto;
-  
-  // Eliminar espacios múltiples y limpiar
-  return texto.replace(/\s+/g, " ").trim();
+function parseDate(f){return f?new Date(f+"T00:00"):null;}
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+function frontonDestacado(f){return /lekunberri|aldatz/i.test(f||"");}
+function esDescanso(m){
+  return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
+}
+function formatSets(sets){
+  return sets.join(" ").replace(/\(/g," / ").replace(/\)/g,"");
 }
 
-// -----------------------------------------------------
+function ordenarSemana(arr){
+  const normales = arr.filter(m => !esDescanso(m));
+  const descansos = arr.filter(m => esDescanso(m));
 
-function formatearSets(sets) {
-  if (!sets || sets.length === 0) return [];
-  
-  // Formatear cada set como "(XX-YY)" y unirlos en un solo string
-  const setsFormateados = sets.map(set => `(${set})`);
-  return [setsFormateados.join(" ")];
+  normales.sort((a,b)=>{
+    if (a._date - b._date !== 0) return a._date - b._date;
+    return (a.fronton||"").localeCompare(b.fronton||"");
+  });
+
+  return [...normales, ...descansos];
 }
 
-// -----------------------------------------------------
-
-function formatearModalidad(modalidad, fase) {
-  if (!modalidad) return "";
+Promise.all(
+  SOURCES.map(s =>
+    fetch(s.url)
+      .then(r=>r.json())
+      .then(arr =>
+        arr.map(o => ({
+          ...o,
+          origen: s.origen,
+          ofiziala:
+            s.origen==="no-oficial"
+              ? String(o.ofiziala).toLowerCase()==="true"
+              : true,
+          _date: parseDate(o.fecha),
+          // Extraemos la fase del texto de modalidad
+          fase_mostrar: extraerFase(o.modalidad)
+        }))
+      )
+  )
+).then(all=>{
+  const today=new Date(); today.setHours(0,0,0,0);
   
-  // Limpiar la modalidad
-  let modalidadLimpia = modalidad
-    .replace(/\s+/g, " ")
-    .trim();
-  
-  // Eliminar "NKJ - TRINKETE TRINKETE ESKUZ" repetido si existe
-  modalidadLimpia = modalidadLimpia
-    .replace(/NKJ - TRINKETE\s+TRINKETE ESKUZ\s+/g, "")
-    .replace(/TRINKETE ESKUZ\s+/g, "");
-  
-  // Si la fase está vacía o es LIGAXKA, añadir LIGAXKA explícitamente
-  if (!fase || fase === "LIGAXKA") {
-    return `${modalidadLimpia} LIGAXKA`.trim();
-  }
-  
-  // Si hay fase y no es LIGAXKA, añadirla
-  return `${modalidadLimpia} ${fase}`.trim();
-}
+  // Filtramos para quedarnos solo con partidos que involucran a Larraun
+  const data = all.flat()
+    .filter(m => m._date && m._date <= today && involucraALarraun(m));
 
-// -----------------------------------------------------
+  const thisMon=monday(today);
+  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
+  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1);
 
-function parsearPartidos($, modalidad, fase, url) {
-  const partidos = [];
+  const thisWeek=[], lastWeek=[];
+  data.forEach(m=>{
+    if(m._date>=thisMon) thisWeek.push(m);
+    else if(m._date>=lastMon&&m._date<=lastSun) lastWeek.push(m);
+  });
 
-  $("table tr").each((_, row) => {
-    const celdas = $(row).find("td");
-    if (celdas.length < 5) return;
+  const c=document.getElementById("content");
 
-    // FECHA - tomar solo los primeros 10 caracteres y convertir / a -
-    let fechaTexto = $(celdas[0])
-      .text()
-      .replace(/\s+/g, " ")
-      .trim();
+  function render(title,arr){
+    if(!arr.length) return;
+    arr = ordenarSemana(arr);
 
-    // Tomar solo los primeros 10 caracteres y reemplazar / por -
-    let fecha = fechaTexto.substring(0, 10).replace(/\//g, "-");
+    c.innerHTML+=`<div class="week-title">${title}</div>`;
+    let descansoMostrado=false;
 
-    // FRONTÓN
-    let fronton = limpiarTexto(
-      $(celdas[1])
-        .text()
-        .replace(/\s+/g, " ")
-        .trim()
-    );
-
-    // EQUIPOS - formatear sin espacios extra
-    let etxekoa = limpiarTexto(
-      $(celdas[2])
-        .clone()
-        .find("br")
-        .replaceWith(" ")
-        .end()
-        .text()
-    );
-    etxekoa = formatearEquipo(etxekoa);
-
-    let kanpokoak = limpiarTexto(
-      $(celdas[4])
-        .clone()
-        .find("br")
-        .replaceWith(" ")
-        .end()
-        .text()
-    );
-    kanpokoak = formatearEquipo(kanpokoak);
-
-    // Verificar si contiene Larraun (usando la función con equivalencias)
-    const contieneLarraunLocal = contieneLarraun(etxekoa);
-    const contieneLarraunVisitante = contieneLarraun(kanpokoak);
-    
-    if (!contieneLarraunLocal && !contieneLarraunVisitante) {
-      return; // Saltar este partido
-    }
-
-    // APLICAR EQUIVALENCIAS a los nombres para el JSON final
-    const etxekoaFinal = aplicarEquivalencia(etxekoa);
-    const kanpokoakFinal = aplicarEquivalencia(kanpokoak);
-
-    // TANTEO - eliminar espacios
-    const tanteoCell = $(celdas[3]);
-    const tanteoa = tanteoCell
-      .contents()
-      .filter(function () {
-        return this.type === "text";
-      })
-      .text()
-      .replace(/\s+/g, "")
-      .trim();
-
-    // SETS
-    const setsTemp = [];
-    tanteoCell.find("span.small").each((_, el) => {
-      const texto = $(el).text();
-      const matches = texto.match(/\((.*?)\)/g);
-      if (matches) {
-        matches.forEach((m) => setsTemp.push(m.replace(/[()]/g, "").trim()));
+    arr.forEach(m=>{
+      if(esDescanso(m)&&!descansoMostrado){
+        c.innerHTML+=`<div class="rest-separator">— JARDUNALDIKO ATSEDENAK —</div>`;
+        descansoMostrado=true;
       }
-    });
-    
-    // Formatear sets
-    const sets = formatearSets(setsTemp);
 
-    if (!fecha || !tanteoa) return;
+      const esBesteOfizial = m.origen==="no-oficial" && m.ofiziala===true;
+      const esNoOficial   = m.origen==="no-oficial" && m.ofiziala===false;
 
-    // EMATZA basado en QUIÉN GANA y si LARRAUN es ese equipo
-    let emaitza = "";
-    
-    if (tanteoa && tanteoa.includes("-")) {
-      const [puntosEtx, puntosKan] = tanteoa.split("-").map(x => Number(x.trim()));
-      
-      // CASO ESPECIAL: Derbi entre dos equipos de Larraun
-      const ambosLarraun = contieneLarraunLocal && contieneLarraunVisitante;
-      
-      if (ambosLarraun) {
-        // En un derbi entre equipos del club, siempre es una victoria para Larraun
-        emaitza = "irabazita";
+      let cls = "match ";
+      if (esNoOficial) cls += "no-oficial ";
+
+      const emaitza = (m.emaitza || "").toLowerCase().trim();
+
+      if (!emaitza) {
+        cls += "pending";
+      } else if (emaitza === "irabazita") {
+        cls += "win";
       } else {
-        // Determinar quién ganó el partido
-        const ganaEtxekoa = puntosEtx > puntosKan;
-        const ganaKanpokoa = puntosKan > puntosEtx;
-        
-        // Si Larraun es el equipo local y ganó, o si es visitante y ganó
-        const larraunGana = (contieneLarraunLocal && ganaEtxekoa) || 
-                            (contieneLarraunVisitante && ganaKanpokoa);
-        
-        // Si Larraun es el equipo local y perdió, o si es visitante y perdió
-        const larraunPierde = (contieneLarraunLocal && ganaKanpokoa) || 
-                              (contieneLarraunVisitante && ganaEtxekoa);
-        
-        if (larraunGana) {
-          emaitza = "irabazita";
-        } else if (larraunPierde) {
-          emaitza = "galduta";
-        } else {
-          // Empate
-          emaitza = "berdinketa";
-        }
+        cls += "lose";
       }
-    }
 
-    partidos.push({
-      fecha,
-      fronton,
-      etxekoa: etxekoaFinal,  // Usar el nombre con equivalencia aplicada
-      kanpokoak: kanpokoakFinal,  // Usar el nombre con equivalencia aplicada
-      tanteoa,
-      sets,
-      modalidad: formatearModalidad(limpiarTexto(modalidad), limpiarTexto(fase)),
-      fase: limpiarTexto(fase),
-      url,
-      emaitza,
-      ofiziala: true,
-      // Opcional: guardar también los originales para debug
-      ...(etxekoa !== etxekoaFinal && { etxekoa_original: etxekoa }),
-      ...(kanpokoak !== kanpokoakFinal && { kanpokoak_original: kanpokoak })
+      // Añadimos clase 'finala' si la fase a mostrar es FINALA (para las franjas)
+      if (m.fase_mostrar === "FINALA") {
+        cls += " finala";
+      }
+
+      // Marcador
+      let marcadorHTML = "";
+      if(m.tanteoa && m.tanteoa.includes("-")){
+        const [a,b] = m.tanteoa.split("-").map(x=>x.trim());
+        marcadorHTML = `
+        <div class="scoreboard">
+          <div class="scorebox blue">${a}</div>
+          <div class="scorebox red">${b}</div>
+        </div>`;
+      }
+
+      // Badge de OFIZIALA/EZ OFIZIALA (ahora debajo del equipo visitante)
+      let badgeHTML = "";
+      if (esBesteOfizial) {
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ofiziala">OFIZIALA</span>
+        </div>`;
+      } else if (esNoOficial) {
+        badgeHTML = `
+        <div class="badge-ofiziala-container">
+          <span class="badge-ez-ofiziala">EZ OFIZIALA</span>
+        </div>`;
+      }
+
+      const modalidadHTML=
+        m.url&&m.url!=="-"
+        ? `<span class="modalidad"><a href="${m.url}" target="_blank">🏆 ${m.modalidad}</a> 🔗</span>`
+        : `<span class="modalidad">🏆 ${m.modalidad||""}</span>`;
+
+      // Determinar la clase especial para la fase (si es FINALA)
+      const faseEspecial = m.fase_mostrar === "FINALA" ? "fase-especial" : "";
+      
+      // Crear la etiqueta de fase (solo si hay fase)
+      const faseEtiqueta = m.fase_mostrar ? 
+        `<div class="fase-etiqueta ${faseEspecial}">${m.fase_mostrar}</div>` : "";
+
+      c.innerHTML+=`
+      <div class="${cls}">
+        ${faseEtiqueta}
+
+        <div class="line meta">📅 ${m.fecha}</div>
+        <div class="line etxekoa-line">🏠 ${m.etxekoa||""}</div>
+        <div class="line kanpokoa-line">✈️ ${m.kanpokoak||""}</div>
+        
+        ${badgeHTML}
+        
+        ${marcadorHTML}
+        
+        ${m.sets?.length?`<div class="sets">🎯 ${formatSets(m.sets)}</div>`:""}
+
+        <div class="line meta ${frontonDestacado(m.fronton)?'fronton-destacado':''}">
+          📍 ${m.fronton||""}
+        </div>
+
+        <div class="line meta">${modalidadHTML}</div>
+      </div>`;
     });
-  });
-
-  return partidos;
-}
-
-// -----------------------------------------------------
-
-async function scrapeUrl(url) {
-  const html = await fetchHtml(url);
-  if (!html) return [];
-
-  const $ = cheerio.load(html);
-
-  const modalidad = extraerModalidad($);
-  const fase = extraerFase($, url);
-
-  return parsearPartidos($, modalidad, fase, url);
-}
-
-// -----------------------------------------------------
-
-async function guardarResultados(resultados) {
-  try {
-    // Asegurar que el directorio data existe
-    const dataDir = path.join(__dirname, "..", "data");
-    try {
-      await fs.access(dataDir);
-    } catch {
-      await fs.mkdir(dataDir, { recursive: true });
-    }
-
-    // Guardar el archivo
-    await fs.writeFile(OUTPUT_FILE, JSON.stringify(resultados, null, 2), "utf-8");
-    console.log(`✅ Resultados guardados en ${OUTPUT_FILE}`);
-    console.log(`📊 Total de partidos: ${resultados.length}`);
-  } catch (error) {
-    console.error("❌ Error guardando el archivo:", error.message);
-  }
-}
-
-// -----------------------------------------------------
-
-async function main() {
-  console.log("🔄 Iniciando scraping...");
-  
-  // Cargar equivalencias de parejas mixtas
-  await cargarEquivalencias();
-  
-  const resultados = [];
-  const urlsVisitadas = new Set();
-
-  for (
-    let idComp = ID_COMPETICION_DESDE;
-    idComp <= ID_COMPETICION_HASTA;
-    idComp++
-  ) {
-    const urlLiga = `${BASE}&idCompeticion=${idComp}&temp=${TEMPORADA}`;
-
-    if (!urlsVisitadas.has(urlLiga)) {
-      urlsVisitadas.add(urlLiga);
-      console.log(`📋 Procesando competición ID: ${idComp}`);
-      const partidos = await scrapeUrl(urlLiga);
-      resultados.push(...partidos);
-    }
-
-    for (let idFase = ID_FASE_DESDE; idFase <= ID_FASE_HASTA; idFase++) {
-      const urlFase = `${BASE}&idCompeticion=${idComp}&idFaseEliminatoria=${idFase}&temp=${TEMPORADA}`;
-
-      if (!urlsVisitadas.has(urlFase)) {
-        urlsVisitadas.add(urlFase);
-        console.log(`🏆 Procesando fase ID: ${idFase} (Competición: ${idComp})`);
-        const partidos = await scrapeUrl(urlFase);
-        resultados.push(...partidos);
-      }
-    }
   }
 
-  // Eliminar duplicados
-  const unique = Array.from(
-    new Map(
-      resultados.map((p) => [
-        `${p.fecha}-${p.etxekoa}-${p.kanpokoak}-${p.tanteoa}`,
-        p,
-      ])
-    ).values()
-  );
+  render("ASTE HONETAKO EMAITZAK", thisWeek);
+  render("AURREKO ASTEKO EMAITZAK", lastWeek);
+});
+</script>
 
-  // Verificación adicional: asegurar que la fecha solo tenga 10 caracteres y formato correcto
-  unique.forEach((p) => {
-    if (p.fecha && p.fecha.length > 10) {
-      p.fecha = p.fecha.substring(0, 10).replace(/\//g, "-");
-    }
-    // Eliminar el campo fase ya que ahora está incluido en modalidad
-    delete p.fase;
-  });
-
-  // Guardar en archivo
-  await guardarResultados(unique);
-  
-  // Mostrar estadísticas de las transformaciones aplicadas
-  const partidosTransformados = unique.filter(p => p.etxekoa_original || p.kanpokoak_original);
-  console.log(`📊 Partidos con nombres transformados: ${partidosTransformados.length}`);
-  
-  // Mostrar ejemplos de transformaciones
-  partidosTransformados.slice(0, 5).forEach(p => {
-    if (p.etxekoa_original) {
-      console.log(`   Local: "${p.etxekoa_original}" → "${p.etxekoa}"`);
-    }
-    if (p.kanpokoak_original) {
-      console.log(`   Visitante: "${p.kanpokoak_original}" → "${p.kanpokoak}"`);
-    }
-  });
-}
-
-main();
+</body>
+</html>
