@@ -297,37 +297,40 @@
     "fecha": "2026-01-09",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (O. Goikoetxea - B. Goikoetxea) GOIKOETXEA LOPETEGI, B. GOIKOETXEA LOPETEGI, O.",
-    "kanpokoak": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G.",
+    "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "tanteoa": "22-12",
     "sets": [],
     "modalidad": "KOPA ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3078&temp=2025",
     "emaitza": "galduta",
-    "ofiziala": true
+    "ofiziala": true,
+    "kanpokoak_original": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G."
   },
   {
     "fecha": "2026-01-24",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (G. Otxandorena - I. Landiribar) LANDIRIBAR GOYENECHE, I. OTXANDORENA ATXA, G.",
-    "kanpokoak": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G.",
+    "kanpokoak": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "tanteoa": "22-8",
     "sets": [],
     "modalidad": "KOPA ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3078&temp=2025",
     "emaitza": "galduta",
-    "ofiziala": true
+    "ofiziala": true,
+    "kanpokoak_original": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G."
   },
   {
     "fecha": "2026-02-07",
     "fronton": "Betelu - Escuelas",
-    "etxekoa": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G.",
+    "etxekoa": "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)",
     "kanpokoak": "SAN MIGUEL (I. Plaza - X. Mateo) *Equipo no presentado",
     "tanteoa": "22-0*",
     "sets": [],
     "modalidad": "KOPA ESKUZ KOPA - F36M ESKUZ BINAKA 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3078&temp=2025",
     "emaitza": "berdinketa",
-    "ofiziala": true
+    "ofiziala": true,
+    "etxekoa_original": "LARRAUN (M. Goikoetxea - G. Uitzi) GOIKOETXEA GOIOGANA, M. UITZI GOIKOETXEA, G."
   },
   {
     "fecha": "2026-02-27",
@@ -428,20 +431,6 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026-03-08",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
-    "kanpokoak": "AGOITZ (E. Arcelus - E. Balisa) ARCELUS GARCIA, E. BALISA IRIBARREN, E.",
-    "tanteoa": "2-0",
-    "sets": [
-      "(9-6) (9-5)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
-    "emaitza": "irabazita",
-    "ofiziala": true
-  },
-  {
     "fecha": "2026-03-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda) ARGAÑA ARRIBILLAGA, M. BALDA ETXEBERRIA, E.",
@@ -456,26 +445,28 @@
   {
     "fecha": "2026-02-27",
     "fronton": "Betelu - Escuelas",
-    "etxekoa": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B.",
+    "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
     "kanpokoak": "OBERENA (A. Azemar - M. Andueza) AZEMAR ITOIZ, A. ANDUEZA OLLO, M.",
     "tanteoa": "18-17",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3109&temp=2025",
     "emaitza": "irabazita",
-    "ofiziala": true
+    "ofiziala": true,
+    "etxekoa_original": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B."
   },
   {
     "fecha": "2026-03-06",
     "fronton": "Mutilva Baja - Polideportivo",
     "etxekoa": "ARANPILOTA (L. Otxotorena - A. Perez) OTXOTORENA MUXIKA, L. PEREZ ALVARO, A.",
-    "kanpokoak": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B.",
+    "kanpokoak": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
     "tanteoa": "9-18",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3109&temp=2025",
     "emaitza": "irabazita",
-    "ofiziala": true
+    "ofiziala": true,
+    "kanpokoak_original": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B."
   },
   {
     "fecha": "2026-02-28",
@@ -550,6 +541,19 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-07",
+    "fronton": "Ororbia - Ororbia",
+    "etxekoa": "LARRAUN - ABAXITABIDEA (X. Goldaracena - E. Astibia)",
+    "kanpokoak": "ARAXES (A. Gorostidi - I. Loidi) GOROSTIDI ALBERDI, A. LOIDI LAKUNTZA, I.",
+    "tanteoa": "5-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3112&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "etxekoa_original": "ABAXITABIDEA (X. Goldaracena - E. Astibia) ASTIBIA ALBENIZ, E. GOLDARACENA LANZ, X."
+  },
+  {
     "fecha": "2026-03-08",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
@@ -588,26 +592,28 @@
   {
     "fecha": "2026-03-01",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A.",
+    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
     "kanpokoak": "ULTZAMA (A. Orquin - J. Olague) OLAGUE MANYOMA, J. ORQUIN MACAYA, A.",
     "tanteoa": "22-3",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3116&temp=2025",
     "emaitza": "irabazita",
-    "ofiziala": true
+    "ofiziala": true,
+    "etxekoa_original": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A."
   },
   {
     "fecha": "2026-03-07",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (A. Imaz - A. Merino) IMAZ ARANDIA, A. RAMIREZ BEAUMONT, O.",
-    "kanpokoak": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A.",
+    "kanpokoak": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
     "tanteoa": "18-22",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3116&temp=2025",
     "emaitza": "irabazita",
-    "ofiziala": true
+    "ofiziala": true,
+    "kanpokoak_original": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A."
   },
   {
     "fecha": "2026-02-27",
