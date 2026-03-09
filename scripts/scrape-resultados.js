@@ -18,6 +18,55 @@ const ID_FASE_HASTA = 20617;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const OUTPUT_FILE = path.join(__dirname, "..", "data", "resultados-larraun.json");
+const MIXTAS_FILE = path.join(__dirname, "..", "data", "mixtas.json");
+
+// Variable global para almacenar las equivalencias
+let equivalenciasMixtas = {};
+
+// -----------------------------------------------------
+
+async function cargarEquivalencias() {
+  try {
+    const data = await fs.readFile(MIXTAS_FILE, "utf-8");
+    const mixtas = JSON.parse(data);
+    
+    // Convertir el array de objetos a un objeto de equivalencias
+    mixtas.forEach(item => {
+      const [original, normalizado] = Object.entries(item)[0];
+      equivalenciasMixtas[original] = normalizado;
+    });
+    
+    console.log("✅ Equivalencias de parejas mixtas cargadas:", Object.keys(equivalenciasMixtas).length);
+  } catch (error) {
+    console.error("❌ Error cargando equivalencias:", error.message);
+    equivalenciasMixtas = {};
+  }
+}
+
+// -----------------------------------------------------
+
+function normalizarEquipo(texto) {
+  if (!texto) return texto;
+  
+  // Primero, aplicar equivalencias mixtas si existe
+  if (equivalenciasMixtas[texto]) {
+    return equivalenciasMixtas[texto];
+  }
+  
+  return texto;
+}
+
+// -----------------------------------------------------
+
+function contieneLarraun(texto) {
+  if (!texto) return false;
+  
+  // Normalizar el texto primero
+  const textoNormalizado = normalizarEquipo(texto);
+  
+  // Verificar si contiene LARRAUN en su versión normalizada
+  return textoNormalizado.includes("LARRAUN");
+}
 
 // -----------------------------------------------------
 
@@ -126,7 +175,7 @@ function formatearModalidad(modalidad, fase) {
     .replace(/NKJ - TRINKETE\s+TRINKETE ESKUZ\s+/g, "")
     .replace(/TRINKETE ESKUZ\s+/g, "");
   
-  // 🔹 NUEVO: Si la fase está vacía o es LIGAXKA, añadir LIGAXKA explícitamente
+  // Si la fase está vacía o es LIGAXKA, añadir LIGAXKA explícitamente
   if (!fase || fase === "LIGAXKA") {
     return `${modalidadLimpia} LIGAXKA`.trim();
   }
@@ -144,7 +193,7 @@ function parsearPartidos($, modalidad, fase, url) {
     const celdas = $(row).find("td");
     if (celdas.length < 5) return;
 
-    // 🔹 FECHA - tomar solo los primeros 10 caracteres y convertir / a -
+    // FECHA - tomar solo los primeros 10 caracteres y convertir / a -
     let fechaTexto = $(celdas[0])
       .text()
       .replace(/\s+/g, " ")
@@ -153,7 +202,7 @@ function parsearPartidos($, modalidad, fase, url) {
     // Tomar solo los primeros 10 caracteres y reemplazar / por -
     let fecha = fechaTexto.substring(0, 10).replace(/\//g, "-");
 
-    // 🔹 FRONTÓN
+    // FRONTÓN
     let fronton = limpiarTexto(
       $(celdas[1])
         .text()
@@ -161,7 +210,7 @@ function parsearPartidos($, modalidad, fase, url) {
         .trim()
     );
 
-    // 🔹 EQUIPOS - formatear sin espacios extra
+    // EQUIPOS - formatear sin espacios extra
     let etxekoa = limpiarTexto(
       $(celdas[2])
         .clone()
@@ -182,13 +231,19 @@ function parsearPartidos($, modalidad, fase, url) {
     );
     kanpokoak = formatearEquipo(kanpokoak);
 
-    // 🔹 FILTRAR: Solo guardar partidos donde aparezca LARRAUN
-    const contieneLarraun = etxekoa.includes("LARRAUN") || kanpokoak.includes("LARRAUN");
-    if (!contieneLarraun) {
+    // 🔹 FILTRAR: Usar la función contieneLarraun que aplica las equivalencias
+    const contieneLarraunLocal = contieneLarraun(etxekoa);
+    const contieneLarraunVisitante = contieneLarraun(kanpokoak);
+    
+    if (!contieneLarraunLocal && !contieneLarraunVisitante) {
       return; // Saltar este partido
     }
 
-    // 🔹 TANTEO - eliminar espacios
+    // Guardar los nombres originales para el JSON final
+    const etxekoaOriginal = etxekoa;
+    const kanpokoakOriginal = kanpokoak;
+
+    // TANTEO - eliminar espacios
     const tanteoCell = $(celdas[3]);
     const tanteoa = tanteoCell
       .contents()
@@ -199,7 +254,7 @@ function parsearPartidos($, modalidad, fase, url) {
       .replace(/\s+/g, "")
       .trim();
 
-    // 🔹 SETS
+    // SETS
     const setsTemp = [];
     tanteoCell.find("span.small").each((_, el) => {
       const texto = $(el).text();
@@ -209,19 +264,19 @@ function parsearPartidos($, modalidad, fase, url) {
       }
     });
     
-    // Formatear sets como se solicita
+    // Formatear sets
     const sets = formatearSets(setsTemp);
 
     if (!fecha || !tanteoa) return;
 
-    // 🔹 CORRECCIÓN: EMATZA basado en QUIÉN GANA y si LARRAUN es ese equipo
+    // EMATZA basado en QUIÉN GANA y si LARRAUN es ese equipo
     let emaitza = "";
     
     if (tanteoa && tanteoa.includes("-")) {
       const [puntosEtx, puntosKan] = tanteoa.split("-").map(x => Number(x.trim()));
       
-      // CASO ESPECIAL: Derbi entre dos equipos de Larraun
-      const ambosLarraun = etxekoa.includes("LARRAUN") && kanpokoak.includes("LARRAUN");
+      // CASO ESPECIAL: Derbi entre dos equipos de Larraun (usando la función contieneLarraun)
+      const ambosLarraun = contieneLarraunLocal && contieneLarraunVisitante;
       
       if (ambosLarraun) {
         // En un derbi entre equipos del club, siempre es una victoria para Larraun
@@ -232,19 +287,19 @@ function parsearPartidos($, modalidad, fase, url) {
         const ganaKanpokoa = puntosKan > puntosEtx;
         
         // Si Larraun es el equipo local y ganó, o si es visitante y ganó
-        const larraunGana = (etxekoa.includes("LARRAUN") && ganaEtxekoa) || 
-                            (kanpokoak.includes("LARRAUN") && ganaKanpokoa);
+        const larraunGana = (contieneLarraunLocal && ganaEtxekoa) || 
+                            (contieneLarraunVisitante && ganaKanpokoa);
         
         // Si Larraun es el equipo local y perdió, o si es visitante y perdió
-        const larraunPierde = (etxekoa.includes("LARRAUN") && ganaKanpokoa) || 
-                              (kanpokoak.includes("LARRAUN") && ganaEtxekoa);
+        const larraunPierde = (contieneLarraunLocal && ganaKanpokoa) || 
+                              (contieneLarraunVisitante && ganaEtxekoa);
         
         if (larraunGana) {
           emaitza = "irabazita";
         } else if (larraunPierde) {
           emaitza = "galduta";
         } else {
-          // Empate (pocas veces ocurre en pelota, pero por si acaso)
+          // Empate
           emaitza = "berdinketa";
         }
       }
@@ -253,8 +308,8 @@ function parsearPartidos($, modalidad, fase, url) {
     partidos.push({
       fecha,
       fronton,
-      etxekoa,
-      kanpokoak,
+      etxekoa: etxekoaOriginal,
+      kanpokoak: kanpokoakOriginal,
       tanteoa,
       sets,
       modalidad: formatearModalidad(limpiarTexto(modalidad), limpiarTexto(fase)),
@@ -307,6 +362,10 @@ async function guardarResultados(resultados) {
 
 async function main() {
   console.log("🔄 Iniciando scraping...");
+  
+  // Cargar equivalencias de parejas mixtas
+  await cargarEquivalencias();
+  
   const resultados = [];
   const urlsVisitadas = new Set();
 
@@ -357,6 +416,14 @@ async function main() {
 
   // Guardar en archivo
   await guardarResultados(unique);
+  
+  // Mostrar estadísticas de las parejas mixtas encontradas
+  const partidosConMixtas = unique.filter(p => 
+    Object.keys(equivalenciasMixtas).some(key => 
+      p.etxekoa.includes(key) || p.kanpokoak.includes(key)
+    )
+  );
+  console.log(`📊 Partidos con parejas mixtas: ${partidosConMixtas.length}`);
 }
 
 main();
