@@ -36,7 +36,10 @@ async function cargarEquivalencias() {
       equivalenciasMixtas[original] = normalizado;
     });
     
-    console.log("✅ Equivalencias de parejas mixtas cargadas:", Object.keys(equivalenciasMixtas).length);
+    console.log("✅ Equivalencias de parejas mixtas cargadas:");
+    Object.entries(equivalenciasMixtas).forEach(([original, normalizado]) => {
+      console.log(`   "${original}" → "${normalizado}"`);
+    });
   } catch (error) {
     console.error("❌ Error cargando equivalencias:", error.message);
     equivalenciasMixtas = {};
@@ -45,12 +48,19 @@ async function cargarEquivalencias() {
 
 // -----------------------------------------------------
 
-function normalizarEquipo(texto) {
+function aplicarEquivalencia(texto) {
   if (!texto) return texto;
   
-  // Primero, aplicar equivalencias mixtas si existe
+  // Buscar si el texto completo coincide exactamente con alguna clave
   if (equivalenciasMixtas[texto]) {
     return equivalenciasMixtas[texto];
+  }
+  
+  // Buscar si el texto contiene alguna de las claves (para casos como "ABAXITABIDEA (X. Goldaracena - E. Astibia)")
+  for (const [original, normalizado] of Object.entries(equivalenciasMixtas)) {
+    if (texto.includes(original)) {
+      return normalizado;
+    }
   }
   
   return texto;
@@ -61,11 +71,11 @@ function normalizarEquipo(texto) {
 function contieneLarraun(texto) {
   if (!texto) return false;
   
-  // Normalizar el texto primero
-  const textoNormalizado = normalizarEquipo(texto);
+  // Aplicar equivalencia primero
+  const textoConEquivalencia = aplicarEquivalencia(texto);
   
-  // Verificar si contiene LARRAUN en su versión normalizada
-  return textoNormalizado.includes("LARRAUN");
+  // Verificar si contiene LARRAUN después de aplicar equivalencia
+  return textoConEquivalencia.includes("LARRAUN");
 }
 
 // -----------------------------------------------------
@@ -231,7 +241,7 @@ function parsearPartidos($, modalidad, fase, url) {
     );
     kanpokoak = formatearEquipo(kanpokoak);
 
-    // 🔹 FILTRAR: Usar la función contieneLarraun que aplica las equivalencias
+    // Verificar si contiene Larraun (usando la función con equivalencias)
     const contieneLarraunLocal = contieneLarraun(etxekoa);
     const contieneLarraunVisitante = contieneLarraun(kanpokoak);
     
@@ -239,9 +249,9 @@ function parsearPartidos($, modalidad, fase, url) {
       return; // Saltar este partido
     }
 
-    // Guardar los nombres originales para el JSON final
-    const etxekoaOriginal = etxekoa;
-    const kanpokoakOriginal = kanpokoak;
+    // APLICAR EQUIVALENCIAS a los nombres para el JSON final
+    const etxekoaFinal = aplicarEquivalencia(etxekoa);
+    const kanpokoakFinal = aplicarEquivalencia(kanpokoak);
 
     // TANTEO - eliminar espacios
     const tanteoCell = $(celdas[3]);
@@ -275,7 +285,7 @@ function parsearPartidos($, modalidad, fase, url) {
     if (tanteoa && tanteoa.includes("-")) {
       const [puntosEtx, puntosKan] = tanteoa.split("-").map(x => Number(x.trim()));
       
-      // CASO ESPECIAL: Derbi entre dos equipos de Larraun (usando la función contieneLarraun)
+      // CASO ESPECIAL: Derbi entre dos equipos de Larraun
       const ambosLarraun = contieneLarraunLocal && contieneLarraunVisitante;
       
       if (ambosLarraun) {
@@ -308,8 +318,8 @@ function parsearPartidos($, modalidad, fase, url) {
     partidos.push({
       fecha,
       fronton,
-      etxekoa: etxekoaOriginal,
-      kanpokoak: kanpokoakOriginal,
+      etxekoa: etxekoaFinal,  // Usar el nombre con equivalencia aplicada
+      kanpokoak: kanpokoakFinal,  // Usar el nombre con equivalencia aplicada
       tanteoa,
       sets,
       modalidad: formatearModalidad(limpiarTexto(modalidad), limpiarTexto(fase)),
@@ -317,6 +327,9 @@ function parsearPartidos($, modalidad, fase, url) {
       url,
       emaitza,
       ofiziala: true,
+      // Opcional: guardar también los originales para debug
+      ...(etxekoa !== etxekoaFinal && { etxekoa_original: etxekoa }),
+      ...(kanpokoak !== kanpokoakFinal && { kanpokoak_original: kanpokoak })
     });
   });
 
@@ -417,13 +430,19 @@ async function main() {
   // Guardar en archivo
   await guardarResultados(unique);
   
-  // Mostrar estadísticas de las parejas mixtas encontradas
-  const partidosConMixtas = unique.filter(p => 
-    Object.keys(equivalenciasMixtas).some(key => 
-      p.etxekoa.includes(key) || p.kanpokoak.includes(key)
-    )
-  );
-  console.log(`📊 Partidos con parejas mixtas: ${partidosConMixtas.length}`);
+  // Mostrar estadísticas de las transformaciones aplicadas
+  const partidosTransformados = unique.filter(p => p.etxekoa_original || p.kanpokoak_original);
+  console.log(`📊 Partidos con nombres transformados: ${partidosTransformados.length}`);
+  
+  // Mostrar ejemplos de transformaciones
+  partidosTransformados.slice(0, 5).forEach(p => {
+    if (p.etxekoa_original) {
+      console.log(`   Local: "${p.etxekoa_original}" → "${p.etxekoa}"`);
+    }
+    if (p.kanpokoak_original) {
+      console.log(`   Visitante: "${p.kanpokoak_original}" → "${p.kanpokoak}"`);
+    }
+  });
 }
 
 main();
