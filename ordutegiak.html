@@ -10,6 +10,7 @@
   <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
   <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
   <style>
+    /* (mantenemos todos los estilos igual) */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       margin: 0;
@@ -866,10 +867,13 @@
         tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
         katBlokea.appendChild(tituluaDiv);
 
+        // FUNCIÓN CORREGIDA: Ahora devuelve "23:59" para horas inválidas o con "-"
         function parseOrdua(horaStr) {
-          if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
+          if (!horaStr || horaStr.trim() === '' || horaStr.trim() === '-' || horaStr.startsWith('-')) {
+            return '23:59'; // Cambiado de 00:00 a 23:59 para que aparezcan al final
+          }
           const match = horaStr.match(/(\d{1,2}:\d{2})/);
-          return match ? match[1] : '00:00';
+          return match ? match[1] : '23:59'; // También aquí, si no encuentra formato hora, va al final
         }
 
         function extractLevelNumber(txt) {
@@ -885,8 +889,8 @@
           if (!dB) return -1;
           if (dA.getTime() !== dB.getTime()) return dA - dB;
 
-          const horaA = parseOrdua(a.hora || '00:00');
-          const horaB = parseOrdua(b.hora || '00:00');
+          const horaA = parseOrdua(a.hora || '');
+          const horaB = parseOrdua(b.hora || '');
           if (horaA !== horaB) return horaA.localeCompare(horaB);
 
           const frontA = a.fronton || '';
@@ -941,6 +945,8 @@
           partidaDiv.style.borderLeftColor = bordeKolorea;
 
           const orduGarbi = parseOrdua(p.hora || '');
+          // Mostrar "PENDIENTE" si la hora es 23:59 (nuestra marca de "sin hora")
+          const orduErakutsi = orduGarbi === '23:59' ? '⏳ PENDIENTE' : orduGarbi;
           const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
 
           const etxekoaTestua = p.etxekoa || '?';
@@ -953,7 +959,7 @@
           const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
 
           partidaDiv.innerHTML = `
-            <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
+            <div class="ordu-blokea ${prov}">${orduErakutsi} ${prov ? '<small>provis.</small>' : ''}</div>
             <div class="partido-info">
               <div class="parejak">
                 <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
