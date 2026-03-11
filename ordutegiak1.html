@@ -791,9 +791,26 @@
       return;
     }
 
-    // Astea 2026/03/02 – 2026/03/08 (egokitu aste honetara)
-    const astekoLehen = new Date(2026, 2, 2);
-    const astekoAzken = new Date(2026, 2, 8, 23, 59, 59);
+    // ---------- ASTE HONETAKO FECHAK AUTOMATIKOKI (DINAMIKOAK) ----------
+    // Calcular la semana actual automáticamente (lunes a domingo)
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes...
+
+    // Calcular el lunes de esta semana
+    const lunes = new Date(hoy);
+    const diff = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
+    lunes.setDate(hoy.getDate() - diff);
+    lunes.setHours(0, 0, 0, 0);
+
+    // Calcular el domingo de esta semana
+    const domingo = new Date(lunes);
+    domingo.setDate(lunes.getDate() + 6);
+    domingo.setHours(23, 59, 59, 999);
+
+    const astekoLehen = lunes;
+    const astekoAzken = domingo;
+
+    console.log('Aste honetako partidak:', astekoLehen, 'tik', astekoAzken, 'ra');
 
     function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
