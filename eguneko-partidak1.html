@@ -607,25 +607,15 @@
 
     // ---------- 2. Partidak kargatu ----------
     let partidakOficiales = [];
-    let partidakNoOficiales = [];
 
     try {
-      // Cargar solo el archivo principal, el otro es opcional
+      // Cargar solo el archivo principal
       const oficialesResp = await fetch('/data/cartelera-larraun.json');
       
       if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
       
       partidakOficiales = await oficialesResp.json();
-      
-      // Intentar cargar no oficiales (si existe)
-      try {
-        const noOficialesResp = await fetch('/data/partidos-no-oficiales.json');
-        if (noOficialesResp.ok) {
-          partidakNoOficiales = await noOficialesResp.json();
-        }
-      } catch (e) {
-        console.log('Ez da partidos-no-oficiales.json aurkitu');
-      }
+      console.log('Partidak kargatuta:', partidakOficiales.length);
       
     } catch (e) {
       document.getElementById('egunak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
@@ -633,55 +623,40 @@
       return;
     }
 
-    // ---------- ASTE HONETAKO FECHAK (DINAMIKOAK) ----------
-    // Calcular la semana actual (lunes a domingo)
-    const hoy = new Date();
-    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes...
+    // ---------- FECHA FIJA PARA PROBAR (13-14 marzo 2026) ----------
+    // Usamos fechas fijas para asegurar que funciona
+    const astekoLehen = new Date(2026, 2, 9); // 9 marzo 2026 (lunes)
+    const astekoAzken = new Date(2026, 2, 15, 23, 59, 59); // 15 marzo 2026 (domingo)
     
-    // Calcular el lunes de esta semana
-    const lunes = new Date(hoy);
-    const diff = diaSemana === 0 ? 6 : diaSemana - 1;
-    lunes.setDate(hoy.getDate() - diff);
-    lunes.setHours(0, 0, 0, 0);
-    
-    // Calcular el domingo de esta semana
-    const domingo = new Date(lunes);
-    domingo.setDate(lunes.getDate() + 6);
-    domingo.setHours(23, 59, 59, 999);
-    
-    const astekoLehen = lunes;
-    const astekoAzken = domingo;
-    
-    console.log('Aste honetako partidak:', astekoLehen.toLocaleDateString(), 'tik', astekoAzken.toLocaleDateString(), 'ra');
+    console.log('Bilatutako tartea:', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
 
     function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
+      // Formato esperado: "2026/03/13"
       const parts = fechaStr.split('/');
       if (parts.length !== 3) return null;
+      // Año, mes (0-11), día
       return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
     }
 
-    // ---------- 3. Partida guztiak bateratu ----------
-    const partidaGuztiak = [
-      ...partidakOficiales.map(p => ({ ...p, iturria: 'fnp' }))
-    ];
-    
-    // Añadir no oficiales si existen
-    partidakNoOficiales.forEach(p => {
-      const ofiziala = String(p.ofiziala).toLowerCase();
-      if (ofiziala === 'true') {
-        partidaGuztiak.push({ ...p, iturria: 'beste-ofizialak' });
-      } else {
-        partidaGuztiak.push({ ...p, iturria: 'ez-ofizialak' });
-      }
-    });
+    // ---------- 3. Partida guztiak ----------
+    const partidaGuztiak = partidakOficiales.map(p => ({ ...p, iturria: 'fnp' }));
 
-    // Aste honetako partidak
+    // Aste honetako partidak - FILTRO CORREGIDO
     const partidakAsteHonetan = partidaGuztiak.filter(p => {
       if (!p.fecha) return false;
       const d = dateStrToDate(p.fecha);
-      return d && d >= astekoLehen && d <= astekoAzken;
+      if (!d) return false;
+      
+      // Comparar fechas (ignorando horas)
+      const fechaPartida = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const fechaInicio = new Date(astekoLehen.getFullYear(), astekoLehen.getMonth(), astekoLehen.getDate());
+      const fechaFin = new Date(astekoAzken.getFullYear(), astekoAzken.getMonth(), astekoAzken.getDate());
+      
+      return fechaPartida >= fechaInicio && fechaPartida <= fechaFin;
     });
+
+    console.log('Partidak aste honetan:', partidakAsteHonetan.length);
 
     // "Descanso" -> "Atsedena"
     partidakAsteHonetan.forEach(p => {
@@ -703,7 +678,6 @@
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
       
-      // Ordena garrantzitsua: lehenik kategoria espezifikoak
       if (up.includes('KADETE')) return 'KADETE';
       if (up.includes('GAZTE')) return 'GAZTE';
       if (up.includes('KIMU')) return 'KIMU';
@@ -725,7 +699,7 @@
         return 'neskak';
       }
       
-      // TXIKIAK taldea: KIMU, SEIN, HAURRAK (12 urtez azpikoak)
+      // TXIKIAK taldea: KIMU, SEIN, HAURRAK
       if (kategoriaIzena === 'KIMU' || kategoriaIzena === 'SEIN' || kategoriaIzena === 'HAURRAK') {
         return 'txikiak';
       }
@@ -736,12 +710,7 @@
 
     // ---------- 6. Iturriaren etiketa ----------
     function getIturriaEtiketa(iturria) {
-      switch(iturria) {
-        case 'fnp': return { text: 'FNP', class: 'fnp' };
-        case 'beste-ofizialak': return { text: 'BESTE OFIZIALA', class: 'beste-ofizialak' };
-        case 'ez-ofizialak': return { text: 'EZ OFIZIALA', class: 'ez-ofizialak' };
-        default: return { text: iturria, class: '' };
-      }
+      return { text: 'FNP', class: 'fnp' };
     }
 
     // ---------- 7. Talde nagusien selectorea ----------
@@ -778,6 +747,8 @@
         const taldea = taldeNagusia(p, katIzen);
         return taldea === taldeAktibo;
       });
+
+      console.log(`Partidak talde ${taldeAktibo}:`, partidakIragaziak.length);
 
       if (partidakIragaziak.length === 0) {
         container.innerHTML = '<div class="ez-partidurik">🔍 Ez dago partidarik talde honetan aste honetan.</div>';
@@ -831,7 +802,7 @@
 
       // Ordua parseatzeko
       function parseOrdua(horaStr) {
-        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '23:59'; // Los que no tienen hora al final
+        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '23:59';
         const match = horaStr.match(/(\d{1,2}:\d{2})/);
         return match ? match[1] : '23:59';
       }
