@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>Larraun Pilota – ORDUTEGIAK (asterako provisionalak)</title>
+  <title>Larraun Pilota – ORDUTEGIAK</title>
   <link rel="icon" type="image/png" href="/egutegia.png">
   <meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
-  <meta property="og:description" content="Asterako partiden ordutegi provisionalak, eguneka antolatuta">
+  <meta property="og:description" content="Asterako partiden ordutegiak, eguneka antolatuta">
   <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
-  <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
   <!-- html2canvas liburutegia irudiak sortzeko -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style> 
@@ -410,7 +409,7 @@
       }
     }
     
-    /* ETIKETA BERRIAK (iturria eta fasea) */
+    /* ETIKETA BERRIAK */
     .iturria-etiketa {
       font-size: 0.7rem;
       font-weight: 700;
@@ -582,111 +581,78 @@
 
 <script>
   (async function() {
-    // ---------- 1. Kategoriak kargatu (categoriaedad.json erabiliz) ----------
-    let kategoriakRaw = [];
-    let kategoriakMap = new Map(); // izena (uppercase) -> { kolorea, edadMin, edadMax, izenaOriginal }
-    let edadMinToKategoria = new Map(); // edadMin -> lehen kategoria izena
+    // ---------- 1. Kategoriak (balio lehenetsiak) ----------
+    const kategoriakMap = new Map();
+    
+    // Kategoria nagusiak koloreekin
+    const kategoriaKoloreak = {
+      'SEIN': '#FFD700',
+      'KIMU': '#87CEEB', 
+      'HAURRAK': '#98FB98',
+      'ALEBINAK': '#FFA07A',
+      'KADETE': '#DDA0DD',
+      'GAZTE': '#F08080',
+      'ESKUZ KOPA': '#B0C4DE'
+    };
+    
+    // Kategoria bakoitzari bere kolorea esleitu
+    Object.keys(kategoriaKoloreak).forEach(kat => {
+      kategoriakMap.set(kat.toUpperCase(), {
+        kolorea: kategoriaKoloreak[kat],
+        edadMin: 0,
+        izena: kat,
+        kategoriaNagusia: kat
+      });
+    });
 
-    try {
-      const katResp = await fetch('/data/categoriaedad.json');
-      if (katResp.ok) {
-        kategoriakRaw = await katResp.json();
-        
-        // Lehen pasada: edadMin bakoitzari lehen kategoria esleitu
-        kategoriakRaw.forEach(item => {
-          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          if (!izena) return;
-          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 999;
-          
-          // edadMin hau ez badago map-ean, gorde lehen kategoria
-          if (!edadMinToKategoria.has(edadMin)) {
-            edadMinToKategoria.set(edadMin, izena);
-          }
-        });
-
-        // Bigarren pasada: kategoria guztien informazioa gorde
-        kategoriakRaw.forEach(item => {
-          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          if (!izena) return;
-          const kolorea = item[izena];
-          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-          const edadMax = item.EDADMAX ? parseInt(item.EDADMAX, 10) : 999;
-          const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
-          
-          kategoriakMap.set(izena.toUpperCase().trim(), {
-            kolorea: kolorea,
-            edadMin: edadMin,
-            edadMax: edadMax,
-            izena: izena,
-            kategoriaNagusia: kategoriaNagusia
-          });
-        });
-
-        // Kategoria nagusiak ordenatu
-        const kategoriaNagusiakSet = new Set();
-        kategoriakRaw.forEach(item => {
-          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          if (!izena) return;
-          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-          const kategoriaNagusia = edadMinToKategoria.get(edadMin);
-          if (kategoriaNagusia) {
-            kategoriaNagusiakSet.add(kategoriaNagusia);
-          }
-        });
-
-        // Array bihurtu eta ordenatu
-        const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
-          const item = kategoriakRaw.find(i => {
-            const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-            return iIzena === izena;
-          });
-          return {
-            izena: izena,
-            edadMin: item ? parseInt(item.EDADMIN, 10) : 999,
-            edadMax: item ? parseInt(item.EDADMAX, 10) : 999
-          };
-        });
-
-        kategoriakRaw = kategoriaNagusiakArray.sort((a, b) => {
-          if (a.edadMin !== b.edadMin) return a.edadMin - b.edadMin;
-          return a.izena.localeCompare(b.izena);
-        }).map(item => ({ 
-          [item.izena]: kategoriakMap.get(item.izena.toUpperCase().trim())?.kolorea || '#cccccc', 
-          EDADMIN: item.edadMin,
-          EDADMAX: item.edadMax 
-        }));
-
-      } else {
-        console.warn('ez da categoriaedad.json kargatu');
-      }
-    } catch (e) {
-      console.warn('kategoriak kargatzean errorea:', e);
-    }
-
-    // ---------- 2. Partidak kargatu (denak) ----------
+    // ---------- 2. Partidak kargatu ----------
     let partidakOficiales = [];
     let partidakNoOficiales = [];
 
     try {
-      const [oficialesResp, noOficialesResp] = await Promise.all([
-        fetch('/data/cartelera-larraun.json'),
-        fetch('/data/partidos-no-oficiales.json')
-      ]);
+      // Cargar solo el archivo principal, el otro es opcional
+      const oficialesResp = await fetch('/data/cartelera-larraun.json');
       
       if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
-      if (!noOficialesResp.ok) throw new Error('ezin partida ez ofizialak kargatu');
       
       partidakOficiales = await oficialesResp.json();
-      partidakNoOficiales = await noOficialesResp.json();
+      
+      // Intentar cargar no oficiales (si existe)
+      try {
+        const noOficialesResp = await fetch('/data/partidos-no-oficiales.json');
+        if (noOficialesResp.ok) {
+          partidakNoOficiales = await noOficialesResp.json();
+        }
+      } catch (e) {
+        console.log('Ez da partidos-no-oficiales.json aurkitu');
+      }
+      
     } catch (e) {
       document.getElementById('egunak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
+      console.error(e);
       return;
     }
 
-    // Astea 2026/03/02 – 2026/03/08 (egokitu aste honetara)
-    const astekoLehen = new Date(2026, 2, 2);
-    const astekoAzken = new Date(2026, 2, 8, 23, 59, 59);
+    // ---------- ASTE HONETAKO FECHAK (DINAMIKOAK) ----------
+    // Calcular la semana actual (lunes a domingo)
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes...
+    
+    // Calcular el lunes de esta semana
+    const lunes = new Date(hoy);
+    const diff = diaSemana === 0 ? 6 : diaSemana - 1;
+    lunes.setDate(hoy.getDate() - diff);
+    lunes.setHours(0, 0, 0, 0);
+    
+    // Calcular el domingo de esta semana
+    const domingo = new Date(lunes);
+    domingo.setDate(lunes.getDate() + 6);
+    domingo.setHours(23, 59, 59, 999);
+    
+    const astekoLehen = lunes;
+    const astekoAzken = domingo;
+    
+    console.log('Aste honetako partidak:', astekoLehen.toLocaleDateString(), 'tik', astekoAzken.toLocaleDateString(), 'ra');
 
     function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
@@ -695,12 +661,20 @@
       return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
     }
 
-    // ---------- 3. Partida guztiak bateratu eta etiketatu ----------
+    // ---------- 3. Partida guztiak bateratu ----------
     const partidaGuztiak = [
-      ...partidakOficiales.map(p => ({ ...p, iturria: 'fnp' })),
-      ...partidakNoOficiales.filter(p => String(p.ofiziala).toLowerCase() === 'true').map(p => ({ ...p, iturria: 'beste-ofizialak' })),
-      ...partidakNoOficiales.filter(p => String(p.ofiziala).toLowerCase() === 'false').map(p => ({ ...p, iturria: 'ez-ofizialak' }))
+      ...partidakOficiales.map(p => ({ ...p, iturria: 'fnp' }))
     ];
+    
+    // Añadir no oficiales si existen
+    partidakNoOficiales.forEach(p => {
+      const ofiziala = String(p.ofiziala).toLowerCase();
+      if (ofiziala === 'true') {
+        partidaGuztiak.push({ ...p, iturria: 'beste-ofizialak' });
+      } else {
+        partidaGuztiak.push({ ...p, iturria: 'ez-ofizialak' });
+      }
+    });
 
     // Aste honetako partidak
     const partidakAsteHonetan = partidaGuztiak.filter(p => {
@@ -729,19 +703,15 @@
       if (!testua) return 'Beste';
       const up = testua.toUpperCase();
       
-      for (let [k, info] of kategoriakMap.entries()) {
-        if (up.includes(k)) {
-          return info.kategoriaNagusia;
-        }
-      }
-      
-      if (up.includes('HAUR')) return 'HAURRAK';
+      // Ordena garrantzitsua: lehenik kategoria espezifikoak
       if (up.includes('KADETE')) return 'KADETE';
-      if (up.includes('KIMU')) return 'KIMU';
       if (up.includes('GAZTE')) return 'GAZTE';
+      if (up.includes('KIMU')) return 'KIMU';
+      if (up.includes('HAUR')) return 'HAURRAK';
       if (up.includes('ALEBIN')) return 'ALEBINAK';
       if (up.includes('SEIN')) return 'SEIN';
       if (up.includes('ESKUZ KOPA')) return 'ESKUZ KOPA';
+      
       return 'Beste';
     }
 
@@ -749,31 +719,22 @@
     function taldeNagusia(partida, kategoriaIzena) {
       const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
       
-      // 1. NESKAK taldea: EMAKUME edo NESKA erroa dutenak
-      if (testua.includes('NESKA') || testua.includes('NESKAK') || testua.includes('NESKAKO') || 
-          testua.includes('EMAKUME') || testua.includes('EMAKUMEZKO') || testua.includes('EMAKUMENO')) {
+      // NESKAK taldea
+      if (testua.includes('NESKA') || testua.includes('NESKAK') || 
+          testua.includes('EMAKUME')) {
         return 'neskak';
       }
       
-      // Bilatu kategoriaren EDADMAX
-      let edadMax = 99;
-      for (let [k, info] of kategoriakMap.entries()) {
-        if (info.kategoriaNagusia === kategoriaIzena) {
-          edadMax = info.edadMax;
-          break;
-        }
-      }
-      
-      // 2. TXIKIAK taldea: EDADMAX <= 12
-      if (edadMax <= 12) {
+      // TXIKIAK taldea: KIMU, SEIN, HAURRAK (12 urtez azpikoak)
+      if (kategoriaIzena === 'KIMU' || kategoriaIzena === 'SEIN' || kategoriaIzena === 'HAURRAK') {
         return 'txikiak';
       }
       
-      // 3. NAGUSIAK taldea: gainerakoak
+      // NAGUSIAK taldea: gainerakoak
       return 'nagusiak';
     }
 
-    // ---------- 6. Iturriaren etiketa lortu ----------
+    // ---------- 6. Iturriaren etiketa ----------
     function getIturriaEtiketa(iturria) {
       switch(iturria) {
         case 'fnp': return { text: 'FNP', class: 'fnp' };
@@ -783,7 +744,7 @@
       }
     }
 
-    // ---------- 7. Talde nagusien selectorea sortu (TXIKIAK defektuz) ----------
+    // ---------- 7. Talde nagusien selectorea ----------
     const taldeSelectorContainer = document.getElementById('talde-selector-container');
     
     const taldeNagusiak = [
@@ -793,7 +754,7 @@
     ];
     
     const taldeBotoiak = [];
-    let taldeAktibo = 'txikiak'; // TXIKIAK por defecto
+    let taldeAktibo = 'txikiak'; // Por defecto TXIKIAK
     
     taldeNagusiak.forEach(talde => {
       const botoia = document.createElement('button');
@@ -804,55 +765,7 @@
       taldeBotoiak.push(botoia);
     });
 
-    // ---------- 8. Egunen selectorea sortzeko funtzioa ----------
-    let egunaBotoiak = [];
-    let egunaAktibo = null;
-    
-    function createEgunaSelector(egunak) {
-      const egunaSelectorContainer = document.getElementById('eguna-selector-container');
-      egunaSelectorContainer.innerHTML = '';
-      egunaBotoiak = [];
-      
-      if (egunak.length === 0) {
-        const mensaje = document.createElement('span');
-        mensaje.className = 'selector-botoia';
-        mensaje.textContent = 'Ez dago egunik';
-        mensaje.style.opacity = '0.5';
-        mensaje.style.cursor = 'default';
-        egunaSelectorContainer.appendChild(mensaje);
-        return;
-      }
-      
-      const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
-      
-      egunak.forEach((fechaStr, index) => {
-        const dObj = dateStrToDate(fechaStr);
-        const egunIndizea = dObj ? dObj.getDay() : 0;
-        const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
-        // Formato corto para el botón
-        let egunLabur = egunIzenaEus.substring(0, 2).toUpperCase();
-        if (egunIzenaEus === 'asteazkena') egunLabur = 'AZ';
-        if (egunIzenaEus === 'osteguna') egunLabur = 'OG';
-        if (egunIzenaEus === 'ostirala') egunLabur = 'OL';
-        if (egunIzenaEus === 'larunbata') egunLabur = 'LR';
-        if (egunIzenaEus === 'igandea') egunLabur = 'IG';
-        
-        const botoia = document.createElement('button');
-        botoia.className = `selector-botoia ${index === 0 ? 'aktibo' : ''}`; // Lehenengoa aktibo
-        botoia.textContent = egunLabur;
-        botoia.setAttribute('data-eguna', fechaStr);
-        botoia.setAttribute('title', `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}`);
-        egunaSelectorContainer.appendChild(botoia);
-        egunaBotoiak.push(botoia);
-      });
-      
-      // Lehenengoa aktibo
-      if (egunak.length > 0) {
-        egunaAktibo = egunak[0];
-      }
-    }
-
-    // ---------- 9. HTML eraiki (eguneka antolatuta) ----------
+    // ---------- 8. HTML eraiki ----------
     function renderEgunak(taldeAktibo, egunaAktibo = null) {
       const container = document.getElementById('egunak-container');
       container.innerHTML = '';
@@ -886,41 +799,57 @@
         return dA - dB;
       });
 
-      // Egunen selectorea sortu (lehenengo egunarekin aktibo)
-      createEgunaSelector(egunakOrdenatuak);
+      // Egunen selectorea
+      const egunaSelectorContainer = document.getElementById('eguna-selector-container');
+      egunaSelectorContainer.innerHTML = '';
+      
+      egunakOrdenatuak.forEach((fechaStr, index) => {
+        const dObj = dateStrToDate(fechaStr);
+        const egunIndizea = dObj ? dObj.getDay() : 0;
+        const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+        let egunLabur = egunIzenaEus.substring(0, 2).toUpperCase();
+        if (egunIzenaEus === 'asteazkena') egunLabur = 'AZ';
+        if (egunIzenaEus === 'osteguna') egunLabur = 'OG';
+        if (egunIzenaEus === 'ostirala') egunLabur = 'OL';
+        if (egunIzenaEus === 'larunbata') egunLabur = 'LR';
+        if (egunIzenaEus === 'igandea') egunLabur = 'IG';
+        
+        const botoia = document.createElement('button');
+        botoia.className = `selector-botoia ${index === 0 ? 'aktibo' : ''}`;
+        botoia.textContent = egunLabur;
+        botoia.setAttribute('data-eguna', fechaStr);
+        botoia.setAttribute('title', `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}`);
+        egunaSelectorContainer.appendChild(botoia);
+      });
+
+      const egunaBotoiak = document.querySelectorAll('#eguna-selector-container .selector-botoia');
+      
+      // Si no hay egunaAktibo, usar el primero
+      if (!egunaAktibo && egunakOrdenatuak.length > 0) {
+        egunaAktibo = egunakOrdenatuak[0];
+      }
 
       // Ordua parseatzeko
       function parseOrdua(horaStr) {
-        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '00:00';
+        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '23:59'; // Los que no tienen hora al final
         const match = horaStr.match(/(\d{1,2}:\d{2})/);
-        return match ? match[1] : '00:00';
-      }
-
-      // Maila zenbakia ateratzeko
-      function extractLevelNumber(txt) {
-        const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
-        return match ? parseInt(match[2], 10) : 999;
+        return match ? match[1] : '23:59';
       }
 
       egunakOrdenatuak.forEach(fechaStr => {
         const partidak = partidakEgunka[fechaStr];
         
-        // Partidak ordenatu: ordu, frontoi, maila
+        // Ordenar partidas
         partidak.sort((a, b) => {
-          const horaA = parseOrdua(a.hora || '00:00');
-          const horaB = parseOrdua(b.hora || '00:00');
+          const horaA = parseOrdua(a.hora || '23:59');
+          const horaB = parseOrdua(b.hora || '23:59');
           if (horaA !== horaB) return horaA.localeCompare(horaB);
-
+          
           const frontA = a.fronton || '';
           const frontB = b.fronton || '';
-          if (frontA !== frontB) return frontA.localeCompare(frontB);
-
-          const levelA = extractLevelNumber(a.lehiaketa);
-          const levelB = extractLevelNumber(b.lehiaketa);
-          return levelB - levelA;
+          return frontA.localeCompare(frontB);
         });
 
-        // Egunaren HTML
         const dObj = dateStrToDate(fechaStr);
         const egunIndizea = dObj ? dObj.getDay() : 0;
         const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
@@ -929,12 +858,18 @@
         const egunDiv = document.createElement('div');
         egunDiv.className = 'egun-saila';
         egunDiv.setAttribute('data-eguna', fechaStr);
+        
         // Ezkutatu eguna ez bada aktiboa
         if (egunaAktibo && fechaStr !== egunaAktibo) {
           egunDiv.classList.add('eguna-ezkutuan');
         }
         
-        egunDiv.style.borderLeftColor = taldeAktibo === 'neskak' ? '#d63384' : (taldeAktibo === 'txikiak' ? '#0d6efd' : '#198754');
+        // Kolorea taldearen arabera
+        let bordeKolorea = '#0d6efd'; // txikiak
+        if (taldeAktibo === 'neskak') bordeKolorea = '#d63384';
+        if (taldeAktibo === 'nagusiak') bordeKolorea = '#198754';
+        
+        egunDiv.style.borderLeftColor = bordeKolorea;
         egunDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
 
         let currentFrontoi = null;
@@ -943,14 +878,8 @@
         partidak.forEach(p => {
           const katIzen = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
           
-          // Kategoriaren kolorea lortu
-          let kolorea = '#cccccc';
-          for (let [k, info] of kategoriakMap.entries()) {
-            if (info.kategoriaNagusia === katIzen) {
-              kolorea = info.kolorea;
-              break;
-            }
-          }
+          // Kategoriaren kolorea
+          const kolorea = kategoriakMap.get(katIzen.toUpperCase())?.kolorea || '#cccccc';
 
           const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
           if (frontIzen !== currentFrontoi) {
@@ -984,11 +913,9 @@
           const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
           const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
 
-          // Fasea detektatu
           const faseTestua = p.lehiaketa || p.modalidad || '';
           const finala = faseTestua.toUpperCase().includes('FINALA');
           
-          // Iturriaren etiketa
           const iturriaInfo = getIturriaEtiketa(p.iturria);
 
           partidaDiv.innerHTML = `
@@ -1013,17 +940,16 @@
         container.appendChild(egunDiv);
       });
       
-      // Egunen botoiei event listener-ak gehitu
+      // Egunen botoiei event listener-ak
       egunaBotoiak.forEach(botoia => {
         botoia.addEventListener('click', (e) => {
           const eguna = e.target.getAttribute('data-eguna');
-          egunaAktibo = eguna;
           
-          // Aktualizar clases de los botones
+          // Aktualizar clases
           egunaBotoiak.forEach(b => b.classList.remove('aktibo'));
           e.target.classList.add('aktibo');
           
-          // Mostrar solo el día seleccionado
+          // Mostrar día seleccionado
           document.querySelectorAll('.egun-saila').forEach(el => {
             if (el.getAttribute('data-eguna') === eguna) {
               el.classList.remove('eguna-ezkutuan');
@@ -1035,10 +961,10 @@
       });
     }
 
-    // ---------- 10. Hasierako render (TXIKIAK defektuz) ----------
+    // ---------- 9. Hasierako render ----------
     renderEgunak('txikiak');
 
-    // ---------- 11. Taldea aldatzean ----------
+    // ---------- 10. Taldea aldatzean ----------
     taldeBotoiak.forEach(botoia => {
       botoia.addEventListener('click', (e) => {
         const taldea = e.target.getAttribute('data-talde');
@@ -1047,38 +973,32 @@
         taldeBotoiak.forEach(b => b.classList.remove('aktibo'));
         e.target.classList.add('aktibo');
         
-        renderEgunak(taldea, null); // null = resetear día activo
+        renderEgunak(taldea);
       });
     });
 
-    // ---------- 12. ARGAZKIA ATERATZEKO FUNZIOA (BERRIA) ----------
+    // ---------- 11. ARGAZKIA ATERATZEKO ----------
     const argazkiaBotoia = document.getElementById('argazkia-botoia');
     
     argazkiaBotoia.addEventListener('click', function() {
       const element = document.getElementById('egunak-container');
       
-      // Erakutsi mezu bat prozesatzen ari dela
       const originalText = argazkiaBotoia.textContent;
       argazkiaBotoia.textContent = '📸 ARGAZKIA PRESTATZEN...';
       argazkiaBotoia.disabled = true;
       
-      // Erabili html2canvas irudia sortzeko
       html2canvas(element, {
-        scale: 2, // Kalitate hobea
+        scale: 2,
         backgroundColor: '#ffffff',
         logging: false,
         allowTaint: false,
-        useCORS: true,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
+        useCORS: true
       }).then(canvas => {
-        // Sortu JPG irudia
         const link = document.createElement('a');
         link.download = `larraun-ordutegia-${taldeAktibo}-${new Date().toISOString().slice(0,10)}.jpg`;
         link.href = canvas.toDataURL('image/jpeg', 0.95);
         link.click();
         
-        // Berrezarri botoia
         argazkiaBotoia.textContent = originalText;
         argazkiaBotoia.disabled = false;
       }).catch(error => {
