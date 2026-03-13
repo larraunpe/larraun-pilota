@@ -689,7 +689,7 @@
       return;
     }
 
-        // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO (siempre semana actual) ----------
+    // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO (siempre semana actual) ----------
     // Calculamos la semana actual basada en la fecha de hoy
     const gaur = new Date();
     
@@ -729,6 +729,13 @@
       }
 
       // Aste honetako partidak usando las fechas calculadas
+      function dateStrToDate(fechaStr) {
+        if (!fechaStr) return null;
+        const parts = fechaStr.split('/');
+        if (parts.length !== 3) return null;
+        return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+      }
+
       const partidakAsteHonetan = partidakIturria.filter(p => {
         if (!p.fecha) return false;
         const d = dateStrToDate(p.fecha);
@@ -864,6 +871,13 @@
         function extractLevelNumber(txt) {
           const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
           return match ? parseInt(match[2], 10) : 999;
+        }
+
+        function dateStrToDate(fechaStr) {
+          if (!fechaStr) return null;
+          const parts = fechaStr.split('/');
+          if (parts.length !== 3) return null;
+          return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
         }
 
         partidaLista.sort((a, b) => {
