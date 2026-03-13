@@ -689,50 +689,31 @@
       return;
     }
 
-    // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO ----------
-    // Calculamos la semana actual dinámicamente basada en la fecha de los partidos
-    // Primero, encontramos la fecha más temprana y más tardía en los datos
-    function dateStrToDate(fechaStr) {
-      if (!fechaStr) return null;
-      const parts = fechaStr.split('/');
-      if (parts.length !== 3) return null;
-      return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
-    }
-
-    // Obtener todas las fechas de los partidos oficiales
-    const todasLasFechas = partidakOficiales
-      .map(p => p.fecha)
-      .filter(f => f)
-      .map(f => dateStrToDate(f))
-      .filter(d => d !== null);
-
-    if (todasLasFechas.length > 0) {
-      // Encontrar la fecha mínima y máxima
-      const fechaMin = new Date(Math.min(...todasLasFechas.map(d => d.getTime())));
-      const fechaMax = new Date(Math.max(...todasLasFechas.map(d => d.getTime())));
-      
-      // Calcular el inicio de la semana (lunes) y fin de la semana (domingo)
-      const diaSemana = fechaMin.getDay(); // 0 = domingo, 1 = lunes, etc.
-      const diffToMonday = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
-      
-      const astekoLehen = new Date(fechaMin);
-      astekoLehen.setDate(fechaMin.getDate() - diffToMonday);
-      astekoLehen.setHours(0, 0, 0, 0);
-      
-      const astekoAzken = new Date(astekoLehen);
-      astekoAzken.setDate(astekoLehen.getDate() + 6);
-      astekoAzken.setHours(23, 59, 59, 999);
-      
-      console.log('Astea:', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
-      
-      // Guardamos en variables globales para usarlas en getPartidakByIturria
-      window.astekoLehen = astekoLehen;
-      window.astekoAzken = astekoAzken;
-    } else {
-      // Fallback a fechas fijas si no hay datos
-      window.astekoLehen = new Date(2026, 2, 9);  // 9 de marzo de 2026
-      window.astekoAzken = new Date(2026, 2, 15, 23, 59, 59); // 15 de marzo de 2026
-    }
+        // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO (siempre semana actual) ----------
+    // Calculamos la semana actual basada en la fecha de hoy
+    const gaur = new Date();
+    
+    // Ajustamos a la zona horaria local para evitar problemas
+    const hoy = new Date(gaur.getFullYear(), gaur.getMonth(), gaur.getDate());
+    
+    // Calculamos el inicio de la semana (lunes)
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, etc.
+    const diffToMonday = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
+    
+    const astekoLehen = new Date(hoy);
+    astekoLehen.setDate(hoy.getDate() - diffToMonday);
+    astekoLehen.setHours(0, 0, 0, 0);
+    
+    // Calculamos el final de la semana (domingo)
+    const astekoAzken = new Date(astekoLehen);
+    astekoAzken.setDate(astekoLehen.getDate() + 6);
+    astekoAzken.setHours(23, 59, 59, 999);
+    
+    console.log('Astea (egungoa):', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
+    
+    // Guardamos en variables globales para usarlas en getPartidakByIturria
+    window.astekoLehen = astekoLehen;
+    window.astekoAzken = astekoAzken;
 
     // ---------- 5. Partidak iragazi ----------
     function getPartidakByIturria(iturria) {
