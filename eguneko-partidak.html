@@ -616,7 +616,8 @@
         'HAURRAK': '#98FB98',
         'ALEBINAK': '#FFA07A',
         'KADETE': '#DDA0DD',
-        'GAZTE': '#F08080'
+        'GAZTE': '#F08080',
+        'ESKUZ KOPA': '#B0C4DE'
       };
       
       Object.keys(koloreLehenetsiak).forEach(kat => {
@@ -624,17 +625,40 @@
       });
     }
 
-    // ---------- 2. Partidak kargatu ----------
-    let partidakOficiales = [];
+    // ---------- 2. Partidak kargatu (bi fitxategiak) ----------
+    let partidaGuztiak = [];
 
     try {
+      // Partida ofizialak kargatu (FNP)
       const oficialesResp = await fetch('/data/cartelera-larraun.json');
+      if (oficialesResp.ok) {
+        const oficiales = await oficialesResp.json();
+        const oficialesMarkatuak = oficiales.map(p => ({ 
+          ...p, 
+          iturria: 'fnp',
+          iturriaText: 'FNP',
+          iturriaClass: 'fnp'
+        }));
+        partidaGuztiak = [...partidaGuztiak, ...oficialesMarkatuak];
+        console.log('Partida ofizialak:', oficialesMarkatuak.length);
+      }
       
-      if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
+      // Partida ez ofizialak kargatu
+      const ezOfizialakResp = await fetch('/data/partidos-no-oficiales.json');
+      if (ezOfizialakResp.ok) {
+        const ezOfizialak = await ezOfizialakResp.json();
+        const ezOfizialakMarkatuak = ezOfizialak.map(p => ({ 
+          ...p, 
+          iturria: 'ez-ofizialak',
+          iturriaText: 'EZ OFIZIALA',
+          iturriaClass: 'ez-ofizialak'
+        }));
+        partidaGuztiak = [...partidaGuztiak, ...ezOfizialakMarkatuak];
+        console.log('Partida ez ofizialak:', ezOfizialakMarkatuak.length);
+      }
       
-      partidakOficiales = await oficialesResp.json();
-      console.log('Partidak kargatuta:', partidakOficiales.length);
-      console.log('Lehen partida:', partidakOficiales[0]);
+      console.log('Partida GUZTIAK kargatuta:', partidaGuztiak.length);
+      console.log('Lehen partida:', partidaGuztiak[0]);
       
     } catch (e) {
       document.getElementById('egunak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
@@ -671,14 +695,23 @@
       bukaera: weekEnd.toLocaleDateString('eu-ES')
     });
 
-    // Data string -> Date objektu (zure formatura egokituta: YYYY/MM/DD)
+    // Data string -> Date objektu
     function parseDate(fechaStr) {
       if (!fechaStr) return null;
       
-      // Zure JSON-an data "2026/03/13" formatuan dago
-      const parts = fechaStr.split('/');
+      // Saiatu formato desberdinak
+      let parts;
+      if (fechaStr.includes('/')) {
+        parts = fechaStr.split('/');
+      } else if (fechaStr.includes('-')) {
+        parts = fechaStr.split('-');
+      } else {
+        return null;
+      }
+      
       if (parts.length !== 3) return null;
       
+      // Formatoa: YYYY/MM/DD edo YYYY-MM-DD
       const year = parseInt(parts[0]);
       const month = parseInt(parts[1]) - 1; // 0-11
       const day = parseInt(parts[2]);
@@ -687,7 +720,7 @@
     }
 
     // ---------- 3. Aste honetako partidak iragazi ----------
-    const partidakAsteHonetan = partidakOficiales.filter(p => {
+    const partidakAsteHonetan = partidaGuztiak.filter(p => {
       if (!p.fecha) return false;
       
       const partidaDate = parseDate(p.fecha);
@@ -709,7 +742,7 @@
     
     // Erakutsi partida guztien datak debug-ean
     partidakAsteHonetan.forEach(p => {
-      console.log(`- ${p.fecha}: ${p.etxekoa} vs ${p.kanpokoak} (${p.lehiaketa})`);
+      console.log(`- [${p.iturria}] ${p.fecha}: ${p.etxekoa} vs ${p.kanpokoak} (${p.lehiaketa})`);
     });
     
     if (partidakAsteHonetan.length === 0) {
@@ -737,6 +770,7 @@
       if (up.includes('HAUR')) return '#98FB98';
       if (up.includes('ALEBIN')) return '#FFA07A';
       if (up.includes('SEIN')) return '#FFD700';
+      if (up.includes('ESKUZ KOPA')) return '#B0C4DE';
       
       return '#cccccc';
     }
@@ -744,6 +778,7 @@
     // ---------- 5. Talde nagusia esleitu ----------
     function taldeNagusia(partida) {
       const testua = (partida.lehiaketa || '').toUpperCase();
+      const etxekoa = (partida.etxekoa || '').toUpperCase();
       
       // NESKAK taldea
       if (testua.includes('NESKA') || testua.includes('NESKAK') || 
@@ -764,17 +799,25 @@
       
       // NAGUSIAK taldea
       if (testua.includes('KADETE') || testua.includes('GAZTE') || 
-          testua.includes('ALEBIN') || testua.includes('JUBILATU')) {
+          testua.includes('ALEBIN') || testua.includes('JUBILATU') ||
+          testua.includes('ESKUZ KOPA') || testua.includes('ABSOLUTO')) {
         return 'nagusiak';
       }
       
-      // Bestela, nagusiak
+      // Bestela, begiratu etxekoa
+      if (etxekoa.includes('LARRAUN') && !testua.includes('KIMU') && !testua.includes('SEIN')) {
+        return 'nagusiak';
+      }
+      
       return 'nagusiak';
     }
 
     // ---------- 6. Iturriaren etiketa ----------
-    function getIturriaEtiketa() {
-      return { text: 'FNP', class: 'fnp' };
+    function getIturriaEtiketa(partida) {
+      return { 
+        text: partida.iturriaText || 'FNP', 
+        class: partida.iturriaClass || 'fnp' 
+      };
     }
 
     // ---------- 7. Talde nagusien selectorea ----------
@@ -787,7 +830,7 @@
     ];
     
     const taldeBotoiak = [];
-    let taldeAktibo = 'txikiak';
+    let taldeAktibo = 'nagusiak'; // Aldatu dugu nagusiak lehenetsi
     
     taldeNagusiak.forEach(talde => {
       const botoia = document.createElement('button');
@@ -884,8 +927,11 @@
         const egunIzenaEus = egunakEus[egunIndizea];
         
         // Data formatua: YYYY/MM/DD -> DD/MM/YYYY
-        const fechaParts = fechaStr.split('/');
-        const fechaFormateada = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
+        let fechaFormateada = fechaStr;
+        if (fechaStr.includes('/')) {
+          const parts = fechaStr.split('/');
+          fechaFormateada = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
         
         const egunFormat = `${egunIzenaEus}, ${fechaFormateada}`;
 
@@ -939,7 +985,13 @@
           const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
           const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
           
-          const iturriaInfo = getIturriaEtiketa();
+          const iturriaInfo = getIturriaEtiketa(p);
+
+          // Fase etiketa (finala bada)
+          const finala = (p.lehiaketa || '').toUpperCase().includes('FINALA');
+          
+          // Zkia (badagoen)
+          const zkia = p.zkia && p.zkia !== '-' ? p.zkia : null;
 
           partidaDiv.innerHTML = `
             <div class="ordu-blokea ${prov}">${orduGarbi} ${prov ? '<small>provis.</small>' : ''}</div>
@@ -951,6 +1003,8 @@
               <div class="lehiaketa-labur">
                 <span class="iturria-etiketa ${iturriaInfo.class}">${iturriaInfo.text}</span>
                 <span>🏆 ${p.lehiaketa || ''}</span>
+                ${finala ? '<span class="fase-etiketa finala">⚡ FINALA</span>' : ''}
+                ${zkia ? `<span class="zkia-etiketa">#${zkia}</span>` : ''}
               </div>
             </div>
           `;
@@ -983,7 +1037,7 @@
     }
 
     // ---------- 9. Hasierako render ----------
-    renderEgunak('txikiak');
+    renderEgunak('nagusiak'); // Aldatu dugu nagusiak lehenetsi
 
     // ---------- 10. Taldea aldatzean ----------
     taldeBotoiak.forEach(botoia => {
