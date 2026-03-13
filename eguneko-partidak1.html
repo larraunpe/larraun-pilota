@@ -581,35 +581,64 @@
 
 <script>
   (async function() {
-    // ---------- 1. Kategoriak (balio lehenetsiak) ----------
-    const kategoriakMap = new Map();
-    
-    // Kategoria nagusiak koloreekin
-    const kategoriaKoloreak = {
-      'SEIN': '#FFD700',
-      'KIMU': '#87CEEB', 
-      'HAURRAK': '#98FB98',
-      'ALEBINAK': '#FFA07A',
-      'KADETE': '#DDA0DD',
-      'GAZTE': '#F08080',
-      'ESKUZ KOPA': '#B0C4DE'
-    };
-    
-    // Kategoria bakoitzari bere kolorea esleitu
-    Object.keys(kategoriaKoloreak).forEach(kat => {
-      kategoriakMap.set(kat.toUpperCase(), {
-        kolorea: kategoriaKoloreak[kat],
-        edadMin: 0,
-        izena: kat,
-        kategoriaNagusia: kat
+    // ---------- 1. Kategoriak kargatu categoriaedad.json-tik ----------
+    let kategoriakMap = new Map();
+    let kategoriaKoloreak = {};
+
+    try {
+      const kategoriaResp = await fetch('/data/categoriaedad.json');
+      if (kategoriaResp.ok) {
+        const kategoriaData = await kategoriaResp.json();
+        
+        // Procesar categorías del JSON
+        if (kategoriaData && kategoriaData.categorias) {
+          kategoriaData.categorias.forEach(kat => {
+            if (kat.nombre && kat.color) {
+              const izena = kat.nombre.toUpperCase();
+              kategoriakMap.set(izena, {
+                kolorea: kat.color,
+                edadMin: kat.edad_min || 0,
+                edadMax: kat.edad_max || 99,
+                izena: kat.nombre,
+                kategoriaNagusia: kat.nombre
+              });
+              kategoriaKoloreak[izena] = kat.color;
+            }
+          });
+          console.log('Kategoriak kargatuta:', kategoriakMap.size);
+        }
+      } else {
+        console.warn('Ezin categoriaedad.json kargatu, kolore lehenetsiak erabiliko dira');
+      }
+    } catch (e) {
+      console.warn('Errorea kategoriak kargatzean:', e);
+    }
+
+    // Kolore lehenetsiak kargatu ez badira
+    if (kategoriakMap.size === 0) {
+      const koloreLehenetsiak = {
+        'SEIN': '#FFD700',
+        'KIMU': '#87CEEB', 
+        'HAURRAK': '#98FB98',
+        'ALEBINAK': '#FFA07A',
+        'KADETE': '#DDA0DD',
+        'GAZTE': '#F08080',
+        'ESKUZ KOPA': '#B0C4DE'
+      };
+      
+      Object.keys(koloreLehenetsiak).forEach(kat => {
+        kategoriakMap.set(kat, {
+          kolorea: koloreLehenetsiak[kat],
+          izena: kat,
+          kategoriaNagusia: kat
+        });
       });
-    });
+    }
 
     // ---------- 2. Partidak kargatu ----------
     let partidakOficiales = [];
 
     try {
-      // Cargar solo el archivo principal
       const oficialesResp = await fetch('/data/cartelera-larraun.json');
       
       if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
@@ -623,24 +652,71 @@
       return;
     }
 
-    // ---------- FECHA FIJA PARA PROBAR (13-14 marzo 2026) ----------
-    // Usamos fechas fijas para asegurar que funciona
-    const astekoLehen = new Date(2026, 2, 9); // 9 marzo 2026 (lunes)
-    const astekoAzken = new Date(2026, 2, 15, 23, 59, 59); // 15 marzo 2026 (domingo)
+    // ---------- ASTE HONETAKO PARTIDAK KALKULATU (egungo data) ----------
+    function getAsteaTartea() {
+      const gaur = new Date();
+      // Astelehena lortu (0 = igandea, 1 = astelehena...)
+      const astelehena = new Date(gaur);
+      const egunIndizea = gaur.getDay(); // 0 = igandea
+      
+      if (egunIndizea === 0) { // Igandea bada
+        astelehena.setDate(gaur.getDate() - 6); // Aurreko astelehenera
+      } else {
+        astelehena.setDate(gaur.getDate() - (egunIndizea - 1)); // Astelehenera
+      }
+      
+      astelehena.setHours(0, 0, 0, 0);
+      
+      const igandea = new Date(astelehena);
+      igandea.setDate(astelehena.getDate() + 6);
+      igandea.setHours(23, 59, 59, 999);
+      
+      return { hasiera: astelehena, bukaera: igandea };
+    }
+
+    const { hasiera: astekoLehen, bukaera: astekoAzken } = getAsteaTartea();
     
-    console.log('Bilatutako tartea:', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
+    console.log('ASTE HONETAKO TARTEA:', {
+      hasiera: astekoLehen.toLocaleDateString('eu-ES'),
+      bukaera: astekoAzken.toLocaleDateString('eu-ES'),
+      hasieraRaw: astekoLehen,
+      bukaeraRaw: astekoAzken
+    });
 
     function dateStrToDate(fechaStr) {
       if (!fechaStr) return null;
-      // Formato esperado: "2026/03/13"
-      const parts = fechaStr.split('/');
+      // Formato: "2025/03/14" o "2025-03-14"
+      let parts;
+      if (fechaStr.includes('/')) {
+        parts = fechaStr.split('/');
+      } else if (fechaStr.includes('-')) {
+        parts = fechaStr.split('-');
+      } else {
+        return null;
+      }
+      
       if (parts.length !== 3) return null;
+      
       // Año, mes (0-11), día
-      return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+      const urtea = parseInt(parts[0]);
+      const hilabetea = parseInt(parts[1]) - 1;
+      const eguna = parseInt(parts[2]);
+      
+      return new Date(urtea, hilabetea, eguna);
     }
 
     // ---------- 3. Partida guztiak ----------
     const partidaGuztiak = partidakOficiales.map(p => ({ ...p, iturria: 'fnp' }));
+
+    // "Descanso" -> "Atsedena"
+    partidaGuztiak.forEach(p => {
+      if (p.etxekoa && typeof p.etxekoa === 'string' && p.etxekoa.includes('Descanso')) {
+        p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
+      }
+      if (p.kanpokoak && typeof p.kanpokoak === 'string' && p.kanpokoak.includes('Descanso')) {
+        p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+      }
+    });
 
     // Aste honetako partidak - FILTRO CORREGIDO
     const partidakAsteHonetan = partidaGuztiak.filter(p => {
@@ -648,36 +724,41 @@
       const d = dateStrToDate(p.fecha);
       if (!d) return false;
       
-      // Comparar fechas (ignorando horas)
-      const fechaPartida = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-      const fechaInicio = new Date(astekoLehen.getFullYear(), astekoLehen.getMonth(), astekoLehen.getDate());
-      const fechaFin = new Date(astekoAzken.getFullYear(), astekoAzken.getMonth(), astekoAzken.getDate());
+      // Konparatu data hutsak (orduak gabe)
+      const partidaDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const hasieraDate = new Date(astekoLehen.getFullYear(), astekoLehen.getMonth(), astekoLehen.getDate());
+      const bukaeraDate = new Date(astekoAzken.getFullYear(), astekoAzken.getMonth(), astekoAzken.getDate());
       
-      return fechaPartida >= fechaInicio && fechaPartida <= fechaFin;
+      const barruan = partidaDate >= hasieraDate && partidaDate <= bukaeraDate;
+      
+      if (barruan) {
+        console.log('Partida aste honetan:', p.fecha, p.etxekoa, 'vs', p.kanpokoak);
+      }
+      
+      return barruan;
     });
 
-    console.log('Partidak aste honetan:', partidakAsteHonetan.length);
-
-    // "Descanso" -> "Atsedena"
-    partidakAsteHonetan.forEach(p => {
-      if (p.etxekoa && p.etxekoa.includes('Descanso')) {
-        p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
-      }
-      if (p.kanpokoak && p.kanpokoak.includes('Descanso')) {
-        p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
-      }
-    });
-
+    console.log('Partidak aste honetan GUZTIRA:', partidakAsteHonetan.length);
+    
     if (partidakAsteHonetan.length === 0) {
       document.getElementById('egunak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partidarik.</div>';
       return;
     }
 
-    // ---------- 4. Kategoria nagusia esleitu ----------
-    function kategoriaNagusia(testua) {
-      if (!testua) return 'Beste';
+    // ---------- 4. Kategoria nagusia aurkitu ----------
+    function aurkituKategoria(testua) {
+      if (!testua) return null;
+      
       const up = testua.toUpperCase();
       
+      // Bilatu kategoria ezagunak
+      for (let [izena, info] of kategoriakMap.entries()) {
+        if (up.includes(izena)) {
+          return izena;
+        }
+      }
+      
+      // Bilatu partzialki
       if (up.includes('KADETE')) return 'KADETE';
       if (up.includes('GAZTE')) return 'GAZTE';
       if (up.includes('KIMU')) return 'KIMU';
@@ -685,22 +766,37 @@
       if (up.includes('ALEBIN')) return 'ALEBINAK';
       if (up.includes('SEIN')) return 'SEIN';
       if (up.includes('ESKUZ KOPA')) return 'ESKUZ KOPA';
+      if (up.includes('BENJAMIN')) return 'KIMU'; // Benjaminak Kimu bezala
       
-      return 'Beste';
+      return 'BESTE';
+    }
+
+    function getKategoriaKolorea(testua) {
+      const katIzena = aurkituKategoria(testua);
+      const info = kategoriakMap.get(katIzena);
+      return info?.kolorea || '#cccccc';
     }
 
     // ---------- 5. Talde nagusia esleitu ----------
-    function taldeNagusia(partida, kategoriaIzena) {
+    function taldeNagusia(partida) {
       const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
+      const etxekoa = (partida.etxekoa || '').toUpperCase();
+      const kanpokoa = (partida.kanpokoak || '').toUpperCase();
       
       // NESKAK taldea
       if (testua.includes('NESKA') || testua.includes('NESKAK') || 
-          testua.includes('EMAKUME')) {
+          testua.includes('EMAKUME') || testua.includes('FEMENINO')) {
         return 'neskak';
       }
       
-      // TXIKIAK taldea: KIMU, SEIN, AURREBENJAMINAK
-      if (kategoriaIzena === 'KIMU' || kategoriaIzena === 'SEIN' || kategoriaIzena === 'AURREBENJAMINAK') {
+      // TXIKIAK taldea: KIMU, SEIN, HAURRAK txikiak, AURREBENJAMINAK
+      if (testua.includes('KIMU') || testua.includes('SEIN') || 
+          testua.includes('AURREBENJAMIN') || testua.includes('BENJAMIN')) {
+        return 'txikiak';
+      }
+      
+      // HAURRAK ere txikiak?
+      if (testua.includes('HAUR') && !testua.includes('HAURRAK')) {
         return 'txikiak';
       }
       
@@ -743,8 +839,7 @@
 
       // Partidak taldearen arabera iragazi
       const partidakIragaziak = partidakAsteHonetan.filter(p => {
-        const katIzen = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
-        const taldea = taldeNagusia(p, katIzen);
+        const taldea = taldeNagusia(p);
         return taldea === taldeAktibo;
       });
 
@@ -770,20 +865,29 @@
         return dA - dB;
       });
 
-      // Egunen selectorea
+      // Egunen selectorea (lehendik dagoena garbitu)
       const egunaSelectorContainer = document.getElementById('eguna-selector-container');
       egunaSelectorContainer.innerHTML = '';
       
       egunakOrdenatuak.forEach((fechaStr, index) => {
         const dObj = dateStrToDate(fechaStr);
-        const egunIndizea = dObj ? dObj.getDay() : 0;
+        if (!dObj) return;
+        
+        const egunIndizea = dObj.getDay(); // 0 = igandea
         const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
-        let egunLabur = egunIzenaEus.substring(0, 2).toUpperCase();
-        if (egunIzenaEus === 'asteazkena') egunLabur = 'AZ';
-        if (egunIzenaEus === 'osteguna') egunLabur = 'OG';
-        if (egunIzenaEus === 'ostirala') egunLabur = 'OL';
-        if (egunIzenaEus === 'larunbata') egunLabur = 'LR';
-        if (egunIzenaEus === 'igandea') egunLabur = 'IG';
+        
+        // Egunaren laburdura
+        let egunLabur;
+        switch(egunIndizea) {
+          case 0: egunLabur = 'IG'; break; // igandea
+          case 1: egunLabur = 'AL'; break; // astelehena
+          case 2: egunLabur = 'AR'; break; // asteartea
+          case 3: egunLabur = 'AZ'; break; // asteazkena
+          case 4: egunLabur = 'OG'; break; // osteguna
+          case 5: egunLabur = 'OL'; break; // ostirala
+          case 6: egunLabur = 'LR'; break; // larunbata
+          default: egunLabur = 'EG';
+        }
         
         const botoia = document.createElement('button');
         botoia.className = `selector-botoia ${index === 0 ? 'aktibo' : ''}`;
@@ -793,8 +897,6 @@
         egunaSelectorContainer.appendChild(botoia);
       });
 
-      const egunaBotoiak = document.querySelectorAll('#eguna-selector-container .selector-botoia');
-      
       // Si no hay egunaAktibo, usar el primero
       if (!egunaAktibo && egunakOrdenatuak.length > 0) {
         egunaAktibo = egunakOrdenatuak[0];
@@ -802,9 +904,9 @@
 
       // Ordua parseatzeko
       function parseOrdua(horaStr) {
-        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '23:59';
+        if (!horaStr || horaStr.trim() === '-' || horaStr.startsWith('-')) return '--:--';
         const match = horaStr.match(/(\d{1,2}:\d{2})/);
-        return match ? match[1] : '23:59';
+        return match ? match[1] : '--:--';
       }
 
       egunakOrdenatuak.forEach(fechaStr => {
@@ -812,9 +914,11 @@
         
         // Ordenar partidas
         partidak.sort((a, b) => {
-          const horaA = parseOrdua(a.hora || '23:59');
-          const horaB = parseOrdua(b.hora || '23:59');
-          if (horaA !== horaB) return horaA.localeCompare(horaB);
+          const horaA = parseOrdua(a.hora || '--:--');
+          const horaB = parseOrdua(b.hora || '--:--');
+          if (horaA !== '--:--' && horaB !== '--:--' && horaA !== horaB) {
+            return horaA.localeCompare(horaB);
+          }
           
           const frontA = a.fronton || '';
           const frontB = b.fronton || '';
@@ -822,9 +926,18 @@
         });
 
         const dObj = dateStrToDate(fechaStr);
-        const egunIndizea = dObj ? dObj.getDay() : 0;
+        if (!dObj) return;
+        
+        const egunIndizea = dObj.getDay(); // 0 = igandea
         const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
-        const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
+        
+        // Formatear fecha: DD/MM/YYYY
+        const dia = dObj.getDate().toString().padStart(2, '0');
+        const mes = (dObj.getMonth() + 1).toString().padStart(2, '0');
+        const año = dObj.getFullYear();
+        const fechaFormateada = `${dia}/${mes}/${año}`;
+        
+        const egunFormat = `${egunIzenaEus}, ${fechaFormateada}`;
 
         const egunDiv = document.createElement('div');
         egunDiv.className = 'egun-saila';
@@ -847,10 +960,8 @@
         let frontoiDiv = null;
 
         partidak.forEach(p => {
-          const katIzen = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
-          
-          // Kategoriaren kolorea
-          const kolorea = kategoriakMap.get(katIzen.toUpperCase())?.kolorea || '#cccccc';
+          const katIzena = aurkituKategoria(p.lehiaketa || p.modalidad || '');
+          const kolorea = getKategoriaKolorea(p.lehiaketa || p.modalidad || '');
 
           const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
           if (frontIzen !== currentFrontoi) {
@@ -873,7 +984,7 @@
           partidaDiv.style.borderLeftColor = kolorea;
 
           const orduGarbi = parseOrdua(p.hora || '');
-          const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
+          const prov = (p.hora && (p.hora.includes('provisional') || p.hora.includes('provis.'))) ? 'provisorio' : '';
 
           const etxekoaTestua = p.etxekoa || '?';
           const kanpokoaTestua = p.kanpokoak || '?';
@@ -905,13 +1016,16 @@
             </div>
           `;
 
-          frontoiDiv.appendChild(partidaDiv);
+          if (frontoiDiv) {
+            frontoiDiv.appendChild(partidaDiv);
+          }
         });
 
         container.appendChild(egunDiv);
       });
       
       // Egunen botoiei event listener-ak
+      const egunaBotoiak = document.querySelectorAll('#eguna-selector-container .selector-botoia');
       egunaBotoiak.forEach(botoia => {
         botoia.addEventListener('click', (e) => {
           const eguna = e.target.getAttribute('data-eguna');
