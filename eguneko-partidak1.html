@@ -830,7 +830,7 @@
     ];
     
     const taldeBotoiak = [];
-    let taldeAktibo = 'nagusiak'; // Aldatu dugu nagusiak lehenetsi
+    let taldeAktibo = 'nagusiak';
     
     taldeNagusiak.forEach(talde => {
       const botoia = document.createElement('button');
@@ -982,8 +982,12 @@
           const etxekoaTestua = p.etxekoa || '?';
           const kanpokoaTestua = p.kanpokoak || '?';
 
+          // BIETAN resaltatu Larraun: etxekoa eta kanpokoak
           const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
+          const kanpokoaLarraun = kanpokoaTestua.toUpperCase().includes('LARRAUN');
+          
           const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
+          const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
           
           const iturriaInfo = getIturriaEtiketa(p);
 
@@ -998,7 +1002,7 @@
             <div class="partido-info">
               <div class="parejak">
                 <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
-                <span class="kanpokoak">✈️ ${kanpokoaTestua}</span>
+                <span class="${kanpokoClass}">✈️ ${kanpokoaTestua}</span>
               </div>
               <div class="lehiaketa-labur">
                 <span class="iturria-etiketa ${iturriaInfo.class}">${iturriaInfo.text}</span>
@@ -1037,7 +1041,7 @@
     }
 
     // ---------- 9. Hasierako render ----------
-    renderEgunak('nagusiak'); // Aldatu dugu nagusiak lehenetsi
+    renderEgunak('nagusiak');
 
     // ---------- 10. Taldea aldatzean ----------
     taldeBotoiak.forEach(botoia => {
