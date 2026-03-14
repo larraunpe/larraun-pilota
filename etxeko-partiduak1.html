@@ -56,6 +56,8 @@ body{
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
   overflow:hidden;
+  min-height: 1920px; /* Altura fija de story */
+  height: 1920px;
 }
 
 /* ===== HEADER ===== */
@@ -67,6 +69,7 @@ body{
   justify-content:center;
   background:linear-gradient(135deg, #2a5fc4, #1a3a8a);
   box-shadow:inset 0 -10px 20px rgba(0,0,0,.4);
+  flex-shrink: 0;
 }
 
 .header::after{
@@ -105,6 +108,7 @@ body{
   text-align:center;
   margin:25px 0 15px;
   position:relative;
+  flex-shrink: 0;
 }
 
 .dia-semana{
@@ -135,9 +139,10 @@ body{
 
 /* ===== CONTENIDO ===== */
 .contenido{
-  flex:1;
+  flex: 1;
   padding:20px 30px;
-  overflow-y:auto;
+  overflow-y: auto; /* Scroll interno si es necesario */
+  min-height: 0; /* Importante para flexbox */
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -211,6 +216,17 @@ body{
   border-bottom:none;
 }
 
+/* Estilo especial para FINALA */
+.partido.finala-partido {
+  background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(255, 200, 0, 0.25));
+  border-left: 8px solid #d4af37;
+  border-right: 8px solid #d4af37;
+  border-radius: 20px;
+  margin: 20px -5px;
+  padding: 18px 10px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
 .partido-header{
   display:flex;
   justify-content:space-between;
@@ -229,6 +245,7 @@ body{
   justify-content:center;
   font-weight:900;
   font-size:20px;
+  flex-shrink: 0;
 }
 
 .torneo-container{
@@ -236,14 +253,38 @@ body{
   margin-left:15px;
 }
 
+/* Estilo base para torneo - TEXTO EN VERDE OSCURO */
 .torneo{
   font-size:22px;
   font-weight:900;
-  padding:6px 15px;
+  padding:8px 18px;
   border-radius:40px;
   display:inline-block;
-  color:white;
+  color: #1e4f32 !important; /* Verde oscuro fuerte */
+  background: rgba(255,255,255,0.7);
   box-shadow:0 4px 10px rgba(0,0,0,.2);
+  border: 2px solid rgba(30, 79, 50, 0.3);
+  text-shadow: 0 1px 0 white;
+}
+
+/* Estilo especial para FINALA - MUY DESTACADO */
+.torneo.finala-torneo {
+  background: linear-gradient(145deg, #FFD700, #FDB931) !important;
+  color: #000000 !important;
+  font-size: 26px;
+  padding: 12px 25px;
+  border: 3px solid #b8860b;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 20px #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 #FFF;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .equipos{
@@ -310,6 +351,7 @@ body{
   background:linear-gradient(#2f2f2f, #1a1a1a);
   padding:25px;
   border-top:3px solid gold;
+  flex-shrink: 0;
 }
 
 .logos-grid{
@@ -469,41 +511,103 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== CREAR PÁGINA PARA UN DÍA ===== */
-function crearPaginaDia(diaInfo, partidos, numPagina, totalPaginas) {
+/* ===== ESTIMAR ALTURA DE UN GRUPO ===== */
+function estimarAlturaGrupo(grupo) {
+  // Estimación aproximada: header + (cada partido * altura partido)
+  const headerHeight = 120;
+  const partidoHeight = 180;
+  return headerHeight + (grupo.length * partidoHeight);
+}
+
+/* ===== CREAR PÁGINAS PARA UN DÍA (DIVIDIENDO SI ES NECESARIO) ===== */
+function crearPaginasDia(diaInfo, partidos, numPaginaInicio) {
+  const paginasCreadas = [];
+  let paginaActual = 1;
+  let gruposActuales = [];
+  let alturaActual = 0;
+  const ALTURA_MAXIMA = 1300; // Altura máxima para el contenido (considerando header, footer, etc.)
+  
+  // Agrupar por frontón/fecha/hora
+  const gruposMap = {};
+  partidos.forEach(p => {
+    const key = `${p.fronton}|${p.fecha}|${p.hora}`;
+    if (!gruposMap[key]) gruposMap[key] = [];
+    gruposMap[key].push(p);
+  });
+  
+  const grupos = Object.values(gruposMap);
+  
+  grupos.forEach((grupo, index) => {
+    const alturaGrupo = estimarAlturaGrupo(grupo);
+    
+    if (alturaActual + alturaGrupo > ALTURA_MAXIMA && gruposActuales.length > 0) {
+      // Guardar página actual y empezar nueva
+      paginasCreadas.push({
+        diaInfo: diaInfo,
+        grupos: [...gruposActuales],
+        numPagina: numPaginaInicio + (paginaActual - 1),
+        subpagina: gruposActuales.length > 0 ? paginaActual : null
+      });
+      
+      gruposActuales = [grupo];
+      alturaActual = alturaGrupo;
+      paginaActual++;
+    } else {
+      gruposActuales.push(grupo);
+      alturaActual += alturaGrupo;
+    }
+  });
+  
+  // Última página
+  if (gruposActuales.length > 0) {
+    paginasCreadas.push({
+      diaInfo: diaInfo,
+      grupos: [...gruposActuales],
+      numPagina: numPaginaInicio + (paginaActual - 1),
+      subpagina: grupos.length > 1 ? paginaActual : null
+    });
+  }
+  
+  return paginasCreadas;
+}
+
+/* ===== CREAR PÁGINA CON GRUPOS ESPECÍFICOS ===== */
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esSubpagina = false) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
   
+  let diaHTML = `
+    <div class="dia-container">
+      <div class="dia-semana">
+        <div class="dia">${diaInfo.dia}</div>
+        <div class="fecha">${diaInfo.fecha}</div>
+  `;
+  
+  if (esSubpagina) {
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:5px;">(${esSubpagina})</div>`;
+  }
+  
+  diaHTML += `
+      </div>
+    </div>
+  `;
+  
   p.innerHTML = crearHeader() + `
     <div class="contenido">
-      <div class="dia-container">
-        <div class="dia-semana">
-          <div class="dia">${diaInfo.dia}</div>
-          <div class="fecha">${diaInfo.fecha}</div>
-        </div>
-      </div>
-      <div id="partidos-${numPagina}"></div>
+      ${diaHTML}
+      <div id="grupos-${numPagina}"></div>
     </div>
   ` + crearFooter(numPagina, totalPaginas);
   
   document.getElementById("contenedorPaginas").appendChild(p);
   
-  // Añadir partidos
-  const partidosContainer = p.querySelector(`#partidos-${numPagina}`);
+  // Añadir grupos
+  const gruposContainer = p.querySelector(`#grupos-${numPagina}`);
   
-  // Agrupar por frontón/fecha/hora
-  const grupos = {};
-  partidos.forEach(p => {
-    const key = `${p.fronton}|${p.fecha}|${p.hora}`;
-    if (!grupos[key]) grupos[key] = [];
-    grupos[key].push(p);
-  });
-  
-  Object.values(grupos).forEach((partidosGrupo, idx) => {
+  grupos.forEach((partidosGrupo, idx) => {
     const b0 = partidosGrupo[0];
     const esTrinkete = /trinkete/i.test(b0.fronton || "");
-    const esLekunberri = /lekunberri/i.test(b0.fronton || "");
     
     const grupo = document.createElement("div");
     grupo.className = "grupo";
@@ -526,13 +630,17 @@ function crearPaginaDia(diaInfo, partidos, numPagina, totalPaginas) {
     
     partidosGrupo.forEach((m, i) => {
       const claseCategoria = obtenerClaseCategoria(m.lehiaketa);
+      const esFinala = m.lehiaketa && m.lehiaketa.toUpperCase().includes("FINALA");
+      
+      const partidoClass = esFinala ? "partido finala-partido" : "partido";
+      const torneoClass = esFinala ? "torneo finala-torneo" : `torneo ${claseCategoria}`;
       
       body.innerHTML += `
-        <div class="partido">
+        <div class="${partidoClass}">
           <div class="partido-header">
             <div class="partido-numero">${i + 1}</div>
             <div class="torneo-container">
-              <div class="torneo ${claseCategoria}">${m.lehiaketa || "Txapelketa"}</div>
+              <div class="${torneoClass}">${m.lehiaketa || "Txapelketa"}</div>
             </div>
           </div>
           <div class="equipos">
@@ -549,7 +657,7 @@ function crearPaginaDia(diaInfo, partidos, numPagina, totalPaginas) {
       `;
     });
     
-    partidosContainer.appendChild(grupo);
+    gruposContainer.appendChild(grupo);
   });
   
   // Añadir pelotazos
@@ -611,19 +719,36 @@ Promise.all([
     partidosPorDia[diaKey].push(p);
   });
   
-  // Crear una página por día
+  // Crear páginas por día, dividiendo si es necesario
   const dias = Object.keys(partidosPorDia).sort();
-  const totalPaginas = dias.length;
+  let contadorPaginas = 1;
+  const todasLasPaginas = [];
   
-  dias.forEach((diaKey, index) => {
+  dias.forEach(diaKey => {
     const fecha = new Date(diaKey);
     const diaInfo = dayEU(fecha);
-    crearPaginaDia(diaInfo, partidosPorDia[diaKey], index + 1, totalPaginas);
+    
+    const paginasDia = crearPaginasDia(diaInfo, partidosPorDia[diaKey], contadorPaginas);
+    todasLasPaginas.push(...paginasDia);
+    contadorPaginas += paginasDia.length;
+  });
+  
+  const totalPaginas = todasLasPaginas.length;
+  
+  todasLasPaginas.forEach(paginaInfo => {
+    const esSubpagina = paginaInfo.subpagina ? paginaInfo.subpagina.toString() : false;
+    crearPaginaConGrupos(
+      paginaInfo.diaInfo, 
+      paginaInfo.grupos, 
+      paginaInfo.numPagina, 
+      totalPaginas,
+      esSubpagina
+    );
   });
   
   document.getElementById('pageCounter').innerHTML = 
     totalPaginas > 0 
-      ? `📱 ${totalPaginas} día${totalPaginas > 1 ? 's' : ''} con partidos esta semana` 
+      ? `📱 ${totalPaginas} story${totalPaginas > 1 ? 's' : ''} generada${totalPaginas > 1 ? 's' : ''} para esta semana` 
       : '📱 No hay partidos esta semana';
 });
 
@@ -635,7 +760,7 @@ async function exportarTodasLasStories() {
   for (let i = 0; i < paginas.length; i++) {
     const pagina = paginas[i];
     
-    document.getElementById('pageCounter').innerHTML = `📸 Exportando día ${i + 1}/${total}...`;
+    document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
     
     const canvas = await html2canvas(pagina, {
       scale: 2,
@@ -654,7 +779,12 @@ async function exportarTodasLasStories() {
     const diaElem = pagina.querySelector('.dia');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
-    a.download = `etxekoak-${dia}-${(i + 1).toString().padStart(2, '0')}.jpg`;
+    // Verificar si es subpágina
+    const subpaginaElem = pagina.querySelector('.dia-container div:last-child');
+    const esSubpagina = subpaginaElem && subpaginaElem.textContent.includes('(');
+    const sufijo = esSubpagina ? `-parte-${(i % 3) + 1}` : '';
+    
+    a.download = `etxekoak-${dia}${sufijo}-${(i + 1).toString().padStart(2, '0')}.jpg`;
     a.click();
     
     await new Promise(resolve => setTimeout(resolve, 500));
