@@ -13,12 +13,16 @@ body{
   background:#1b4d31;
   font-family:'Trebuchet MS','Arial Black',sans-serif;
   padding:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .exportar{
   text-align:center;
   margin:20px auto;
   max-width:1200px;
+  width: 100%;
 }
 
 .exportar button{
@@ -45,7 +49,14 @@ body{
   margin-top:10px;
 }
 
-/* ===== PÁGINA STORY (9:16) ===== */
+#contenedorPaginas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ===== PÁGINA STORY (9:16) - SIN ALTURA FIJA ===== */
 .pagina{
   width:1080px;
   margin:30px auto;
@@ -55,9 +66,7 @@ body{
   position:relative;
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
-  overflow:hidden;
-  min-height: 1920px; /* Altura fija de story */
-  height: 1920px;
+  overflow: visible; /* Cambiado de hidden a visible */
 }
 
 /* ===== HEADER ===== */
@@ -70,6 +79,7 @@ body{
   background:linear-gradient(135deg, #2a5fc4, #1a3a8a);
   box-shadow:inset 0 -10px 20px rgba(0,0,0,.4);
   flex-shrink: 0;
+  border-radius: 30px 30px 0 0;
 }
 
 .header::after{
@@ -80,6 +90,7 @@ body{
   right:0;
   height:50px;
   background:linear-gradient(rgba(255,255,255,.3), transparent);
+  border-radius: 30px 30px 0 0;
 }
 
 .logo-izq, .logo-der{
@@ -139,10 +150,7 @@ body{
 
 /* ===== CONTENIDO ===== */
 .contenido{
-  flex: 1;
   padding:20px 30px;
-  overflow-y: auto; /* Scroll interno si es necesario */
-  min-height: 0; /* Importante para flexbox */
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -260,7 +268,7 @@ body{
   padding:8px 18px;
   border-radius:40px;
   display:inline-block;
-  color: #1e4f32 !important; /* Verde oscuro fuerte */
+  color: #1e4f32 !important;
   background: rgba(255,255,255,0.7);
   box-shadow:0 4px 10px rgba(0,0,0,.2);
   border: 2px solid rgba(30, 79, 50, 0.3);
@@ -352,6 +360,7 @@ body{
   padding:25px;
   border-top:3px solid gold;
   flex-shrink: 0;
+  border-radius: 0 0 30px 30px;
 }
 
 .logos-grid{
@@ -388,7 +397,6 @@ body{
 
 <script>
 let CATEGORIAS = {};
-let paginas = [];
 
 /* ===== CARGAR CATEGORÍAS ===== */
 function cargarCategorias() {
@@ -447,7 +455,7 @@ function dayEU(d) {
 }
 
 /* ===== GENERAR PELOTAZOS ===== */
-function generarPelotazos(contenedor) {
+function generarPelotazos(contenedor, altura) {
   for (let i = 0; i < 3000; i++) {
     const d = document.createElement("div");
     const s = Math.random() * 4 + 2;
@@ -455,7 +463,7 @@ function generarPelotazos(contenedor) {
     d.className = "pelota-dot";
     d.style.width = d.style.height = s + "px";
     d.style.left = Math.random() * 1080 + "px";
-    d.style.top = Math.random() * 1920 + "px";
+    d.style.top = Math.random() * altura + "px";
     
     contenedor.appendChild(d);
   }
@@ -511,68 +519,62 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== ESTIMAR ALTURA DE UN GRUPO ===== */
-function estimarAlturaGrupo(grupo) {
-  // Estimación aproximada: header + (cada partido * altura partido)
-  const headerHeight = 120;
-  const partidoHeight = 180;
-  return headerHeight + (grupo.length * partidoHeight);
-}
-
-/* ===== CREAR PÁGINAS PARA UN DÍA (DIVIDIENDO SI ES NECESARIO) ===== */
-function crearPaginasDia(diaInfo, partidos, numPaginaInicio) {
-  const paginasCreadas = [];
-  let paginaActual = 1;
-  let gruposActuales = [];
-  let alturaActual = 0;
-  const ALTURA_MAXIMA = 1300; // Altura máxima para el contenido (considerando header, footer, etc.)
+/* ===== CALCULAR ALTURA EXACTA DE UN GRUPO ===== */
+function calcularAlturaGrupo(grupo) {
+  // Estimación más precisa basada en el contenido
+  let altura = 180; // Header del grupo
   
-  // Agrupar por frontón/fecha/hora
-  const gruposMap = {};
-  partidos.forEach(p => {
-    const key = `${p.fronton}|${p.fecha}|${p.hora}`;
-    if (!gruposMap[key]) gruposMap[key] = [];
-    gruposMap[key].push(p);
+  grupo.forEach(() => {
+    altura += 220; // Cada partido ocupa aproximadamente 220px
   });
   
-  const grupos = Object.values(gruposMap);
+  return altura;
+}
+
+/* ===== DIVIDIR GRUPOS EN PÁGINAS ===== */
+function dividirEnPaginas(grupos) {
+  const paginas = [];
+  let paginaActual = [];
+  let alturaActual = 0;
+  const ALTURA_MAXIMA = 1500; // Altura máxima para el contenido (considerando header y footer)
   
-  grupos.forEach((grupo, index) => {
-    const alturaGrupo = estimarAlturaGrupo(grupo);
+  grupos.forEach(grupo => {
+    const alturaGrupo = calcularAlturaGrupo(grupo);
     
-    if (alturaActual + alturaGrupo > ALTURA_MAXIMA && gruposActuales.length > 0) {
-      // Guardar página actual y empezar nueva
-      paginasCreadas.push({
-        diaInfo: diaInfo,
-        grupos: [...gruposActuales],
-        numPagina: numPaginaInicio + (paginaActual - 1),
-        subpagina: gruposActuales.length > 0 ? paginaActual : null
-      });
-      
-      gruposActuales = [grupo];
-      alturaActual = alturaGrupo;
-      paginaActual++;
-    } else {
-      gruposActuales.push(grupo);
+    // Si el grupo individual es más grande que la altura máxima, lo forzamos a entrar en una página sola
+    if (alturaGrupo > ALTURA_MAXIMA) {
+      // Si hay grupos pendientes, guardamos la página actual
+      if (paginaActual.length > 0) {
+        paginas.push(paginaActual);
+        paginaActual = [];
+        alturaActual = 0;
+      }
+      // Añadimos este grupo grande como su propia página
+      paginas.push([grupo]);
+    } 
+    // Si el grupo cabe en la página actual
+    else if (alturaActual + alturaGrupo <= ALTURA_MAXIMA) {
+      paginaActual.push(grupo);
       alturaActual += alturaGrupo;
+    } 
+    // Si no cabe, empezamos nueva página
+    else {
+      paginas.push(paginaActual);
+      paginaActual = [grupo];
+      alturaActual = alturaGrupo;
     }
   });
   
-  // Última página
-  if (gruposActuales.length > 0) {
-    paginasCreadas.push({
-      diaInfo: diaInfo,
-      grupos: [...gruposActuales],
-      numPagina: numPaginaInicio + (paginaActual - 1),
-      subpagina: grupos.length > 1 ? paginaActual : null
-    });
+  // Añadir la última página si tiene contenido
+  if (paginaActual.length > 0) {
+    paginas.push(paginaActual);
   }
   
-  return paginasCreadas;
+  return paginas;
 }
 
 /* ===== CREAR PÁGINA CON GRUPOS ESPECÍFICOS ===== */
-function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esSubpagina = false) {
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, subpaginaInfo = null) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
@@ -584,8 +586,8 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esSubpag
         <div class="fecha">${diaInfo.fecha}</div>
   `;
   
-  if (esSubpagina) {
-    diaHTML += `<div style="font-size:18px; color:gold; margin-top:5px;">(${esSubpagina})</div>`;
+  if (subpaginaInfo) {
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:5px;">(${subpaginaInfo.actual}/${subpaginaInfo.total})</div>`;
   }
   
   diaHTML += `
@@ -660,9 +662,12 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esSubpag
     gruposContainer.appendChild(grupo);
   });
   
-  // Añadir pelotazos
-  const pel = p.querySelector(".pelotazos");
-  generarPelotazos(pel);
+  // Calcular altura total para los pelotazos
+  setTimeout(() => {
+    const alturaTotal = p.offsetHeight;
+    const pel = p.querySelector(".pelotazos");
+    generarPelotazos(pel, alturaTotal);
+  }, 100);
   
   // Rellenar logos
   rellenarLogos(p);
@@ -719,31 +724,49 @@ Promise.all([
     partidosPorDia[diaKey].push(p);
   });
   
-  // Crear páginas por día, dividiendo si es necesario
+  // Crear páginas por día
   const dias = Object.keys(partidosPorDia).sort();
   let contadorPaginas = 1;
-  const todasLasPaginas = [];
   
   dias.forEach(diaKey => {
     const fecha = new Date(diaKey);
     const diaInfo = dayEU(fecha);
     
-    const paginasDia = crearPaginasDia(diaInfo, partidosPorDia[diaKey], contadorPaginas);
-    todasLasPaginas.push(...paginasDia);
-    contadorPaginas += paginasDia.length;
+    // Agrupar partidos del día por frontón/fecha/hora
+    const gruposMap = {};
+    partidosPorDia[diaKey].forEach(p => {
+      const key = `${p.fronton}|${p.fecha}|${p.hora}`;
+      if (!gruposMap[key]) gruposMap[key] = [];
+      gruposMap[key].push(p);
+    });
+    
+    const grupos = Object.values(gruposMap);
+    
+    // Dividir los grupos en páginas
+    const paginasDia = dividirEnPaginas(grupos);
+    
+    paginasDia.forEach((gruposPagina, index) => {
+      const subpaginaInfo = paginasDia.length > 1 ? {
+        actual: index + 1,
+        total: paginasDia.length
+      } : null;
+      
+      crearPaginaConGrupos(
+        diaInfo,
+        gruposPagina,
+        contadorPaginas,
+        null, // Total se calculará después
+        subpaginaInfo
+      );
+      
+      contadorPaginas++;
+    });
   });
   
-  const totalPaginas = todasLasPaginas.length;
-  
-  todasLasPaginas.forEach(paginaInfo => {
-    const esSubpagina = paginaInfo.subpagina ? paginaInfo.subpagina.toString() : false;
-    crearPaginaConGrupos(
-      paginaInfo.diaInfo, 
-      paginaInfo.grupos, 
-      paginaInfo.numPagina, 
-      totalPaginas,
-      esSubpagina
-    );
+  // Actualizar total de páginas en los indicadores
+  const totalPaginas = document.querySelectorAll(".pagina").length;
+  document.querySelectorAll(".page-indicator").forEach((el, index) => {
+    el.textContent = `${index + 1}/${totalPaginas}`;
   });
   
   document.getElementById('pageCounter').innerHTML = 
@@ -762,18 +785,57 @@ async function exportarTodasLasStories() {
     
     document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
     
+    // Configuración para capturar toda la altura
     const canvas = await html2canvas(pagina, {
       scale: 2,
       useCORS: true,
       backgroundColor: '#1e4f32',
       windowWidth: 1080,
-      windowHeight: 1920,
       allowTaint: false,
-      logging: false
+      logging: false,
+      scrollY: -window.scrollY, // Importante para capturar todo
+      onclone: (clonedDoc, element) => {
+        // Asegurar que el elemento clonado mantenga sus dimensiones
+        element.style.height = 'auto';
+      }
     });
     
+    // Crear un canvas con la proporción 9:16 recortando si es necesario
+    const finalCanvas = document.createElement('canvas');
+    const ctx = finalCanvas.getContext('2d');
+    
+    // Dimensiones objetivo 9:16 (1080x1920)
+    finalCanvas.width = 1080;
+    finalCanvas.height = 1920;
+    
+    // Calcular la mejor forma de ajustar la imagen
+    const aspectRatio = canvas.width / canvas.height;
+    const targetAspect = 1080 / 1920;
+    
+    let sourceX = 0;
+    let sourceY = 0;
+    let sourceWidth = canvas.width;
+    let sourceHeight = canvas.height;
+    
+    if (aspectRatio > targetAspect) {
+      // La imagen es más ancha - recortar los lados
+      sourceWidth = canvas.height * targetAspect;
+      sourceX = (canvas.width - sourceWidth) / 2;
+    } else {
+      // La imagen es más alta - recortar arriba/abajo
+      sourceHeight = canvas.width / targetAspect;
+      sourceY = (canvas.height - sourceHeight) / 2;
+    }
+    
+    // Dibujar en el canvas final
+    ctx.drawImage(
+      canvas,
+      sourceX, sourceY, sourceWidth, sourceHeight,
+      0, 0, finalCanvas.width, finalCanvas.height
+    );
+    
     const a = document.createElement("a");
-    a.href = canvas.toDataURL("image/jpeg", 0.95);
+    a.href = finalCanvas.toDataURL("image/jpeg", 0.95);
     
     // Extraer el día del indicador
     const diaElem = pagina.querySelector('.dia');
@@ -781,8 +843,13 @@ async function exportarTodasLasStories() {
     
     // Verificar si es subpágina
     const subpaginaElem = pagina.querySelector('.dia-container div:last-child');
-    const esSubpagina = subpaginaElem && subpaginaElem.textContent.includes('(');
-    const sufijo = esSubpagina ? `-parte-${(i % 3) + 1}` : '';
+    let sufijo = '';
+    if (subpaginaElem && subpaginaElem.textContent.includes('(')) {
+      const match = subpaginaElem.textContent.match(/\((\d+)\/(\d+)\)/);
+      if (match) {
+        sufijo = `-parte-${match[1]}`;
+      }
+    }
     
     a.download = `etxekoak-${dia}${sufijo}-${(i + 1).toString().padStart(2, '0')}.jpg`;
     a.click();
