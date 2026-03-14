@@ -43,6 +43,10 @@ body{
   transform:scale(1.05);
 }
 
+.exportar button.secondary {
+  background: #2a5fc4;
+}
+
 #pageCounter{
   color:white;
   font-size:16px;
@@ -54,6 +58,68 @@ body{
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+
+/* ===== SELECTOR DE DÍA ===== */
+.selector-dia {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 50px;
+  margin: 20px auto;
+  border: 2px solid gold;
+  max-width: 800px;
+}
+
+.dias-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.dia-btn {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: 2px solid gold;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 120px;
+}
+
+.dia-btn:hover {
+  transform: scale(1.05);
+  background: gold;
+  color: black;
+}
+
+.dia-btn.active {
+  background: gold;
+  color: black;
+  border-color: white;
+}
+
+.dia-btn.sunday {
+  background: #c60000;
+}
+
+.dia-btn.sunday.active {
+  background: #ffd700;
+  color: black;
+}
+
+.info-dia {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin: 15px 0 0;
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 30px;
 }
 
 /* ===== PÁGINA STORY ===== */
@@ -422,8 +488,13 @@ body{
 <body>
 
 <div class="exportar">
+  <div class="selector-dia" id="selectorDia">
+    <div class="dias-grid" id="diasGrid"></div>
+    <div class="info-dia" id="infoDia">Cargando partidos...</div>
+  </div>
   <div>
-    <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES (DIVIDIDAS)</button>
+    <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES DEL DÍA SELECCIONADO</button>
+    <button class="secondary" onclick="exportarTodosLosDias()">📱 EXPORTAR TODOS LOS DÍAS</button>
   </div>
   <div id="pageCounter"></div>
 </div>
@@ -432,6 +503,8 @@ body{
 
 <script>
 let CATEGORIAS = {};
+let todosLosPartidos = [];
+let partidosPorDiaReal = {};
 
 /* ===== CARGAR CATEGORÍAS ===== */
 function cargarCategorias() {
@@ -472,21 +545,17 @@ function obtenerClaseCategoria(texto) {
 }
 
 /* ===== FORMATO DE FECHA ===== */
-function monday(d) {
-  const x = new Date(d);
-  const day = x.getDay() || 7;
-  if (day !== 1) x.setDate(x.getDate() - day + 1);
-  x.setHours(0, 0, 0, 0);
-  return x;
-}
-
 function dayEU(d) {
   const days = ["IGANDEA", "ASTELEHENA", "ASTEARTEA", "ASTEAZKENA", "OSTEGUNA", "OSTIRALA", "LARUNBATA"];
   const months = ["URTARRILA", "OTSAILA", "MARTXOA", "APIRILA", "MAIATZA", "EKAINA", "UZTAILA", "ABUZTUA", "IRAILA", "URRIA", "AZAROA", "ABENDUA"];
   return {
     dia: days[d.getDay()],
-    fecha: `${d.getDate()} ${months[d.getMonth()]}`
+    fecha: `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
   };
+}
+
+function formatearFechaKey(d) {
+  return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
 }
 
 /* ===== GENERAR PELOTAZOS ===== */
@@ -538,7 +607,7 @@ function rellenarLogos(pagina) {
     "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
     "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
     "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
-    "construccionesurangasaigos.jpg","hotelayestaran.jpg","iseelectricidad.jpg",
+    "construccionesurangasaijos.jpg","hotelayestaran.jpg","iseelectricidad.jpg",
     "kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg","maderasnasorena.jpg",
     "maskarada.jpg","suacontrol.jpg","urzubi.jpg","ventamugiro.jpg","dietistaanagurrea.jpg",
     "ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
@@ -554,7 +623,7 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== DIVIDIR POR NÚMERO DE PARTIDOS (SIMPLE Y EFECTIVO) ===== */
+/* ===== DIVIDIR POR NÚMERO DE PARTIDOS ===== */
 function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) {
   const paginas = [];
   let paginaActual = [];
@@ -563,13 +632,6 @@ function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) {
   grupos.forEach(grupo => {
     const tamañoGrupo = grupo.length;
     
-    // Si el grupo solo ya supera el máximo, lo dividimos (no debería pasar)
-    if (tamañoGrupo > maxPartidosPorPagina) {
-      console.warn('Grupo demasiado grande:', grupo);
-      return;
-    }
-    
-    // Si al añadir este grupo superamos el máximo, guardamos la página actual y empezamos nueva
     if (partidosEnPaginaActual + tamañoGrupo > maxPartidosPorPagina && paginaActual.length > 0) {
       paginas.push(paginaActual);
       paginaActual = [grupo];
@@ -580,7 +642,6 @@ function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) {
     }
   });
   
-  // Añadir la última página
   if (paginaActual.length > 0) {
     paginas.push(paginaActual);
   }
@@ -594,7 +655,6 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
   
-  // Calcular total de partidos en esta página
   let partidosEnPagina = 0;
   grupos.forEach(g => partidosEnPagina += g.length);
   
@@ -605,10 +665,7 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
         <div class="fecha">${diaInfo.fecha}</div>
   `;
   
-  // Si hay múltiples páginas para este día, mostrar información de parte
   if (!esPrimeraPagina || !esUltimaPagina) {
-    // Calcular qué número de parte es esta
-    // Esto es un poco complejo de saber aquí, lo simplificamos
     diaHTML += `<div style="font-size:20px; color:gold; margin-top:10px; background:rgba(0,0,0,0.5); padding:8px 20px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
   } else {
     diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px;">${partidosEnPagina} partidu</div>`;
@@ -628,7 +685,6 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
   
   document.getElementById("contenedorPaginas").appendChild(p);
   
-  // Añadir grupos
   const gruposContainer = p.querySelector(`#grupos-${numPagina}`);
   
   grupos.forEach((partidosGrupo, idx) => {
@@ -686,9 +742,7 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
     gruposContainer.appendChild(grupo);
   });
   
-  // AÑADIR INDICADOR DE CONTINUACIÓN SI NO ES LA ÚLTIMA PÁGINA
   if (!esUltimaPagina) {
-    console.log('Añadiendo indicador de continuación a página', numPagina);
     const indicator = document.createElement("div");
     indicator.className = "continuation-indicator";
     indicator.innerHTML = `
@@ -697,20 +751,18 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
     gruposContainer.appendChild(indicator);
   }
   
-  // Calcular altura total para los pelotazos
   setTimeout(() => {
     const alturaTotal = p.offsetHeight;
     const pel = p.querySelector(".pelotazos");
     generarPelotazos(pel, alturaTotal);
   }, 100);
   
-  // Rellenar logos
   rellenarLogos(p);
   
   return p;
 }
 
-/* ===== INICIALIZAR ===== */
+/* ===== CARGAR Y PROCESAR PARTIDOS ===== */
 Promise.all([
   fetch("data/cartelera-larraun.json").then(r => r.json()),
   fetch("data/partidos-no-oficiales.json").then(r => r.json()),
@@ -720,106 +772,108 @@ Promise.all([
   CATEGORIAS = categorias;
   generarClasesCategorias();
   
-  const partidos = [
+  todosLosPartidos = [
     ...oficiales.map(p => ({ ...p, ofiziala: true })),
     ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
   ];
   
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const mon = monday(today);
-  const sun = new Date(mon);
-  sun.setDate(mon.getDate() + 6);
-  sun.setHours(23, 59, 59, 999);
+  // Filtrar solo partidos en Lekunberri o Aldatz
+  todosLosPartidos = todosLosPartidos.filter(p => 
+    /lekunberri|aldatz/i.test(p.fronton || "")
+  );
   
-  // Filtrar partidos de la semana en frontones locales
-  const partidosSemana = partidos.filter(p => {
-    if (!/lekunberri|aldatz/i.test(p.fronton || "")) return false;
-    const d = new Date(`${p.fecha} ${p.hora || "00:00"}`);
-    return d >= mon && d <= sun;
-  });
-  
-  console.log('Partidos de la semana:', partidosSemana.length);
-  
-  // Ordenar por fecha
-  partidosSemana.sort((a, b) => {
-    const da = new Date(`${a.fecha} ${a.hora || "00:00"}`);
-    const db = new Date(`${b.fecha} ${b.hora || "00:00"}`);
-    return da - db;
-  });
-  
-  // Agrupar por día
-  const partidosPorDia = {};
-  
-  partidosSemana.forEach(p => {
-    const d = new Date(`${p.fecha} ${p.hora || "00:00"}`);
-    const diaKey = d.toDateString();
+  // Agrupar por fecha real
+  todosLosPartidos.forEach(p => {
+    const fecha = new Date(p.fecha + "T12:00:00");
+    const fechaKey = formatearFechaKey(fecha);
     
-    if (!partidosPorDia[diaKey]) {
-      partidosPorDia[diaKey] = [];
+    if (!partidosPorDiaReal[fechaKey]) {
+      partidosPorDiaReal[fechaKey] = {
+        fecha: fecha,
+        partidos: []
+      };
     }
-    partidosPorDia[diaKey].push(p);
+    partidosPorDiaReal[fechaKey].partidos.push(p);
   });
   
-  console.log('Días con partidos:', Object.keys(partidosPorDia));
+  // Crear selector de días
+  const diasGrid = document.getElementById('diasGrid');
+  const diasOrdenados = Object.keys(partidosPorDiaReal).sort();
   
-  // Crear páginas por día, dividiendo por número de partidos
-  const dias = Object.keys(partidosPorDia).sort();
-  let contadorPaginasGlobal = 1;
-  const todasLasPaginas = [];
-  
-  dias.forEach(diaKey => {
-    const fecha = new Date(diaKey);
-    const diaInfo = dayEU(fecha);
+  diasOrdenados.forEach((fechaKey, index) => {
+    const diaData = partidosPorDiaReal[fechaKey];
+    const diaInfo = dayEU(diaData.fecha);
+    const totalPartidos = diaData.partidos.length;
     
-    // Agrupar partidos del día por frontón/fecha/hora
-    const gruposMap = {};
-    partidosPorDia[diaKey].forEach(p => {
-      const key = `${p.fronton}|${p.fecha}|${p.hora}`;
-      if (!gruposMap[key]) gruposMap[key] = [];
-      gruposMap[key].push(p);
-    });
+    const btn = document.createElement('button');
+    btn.className = `dia-btn ${diaInfo.dia === 'IGANDEA' ? 'sunday' : ''}`;
+    btn.innerHTML = `${diaInfo.dia}<br><small>${diaInfo.fecha}</small><br><strong>${totalPartidos} partidu</strong>`;
+    btn.onclick = () => seleccionarDia(fechaKey);
     
-    const grupos = Object.values(gruposMap);
-    const totalPartidosDia = partidosPorDia[diaKey].length;
-    
-    console.log(`${diaInfo.dia}: ${totalPartidosDia} partidos en ${grupos.length} grupos`);
-    
-    // DIVIDIR POR NÚMERO DE PARTIDOS (máx 4 por página)
-    const paginasDia = dividirPartidosPorDia(grupos, 4);
-    
-    console.log(`  → Dividido en ${paginasDia.length} páginas`);
-    
-    // Guardar información de cada página
-    paginasDia.forEach((gruposPagina, index) => {
-      todasLasPaginas.push({
-        diaInfo,
-        grupos: gruposPagina,
-        esPrimera: index === 0,
-        esUltima: index === paginasDia.length - 1,
-        numPaginaEnDia: index + 1,
-        totalPaginasEnDia: paginasDia.length
-      });
-    });
+    diasGrid.appendChild(btn);
   });
   
-  // Crear todas las páginas
-  todasLasPaginas.forEach((info, index) => {
+  // Seleccionar el primer día por defecto
+  if (diasOrdenados.length > 0) {
+    seleccionarDia(diasOrdenados[0]);
+  } else {
+    document.getElementById('infoDia').innerHTML = '❌ No hay partidos programados';
+  }
+});
+
+/* ===== SELECCIONAR DÍA ===== */
+function seleccionarDia(fechaKey) {
+  // Limpiar páginas anteriores
+  document.getElementById('contenedorPaginas').innerHTML = '';
+  
+  // Marcar botón activo
+  document.querySelectorAll('.dia-btn').forEach(btn => btn.classList.remove('active'));
+  event?.target.classList.add('active');
+  
+  const diaData = partidosPorDiaReal[fechaKey];
+  if (!diaData) return;
+  
+  const diaInfo = dayEU(diaData.fecha);
+  const partidos = diaData.partidos;
+  
+  // Ordenar partidos por hora
+  partidos.sort((a, b) => {
+    const horaA = a.hora || "00:00";
+    const horaB = b.hora || "00:00";
+    return horaA.localeCompare(horaB);
+  });
+  
+  // Agrupar por frontón/fecha/hora
+  const gruposMap = {};
+  partidos.forEach(p => {
+    const key = `${p.fronton}|${p.fecha}|${p.hora}`;
+    if (!gruposMap[key]) gruposMap[key] = [];
+    gruposMap[key].push(p);
+  });
+  
+  const grupos = Object.values(gruposMap);
+  
+  // Dividir en páginas (máx 4 partidos por página)
+  const paginasDia = dividirPartidosPorDia(grupos, 4);
+  
+  // Crear páginas
+  paginasDia.forEach((gruposPagina, index) => {
     crearPaginaConGrupos(
-      info.diaInfo,
-      info.grupos,
+      diaInfo,
+      gruposPagina,
       index + 1,
-      todasLasPaginas.length,
-      info.esPrimera,
-      info.esUltima
+      paginasDia.length,
+      index === 0,
+      index === paginasDia.length - 1
     );
   });
   
+  document.getElementById('infoDia').innerHTML = 
+    `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginasDia.length} página${paginasDia.length > 1 ? 's' : ''}`;
+  
   document.getElementById('pageCounter').innerHTML = 
-    todasLasPaginas.length > 0 
-      ? `📱 ${todasLasPaginas.length} story${todasLasPaginas.length > 1 ? 's' : ''} generada${todasLasPaginas.length > 1 ? 's' : ''} (máx 4 partidos por story)` 
-      : '📱 No hay partidos esta semana';
-});
+    `📱 ${paginasDia.length} story${paginasDia.length > 1 ? 's' : ''} para este día`;
+}
 
 /* ===== EXPORTAR ===== */
 async function exportarTodasLasStories() {
@@ -846,11 +900,9 @@ async function exportarTodasLasStories() {
     const a = document.createElement("a");
     a.href = canvas.toDataURL("image/jpeg", 0.95);
     
-    // Extraer información para el nombre del archivo
     const diaElem = pagina.querySelector('.dia');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
-    // Ver si es múltiples partes
     const infoElem = pagina.querySelector('.dia-semana div:last-child');
     let sufijo = '';
     if (infoElem && infoElem.textContent.includes('ZATIA')) {
@@ -867,6 +919,17 @@ async function exportarTodasLasStories() {
   }
   
   document.getElementById('pageCounter').innerHTML = `✅ ¡${total} stories exportadas!`;
+}
+
+async function exportarTodosLosDias() {
+  const dias = Object.keys(partidosPorDiaReal).sort();
+  
+  for (const fechaKey of dias) {
+    seleccionarDia(fechaKey);
+    // Pequeña pausa para que se rendericen las páginas
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    await exportarTodasLasStories();
+  }
 }
 </script>
 
