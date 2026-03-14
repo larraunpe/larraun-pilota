@@ -445,6 +445,34 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "AGOITZ (E. Arcelus - E. Balisa) ARCELUS GARCIA, E. BALISA IRIBARREN, E.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-6) (9-5)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-13",
+    "fronton": "Larrión-Allín - Municipal",
+    "etxekoa": "SAN MIGUEL (E. Argandoña - I. Echeverria) ECHEVERRIA SALTO, I. GARCIA ARIZALETA, M.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(2-9) (3-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda) ARGAÑA ARRIBILLAGA, M. BALDA ETXEBERRIA, E.",
@@ -567,6 +595,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-14",
+    "fronton": "Lumbier - Ilumberri",
+    "etxekoa": "ILUN-BERRI (E. Labairu - I. Zamora) LABAIRU RIOS, E. ZAMORA MONTES, I.",
+    "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga) ANSORENA BELDARRAIN, I. ZUBILLAGA ALVAREZ, A.",
+    "tanteoa": "6-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-07",
     "fronton": "Ororbia - Ororbia",
     "etxekoa": "LARRAUN - ABAXITABIDEA (X. Goldaracena - E. Astibia)",
@@ -578,6 +618,19 @@
     "emaitza": "galduta",
     "ofiziala": true,
     "etxekoa_original": "ABAXITABIDEA (X. Goldaracena - E. Astibia) ASTIBIA ALBENIZ, E. GOLDARACENA LANZ, X."
+  },
+  {
+    "fecha": "2026-03-13",
+    "fronton": "Elizondo - Baztan",
+    "etxekoa": "BORTZIRIAK (E. Igoa - M. Iñarrea) IGOA ANSALAS, E. IÑARREA ARIZTIA, M.",
+    "kanpokoak": "LARRAUN - ABAXITABIDEA (X. Goldaracena - E. Astibia)",
+    "tanteoa": "18-2",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3112&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "kanpokoak_original": "ABAXITABIDEA (X. Goldaracena - E. Astibia) ASTIBIA ALBENIZ, E. GOLDARACENA LANZ, X."
   },
   {
     "fecha": "2026-03-08",
@@ -640,6 +693,19 @@
     "emaitza": "irabazita",
     "ofiziala": true,
     "kanpokoak_original": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A."
+  },
+  {
+    "fecha": "2026-03-13",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
+    "kanpokoak": "BETI ONAK (M. Ezkurra - S. Santesteban) EZKURRA EZKURRA, M. SANTESTEBAN BELZARENA, S.",
+    "tanteoa": "3-22",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3116&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "etxekoa_original": "LARRAUN (A. Balda - U. Arcelus) ARCELUS UGALDE, U. BALDA IRUNGARAI, A."
   },
   {
     "fecha": "2026-02-27",
