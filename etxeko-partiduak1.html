@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etxeko partiduak – Stories con Scroll</title>
+<title>Etxeko partiduak – Stories</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -56,7 +56,7 @@ body{
   width: 100%;
 }
 
-/* ===== PÁGINA STORY CON SCROLL ===== */
+/* ===== PÁGINA STORY ===== */
 .pagina{
   width:1080px;
   margin:30px auto;
@@ -322,30 +322,34 @@ body{
 .etxekoa{ color:#0d47a1; }
 .kanpokoa{ color:#b71c1c; }
 
-/* ===== INDICADOR DE SCROLL ===== */
-.scroll-indicator {
+/* ===== INDICADOR DE CONTINUACIÓN ===== */
+.continuation-indicator {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin: 20px 0 10px;
+  gap: 15px;
+  margin: 30px 0 20px;
   color: white;
-  font-size: 18px;
-  background: rgba(0,0,0,0.3);
-  padding: 10px 20px;
-  border-radius: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 60px;
   backdrop-filter: blur(5px);
-  border: 2px solid gold;
+  border: 3px solid gold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.scroll-indicator span {
+.continuation-indicator span {
   animation: bounce 2s infinite;
+  font-size: 36px;
 }
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-10px); }
-  60% { transform: translateY(-5px); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-8px); }
 }
 
 /* ===== INDICADOR PÁGINA ===== */
@@ -414,7 +418,7 @@ body{
 
 <div class="exportar">
   <div>
-    <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES CON SCROLL</button>
+    <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES (DIVIDIDAS)</button>
   </div>
   <div id="pageCounter"></div>
 </div>
@@ -514,7 +518,7 @@ function crearHeader() {
 }
 
 /* ===== CREAR FOOTER ===== */
-function crearFooter(numPagina, totalPaginas) {
+function crearFooter(numPagina, totalPaginas, esUltimaPaginaDelDia = true) {
   return `
     <div class="footer">
       <div class="logos-grid"></div>
@@ -545,44 +549,88 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== AÑADIR INDICADOR DE SCROLL ===== */
-function añadirScrollIndicator(pagina, numPartidos) {
-  if (numPartidos > 5) {
-    const indicator = document.createElement("div");
-    indicator.className = "scroll-indicator";
-    indicator.innerHTML = `
-      <span>👇</span> HURRENGO PARTIDUA <span>👇</span>
-    `;
-    
-    // Insertar después del último grupo
-    const contenido = pagina.querySelector('.contenido');
-    if (contenido) {
-      contenido.appendChild(indicator);
-    }
-  }
+/* ===== CALCULAR ALTURA ESTIMADA ===== */
+function calcularAlturaEstimada(grupos) {
+  let altura = 400; // Header + día + márgenes
+  
+  grupos.forEach(grupo => {
+    altura += 200; // Header del grupo
+    altura += grupo.length * 250; // Cada partido
+  });
+  
+  return altura;
 }
 
-/* ===== CREAR PÁGINA PARA UN DÍA ===== */
-function crearPaginaDia(diaInfo, grupos, numPagina, totalPaginas) {
+/* ===== DIVIDIR GRUPOS EN PÁGINAS DE ALTURA CONTROLADA ===== */
+function dividirGruposEnPaginas(grupos, maxAltura = 2800) {
+  const paginas = [];
+  let paginaActual = [];
+  let alturaActual = 400; // Altura base (header + día)
+  
+  grupos.forEach(grupo => {
+    const alturaGrupo = 200 + (grupo.length * 250);
+    
+    // Si el grupo solo ya es más grande que la altura máxima
+    if (alturaGrupo > maxAltura) {
+      // Este caso no debería darse con nuestros datos, pero por si acaso
+      console.warn('Grupo demasiado grande:', grupo);
+      return;
+    }
+    
+    // Si añadir este grupo supera la altura máxima, empezamos nueva página
+    if (alturaActual + alturaGrupo > maxAltura && paginaActual.length > 0) {
+      paginas.push(paginaActual);
+      paginaActual = [grupo];
+      alturaActual = 400 + alturaGrupo;
+    } else {
+      paginaActual.push(grupo);
+      alturaActual += alturaGrupo;
+    }
+  });
+  
+  // Añadir la última página
+  if (paginaActual.length > 0) {
+    paginas.push(paginaActual);
+  }
+  
+  return paginas;
+}
+
+/* ===== CREAR PÁGINA CON GRUPOS ===== */
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimeraPagina = true, esUltimaPagina = true, numPartidosTotal = null) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
   
-  let totalPartidos = 0;
-  grupos.forEach(g => totalPartidos += g.length);
+  // Calcular total de partidos en esta página
+  let partidosEnPagina = 0;
+  grupos.forEach(g => partidosEnPagina += g.length);
+  
+  let diaHTML = `
+    <div class="dia-container">
+      <div class="dia-semana">
+        <div class="dia">${diaInfo.dia}</div>
+        <div class="fecha">${diaInfo.fecha}</div>
+  `;
+  
+  // Mostrar información de parte si hay múltiples páginas
+  if (!esPrimeraPagina || !esUltimaPagina) {
+    diaHTML += `<div style="font-size:20px; color:gold; margin-top:8px; background:rgba(0,0,0,0.3); padding:5px 15px; border-radius:30px;">${partidosEnPagina} partidu · ${numPagina - totalPaginas + 1}/${totalPaginas - (numPagina - 1)}</div>`;
+  } else {
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:5px;">${partidosEnPagina} partidu</div>`;
+  }
+  
+  diaHTML += `
+      </div>
+    </div>
+  `;
   
   p.innerHTML = crearHeader() + `
     <div class="contenido">
-      <div class="dia-container">
-        <div class="dia-semana">
-          <div class="dia">${diaInfo.dia}</div>
-          <div class="fecha">${diaInfo.fecha}</div>
-          <div style="font-size:16px; color:gold; margin-top:5px;">${totalPartidos} partidu</div>
-        </div>
-      </div>
+      ${diaHTML}
       <div id="grupos-${numPagina}"></div>
     </div>
-  ` + crearFooter(numPagina, totalPaginas);
+  ` + crearFooter(numPagina, totalPaginas, esUltimaPagina);
   
   document.getElementById("contenedorPaginas").appendChild(p);
   
@@ -644,8 +692,15 @@ function crearPaginaDia(diaInfo, grupos, numPagina, totalPaginas) {
     gruposContainer.appendChild(grupo);
   });
   
-  // Añadir indicador de scroll si hay muchos partidos
-  añadirScrollIndicator(p, totalPartidos);
+  // Añadir indicador de continuación si no es la última página
+  if (!esUltimaPagina) {
+    const indicator = document.createElement("div");
+    indicator.className = "continuation-indicator";
+    indicator.innerHTML = `
+      <span>👇</span> JARRAITU <span>👇</span>
+    `;
+    gruposContainer.appendChild(indicator);
+  }
   
   // Calcular altura total para los pelotazos
   setTimeout(() => {
@@ -709,9 +764,10 @@ Promise.all([
     partidosPorDia[diaKey].push(p);
   });
   
-  // Crear UNA página por día (sin dividir)
+  // Crear páginas por día, dividiendo cuando sea necesario
   const dias = Object.keys(partidosPorDia).sort();
-  let contadorPaginas = 1;
+  let contadorPaginasGlobal = 1;
+  const paginasInfo = [];
   
   dias.forEach(diaKey => {
     const fecha = new Date(diaKey);
@@ -726,26 +782,38 @@ Promise.all([
     });
     
     const grupos = Object.values(gruposMap);
+    const totalPartidosDia = partidosPorDia[diaKey].length;
     
-    crearPaginaDia(
-      diaInfo,
-      grupos,
-      contadorPaginas,
-      null // Total se calculará después
-    );
+    // Dividir en páginas según altura
+    const paginasDia = dividirGruposEnPaginas(grupos);
     
-    contadorPaginas++;
+    paginasDia.forEach((gruposPagina, index) => {
+      paginasInfo.push({
+        diaInfo,
+        grupos: gruposPagina,
+        esPrimera: index === 0,
+        esUltima: index === paginasDia.length - 1,
+        numPartidosTotal: totalPartidosDia
+      });
+    });
   });
   
-  // Actualizar total de páginas en los indicadores
-  const totalPaginas = document.querySelectorAll(".pagina").length;
-  document.querySelectorAll(".page-indicator").forEach((el, index) => {
-    el.textContent = `${index + 1}/${totalPaginas}`;
+  // Crear todas las páginas
+  paginasInfo.forEach((info, index) => {
+    crearPaginaConGrupos(
+      info.diaInfo,
+      info.grupos,
+      index + 1,
+      paginasInfo.length,
+      info.esPrimera,
+      info.esUltima,
+      info.numPartidosTotal
+    );
   });
   
   document.getElementById('pageCounter').innerHTML = 
-    totalPaginas > 0 
-      ? `📱 ${totalPaginas} día${totalPaginas > 1 ? 's' : ''} con partidos esta semana (con scroll)` 
+    paginasInfo.length > 0 
+      ? `📱 ${paginasInfo.length} story${paginasInfo.length > 1 ? 's' : ''} generada${paginasInfo.length > 1 ? 's' : ''} (divididas por altura)` 
       : '📱 No hay partidos esta semana';
 });
 
@@ -759,7 +827,6 @@ async function exportarTodasLasStories() {
     
     document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
     
-    // Configuración para capturar TODA la altura
     const canvas = await html2canvas(pagina, {
       scale: 2,
       useCORS: true,
@@ -768,28 +835,27 @@ async function exportarTodasLasStories() {
       allowTaint: false,
       logging: false,
       scrollY: -window.scrollY,
-      height: pagina.offsetHeight, // Capturar altura completa
+      height: pagina.offsetHeight,
       windowHeight: pagina.offsetHeight
     });
     
     const a = document.createElement("a");
-    
-    // Para stories con scroll, guardamos la imagen completa
-    // TikTok e Instagram permiten hacer scroll en imágenes largas
     a.href = canvas.toDataURL("image/jpeg", 0.95);
     
-    // Extraer el día del indicador
+    // Extraer información para el nombre del archivo
     const diaElem = pagina.querySelector('.dia');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
-    // Obtener número de partidos
-    const partidosElem = pagina.querySelector('.dia-semana div:last-child');
-    let numPartidos = '';
-    if (partidosElem && partidosElem.textContent.includes('partidu')) {
-      numPartidos = `-${partidosElem.textContent.replace(' partidu', '').trim()}`;
+    const infoElem = pagina.querySelector('.dia-semana div:last-child');
+    let sufijo = '';
+    if (infoElem && infoElem.textContent.includes('/')) {
+      const match = infoElem.textContent.match(/(\d+)\/(\d+)/);
+      if (match) {
+        sufijo = `-parte-${match[1]}`;
+      }
     }
     
-    a.download = `etxekoak-${dia}${numPartidos}-${(i + 1).toString().padStart(2, '0')}.jpg`;
+    a.download = `etxekoak-${dia}${sufijo}-${(i + 1).toString().padStart(2, '0')}.jpg`;
     a.click();
     
     await new Promise(resolve => setTimeout(resolve, 500));
