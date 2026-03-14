@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<title>EMAITZAK - LARRAUN PILOTA ELKARTEA - STORIES</title>
+<title>EMAITZAK POR CATEGORÍAS - LARRAUN PILOTA ELKARTEA</title>
  
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -16,68 +16,26 @@ body{
   margin:0;
   background:#184d33;
   font-family:Arial, sans-serif;
-  padding:20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.exportar{
-  text-align:center;
-  margin:20px auto;
-  max-width:1200px;
-  width: 100%;
+.pagina{
+  width:900px;
+  margin:auto;
+  background:#fff;
 }
-
-.exportar button{
-  background:#ff0050;
-  color:white;
-  border:none;
-  padding:12px 30px;
-  border-radius:30px;
-  font-size:18px;
-  font-weight:bold;
-  cursor:pointer;
-  margin:5px;
-  box-shadow:0 4px 15px rgba(0,0,0,.3);
-  transition:transform .2s;
-}
-
-.exportar button:hover{
-  transform:scale(1.05);
-}
-
-#pageCounter{
-  color:white;
-  font-size:16px;
-  margin-top:10px;
-}
-
-#contenedorPaginas {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-/* ===== PÁGINA STORY ===== */
-.pagina-story{
-  width:1080px;
-  margin:30px auto;
+.pagina-a3{
+  width:1123px;      /* A3 proporcional */
+  min-height:1587px;
+  background:#fff;
+  margin:0 auto;
   display:flex;
   flex-direction:column;
-  background:linear-gradient(145deg, #2a6e46, #1e4f32);
-  position:relative;
-  box-shadow:0 0 30px rgba(0,0,0,.5);
-  border-radius:30px;
-  overflow: visible;
-  min-height: 500px;
+  justify-content:space-between;
 }
-
 /* ================= HEADER ================= */
 
 .header{
-  height:140px;
+  height:110px;
   background:#0b2350;
   color:#9cff9c;
   display:flex;
@@ -85,57 +43,16 @@ body{
   justify-content:center;
   position:relative;
   font-family:'Orbitron';
-  font-size:28px;
+  font-size:22px;
   letter-spacing:2px;
-  border-radius: 30px 30px 0 0;
 }
 
 .header img{
   position:absolute;
-  height:90px;
+  height:80px;
 }
 .logo-izq{left:20px}
 .logo-der{right:20px}
-
-/* ===== INDICADOR CATEGORÍA ===== */
-.categoria-container{
-  text-align:center;
-  margin:25px 0 15px;
-  position:relative;
-}
-
-.categoria-badge{
-  display:inline-block;
-  background:rgba(255,215,0,0.25);
-  backdrop-filter:blur(5px);
-  padding:15px 40px;
-  border-radius:60px;
-  border:3px solid gold;
-  box-shadow:0 10px 20px rgba(0,0,0,.3);
-}
-
-.categoria-nombre{
-  font-size:42px;
-  font-weight:900;
-  color:white;
-  text-transform:uppercase;
-  letter-spacing:3px;
-  text-shadow:3px 3px 0 #000, 5px 5px 10px rgba(0,0,0,.5);
-}
-
-.categoria-info{
-  font-size:20px;
-  color:gold;
-  margin-top:8px;
-  font-weight:bold;
-}
-
-/* ================= CONTENIDO ====== 
-*/
-.contenido-story{
-  padding:20px 30px;
-  flex: 1;
-}
 
 /* ================= TITULOS ================= */
 
@@ -143,39 +60,23 @@ body{
   font-family:'Orbitron';
   color:#fff;
   text-align:center;
-  padding:12px;
+  padding:8px;
   margin:18px 0 12px;
   letter-spacing:2px;
-  font-size:22px;
-  border-radius: 40px;
+  font-size:18px;
+  border-radius: 4px;
 }
-
-/* 🔴 NKJ */
-.bloque-nkj{
-  background:#c60000;
-}
-
-/* 🟢 Oficial */
-.bloque-ofizial{
-  background:#0f7a2f;
-}
-
-/* ⚫ No oficial */
-.bloque-ezofizial{
-  background:#111;
-}
-
 
 /* ================= PARTIDO ================= */
 
 .partido{
   position:relative;
   background:#fff;
-  border-radius:15px;
+  border-radius:6px;
   margin-bottom:26px;
-  overflow:visible;
-  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  overflow:visible;   /* 🔥 IMPORTANTE */
 }
+
 
 .partido::after{
   content:"";
@@ -188,13 +89,13 @@ body{
   background-size:12px 8px;
 }
 
+
 .partido::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   opacity:.45;
-  border-radius:15px;
 }
 
 .win::before{ background-image: var(--pelotas-verdes); }
@@ -205,14 +106,13 @@ body{
 
 .partido-header{
   font-family:'Share Tech Mono', monospace;
-  font-size:14px;
-  padding:6px 12px;
+  font-size:12px;
+  padding:4px 8px;
   color:#fff;
   text-decoration:none;
   letter-spacing:1px;
   display:flex;
   align-items:center;
-  border-radius:15px 15px 0 0;
 }
 
 .partido-header span{
@@ -238,15 +138,14 @@ body{
 
 .fila{
   display:grid;
-  grid-template-columns: 80px 1fr 150px 1fr 80px;
+  grid-template-columns: 2fr 10fr 7fr 10fr 2fr;
   align-items:center;
-  padding:15px 10px;
-  gap:10px;
+  padding:12px 8px;
 }
 
 .logo{
-  width:70px;
-  height:70px;
+  width:60px;
+  height:60px;
   object-fit:contain;
 }
 
@@ -267,21 +166,21 @@ body{
   letter-spacing:1px;
 }
 .local{
-  padding-left:12px;
+  padding-left:12px;   /* espacio entre logo y nombre */
 }
 
 .visit{
-  padding-right:12px;
+  padding-right:12px;  /* espacio entre nombre y logo */
 }
 .visit{text-align:right}
 
 .principal{
-  font-size:20px;
+  font-size:18px;
   font-weight:700;
 }
 
 .pelotaris{
-  font-size:10px;
+  font-size:7px;
   font-weight:700;
 }
 
@@ -296,7 +195,7 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:48px;
+  font-size:42px;
   font-weight:900;
   white-space:nowrap;
   letter-spacing:2px;
@@ -310,20 +209,20 @@ body{
 }
 
 .icono-wrapper{
-  width:40px;
+  width:32px;
   display:flex;
   justify-content:center;
 }
 
 .icono-resultado{
-  width:32px;
-  height:32px;
+  width:26px;
+  height:26px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:20px;
+  font-size:16px;
   font-weight:900;
-  border-radius:8px;
+  border-radius:4px;
   color:#fff;
 }
 
@@ -331,7 +230,7 @@ body{
 .pierde{ background:#e53935; }
 
 .sets{
-  font-size:14px;
+  font-size:13px;
   margin-top:4px;
   font-weight:700;
 }
@@ -340,10 +239,10 @@ body{
 .red{color:#b71c1c}
 
 .fase{
-  font-size:12px;
+  font-size:10px;
   font-weight:700;
-  padding:3px 8px;
-  border-radius:8px;
+  padding:2px 6px;
+  border-radius:6px;
   background:#e7d3c2;
   color:#5a2d0c;
   white-space:nowrap;
@@ -357,7 +256,6 @@ body{
   font-weight:900;
   box-shadow:0 0 6px rgba(0,0,0,.3);
 }
-
 /* ================= FINALA BORDE DORADO ================= */
 
 .partido-finala{
@@ -366,82 +264,27 @@ body{
     0 0 0 2px #f7e27a inset,
     0 0 12px rgba(201,162,39,.7);
 }
-
-/* ===== INDICADOR DE CONTINUACIÓN ===== */
-.continuation-indicator {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin: 40px 0 30px;
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  background: rgba(0,0,0,0.6);
-  padding: 25px;
-  border-radius: 60px;
-  backdrop-filter: blur(5px);
-  border: 4px solid gold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.continuation-indicator span {
-  animation: bounce 2s infinite;
-  font-size: 48px;
-  display: inline-block;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-20px); }
-  60% { transform: translateY(-10px); }
-}
-
-/* ===== INDICADOR PÁGINA ===== */
-.page-indicator{
-  position:absolute;
-  bottom:25px;
-  right:35px;
-  background:rgba(0,0,0,.7);
-  color:white;
-  padding:12px 25px;
-  border-radius:40px;
-  font-size:22px;
-  font-weight:bold;
-  border:3px solid gold;
-  z-index:100;
-  backdrop-filter:blur(5px);
-}
-
 /* ================= PATROCINADORES ================= */
 
 .patrocinadores{
   padding:25px 10px;
   text-align:center;
-  background:linear-gradient(#2f2f2f, #1a1a1a);
-  border-radius: 0 0 30px 30px;
-  border-top:3px solid gold;
 }
 
 .patro-titulo{
   font-family:'Orbitron';
-  font-size:24px;
+  font-size:20px;
   margin-bottom:14px;
-  color:white;
 }
 
 .patro-grid{
   display:grid;
-  grid-template-columns:repeat(8, minmax(0,1fr));
+  grid-template-columns:repeat(9, minmax(0,1fr));
   gap:14px;
   width:100%;
-  max-width:1000px;
+  max-width:860px;      /* 🔵 límite real dentro de la página */
   margin:0 auto;
-  padding:0 20px;
+  padding:0 20px;       /* 🔵 respeta márgenes */
   box-sizing:border-box;
   justify-items:center;
   align-items:center;
@@ -449,46 +292,76 @@ body{
 
 .patro-grid img{
   width:100%;
-  max-width:90px;
-  height:50px;
+  max-width:80px;
+  height:46px;
   object-fit:contain;
-  background:white;
-  padding:5px;
-  border-radius:10px;
+}
+/* ================= BOTÓN FLOTANTE ================= */
+
+#btnExportar{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+  padding:10px 18px;
+  background:#0b2350;
+  color:#9cff9c;
+  border:none;
+  font-family:'Orbitron';
+  cursor:pointer;
+  border-radius:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
 }
 
-/* ================= PELOTAS ================= */
-
-:root {
-  --pelotas-verdes: radial-gradient(circle 3px at 10% 20%, #19c93f 98%, transparent), radial-gradient(circle 4px at 30% 40%, #19c93f 98%, transparent);
-  --pelotas-rojas: radial-gradient(circle 3px at 15% 25%, #ff6b6b 98%, transparent), radial-gradient(circle 4px at 35% 45%, #ff6b6b 98%, transparent);
-  --pelotas-grises: radial-gradient(circle 3px at 20% 30%, #bdbdbd 98%, transparent), radial-gradient(circle 4px at 40% 50%, #bdbdbd 98%, transparent);
+#btnExportar:hover{
+  transform:scale(1.05);
 }
+
+/* 🔥 NO IMPRIMIR */
+@media print {
+
+  .no-print{
+    display:none !important;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  @page{
+    size:A4;
+    margin:10mm;
+  }
+
+  .pagina{
+    width:100%;
+  }
+}
+
+/* ================= CATEGORÍA TÍTULO ================= */
+.categoria-titulo {
+  font-family: 'Orbitron';
+  font-size: 24px;
+  text-align: center;
+  padding: 15px;
+  margin: 20px 0;
+  color: white;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
 </style>
 </head>
 
 <body>
-
-<div class="exportar">
-  <div>
-    <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES POR CATEGORÍA</button>
-  </div>
-  <div id="pageCounter"></div>
-</div>
-
-<div id="contenedorPaginas"></div>
+<button id="btnExportar" class="no-print">DESCARGAR JPG</button>
+<div class="pagina" id="contenedor-paginas"></div>
 
 <script>
 let FASES = {};
-let CATEGORIAS = {};
-let CATEGORIAS_EDAD = {};
-
-/* ================= CARGAR CATEGORÍAS DE EDAD ================= */
-function cargarCategoriasEdad() {
-  return fetch("data/categoriaedad.json")
-    .then(r => r.json())
-    .catch(() => ({}));
-}
+let CATEGORIAS = {};  
+let ORDEN_CATEGORIAS = [];
 
 /* ================= PELOTAS ================= */
 
@@ -509,37 +382,11 @@ document.documentElement.style.setProperty('--pelotas-grises', generarPelotas('#
 
 /* ================= UTIL ================= */
 
-function esPartidoChicas(texto) {
-  if (!texto) return false;
-  const textoLower = texto.toLowerCase();
-  const palabrasClave = ['neska', 'neskak', 'emakume', 'emakumea', 'emakumeak', 'femenino', 'femenina'];
-  return palabrasClave.some(palabra => textoLower.includes(palabra));
-}
-
-function obtenerCategoriaEdad(texto) {
-  if (!texto) return 'BESTEAK';
-  
-  // Primero comprobar si es de chicas
-  if (esPartidoChicas(texto)) {
-    return 'NESKAK';
-  }
-  
-  const textoLower = texto.toLowerCase();
-  
-  for (const cat in CATEGORIAS_EDAD) {
-    if (textoLower.includes(cat.toLowerCase())) {
-      return cat;
-    }
-  }
-  
-  return 'BESTEAK';
-}
-
 function dividirEquipo(txt){
   txt = txt.replace(" (","<br>(");
-  const partes = txt.split(")");
-  const principal = partes[0] + ")";
-  const resto = partes.slice(1).join(")").trim();
+  const partes=txt.split(")");
+  const principal=partes[0]+")";
+  const resto=partes.slice(1).join(")").trim();
   return {principal, resto};
 }
 
@@ -552,8 +399,8 @@ function logoClub(nombre){
 
   const limpio = nombre
     .split("(")[0]
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize("NFD")                 // ✅ separa acentos
+    .replace(/[\u0300-\u036f]/g, "")  // ✅ elimina acentos
     .replace(/[.,]/g,"")
     .replace(/–/g,"-")
     .replace(/-/g," ")
@@ -571,18 +418,18 @@ function logoClub(nombre){
 
 function estado(p){
 
-  const texto = (p.modalidad || "").toLowerCase();
+  const texto=(p.modalidad||"").toLowerCase();
   if(texto.includes("atseden") || texto.includes("descanso"))
     return "rest";
 
   if(!p.tanteoa) return "";
 
-  const [a,b] = p.tanteoa.split("-").map(Number);
+  const [a,b]=p.tanteoa.split("-").map(Number);
 
   if((p.etxekoa||"").includes("LARRAUN"))
-    return a > b ? "win" : "lose";
+    return a>b?"win":"lose";
   else
-    return b > a ? "win" : "lose";
+    return b>a?"win":"lose";
 }
 
 function ordenar(lista){
@@ -590,6 +437,7 @@ function ordenar(lista){
   return lista.sort((a,b)=>{
 
     const esDescanso = p => {
+
       const texto = (
         (p.modalidad || "") + " " +
         (p.etxekoa || "") + " " +
@@ -604,41 +452,189 @@ function ordenar(lista){
     if(esDescanso(a) && !esDescanso(b)) return 1;
     if(!esDescanso(a) && esDescanso(b)) return -1;
 
-    const fa = new Date(a.fecha + "T" + (a.hora || "00:00"));
-    const fb = new Date(b.fecha + "T" + (b.hora || "00:00"));
+    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
+    const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
 
-    return fa - fb;
+    return fa-fb;
   });
 
 }
 
 function filtrarPeriodo(lista){
 
-  const hoy = new Date();
+  const hoy=new Date();
   hoy.setHours(23,59,59,999);
 
-  const diaSemana = hoy.getDay();
-  const diasAtras = diaSemana === 0 ? 6 : diaSemana - 1;
+  const diaSemana=hoy.getDay();
+  const diasAtras=diaSemana===0?6:diaSemana-1;
 
-  const inicioSemanaActual = new Date(hoy);
-  inicioSemanaActual.setDate(hoy.getDate() - diasAtras);
+  const inicioSemanaActual=new Date(hoy);
+  inicioSemanaActual.setDate(hoy.getDate()-diasAtras);
   inicioSemanaActual.setHours(0,0,0,0);
 
-  const inicioSemanaPasada = new Date(inicioSemanaActual);
-  inicioSemanaPasada.setDate(inicioSemanaActual.getDate() - 7);
+  const inicioSemanaPasada=new Date(inicioSemanaActual);
+  inicioSemanaPasada.setDate(inicioSemanaActual.getDate()-7);
 
-  return lista.filter(p => {
-    const f = new Date(p.fecha + "T00:00");
-    return f >= inicioSemanaPasada && f <= hoy;
+  return lista.filter(p=>{
+    const f=new Date(p.fecha+"T00:00");
+    return f>=inicioSemanaPasada && f<=hoy;
   });
 }
 
+/* ================= DETECTAR CATEGORÍA ================= */
+function detectarCategoria(partido) {
+  const textoCompleto = (
+    (partido.lehiaketa || "") + " " + 
+    (partido.modalidad || "") + " " +
+    (partido.categoria || "")
+  ).toLowerCase();
+  
+  for (const cat in CATEGORIAS) {
+    if (textoCompleto.includes(cat.toLowerCase())) {
+      return cat;
+    }
+  }
+  
+  return "Besteak"; // Categoría por defecto
+}
+
+/* ================= RENDER ================= */
+function generarClasesCategorias(){
+
+  const style = document.createElement("style");
+  let css = "";
+
+  for(const cat in CATEGORIAS){
+    css += `
+      .cat-${cat.replace(/\s+/g, '-')}{
+        background-color:${CATEGORIAS[cat]} !important;
+      }
+    `;
+  }
+  
+  // Añadir clase por defecto
+  css += `
+    .cat-Besteak {
+      background-color: #6c757d !important;
+    }
+  `;
+
+  style.innerHTML = css;
+  document.head.appendChild(style);
+}
+
+function obtenerClaseCategoria(categoria){
+  return "cat-" + categoria.replace(/\s+/g, '-');
+}
+
+function crearPartido(p){
+
+    const fronton = (p.fronton || "").toLowerCase();
+
+  const esAzul = fronton.includes("lekunberri") ||
+                 fronton.includes("aldatz");
+
+  const colorHeader = esAzul ? "azul" : "granate";
+
+
+  const est=estado(p);
+  const eq1=dividirEquipo(p.etxekoa);
+  const eq2=dividirEquipo(p.kanpokoak);
+  const [a,b]=(p.tanteoa||"").split("-");
+
+  let icono="";
+
+const faseTexto = p.lehiaketa || p.modalidad || "";
+const esFinala = faseTexto.toUpperCase().includes("FINALA");
+
+if(est==="win"){
+  if(esFinala)
+    icono=`<div class="icono-resultado gana">🥇</div>`;
+  else
+    icono=`<div class="icono-resultado gana">✔</div>`;
+}
+else if(est==="lose"){
+  if(esFinala)
+    icono=`<div class="icono-resultado pierde">🥈</div>`;
+  else
+    icono=`<div class="icono-resultado pierde">✖</div>`;
+}
+
+  const div=document.createElement("div");
+  div.className = 
+  "partido " + 
+  est + " " + 
+  (esFinala ? " partido-finala" : "");  
+  div.innerHTML=`
+    <a href="${p.url||'#'}" target="_blank"
+       class="partido-header ${colorHeader}">
+      ${(()=>{
+   const faseData = extraerFase(p.lehiaketa || p.modalidad);
+
+   return `
+     <span>
+       ${p.fecha} · ${p.fronton} ·
+       ${p.url?`<u>${faseData.limpio}</u>`:faseData.limpio}
+       ${faseData.etiqueta}
+     </span>
+   `;
+})()}
+    </a>
+
+    <div class="fila">
+
+      ${logoClub(p.etxekoa)}
+
+      <div class="local">
+        <div class="principal">${eq1.principal}</div>
+        ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
+      </div>
+
+      <div class="score">
+        <div class="resultado-linea">
+          <span class="blue">${a||""}</span>
+          <span class="icono-wrapper">${icono}</span>
+          <span class="red">${b||""}</span>
+        </div>
+        ${p.sets?`<div class="sets">${p.sets}</div>`:""}
+      </div>
+
+      <div class="visit">
+        <div class="principal">${eq2.principal}</div>
+        ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
+      </div>
+
+      ${logoClub(p.kanpokoak)}
+
+    </div>
+  `;
+
+  return div;
+}
+
+function bloque(titulo, lista, colorCategoria){
+
+  if(!lista.length) return document.createDocumentFragment();
+
+  const frag = document.createDocumentFragment();
+
+  const h = document.createElement("div");
+  h.className = "titulo-seccion";
+  h.textContent = titulo;
+  h.style.backgroundColor = colorCategoria;
+
+  frag.appendChild(h);
+
+  lista.forEach(p => frag.appendChild(crearPartido(p)));
+
+  return frag;
+}
 function extraerFase(texto){
 
   if(!texto) return { limpio:texto, etiqueta:"" };
 
   const fasesOrdenadas = Object.values(FASES)
-    .sort((a,b) => b.length - a.length);
+    .sort((a,b)=> b.length - a.length);
 
   for(const fase of fasesOrdenadas){
 
@@ -662,193 +658,100 @@ function extraerFase(texto){
   return { limpio:texto, etiqueta:"" };
 }
 
-/* ================= RENDER ================= */
-
-function crearPartido(p){
-
-  const fronton = (p.fronton || "").toLowerCase();
-  const esAzul = fronton.includes("lekunberri") || fronton.includes("aldatz");
-  const colorHeader = esAzul ? "azul" : "granate";
-
-  const est = estado(p);
-  const eq1 = dividirEquipo(p.etxekoa);
-  const eq2 = dividirEquipo(p.kanpokoak);
-  const [a,b] = (p.tanteoa || "").split("-");
-
-  let icono = "";
-
-  const faseTexto = p.lehiaketa || p.modalidad || "";
-  const esFinala = faseTexto.toUpperCase().includes("FINALA");
-
-  if(est === "win"){
-    icono = esFinala 
-      ? `<div class="icono-resultado gana">🥇</div>`
-      : `<div class="icono-resultado gana">✔</div>`;
-  }
-  else if(est === "lose"){
-    icono = esFinala 
-      ? `<div class="icono-resultado pierde">🥈</div>`
-      : `<div class="icono-resultado pierde">✖</div>`;
-  }
-
-  const div = document.createElement("div");
-  div.className = "partido " + est + (esFinala ? " partido-finala" : "");
-  
-  div.innerHTML = `
-    <a href="${p.url || '#'}" target="_blank"
-       class="partido-header ${colorHeader}">
-      ${(() => {
-        const faseData = extraerFase(p.lehiaketa || p.modalidad);
-        return `
-          <span>
-            ${p.fecha} · ${p.fronton} ·
-            ${p.url ? `<u>${faseData.limpio}</u>` : faseData.limpio}
-            ${faseData.etiqueta}
-          </span>
-        `;
-      })()}
-    </a>
-
-    <div class="fila">
-
-      ${logoClub(p.etxekoa)}
-
-      <div class="local">
-        <div class="principal">${eq1.principal}</div>
-        ${eq1.resto ? `<div class="pelotaris">${eq1.resto}</div>` : ""}
-      </div>
-
-      <div class="score">
-        <div class="resultado-linea">
-          <span class="blue">${a || ""}</span>
-          <span class="icono-wrapper">${icono}</span>
-          <span class="red">${b || ""}</span>
-        </div>
-        ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
-      </div>
-
-      <div class="visit">
-        <div class="principal">${eq2.principal}</div>
-        ${eq2.resto ? `<div class="pelotaris">${eq2.resto}</div>` : ""}
-      </div>
-
-      ${logoClub(p.kanpokoak)}
-
-    </div>
-  `;
-
-  return div;
-}
-
-/* ===== DIVIDIR PARTIDOS EN PÁGINAS POR CATEGORÍA ===== */
-function dividirPartidosPorCategoria(partidos, maxPartidosPorPagina = 4) {
-  const paginas = [];
-  let paginaActual = [];
-  let partidosEnPaginaActual = 0;
+/* ================= AGRUPAR POR CATEGORÍA ================= */
+function agruparPorCategoria(partidos) {
+  const grupos = {};
   
   partidos.forEach(partido => {
-    if (partidosEnPaginaActual >= maxPartidosPorPagina) {
-      paginas.push(paginaActual);
-      paginaActual = [partido];
-      partidosEnPaginaActual = 1;
-    } else {
-      paginaActual.push(partido);
-      partidosEnPaginaActual++;
+    const categoria = detectarCategoria(partido);
+    if (!grupos[categoria]) {
+      grupos[categoria] = [];
     }
+    grupos[categoria].push(partido);
   });
   
-  if (paginaActual.length > 0) {
-    paginas.push(paginaActual);
-  }
-  
-  return paginas;
+  return grupos;
 }
 
-/* ===== CREAR PÁGINA STORY PARA UNA CATEGORÍA ===== */
-function crearPaginaCategoria(nombreCategoria, partidos, numPagina, totalPaginas, esPrimeraPagina = true, esUltimaPagina = true) {
-  const p = document.createElement("div");
-  p.className = "pagina-story";
-  p.id = `pagina-${numPagina}`;
-  
-  const headerHTML = `
-    <div class="header">
-      <img src="images/logo-larraun.png" class="logo-izq">
-      EMAITZAK
-      <img src="images/logo-fnp.png" class="logo-der">
-    </div>
-  `;
-  
-  let categoriaHTML = `
-    <div class="categoria-container">
-      <div class="categoria-badge">
-        <div class="categoria-nombre">${nombreCategoria}</div>
-  `;
-  
-  if (!esPrimeraPagina || !esUltimaPagina) {
-    categoriaHTML += `<div class="categoria-info">⚡ ${partidos.length} partidu · ZATIA ${numPagina}</div>`;
-  } else {
-    categoriaHTML += `<div class="categoria-info">${partidos.length} partidu</div>`;
-  }
-  
-  categoriaHTML += `
-      </div>
-    </div>
-  `;
-  
-  p.innerHTML = headerHTML + `
-    <div class="contenido-story">
-      ${categoriaHTML}
-      <div id="partidos-${numPagina}"></div>
-    </div>
-  `;
-  
-  document.getElementById("contenedorPaginas").appendChild(p);
-  
-  // Añadir partidos
-  const partidosContainer = p.querySelector(`#partidos-${numPagina}`);
-  
-  partidos.forEach(partido => {
-    partidosContainer.appendChild(crearPartido(partido));
+/* ================= ORDENAR CATEGORÍAS ================= */
+function ordenarCategorias(categorias) {
+  // Primero las que están en ORDEN_CATEGORIAS, luego el resto alfabéticamente
+  return categorias.sort((a, b) => {
+    const indexA = ORDEN_CATEGORIAS.indexOf(a);
+    const indexB = ORDEN_CATEGORIAS.indexOf(b);
+    
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    return a.localeCompare(b);
   });
+}
+
+/* ================= CARGA ================= */
+
+Promise.all([
+ fetch("data/resultados-larraun.json").then(r=>r.json()),
+ fetch("data/resultados-no-oficiales.json").then(r=>r.json()),
+ fetch("data/fases.json").then(r=>r.json()),
+ fetch("data/categoriacartel.json").then(r=>r.json())
+]).then(([larraun,noOficiales,fases,categorias])=>{
+
+  FASES = fases;
+  CATEGORIAS = categorias;
+  ORDEN_CATEGORIAS = Object.keys(categorias);
+
+  generarClasesCategorias();
+
+  const todos = filtrarPeriodo([...larraun, ...noOficiales]);
   
-  // AÑADIR INDICADOR DE CONTINUACIÓN SI NO ES LA ÚLTIMA PÁGINA
-  if (!esUltimaPagina) {
-    const indicator = document.createElement("div");
-    indicator.className = "continuation-indicator";
-    indicator.innerHTML = `
-      <span>👇</span> JARRAITU <span>👇</span>
+  // Agrupar por categoría
+  const grupos = agruparPorCategoria(todos);
+  
+  // Ordenar categorías
+  const categoriasOrdenadas = ordenarCategorias(Object.keys(grupos));
+  
+  const contenedor = document.getElementById("contenedor-paginas");
+  contenedor.innerHTML = ''; // Limpiar
+  
+  // Crear página para cada categoría
+  categoriasOrdenadas.forEach((categoria, index) => {
+    const partidosCategoria = ordenar(grupos[categoria]);
+    const colorCategoria = CATEGORIAS[categoria] || "#6c757d";
+    
+    const pagina = document.createElement("div");
+    pagina.className = "pagina-a3";
+    pagina.id = `pagina-${index}`;
+    
+    // Header
+    const header = document.createElement("div");
+    header.className = "header";
+    header.innerHTML = `
+      <img src="images/logo-larraun.png" class="logo-izq">
+      EMAITZAK - LARRAUN PILOTA ELKARTEA
+      <img src="images/logo-fnp.png" class="logo-der">
     `;
-    partidosContainer.appendChild(indicator);
-  }
-  
-  return p;
-}
-
-/* ===== CREAR PÁGINA FINAL CON PATROCINADORES ===== */
-function crearPaginaPatrocinadores(numPagina, totalPaginas) {
-  const p = document.createElement("div");
-  p.className = "pagina-story";
-  p.id = `pagina-${numPagina}`;
-  
-  const headerHTML = `
-    <div class="header">
-      <img src="images/logo-larraun.png" class="logo-izq">
-      EMAITZAK
-      <img src="images/logo-fnp.png" class="logo-der">
-    </div>
-  `;
-  
-  const patroHTML = `
-    <div class="categoria-container">
-      <div class="categoria-badge">
-        <div class="categoria-nombre">BABESLEAK</div>
-        <div class="categoria-info">Eskerrik asko!</div>
-      </div>
-    </div>
-  `;
-  
-  const footerHTML = `
-    <div class="patrocinadores">
+    
+    // Contenido
+    const contenido = document.createElement("div");
+    contenido.className = "contenido";
+    contenido.style.padding = "20px";
+    
+    // Título de categoría
+    const tituloCat = document.createElement("div");
+    tituloCat.className = "categoria-titulo";
+    tituloCat.style.backgroundColor = colorCategoria;
+    tituloCat.textContent = categoria.toUpperCase();
+    contenido.appendChild(tituloCat);
+    
+    // Añadir partidos
+    partidosCategoria.forEach(partido => {
+      contenido.appendChild(crearPartido(partido));
+    });
+    
+    // Footer
+    const footer = document.createElement("div");
+    footer.className = "patrocinadores";
+    footer.innerHTML = `
       <div class="patro-titulo">BABESLEAK</div>
       <div class="patro-grid">
         <img src="images/patrocinio/aliprox.jpg" alt="aliprox.jpg">
@@ -886,165 +789,56 @@ function crearPaginaPatrocinadores(numPagina, totalPaginas) {
         <img src="images/patrocinio/talleresotxotorena.jpg" alt="talleresotxotorena.jpg">
         <img src="images/patrocinio/veterinarialekunberri.jpg" alt="veterinarialekunberri.jpg">
       </div>
-    </div>
-  `;
-  
-  p.innerHTML = headerHTML + `
-    <div class="contenido-story">
-      ${patroHTML}
-    </div>
-    ${footerHTML}
-  `;
-  
-  document.getElementById("contenedorPaginas").appendChild(p);
-  
-  return p;
-}
-
-/* ================= CARGA PRINCIPAL ================= */
-
-Promise.all([
-  fetch("data/resultados-larraun.json").then(r => r.json()),
-  fetch("data/resultados-no-oficiales.json").then(r => r.json()),
-  fetch("data/fases.json").then(r => r.json()),
-  fetch("data/categoriacartel.json").then(r => r.json()),
-  cargarCategoriasEdad()
-]).then(([larraun, noOficiales, fases, categorias, categoriasEdad]) => {
-
-  FASES = fases;
-  CATEGORIAS = categorias;
-  CATEGORIAS_EDAD = categoriasEdad;
-
-  const todos = filtrarPeriodo([...larraun, ...noOficiales]);
-  
-  console.log('Total partidos:', todos.length);
-  
-  // Agrupar por categoría de edad
-  const partidosPorCategoria = {};
-  
-  todos.forEach(p => {
-    const textoLehiaketa = p.lehiaketa || p.modalidad || "";
-    const categoria = obtenerCategoriaEdad(textoLehiaketa);
+    `;
     
-    if (!partidosPorCategoria[categoria]) {
-      partidosPorCategoria[categoria] = [];
-    }
-    partidosPorCategoria[categoria].push(p);
-  });
-  
-  console.log('Categorías encontradas:', Object.keys(partidosPorCategoria));
-  
-  // Ordenar categorías (NESKAK primero, luego por edad, luego BESTEAK)
-  const categoriasOrdenadas = Object.keys(partidosPorCategoria).sort((a, b) => {
-    if (a === 'NESKAK') return -1;
-    if (b === 'NESKAK') return 1;
-    if (a === 'BESTEAK') return 1;
-    if (b === 'BESTEAK') return -1;
-    return a.localeCompare(b);
-  });
-  
-  let contadorPaginas = 1;
-  const todasLasPaginas = [];
-  
-  // Crear páginas para cada categoría
-  categoriasOrdenadas.forEach(categoria => {
-    const partidos = ordenar(partidosPorCategoria[categoria]);
+    pagina.appendChild(header);
+    pagina.appendChild(contenido);
+    pagina.appendChild(footer);
     
-    // Dividir la categoría en páginas (máx 4 partidos por página)
-    const paginasCategoria = dividirPartidosPorCategoria(partidos, 4);
-    
-    paginasCategoria.forEach((partidosPagina, index) => {
-      todasLasPaginas.push({
-        categoria,
-        partidos: partidosPagina,
-        esPrimera: index === 0,
-        esUltima: index === paginasCategoria.length - 1,
-        numPaginaEnCategoria: index + 1,
-        totalPaginasEnCategoria: paginasCategoria.length
-      });
-    });
+    contenedor.appendChild(pagina);
   });
-  
-  // Crear todas las páginas de partidos
-  todasLasPaginas.forEach((info, index) => {
-    crearPaginaCategoria(
-      info.categoria,
-      info.partidos,
-      index + 1,
-      todasLasPaginas.length + 1, // +1 por la página de patrocinadores
-      info.esPrimera,
-      info.esUltima
-    );
-  });
-  
-  // Añadir página final de patrocinadores
-  crearPaginaPatrocinadores(todasLasPaginas.length + 1, todasLasPaginas.length + 1);
-  
-  document.getElementById('pageCounter').innerHTML = 
-    todasLasPaginas.length > 0 
-      ? `📱 ${todasLasPaginas.length + 1} story${todasLasPaginas.length + 1 > 1 ? 's' : ''} generada${todasLasPaginas.length + 1 > 1 ? 's' : ''} (${Object.keys(partidosPorCategoria).length} categorías)` 
-      : '📱 No hay resultados esta semana';
+
 });
 
-/* ===== EXPORTAR ===== */
-async function exportarTodasLasStories() {
-  const paginas = document.querySelectorAll(".pagina-story");
-  const total = paginas.length;
-  
-  for (let i = 0; i < paginas.length; i++) {
-    const pagina = paginas[i];
-    
-    document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
-    
-    await document.fonts.ready;
-    
-    const imagenes = Array.from(pagina.images);
-    await Promise.all(
-      imagenes.map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = img.onerror = resolve;
-        });
-      })
-    );
-    
+document.getElementById("btnExportar").addEventListener("click", async () => {
+
+  const btn = document.getElementById("btnExportar");
+  btn.style.display = "none";
+
+  await document.fonts.ready;
+
+  // Esperar a que carguen todas las imágenes
+  const imagenes = Array.from(document.images);
+  await Promise.all(
+    imagenes.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        img.onload = img.onerror = resolve;
+      });
+    })
+  );
+
+  const paginas = document.querySelectorAll(".pagina-a3");
+  let contador = 1;
+
+  for (const pagina of paginas) {
+
     const canvas = await html2canvas(pagina, {
       scale: 2,
-      useCORS: true,
-      backgroundColor: '#1e4f32',
-      windowWidth: 1080,
-      allowTaint: false,
-      logging: false,
-      scrollY: -window.scrollY,
-      height: pagina.offsetHeight,
-      windowHeight: pagina.offsetHeight
+      backgroundColor: "#ffffff"
     });
-    
-    const a = document.createElement("a");
-    a.href = canvas.toDataURL("image/jpeg", 0.95);
-    
-    // Extraer información para el nombre del archivo
-    const categoriaElem = pagina.querySelector('.categoria-nombre');
-    const categoria = categoriaElem ? categoriaElem.textContent.trim() : 'emaitzak';
-    
-    // Ver si es múltiples partes
-    const infoElem = pagina.querySelector('.categoria-info');
-    let sufijo = '';
-    if (infoElem && infoElem.textContent.includes('ZATIA')) {
-      const match = infoElem.textContent.match(/ZATIA (\d+)/);
-      if (match) {
-        sufijo = `-parte-${match[1]}`;
-      }
-    }
-    
-    a.download = `emaitzak-${categoria}${sufijo}-${(i + 1).toString().padStart(2, '0')}.jpg`;
-    a.click();
-    
-    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const enlace = document.createElement("a");
+    enlace.download = `larraun-${pagina.querySelector('.categoria-titulo').textContent.toLowerCase().replace(/\s+/g, '-')}-${contador}.jpg`;
+    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+    enlace.click();
+
+    contador++;
   }
-  
-  document.getElementById('pageCounter').innerHTML = `✅ ¡${total} stories exportadas!`;
-}
+
+  btn.style.display = "block";
+});
+
 </script>
 
 </body>
