@@ -151,6 +151,7 @@ body{
 /* ===== CONTENIDO ===== */
 .contenido{
   padding:20px 30px;
+  flex: 1;
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -324,32 +325,36 @@ body{
 
 /* ===== INDICADOR DE CONTINUACIÓN ===== */
 .continuation-indicator {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin: 30px 0 20px;
+  margin: 40px 0 30px;
   color: white;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  background: rgba(0,0,0,0.5);
-  padding: 20px;
+  background: rgba(0,0,0,0.6);
+  padding: 25px;
   border-radius: 60px;
   backdrop-filter: blur(5px);
-  border: 3px solid gold;
+  border: 4px solid gold;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .continuation-indicator span {
   animation: bounce 2s infinite;
-  font-size: 36px;
+  font-size: 48px;
+  display: inline-block;
 }
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-15px); }
-  60% { transform: translateY(-8px); }
+  40% { transform: translateY(-20px); }
+  60% { transform: translateY(-10px); }
 }
 
 /* ===== INDICADOR PÁGINA ===== */
@@ -518,7 +523,7 @@ function crearHeader() {
 }
 
 /* ===== CREAR FOOTER ===== */
-function crearFooter(numPagina, totalPaginas, esUltimaPaginaDelDia = true) {
+function crearFooter(numPagina, totalPaginas) {
   return `
     <div class="footer">
       <div class="logos-grid"></div>
@@ -549,42 +554,29 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== CALCULAR ALTURA ESTIMADA ===== */
-function calcularAlturaEstimada(grupos) {
-  let altura = 400; // Header + día + márgenes
-  
-  grupos.forEach(grupo => {
-    altura += 200; // Header del grupo
-    altura += grupo.length * 250; // Cada partido
-  });
-  
-  return altura;
-}
-
-/* ===== DIVIDIR GRUPOS EN PÁGINAS DE ALTURA CONTROLADA ===== */
-function dividirGruposEnPaginas(grupos, maxAltura = 2800) {
+/* ===== DIVIDIR POR NÚMERO DE PARTIDOS (SIMPLE Y EFECTIVO) ===== */
+function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) {
   const paginas = [];
   let paginaActual = [];
-  let alturaActual = 400; // Altura base (header + día)
+  let partidosEnPaginaActual = 0;
   
   grupos.forEach(grupo => {
-    const alturaGrupo = 200 + (grupo.length * 250);
+    const tamañoGrupo = grupo.length;
     
-    // Si el grupo solo ya es más grande que la altura máxima
-    if (alturaGrupo > maxAltura) {
-      // Este caso no debería darse con nuestros datos, pero por si acaso
+    // Si el grupo solo ya supera el máximo, lo dividimos (no debería pasar)
+    if (tamañoGrupo > maxPartidosPorPagina) {
       console.warn('Grupo demasiado grande:', grupo);
       return;
     }
     
-    // Si añadir este grupo supera la altura máxima, empezamos nueva página
-    if (alturaActual + alturaGrupo > maxAltura && paginaActual.length > 0) {
+    // Si al añadir este grupo superamos el máximo, guardamos la página actual y empezamos nueva
+    if (partidosEnPaginaActual + tamañoGrupo > maxPartidosPorPagina && paginaActual.length > 0) {
       paginas.push(paginaActual);
       paginaActual = [grupo];
-      alturaActual = 400 + alturaGrupo;
+      partidosEnPaginaActual = tamañoGrupo;
     } else {
       paginaActual.push(grupo);
-      alturaActual += alturaGrupo;
+      partidosEnPaginaActual += tamañoGrupo;
     }
   });
   
@@ -597,7 +589,7 @@ function dividirGruposEnPaginas(grupos, maxAltura = 2800) {
 }
 
 /* ===== CREAR PÁGINA CON GRUPOS ===== */
-function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimeraPagina = true, esUltimaPagina = true, numPartidosTotal = null) {
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimeraPagina = true, esUltimaPagina = true) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
@@ -613,11 +605,13 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
         <div class="fecha">${diaInfo.fecha}</div>
   `;
   
-  // Mostrar información de parte si hay múltiples páginas
+  // Si hay múltiples páginas para este día, mostrar información de parte
   if (!esPrimeraPagina || !esUltimaPagina) {
-    diaHTML += `<div style="font-size:20px; color:gold; margin-top:8px; background:rgba(0,0,0,0.3); padding:5px 15px; border-radius:30px;">${partidosEnPagina} partidu · ${numPagina - totalPaginas + 1}/${totalPaginas - (numPagina - 1)}</div>`;
+    // Calcular qué número de parte es esta
+    // Esto es un poco complejo de saber aquí, lo simplificamos
+    diaHTML += `<div style="font-size:20px; color:gold; margin-top:10px; background:rgba(0,0,0,0.5); padding:8px 20px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
   } else {
-    diaHTML += `<div style="font-size:18px; color:gold; margin-top:5px;">${partidosEnPagina} partidu</div>`;
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px;">${partidosEnPagina} partidu</div>`;
   }
   
   diaHTML += `
@@ -630,7 +624,7 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
       ${diaHTML}
       <div id="grupos-${numPagina}"></div>
     </div>
-  ` + crearFooter(numPagina, totalPaginas, esUltimaPagina);
+  ` + crearFooter(numPagina, totalPaginas);
   
   document.getElementById("contenedorPaginas").appendChild(p);
   
@@ -692,8 +686,9 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
     gruposContainer.appendChild(grupo);
   });
   
-  // Añadir indicador de continuación si no es la última página
+  // AÑADIR INDICADOR DE CONTINUACIÓN SI NO ES LA ÚLTIMA PÁGINA
   if (!esUltimaPagina) {
+    console.log('Añadiendo indicador de continuación a página', numPagina);
     const indicator = document.createElement("div");
     indicator.className = "continuation-indicator";
     indicator.innerHTML = `
@@ -744,6 +739,8 @@ Promise.all([
     return d >= mon && d <= sun;
   });
   
+  console.log('Partidos de la semana:', partidosSemana.length);
+  
   // Ordenar por fecha
   partidosSemana.sort((a, b) => {
     const da = new Date(`${a.fecha} ${a.hora || "00:00"}`);
@@ -764,10 +761,12 @@ Promise.all([
     partidosPorDia[diaKey].push(p);
   });
   
-  // Crear páginas por día, dividiendo cuando sea necesario
+  console.log('Días con partidos:', Object.keys(partidosPorDia));
+  
+  // Crear páginas por día, dividiendo por número de partidos
   const dias = Object.keys(partidosPorDia).sort();
   let contadorPaginasGlobal = 1;
-  const paginasInfo = [];
+  const todasLasPaginas = [];
   
   dias.forEach(diaKey => {
     const fecha = new Date(diaKey);
@@ -784,36 +783,41 @@ Promise.all([
     const grupos = Object.values(gruposMap);
     const totalPartidosDia = partidosPorDia[diaKey].length;
     
-    // Dividir en páginas según altura
-    const paginasDia = dividirGruposEnPaginas(grupos);
+    console.log(`${diaInfo.dia}: ${totalPartidosDia} partidos en ${grupos.length} grupos`);
     
+    // DIVIDIR POR NÚMERO DE PARTIDOS (máx 4 por página)
+    const paginasDia = dividirPartidosPorDia(grupos, 4);
+    
+    console.log(`  → Dividido en ${paginasDia.length} páginas`);
+    
+    // Guardar información de cada página
     paginasDia.forEach((gruposPagina, index) => {
-      paginasInfo.push({
+      todasLasPaginas.push({
         diaInfo,
         grupos: gruposPagina,
         esPrimera: index === 0,
         esUltima: index === paginasDia.length - 1,
-        numPartidosTotal: totalPartidosDia
+        numPaginaEnDia: index + 1,
+        totalPaginasEnDia: paginasDia.length
       });
     });
   });
   
   // Crear todas las páginas
-  paginasInfo.forEach((info, index) => {
+  todasLasPaginas.forEach((info, index) => {
     crearPaginaConGrupos(
       info.diaInfo,
       info.grupos,
       index + 1,
-      paginasInfo.length,
+      todasLasPaginas.length,
       info.esPrimera,
-      info.esUltima,
-      info.numPartidosTotal
+      info.esUltima
     );
   });
   
   document.getElementById('pageCounter').innerHTML = 
-    paginasInfo.length > 0 
-      ? `📱 ${paginasInfo.length} story${paginasInfo.length > 1 ? 's' : ''} generada${paginasInfo.length > 1 ? 's' : ''} (divididas por altura)` 
+    todasLasPaginas.length > 0 
+      ? `📱 ${todasLasPaginas.length} story${todasLasPaginas.length > 1 ? 's' : ''} generada${todasLasPaginas.length > 1 ? 's' : ''} (máx 4 partidos por story)` 
       : '📱 No hay partidos esta semana';
 });
 
@@ -846,10 +850,11 @@ async function exportarTodasLasStories() {
     const diaElem = pagina.querySelector('.dia');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
+    // Ver si es múltiples partes
     const infoElem = pagina.querySelector('.dia-semana div:last-child');
     let sufijo = '';
-    if (infoElem && infoElem.textContent.includes('/')) {
-      const match = infoElem.textContent.match(/(\d+)\/(\d+)/);
+    if (infoElem && infoElem.textContent.includes('ZATIA')) {
+      const match = infoElem.textContent.match(/ZATIA (\d+)/);
       if (match) {
         sufijo = `-parte-${match[1]}`;
       }
