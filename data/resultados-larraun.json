@@ -403,6 +403,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-14",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (H. Olabarria - I. Zabala) OLABARRIA GOIKOETXEA, H. ZABALA CABADA, I.",
+    "kanpokoak": "LARRAUN (O. Mitxaus - S. Galartza) GALARTZA MEÑIKA, S. MITXAUS FUENTES, O.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(3-9) (6-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-01",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
@@ -428,34 +442,6 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3106&temp=2025",
     "emaitza": "galduta",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-03-08",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
-    "kanpokoak": "AGOITZ (E. Arcelus - E. Balisa) ARCELUS GARCIA, E. BALISA IRIBARREN, E.",
-    "tanteoa": "2-0",
-    "sets": [
-      "(9-6) (9-5)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
-    "emaitza": "irabazita",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-03-13",
-    "fronton": "Larrión-Allín - Municipal",
-    "etxekoa": "SAN MIGUEL (E. Argandoña - I. Echeverria) ECHEVERRIA SALTO, I. GARCIA ARIZALETA, M.",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
-    "tanteoa": "0-2",
-    "sets": [
-      "(2-9) (3-9)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
-    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
@@ -680,6 +666,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-14",
+    "fronton": "Estella - Remontival",
+    "etxekoa": "SAN MIGUEL (M. Fernandez - I. Sainz) FERNANDEZ CAMBRA, M. SAINZ BERGERA, I.",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "tanteoa": "18-22",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3119&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-01",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Otamendi - M. Laso) LASO ETXARRI, M. OTAMENDI MARTIN, U.",
@@ -805,6 +803,18 @@
     "etxekoa": "ULTZAMA (A. Gascue) GASCUE MENDIVE, A.",
     "kanpokoak": "LARRAUN (M. Goikoetxea) GOIKOETXEA GOIOGANA, M.",
     "tanteoa": "18-8",
+    "sets": [],
+    "modalidad": "KOPA ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3138&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-14",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (I. Kañamares) KAÑAMARES ZUDAIRE, I.",
+    "kanpokoak": "LARRAUN (M. Lazkoz) LAZKOZ ARTANGA, M.",
+    "tanteoa": "18-16",
     "sets": [],
     "modalidad": "KOPA ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3138&temp=2025",
