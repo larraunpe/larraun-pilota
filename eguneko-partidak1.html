@@ -611,12 +611,12 @@
     // Kolore lehenetsiak (behar izanez gero)
     if (kategoriakMap.size === 0) {
       const koloreLehenetsiak = {
-        'SEIN': '#FFD700',
-        'KIMU': '#87CEEB', 
+        'SEIN': '#D16E08',
+        'KIMU': '#FFA07A', 
         'HAURRAK': '#98FB98',
         'ALEBINAK': '#FFA07A',
-        'KADETE': '#DDA0DD',
-        'GAZTE': '#F08080',
+        'KADETE': '#87CEEB',
+        'GAZTE': '#3836B3',
         'ESKUZ KOPA': '#B0C4DE'
       };
       
@@ -788,19 +788,21 @@
       
       // TXIKIAK taldea
       if (testua.includes('KIMU') || testua.includes('SEIN') || 
-          testua.includes('BENJAMIN') || testua.includes('TXIKI')) {
+          testua.includes('BENJAMIN') ||testua.includes('ALEBIN') ||
+          testua.includes('TXIKI')) {
         return 'txikiak';
       }
       
-      // HAURRAK ere txikiak
-      if (testua.includes('HAUR')) {
+      // ALEBIN ere txikiak
+      if (testua.includes('ALEBIN')) {
         return 'txikiak';
       }
       
       // NAGUSIAK taldea
-      if (testua.includes('KADETE') || testua.includes('GAZTE') || 
-          testua.includes('ALEBIN') || testua.includes('JUBILATU') ||
-          testua.includes('ESKUZ KOPA') || testua.includes('ABSOLUTO')) {
+      if (testua.includes('KADETE') || testua.includes('GAZTE') ||          
+          testua.includes('HAUR') || testua.includes('JUBILATU') ||
+          testua.includes('ESKUZ KOPA') || testua.includes('SENIOR') ||
+          testua.includes('ABSOLUTO')) {
         return 'nagusiak';
       }
       
@@ -944,7 +946,7 @@
         }
         
         let bordeKolorea = '#0d6efd'; // txikiak
-        if (taldeAktibo === 'neskak') bordeKolorea = '#d63384';
+        if (taldeAktibo === 'neskak') bordeKolorea = '#DDA0DD';
         if (taldeAktibo === 'nagusiak') bordeKolorea = '#198754';
         
         egunDiv.style.borderLeftColor = bordeKolorea;
