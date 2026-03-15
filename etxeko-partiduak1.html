@@ -670,6 +670,8 @@ function dividirPartidosPorDia(grupos) {
   let totalPartidos = 0;
   grupos.forEach(g => totalPartidos += g.length);
   
+  console.log('Total partidos:', totalPartidos); // Para depuración
+  
   // Si hay 6 o menos partidos, una sola página
   if (totalPartidos <= 6) {
     return [grupos];
@@ -680,6 +682,8 @@ function dividirPartidosPorDia(grupos) {
   
   // Calcular distribución ideal (ej: 13 partidos -> 5,4,4)
   const partidosPorPagina = Math.ceil(totalPartidos / numPaginas);
+  
+  console.log('Páginas:', numPaginas, 'Partidos por página:', partidosPorPagina); // Para depuración
   
   const paginas = [];
   let paginaActual = [];
@@ -701,6 +705,8 @@ function dividirPartidosPorDia(grupos) {
   if (paginaActual.length > 0) {
     paginas.push(paginaActual);
   }
+  
+  console.log('Páginas creadas:', paginas.length); // Para depuración
   
   return paginas;
 }
@@ -894,22 +900,18 @@ function seleccionarDia(fechaKey) {
   const diaInfo = dayEU(diaData.fecha);
   const partidos = diaData.partidos;
   
+  // Ordenar partidos por hora
   partidos.sort((a, b) => {
     const horaA = a.hora || "00:00";
     const horaB = b.hora || "00:00";
     return horaA.localeCompare(horaB);
   });
   
-  const gruposMap = {};
-  partidos.forEach(p => {
-    const key = `${p.fronton}|${p.fecha}|${p.hora}`;
-    if (!gruposMap[key]) gruposMap[key] = [];
-    gruposMap[key].push(p);
-  });
+  // CORRECCIÓN: Crear un array de grupos donde cada grupo contiene 1 partido
+  // Esto asegura que podamos paginar correctamente
+  const grupos = partidos.map(p => [p]);
   
-  const grupos = Object.values(gruposMap);
-  
-  // Usar la nueva función de división equilibrada
+  // Usar la función de división equilibrada
   const paginasDia = dividirPartidosPorDia(grupos);
   
   paginasDia.forEach((gruposPagina, index) => {
