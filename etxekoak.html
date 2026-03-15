@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etxeko partiduak – Stories</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        /* Estilos generales de la interfaz */
+        body {
+            margin: 0;
+            background: #1b4d31;
+            font-family: 'Trebuchet MS', 'Arial Black', sans-serif;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 50px;
+            border: 2px solid gold;
+        }
+        .dias-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .dia-btn {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: 2px solid gold;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+        .dia-btn:hover, .dia-btn.active {
+            background: gold;
+            color: black;
+            transform: scale(1.05);
+        }
+        .export-buttons button {
+            background: #ff0050;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.3);
+        }
+        .export-buttons button.secondary {
+            background: #2a5fc4;
+        }
+        #infoDia, #pageCounter {
+            color: white;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        /* Contenedor de las stories */
+        #contenedorPaginas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        /* Estilos SOLO para las páginas/stories */
+        .pagina {
+            width: 1080px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            background: #2c3e50;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
+                              linear-gradient(145deg, #3a4a5a, #1a2a3a);
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,.5);
+            border-radius: 30px;
+            overflow: hidden;
+            min-height: 1200px;
+        }
+        /* Header de la story */
+        .story-header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
+            padding: 0 30px;
+            border-bottom: 4px solid gold;
+            z-index: 2;
+            position: relative;
+        }
+        .story-header .logo {
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px black);
+        }
+        .story-header .titulo-central {
+            color: white;
+            font-size: 36px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0 #000, 0 0 15px gold;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 25px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+        /* Contenido principal de la story */
+        .story-content {
+            flex: 1;
+            padding: 25px;
+            z-index: 2;
+            position: relative;
+        }
+        /* Tarjeta de información del día */
+        .info-dia-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            border: 3px solid gold;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .info-dia-card .dia {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1e4f32;
+            text-transform: uppercase;
+        }
+        .info-dia-card .fecha {
+            font-size: 20px;
+            color: #555;
+            font-weight: bold;
+        }
+        .info-dia-card .paginacion {
+            background: rgba(0,0,0,0.7);
+            color: gold;
+            padding: 6px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: bold;
+            border: 2px solid gold;
+        }
+        /* Grupo de partidos (mismo frontón/hora) */
+        .grupo-partidos {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 2px solid gold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .grupo-header {
+            padding: 15px 20px;
+            color: white;
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+        }
+        .grupo-header.trinkete {
+            background: linear-gradient(135deg, #ad1457, #7a0c3a);
+        }
+        .grupo-header .fronton {
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .grupo-header .fronton span:first-child {
+            font-size: 28px;
+        }
+        .grupo-header .datetime {
+            font-size: 18px;
+            display: flex;
+            gap: 20px;
+            opacity: 0.9;
+        }
+        .grupo-header .datetime span:first-child {
+            font-size: 20px;
+        }
+        .grupo-body {
+            padding: 15px;
+        }
+        /* Cada partido individual */
+        .partido-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+        .partido-item:last-child {
+            border-bottom: none;
+        }
+        /* Número de partido (zkia) */
+        .partido-numero {
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #333;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            border: 2px solid gold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 5;
+        }
+        .partido-torneo {
+            font-size: 18px;
+            font-weight: 900;
+            color: #1e4f32;
+            margin-bottom: 10px;
+            padding-left: 25px; /* Espacio para el número */
+            padding-right: 10px;
+            border-left: 5px solid gold;
+        }
+        /* Estilo para categorías desde JSON */
+        .partido-torneo.cat-categoria {
+            /* Los colores se inyectarán dinámicamente desde el JSON */
+        }
+        .equipo-row {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 5px 0 5px 25px; /* Espacio para el número */
+        }
+        .equipo-icon {
+            width: 35px;
+            font-size: 22px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        .etxekoa { color: #0d47a1; }
+        .kanpokoa { color: #b71c1c; }
+        /* Destacar LARRAUN */
+        .equipo-larraun {
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 3px 10px;
+            margin-left: -5px;
+            font-weight: 900;
+            text-shadow: 0 0 5px gold;
+            border-left: 4px solid gold;
+        }
+        /* Estilo para partidos de chicas (NESKA/EMAKUME) */
+        .partido-item.neskak {
+            background: linear-gradient(145deg, rgba(156, 39, 176, 0.1), rgba(123, 31, 162, 0.2));
+            border-left: 8px solid #9c27b0;
+            border-right: 8px solid #9c27b0;
+            border-radius: 20px;
+            margin: 15px -5px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(156, 39, 176, 0.3);
+        }
+        .partido-item.neskak .partido-torneo {
+            color: #6a1b9a;
+            border-left-color: #9c27b0;
+        }
+        /* Finala especial */
+        .partido-item.finala {
+            background: linear-gradient(145deg, rgba(255,215,0,0.15), rgba(255,200,0,0.25));
+            border-left: 8px solid #d4af37;
+            border-right: 8px solid #d4af37;
+            border-radius: 20px;
+            margin: 15px -5px;
+            padding: 15px;
+            border: 3px solid #d4af37;
+            box-shadow: 0 0 25px gold;
+        }
+        .partido-item.finala .partido-torneo {
+            color: #b8860b;
+            font-size: 20px;
+        }
+        /* Combinación de clases */
+        .partido-item.finala.neskak {
+            background: linear-gradient(145deg, rgba(255,215,0,0.15), rgba(156,39,176,0.15));
+            border-left: 8px solid #d4af37;
+            border-right: 8px solid #9c27b0;
+        }
+        /* Indicador de continuación */
+        .continuation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px auto;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 60px;
+            border: 4px solid gold;
+            width: 70%;
+            backdrop-filter: blur(5px);
+        }
+        .continuation span {
+            font-size: 40px;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+        /* Footer con logos */
+        .story-footer {
+            background: linear-gradient(#1a1a1a, #0a0a0a);
+            padding: 15px;
+            border-top: 3px solid gold;
+            z-index: 2;
+            position: relative;
+        }
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+        }
+        .logo-item {
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .logo-item img {
+            width: 100%;
+            height: 35px;
+            object-fit: contain;
+        }
+        /* Indicador de página (absoluto) */
+        .page-number {
+            position: absolute;
+            bottom: 25px;
+            right: 35px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-size: 22px;
+            font-weight: bold;
+            border: 3px solid gold;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+        /* Pelotazos de fondo */
+        .pelotazos {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        .pelota-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- CONTROLES (fuera de las stories) -->
+<div class="controls">
+    <div class="dias-grid" id="diasGrid"></div>
+    <div class="export-buttons">
+        <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES DEL DÍA</button>
+        <button class="secondary" onclick="exportarTodosLosDias()">📱 EXPORTAR TODOS LOS DÍAS</button>
+    </div>
+    <div id="infoDia"></div>
+    <div id="pageCounter"></div>
+</div>
+
+<!-- CONTENEDOR PARA LAS STORIES GENERADAS -->
+<div id="contenedorPaginas"></div>
+
+<script>
+    // --- DATOS GLOBALES ---
+    let CATEGORIAS = {};
+    let todosLosPartidos = [];
+    let partidosPorDia = {}; // Agrupados por fecha real
+
+    // --- FUNCIONES AUXILIARES ---
+    function dayEU(d) {
+        const days = ["IGANDEA", "ASTELEHENA", "ASTEARTEA", "ASTEAZKENA", "OSTEGUNA", "OSTIRALA", "LARUNBATA"];
+        const months = ["URTARRILA", "OTSAILA", "MARTXOA", "APIRILA", "MAIATZA", "EKAINA", "UZTAILA", "ABUZTUA", "IRAILA", "URRIA", "AZAROA", "ABENDUA"];
+        return {
+            dia: days[d.getDay()],
+            fecha: `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+        };
+    }
+    function formatearFechaKey(d) {
+        return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
+    }
+    function parseFecha(fechaStr) {
+        if (!fechaStr) return new Date();
+        let fecha;
+        if (fechaStr.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+            const partes = fechaStr.split('/');
+            fecha = new Date(`${partes[0]}-${partes[1]}-${partes[2]}T12:00:00`);
+        } else {
+            fecha = new Date(fechaStr + "T12:00:00");
+        }
+        return isNaN(fecha.getTime()) ? new Date() : fecha;
+    }
+
+    // --- DETECTAR SI ES PARTIDO DE CHICAS (NESKA/EMAKUME) ---
+    function esPartidoNeskak(texto) {
+        if (!texto) return false;
+        const patron = /neska|neskak|emakume|emakumea|emakumeak/i;
+        return patron.test(texto);
+    }
+
+    // --- DESTACAR LARRAUN EN EL TEXTO ---
+    function destacarLarraun(texto) {
+        if (!texto) return texto;
+        // Buscar LARRAUN (con o sin guiones, con o sin espacios)
+        const partes = texto.split(/(LARRAUN(?:[-\s]+[A-Z]+)?)/i);
+        return partes.map((part, index) => {
+            if (part.toUpperCase().includes('LARRAUN')) {
+                return `<span class="equipo-larraun">${part}</span>`;
+            }
+            return part;
+        }).join('');
+    }
+
+    // --- GENERAR CLASES CSS PARA CATEGORÍAS ---
+    function generarClasesCategorias() {
+        const style = document.createElement("style");
+        let css = "";
+        for (const cat in CATEGORIAS) {
+            css += `
+                .cat-${cat} {
+                    background: ${CATEGORIAS[cat]} !important;
+                    color: white !important;
+                    text-shadow: 1px 1px 0 rgba(0,0,0,0.5) !important;
+                }
+            `;
+        }
+        style.innerHTML = css;
+        document.head.appendChild(style);
+    }
+
+    // --- OBTENER CLASE DE CATEGORÍA ---
+    function obtenerClaseCategoria(texto) {
+        if (!texto) return "";
+        const textoLower = texto.toLowerCase();
+        for (const cat in CATEGORIAS) {
+            if (textoLower.includes(cat.toLowerCase())) {
+                return "cat-" + cat;
+            }
+        }
+        return "";
+    }
+
+    // --- PAGINACIÓN: agrupa respetando grupos enteros ---
+    function paginarGrupos(grupos, maxPartidos = 5) {
+        const paginas = [];
+        let paginaActual = [];
+        let cuentaActual = 0;
+        grupos.forEach(g => {
+            if (cuentaActual + g.length > maxPartidos && paginaActual.length > 0) {
+                paginas.push(paginaActual);
+                paginaActual = [g];
+                cuentaActual = g.length;
+            } else {
+                paginaActual.push(g);
+                cuentaActual += g.length;
+            }
+        });
+        if (paginaActual.length) paginas.push(paginaActual);
+        return paginas;
+    }
+
+    // --- GENERAR PELOTAZOS ---
+    function generarPelotazos(contenedor, altura) {
+        contenedor.innerHTML = '';
+        for (let i = 0; i < 1500; i++) {
+            const d = document.createElement('div');
+            d.className = 'pelota-dot';
+            d.style.left = Math.random() * 1080 + 'px';
+            d.style.top = Math.random() * altura + 'px';
+            d.style.width = d.style.height = (Math.random() * 4 + 2) + 'px';
+            contenedor.appendChild(d);
+        }
+    }
+
+    // --- CREAR UNA STORY (PÁGINA) ---
+    function crearPagina(gruposPagina, numPagina, totalPaginas, diaInfo, fechaOriginal) {
+        const p = document.createElement('div');
+        p.className = 'pagina';
+
+        // Calcular total de partidos en esta página
+        let totalEnPagina = gruposPagina.reduce((acc, g) => acc + g.length, 0);
+
+        // --- HEADER con ETXEKO PARTIDUAK en el centro ---
+        let html = `<div class="story-header">
+            <img src="images/logo-larraun.png" class="logo" onerror="this.style.display='none'">
+            <div class="titulo-central">ETXEKO PARTIDUAK</div>
+            <img src="images/logo-fnp.png" class="logo" onerror="this.style.display='none'">
+        </div>`;
+
+        // --- CONTENIDO ---
+        html += `<div class="story-content">`;
+
+        // Tarjeta de información del día
+        html += `<div class="info-dia-card">`;
+        html += `<div class="dia">${diaInfo.dia}</div>`;
+        html += `<div class="fecha">${diaInfo.fecha}</div>`;
+        if (totalPaginas > 1) {
+            html += `<div class="paginacion">⚡ ${totalEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>`;
+        }
+        html += `</div>`;
+
+        // Grupos de partidos
+        gruposPagina.forEach(grupo => {
+            const primero = grupo[0];
+            const esTrinkete = /trinkete/i.test(primero.fronton || '');
+            html += `<div class="grupo-partidos">`;
+            html += `<div class="grupo-header ${esTrinkete ? 'trinkete' : ''}">`;
+            html += `<div class="fronton"><span>📍</span> ${primero.fronton || 'Frontoia'}</div>`;
+            html += `<div class="datetime"><span>🗓 ${primero.fecha || ''}</span> <span>⏰ ${primero.hora || '00:00'}</span></div>`;
+            html += `</div>`;
+            html += `<div class="grupo-body">`;
+
+            grupo.forEach((partido, index) => {
+                const esFinala = partido.lehiaketa && partido.lehiaketa.toUpperCase().includes('FINALA');
+                const esNeskak = esPartidoNeskak(partido.lehiaketa);
+                const claseCategoria = obtenerClaseCategoria(partido.lehiaketa);
+                
+                // Construir clases para el partido
+                let clasesPartido = ['partido-item'];
+                if (esFinala) clasesPartido.push('finala');
+                if (esNeskak) clasesPartido.push('neskak');
+                
+                html += `<div class="${clasesPartido.join(' ')}">`;
+                
+                // Número de partido (zkia) - si existe
+                if (partido.zkia) {
+                    html += `<div class="partido-numero">${partido.zkia}</div>`;
+                }
+                
+                // Torneo con clase de categoría
+                html += `<div class="partido-torneo ${claseCategoria}">${partido.lehiaketa || 'Txapelketa'}</div>`;
+                
+                // Equipo local con destacado de LARRAUN
+                html += `<div class="equipo-row">`;
+                html += `<span class="equipo-icon">🏠</span>`;
+                html += `<span class="etxekoa">${destacarLarrain(partido.etxekoa || '')}</span>`;
+                html += `</div>`;
+                
+                // Equipo visitante con destacado de LARRAUN
+                if (partido.kanpokoak) {
+                    html += `<div class="equipo-row">`;
+                    html += `<span class="equipo-icon">✈️</span>`;
+                    html += `<span class="kanpokoa">${destacarLarrain(partido.kanpokoak)}</span>`;
+                    html += `</div>`;
+                }
+                
+                html += `</div>`;
+            });
+
+            html += `</div></div>`;
+        });
+
+        // Indicador de continuación si no es la última página
+        if (numPagina < totalPaginas) {
+            html += `<div class="continuation"><span>👇</span> JARRAITU <span>👇</span></div>`;
+        }
+
+        html += `</div>`; // Cierra story-content
+
+        // --- FOOTER ---
+        html += `<div class="story-footer"><div class="logos-grid"></div></div>`;
+
+        // Número de página flotante
+        html += `<div class="page-number">${numPagina}/${totalPaginas}</div>`;
+
+        // Contenedor para los pelotazos
+        html += `<div class="pelotazos"></div>`;
+
+        p.innerHTML = html;
+        document.getElementById('contenedorPaginas').appendChild(p);
+
+        // Rellenar logos
+        const logos = [
+            "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
+            "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
+            "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
+            "construccionesurangasaijos.jpg","hotelayestaran.jpg","iseelectricidad.jpg",
+            "kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg","maderasnasorena.jpg",
+            "maskarada.jpg","suacontrol.jpg","urzubi.jpg","ventamugiro.jpg","dietistaanagurrea.jpg",
+            "ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
+            "izarberri.png","lakita.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
+            "talleresotxotorena.jpg","veterinarialekunberri.jpg"
+        ];
+        const grid = p.querySelector('.logos-grid');
+        if (grid) {
+            grid.innerHTML = logos.map(f => `<div class="logo-item"><img src="images/patrocinio/${f}" onerror="this.style.display='none'"></div>`).join('');
+        }
+
+        // Generar pelotazos después de que la página esté en el DOM
+        setTimeout(() => {
+            const altura = p.offsetHeight;
+            const pel = p.querySelector('.pelotazos');
+            generarPelotazos(pel, altura);
+        }, 50);
+
+        return p;
+    }
+
+    // --- CARGAR DATOS ---
+    Promise.all([
+        fetch('data/cartelera-larraun.json').then(r => r.json()),
+        fetch('data/partidos-no-oficiales.json').then(r => r.json()),
+        fetch('data/categoriacartel.json').then(r => r.json()).catch(() => ({}))
+    ]).then(([oficiales, noOficiales, categorias]) => {
+        CATEGORIAS = categorias;
+        generarClasesCategorias();
+
+        // Combinar y filtrar
+        todosLosPartidos = [
+            ...oficiales.map(p => ({ ...p, ofiziala: true })),
+            ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
+        ].filter(p => {
+            if (!p.fronton) return false;
+            const f = p.fronton.toLowerCase();
+            return f.includes('lekunberri') || f.includes('aldatz');
+        });
+
+        // Agrupar por fecha
+        todosLosPartidos.forEach(p => {
+            const fecha = parseFecha(p.fecha);
+            const key = formatearFechaKey(fecha);
+            if (!partidosPorDia[key]) {
+                partidosPorDia[key] = { fecha, partidos: [] };
+            }
+            partidosPorDia[key].partidos.push(p);
+        });
+
+        // Ordenar fechas
+        const diasOrdenados = Object.keys(partidosPorDia).sort();
+
+        // Crear botones de días
+        const diasGrid = document.getElementById('diasGrid');
+        diasOrdenados.forEach(key => {
+            const data = partidosPorDia[key];
+            const info = dayEU(data.fecha);
+            const btn = document.createElement('button');
+            btn.className = 'dia-btn' + (info.dia === 'IGANDEA' ? ' sunday' : '');
+            btn.innerHTML = `${info.dia}<br><small>${info.fecha}</small><br><strong>${data.partidos.length} partidu</strong>`;
+            btn.onclick = (e) => {
+                document.querySelectorAll('.dia-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                seleccionarDia(key);
+            };
+            diasGrid.appendChild(btn);
+        });
+
+        // Seleccionar primer día
+        if (diasOrdenados.length) {
+            seleccionarDia(diasOrdenados[0]);
+            document.querySelector('.dia-btn')?.classList.add('active');
+        } else {
+            document.getElementById('infoDia').innerHTML = '❌ No hay partidos';
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        document.getElementById('infoDia').innerHTML = '❌ Error cargando datos';
+    });
+
+    // --- SELECCIONAR UN DÍA Y GENERAR SUS STORIES ---
+    function seleccionarDia(fechaKey) {
+        const contenedor = document.getElementById('contenedorPaginas');
+        contenedor.innerHTML = '';
+
+        const diaData = partidosPorDia[fechaKey];
+        if (!diaData) return;
+
+        const diaInfo = dayEU(diaData.fecha);
+        const partidos = [...diaData.partidos].sort((a,b) => (a.hora || '00:00').localeCompare(b.hora || '00:00'));
+
+        // Agrupar por frontón+fecha+hora (mismo grupo)
+        const gruposMap = {};
+        partidos.forEach(p => {
+            const key = `${p.fronton}|${p.fecha}|${p.hora}`;
+            if (!gruposMap[key]) gruposMap[key] = [];
+            gruposMap[key].push(p);
+        });
+        const grupos = Object.values(gruposMap);
+
+        // Paginar (máx 5 partidos por página)
+        const paginas = paginarGrupos(grupos, 5);
+
+        // Crear cada página
+        paginas.forEach((gruposPagina, idx) => {
+            crearPagina(gruposPagina, idx+1, paginas.length, diaInfo, `${diaInfo.dia} ${diaInfo.fecha}`);
+        });
+
+        // Actualizar info
+        document.getElementById('infoDia').innerHTML = `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginas.length} página${paginas.length > 1 ? 's' : ''}`;
+        document.getElementById('pageCounter').innerHTML = `📱 ${paginas.length} story${paginas.length > 1 ? 's' : ''}`;
+    }
+
+    // --- EXPORTAR ---
+    async function exportarTodasLasStories() {
+        const paginas = document.querySelectorAll('.pagina');
+        for (let i = 0; i < paginas.length; i++) {
+            document.getElementById('pageCounter').innerHTML = `📸 Exportando ${i+1}/${paginas.length}...`;
+            await new Promise(r => setTimeout(r, 200));
+            const canvas = await html2canvas(paginas[i], {
+                scale: 2, backgroundColor: null, windowWidth: 1080,
+                height: paginas[i].offsetHeight, windowHeight: paginas[i].offsetHeight
+            });
+            const a = document.createElement('a');
+            a.href = canvas.toDataURL('image/jpeg', 0.95);
+            
+            const diaCard = paginas[i].querySelector('.info-dia-card .dia');
+            const dia = diaCard ? diaCard.textContent.trim() : 'dia';
+            
+            const parte = paginas[i].querySelector('.paginacion')?.textContent.match(/ZATIA (\d+)/);
+            const sufijo = parte ? `-parte-${parte[1]}` : '';
+            a.download = `etxekoak-${dia}${sufijo}.jpg`;
+            a.click();
+            await new Promise(r => setTimeout(r, 500));
+        }
+        document.getElementById('pageCounter').innerHTML = `✅ ¡${paginas.length} stories exportadas!`;
+    }
+
+    async function exportarTodosLosDias() {
+        const dias = Object.keys(partidosPorDia).sort();
+        for (const key of dias) {
+            seleccionarDia(key);
+            await new Promise(r => setTimeout(r, 1000));
+            await exportarTodasLasStories();
+        }
+    }
+
+    // Exponer funciones globalmente
+    window.exportarTodasLasStories = exportarTodasLasStories;
+    window.exportarTodosLosDias = exportarTodosLosDias;
+</script>
+</body>
+</html>
