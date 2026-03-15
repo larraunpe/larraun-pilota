@@ -132,9 +132,9 @@ body{
   position:relative;
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
-  overflow: visible;
-  min-height: 800px;
-  max-height: 1920px;
+  overflow: hidden; /* Cambiado de visible a hidden */
+  height: auto; /* Altura automática */
+  max-height: 1920px; /* Altura máxima para stories de Instagram */
 }
 
 /* ===== HEADER ===== */
@@ -220,7 +220,7 @@ body{
 .contenido{
   padding:20px 30px;
   flex: 1;
-  overflow-y: auto;
+  overflow: visible; /* Cambiado de auto a visible */
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -671,7 +671,7 @@ function rellenarLogos(pagina) {
 }
 
 /* ===== DIVIDIR POR NÚMERO DE PARTIDOS ===== */
-function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 5) {
+function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) { // Reducido de 5 a 4 partidos por página
   const paginas = [];
   let paginaActual = [];
   let partidosEnPaginaActual = 0;
@@ -713,6 +713,8 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
   `;
   
   if (!esPrimeraPagina || !esUltimaPagina) {
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
+  } else if (totalPaginas > 1) {
     diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
   } else {
     diaHTML += `<div style="font-size:16px; color:gold; margin-top:6px;">${partidosEnPagina} partidu</div>`;
@@ -825,8 +827,7 @@ Promise.all([
     ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
   ];
   
-  // CORRECCIÓN: Filtrar SOLO partidos en Lekunberri o Aldatz
-  // Nota: En el JSON los frontones de Lekunberri aparecen como "Lekunberri - Jaian Jai"
+  // Filtrar SOLO partidos en Lekunberri o Aldatz
   const partidosFiltrados = todosLosPartidos.filter(p => {
     if (!p.fronton) return false;
     const frontonLower = p.fronton.toLowerCase();
@@ -882,7 +883,7 @@ function seleccionarDia(fechaKey) {
   
   // Marcar botón activo
   document.querySelectorAll('.dia-btn').forEach(btn => btn.classList.remove('active'));
-  if (event && event.target) {
+  if (event && event.target && event.target.classList) {
     event.target.classList.add('active');
   }
   
@@ -909,8 +910,9 @@ function seleccionarDia(fechaKey) {
   
   const grupos = Object.values(gruposMap);
   
-  // Dividir en páginas (máx 5 partidos por página)
-  const paginasDia = dividirPartidosPorDia(grupos, 5);
+  // Dividir en páginas (máx 4 partidos por página para que quepa bien)
+  const maxPartidosPorPagina = 4;
+  const paginasDia = dividirPartidosPorDia(grupos, maxPartidosPorPagina);
   
   // Crear páginas
   paginasDia.forEach((gruposPagina, index) => {
@@ -941,6 +943,9 @@ async function exportarTodasLasStories() {
     
     document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
     
+    // Asegurar que la página tiene altura antes de capturar
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
     const canvas = await html2canvas(pagina, {
       scale: 2,
       useCORS: true,
@@ -948,7 +953,7 @@ async function exportarTodasLasStories() {
       windowWidth: 1080,
       allowTaint: false,
       logging: false,
-      scrollY: -window.scrollY,
+      scrollY: 0,
       height: pagina.offsetHeight,
       windowHeight: pagina.offsetHeight
     });
@@ -959,6 +964,9 @@ async function exportarTodasLasStories() {
     const diaElem = pagina.querySelector('.dia');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
+    const fechaElem = pagina.querySelector('.fecha');
+    const fecha = fechaElem ? fechaElem.textContent.trim().replace(/\s+/g, '-') : '';
+    
     const infoElem = pagina.querySelector('.dia-semana div:last-child');
     let sufijo = '';
     if (infoElem && infoElem.textContent.includes('ZATIA')) {
@@ -968,7 +976,7 @@ async function exportarTodasLasStories() {
       }
     }
     
-    a.download = `etxekoak-${dia}${sufijo}-${(i + 1).toString().padStart(2, '0')}.jpg`;
+    a.download = `etxekoak-${dia}-${fecha}${sufijo}.jpg`;
     a.click();
     
     await new Promise(resolve => setTimeout(resolve, 500));
