@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
+/* Mismos estilos que antes... */
 body{
   margin:0;
   background:#1b4d31;
@@ -133,8 +134,8 @@ body{
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
   overflow: visible;
-  min-height: 800px; /* Altura mínima para stories */
-  max-height: 1920px; /* Altura máxima para stories */
+  min-height: 800px;
+  max-height: 1920px;
 }
 
 /* ===== HEADER ===== */
@@ -220,7 +221,7 @@ body{
 .contenido{
   padding:20px 30px;
   flex: 1;
-  overflow-y: auto; /* Permitir scroll si es necesario */
+  overflow-y: auto;
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -228,13 +229,13 @@ body{
   background:rgba(255,255,255,.95);
   border-radius:25px;
   overflow:hidden;
-  margin-bottom:20px; /* Reducido de 25px */
+  margin-bottom:20px;
   box-shadow:0 10px 25px rgba(0,0,0,.4);
   border:2px solid rgba(255,215,0,.3);
 }
 
 .grupo-header{
-  padding:15px 22px; /* Reducido de 18px */
+  padding:15px 22px;
   color:white;
   position:relative;
   overflow:hidden;
@@ -254,9 +255,9 @@ body{
 }
 
 .fronton{
-  font-size:26px; /* Reducido de 30px */
+  font-size:26px;
   font-weight:900;
-  margin-bottom:5px; /* Reducido de 8px */
+  margin-bottom:5px;
   display:flex;
   align-items:center;
   gap:10px;
@@ -265,11 +266,11 @@ body{
 }
 
 .fronton-icon{
-  font-size:30px; /* Reducido de 36px */
+  font-size:30px;
 }
 
 .datetime{
-  font-size:20px; /* Reducido de 22px */
+  font-size:20px;
   display:flex;
   align-items:center;
   gap:15px;
@@ -279,13 +280,13 @@ body{
 }
 
 .grupo-body{
-  padding:15px; /* Reducido de 20px */
+  padding:15px;
   background:white;
 }
 
 /* ===== PARTIDO ===== */
 .partido{
-  padding:12px 0; /* Reducido de 18px */
+  padding:12px 0;
   border-bottom:2px solid #eee;
   transition:all .2s;
 }
@@ -294,14 +295,13 @@ body{
   border-bottom:none;
 }
 
-/* Estilo especial para FINALA */
 .partido.finala-partido {
   background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(255, 200, 0, 0.25));
   border-left: 8px solid #d4af37;
   border-right: 8px solid #d4af37;
   border-radius: 20px;
-  margin: 15px -5px; /* Reducido de 20px */
-  padding: 15px 10px; /* Reducido de 18px */
+  margin: 15px -5px;
+  padding: 15px 10px;
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
 }
 
@@ -309,32 +309,32 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:8px; /* Reducido de 12px */
+  margin-bottom:8px;
 }
 
 .partido-numero{
   background:#333;
   color:white;
-  width:35px; /* Reducido de 40px */
-  height:35px; /* Reducido de 40px */
+  width:35px;
+  height:35px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:900;
-  font-size:18px; /* Reducido de 20px */
+  font-size:18px;
   flex-shrink: 0;
 }
 
 .torneo-container{
   flex:1;
-  margin-left:12px; /* Reducido de 15px */
+  margin-left:12px;
 }
 
 .torneo{
-  font-size:20px; /* Reducido de 22px */
+  font-size:20px;
   font-weight:900;
-  padding:6px 15px; /* Reducido de 8px 18px */
+  padding:6px 15px;
   border-radius:40px;
   display:inline-block;
   color: #1e4f32 !important;
@@ -344,47 +344,46 @@ body{
   text-shadow: 0 1px 0 white;
 }
 
-/* Estilo especial para FINALA - MUY DESTACADO */
 .torneo.finala-torneo {
   background: linear-gradient(145deg, #FFD700, #FDB931) !important;
   color: #000000 !important;
-  font-size: 22px; /* Reducido de 26px */
-  padding: 8px 20px; /* Reducido de 12px 25px */
+  font-size: 22px;
+  padding: 8px 20px;
   border: 3px solid #b8860b;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 20px #FFD700;
   text-transform: uppercase;
-  letter-spacing: 1px; /* Reducido de 2px */
+  letter-spacing: 1px;
   text-shadow: 1px 1px 0 #FFF;
   animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.03); } /* Reducido de 1.05 */
+  50% { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
 .equipos{
   display:flex;
   flex-direction:column;
-  gap:8px; /* Reducido de 10px */
-  margin-top:10px; /* Reducido de 15px */
+  gap:8px;
+  margin-top:10px;
 }
 
 .equipo{
   display:flex;
   align-items:center;
-  font-size:20px; /* Reducido de 24px */
+  font-size:20px;
   font-weight:700;
-  padding:6px 12px; /* Reducido de 8px 15px */
-  border-radius:12px; /* Reducido de 15px */
+  padding:6px 12px;
+  border-radius:12px;
   background:#f5f5f5;
 }
 
 .equipo-icon{
-  font-size:24px; /* Reducido de 28px */
-  margin-right:12px; /* Reducido de 15px */
-  width:35px; /* Reducido de 40px */
+  font-size:24px;
+  margin-right:12px;
+  width:35px;
   text-align:center;
 }
 
@@ -397,17 +396,17 @@ body{
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin: 30px 0 20px; /* Reducido de 40px 0 30px */
+  margin: 30px 0 20px;
   color: white;
-  font-size: 24px; /* Reducido de 28px */
+  font-size: 24px;
   font-weight: bold;
   background: rgba(0,0,0,0.6);
-  padding: 20px; /* Reducido de 25px */
+  padding: 20px;
   border-radius: 60px;
   backdrop-filter: blur(5px);
   border: 4px solid gold;
   text-transform: uppercase;
-  letter-spacing: 2px; /* Reducido de 3px */
+  letter-spacing: 2px;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -415,14 +414,14 @@ body{
 
 .continuation-indicator span {
   animation: bounce 2s infinite;
-  font-size: 40px; /* Reducido de 48px */
+  font-size: 40px;
   display: inline-block;
 }
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-15px); } /* Reducido de -20px */
-  60% { transform: translateY(-8px); } /* Reducido de -10px */
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-8px); }
 }
 
 /* ===== INDICADOR PÁGINA ===== */
@@ -460,7 +459,7 @@ body{
 /* ===== FOOTER ===== */
 .footer{
   background:linear-gradient(#2f2f2f, #1a1a1a);
-  padding:20px; /* Reducido de 25px */
+  padding:20px;
   border-top:3px solid gold;
   flex-shrink: 0;
   border-radius: 0 0 30px 30px;
@@ -469,19 +468,19 @@ body{
 .logos-grid{
   display:grid;
   grid-template-columns:repeat(8,1fr);
-  gap:12px; /* Reducido de 15px */
+  gap:12px;
 }
 
 .logo-item{
   background:white;
-  padding:6px; /* Reducido de 8px */
-  border-radius:10px; /* Reducido de 12px */
+  padding:6px;
+  border-radius:10px;
   box-shadow:0 4px 8px rgba(0,0,0,.3);
 }
 
 .logo-item img{
   width:100%;
-  height:40px; /* Reducido de 45px */
+  height:40px;
   object-fit:contain;
 }
 </style>
@@ -548,17 +547,14 @@ function obtenerClaseCategoria(texto) {
 
 /* ===== FORMATO DE FECHA ===== */
 function dayEU(d) {
-  // Verificar que d sea una fecha válida
-  if (!d || isNaN(d.getTime())) {
-    console.error("Fecha inválida:", d);
-    return {
-      dia: "DATE ERROR",
-      fecha: "Invalid Date"
-    };
+  // Si no es una fecha válida, usar fecha actual
+  if (!d || !(d instanceof Date) || isNaN(d.getTime())) {
+    d = new Date();
   }
   
   const days = ["IGANDEA", "ASTELEHENA", "ASTEARTEA", "ASTEAZKENA", "OSTEGUNA", "OSTIRALA", "LARUNBATA"];
   const months = ["URTARRILA", "OTSAILA", "MARTXOA", "APIRILA", "MAIATZA", "EKAINA", "UZTAILA", "ABUZTUA", "IRAILA", "URRIA", "AZAROA", "ABENDUA"];
+  
   return {
     dia: days[d.getDay()],
     fecha: `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
@@ -569,12 +565,45 @@ function formatearFechaKey(d) {
   return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
 }
 
+/* ===== PARSEAR FECHA DESDE STRING ===== */
+function parseFecha(fechaStr) {
+  if (!fechaStr) return new Date(); // Si no hay fecha, usar hoy
+  
+  // Intentar diferentes formatos
+  let fecha;
+  
+  // Formato YYYY-MM-DD
+  if (fechaStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    fecha = new Date(fechaStr + "T12:00:00");
+  }
+  // Formato DD/MM/YYYY
+  else if (fechaStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+    const partes = fechaStr.split('/');
+    fecha = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T12:00:00`);
+  }
+  // Formato DD-MM-YYYY
+  else if (fechaStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
+    const partes = fechaStr.split('-');
+    fecha = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T12:00:00`);
+  }
+  else {
+    fecha = new Date(fechaStr + "T12:00:00");
+  }
+  
+  // Si la fecha es inválida, usar hoy
+  if (isNaN(fecha.getTime())) {
+    console.warn("Fecha inválida:", fechaStr, "usando fecha actual");
+    fecha = new Date();
+  }
+  
+  return fecha;
+}
+
 /* ===== GENERAR PELOTAZOS ===== */
 function generarPelotazos(contenedor, altura) {
-  // Limpiar pelotazos anteriores
   contenedor.innerHTML = '';
   
-  for (let i = 0; i < 2000; i++) { // Reducido de 3000
+  for (let i = 0; i < 2000; i++) {
     const d = document.createElement("div");
     const s = Math.random() * 4 + 2;
     
@@ -638,7 +667,7 @@ function rellenarLogos(pagina) {
 }
 
 /* ===== DIVIDIR POR NÚMERO DE PARTIDOS ===== */
-function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 5) { // Aumentado a 5 partidos por página
+function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 5) {
   const paginas = [];
   let paginaActual = [];
   let partidosEnPaginaActual = 0;
@@ -798,14 +827,8 @@ Promise.all([
   
   // Agrupar por fecha real
   todosLosPartidos.forEach(p => {
-    // CORRECCIÓN: Asegurar que la fecha es válida
-    let fecha;
-    if (p.fecha) {
-      fecha = new Date(p.fecha + "T12:00:00");
-    } else {
-      fecha = new Date(); // Fecha actual como fallback
-    }
-    
+    // CORRECCIÓN: Usar la función parseFecha
+    const fecha = parseFecha(p.fecha);
     const fechaKey = formatearFechaKey(fecha);
     
     if (!partidosPorDiaReal[fechaKey]) {
@@ -852,7 +875,9 @@ function seleccionarDia(fechaKey) {
   
   // Marcar botón activo
   document.querySelectorAll('.dia-btn').forEach(btn => btn.classList.remove('active'));
-  if (event) event.target.classList.add('active');
+  if (event && event.target) {
+    event.target.classList.add('active');
+  }
   
   const diaData = partidosPorDiaReal[fechaKey];
   if (!diaData) return;
@@ -877,7 +902,7 @@ function seleccionarDia(fechaKey) {
   
   const grupos = Object.values(gruposMap);
   
-  // Dividir en páginas (máx 5 partidos por página para que no sea demasiado largo)
+  // Dividir en páginas (máx 5 partidos por página)
   const paginasDia = dividirPartidosPorDia(grupos, 5);
   
   // Crear páginas
@@ -950,7 +975,6 @@ async function exportarTodosLosDias() {
   
   for (const fechaKey of dias) {
     seleccionarDia(fechaKey);
-    // Pequeña pausa para que se rendericen las páginas
     await new Promise(resolve => setTimeout(resolve, 1000));
     await exportarTodasLasStories();
   }
