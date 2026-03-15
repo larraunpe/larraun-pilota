@@ -8,7 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-/* Mismos estilos que antes... */
 body{
   margin:0;
   background:#1b4d31;
@@ -576,6 +575,11 @@ function parseFecha(fechaStr) {
   if (fechaStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
     fecha = new Date(fechaStr + "T12:00:00");
   }
+  // Formato YYYY/MM/DD (el que aparece en tu JSON)
+  else if (fechaStr.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+    const partes = fechaStr.split('/');
+    fecha = new Date(`${partes[0]}-${partes[1]}-${partes[2]}T12:00:00`);
+  }
   // Formato DD/MM/YYYY
   else if (fechaStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
     const partes = fechaStr.split('/');
@@ -815,19 +819,22 @@ Promise.all([
   CATEGORIAS = categorias;
   generarClasesCategorias();
   
+  // Combinar todos los partidos
   todosLosPartidos = [
     ...oficiales.map(p => ({ ...p, ofiziala: true })),
     ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
   ];
   
-  // Filtrar solo partidos en Lekunberri o Aldatz
-  todosLosPartidos = todosLosPartidos.filter(p => 
-    /lekunberri|aldatz/i.test(p.fronton || "")
-  );
+  // CORRECCIÓN: Filtrar SOLO partidos en Lekunberri o Aldatz
+  // Nota: En el JSON los frontones de Lekunberri aparecen como "Lekunberri - Jaian Jai"
+  const partidosFiltrados = todosLosPartidos.filter(p => {
+    if (!p.fronton) return false;
+    const frontonLower = p.fronton.toLowerCase();
+    return frontonLower.includes('lekunberri') || frontonLower.includes('aldatz');
+  });
   
-  // Agrupar por fecha real
-  todosLosPartidos.forEach(p => {
-    // CORRECCIÓN: Usar la función parseFecha
+  // Agrupar por fecha
+  partidosFiltrados.forEach(p => {
     const fecha = parseFecha(p.fecha);
     const fechaKey = formatearFechaKey(fecha);
     
@@ -861,7 +868,7 @@ Promise.all([
   if (diasOrdenados.length > 0) {
     seleccionarDia(diasOrdenados[0]);
   } else {
-    document.getElementById('infoDia').innerHTML = '❌ No hay partidos programados';
+    document.getElementById('infoDia').innerHTML = '❌ No hay partidos en Lekunberri o Aldatz';
   }
 }).catch(error => {
   console.error("Error cargando datos:", error);
