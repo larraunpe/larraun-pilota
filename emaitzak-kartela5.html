@@ -18,65 +18,172 @@ body{
   font-family:Arial, sans-serif;
 }
 
-.pagina{
-  width:900px;
-  margin:auto;
-  background:#fff;
-}
+/* ================= FONDO ESTILO MARCADOR ELECTRÓNICO ================= */
 .pagina-a3{
   width:1123px;      /* A3 proporcional */
   min-height:1587px;
-  background:#fff;
+  background-color: #0a0a0a;  /* Fondo negro como base */
   margin:0 auto;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  position: relative;
+  background-image: 
+    radial-gradient(#333 1px, transparent 1px),
+    linear-gradient(45deg, #111 0%, #222 100%);
+  background-size: 20px 20px, 100% 100%;
+  box-shadow: 0 0 30px rgba(0,255,0,0.2);
 }
+
+/* Capa de scanlines (líneas de barrido) */
+.pagina-a3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Contenido por encima del fondo */
+.header, .contenido, .patrocinadores {
+  position: relative;
+  z-index: 2;
+}
+
 /* ================= HEADER ================= */
 
 .header{
   height:110px;
-  background:#0b2350;
-  color:#9cff9c;
+  background: linear-gradient(145deg, #001122, #000a1a);
+  color: #00ff9d;
   display:flex;
   align-items:center;
   justify-content:center;
   position:relative;
   font-family:'Orbitron';
   font-size:22px;
-  letter-spacing:2px;
+  letter-spacing:4px;
+  text-shadow: 0 0 10px #00ff9d;
+  border-bottom: 2px solid #00ff9d;
+  box-shadow: 0 0 20px rgba(0,255,157,0.3);
 }
 
 .header img{
   position:absolute;
   height:80px;
+  filter: drop-shadow(0 0 5px #00ff9d);
 }
 .logo-izq{left:20px}
 .logo-der{right:20px}
 
-/* ================= TITULOS ================= */
+/* ================= CATEGORÍA TÍTULO CON LETRA AZUL OSCURO ================= */
+.categoria-titulo {
+  font-family: 'Orbitron';
+  font-size: 36px;
+  text-align: center;
+  padding: 15px;
+  margin: 20px 0 10px;
+  color: #003366 !important;  /* Azul oscuro fijo */
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 900;
+  box-shadow: 0 0 20px rgba(0,255,0,0.3);
+  border: 2px solid #00ff9d;
+  text-shadow: 0 0 5px #00ff9d;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f0f0f0, #ffffff);
+}
 
-.titulo-seccion{
-  font-family:'Orbitron';
-  color:#fff;
-  text-align:center;
-  padding:8px;
-  margin:18px 0 12px;
-  letter-spacing:2px;
-  font-size:18px;
-  border-radius: 4px;
+.categoria-titulo::before {
+  content: "⚾";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  opacity: 0.3;
+  color: #003366;
+}
+
+.categoria-titulo::after {
+  content: "⚾";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  opacity: 0.3;
+  color: #003366;
+}
+
+/* ================= SUBTÍTULO DE EDAD ================= */
+.edad-subtitulo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  text-align: center;
+  color: #00ff9d;
+  margin: -5px 0 20px;
+  padding: 5px 15px;
+  background: rgba(0,20,0,0.8);
+  border-radius: 20px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0,255,0,0.3);
+  border: 1px solid #00ff9d;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ================= SEPARADOR DE DÍAS ================= */
+.dia-separador {
+  font-family: 'Orbitron';
+  font-size: 18px;
+  color: #00ff9d;
+  background: rgba(0,40,0,0.9);
+  padding: 8px 15px;
+  margin: 25px 0 15px;
+  border-left: 5px solid #00ff9d;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px #00ff9d;
+  box-shadow: 0 0 10px rgba(0,255,0,0.2);
+  border-radius: 0 30px 30px 0;
+  width: fit-content;
+}
+
+.dia-separador span {
+  background: #00ff9d;
+  color: #000;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  font-size: 14px;
 }
 
 /* ================= PARTIDO ================= */
 
 .partido{
   position:relative;
-  background:#fff;
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
   border-radius:6px;
   margin-bottom:26px;
-  overflow:visible;   /* 🔥 IMPORTANTE */
+  overflow:visible;
+  border: 1px solid #333;
+  box-shadow: 0 0 15px rgba(0,255,0,0.1);
 }
-
 
 .partido::after{
   content:"";
@@ -85,10 +192,9 @@ body{
   right:0;
   bottom:-14px;
   height:8px;
-  background-image: radial-gradient(#0b2350 2px, transparent 2px);
+  background-image: radial-gradient(#00ff9d 2px, transparent 2px);
   background-size:12px 8px;
 }
-
 
 .partido::before{
   content:"";
@@ -108,11 +214,13 @@ body{
   font-family:'Share Tech Mono', monospace;
   font-size:12px;
   padding:4px 8px;
-  color:#fff;
+  color:#00ff9d;
   text-decoration:none;
   letter-spacing:1px;
   display:flex;
   align-items:center;
+  background: #1a2a1a;
+  border-bottom: 1px solid #00ff9d;
 }
 
 .partido-header span{
@@ -124,15 +232,18 @@ body{
   flex:1;
   height:2px;
   margin-left:8px;
-  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-image: radial-gradient(#00ff9d 1px, transparent 1px);
   background-size:6px 2px;
 }
 
 .azul{
-  background:#2f5fd2;
-  box-shadow: inset 0 0 8px rgba(255,255,255,.4);
+  background: linear-gradient(90deg, #001a33, #002244);
+  box-shadow: inset 0 0 8px rgba(0,255,157,.2);
 }
-.granate{ background:#8b3a4a; }
+.granate{ 
+  background: linear-gradient(90deg, #330a0a, #440d0d);
+  box-shadow: inset 0 0 8px rgba(255,100,100,.2);
+}
 
 /* ================= FILA ================= */
 
@@ -147,11 +258,11 @@ body{
   width:60px;
   height:60px;
   object-fit:contain;
+  filter: drop-shadow(0 0 5px #00ff9d);
 }
 
 .pixelado{
   image-rendering: pixelated;
-  filter: contrast(1.2) saturate(1.1);
 }
 
 .fila img:first-child{justify-self:start}
@@ -166,26 +277,29 @@ body{
   letter-spacing:1px;
 }
 .local{
-  padding-left:12px;   /* espacio entre logo y nombre */
+  padding-left:12px;
 }
 
 .visit{
-  padding-right:12px;  /* espacio entre nombre y logo */
+  padding-right:12px;
 }
 .visit{text-align:right}
 
 .principal{
   font-size:18px;
   font-weight:700;
+  color: #fff;
+  text-shadow: 0 0 5px #00ff9d;
 }
 
 .pelotaris{
   font-size:7px;
   font-weight:700;
+  color: #ccc;
 }
 
-.local .principal{color:#082e8a}
-.visit .principal{color:#8e0000}
+.local .principal{color:#88aaff}
+.visit .principal{color:#ff8888}
 
 /* ================= MARCADOR ================= */
 
@@ -199,6 +313,8 @@ body{
   font-weight:900;
   white-space:nowrap;
   letter-spacing:2px;
+  color: #00ff9d;
+  text-shadow: 0 0 10px #00ff9d;
 }
 
 .resultado-linea{
@@ -224,37 +340,40 @@ body{
   font-weight:900;
   border-radius:4px;
   color:#fff;
+  box-shadow: 0 0 10px currentColor;
 }
 
-.gana{ background:#17c417; }
-.pierde{ background:#e53935; }
+.gana{ background:#00aa00; }
+.pierde{ background:#aa0000; }
 
 .sets{
   font-size:13px;
   margin-top:4px;
   font-weight:700;
+  color: #00ff9d;
 }
 
-.blue{color:#0d47a1}
-.red{color:#b71c1c}
+.blue{color:#88aaff}
+.red{color:#ff8888}
 
 .fase{
   font-size:10px;
   font-weight:700;
   padding:2px 6px;
   border-radius:6px;
-  background:#e7d3c2;
-  color:#5a2d0c;
+  background:#1a3a1a;
+  color:#00ff9d;
   white-space:nowrap;
   letter-spacing:.5px;
   margin-left:8px;
+  border: 1px solid #00ff9d;
 }
 
 .fase-finala{
   background:linear-gradient(45deg,#c9a227,#f7e27a);
   color:#000;
   font-weight:900;
-  box-shadow:0 0 6px rgba(0,0,0,.3);
+  box-shadow:0 0 10px gold;
 }
 /* ================= FINALA BORDE DORADO ================= */
 
@@ -262,19 +381,24 @@ body{
   border:4px solid #c9a227;
   box-shadow:
     0 0 0 2px #f7e27a inset,
-    0 0 12px rgba(201,162,39,.7);
+    0 0 20px gold;
 }
 /* ================= PATROCINADORES ================= */
 
 .patrocinadores{
   padding:25px 10px;
   text-align:center;
+  background: rgba(0,0,0,0.8);
+  border-top: 2px solid #00ff9d;
 }
 
 .patro-titulo{
   font-family:'Orbitron';
   font-size:20px;
   margin-bottom:14px;
+  color: #00ff9d;
+  text-shadow: 0 0 10px #00ff9d;
+  letter-spacing: 2px;
 }
 
 .patro-grid{
@@ -282,9 +406,9 @@ body{
   grid-template-columns:repeat(9, minmax(0,1fr));
   gap:14px;
   width:100%;
-  max-width:860px;      /* 🔵 límite real dentro de la página */
+  max-width:860px;
   margin:0 auto;
-  padding:0 20px;       /* 🔵 respeta márgenes */
+  padding:0 20px;
   box-sizing:border-box;
   justify-items:center;
   align-items:center;
@@ -295,6 +419,13 @@ body{
   max-width:80px;
   height:46px;
   object-fit:contain;
+  filter: drop-shadow(0 0 5px #00ff9d);
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.patro-grid img:hover {
+  opacity: 1;
 }
 /* ================= BOTÓN FLOTANTE ================= */
 
@@ -304,51 +435,38 @@ body{
   right:20px;
   z-index:9999;
   padding:10px 18px;
-  background:#0b2350;
-  color:#9cff9c;
-  border:none;
+  background:#000;
+  color:#00ff9d;
+  border:2px solid #00ff9d;
   font-family:'Orbitron';
   cursor:pointer;
   border-radius:6px;
-  box-shadow:0 4px 10px rgba(0,0,0,.3);
+  box-shadow:0 0 20px #00ff9d;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 #btnExportar:hover{
   transform:scale(1.05);
+  background:#00ff9d;
+  color:#000;
 }
 
 /* 🔥 NO IMPRIMIR */
 @media print {
-
   .no-print{
     display:none !important;
   }
-
   body{
     background:#fff;
   }
-
   @page{
     size:A4;
     margin:10mm;
   }
-
   .pagina{
     width:100%;
   }
-}
-
-/* ================= CATEGORÍA TÍTULO ================= */
-.categoria-titulo {
-  font-family: 'Orbitron';
-  font-size: 24px;
-  text-align: center;
-  padding: 15px;
-  margin: 20px 0;
-  color: white;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
 }
 
 </style>
@@ -360,8 +478,9 @@ body{
 
 <script>
 let FASES = {};
-let CATEGORIAS = {};  
-let ORDEN_CATEGORIAS = [];
+let CATEGORIAS = {};
+let CATEGORIAS_EDAD = [];
+let GRUPOS_EDAD = {}; // Para almacenar los grupos agrupados por edadmin
 
 /* ================= PELOTAS ================= */
 
@@ -383,24 +502,27 @@ document.documentElement.style.setProperty('--pelotas-grises', generarPelotas('#
 /* ================= UTIL ================= */
 
 function dividirEquipo(txt){
+  if (!txt) return {principal: "", resto: ""};
+  
   txt = txt.replace(" (","<br>(");
-  const partes=txt.split(")");
-  const principal=partes[0]+")";
-  const resto=partes.slice(1).join(")").trim();
+  const partes = txt.split(")");
+  if (partes.length < 2) return {principal: txt, resto: ""};
+  
+  const principal = partes[0] + ")";
+  const resto = partes.slice(1).join(")").trim();
   return {principal, resto};
 }
 
 function logoClub(nombre){
-
-  if(!nombre) return "";
+  if(!nombre) return '<img class="logo pixelado" src="images/clubes/DEFAULT.jpg">';
 
   if(nombre.toLowerCase().includes("atseden"))
-    return `<img class="logo pixelado" src="images/ATSEDENA.jpg">`;
+    return `<img class="logo pixelado" src="images/ATSEDENA.jpg" onerror="this.src='images/clubes/DEFAULT.jpg'">`;
 
   const limpio = nombre
     .split("(")[0]
-    .normalize("NFD")                 // ✅ separa acentos
-    .replace(/[\u0300-\u036f]/g, "")  // ✅ elimina acentos
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[.,]/g,"")
     .replace(/–/g,"-")
     .replace(/-/g," ")
@@ -417,423 +539,436 @@ function logoClub(nombre){
 }
 
 function estado(p){
-
-  const texto=(p.modalidad||"").toLowerCase();
+  const texto = (p.modalidad || "").toLowerCase();
   if(texto.includes("atseden") || texto.includes("descanso"))
     return "rest";
 
-  if(!p.tanteoa) return "";
+  if(!p.tanteoa || !p.tanteoa.includes("-")) return "";
 
-  const [a,b]=p.tanteoa.split("-").map(Number);
+  const [a,b] = p.tanteoa.split("-").map(Number);
+  if (isNaN(a) || isNaN(b)) return "";
 
-  if((p.etxekoa||"").includes("LARRAUN"))
-    return a>b?"win":"lose";
+  if((p.etxekoa || "").includes("LARRAUN"))
+    return a > b ? "win" : "lose";
   else
-    return b>a?"win":"lose";
+    return b > a ? "win" : "lose";
 }
 
-function ordenar(lista){
-
-  return lista.sort((a,b)=>{
-
-    const esDescanso = p => {
-
-      const texto = (
-        (p.modalidad || "") + " " +
-        (p.etxekoa || "") + " " +
-        (p.kanpokoak || "")
-      ).toLowerCase();
-
-      return texto.includes("atseden") ||
-             texto.includes("atsedena") ||
-             texto.includes("descanso");
-    };
-
-    if(esDescanso(a) && !esDescanso(b)) return 1;
-    if(!esDescanso(a) && esDescanso(b)) return -1;
-
-    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
-    const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
-
-    return fa-fb;
+/* ================= NUEVA FUNCIÓN DE ORDENACIÓN ================= */
+function ordenarPorDiaYFronton(lista){
+  return lista.sort((a,b) => {
+    // Primero por fecha
+    const fa = new Date(a.fecha + "T" + (a.hora || "00:00"));
+    const fb = new Date(b.fecha + "T" + (b.hora || "00:00"));
+    
+    if (fa - fb !== 0) return fa - fb;
+    
+    // Si misma fecha, por frontón
+    return (a.fronton || "").localeCompare(b.fronton || "");
   });
+}
 
+/* ================= AGRUPAR POR DÍA ================= */
+function agruparPorDia(partidos) {
+  const grupos = {};
+  
+  partidos.forEach(partido => {
+    const dia = partido.fecha || "Sin fecha";
+    if (!grupos[dia]) {
+      grupos[dia] = [];
+    }
+    grupos[dia].push(partido);
+  });
+  
+  return grupos;
+}
+
+function formatearFecha(fechaStr) {
+  if (!fechaStr) return "DATA EZEZAGUNA";
+  const partes = fechaStr.split("-");
+  if (partes.length !== 3) return fechaStr;
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
 function filtrarPeriodo(lista){
-
-  const hoy=new Date();
+  const hoy = new Date();
   hoy.setHours(23,59,59,999);
 
-  const diaSemana=hoy.getDay();
-  const diasAtras=diaSemana===0?6:diaSemana-1;
+  const diaSemana = hoy.getDay();
+  const diasAtras = diaSemana === 0 ? 6 : diaSemana - 1;
 
-  const inicioSemanaActual=new Date(hoy);
-  inicioSemanaActual.setDate(hoy.getDate()-diasAtras);
+  const inicioSemanaActual = new Date(hoy);
+  inicioSemanaActual.setDate(hoy.getDate() - diasAtras);
   inicioSemanaActual.setHours(0,0,0,0);
 
-  const inicioSemanaPasada=new Date(inicioSemanaActual);
-  inicioSemanaPasada.setDate(inicioSemanaActual.getDate()-7);
+  const inicioSemanaPasada = new Date(inicioSemanaActual);
+  inicioSemanaPasada.setDate(inicioSemanaActual.getDate() - 7);
 
-  return lista.filter(p=>{
-    const f=new Date(p.fecha+"T00:00");
-    return f>=inicioSemanaPasada && f<=hoy;
+  return lista.filter(p => {
+    if (!p.fecha) return false;
+    const f = new Date(p.fecha + "T00:00");
+    return f >= inicioSemanaPasada && f <= hoy;
   });
 }
 
-/* ================= DETECTAR CATEGORÍA ================= */
-function detectarCategoria(partido) {
+/* ================= NUEVA FUNCIÓN PARA AGRUPAR POR ADMIN ================= */
+function procesarGruposEdad() {
+  GRUPOS_EDAD = {};
+  
+  CATEGORIAS_EDAD.forEach(item => {
+    const edadMin = item.EDADMIN;
+    if (!GRUPOS_EDAD[edadMin]) {
+      // El primer elemento de cada edad define el nombre del grupo
+      GRUPOS_EDAD[edadMin] = {
+        nombre: Object.keys(item).find(key => key !== "EDADMIN" && key !== "EDADMAX") || "Besteak",
+        color: item[Object.keys(item).find(key => key !== "EDADMIN" && key !== "EDADMAX")] || "#6c757d",
+        categorias: []
+      };
+    }
+    // Añadir todas las categorías de esta edad
+    Object.keys(item).forEach(key => {
+      if (key !== "EDADMIN" && key !== "EDADMAX") {
+        GRUPOS_EDAD[edadMin].categorias.push(key);
+      }
+    });
+  });
+}
+
+function detectarGrupo(partido) {
   const textoCompleto = (
     (partido.lehiaketa || "") + " " + 
     (partido.modalidad || "") + " " +
     (partido.categoria || "")
   ).toLowerCase();
   
-  for (const cat in CATEGORIAS) {
-    if (textoCompleto.includes(cat.toLowerCase())) {
-      return cat;
-    }
-  }
-  
-  return "Besteak"; // Categoría por defecto
-}
-
-/* ================= RENDER ================= */
-function generarClasesCategorias(){
-
-  const style = document.createElement("style");
-  let css = "";
-
-  for(const cat in CATEGORIAS){
-    css += `
-      .cat-${cat.replace(/\s+/g, '-')}{
-        background-color:${CATEGORIAS[cat]} !important;
+  // Buscar por grupos de edad
+  for (const [edadMin, grupo] of Object.entries(GRUPOS_EDAD)) {
+    for (const categoria of grupo.categorias) {
+      if (textoCompleto.includes(categoria.toLowerCase())) {
+        return {
+          nombre: grupo.nombre,
+          edadMinima: edadMin,
+          color: grupo.color
+        };
       }
-    `;
+    }
   }
   
-  // Añadir clase por defecto
-  css += `
-    .cat-Besteak {
-      background-color: #6c757d !important;
-    }
-  `;
-
-  style.innerHTML = css;
-  document.head.appendChild(style);
+  // Detectar por palabras clave si no se encuentra en grupos
+  if (textoCompleto.includes("sein") || textoCompleto.includes("benjamin")) {
+    return { nombre: "SEIN", edadMinima: 8, color: CATEGORIAS["SEIN"] || "#ff6b6b" };
+  }
+  if (textoCompleto.includes("haur") || textoCompleto.includes("alebin")) {
+    return { nombre: "HAUR", edadMinima: 10, color: CATEGORIAS["HAUR"] || "#4ecdc4" };
+  }
+  if (textoCompleto.includes("kadete")) {
+    return { nombre: "KADETE", edadMinima: 12, color: CATEGORIAS["KADETE"] || "#45b7d1" };
+  }
+  if (textoCompleto.includes("junior")) {
+    return { nombre: "JUNIOR", edadMinima: 14, color: CATEGORIAS["JUNIOR"] || "#96ceb4" };
+  }
+  
+  return {
+    nombre: "Besteak",
+    edadMinima: null,
+    color: "#6c757d"
+  };
 }
 
-function obtenerClaseCategoria(categoria){
-  return "cat-" + categoria.replace(/\s+/g, '-');
+function agruparPorGrupoEdad(partidos) {
+  const grupos = {};
+  
+  partidos.forEach(partido => {
+    const grupoInfo = detectarGrupo(partido);
+    const key = grupoInfo.nombre;
+    
+    if (!grupos[key]) {
+      grupos[key] = {
+        nombre: key,
+        edadMinima: grupoInfo.edadMinima,
+        color: grupoInfo.color,
+        partidos: []
+      };
+    }
+    grupos[key].partidos.push(partido);
+  });
+  
+  return grupos;
+}
+
+function ordenarGrupos(grupos) {
+  const ordenPredefinido = ["SEIN", "HAUR", "KADETE", "JUNIOR", "HELDUAK", "Besteak"];
+  
+  return grupos.sort((a, b) => {
+    const indexA = ordenPredefinido.indexOf(a.nombre);
+    const indexB = ordenPredefinido.indexOf(b.nombre);
+    
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    return a.nombre.localeCompare(b.nombre);
+  });
+}
+
+function extraerFase(texto){
+  if(!texto) return { limpio: "", etiqueta: "" };
+
+  const fasesOrdenadas = Object.values(FASES).sort((a,b)=> b.length - a.length);
+
+  for(const fase of fasesOrdenadas){
+    const regex = new RegExp(`\\b${fase}\\b`, "i");
+    if(regex.test(texto)){
+      const textoLimpio = texto.replace(regex, "").trim();
+      let claseExtra = fase.toUpperCase() === "FINALA" ? " fase-finala" : "";
+      const etiqueta = `<span class="fase${claseExtra}">${fase}</span>`;
+      return { limpio: textoLimpio, etiqueta };
+    }
+  }
+
+  return { limpio: texto, etiqueta: "" };
 }
 
 function crearPartido(p){
+  if (!p) return document.createElement("div");
 
-    const fronton = (p.fronton || "").toLowerCase();
-
-  const esAzul = fronton.includes("lekunberri") ||
-                 fronton.includes("aldatz");
-
+  const fronton = (p.fronton || "").toLowerCase();
+  const esAzul = fronton.includes("lekunberri") || fronton.includes("aldatz");
   const colorHeader = esAzul ? "azul" : "granate";
 
+  const est = estado(p);
+  const eq1 = dividirEquipo(p.etxekoa || "");
+  const eq2 = dividirEquipo(p.kanpokoak || "");
+  
+  let a = "", b = "";
+  if (p.tanteoa && p.tanteoa.includes("-")) {
+    [a, b] = p.tanteoa.split("-").map(x => x.trim());
+  }
 
-  const est=estado(p);
-  const eq1=dividirEquipo(p.etxekoa);
-  const eq2=dividirEquipo(p.kanpokoak);
-  const [a,b]=(p.tanteoa||"").split("-");
+  let icono = "";
+  const faseTexto = p.lehiaketa || p.modalidad || "";
+  const esFinala = faseTexto.toUpperCase().includes("FINALA");
 
-  let icono="";
+  if (est === "win") {
+    icono = esFinala ? 
+      `<div class="icono-resultado gana">🥇</div>` : 
+      `<div class="icono-resultado gana">✔</div>`;
+  } else if (est === "lose") {
+    icono = esFinala ? 
+      `<div class="icono-resultado pierde">🥈</div>` : 
+      `<div class="icono-resultado pierde">✖</div>`;
+  }
 
-const faseTexto = p.lehiaketa || p.modalidad || "";
-const esFinala = faseTexto.toUpperCase().includes("FINALA");
-
-if(est==="win"){
-  if(esFinala)
-    icono=`<div class="icono-resultado gana">🥇</div>`;
-  else
-    icono=`<div class="icono-resultado gana">✔</div>`;
-}
-else if(est==="lose"){
-  if(esFinala)
-    icono=`<div class="icono-resultado pierde">🥈</div>`;
-  else
-    icono=`<div class="icono-resultado pierde">✖</div>`;
-}
-
-  const div=document.createElement("div");
-  div.className = 
-  "partido " + 
-  est + " " + 
-  (esFinala ? " partido-finala" : "");  
-  div.innerHTML=`
-    <a href="${p.url||'#'}" target="_blank"
+  const div = document.createElement("div");
+  div.className = "partido " + est + (esFinala ? " partido-finala" : "");
+  
+  const faseData = extraerFase(p.lehiaketa || p.modalidad || "");
+  
+  div.innerHTML = `
+    <a href="${p.url || '#'}" target="_blank"
        class="partido-header ${colorHeader}">
-      ${(()=>{
-   const faseData = extraerFase(p.lehiaketa || p.modalidad);
-
-   return `
-     <span>
-       ${p.fecha} · ${p.fronton} ·
-       ${p.url?`<u>${faseData.limpio}</u>`:faseData.limpio}
-       ${faseData.etiqueta}
-     </span>
-   `;
-})()}
+      <span>
+        ${p.fecha || ''} · ${p.fronton || ''} ·
+        ${p.url ? `<u>${faseData.limpio}</u>` : faseData.limpio}
+        ${faseData.etiqueta}
+      </span>
     </a>
 
     <div class="fila">
-
       ${logoClub(p.etxekoa)}
-
       <div class="local">
         <div class="principal">${eq1.principal}</div>
-        ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
+        ${eq1.resto ? `<div class="pelotaris">${eq1.resto}</div>` : ""}
       </div>
-
       <div class="score">
         <div class="resultado-linea">
-          <span class="blue">${a||""}</span>
+          <span class="blue">${a}</span>
           <span class="icono-wrapper">${icono}</span>
-          <span class="red">${b||""}</span>
+          <span class="red">${b}</span>
         </div>
-        ${p.sets?`<div class="sets">${p.sets}</div>`:""}
+        ${p.sets ? `<div class="sets">${p.sets}</div>` : ""}
       </div>
-
       <div class="visit">
         <div class="principal">${eq2.principal}</div>
-        ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
+        ${eq2.resto ? `<div class="pelotaris">${eq2.resto}</div>` : ""}
       </div>
-
       ${logoClub(p.kanpokoak)}
-
     </div>
   `;
 
   return div;
 }
 
-function bloque(titulo, lista, colorCategoria){
-
-  if(!lista.length) return document.createDocumentFragment();
-
-  const frag = document.createDocumentFragment();
-
-  const h = document.createElement("div");
-  h.className = "titulo-seccion";
-  h.textContent = titulo;
-  h.style.backgroundColor = colorCategoria;
-
-  frag.appendChild(h);
-
-  lista.forEach(p => frag.appendChild(crearPartido(p)));
-
-  return frag;
-}
-function extraerFase(texto){
-
-  if(!texto) return { limpio:texto, etiqueta:"" };
-
-  const fasesOrdenadas = Object.values(FASES)
-    .sort((a,b)=> b.length - a.length);
-
-  for(const fase of fasesOrdenadas){
-
-    const regex = new RegExp(`\\b${fase}\\b`, "i");
-
-    if(regex.test(texto)){
-
-      const textoLimpio = texto.replace(regex,"").trim();
-
-      let claseExtra = "";
-      if(fase.toUpperCase() === "FINALA"){
-        claseExtra = " fase-finala";
+/* ================= CARGA CON FALLBACK ================= */
+async function cargarDatos() {
+  try {
+    const resultados = await Promise.allSettled([
+      fetch("data/resultados-larraun.json").then(r => r.ok ? r.json() : []),
+      fetch("data/resultados-no-oficiales.json").then(r => r.ok ? r.json() : []),
+      fetch("data/fases.json").then(r => r.ok ? r.json() : {}),
+      fetch("data/categoriacartel.json").then(r => r.ok ? r.json() : {}),
+      fetch("data/categorias_edad.json").then(r => r.ok ? r.json() : [])
+    ]);
+    
+    const larraun = resultados[0].status === 'fulfilled' ? resultados[0].value : [];
+    const noOficiales = resultados[1].status === 'fulfilled' ? resultados[1].value : [];
+    FASES = resultados[2].status === 'fulfilled' ? resultados[2].value : {};
+    CATEGORIAS = resultados[3].status === 'fulfilled' ? resultados[3].value : {};
+    CATEGORIAS_EDAD = resultados[4].status === 'fulfilled' ? resultados[4].value : [];
+    
+    // Procesar grupos por edad
+    procesarGruposEdad();
+    
+    // Categorías por defecto si no hay
+    if (Object.keys(CATEGORIAS).length === 0) {
+      CATEGORIAS = {
+        "SEIN": "#ff6b6b",
+        "HAUR": "#4ecdc4", 
+        "KADETE": "#45b7d1",
+        "JUNIOR": "#96ceb4",
+        "HELDUAK": "#9898FA"
+      };
+    }
+    
+    const todos = filtrarPeriodo([...larraun, ...noOficiales]);
+    
+    if (todos.length === 0) {
+      document.getElementById("contenedor-paginas").innerHTML = `
+        <div style="text-align: center; padding: 50px; font-family: Orbitron; color: #00ff9d;">
+          <h2>EZ DA PARTIDURIK AURKITU</h2>
+          <p>Azken 7 egunetako partidurik ez</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Agrupar por grupo de edad
+    const grupos = agruparPorGrupoEdad(todos);
+    const gruposArray = Object.values(grupos);
+    const gruposOrdenados = ordenarGrupos(gruposArray);
+    
+    const contenedor = document.getElementById("contenedor-paginas");
+    contenedor.innerHTML = '';
+    
+    // Crear página para cada grupo
+    gruposOrdenados.forEach((grupo, index) => {
+      // Ordenar partidos por día y frontón
+      const partidosOrdenados = ordenarPorDiaYFronton(grupo.partidos);
+      
+      // Agrupar por día para mostrar separadores
+      const partidosPorDia = agruparPorDia(partidosOrdenados);
+      const dias = Object.keys(partidosPorDia).sort();
+      
+      const pagina = document.createElement("div");
+      pagina.className = "pagina-a3";
+      pagina.id = `pagina-${index}`;
+      
+      // Header
+      const header = document.createElement("div");
+      header.className = "header";
+      header.innerHTML = `
+        <img src="images/logo-larraun.png" class="logo-izq" onerror="this.style.display='none'">
+        EMAITZAK - LARRAUN PILOTA ELKARTEA
+        <img src="images/logo-fnp.png" class="logo-der" onerror="this.style.display='none'">
+      `;
+      
+      // Contenido
+      const contenido = document.createElement("div");
+      contenido.className = "contenido";
+      contenido.style.padding = "20px";
+      
+      // Título de categoría (siempre con texto azul oscuro)
+      const tituloCat = document.createElement("div");
+      tituloCat.className = "categoria-titulo";
+      tituloCat.style.backgroundColor = grupo.color;
+      tituloCat.style.color = "#003366"; // Forzar azul oscuro
+      tituloCat.textContent = grupo.nombre.toUpperCase();
+      contenido.appendChild(tituloCat);
+      
+      // Subtítulo de edad
+      const infoSub = document.createElement("div");
+      infoSub.className = "edad-subtitulo";
+      if (grupo.edadMinima) {
+        infoSub.textContent = `⏳ ${grupo.edadMinima}+ URTE | ⚾ ${partidosOrdenados.length} PARTIDU`;
+      } else {
+        infoSub.textContent = `⚾ ${partidosOrdenados.length} PARTIDU`;
       }
-
-      const etiqueta = `<span class="fase${claseExtra}">${fase}</span>`;
-
-      return { limpio:textoLimpio, etiqueta };
-    }
-  }
-
-  return { limpio:texto, etiqueta:"" };
-}
-
-/* ================= AGRUPAR POR CATEGORÍA ================= */
-function agruparPorCategoria(partidos) {
-  const grupos = {};
-  
-  partidos.forEach(partido => {
-    const categoria = detectarCategoria(partido);
-    if (!grupos[categoria]) {
-      grupos[categoria] = [];
-    }
-    grupos[categoria].push(partido);
-  });
-  
-  return grupos;
-}
-
-/* ================= ORDENAR CATEGORÍAS ================= */
-function ordenarCategorias(categorias) {
-  // Primero las que están en ORDEN_CATEGORIAS, luego el resto alfabéticamente
-  return categorias.sort((a, b) => {
-    const indexA = ORDEN_CATEGORIAS.indexOf(a);
-    const indexB = ORDEN_CATEGORIAS.indexOf(b);
-    
-    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-    if (indexA !== -1) return -1;
-    if (indexB !== -1) return 1;
-    return a.localeCompare(b);
-  });
-}
-
-/* ================= CARGA ================= */
-
-Promise.all([
- fetch("data/resultados-larraun.json").then(r=>r.json()),
- fetch("data/resultados-no-oficiales.json").then(r=>r.json()),
- fetch("data/fases.json").then(r=>r.json()),
- fetch("data/categoriacartel.json").then(r=>r.json())
-]).then(([larraun,noOficiales,fases,categorias])=>{
-
-  FASES = fases;
-  CATEGORIAS = categorias;
-  ORDEN_CATEGORIAS = Object.keys(categorias);
-
-  generarClasesCategorias();
-
-  const todos = filtrarPeriodo([...larraun, ...noOficiales]);
-  
-  // Agrupar por categoría
-  const grupos = agruparPorCategoria(todos);
-  
-  // Ordenar categorías
-  const categoriasOrdenadas = ordenarCategorias(Object.keys(grupos));
-  
-  const contenedor = document.getElementById("contenedor-paginas");
-  contenedor.innerHTML = ''; // Limpiar
-  
-  // Crear página para cada categoría
-  categoriasOrdenadas.forEach((categoria, index) => {
-    const partidosCategoria = ordenar(grupos[categoria]);
-    const colorCategoria = CATEGORIAS[categoria] || "#6c757d";
-    
-    const pagina = document.createElement("div");
-    pagina.className = "pagina-a3";
-    pagina.id = `pagina-${index}`;
-    
-    // Header
-    const header = document.createElement("div");
-    header.className = "header";
-    header.innerHTML = `
-      <img src="images/logo-larraun.png" class="logo-izq">
-      EMAITZAK - LARRAUN PILOTA ELKARTEA
-      <img src="images/logo-fnp.png" class="logo-der">
-    `;
-    
-    // Contenido
-    const contenido = document.createElement("div");
-    contenido.className = "contenido";
-    contenido.style.padding = "20px";
-    
-    // Título de categoría
-    const tituloCat = document.createElement("div");
-    tituloCat.className = "categoria-titulo";
-    tituloCat.style.backgroundColor = colorCategoria;
-    tituloCat.textContent = categoria.toUpperCase();
-    contenido.appendChild(tituloCat);
-    
-    // Añadir partidos
-    partidosCategoria.forEach(partido => {
-      contenido.appendChild(crearPartido(partido));
+      contenido.appendChild(infoSub);
+      
+      // Mostrar partidos agrupados por día
+      dias.forEach(dia => {
+        // Separador de día
+        const diaSeparador = document.createElement("div");
+        diaSeparador.className = "dia-separador";
+        diaSeparador.innerHTML = `📅 ${formatearFecha(dia)} <span>${partidosPorDia[dia].length} partidu</span>`;
+        contenido.appendChild(diaSeparador);
+        
+        // Partidos de ese día
+        partidosPorDia[dia].forEach(partido => {
+          contenido.appendChild(crearPartido(partido));
+        });
+      });
+      
+      // Footer con patrocinadores (simplificado para ejemplo)
+      const footer = document.createElement("div");
+      footer.className = "patrocinadores";
+      footer.innerHTML = `
+        <div class="patro-titulo">BABESLEAK</div>
+        <div class="patro-grid">
+          <img src="images/patrocinio/aliprox.jpg" onerror="this.style.display='none'">
+          <img src="images/patrocinio/arbeondo.jpg" onerror="this.style.display='none'">
+          <img src="images/patrocinio/asadorepeleta.jpg" onerror="this.style.display='none'">
+        </div>
+      `;
+      
+      pagina.appendChild(header);
+      pagina.appendChild(contenido);
+      pagina.appendChild(footer);
+      
+      contenedor.appendChild(pagina);
     });
-    
-    // Footer
-    const footer = document.createElement("div");
-    footer.className = "patrocinadores";
-    footer.innerHTML = `
-      <div class="patro-titulo">BABESLEAK</div>
-      <div class="patro-grid">
-        <img src="images/patrocinio/aliprox.jpg" alt="aliprox.jpg">
-        <img src="images/patrocinio/arbeondo.jpg" alt="arbeondo.jpg">
-        <img src="images/patrocinio/asadorepeleta.jpg" alt="asadorepeleta.jpg">
-        <img src="images/patrocinio/barainhoa.jpg" alt="barainhoa.jpg">
-        <img src="images/patrocinio/kotxera.jpg" alt="kotxera.jpg">
-        <img src="images/patrocinio/barilargi.jpg" alt="barilargi.jpg">
-        <img src="images/patrocinio/barlekuonberri.jpg" alt="barlekuonberri.jpg">
-        <img src="images/patrocinio/begoñajanaridenda.jpg" alt="begoñajanaridenda.jpg">
-        <img src="images/patrocinio/carniceriaartxueta.jpg" alt="carniceriaartxueta.jpg">
-        <img src="images/patrocinio/carpinteriahnosazpiroz.jpg" alt="carpinteriahnosazpiroz.jpg">
-        <img src="images/patrocinio/construccionesgañarbe.jpg" alt="construccionesgañarbe.jpg">
-        <img src="images/patrocinio/construccionesgarciarenasaralegi.jpg" alt="construccionesgarciarenasaralegi.jpg">
-        <img src="images/patrocinio/construccionesurangasaigos.jpg" alt="construccionesurangasaigos.jpg">
-        <img src="images/patrocinio/hotelayestaran.jpg" alt="hotelayestaran.jpg">
-        <img src="images/patrocinio/iseelectricidad.jpg" alt="iseelectricidad.jpg">
-        <img src="images/patrocinio/kattagorrielkartea.jpg" alt="kattagorrielkartea.jpg">
-        <img src="images/patrocinio/lacturale.jpg" alt="lacturale.jpg">
-        <img src="images/patrocinio/lagunasesoria.jpg" alt="lagunasesoria.jpg">
-        <img src="images/patrocinio/maderasnasorena.jpg" alt="maderasnasorena.jpg">
-        <img src="images/patrocinio/maskarada.jpg" alt="maskarada.jpg">
-        <img src="images/patrocinio/suacontrol.jpg" alt="suacontrol.jpg">
-        <img src="images/patrocinio/urzubi.jpg" alt="urzubi.jpg">
-        <img src="images/patrocinio/ventamugiro.jpg" alt="ventamugiro.jpg">
-        <img src="images/patrocinio/dietistaanagurrea.jpg" alt="dietistaanagurrea.jpg">
-        <img src="images/patrocinio/ekin.jpg" alt="ekin.jpg">
-        <img src="images/patrocinio/farmaciaitziarmendia.png" alt="farmaciaitziarmendia.png">
-        <img src="images/patrocinio/fontaneriabalenciaga.jpg" alt="fontaneriabalenciaga.jpg">
-        <img src="images/patrocinio/fontaneriairibarren.jpg" alt="fontaneriairibarren.jpg">
-        <img src="images/patrocinio/izarberri.png" alt="izarberri.png">
-        <img src="images/patrocinio/lakita.jpg" alt="lakita.jpg">
-        <img src="images/patrocinio/sidreriatokialai.jpg" alt="sidreriatokialai.jpg">
-        <img src="images/patrocinio/tallereslarraun.jpg" alt="tallereslarraun.jpg">
-        <img src="images/patrocinio/talleresotxotorena.jpg" alt="talleresotxotorena.jpg">
-        <img src="images/patrocinio/veterinarialekunberri.jpg" alt="veterinarialekunberri.jpg">
+
+  } catch (error) {
+    console.error("Error cargando datos:", error);
+    document.getElementById("contenedor-paginas").innerHTML = `
+      <div style="text-align: center; padding: 50px; font-family: Orbitron; color: red;">
+        <h2>KARGA ERROREA</h2>
+        <p>${error.message}</p>
       </div>
     `;
-    
-    pagina.appendChild(header);
-    pagina.appendChild(contenido);
-    pagina.appendChild(footer);
-    
-    contenedor.appendChild(pagina);
-  });
+  }
+}
 
-});
+// Iniciar carga
+cargarDatos();
 
 document.getElementById("btnExportar").addEventListener("click", async () => {
-
   const btn = document.getElementById("btnExportar");
   btn.style.display = "none";
 
   await document.fonts.ready;
 
-  // Esperar a que carguen todas las imágenes
-  const imagenes = Array.from(document.images);
-  await Promise.all(
-    imagenes.map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise(resolve => {
-        img.onload = img.onerror = resolve;
-      });
-    })
-  );
-
   const paginas = document.querySelectorAll(".pagina-a3");
   let contador = 1;
 
   for (const pagina of paginas) {
+    try {
+      const canvas = await html2canvas(pagina, {
+        scale: 2,
+        backgroundColor: "#0a0a0a",
+        allowTaint: true,
+        useCORS: true
+      });
 
-    const canvas = await html2canvas(pagina, {
-      scale: 2,
-      backgroundColor: "#ffffff"
-    });
+      const titulo = pagina.querySelector('.categoria-titulo')?.textContent.toLowerCase().replace(/\s+/g, '-') || 'emaitzak';
+      const enlace = document.createElement("a");
+      enlace.download = `larraun-${titulo}-${contador}.jpg`;
+      enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+      enlace.click();
 
-    const enlace = document.createElement("a");
-    enlace.download = `larraun-${pagina.querySelector('.categoria-titulo').textContent.toLowerCase().replace(/\s+/g, '-')}-${contador}.jpg`;
-    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
-    enlace.click();
-
-    contador++;
+      contador++;
+    } catch (error) {
+      console.error("Error exportando página:", error);
+    }
   }
 
   btn.style.display = "block";
