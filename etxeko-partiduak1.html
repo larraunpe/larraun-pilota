@@ -8,7 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-/* Mismos estilos que antes... */
 body{
   margin:0;
   background:#1b4d31;
@@ -129,92 +128,43 @@ body{
   margin:30px auto;
   display:flex;
   flex-direction:column;
-  background:linear-gradient(145deg, #2a6e46, #1e4f32);
+  background-image: url('images/fondo-partidos.jpg');
+  background-size: cover;
+  background-position: center;
   position:relative;
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
   overflow: hidden;
   height: auto;
-  max-height: 1920px;
+  min-height: 1200px;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER COMPACTO ===== */
 .header{
-  height:160px;
+  height:100px;
   position:relative;
   display:flex;
   align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg, #2a5fc4, #1a3a8a);
-  box-shadow:inset 0 -10px 20px rgba(0,0,0,.4);
+  justify-content:space-between;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(5px);
   flex-shrink: 0;
-  border-radius: 30px 30px 0 0;
-}
-
-.header::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:50px;
-  background:linear-gradient(rgba(255,255,255,.3), transparent);
-  border-radius: 30px 30px 0 0;
+  padding:0 30px;
+  border-bottom:3px solid gold;
 }
 
 .logo-izq, .logo-der{
-  position:absolute;
-  top:25px;
-  height:100px;
-  z-index:10;
-}
-.logo-izq{ left:25px; }
-.logo-der{ right:25px; }
-
-.titulo-curvo{
-  width:100%;
-  height:140px;
+  height:70px;
+  object-fit:contain;
 }
 
-.titulo-curvo text{
-  font-size:40px;
-  font-weight:900;
-  fill:white;
-  text-shadow:2px 2px 4px rgba(0,0,0,.3);
-}
-
-/* ===== DÍA SEMANA ===== */
-.dia-container{
-  text-align:center;
-  margin:25px 0 15px;
-  position:relative;
-  flex-shrink: 0;
-}
-
-.dia-semana{
-  display:inline-block;
-  background:rgba(255,215,0,0.25);
-  backdrop-filter:blur(5px);
-  padding:15px 40px;
-  border-radius:60px;
-  border:3px solid gold;
-  box-shadow:0 10px 20px rgba(0,0,0,.3);
-}
-
-.dia-semana .dia{
-  font-size:42px;
-  font-weight:900;
+.dia-header{
   color:white;
+  font-size:36px;
+  font-weight:900;
   text-transform:uppercase;
   letter-spacing:3px;
-  text-shadow:3px 3px 0 #000, 5px 5px 10px rgba(0,0,0,.5);
-}
-
-.dia-semana .fecha{
-  font-size:24px;
-  color:#f0f0f0;
-  margin-top:5px;
-  font-weight:bold;
+  text-shadow:3px 3px 0 #000;
 }
 
 /* ===== CONTENIDO ===== */
@@ -222,20 +172,24 @@ body{
   padding:20px 30px;
   flex: 1;
   overflow: visible;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(2px);
+  margin:20px;
+  border-radius:30px;
 }
 
 /* ===== GRUPO PARTIDOS ===== */
 .grupo{
-  background:rgba(255,255,255,.95);
-  border-radius:25px;
+  background:white;
+  border-radius:20px;
   overflow:hidden;
   margin-bottom:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.4);
-  border:2px solid rgba(255,215,0,.3);
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
+  border:2px solid gold;
 }
 
 .grupo-header{
-  padding:15px 22px;
+  padding:12px 20px;
   color:white;
   position:relative;
   overflow:hidden;
@@ -244,49 +198,35 @@ body{
 .grupo-header.jai-alai{ background:linear-gradient(135deg, #1565c0, #0d47a1); }
 .grupo-header.trinkete{ background:linear-gradient(135deg, #ad1457, #7a0c3a); }
 
-.grupo-header::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:40px;
-  background:linear-gradient(rgba(255,255,255,.2), transparent);
-}
-
 .fronton{
-  font-size:26px;
+  font-size:22px;
   font-weight:900;
-  margin-bottom:5px;
+  margin-bottom:3px;
   display:flex;
   align-items:center;
-  gap:10px;
-  position:relative;
-  z-index:2;
+  gap:8px;
 }
 
 .fronton-icon{
-  font-size:30px;
+  font-size:24px;
 }
 
 .datetime{
-  font-size:20px;
+  font-size:18px;
   display:flex;
   align-items:center;
   gap:15px;
   opacity:.9;
-  position:relative;
-  z-index:2;
 }
 
 .grupo-body{
-  padding:15px;
+  padding:12px;
   background:white;
 }
 
 /* ===== PARTIDO ===== */
 .partido{
-  padding:12px 0;
+  padding:10px 0;
   border-bottom:2px solid #eee;
   transition:all .2s;
 }
@@ -300,90 +240,86 @@ body{
   border-left: 8px solid #d4af37;
   border-right: 8px solid #d4af37;
   border-radius: 20px;
-  margin: 15px -5px;
-  padding: 15px 10px;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  margin: 12px -5px;
+  padding: 12px 10px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
 .partido-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .partido-numero{
   background:#333;
   color:white;
-  width:35px;
-  height:35px;
+  width:30px;
+  height:30px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:900;
-  font-size:18px;
-  flex-shrink: 0;
+  font-size:16px;
+  flex-shrink:0;
 }
 
 .torneo-container{
   flex:1;
-  margin-left:12px;
+  margin-left:10px;
 }
 
 .torneo{
-  font-size:20px;
+  font-size:18px;
   font-weight:900;
-  padding:6px 15px;
-  border-radius:40px;
+  padding:5px 12px;
+  border-radius:30px;
   display:inline-block;
-  color: #1e4f32 !important;
-  background: rgba(255,255,255,0.7);
-  box-shadow:0 4px 10px rgba(0,0,0,.2);
-  border: 2px solid rgba(30, 79, 50, 0.3);
-  text-shadow: 0 1px 0 white;
+  color:#1e4f32!important;
+  background:rgba(255,255,255,0.7);
+  box-shadow:0 2px 5px rgba(0,0,0,.2);
+  border:2px solid rgba(30,79,50,.3);
 }
 
 .torneo.finala-torneo {
-  background: linear-gradient(145deg, #FFD700, #FDB931) !important;
-  color: #000000 !important;
-  font-size: 22px;
-  padding: 8px 20px;
-  border: 3px solid #b8860b;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 20px #FFD700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 0 #FFF;
-  animation: pulse 1.5s infinite;
+  background:linear-gradient(145deg,#FFD700,#FDB931)!important;
+  color:#000!important;
+  font-size:20px;
+  padding:6px 18px;
+  border:3px solid #b8860b;
+  box-shadow:0 5px 15px rgba(0,0,0,0.5),0 0 15px #FFD700;
+  animation:pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0%{transform:scale(1)}
+  50%{transform:scale(1.03)}
+  100%{transform:scale(1)}
 }
 
 .equipos{
   display:flex;
   flex-direction:column;
-  gap:8px;
-  margin-top:10px;
+  gap:6px;
+  margin-top:8px;
 }
 
 .equipo{
   display:flex;
   align-items:center;
-  font-size:20px;
+  font-size:18px;
   font-weight:700;
-  padding:6px 12px;
-  border-radius:12px;
+  padding:5px 10px;
+  border-radius:10px;
   background:#f5f5f5;
 }
 
 .equipo-icon{
-  font-size:24px;
-  margin-right:12px;
-  width:35px;
+  font-size:20px;
+  margin-right:10px;
+  width:30px;
   text-align:center;
 }
 
@@ -392,36 +328,34 @@ body{
 
 /* ===== INDICADOR DE CONTINUACIÓN ===== */
 .continuation-indicator {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin: 30px 0 20px;
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  background: rgba(0,0,0,0.6);
-  padding: 20px;
-  border-radius: 60px;
-  backdrop-filter: blur(5px);
-  border: 4px solid gold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  display:flex!important;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  margin:30px 0 20px;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  background:rgba(0,0,0,0.6);
+  padding:15px;
+  border-radius:60px;
+  backdrop-filter:blur(5px);
+  border:4px solid gold;
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .continuation-indicator span {
-  animation: bounce 2s infinite;
-  font-size: 40px;
-  display: inline-block;
+  animation:bounce 2s infinite;
+  font-size:36px;
+  display:inline-block;
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-15px); }
-  60% { transform: translateY(-8px); }
+  0%,20%,50%,80%,100%{transform:translateY(0)}
+  40%{transform:translateY(-15px)}
+  60%{transform:translateY(-8px)}
 }
 
 /* ===== INDICADOR PÁGINA ===== */
@@ -431,56 +365,40 @@ body{
   right:35px;
   background:rgba(0,0,0,.7);
   color:white;
-  padding:12px 25px;
+  padding:10px 20px;
   border-radius:40px;
-  font-size:22px;
+  font-size:20px;
   font-weight:bold;
   border:3px solid gold;
   z-index:100;
   backdrop-filter:blur(5px);
 }
 
-/* ===== PELOTAZOS ===== */
-.pelotazos{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:20;
-  mix-blend-mode:multiply;
-}
-
-.pelota-dot{
-  position:absolute;
-  border-radius:50%;
-  background:#000;
-  opacity:.2;
-}
-
 /* ===== FOOTER ===== */
 .footer{
   background:linear-gradient(#2f2f2f, #1a1a1a);
-  padding:20px;
+  padding:15px;
   border-top:3px solid gold;
-  flex-shrink: 0;
-  border-radius: 0 0 30px 30px;
+  flex-shrink:0;
+  border-radius:0 0 30px 30px;
 }
 
 .logos-grid{
   display:grid;
   grid-template-columns:repeat(8,1fr);
-  gap:12px;
+  gap:10px;
 }
 
 .logo-item{
   background:white;
-  padding:6px;
-  border-radius:10px;
+  padding:5px;
+  border-radius:8px;
   box-shadow:0 4px 8px rgba(0,0,0,.3);
 }
 
 .logo-item img{
   width:100%;
-  height:40px;
+  height:35px;
   object-fit:contain;
 }
 </style>
@@ -614,19 +532,13 @@ function generarPelotazos(contenedor, altura) {
   }
 }
 
-/* ===== CREAR HEADER ===== */
-function crearHeader() {
+/* ===== CREAR HEADER COMPACTO ===== */
+function crearHeader(diaInfo) {
   return `
     <div class="header">
       <img src="images/logo-larraun.png" class="logo-izq" onerror="this.style.display='none'">
+      <div class="dia-header">${diaInfo.dia}</div>
       <img src="images/logo-fnp.png" class="logo-der" onerror="this.style.display='none'">
-      
-      <svg class="titulo-curvo" viewBox="0 0 1080 160" preserveAspectRatio="none">
-        <path id="arco" d="M80,150 Q540,-50 1000,150" fill="transparent"/>
-        <text text-anchor="middle">
-          <textPath href="#arco" startOffset="50%" fill="white">ETXEKO PARTIDUAK</textPath>
-        </text>
-      </svg>
     </div>
     <div class="pelotazos"></div>
   `;
@@ -664,8 +576,8 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== PAGINACIÓN INTELIGENTE QUE RESPETA GRUPOS ===== */
-function paginarGrupos(grupos, maxPartidosPorPagina) {
+/* ===== PAGINACIÓN AL FINAL ===== */
+function paginarGrupos(grupos, maxPartidosPorPagina = 6) { // Aumentado a 6 partidos por página
   const paginas = [];
   let paginaActual = [];
   let partidosEnPaginaActual = 0;
@@ -673,24 +585,16 @@ function paginarGrupos(grupos, maxPartidosPorPagina) {
   grupos.forEach(grupo => {
     const tamañoGrupo = grupo.length;
     
-    // Si el grupo cabe en la página actual
-    if (partidosEnPaginaActual + tamañoGrupo <= maxPartidosPorPagina) {
-      paginaActual.push(grupo);
-      partidosEnPaginaActual += tamañoGrupo;
-    } 
-    // Si no cabe, empezar nueva página
-    else {
-      // Guardar página actual si tiene contenido
-      if (paginaActual.length > 0) {
-        paginas.push(paginaActual);
-      }
-      // Empezar nueva página con este grupo
+    if (partidosEnPaginaActual + tamañoGrupo > maxPartidosPorPagina && paginaActual.length > 0) {
+      paginas.push(paginaActual);
       paginaActual = [grupo];
       partidosEnPaginaActual = tamañoGrupo;
+    } else {
+      paginaActual.push(grupo);
+      partidosEnPaginaActual += tamañoGrupo;
     }
   });
   
-  // Añadir la última página
   if (paginaActual.length > 0) {
     paginas.push(paginaActual);
   }
@@ -699,7 +603,7 @@ function paginarGrupos(grupos, maxPartidosPorPagina) {
 }
 
 /* ===== CREAR PÁGINA CON GRUPOS ===== */
-function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas) {
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, fechaOriginal) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
@@ -707,28 +611,12 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas) {
   let partidosEnPagina = 0;
   grupos.forEach(g => partidosEnPagina += g.length);
   
-  let diaHTML = `
-    <div class="dia-container">
-      <div class="dia-semana">
-        <div class="dia">${diaInfo.dia}</div>
-        <div class="fecha">${diaInfo.fecha}</div>
-  `;
-  
-  // Siempre mostrar ZATIA si hay múltiples páginas
-  if (totalPaginas > 1) {
-    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>`;
-  } else {
-    diaHTML += `<div style="font-size:16px; color:gold; margin-top:6px;">${partidosEnPagina} partidu</div>`;
-  }
-  
-  diaHTML += `
-      </div>
-    </div>
-  `;
-  
-  p.innerHTML = crearHeader() + `
+  p.innerHTML = crearHeader(diaInfo) + `
     <div class="contenido">
-      ${diaHTML}
+      <div style="text-align:center; margin-bottom:15px;">
+        <div style="font-size:20px; color:#333; font-weight:bold;">${fechaOriginal}</div>
+        ${totalPaginas > 1 ? `<div style="font-size:18px; color:gold; background:rgba(0,0,0,0.5); padding:5px 15px; border-radius:40px; display:inline-block; margin-top:5px;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>` : ''}
+      </div>
       <div id="grupos-${numPagina}"></div>
     </div>
   ` + crearFooter(numPagina, totalPaginas);
@@ -885,6 +773,7 @@ function seleccionarDia(fechaKey) {
   if (!diaData) return;
   
   const diaInfo = dayEU(diaData.fecha);
+  const fechaOriginal = `${diaInfo.dia} ${diaInfo.fecha}`;
   const partidos = diaData.partidos;
   
   // Ordenar partidos por hora
@@ -894,7 +783,7 @@ function seleccionarDia(fechaKey) {
     return horaA.localeCompare(horaB);
   });
   
-  // Agrupar por frontón y hora (manteniendo los partidos juntos)
+  // Agrupar por frontón y hora
   const gruposMap = {};
   partidos.forEach(p => {
     const key = `${p.fronton}|${p.fecha}|${p.hora}`;
@@ -904,20 +793,21 @@ function seleccionarDia(fechaKey) {
   
   const grupos = Object.values(gruposMap);
   
-  // Paginar respetando los grupos (máximo 5 partidos por página)
-  const paginasDia = paginarGrupos(grupos, 5);
+  // Paginar al final (máximo 6 partidos por página para que quepa bien)
+  const paginasDia = paginarGrupos(grupos, 6);
   
   paginasDia.forEach((gruposPagina, index) => {
     crearPaginaConGrupos(
       diaInfo,
       gruposPagina,
       index + 1,
-      paginasDia.length
+      paginasDia.length,
+      fechaOriginal
     );
   });
   
   document.getElementById('infoDia').innerHTML = 
-    `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginasDia.length} página${paginasDia.length > 1 ? 's' : ''}`;
+    `📅 ${fechaOriginal} · ${partidos.length} partidos · ${paginasDia.length} página${paginasDia.length > 1 ? 's' : ''}`;
   
   document.getElementById('pageCounter').innerHTML = 
     `📱 ${paginasDia.length} story${paginasDia.length > 1 ? 's' : ''} para este día`;
@@ -938,7 +828,7 @@ async function exportarTodasLasStories() {
     const canvas = await html2canvas(pagina, {
       scale: 2,
       useCORS: true,
-      backgroundColor: '#1e4f32',
+      backgroundColor: null, // Fondo transparente para que se vea la imagen de fondo
       windowWidth: 1080,
       allowTaint: false,
       logging: false,
@@ -950,13 +840,10 @@ async function exportarTodasLasStories() {
     const a = document.createElement("a");
     a.href = canvas.toDataURL("image/jpeg", 0.95);
     
-    const diaElem = pagina.querySelector('.dia');
+    const diaElem = pagina.querySelector('.dia-header');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
-    const fechaElem = pagina.querySelector('.fecha');
-    const fecha = fechaElem ? fechaElem.textContent.trim().replace(/\s+/g, '-') : '';
-    
-    const infoElem = pagina.querySelector('.dia-semana div:last-child');
+    const infoElem = pagina.querySelector('.contenido div:first-child div:last-child');
     let sufijo = '';
     if (infoElem && infoElem.textContent.includes('ZATIA')) {
       const match = infoElem.textContent.match(/ZATIA (\d+)\/(\d+)/);
@@ -965,7 +852,7 @@ async function exportarTodasLasStories() {
       }
     }
     
-    a.download = `etxekoak-${dia}-${fecha}${sufijo}.jpg`;
+    a.download = `etxekoak-${dia}${sufijo}.jpg`;
     a.click();
     
     await new Promise(resolve => setTimeout(resolve, 500));
