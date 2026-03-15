@@ -84,7 +84,7 @@
             margin: 30px auto;
             display: flex;
             flex-direction: column;
-            background: #2c3e50; /* Fondo sólido de respaldo */
+            background: #2c3e50;
             background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
                               linear-gradient(145deg, #3a4a5a, #1a2a3a);
             position: relative;
@@ -93,7 +93,7 @@
             overflow: hidden;
             min-height: 1200px;
         }
-        /* Header de la story */
+        /* Header de la story - AHORA CON ETXEKO PARTIDUAK */
         .story-header {
             height: 100px;
             display: flex;
@@ -110,13 +110,17 @@
             object-fit: contain;
             filter: drop-shadow(0 2px 4px black);
         }
-        .story-header .dia-titulo {
+        .story-header .titulo-central {
             color: white;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 900;
             text-transform: uppercase;
             text-shadow: 3px 3px 0 #000, 0 0 15px gold;
             letter-spacing: 2px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 25px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,215,0,0.3);
         }
         /* Contenido principal de la story */
         .story-content {
@@ -125,7 +129,7 @@
             z-index: 2;
             position: relative;
         }
-        /* Tarjeta de información del día */
+        /* Tarjeta de información del día - AHORA CON EL DÍA DE LA SEMANA */
         .info-dia-card {
             background: rgba(255,255,255,0.95);
             border-radius: 25px;
@@ -398,17 +402,17 @@
         // Calcular total de partidos en esta página
         let totalEnPagina = gruposPagina.reduce((acc, g) => acc + g.length, 0);
 
-        // --- HEADER ---
+        // --- HEADER con ETXEKO PARTIDUAK en el centro ---
         let html = `<div class="story-header">
             <img src="images/logo-larraun.png" class="logo" onerror="this.style.display='none'">
-            <div class="dia-titulo">${diaInfo.dia}</div>
+            <div class="titulo-central">ETXEKO PARTIDUAK</div>
             <img src="images/logo-fnp.png" class="logo" onerror="this.style.display='none'">
         </div>`;
 
         // --- CONTENIDO ---
         html += `<div class="story-content">`;
 
-        // Tarjeta de información del día
+        // Tarjeta de información del día - AHORA CON EL DÍA DE LA SEMANA
         html += `<div class="info-dia-card">`;
         html += `<div class="dia">${diaInfo.dia}</div>`;
         html += `<div class="fecha">${diaInfo.fecha}</div>`;
@@ -592,7 +596,11 @@
             });
             const a = document.createElement('a');
             a.href = canvas.toDataURL('image/jpeg', 0.95);
-            const dia = paginas[i].querySelector('.dia-titulo')?.textContent.trim() || 'dia';
+            
+            // Ahora el día está en la tarjeta, no en el header
+            const diaCard = paginas[i].querySelector('.info-dia-card .dia');
+            const dia = diaCard ? diaCard.textContent.trim() : 'dia';
+            
             const parte = paginas[i].querySelector('.paginacion')?.textContent.match(/ZATIA (\d+)/);
             const sufijo = parte ? `-parte-${parte[1]}` : '';
             a.download = `etxekoak-${dia}${sufijo}.jpg`;
