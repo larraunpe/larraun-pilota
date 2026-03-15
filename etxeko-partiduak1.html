@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
+/* Mismos estilos que antes... */
 body{
   margin:0;
   background:#1b4d31;
@@ -132,9 +133,9 @@ body{
   position:relative;
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
-  overflow: hidden; /* Cambiado de visible a hidden */
-  height: auto; /* Altura automática */
-  max-height: 1920px; /* Altura máxima para stories de Instagram */
+  overflow: hidden;
+  height: auto;
+  max-height: 1920px;
 }
 
 /* ===== HEADER ===== */
@@ -220,7 +221,7 @@ body{
 .contenido{
   padding:20px 30px;
   flex: 1;
-  overflow: visible; /* Cambiado de auto a visible */
+  overflow: visible;
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -546,7 +547,6 @@ function obtenerClaseCategoria(texto) {
 
 /* ===== FORMATO DE FECHA ===== */
 function dayEU(d) {
-  // Si no es una fecha válida, usar fecha actual
   if (!d || !(d instanceof Date) || isNaN(d.getTime())) {
     d = new Date();
   }
@@ -566,26 +566,21 @@ function formatearFechaKey(d) {
 
 /* ===== PARSEAR FECHA DESDE STRING ===== */
 function parseFecha(fechaStr) {
-  if (!fechaStr) return new Date(); // Si no hay fecha, usar hoy
+  if (!fechaStr) return new Date();
   
-  // Intentar diferentes formatos
   let fecha;
   
-  // Formato YYYY-MM-DD
   if (fechaStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
     fecha = new Date(fechaStr + "T12:00:00");
   }
-  // Formato YYYY/MM/DD (el que aparece en tu JSON)
   else if (fechaStr.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
     const partes = fechaStr.split('/');
     fecha = new Date(`${partes[0]}-${partes[1]}-${partes[2]}T12:00:00`);
   }
-  // Formato DD/MM/YYYY
   else if (fechaStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
     const partes = fechaStr.split('/');
     fecha = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T12:00:00`);
   }
-  // Formato DD-MM-YYYY
   else if (fechaStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
     const partes = fechaStr.split('-');
     fecha = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T12:00:00`);
@@ -594,7 +589,6 @@ function parseFecha(fechaStr) {
     fecha = new Date(fechaStr + "T12:00:00");
   }
   
-  // Si la fecha es inválida, usar hoy
   if (isNaN(fecha.getTime())) {
     console.warn("Fecha inválida:", fechaStr, "usando fecha actual");
     fecha = new Date();
@@ -670,8 +664,23 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== DIVIDIR POR NÚMERO DE PARTIDOS ===== */
-function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) { // Reducido de 5 a 4 partidos por página
+/* ===== DIVIDIR POR NÚMERO DE PARTIDOS DE FORMA EQUILIBRADA ===== */
+function dividirPartidosPorDia(grupos) {
+  // Calcular total de partidos
+  let totalPartidos = 0;
+  grupos.forEach(g => totalPartidos += g.length);
+  
+  // Si hay 6 o menos partidos, una sola página
+  if (totalPartidos <= 6) {
+    return [grupos];
+  }
+  
+  // Determinar número de páginas (máximo 5 partidos por página)
+  const numPaginas = Math.ceil(totalPartidos / 5);
+  
+  // Calcular distribución ideal (ej: 13 partidos -> 5,4,4)
+  const partidosPorPagina = Math.ceil(totalPartidos / numPaginas);
+  
   const paginas = [];
   let paginaActual = [];
   let partidosEnPaginaActual = 0;
@@ -679,7 +688,7 @@ function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) { // Reducido d
   grupos.forEach(grupo => {
     const tamañoGrupo = grupo.length;
     
-    if (partidosEnPaginaActual + tamañoGrupo > maxPartidosPorPagina && paginaActual.length > 0) {
+    if (partidosEnPaginaActual + tamañoGrupo > partidosPorPagina && paginaActual.length > 0) {
       paginas.push(paginaActual);
       paginaActual = [grupo];
       partidosEnPaginaActual = tamañoGrupo;
@@ -697,7 +706,7 @@ function dividirPartidosPorDia(grupos, maxPartidosPorPagina = 4) { // Reducido d
 }
 
 /* ===== CREAR PÁGINA CON GRUPOS ===== */
-function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimeraPagina = true, esUltimaPagina = true) {
+function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas) {
   const p = document.createElement("div");
   p.className = "pagina";
   p.id = `pagina-${numPagina}`;
@@ -712,10 +721,9 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
         <div class="fecha">${diaInfo.fecha}</div>
   `;
   
-  if (!esPrimeraPagina || !esUltimaPagina) {
-    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
-  } else if (totalPaginas > 1) {
-    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}</div>`;
+  // Siempre mostrar ZATIA si hay múltiples páginas
+  if (totalPaginas > 1) {
+    diaHTML += `<div style="font-size:18px; color:gold; margin-top:8px; background:rgba(0,0,0,0.5); padding:6px 18px; border-radius:40px; display:inline-block;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>`;
   } else {
     diaHTML += `<div style="font-size:16px; color:gold; margin-top:6px;">${partidosEnPagina} partidu</div>`;
   }
@@ -791,7 +799,7 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, esPrimer
     gruposContainer.appendChild(grupo);
   });
   
-  if (!esUltimaPagina) {
+  if (numPagina < totalPaginas) {
     const indicator = document.createElement("div");
     indicator.className = "continuation-indicator";
     indicator.innerHTML = `
@@ -821,20 +829,17 @@ Promise.all([
   CATEGORIAS = categorias;
   generarClasesCategorias();
   
-  // Combinar todos los partidos
   todosLosPartidos = [
     ...oficiales.map(p => ({ ...p, ofiziala: true })),
     ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
   ];
   
-  // Filtrar SOLO partidos en Lekunberri o Aldatz
   const partidosFiltrados = todosLosPartidos.filter(p => {
     if (!p.fronton) return false;
     const frontonLower = p.fronton.toLowerCase();
     return frontonLower.includes('lekunberri') || frontonLower.includes('aldatz');
   });
   
-  // Agrupar por fecha
   partidosFiltrados.forEach(p => {
     const fecha = parseFecha(p.fecha);
     const fechaKey = formatearFechaKey(fecha);
@@ -848,11 +853,10 @@ Promise.all([
     partidosPorDiaReal[fechaKey].partidos.push(p);
   });
   
-  // Crear selector de días
   const diasGrid = document.getElementById('diasGrid');
   const diasOrdenados = Object.keys(partidosPorDiaReal).sort();
   
-  diasOrdenados.forEach((fechaKey, index) => {
+  diasOrdenados.forEach((fechaKey) => {
     const diaData = partidosPorDiaReal[fechaKey];
     const diaInfo = dayEU(diaData.fecha);
     const totalPartidos = diaData.partidos.length;
@@ -860,14 +864,18 @@ Promise.all([
     const btn = document.createElement('button');
     btn.className = `dia-btn ${diaInfo.dia === 'IGANDEA' ? 'sunday' : ''}`;
     btn.innerHTML = `${diaInfo.dia}<br><small>${diaInfo.fecha}</small><br><strong>${totalPartidos} partidu</strong>`;
-    btn.onclick = () => seleccionarDia(fechaKey);
+    btn.onclick = (e) => {
+      document.querySelectorAll('.dia-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      seleccionarDia(fechaKey);
+    };
     
     diasGrid.appendChild(btn);
   });
   
-  // Seleccionar el primer día por defecto
   if (diasOrdenados.length > 0) {
     seleccionarDia(diasOrdenados[0]);
+    document.querySelector('.dia-btn')?.classList.add('active');
   } else {
     document.getElementById('infoDia').innerHTML = '❌ No hay partidos en Lekunberri o Aldatz';
   }
@@ -878,14 +886,7 @@ Promise.all([
 
 /* ===== SELECCIONAR DÍA ===== */
 function seleccionarDia(fechaKey) {
-  // Limpiar páginas anteriores
   document.getElementById('contenedorPaginas').innerHTML = '';
-  
-  // Marcar botón activo
-  document.querySelectorAll('.dia-btn').forEach(btn => btn.classList.remove('active'));
-  if (event && event.target && event.target.classList) {
-    event.target.classList.add('active');
-  }
   
   const diaData = partidosPorDiaReal[fechaKey];
   if (!diaData) return;
@@ -893,14 +894,12 @@ function seleccionarDia(fechaKey) {
   const diaInfo = dayEU(diaData.fecha);
   const partidos = diaData.partidos;
   
-  // Ordenar partidos por hora
   partidos.sort((a, b) => {
     const horaA = a.hora || "00:00";
     const horaB = b.hora || "00:00";
     return horaA.localeCompare(horaB);
   });
   
-  // Agrupar por frontón/fecha/hora
   const gruposMap = {};
   partidos.forEach(p => {
     const key = `${p.fronton}|${p.fecha}|${p.hora}`;
@@ -910,19 +909,15 @@ function seleccionarDia(fechaKey) {
   
   const grupos = Object.values(gruposMap);
   
-  // Dividir en páginas (máx 4 partidos por página para que quepa bien)
-  const maxPartidosPorPagina = 4;
-  const paginasDia = dividirPartidosPorDia(grupos, maxPartidosPorPagina);
+  // Usar la nueva función de división equilibrada
+  const paginasDia = dividirPartidosPorDia(grupos);
   
-  // Crear páginas
   paginasDia.forEach((gruposPagina, index) => {
     crearPaginaConGrupos(
       diaInfo,
       gruposPagina,
       index + 1,
-      paginasDia.length,
-      index === 0,
-      index === paginasDia.length - 1
+      paginasDia.length
     );
   });
   
@@ -943,7 +938,6 @@ async function exportarTodasLasStories() {
     
     document.getElementById('pageCounter').innerHTML = `📸 Exportando story ${i + 1}/${total}...`;
     
-    // Asegurar que la página tiene altura antes de capturar
     await new Promise(resolve => setTimeout(resolve, 200));
     
     const canvas = await html2canvas(pagina, {
@@ -970,7 +964,7 @@ async function exportarTodasLasStories() {
     const infoElem = pagina.querySelector('.dia-semana div:last-child');
     let sufijo = '';
     if (infoElem && infoElem.textContent.includes('ZATIA')) {
-      const match = infoElem.textContent.match(/ZATIA (\d+)/);
+      const match = infoElem.textContent.match(/ZATIA (\d+)\/(\d+)/);
       if (match) {
         sufijo = `-parte-${match[1]}`;
       }
