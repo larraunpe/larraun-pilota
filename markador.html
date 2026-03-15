@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcador semanal · Larraun Pilota Elkartea</title>
+    <!-- html generado para crear PNG/JPG (estilos pensados para exportación) -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #aaa; /* fondo neutro fuera del cartel */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial Black', 'Helvetica Bold', 'Impact', sans-serif;
+        }
+        /* panel principal: dimensiones ajustadas para imitar proporciones del marcador adjunto */
+        .marcador-panel {
+            width: 850px;
+            background-color: #1E3A4D; /* azul petróleo oscuro (fondo general) */
+            padding: 25px 25px 30px 25px;
+            border-radius: 28px 28px 18px 18px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.6);
+            border: 3px solid #C0A15C; /* dorado */
+        }
+
+        /* franja superior con logos y título */
+        .header-logos {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1E3A4D;
+            padding: 5px 0 10px 0;
+        }
+        .logo-left, .logo-right {
+            width: 100px;
+            height: 100px;
+            background: #fff; /* por si la imagen tarda, se verá fondo blanco */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            border: 3px solid #F5D742; /* amarillo/mostaza */
+            overflow: hidden;
+            background-color: white;
+        }
+        .logo-left img, .logo-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+        }
+        .titulo-central {
+            text-align: center;
+            color: #F5E56B;
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+        .titulo-central .linea1 {
+            font-size: 32px;
+            letter-spacing: 3px;
+            background: #0F2A36;
+            padding: 6px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            border: 2px solid #C99F3C;
+            font-family: 'Arial Black', sans-serif;
+        }
+        .titulo-central .linea2 {
+            font-size: 44px;
+            background: #0F2A36;
+            padding: 4px 30px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 5px;
+            border: 2px solid #C99F3C;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        /* texto ASTEKO EMAITZAK + fechas */
+        .semana-titulo {
+            text-align: center;
+            color: white;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background: #15303D;
+            padding: 8px 0;
+            border-radius: 50px;
+            border: 2px solid #F5D742;
+        }
+        .semana-titulo .arriba {
+            font-size: 27px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #F5E56B;
+        }
+        .semana-titulo .rango {
+            font-size: 32px;
+            font-weight: 900;
+            background: #F5D742;
+            display: inline-block;
+            padding: 5px 30px;
+            border-radius: 40px;
+            color: #0F2A36;
+            margin-top: 3px;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        /* días en tres columnas (ostirala, larunbata, igandea) */
+        .dias-row {
+            display: flex;
+            justify-content: space-around;
+            background: #1E3A4D;
+            padding: 10px 10px 0 10px;
+            color: #F5E56B;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .dia-col {
+            text-align: center;
+            font-size: 30px;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 1px;
+            background: #0D2C39;
+            padding: 8px 30px;
+            border-radius: 40px 40px 0 0;
+            border-top: 3px solid #F5D742;
+            border-left: 3px solid #F5D742;
+            border-right: 3px solid #F5D742;
+            width: 200px;
+        }
+
+        /* recuadro central con números grandes (fechas + resultados) */
+        .numeros-panel {
+            display: flex;
+            background: #1E3A4D;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 10px 25px 10px;
+            border-bottom: 4px solid #F5D742;
+        }
+        .columna-num {
+            background: #0A1F2A;
+            width: 200px;
+            border: 4px solid #C99F3C;
+            border-radius: 40px 40px 20px 20px;
+            padding: 25px 0 20px 0;
+            text-align: center;
+            box-shadow: inset 0 -5px 0 #654321;
+        }
+        .dia-numero {
+            font-size: 68px;
+            font-weight: 900;
+            color: #F5D742;
+            background: #1F4A5F;
+            display: inline-block;
+            padding: 10px 35px;
+            border-radius: 60px;
+            margin-bottom: 15px;
+            font-family: 'Arial Black', sans-serif;
+            border: 2px solid #F0C45A;
+        }
+        .resultados {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .resultado-item {
+            font-size: 42px;
+            font-weight: 900;
+            color: #F5E56B;
+            background: #123845;
+            padding: 5px 25px;
+            border-radius: 40px;
+            min-width: 140px;
+            text-align: center;
+            border: 2px solid #E5B73B;
+            font-family: 'Arial Black', sans-serif;
+            line-height: 1.2;
+        }
+
+        /* footer: repite el nombre */
+        .footer-larraun {
+            text-align: center;
+            background: #0F2A36;
+            padding: 12px 0;
+            border-radius: 40px;
+            margin-top: 20px;
+            border: 3px solid #F5D742;
+            color: #F5E56B;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* flecha o adorno de esquina (para dar sensación de marcador) */
+        .nota-pequeña {
+            color: #F5D742;
+            text-align: right;
+            font-size: 18px;
+            margin-top: 5px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="marcador-panel" id="cartel-semanal">
+        <!-- HEADER con logos personalizados -->
+        <div class="header-logos">
+            <div class="logo-left">
+                <!-- logo larraun (reemplazo de la bandera izquierda) -->
+                <img src="images/logo-larraun.png" alt="Larraun" onerror="this.src='https://via.placeholder.com/100x100?text=LARRAUN'">
+            </div>
+            <div class="titulo-central">
+                <div class="linea1">LARRAUN PILOTA</div>
+                <div class="linea2">ELKARTEA</div>
+            </div>
+            <div class="logo-right">
+                <!-- logo fnp (reemplazo de la bandera derecha) -->
+                <img src="images/fnp.png" alt="FNP" onerror="this.src='https://via.placeholder.com/100x100?text=F.N.P.'">
+            </div>
+        </div>
+
+        <!-- ASTEKO EMAITZAK con rango de lunes a domingo (semana actual) -->
+        <div class="semana-titulo">
+            <div class="arriba">ASTEKO EMAITZAK</div>
+            <div class="rango" id="rango-fechas"></div>
+        </div>
+
+        <!-- Días de la semana (tres columnas: OSTIRALA, LARUNBATA, IGANDERA) -->
+        <div class="dias-row">
+            <div class="dia-col">OSTIRALA</div>
+            <div class="dia-col">LARUNBATA</div>
+            <div class="dia-col">IGANDEA</div>
+        </div>
+
+        <!-- Números: cada columna muestra el día del mes y los tres resultados -->
+        <div class="numeros-panel" id="numeros-container">
+            <!-- columna OSTIRALA (viernes) día 9? se rellena con js -->
+            <div class="columna-num">
+                <div class="dia-numero" id="dia-viernes">9</div>
+                <div class="resultados">
+                    <span class="resultado-item" id="res-v1">2</span>
+                    <span class="resultado-item" id="res-v2">0</span>
+                    <span class="resultado-item" id="res-v3">8</span>
+                </div>
+            </div>
+            <!-- columna LARUNBATA (sábado) -->
+            <div class="columna-num">
+                <div class="dia-numero" id="dia-sabado">10</div>
+                <div class="resultados">
+                    <span class="resultado-item" id="res-s1">10</span>
+                    <span class="resultado-item" id="res-s2">15</span>
+                    <span class="resultado-item" id="res-s3">15</span>
+                </div>
+            </div>
+            <!-- columna IGANDEA (domingo) -->
+            <div class="columna-num">
+                <div class="dia-numero" id="dia-domingo">14</div>
+                <div class="resultados">
+                    <span class="resultado-item" id="res-d1">14</span>
+                    <span class="resultado-item" id="res-d2">15</span>
+                    <span class="resultado-item" id="res-d3">15</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer con el nombre del club -->
+        <div class="footer-larraun">
+            LARRAUN PILOTA ELKARTEA
+        </div>
+        <div class="nota-pequeña">⚾ ASTEKO MARKAGailua</div>
+    </div>
+
+    <script>
+        (function() {
+            // --- 1. Calcular semana actual: lunes a domingo ---
+            const hoy = new Date();
+            // obtener el lunes de esta semana (considerando lunes como día 1, domingo día 7)
+            const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes ... 6 = sábado
+            // diferencia para llegar al lunes: si hoy es domingo (0), restar 6; lunes (1) restar 0, etc.
+            let diffToMonday;
+            if (diaSemana === 0) { // domingo
+                diffToMonday = 6;
+            } else {
+                diffToMonday = diaSemana - 1; // martes(2) -> restar 1, etc
+            }
+            const lunes = new Date(hoy);
+            lunes.setDate(hoy.getDate() - diffToMonday);
+            
+            const domingo = new Date(lunes);
+            domingo.setDate(lunes.getDate() + 6);
+
+            // Formatear como "MARTXOA 9 - 15" (mes en euskera, días)
+            const mesesEu = [
+                "URTARRILA", "OTSAILA", "MARTXOA", "APIRILA", "MAIATZA", "EKAINA",
+                "UZTAILA", "ABUZTUA", "IRAILA", "URRIA", "AZAROA", "ABENDUA"
+            ];
+            const mes = mesesEu[lunes.getMonth()]; // mismo mes para ambos (semana dentro del mismo mes casi siempre)
+            const diaInicio = lunes.getDate();
+            const diaFin = domingo.getDate();
+
+            // Manejo poco probable de cambio de mes: si el domingo es otro mes, mostrar "MARTXOA 9 - APIRILA 15"?
+            // pero lo dejamos simple mayoritario: mismo mes
+            let rangoTexto = `${mes} ${diaInicio} - ${diaFin}`;
+            // si el mes cambia, mejor especificar ambos (p.e. marzo 31 - abril 6)
+            if (lunes.getMonth() !== domingo.getMonth()) {
+                const mesFin = mesesEu[domingo.getMonth()];
+                rangoTexto = `${mes} ${diaInicio} - ${mesFin} ${diaFin}`;
+            }
+            document.getElementById('rango-fechas').innerText = rangoTexto;
+
+            // --- 2. Asignar los números de día a cada columna (viernes, sábado, domingo) ---
+            // buscamos el viernes (5), sábado (6) y domingo (0) dentro de la semana actual
+            // clonamos lunes para recorrer
+            const buscarDia = (diaSemanaObjetivo) => {
+                // diaSemanaObjetivo: 1=lunes,2=martes,3=miércoles,4=jueves,5=viernes,6=sábado,0=domingo
+                let fecha = new Date(lunes);
+                for (let i = 0; i < 7; i++) {
+                    let dia = fecha.getDay(); // 0 domingo ... 6 sábado
+                    if (dia === diaSemanaObjetivo) {
+                        return fecha.getDate();
+                    }
+                    fecha.setDate(fecha.getDate() + 1);
+                }
+                return '?'; // no debería ocurrir
+            };
+
+            const diaViernes = buscarDia(5);      // viernes
+            const diaSabado = buscarDia(6);       // sábado
+            const diaDomingo = buscarDia(0);       // domingo
+
+            document.getElementById('dia-viernes').innerText = diaViernes;
+            document.getElementById('dia-sabado').innerText = diaSabado;
+            document.getElementById('dia-domingo').innerText = diaDomingo;
+
+            // --- 3. Generar resultados coherentes con las fechas (no aleatorios, pero siguiendo un patrón) ---
+            // Queremos que haya relación con los números de día, manteniendo estructura del ejemplo.
+            // Ejemplo original: viernes(9) resultados 2,0,8 ; sábado(10) 10,15,15 ; domingo(14) 14,15,15
+            // Idea: usar el día como base y combinarlo con 15, 10, etc. pero dar coherencia.
+            // Definimos resultados personalizados para cada día, basados en día del mes y algo de variación.
+            // Pero para que sea "coherente" usaremos los mismos del ejemplo pero con el día real.
+            // Pero si la fecha es diferente, no será igual; pero lo mantendremos parecido:
+            // - Para viernes: resultado1 = día - 7 (si >0) si no 2, resultado2 = 0, resultado3 = 8 (o último dígito de algo)
+            // Usaremos una lógica simple: 
+            //   viernes: [ (dia % 10) , 0, (dia+1) % 10 + 5 ] algo así; pero mejor mantener parecido al ejemplo.
+            // Queremos que los números sean vistosos y no iguales siempre. Daremos un pequeño cálculo:
+            // Usaremos dígitos del día y algo fijo para mantener el estilo de marcador de pelota.
+            // El usuario quiere "números coherentes con las fechas", es decir, que no sean aleatorios y si es posible que parezcan resultados de partidos.
+            
+            // Propuesta: 
+            // Para viernes (dia V): primer resultado = V - 7 (si >0) si no 10 - V ; segundo resultado = 0; tercero = 15 - algo
+            // Pero mejor usar valores fijos "15" mucho en ejemplo.
+            // Coherencia: usaremos decenas simples.
+            // Definimos:
+            const v = diaViernes;
+            const s = diaSabado;
+            const d = diaDomingo;
+
+            // viernes: mantener terna pero con relación al día (v). Por ejemplo: [Math.min(9, v-2), 0, (v%7)+8 ] etc
+            // Elegimos algo legible:
+            let resV1 = (v % 5) + 2;      // entre 2 y 6
+            let resV2 = 0;
+            let resV3 = (v % 9) + 6;       // entre 6 y 14
+            // sábado: queremos que incluya 15,15 y un número intermedio similar
+            let resS1 = (s % 8) + 8;       // 8..15
+            let resS2 = 15;
+            let resS3 = 15;
+            // domingo: parecido
+            let resD1 = d;                 // el día mismo (14, etc)
+            let resD2 = (d % 3) + 13;       // 13,14,15
+            let resD3 = 15;
+
+            // Ajustamos para que los valores no se pasen de 15 y parezcan reales:
+            resV1 = Math.min(15, Math.max(1, resV1));
+            resV3 = Math.min(15, Math.max(5, resV3));
+            resS1 = Math.min(15, Math.max(7, resS1));
+            resD1 = Math.min(15, Math.max(1, resD1));
+            resD2 = Math.min(15, Math.max(12, resD2));
+
+            // Asignar a los spans
+            document.getElementById('res-v1').innerText = resV1;
+            document.getElementById('res-v2').innerText = resV2;
+            document.getElementById('res-v3').innerText = resV3;
+
+            document.getElementById('res-s1').innerText = resS1;
+            document.getElementById('res-s2').innerText = resS2;
+            document.getElementById('res-s3').innerText = resS3;
+
+            document.getElementById('res-d1').innerText = resD1;
+            document.getElementById('res-d2').innerText = resD2;
+            document.getElementById('res-d3').innerText = resD3;
+
+            // Nota: Si quieres forzar exactamente los números del ejemplo, descomenta lo de abajo (aunque perdería coherencia con fechas)
+            // Pero la petición es números coherentes con las fechas. Lo dejamos con pequeña variación.
+            // Si se desea una reproducción exacta del ejemplo, basta fijar díaViernes=9, etc. Pero hemos preferido coherencia dinámica.
+
+            // (Opcional: se puede forzar a que los números sean idénticos al modelo si el día coincide con los del ejemplo? 
+            // pero la imagen original tiene marzo 9,10,14. Es posible que esta semana sean otros días, pero el usuario quiere coherencia.
+            // Añadimos un pequeño guiño: si el día es el mismo que el ejemplo (9,10,14) se ponen los mismos resultados.
+            if (diaViernes === 9 && diaSabado === 10 && diaDomingo === 14 && lunes.getMonth() === 2) { // marzo = mes 2
+                // coincidencia exacta con la fecha del ejemplo (semana del 9 al 15 marzo), usamos los valores originales
+                document.getElementById('res-v1').innerText = '2';
+                document.getElementById('res-v2').innerText = '0';
+                document.getElementById('res-v3').innerText = '8';
+                document.getElementById('res-s1').innerText = '10';
+                document.getElementById('res-s2').innerText = '15';
+                document.getElementById('res-s3').innerText = '15';
+                document.getElementById('res-d1').innerText = '14';
+                document.getElementById('res-d2').innerText = '15';
+                document.getElementById('res-d3').innerText = '15';
+            }
+        })();
+    </script>
+    <!-- Nota: para convertir a PNG/JPG se puede usar biblioteca como html2canvas. 
+    Pero este html ya es totalmente visible y listo para captura -->
+</body>
+</html>
