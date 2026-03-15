@@ -723,7 +723,7 @@ Promise.all([
   fetch("data/resultados-no-oficiales.json").then(r=>r.json()),
   fetch("data/fases.json").then(r=>r.json()),
   fetch("data/categoriacartel.json").then(r=>r.json()),
-  fetch("data/categorias_edad.json").then(r=>r.json())  // Nuevo: cargar categorias_edad.json
+  fetch("data/categoriaedad.json").then(r=>r.json())  // Nuevo: cargar categorias_edad.json
 ]).then(([larraun, noOficiales, fases, categorias, categoriasEdad])=>{
 
   FASES = fases;
