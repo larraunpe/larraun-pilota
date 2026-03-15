@@ -128,13 +128,9 @@ body{
   margin:30px auto;
   display:flex;
   flex-direction:column;
-  /* Fondo de roca - usar una imagen con textura de piedra */
-  background-image: url('https://www.transparenttextures.com/ascii/stone-wall.png'), 
-                    linear-gradient(145deg, #5a5a5a, #3a3a3a);
-  background-size: auto, cover;
-  background-position: center;
-  background-repeat: repeat, no-repeat;
-  background-blend-mode: overlay;
+  background: #2c3e50; /* Color oscuro de respaldo */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23333333"/><path d="M0 0 L100 100 M100 0 L0 100" stroke="%23444444" stroke-width="1"/><circle cx="50" cy="50" r="10" fill="%23222222" opacity="0.3"/></svg>');
+  background-size: 100px 100px;
   position:relative;
   box-shadow:0 0 30px rgba(0,0,0,.5);
   border-radius:30px;
@@ -143,7 +139,7 @@ body{
   min-height: 1200px;
 }
 
-/* Alternativa si no hay conexión a internet - fondo de roca con CSS */
+/* Capa oscura semitransparente sobre el fondo */
 .pagina::before {
   content: "";
   position: absolute;
@@ -151,58 +147,85 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(100, 100, 100, 0.2) 0px,
-    rgba(100, 100, 100, 0.2) 2px,
-    rgba(80, 80, 80, 0.2) 2px,
-    rgba(80, 80, 80, 0.2) 4px
-  );
+  background: rgba(0,0,0,0.3);
+  z-index: 1;
   pointer-events: none;
-  z-index: 0;
 }
 
 /* ===== HEADER COMPACTO ===== */
 .header{
-  height:100px;
+  height:80px;
   position:relative;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(5px);
+  background: linear-gradient(135deg, #1a2a3a, #0f1a24);
   flex-shrink: 0;
-  padding:0 30px;
+  padding:0 25px;
   border-bottom:3px solid gold;
   z-index: 10;
 }
 
 .logo-izq, .logo-der{
-  height:70px;
+  height:60px;
   object-fit:contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 .dia-header{
   color:white;
-  font-size:36px;
+  font-size:32px;
   font-weight:900;
   text-transform:uppercase;
-  letter-spacing:3px;
-  text-shadow:3px 3px 0 #000;
+  letter-spacing:2px;
+  text-shadow:2px 2px 0 #000, 0 0 10px gold;
 }
 
 /* ===== CONTENIDO ===== */
 .contenido{
-  padding:20px 30px;
+  padding:20px 25px;
   flex: 1;
   overflow: visible;
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(2px);
-  margin:20px;
-  border-radius:30px;
   position: relative;
   z-index: 10;
+}
+
+/* ===== TARJETA DE DÍA ===== */
+.dia-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border: 2px solid gold;
+  text-align: center;
+}
+
+.dia-titulo {
+  font-size: 28px;
+  font-weight: 900;
+  color: #1e4f32;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.dia-fecha {
+  font-size: 18px;
+  color: #666;
+  font-weight: bold;
+}
+
+.dia-paginacion {
+  background: rgba(0,0,0,0.7);
+  color: gold;
+  padding: 5px 15px;
+  border-radius: 30px;
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid gold;
 }
 
 /* ===== GRUPO PARTIDOS ===== */
@@ -218,8 +241,6 @@ body{
 .grupo-header{
   padding:12px 20px;
   color:white;
-  position:relative;
-  overflow:hidden;
 }
 
 .grupo-header.jai-alai{ background:linear-gradient(135deg, #1565c0, #0d47a1); }
@@ -247,111 +268,73 @@ body{
 }
 
 .grupo-body{
-  padding:12px;
+  padding:15px;
   background:white;
 }
 
 /* ===== PARTIDO ===== */
-.partido{
-  padding:10px 0;
-  border-bottom:2px solid #eee;
-  transition:all .2s;
+.partido-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.partido:last-child{
-  border-bottom:none;
+.partido-item:last-child {
+  border-bottom: none;
 }
 
-.partido.finala-partido {
-  background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(255, 200, 0, 0.25));
-  border-left: 8px solid #d4af37;
-  border-right: 8px solid #d4af37;
-  border-radius: 20px;
-  margin: 12px -5px;
-  padding: 12px 10px;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+.partido-torneo {
+  font-size: 18px;
+  font-weight: 900;
+  color: #1e4f32;
+  margin-bottom: 8px;
+  padding-left: 5px;
+  border-left: 5px solid gold;
 }
 
-.partido-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:6px;
+.partido-equipos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 10px;
 }
 
-.partido-numero{
-  background:#333;
-  color:white;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:16px;
-  flex-shrink:0;
+.equipo-row {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
 }
 
-.torneo-container{
-  flex:1;
-  margin-left:10px;
+.equipo-icon {
+  width: 30px;
+  font-size: 20px;
+  margin-right: 10px;
+  text-align: center;
 }
 
-.torneo{
-  font-size:18px;
-  font-weight:900;
-  padding:5px 12px;
-  border-radius:30px;
-  display:inline-block;
-  color:#1e4f32!important;
-  background:rgba(255,255,255,0.7);
-  box-shadow:0 2px 5px rgba(0,0,0,.2);
-  border:2px solid rgba(30,79,50,.3);
+.equipo-local {
+  color: #0d47a1;
 }
 
-.torneo.finala-torneo {
-  background:linear-gradient(145deg,#FFD700,#FDB931)!important;
-  color:#000!important;
-  font-size:20px;
-  padding:6px 18px;
-  border:3px solid #b8860b;
-  box-shadow:0 5px 15px rgba(0,0,0,0.5),0 0 15px #FFD700;
-  animation:pulse 1.5s infinite;
+.equipo-visitante {
+  color: #b71c1c;
 }
 
-@keyframes pulse {
-  0%{transform:scale(1)}
-  50%{transform:scale(1.03)}
-  100%{transform:scale(1)}
+/* Estilo especial para FINALA */
+.partido-item.finala {
+  background: linear-gradient(145deg, rgba(255,215,0,0.1), rgba(255,200,0,0.2));
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  border: 3px solid gold;
+  box-shadow: 0 0 20px gold;
 }
 
-.equipos{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:8px;
+.partido-item.finala .partido-torneo {
+  color: #b8860b;
+  font-size: 20px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
-
-.equipo{
-  display:flex;
-  align-items:center;
-  font-size:18px;
-  font-weight:700;
-  padding:5px 10px;
-  border-radius:10px;
-  background:#f5f5f5;
-}
-
-.equipo-icon{
-  font-size:20px;
-  margin-right:10px;
-  width:30px;
-  text-align:center;
-}
-
-.etxekoa{ color:#0d47a1; }
-.kanpokoa{ color:#b71c1c; }
 
 /* ===== INDICADOR DE CONTINUACIÓN ===== */
 .continuation-indicator {
@@ -363,7 +346,7 @@ body{
   color:white;
   font-size:22px;
   font-weight:bold;
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.7);
   padding:15px;
   border-radius:60px;
   backdrop-filter:blur(5px);
@@ -405,7 +388,7 @@ body{
 
 /* ===== FOOTER ===== */
 .footer{
-  background:linear-gradient(#2f2f2f, #1a1a1a);
+  background:linear-gradient(#1a1a1a, #0a0a0a);
   padding:15px;
   border-top:3px solid gold;
   flex-shrink:0;
@@ -550,7 +533,7 @@ function parseFecha(fechaStr) {
 function generarPelotazos(contenedor, altura) {
   contenedor.innerHTML = '';
   
-  for (let i = 0; i < 2000; i++) {
+  for (let i = 0; i < 1500; i++) {
     const d = document.createElement("div");
     const s = Math.random() * 4 + 2;
     
@@ -558,6 +541,8 @@ function generarPelotazos(contenedor, altura) {
     d.style.width = d.style.height = s + "px";
     d.style.left = Math.random() * 1080 + "px";
     d.style.top = Math.random() * altura + "px";
+    d.style.background = "#fff";
+    d.style.opacity = "0.1";
     
     contenedor.appendChild(d);
   }
@@ -607,8 +592,8 @@ function rellenarLogos(pagina) {
   }
 }
 
-/* ===== PAGINACIÓN AL FINAL ===== */
-function paginarGrupos(grupos, maxPartidosPorPagina = 6) {
+/* ===== PAGINACIÓN INTELIGENTE ===== */
+function paginarGrupos(grupos, maxPartidosPorPagina = 5) {
   const paginas = [];
   let paginaActual = [];
   let partidosEnPaginaActual = 0;
@@ -633,7 +618,7 @@ function paginarGrupos(grupos, maxPartidosPorPagina = 6) {
   return paginas;
 }
 
-/* ===== CREAR PÁGINA CON GRUPOS ===== */
+/* ===== CREAR PÁGINA CON GRUPOS - VERSIÓN SIMPLIFICADA ===== */
 function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, fechaOriginal) {
   const p = document.createElement("div");
   p.className = "pagina";
@@ -642,83 +627,71 @@ function crearPaginaConGrupos(diaInfo, grupos, numPagina, totalPaginas, fechaOri
   let partidosEnPagina = 0;
   grupos.forEach(g => partidosEnPagina += g.length);
   
-  p.innerHTML = crearHeader(diaInfo) + `
-    <div class="contenido">
-      <div style="text-align:center; margin-bottom:15px;">
-        <div style="font-size:20px; color:#333; font-weight:bold;">${fechaOriginal}</div>
-        ${totalPaginas > 1 ? `<div style="font-size:18px; color:gold; background:rgba(0,0,0,0.5); padding:5px 15px; border-radius:40px; display:inline-block; margin-top:5px;">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>` : ''}
-      </div>
-      <div id="grupos-${numPagina}"></div>
-    </div>
-  ` + crearFooter(numPagina, totalPaginas);
+  // Construir HTML de la página
+  let html = crearHeader(diaInfo);
   
-  document.getElementById("contenedorPaginas").appendChild(p);
+  html += `<div class="contenido">`;
   
-  const gruposContainer = p.querySelector(`#grupos-${numPagina}`);
+  // Tarjeta de información del día
+  html += `<div class="dia-card">`;
+  html += `<div class="dia-titulo">${diaInfo.dia}</div>`;
+  html += `<div class="dia-fecha">${diaInfo.fecha}</div>`;
+  if (totalPaginas > 1) {
+    html += `<div class="dia-paginacion">⚡ ${partidosEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>`;
+  }
+  html += `</div>`;
   
+  // Grupos de partidos
   grupos.forEach((partidosGrupo, idx) => {
     const b0 = partidosGrupo[0];
     const esTrinkete = /trinkete/i.test(b0.fronton || "");
     
-    const grupo = document.createElement("div");
-    grupo.className = "grupo";
-    
-    grupo.innerHTML = `
-      <div class="grupo-header ${esTrinkete ? 'trinkete' : 'jai-alai'}">
-        <div class="fronton">
-          <span class="fronton-icon">📍</span>
-          ${b0.fronton || "Frontoia"}
-        </div>
-        <div class="datetime">
-          <span>🗓 ${b0.fecha || ""}</span>
-          <span>⏰ ${b0.hora || "00:00"}</span>
-        </div>
-      </div>
-      <div class="grupo-body" id="grupo-${numPagina}-${idx}"></div>
-    `;
-    
-    const body = grupo.querySelector(`#grupo-${numPagina}-${idx}`);
+    html += `<div class="grupo">`;
+    html += `<div class="grupo-header ${esTrinkete ? 'trinkete' : 'jai-alai'}">`;
+    html += `<div class="fronton"><span class="fronton-icon">📍</span> ${b0.fronton || "Frontoia"}</div>`;
+    html += `<div class="datetime"><span>🗓 ${b0.fecha || ""}</span> <span>⏰ ${b0.hora || "00:00"}</span></div>`;
+    html += `</div>`;
+    html += `<div class="grupo-body">`;
     
     partidosGrupo.forEach((m, i) => {
-      const claseCategoria = obtenerClaseCategoria(m.lehiaketa);
       const esFinala = m.lehiaketa && m.lehiaketa.toUpperCase().includes("FINALA");
+      const claseFinala = esFinala ? 'finala' : '';
       
-      const partidoClass = esFinala ? "partido finala-partido" : "partido";
-      const torneoClass = esFinala ? "torneo finala-torneo" : `torneo ${claseCategoria}`;
+      html += `<div class="partido-item ${claseFinala}">`;
+      html += `<div class="partido-torneo">${m.lehiaketa || "Txapelketa"}</div>`;
+      html += `<div class="partido-equipos">`;
       
-      body.innerHTML += `
-        <div class="${partidoClass}">
-          <div class="partido-header">
-            <div class="partido-numero">${i + 1}</div>
-            <div class="torneo-container">
-              <div class="${torneoClass}">${m.lehiaketa || "Txapelketa"}</div>
-            </div>
-          </div>
-          <div class="equipos">
-            <div class="equipo etxekoa">
-              <span class="equipo-icon">🏠</span>
-              ${m.etxekoa || ""}
-            </div>
-            <div class="equipo kanpokoa">
-              <span class="equipo-icon">✈️</span>
-              ${m.kanpokoak || ""}
-            </div>
-          </div>
-        </div>
-      `;
+      // Equipo local
+      html += `<div class="equipo-row">`;
+      html += `<span class="equipo-icon">🏠</span>`;
+      html += `<span class="equipo-local">${m.etxekoa || ""}</span>`;
+      html += `</div>`;
+      
+      // Equipo visitante
+      if (m.kanpokoak) {
+        html += `<div class="equipo-row">`;
+        html += `<span class="equipo-icon">✈️</span>`;
+        html += `<span class="equipo-visitante">${m.kanpokoak}</span>`;
+        html += `</div>`;
+      }
+      
+      html += `</div>`; // Cerrar equipos
+      html += `</div>`; // Cerrar partido-item
     });
     
-    gruposContainer.appendChild(grupo);
+    html += `</div>`; // Cerrar grupo-body
+    html += `</div>`; // Cerrar grupo
   });
   
   if (numPagina < totalPaginas) {
-    const indicator = document.createElement("div");
-    indicator.className = "continuation-indicator";
-    indicator.innerHTML = `
-      <span>👇</span> JARRAITU <span>👇</span>
-    `;
-    gruposContainer.appendChild(indicator);
+    html += `<div class="continuation-indicator"><span>👇</span> JARRAITU <span>👇</span></div>`;
   }
+  
+  html += `</div>`; // Cerrar contenido
+  html += crearFooter(numPagina, totalPaginas);
+  
+  p.innerHTML = html;
+  document.getElementById("contenedorPaginas").appendChild(p);
   
   setTimeout(() => {
     const alturaTotal = p.offsetHeight;
@@ -824,8 +797,8 @@ function seleccionarDia(fechaKey) {
   
   const grupos = Object.values(gruposMap);
   
-  // Paginar al final (máximo 6 partidos por página)
-  const paginasDia = paginarGrupos(grupos, 6);
+  // Paginar (máximo 5 partidos por página)
+  const paginasDia = paginarGrupos(grupos, 5);
   
   paginasDia.forEach((gruposPagina, index) => {
     crearPaginaConGrupos(
@@ -874,7 +847,7 @@ async function exportarTodasLasStories() {
     const diaElem = pagina.querySelector('.dia-header');
     const dia = diaElem ? diaElem.textContent.trim() : `dia-${i + 1}`;
     
-    const infoElem = pagina.querySelector('.contenido div:first-child div:last-child');
+    const infoElem = pagina.querySelector('.dia-paginacion');
     let sufijo = '';
     if (infoElem && infoElem.textContent.includes('ZATIA')) {
       const match = infoElem.textContent.match(/ZATIA (\d+)\/(\d+)/);
