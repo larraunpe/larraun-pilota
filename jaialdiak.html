@@ -23,7 +23,7 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
   font-weight: bold;
 }
 
-/* Estilo para la fila completa (mantenemos los laterales) */
+/* Estilo para la fila completa */
 .lateral-jaianjai{box-shadow:inset 6px 0 0 #1565c0;}
 .lateral-trinkete{box-shadow:inset 6px 0 0 #2e7d32;}
 .lateral-default{box-shadow:inset 6px 0 0 #3f51b5;}
@@ -58,12 +58,51 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
 
 <script>
 // --- CONFIGURACIÓN ---
-// IMPORTANTE: Reemplaza con tu URL de Google Apps Script
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
 const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA|ABSOLUTO)/i;
 
 // Estado de la aplicación
 let epaileakData = [];
+
+/* =========================
+   Función para normalizar texto (quitar tildes y mayúsculas/minúsculas)
+========================= */
+function normalizarTexto(texto) {
+  if (!texto) return "";
+  return texto.toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // quitar tildes
+    .replace(/[-\s]/g, " ") // unificar espacios
+    .trim();
+}
+
+/* =========================
+   Función para comparar frontones de forma flexible
+========================= */
+function frontonesCoinciden(fronton1, fronton2) {
+  if (!fronton1 || !fronton2) return false;
+  
+  const f1 = normalizarTexto(fronton1);
+  const f2 = normalizarTexto(fronton2);
+  
+  // Coincidencia exacta después de normalizar
+  if (f1 === f2) return true;
+  
+  // Extraer palabras clave
+  const palabras1 = f1.split(" ");
+  const palabras2 = f2.split(" ");
+  
+  // Buscar si "jaian jai" está en ambos
+  const tieneJaianJai1 = palabras1.some(p => p.includes("jaian") || p.includes("jai"));
+  const tieneJaianJai2 = palabras2.some(p => p.includes("jaian") || p.includes("jai"));
+  
+  // Buscar si "lekunberri" o "lekurbenti" está en ambos
+  const tieneLekunberri1 = palabras1.some(p => p.includes("lekun") || p.includes("lekur"));
+  const tieneLekunberri2 = palabras2.some(p => p.includes("lekun") || p.includes("lekur"));
+  
+  return (tieneJaianJai1 && tieneJaianJai2) || (tieneLekunberri1 && tieneLekunberri2);
+}
 
 /* =========================
    Cargar árbitros desde Google Sheets
@@ -90,12 +129,10 @@ async function cargarEpaileak() {
    Guardar en Google Sheets
 ========================= */
 async function guardar(fecha, hora, fronton, value, inputElement) {
-  // Feedback visual: cambiar color mientras guarda
   const originalBg = inputElement.style.backgroundColor;
   inputElement.style.backgroundColor = "#fff9c4";
   
   try {
-    // Normalizar los datos antes de enviar
     const params = new URLSearchParams({
       fecha: fecha.trim(),
       hora: hora.trim(),
@@ -116,7 +153,6 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
     const result = await response.json();
     console.log("Guardado OK:", result);
     
-    // Feedback visual: verde de éxito
     inputElement.style.backgroundColor = "#c8e6c9";
     setTimeout(() => {
       inputElement.style.backgroundColor = originalBg;
@@ -126,7 +162,7 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
     const index = epaileakData.findIndex(item =>
       item.fecha === fecha && 
       item.hora === hora && 
-      item.fronton === fronton
+      frontonesCoinciden(item.fronton, fronton)
     );
     
     if (index !== -1) {
@@ -150,6 +186,38 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
 function normalizaHora(h) {
   if (!h) return "00:00";
   return h.slice(0, 5);
+}
+
+/* =========================
+   Buscar árbitro guardado de forma flexible
+========================= */
+function buscarEpaileGuardado(fecha, hora, fronton) {
+  // Primero: búsqueda exacta (fecha, hora y frontón normalizado)
+  let guardado = epaileakData.find(item => {
+    const mismaFecha = item.fecha === fecha;
+    const mismaHora = item.hora === hora;
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismaFecha && mismaHora && mismoFronton;
+  });
+  
+  if (guardado) return guardado;
+  
+  // Segundo: búsqueda por hora y frontón (ignorando fecha)
+  guardado = epaileakData.find(item => {
+    const mismaHora = item.hora === hora;
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismaHora && mismoFronton && item.epailea;
+  });
+  
+  if (guardado) return guardado;
+  
+  // Tercero: búsqueda solo por frontón (para mantener asignaciones)
+  guardado = epaileakData.find(item => {
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismoFronton && item.epailea;
+  });
+  
+  return guardado;
 }
 
 /* =========================
@@ -182,7 +250,7 @@ async function crearTabla() {
     // 3. Procesar partidos para agrupar por horario
     const jaialdiak = {};
     data.forEach(p => {
-      if (!/lekunberri|aldatz/i.test(p.fronton || "")) return;
+      if (!/lekunberri|aldatz|lekurbenti/i.test(p.fronton || "")) return;
 
       const hora = normalizaHora(p.hora);
       const key = `${p.fecha}|${hora}|${p.fronton}`;
@@ -216,7 +284,7 @@ async function crearTabla() {
     filas.forEach(j => {
       const tr = document.createElement("tr");
 
-      // Aplicar clases CSS (laterales de color)
+      // Aplicar clases CSS
       if (/jaian\s*jai/i.test(j.fronton)) {
         tr.classList.add("lateral-jaianjai");
       } else if (/trinkete/i.test(j.fronton)) {
@@ -225,41 +293,27 @@ async function crearTabla() {
         tr.classList.add("lateral-default");
       }
 
-      // Buscar árbitro guardado
-      // IMPORTANTE: Mostrar el valor guardado aunque la fecha sea diferente
-      // Buscamos por frontón y hora principalmente
-      const guardado = epaileakData.find(item =>
-        // Coincidencia exacta (prioridad)
-        (item.fecha === j.fecha && item.hora === j.hora && item.fronton === j.fronton) ||
-        // O coincidencia por frontón y hora (para mantener árbitros cuando cambian las fechas)
-        (item.hora === j.hora && item.fronton === j.fronton && item.epailea)
-      );
-      
+      // Buscar árbitro guardado con el nuevo método flexible
+      const guardado = buscarEpaileGuardado(j.fecha, j.hora, j.fronton);
       const valorInicial = guardado ? guardado.epailea : "";
 
-      // --- Crear celdas ---
-      
-      // Fecha
+      // Crear celdas
       const tdFecha = document.createElement("td");
       tdFecha.textContent = j.fecha;
       tr.appendChild(tdFecha);
 
-      // Hora
       const tdHora = document.createElement("td");
       tdHora.textContent = j.hora;
       tr.appendChild(tdHora);
 
-      // Frontón
       const tdFronton = document.createElement("td");
       tdFronton.textContent = j.fronton;
       tr.appendChild(tdFronton);
 
-      // ZB (número de partidos)
       const tdZb = document.createElement("td");
       tdZb.innerHTML = `<strong>${j.zb}</strong>`;
       tr.appendChild(tdZb);
 
-      // Senior - AHORA EN AZUL SI ES "BAI"
       const tdSenior = document.createElement("td");
       if (j.senior === "BAI") {
         tdSenior.style.backgroundColor = "#2196F3";
@@ -271,7 +325,6 @@ async function crearTabla() {
       }
       tr.appendChild(tdSenior);
 
-      // Input para árbitro
       const tdInput = document.createElement("td");
       const input = document.createElement("input");
       input.value = valorInicial;
