@@ -82,9 +82,10 @@
             margin: 30px auto;
             display: flex;
             flex-direction: column;
-            background: #2c3e50;
-            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
-                              linear-gradient(145deg, #3a4a5a, #1a2a3a);
+            /* Fondo más claro con degradado suave */
+            background: #e8eef2;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100,100,100,0.1) 0%, transparent 20%),
+                              linear-gradient(145deg, #f0f5f8, #d0d8e0);
             position: relative;
             box-shadow: 0 0 30px rgba(0,0,0,.5);
             border-radius: 30px;
@@ -133,6 +134,28 @@
             border: 3px solid gold;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             text-align: center;
+        }
+        /* Colores por día de la semana - MUY DEGRADADOS Y SUTILES */
+        .info-dia-card.lunes {
+            background: linear-gradient(145deg, rgba(255, 255, 0, 0.1), rgba(255, 255, 0, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.martes {
+            background: linear-gradient(145deg, rgba(238, 130, 238, 0.1), rgba(238, 130, 238, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.miercoles {
+            background: linear-gradient(145deg, rgba(255, 165, 0, 0.1), rgba(255, 165, 0, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.jueves {
+            background: linear-gradient(145deg, rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.viernes {
+            background: linear-gradient(145deg, rgba(0, 128, 0, 0.1), rgba(0, 128, 0, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.sabado {
+            background: linear-gradient(145deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05)), rgba(255,255,255,0.95);
+        }
+        .info-dia-card.domingo {
+            background: linear-gradient(145deg, rgba(128, 128, 128, 0.1), rgba(128, 128, 128, 0.05)), rgba(255,255,255,0.95);
         }
         .info-dia-card .dia {
             font-size: 32px;
@@ -287,27 +310,6 @@
             font-size: 22px;
             text-shadow: 0 0 8px gold;
         }
-        .continuation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 30px auto;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.7);
-            padding: 20px;
-            border-radius: 60px;
-            border: 4px solid gold;
-            width: 70%;
-            backdrop-filter: blur(5px);
-        }
-        .continuation span {
-            font-size: 40px;
-            animation: bounce 1.5s infinite;
-        }
-        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
         .story-footer {
             background: linear-gradient(#1a1a1a, #0a0a0a);
             padding: 15px;
@@ -350,13 +352,13 @@
             inset: 0;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.2;
+            opacity: 0.3;
         }
         .pelota-dot {
             position: absolute;
             width: 4px;
             height: 4px;
-            background: white;
+            background: #333; /* Más oscuro */
             border-radius: 50%;
         }
     </style>
@@ -449,21 +451,49 @@
         return "";
     }
 
-    function paginarGrupos(grupos, maxPartidos = 5) {
+    // Nueva función de paginación proporcional
+    function paginarProporcional(grupos) {
         const paginas = [];
-        let paginaActual = [];
-        let cuentaActual = 0;
-        grupos.forEach(g => {
-            if (cuentaActual + g.length > maxPartidos && paginaActual.length > 0) {
-                paginas.push(paginaActual);
-                paginaActual = [g];
-                cuentaActual = g.length;
+        
+        grupos.forEach(grupo => {
+            const totalPartidos = grupo.length;
+            if (totalPartidos <= 5) {
+                // Si tiene 5 o menos, va en una sola página
+                paginas.push([grupo]);
             } else {
-                paginaActual.push(g);
-                cuentaActual += g.length;
+                // Distribución proporcional
+                const numPaginas = Math.ceil(totalPartidos / 5); // Mínimo páginas necesarias
+                const partidosPorPagina = Math.ceil(totalPartidos / numPaginas);
+                
+                // Ajustar para que sea lo más equilibrado posible
+                const distribucion = [];
+                let restantes = totalPartidos;
+                
+                for (let i = 0; i < numPaginas; i++) {
+                    // Calcular cuántos partidos poner en esta página
+                    let paraEstaPagina;
+                    if (i === numPaginas - 1) {
+                        // Última página: todos los restantes
+                        paraEstaPagina = restantes;
+                    } else {
+                        // Intentar que sea equilibrado
+                        paraEstaPagina = Math.min(partidosPorPagina, restantes - (numPaginas - i - 1));
+                    }
+                    distribucion.push(paraEstaPagina);
+                    restantes -= paraEstaPagina;
+                }
+                
+                // Dividir el grupo según la distribución
+                let start = 0;
+                distribucion.forEach(cantidad => {
+                    if (cantidad > 0) {
+                        paginas.push([grupo.slice(start, start + cantidad)]);
+                        start += cantidad;
+                    }
+                });
             }
         });
-        if (paginaActual.length) paginas.push(paginaActual);
+        
         return paginas;
     }
 
@@ -479,6 +509,19 @@
         }
     }
 
+    function getClaseDia(dia) {
+        const diasMap = {
+            'ASTELEHENA': 'lunes',
+            'ASTEARTEA': 'martes',
+            'ASTEAZKENA': 'miercoles',
+            'OSTEGUNA': 'jueves',
+            'OSTIRALA': 'viernes',
+            'LARUNBATA': 'sabado',
+            'IGANDEA': 'domingo'
+        };
+        return diasMap[dia] || '';
+    }
+
     function crearPagina(gruposPagina, numPagina, totalPaginas, diaInfo, fechaOriginal) {
         const p = document.createElement('div');
         p.className = 'pagina';
@@ -492,7 +535,10 @@
         </div>`;
 
         html += `<div class="story-content">`;
-        html += `<div class="info-dia-card">`;
+        
+        // Aplicar clase de color según el día
+        const claseDia = getClaseDia(diaInfo.dia);
+        html += `<div class="info-dia-card ${claseDia}">`;
         html += `<div class="dia">${diaInfo.dia}</div>`;
         html += `<div class="fecha">${diaInfo.fecha}</div>`;
         if (totalPaginas > 1) {
@@ -544,10 +590,6 @@
 
             html += `</div></div>`;
         });
-
-        if (numPagina < totalPaginas) {
-            html += `<div class="continuation"><span>👇</span> JARRAITU <span>👇</span></div>`;
-        }
 
         html += `</div>`;
         html += `<div class="story-footer"><div class="logos-grid"></div></div>`;
@@ -733,14 +775,16 @@
         });
         const grupos = Object.values(gruposMap);
 
-        const paginas = paginarGrupos(grupos, 5);
-
-        paginas.forEach((gruposPagina, idx) => {
-            crearPagina(gruposPagina, idx+1, paginas.length, diaInfo, `${diaInfo.dia} ${diaInfo.fecha}`);
+        // Usar la nueva paginación proporcional
+        const paginasGrupos = paginarProporcional(grupos);
+        
+        // Crear páginas
+        paginasGrupos.forEach((gruposPagina, idx) => {
+            crearPagina(gruposPagina, idx+1, paginasGrupos.length, diaInfo, `${diaInfo.dia} ${diaInfo.fecha}`);
         });
 
-        document.getElementById('infoDia').innerHTML = `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginas.length} página${paginas.length > 1 ? 's' : ''}`;
-        document.getElementById('pageCounter').innerHTML = `📱 ${paginas.length} story${paginas.length > 1 ? 's' : ''}`;
+        document.getElementById('infoDia').innerHTML = `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginasGrupos.length} página${paginasGrupos.length > 1 ? 's' : ''}`;
+        document.getElementById('pageCounter').innerHTML = `📱 ${paginasGrupos.length} story${paginasGrupos.length > 1 ? 's' : ''}`;
     }
 
     async function exportarTodasLasStories() {
