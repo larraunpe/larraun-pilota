@@ -77,6 +77,7 @@ async function cargarEpaileak() {
     const data = await response.json();
     epaileakData = Array.isArray(data) ? data : [];
     console.log(`${epaileakData.length} árbitros cargados`);
+    console.log("Datos de árbitros:", epaileakData);
     return epaileakData;
   } catch (error) {
     console.error("Error al cargar árbitros:", error);
@@ -94,12 +95,15 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
   inputElement.style.backgroundColor = "#fff9c4";
   
   try {
+    // Normalizar los datos antes de enviar
     const params = new URLSearchParams({
-      fecha: fecha,
-      hora: hora,
-      fronton: fronton,
-      epailea: value
+      fecha: fecha.trim(),
+      hora: hora.trim(),
+      fronton: fronton.trim(),
+      epailea: value.trim()
     });
+
+    console.log("Guardando:", {fecha, hora, fronton, epailea: value});
 
     const response = await fetch(SCRIPT_URL, {
       method: "POST",
@@ -120,7 +124,9 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
 
     // Actualizar epaileakData
     const index = epaileakData.findIndex(item =>
-      item.fecha === fecha && item.hora === hora && item.fronton === fronton
+      item.fecha === fecha && 
+      item.hora === hora && 
+      item.fronton === fronton
     );
     
     if (index !== -1) {
@@ -220,11 +226,15 @@ async function crearTabla() {
       }
 
       // Buscar árbitro guardado
+      // IMPORTANTE: Mostrar el valor guardado aunque la fecha sea diferente
+      // Buscamos por frontón y hora principalmente
       const guardado = epaileakData.find(item =>
-        item.fecha === j.fecha &&
-        item.hora === j.hora &&
-        item.fronton === j.fronton
+        // Coincidencia exacta (prioridad)
+        (item.fecha === j.fecha && item.hora === j.hora && item.fronton === j.fronton) ||
+        // O coincidencia por frontón y hora (para mantener árbitros cuando cambian las fechas)
+        (item.hora === j.hora && item.fronton === j.fronton && item.epailea)
       );
+      
       const valorInicial = guardado ? guardado.epailea : "";
 
       // --- Crear celdas ---
