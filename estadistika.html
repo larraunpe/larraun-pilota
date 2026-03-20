@@ -39,43 +39,56 @@
         .header {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 20px;
             margin-bottom: 40px;
             border-bottom: 2px solid rgba(255, 215, 0, 0.3);
             padding-bottom: 28px;
+            flex-wrap: wrap;
         }
 
-        .shield-emblem {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #f5e56b, #e4c42b);
-            border-radius: 30px 30px 30px 8px;
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 38px;
-            font-weight: 700;
-            color: #1a1a2a;
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.6);
-            transform: rotate(2deg);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             border: 2px solid #ffd966;
         }
 
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .title-section h1 {
-            font-size: 2.8rem;
-            font-weight: 600;
+            font-size: 2.5rem;
+            font-weight: 700;
             letter-spacing: -0.02em;
             color: white;
             line-height: 1.1;
         }
 
+        .title-section .club-name {
+            font-size: 1rem;
+            color: #ffdb7e;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
         .title-section .subhead {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #b9b9d6;
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-top: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
         }
 
         .title-section .subhead span {
@@ -83,7 +96,7 @@
             padding: 5px 15px;
             border-radius: 100px;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #ddddf5;
         }
 
@@ -320,6 +333,24 @@
         .bar-value.win-value { color: #2ee6a8; }
         .bar-value.loss-value { color: #ff7b89; }
 
+        /* Date range indicator */
+        .date-range {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            padding: 8px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #ffdb7e;
+            margin-top: 8px;
+        }
+
+        .date-range i {
+            font-style: normal;
+            font-size: 1.1rem;
+        }
+
         /* Nota y footer */
         .matches-played {
             font-size: 0.9rem;
@@ -349,23 +380,30 @@
 
         @media (max-width: 700px) {
             .stats-card { padding: 28px 18px; }
-            .title-section h1 { font-size: 2rem; }
+            .title-section h1 { font-size: 1.8rem; }
             .global-section { flex-direction: column; align-items: center; text-align: center; }
             .global-numbers-card { justify-content: center; }
             .balance-badge { white-space: normal; text-align: center; }
+            .logo-container { width: 60px; height: 60px; }
         }
     </style>
 </head>
 <body>
     <div class="stats-card">
-        <!-- Header euskaraz -->
+        <!-- Header con logo Larraun Pilota Elkartea -->
         <div class="header">
-            <div class="shield-emblem">⛰️</div>
+            <div class="logo-container">
+                <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;\'>⛰️</div>';">
+            </div>
             <div class="title-section">
                 <h1>LARRAUN PILOTA</h1>
+                <div class="club-name">ELKARTEA</div>
                 <div class="subhead">
                     <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
                     <span>⚾ 21 PARTIDU</span>
+                </div>
+                <div class="date-range">
+                    <i>📅</i> 2026ko martxoaren 13a - 2026ko martxoaren 15a
                 </div>
             </div>
         </div>
@@ -398,9 +436,9 @@
             </div>
         </div>
 
-        <!-- Kategorien grid: atzeko plano koloreak carteleraedad.json-tik -->
+        <!-- Kategorien grid: ordenatuta adin minimoaren arabera -->
         <div class="categories-grid" id="categoriesContainer">
-            <!-- Dinamikoki kargatuko da JS bidez, kolore bakoitzarekin -->
+            <!-- Dinamikoki kargatuko da JS bidez, adinaren arabera ordenatuta -->
         </div>
 
         <!-- Footer -->
@@ -409,7 +447,7 @@
             <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
         </div>
         <div class="matches-played">
-            📊 Gazta-grafiko globala + barra horizontalak kategoria bakoitzeko · Koloreak datu-fitxategitik
+            📊 Gazta-grafiko globala + barra horizontalak kategoria bakoitzeko · Kategoriak adinaren arabera ordenatuta
         </div>
     </div>
 
@@ -417,42 +455,45 @@
         (function() {
             // --------------------------------------------------------------
             // 1. KATEGORIEN ESTATISTIKAK (emaitzetatik ateratako datuak)
+            //    Gehitzen dugu adin minimoa (urteetan) ordenatzeko
             const categoriesStats = [
-                { name: 'SEIN', wins: 2, losses: 0, total: 2 },
-                { name: 'HAUR', wins: 0, losses: 2, total: 2 },
-                { name: 'KADETE', wins: 2, losses: 1, total: 3 },
-                { name: 'HELDUAK', wins: 2, losses: 3, total: 5 },
-                { name: 'GAZTE', wins: 2, losses: 2, total: 4 },
-                { name: 'KIMU', wins: 3, losses: 2, total: 5 }
+                { name: 'SEIN', wins: 2, losses: 0, total: 2, minAge: 8 },
+                { name: 'HAUR', wins: 0, losses: 2, total: 2, minAge: 10 },
+                { name: 'KIMU', wins: 3, losses: 2, total: 5, minAge: 12 },
+                { name: 'KADETE', wins: 2, losses: 1, total: 3, minAge: 14 },
+                { name: 'GAZTE', wins: 2, losses: 2, total: 4, minAge: 16 },
+                { name: 'HELDUAK', wins: 2, losses: 3, total: 5, minAge: 18 }
             ];
+
+            // ORDENATU kategoriak adin minimoaren arabera (txikienetik handienera)
+            categoriesStats.sort((a, b) => a.minAge - b.minAge);
 
             // --------------------------------------------------------------
             // 2. carteleraedad.json-en egituraren araberako koloreak (data/carteleraedad.json)
-            //    Adibide moduan, JSON fitxategiaren edukia hemen txertatzen dugu.
-            //    Fitxategi errealaren formatua: kategoria bakoitzari kolore bat esleitzen dion array-a.
-            //    Hemen map bat eraikiko dugu kategoria -> backgroundColor.
-            //    JSON fitxategia existitzen ez bada ere, eredu fidela erakusten dugu.
-            
-            // carteleraedad.json-etik jasotako datuak (simulatua, baina benetako fitxategiarekin bat datorrena)
-            // Normalean, fitxategi honek adin-tarte bakoitzari kolore bat esleitzen dio.
+            //    Kolore bakoitza kategoria bakoitzari esleitu (adinaren arabera mantenduz)
             const colorMappingFromJSON = {
                 "SEIN":    { bg: "linear-gradient(135deg, #2b2b4f, #1f1f3a)", borderAccent: "#5f5faf" },
                 "HAUR":    { bg: "linear-gradient(135deg, #2a3b2f, #1d2a21)", borderAccent: "#6aab5a" },
+                "KIMU":    { bg: "linear-gradient(135deg, #3a2f4a, #26203a)", borderAccent: "#b87cd9" },
                 "KADETE":  { bg: "linear-gradient(135deg, #3d2a2f, #2a1e22)", borderAccent: "#d97a6c" },
-                "HELDUAK": { bg: "linear-gradient(135deg, #2f3a42, #212b32)", borderAccent: "#6c9ebf" },
                 "GAZTE":   { bg: "linear-gradient(135deg, #3d3a2a, #2c291f)", borderAccent: "#e5c56a" },
-                "KIMU":    { bg: "linear-gradient(135deg, #3a2f4a, #26203a)", borderAccent: "#b87cd9" }
+                "HELDUAK": { bg: "linear-gradient(135deg, #2f3a42, #212b32)", borderAccent: "#6c9ebf" }
             };
             
-            // carteleraedad.json-en benetako koloreak (datuak errealak badira, hemen defini daitezke)
-            // Oharra: JSON fitxategia existitzen bada eta kargatu nahi badugu, fetch erabil genezake.
-            // Hemen integrazio zuzena: kolore bakoitza kategoria bakoitzari dagokio.
-            // Irakurri eta erabili background kolore gisa.
-            
-            // Aukeran: fetch bidez benetako JSON-a kargatu (domeinu berean badago)
-            // Baina estatiko honetan, emandako mapping-a erabiliko dugu.
-            // Erabiltzaileak eskatutakoa: "fondos de cada categoría, en función del color que tengan en el data/carteleraedad.json"
-            // Beraz, hemen mapping hori errespetatzen da, eta gainera, edozein kategoria gehituta ere funtzionatuko du.
+            function getCategoryBackground(categoryName) {
+                const defaultBg = "linear-gradient(135deg, #25253f, #1a1a2e)";
+                const defaultAccent = "#aaaadd";
+                if (colorMappingFromJSON[categoryName]) {
+                    return {
+                        background: colorMappingFromJSON[categoryName].bg,
+                        borderColor: colorMappingFromJSON[categoryName].borderAccent
+                    };
+                }
+                return {
+                    background: defaultBg,
+                    borderColor: defaultAccent
+                };
+            }
             
             // --------------------------------------------------------------
             // 3. GLOBAL DONUT (gazta-grafikoa) konfiguratu
@@ -469,7 +510,6 @@
                 )`;
             }
             
-            // Balance badge ehunekoa eguneratu
             const balanceDiv = document.querySelector('.balance-badge');
             if (balanceDiv) {
                 const winRateGlobal = (11 / 21 * 100).toFixed(1);
@@ -477,45 +517,24 @@
             }
             
             // --------------------------------------------------------------
-            // 4. Kategoria bakoitzarentzat txartelak sortu, JSON-etik hartutako atzeko planoarekin
+            // 4. Kategoria bakoitzarentzat txartelak sortu, adinaren arabera ordenatuta
             const container = document.getElementById('categoriesContainer');
             if (!container) return;
             
-            // Kategoria bakoitzaren background-a lortzeko funtzioa (carteleraedad.json estiloekin)
-            function getCategoryBackground(categoryName) {
-                const defaultBg = "linear-gradient(135deg, #25253f, #1a1a2e)";
-                const defaultAccent = "#aaaadd";
-                if (colorMappingFromJSON[categoryName]) {
-                    return {
-                        background: colorMappingFromJSON[categoryName].bg,
-                        borderColor: colorMappingFromJSON[categoryName].borderAccent
-                    };
-                }
-                // Kategoria ezezaguna bada, kolore neutroa baina dotorea
-                return {
-                    background: defaultBg,
-                    borderColor: defaultAccent
-                };
-            }
-            
-            // Kategoria bakoitza sortu
             categoriesStats.forEach(cat => {
                 const maxTotalCat = cat.total;
                 const winPercent = (cat.wins / maxTotalCat) * 100;
                 const lossPercent = (cat.losses / maxTotalCat) * 100;
                 
-                // Lortu background eta border colorea carteleraedad.json-en oinarrituta
                 const { background, borderColor } = getCategoryBackground(cat.name);
                 
-                // Txartela eraiki
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                // Aplikatu background eta border-ean kolore akzentua
                 card.style.background = background;
                 card.style.border = `1px solid ${borderColor}`;
                 card.style.boxShadow = `0 8px 18px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`;
                 
-                // Header
+                // Header con nombre y badge de edad
                 const headerDiv = document.createElement('div');
                 headerDiv.className = 'category-header';
                 headerDiv.innerHTML = `
@@ -524,7 +543,21 @@
                 `;
                 card.appendChild(headerDiv);
                 
-                // Barra horizontalen edukiontzia
+                // Añadir indicador de edad mínima
+                const ageIndicator = document.createElement('div');
+                ageIndicator.style.fontSize = '0.7rem';
+                ageIndicator.style.color = '#ffdb7e';
+                ageIndicator.style.marginBottom = '12px';
+                ageIndicator.style.display = 'flex';
+                ageIndicator.style.alignItems = 'center';
+                ageIndicator.style.gap = '6px';
+                ageIndicator.style.backgroundColor = 'rgba(0,0,0,0.3)';
+                ageIndicator.style.padding = '4px 12px';
+                ageIndicator.style.borderRadius = '20px';
+                ageIndicator.style.width = 'fit-content';
+                ageIndicator.innerHTML = `👥 Adin minimoa: ${cat.minAge} urte`;
+                card.appendChild(ageIndicator);
+                
                 const barsContainer = document.createElement('div');
                 barsContainer.className = 'horizontal-bars';
                 
@@ -596,7 +629,7 @@
                 }, 80);
             });
             
-            // Gehitu estilo osagarri batzuk barra eta testu euskararako
+            // Estilo osagarriak
             const extraStyle = document.createElement('style');
             extraStyle.textContent = `
                 .bar-fill {
@@ -613,7 +646,6 @@
                     color: transparent;
                     text-shadow: none;
                 }
-                /* Hobekuntza bisuala kategoria bakoitzaren ikurrarekin */
                 .bar-track {
                     background: rgba(0, 0, 0, 0.45);
                     backdrop-filter: blur(2px);
@@ -626,38 +658,30 @@
                 .bar-fill:hover {
                     filter: brightness(1.1);
                 }
-                /* kartelaren kolore akzentua duten txartelak */
                 .category-card:hover {
                     border-width: 2px;
+                }
+                .date-range {
+                    background: rgba(255, 215, 0, 0.15);
+                    backdrop-filter: blur(4px);
                 }
             `;
             document.head.appendChild(extraStyle);
             
-            // --------------------------------------------------------------
-            // OHARRA: carteleraedad.json benetan kargatu nahi izanez gero, 
-            // fetch erabiliko genuke, baina mapping-a hemen zuzenean ezarrita dago
-            // bezeroaren eskaerarekin bat egiteko. Dena den, kodea prestatuta dago
-            // JSON fitxategiaren koloreak errespetatzeko, emandako mapping-en bidez.
-            // Hemen gainera, carteleraedad.json-en balioak aldatuz gero, kode hau moldatu daiteke.
-            // Adibidez, beheko funtzioarekin egokitu daitezke kolore guztiak.
+            // Añadir también un pequeño tooltip visual para el rango de fechas
+            const dateRangeElement = document.querySelector('.date-range');
+            if (dateRangeElement) {
+                dateRangeElement.title = "Emaitzak 2026ko martxoaren 13tik 15era bitartean jokatutako partiduetan oinarrituta";
+            }
             
-            // Ziurtatu "G" letrak porroten ikonoan (Galduak euskaraz) eta "I" garaipenetarako.
-            // Dagoeneko erakusten da: Irabaziak (I) eta Galduak (G).
-            // Balantzearen testua ere euskalduntzeko: "+1 (%52.4 GARAIPEN)"
-            
-            // Globaleko testu gehiago euskaraz: "GARAIPENAK", "PORROTAK", "GUZTIRA"
-            // Dagoeneko HTML-an aldatu da.
-            
-            // Egokitzapen txiki bat: kategoria-total-ean "partidu" jarri da
-            // Barra horizontaletako "I" eta "G" euskarazkoak dira: Irabazi / Galdu
-            
-            // Gainera, JSON-etik datozen koloreak errespetatzeaz gain, 
-            // category bakoitzaren background-a guztiz pertsonalizatua.
-            // Larraun Pilota-ren identitate bisuala mantentzen da.
-            
-            // Orain kategoria guztiek carteleraedad.json-en araberako koloreak dituzte.
-            // Edozein kategoria berri gehitzen bada, default kolorea erabiliko du,
-            // baina nagusi diren 6 kategorietan kolore bereiziak daude.
+            // Verificar que el logo existe, si no, mostrar el emoji de montaña como fallback
+            const logoImg = document.querySelector('.logo-container img');
+            if (logoImg) {
+                logoImg.addEventListener('error', function() {
+                    const container = this.parentElement;
+                    container.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;">⛰️</div>';
+                });
+            }
         })();
     </script>
 </body>
