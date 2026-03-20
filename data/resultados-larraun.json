@@ -365,11 +365,13 @@
     "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (A. Amundarain - J. Saralegi) AMUNDARAIN DELGADO, A. SARALEGI OLANO, J.",
     "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea) AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
-    "tanteoa": "-",
-    "sets": [],
+    "tanteoa": "0-2",
+    "sets": [
+      "(0-9) (5-9)"
+    ],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3105&temp=2025",
-    "emaitza": "berdinketa",
+    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
@@ -412,6 +414,20 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3105&temp=2025",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-20",
+    "fronton": "Elizondo - Baztan",
+    "etxekoa": "TXARUTA (X. Agesta - P. Anbustegi) AGESTA MIURA, X. ANBUSTEGI MIURA, P.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-4) (9-1)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3105&temp=2025",
+    "emaitza": "galduta",
     "ofiziala": true
   },
   {
@@ -616,6 +632,19 @@
     "etxekoa_original": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B."
   },
   {
+    "fecha": "2026-03-20",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (O. Peña - A. Molina) MOLINA MORA, A. PEÑA MEDINA, O.",
+    "kanpokoak": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+    "tanteoa": "13-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3109&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "kanpokoak_original": "LARRAUN (D. Centeno - B. Esnaola) CENTENO CELAYA, D. ESNAOLA SOTIL, B."
+  },
+  {
     "fecha": "2026-02-28",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (I. Pierola - A. Irurtzun) IRURTZUN, A. PIEROLA PINEDO, I.",
@@ -681,6 +710,18 @@
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
     "kanpokoak": "SAN MIGUEL (S. Alves - X. Minguez) ALVES LAURA, S. MINGUEZ LANA, X.",
     "tanteoa": "18-9",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-20",
+    "fronton": "Mutilva Baja - Polideportivo",
+    "etxekoa": "ARANPILOTA (M. Otondo - H. Zubiri) ABESIA GARCIA , A. OTONDO AMATRIAIN, M.",
+    "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro) ASTIZ VELASCO, A. DORRONSORO ALBERO, A.",
+    "tanteoa": "16-18",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3111&temp=2025",
@@ -807,6 +848,18 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3116&temp=2025",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-20",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "AURRERA (H. Sagastibeltza - A. Ugartemendia) SAGASTIBELTZA BENGOETXEA, H. UGARTEMENDIA MENDIZABAL, A.",
+    "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil) BILDARRAZ ANSORENA, J. SOTIL MIKEO, I.",
+    "tanteoa": "22-17",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3116&temp=2025",
+    "emaitza": "galduta",
     "ofiziala": true
   },
   {
