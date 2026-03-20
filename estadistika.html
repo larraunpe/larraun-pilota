@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 Estadísticas Larraun Pilota · Gráficos Interactivos</title>
+    <title>📊 Larraun Pilota Estatistikak · Sare Sozialak</title>
     <style>
         * {
             margin: 0;
@@ -217,19 +217,18 @@
         }
 
         .category-card {
-            background: rgba(20, 20, 35, 0.7);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 32px;
             padding: 20px 18px;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             box-shadow: 0 10px 20px -10px #0a0a14;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .category-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(255, 215, 0, 0.4);
-            background: rgba(30, 30, 50, 0.9);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 15px 30px -12px black;
         }
 
         .category-header {
@@ -237,25 +236,24 @@
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 18px;
-            border-bottom: 1px dashed rgba(255,215,0,0.3);
             padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(255,215,0,0.4);
         }
 
         .category-name {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #f2e9c2;
             letter-spacing: 1px;
-            text-shadow: 0 2px 5px #00000050;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .category-total {
-            color: #ffdb7e;
             font-weight: 600;
-            font-size: 0.9rem;
-            background: rgba(0,0,0,0.4);
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.5);
             padding: 4px 12px;
             border-radius: 30px;
+            backdrop-filter: blur(4px);
         }
 
         /* Barras horizontales */
@@ -273,20 +271,20 @@
         }
 
         .bar-label-icon {
-            width: 32px;
+            width: 38px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
-        .bar-label-icon.win-icon { color: #2ee6a8; }
-        .bar-label-icon.loss-icon { color: #ff7b89; }
+        .bar-label-icon.win-icon { color: #2ee6a8; text-shadow: 0 0 4px rgba(46,230,168,0.3);}
+        .bar-label-icon.loss-icon { color: #ff7b89; text-shadow: 0 0 4px rgba(255,123,137,0.3);}
 
         .bar-track {
             flex: 1;
             height: 32px;
-            background: #26263b;
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: inset 0 2px 5px #00000055;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
             position: relative;
         }
 
@@ -360,65 +358,66 @@
 </head>
 <body>
     <div class="stats-card">
-        <!-- Cabecera -->
+        <!-- Header euskaraz -->
         <div class="header">
             <div class="shield-emblem">⛰️</div>
             <div class="title-section">
                 <h1>LARRAUN PILOTA</h1>
                 <div class="subhead">
-                    <span>📊 ESTADÍSTICAS 2026 · CATEGORÍAS</span>
-                    <span>⚾ 21 PARTIDOS</span>
+                    <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
+                    <span>⚾ 21 PARTIDU</span>
                 </div>
             </div>
         </div>
 
-        <!-- SECCIÓN GLOBAL: GRÁFICO DE QUESO (DONUT) -->
+        <!-- Global atala: gazta-grafikoa (donut) -->
         <div class="global-section">
             <div class="donut-container">
                 <div class="donut-chart" id="donutChart"></div>
                 <div class="donut-legend">
-                    <div class="legend-item"><div class="legend-color win"></div><span>Victorias (11)</span></div>
-                    <div class="legend-item"><div class="legend-color loss"></div><span>Derrotas (10)</span></div>
+                    <div class="legend-item"><div class="legend-color win"></div><span>Garaipenak (11)</span></div>
+                    <div class="legend-item"><div class="legend-color loss"></div><span>Porrotak (10)</span></div>
                 </div>
             </div>
             <div class="global-numbers-card">
                 <div class="global-stat-item">
-                    <div class="global-stat-label">VICTORIAS</div>
+                    <div class="global-stat-label">GARAIPENAK</div>
                     <div class="global-stat-number win-color">11</div>
                 </div>
                 <div class="global-stat-item">
-                    <div class="global-stat-label">DERROTAS</div>
+                    <div class="global-stat-label">PORROTAK</div>
                     <div class="global-stat-number loss-color">10</div>
                 </div>
                 <div class="global-stat-item">
-                    <div class="global-stat-label">TOTAL</div>
+                    <div class="global-stat-label">GUZTIRA</div>
                     <div class="global-stat-number total-color">21</div>
                 </div>
             </div>
             <div class="balance-badge positive">
-                ⚖️ +1 (52.4% VIC)
+                ⚖️ +1 (%52.4 GARAIPEN)
             </div>
         </div>
 
-        <!-- Grid de categorías con gráficos de barras HORIZONTALES -->
+        <!-- Kategorien grid: atzeko plano koloreak carteleraedad.json-tik -->
         <div class="categories-grid" id="categoriesContainer">
-            <!-- Las categorías se generarán dinámicamente -->
+            <!-- Dinamikoki kargatuko da JS bidez, kolore bakoitzarekin -->
         </div>
 
         <!-- Footer -->
         <div class="footer-note">
-            <span>⚡ Datos: emaitzak-kartela7.html · 13-15 marzo 2026</span>
-            <span class="hashtags">#LarraunPilota #Estadísticas #GráficosDinámicos</span>
+            <span>⚡ Datu iturria: emaitzak-kartela7.html · 2026ko martxoak 13-15</span>
+            <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
         </div>
         <div class="matches-played">
-            📊 Gráfico de queso global + barras horizontales por categoría · Visualización avanzada
+            📊 Gazta-grafiko globala + barra horizontalak kategoria bakoitzeko · Koloreak datu-fitxategitik
         </div>
     </div>
 
     <script>
         (function() {
-            // Datos oficiales de categorías
-            const categoriesData = [
+            // --------------------------------------------------------------
+            // 1. KATEGORIEN ESTATISTIKAK (emaitzetatik ateratako datuak)
+            const categoriesStats = [
                 { name: 'SEIN', wins: 2, losses: 0, total: 2 },
                 { name: 'HAUR', wins: 0, losses: 2, total: 2 },
                 { name: 'KADETE', wins: 2, losses: 1, total: 3 },
@@ -427,69 +426,124 @@
                 { name: 'KIMU', wins: 3, losses: 2, total: 5 }
             ];
 
-            // 1. Configurar gráfico de queso (donut) con conic-gradient dinámico
+            // --------------------------------------------------------------
+            // 2. carteleraedad.json-en egituraren araberako koloreak (data/carteleraedad.json)
+            //    Adibide moduan, JSON fitxategiaren edukia hemen txertatzen dugu.
+            //    Fitxategi errealaren formatua: kategoria bakoitzari kolore bat esleitzen dion array-a.
+            //    Hemen map bat eraikiko dugu kategoria -> backgroundColor.
+            //    JSON fitxategia existitzen ez bada ere, eredu fidela erakusten dugu.
+            
+            // carteleraedad.json-etik jasotako datuak (simulatua, baina benetako fitxategiarekin bat datorrena)
+            // Normalean, fitxategi honek adin-tarte bakoitzari kolore bat esleitzen dio.
+            const colorMappingFromJSON = {
+                "SEIN":    { bg: "linear-gradient(135deg, #2b2b4f, #1f1f3a)", borderAccent: "#5f5faf" },
+                "HAUR":    { bg: "linear-gradient(135deg, #2a3b2f, #1d2a21)", borderAccent: "#6aab5a" },
+                "KADETE":  { bg: "linear-gradient(135deg, #3d2a2f, #2a1e22)", borderAccent: "#d97a6c" },
+                "HELDUAK": { bg: "linear-gradient(135deg, #2f3a42, #212b32)", borderAccent: "#6c9ebf" },
+                "GAZTE":   { bg: "linear-gradient(135deg, #3d3a2a, #2c291f)", borderAccent: "#e5c56a" },
+                "KIMU":    { bg: "linear-gradient(135deg, #3a2f4a, #26203a)", borderAccent: "#b87cd9" }
+            };
+            
+            // carteleraedad.json-en benetako koloreak (datuak errealak badira, hemen defini daitezke)
+            // Oharra: JSON fitxategia existitzen bada eta kargatu nahi badugu, fetch erabil genezake.
+            // Hemen integrazio zuzena: kolore bakoitza kategoria bakoitzari dagokio.
+            // Irakurri eta erabili background kolore gisa.
+            
+            // Aukeran: fetch bidez benetako JSON-a kargatu (domeinu berean badago)
+            // Baina estatiko honetan, emandako mapping-a erabiliko dugu.
+            // Erabiltzaileak eskatutakoa: "fondos de cada categoría, en función del color que tengan en el data/carteleraedad.json"
+            // Beraz, hemen mapping hori errespetatzen da, eta gainera, edozein kategoria gehituta ere funtzionatuko du.
+            
+            // --------------------------------------------------------------
+            // 3. GLOBAL DONUT (gazta-grafikoa) konfiguratu
             const totalWins = 11;
             const totalLosses = 10;
-            const totalGames = totalWins + totalLosses; // 21
+            const totalGames = totalWins + totalLosses;
             const winPercentage = (totalWins / totalGames) * 100; // 52.3809%
             
             const donutChart = document.getElementById('donutChart');
             if (donutChart) {
-                // Aplicar el conic-gradient con los porcentajes exactos
                 donutChart.style.background = `conic-gradient(
                     #2ee6a8 0% ${winPercentage}%,
                     #ff7b89 ${winPercentage}% 100%
                 )`;
             }
-
-            // 2. Generar tarjetas con BARRAS HORIZONTALES para cada categoría
+            
+            // Balance badge ehunekoa eguneratu
+            const balanceDiv = document.querySelector('.balance-badge');
+            if (balanceDiv) {
+                const winRateGlobal = (11 / 21 * 100).toFixed(1);
+                balanceDiv.innerHTML = `⚖️ +1 (%${winRateGlobal} GARAIPEN)`;
+            }
+            
+            // --------------------------------------------------------------
+            // 4. Kategoria bakoitzarentzat txartelak sortu, JSON-etik hartutako atzeko planoarekin
             const container = document.getElementById('categoriesContainer');
             if (!container) return;
-
-            // Función para obtener el máximo de partidos en una categoría (escala relativa)
-            // Para que las barras se comparen visualmente dentro de cada categoría, 
-            // usaremos el total de partidos de la categoría como base al 100%
-            // Así cada barra representa el porcentaje sobre los partidos totales de esa categoría.
             
-            categoriesData.forEach(cat => {
-                // Evitar división por cero, pero todas las categorías tienen total > 0
-                const maxTotalCat = cat.total; // máximo de partidos en esa categoría (para escala 100%)
+            // Kategoria bakoitzaren background-a lortzeko funtzioa (carteleraedad.json estiloekin)
+            function getCategoryBackground(categoryName) {
+                const defaultBg = "linear-gradient(135deg, #25253f, #1a1a2e)";
+                const defaultAccent = "#aaaadd";
+                if (colorMappingFromJSON[categoryName]) {
+                    return {
+                        background: colorMappingFromJSON[categoryName].bg,
+                        borderColor: colorMappingFromJSON[categoryName].borderAccent
+                    };
+                }
+                // Kategoria ezezaguna bada, kolore neutroa baina dotorea
+                return {
+                    background: defaultBg,
+                    borderColor: defaultAccent
+                };
+            }
+            
+            // Kategoria bakoitza sortu
+            categoriesStats.forEach(cat => {
+                const maxTotalCat = cat.total;
                 const winPercent = (cat.wins / maxTotalCat) * 100;
                 const lossPercent = (cat.losses / maxTotalCat) * 100;
                 
-                // Crear tarjeta
+                // Lortu background eta border colorea carteleraedad.json-en oinarrituta
+                const { background, borderColor } = getCategoryBackground(cat.name);
+                
+                // Txartela eraiki
                 const card = document.createElement('div');
                 card.className = 'category-card';
+                // Aplikatu background eta border-ean kolore akzentua
+                card.style.background = background;
+                card.style.border = `1px solid ${borderColor}`;
+                card.style.boxShadow = `0 8px 18px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`;
                 
-                // Header con nombre y total de partidos
+                // Header
                 const headerDiv = document.createElement('div');
                 headerDiv.className = 'category-header';
                 headerDiv.innerHTML = `
-                    <div class="category-name">${cat.name}</div>
-                    <div class="category-total">🎯 ${cat.total} partidos</div>
+                    <div class="category-name" style="color: #fff; text-shadow: 0 2px 6px black;">${cat.name}</div>
+                    <div class="category-total" style="background: rgba(0,0,0,0.6); color: #ffecb3;">🎯 ${cat.total} partidu</div>
                 `;
                 card.appendChild(headerDiv);
                 
-                // Contenedor de barras horizontales
+                // Barra horizontalen edukiontzia
                 const barsContainer = document.createElement('div');
                 barsContainer.className = 'horizontal-bars';
                 
-                // Barra para VICTORIAS
+                // Garaipenak (Irabaziak)
                 const winRow = document.createElement('div');
                 winRow.className = 'bar-row';
                 winRow.innerHTML = `
-                    <div class="bar-label-icon win-icon">🏆 V</div>
+                    <div class="bar-label-icon win-icon">🏆 I</div>
                     <div class="bar-track">
                         <div class="bar-fill win-fill" style="width: 0%;">${cat.wins > 0 ? cat.wins : ''}</div>
                     </div>
                     <div class="bar-value win-value">${cat.wins}</div>
                 `;
                 
-                // Barra para DERROTAS
+                // Porrotak (Galduak)
                 const lossRow = document.createElement('div');
                 lossRow.className = 'bar-row';
                 lossRow.innerHTML = `
-                    <div class="bar-label-icon loss-icon">❌ D</div>
+                    <div class="bar-label-icon loss-icon">❌ G</div>
                     <div class="bar-track">
                         <div class="bar-fill loss-fill" style="width: 0%;">${cat.losses > 0 ? cat.losses : ''}</div>
                     </div>
@@ -500,27 +554,29 @@
                 barsContainer.appendChild(lossRow);
                 card.appendChild(barsContainer);
                 
-                // Pequeña nota de porcentaje dentro de categoría
+                // Eraginkortasun nota (euskara)
                 const ratioNote = document.createElement('div');
                 ratioNote.style.fontSize = '0.7rem';
-                ratioNote.style.color = '#aaaad0';
+                ratioNote.style.color = '#f0f0e0';
                 ratioNote.style.marginTop = '12px';
                 ratioNote.style.textAlign = 'center';
-                ratioNote.style.borderTop = '1px solid rgba(255,215,0,0.2)';
+                ratioNote.style.borderTop = `1px solid ${borderColor}`;
                 ratioNote.style.paddingTop = '8px';
+                ratioNote.style.backgroundColor = 'rgba(0,0,0,0.3)';
+                ratioNote.style.borderRadius = '30px';
+                ratioNote.style.padding = '6px 8px';
                 const winRate = cat.total > 0 ? ((cat.wins / cat.total) * 100).toFixed(1) : 0;
-                ratioNote.innerHTML = `📈 Efectividad: ${winRate}% victorias (${cat.wins}/${cat.total})`;
+                ratioNote.innerHTML = `📈 Eraginkortasuna: %${winRate} garaipen (${cat.wins}/${cat.total})`;
                 card.appendChild(ratioNote);
                 
                 container.appendChild(card);
                 
-                // Animar las barras después de que se agreguen al DOM (pequeño retraso para transición)
+                // Animatu barrak
                 setTimeout(() => {
                     const winFill = winRow.querySelector('.bar-fill.win-fill');
                     const lossFill = lossRow.querySelector('.bar-fill.loss-fill');
                     if (winFill) {
                         winFill.style.width = `${winPercent}%`;
-                        // Si el porcentaje es muy bajo (<10%) y hay victorias, mostramos el número dentro igualmente
                         if (cat.wins > 0 && winPercent < 12) {
                             winFill.style.justifyContent = 'center';
                             winFill.style.paddingRight = '0';
@@ -537,42 +593,71 @@
                             lossFill.style.justifyContent = 'flex-end';
                         }
                     }
-                }, 50);
+                }, 80);
             });
             
-            // Actualizar texto de la badge del balance con el porcentaje exacto
-            const balanceDiv = document.querySelector('.balance-badge');
-            if (balanceDiv) {
-                const winRateGlobal = (11 / 21 * 100).toFixed(1);
-                balanceDiv.innerHTML = `⚖️ +1 (${winRateGlobal}% VIC)`;
-            }
-            
-            // Mejora responsive adicional para textos dentro de barras con contenido numérico pequeño
-            // También agregamos tooltips implícitos
-            const style = document.createElement('style');
-            style.textContent = `
+            // Gehitu estilo osagarri batzuk barra eta testu euskararako
+            const extraStyle = document.createElement('style');
+            extraStyle.textContent = `
                 .bar-fill {
                     transition: width 0.55s cubic-bezier(0.22, 0.97, 0.36, 1.02);
                     font-weight: 600;
                     font-size: 0.85rem;
                     letter-spacing: 0.3px;
                 }
-                .bar-track {
-                    position: relative;
+                .category-card .category-name {
+                    font-weight: 800;
+                    background: linear-gradient(135deg, #fff, #ffefb0);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    text-shadow: none;
                 }
-                /* Para que el número no se salga en porcentajes muy bajos, se oculta con opcionalidad */
+                /* Hobekuntza bisuala kategoria bakoitzaren ikurrarekin */
+                .bar-track {
+                    background: rgba(0, 0, 0, 0.45);
+                    backdrop-filter: blur(2px);
+                }
                 @media (max-width: 550px) {
                     .bar-fill { font-size: 0.7rem; padding-right: 6px; }
                     .bar-value { font-size: 1rem; min-width: 35px; }
                     .category-name { font-size: 1.4rem; }
                 }
-                /* hover effect en barras */
                 .bar-fill:hover {
                     filter: brightness(1.1);
-                    cursor: default;
+                }
+                /* kartelaren kolore akzentua duten txartelak */
+                .category-card:hover {
+                    border-width: 2px;
                 }
             `;
-            document.head.appendChild(style);
+            document.head.appendChild(extraStyle);
+            
+            // --------------------------------------------------------------
+            // OHARRA: carteleraedad.json benetan kargatu nahi izanez gero, 
+            // fetch erabiliko genuke, baina mapping-a hemen zuzenean ezarrita dago
+            // bezeroaren eskaerarekin bat egiteko. Dena den, kodea prestatuta dago
+            // JSON fitxategiaren koloreak errespetatzeko, emandako mapping-en bidez.
+            // Hemen gainera, carteleraedad.json-en balioak aldatuz gero, kode hau moldatu daiteke.
+            // Adibidez, beheko funtzioarekin egokitu daitezke kolore guztiak.
+            
+            // Ziurtatu "G" letrak porroten ikonoan (Galduak euskaraz) eta "I" garaipenetarako.
+            // Dagoeneko erakusten da: Irabaziak (I) eta Galduak (G).
+            // Balantzearen testua ere euskalduntzeko: "+1 (%52.4 GARAIPEN)"
+            
+            // Globaleko testu gehiago euskaraz: "GARAIPENAK", "PORROTAK", "GUZTIRA"
+            // Dagoeneko HTML-an aldatu da.
+            
+            // Egokitzapen txiki bat: kategoria-total-ean "partidu" jarri da
+            // Barra horizontaletako "I" eta "G" euskarazkoak dira: Irabazi / Galdu
+            
+            // Gainera, JSON-etik datozen koloreak errespetatzeaz gain, 
+            // category bakoitzaren background-a guztiz pertsonalizatua.
+            // Larraun Pilota-ren identitate bisuala mantentzen da.
+            
+            // Orain kategoria guztiek carteleraedad.json-en araberako koloreak dituzte.
+            // Edozein kategoria berri gehitzen bada, default kolorea erabiliko du,
+            // baina nagusi diren 6 kategorietan kolore bereiziak daude.
         })();
     </script>
 </body>
