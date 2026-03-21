@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📊 Larraun Pilota Estatistikak · Sare Sozialak</title>
-    <!-- Incluir html2canvas para capturar la tarjeta como imagen -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         * {
@@ -23,14 +22,12 @@
             padding: 24px;
         }
 
-        /* Contenedor principal para la captura */
         .capture-wrapper {
             position: relative;
         }
 
-        /* Tarjeta principal elegante */
         .stats-card {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
@@ -39,10 +36,8 @@
             border-radius: 56px;
             padding: 48px 42px;
             box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
-            transition: all 0.2s ease;
         }
 
-        /* Botón de descarga flotante */
         .download-btn-container {
             display: flex;
             justify-content: flex-end;
@@ -72,11 +67,6 @@
             background: linear-gradient(135deg, #ffe69e, #f0d050);
         }
 
-        .download-btn:active {
-            transform: translateY(1px);
-        }
-
-        /* Header con escudo y título */
         .header {
             display: flex;
             align-items: center;
@@ -141,7 +131,18 @@
             color: #ddddf5;
         }
 
-        /* Sección global con gráfico de queso (donut) */
+        .date-range {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            padding: 8px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #ffdb7e;
+            margin-top: 8px;
+        }
+
         .global-section {
             display: flex;
             align-items: center;
@@ -168,10 +169,6 @@
             height: 160px;
             border-radius: 50%;
             position: relative;
-            background: conic-gradient(
-                #2ee6a8 0% 52.38%,
-                #ff7b89 52.38% 100%
-            );
             margin-bottom: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
@@ -259,13 +256,10 @@
             color: #c6f0e0;
             white-space: nowrap;
         }
-        .balance-badge.positive { color: #2ee6a8; }
-        .balance-badge.negative { color: #ff7b89; }
 
-        /* Grid de categorías con gráficos de barras horizontales */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 40px 0 32px;
         }
@@ -274,15 +268,14 @@
             backdrop-filter: blur(5px);
             border-radius: 32px;
             padding: 20px 18px;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
             box-shadow: 0 10px 20px -10px #0a0a14;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .category-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 15px 30px -12px black;
+            border-color: rgba(255, 215, 0, 0.8);
         }
 
         .category-header {
@@ -296,7 +289,7 @@
 
         .category-name {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
@@ -307,10 +300,8 @@
             background: rgba(0,0,0,0.5);
             padding: 4px 12px;
             border-radius: 30px;
-            backdrop-filter: blur(4px);
         }
 
-        /* Barras horizontales */
         .horizontal-bars {
             display: flex;
             flex-direction: column;
@@ -329,8 +320,8 @@
             font-weight: 700;
             font-size: 1rem;
         }
-        .bar-label-icon.win-icon { color: #2ee6a8; text-shadow: 0 0 4px rgba(46,230,168,0.3);}
-        .bar-label-icon.loss-icon { color: #ff7b89; text-shadow: 0 0 4px rgba(255,123,137,0.3);}
+        .bar-label-icon.win-icon { color: #2ee6a8; }
+        .bar-label-icon.loss-icon { color: #ff7b89; }
 
         .bar-track {
             flex: 1;
@@ -339,7 +330,6 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-            position: relative;
         }
 
         .bar-fill {
@@ -374,34 +364,6 @@
         .bar-value.win-value { color: #2ee6a8; }
         .bar-value.loss-value { color: #ff7b89; }
 
-        /* Date range indicator */
-        .date-range {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 40px;
-            padding: 8px 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: #ffdb7e;
-            margin-top: 8px;
-        }
-
-        .date-range i {
-            font-style: normal;
-            font-size: 1.1rem;
-        }
-
-        /* Nota y footer */
-        .matches-played {
-            font-size: 0.9rem;
-            color: #8888bb;
-            text-align: center;
-            border-top: 1px dashed #3a3a60;
-            padding-top: 22px;
-            margin-top: 20px;
-        }
-
         .footer-note {
             display: flex;
             justify-content: space-between;
@@ -416,10 +378,17 @@
         .hashtags {
             color: #e4c42b;
             font-weight: 500;
-            letter-spacing: 0.3px;
         }
 
-        /* Estado de carga para la descarga */
+        .matches-played {
+            font-size: 0.9rem;
+            color: #8888bb;
+            text-align: center;
+            border-top: 1px dashed #3a3a60;
+            padding-top: 22px;
+            margin-top: 20px;
+        }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -434,7 +403,6 @@
             visibility: hidden;
             opacity: 0;
             transition: all 0.3s;
-            backdrop-filter: blur(5px);
         }
         .loading-overlay.active {
             visibility: visible;
@@ -448,95 +416,71 @@
             font-weight: 600;
             color: #1e1e2f;
         }
-        .loading-spinner::before {
-            content: "📸";
-            font-size: 40px;
-            display: block;
-            margin-bottom: 10px;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.95); }
-        }
 
         @media (max-width: 700px) {
             .stats-card { padding: 28px 18px; }
             .title-section h1 { font-size: 1.8rem; }
-            .global-section { flex-direction: column; align-items: center; text-align: center; }
+            .global-section { flex-direction: column; }
             .global-numbers-card { justify-content: center; }
             .balance-badge { white-space: normal; text-align: center; }
-            .logo-container { width: 60px; height: 60px; }
-            .download-btn { padding: 8px 20px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
     <div class="capture-wrapper">
-        <!-- Botón de descarga -->
         <div class="download-btn-container">
-            <button class="download-btn" id="downloadJpgBtn">
-                📸 Deskargatu JPG gisa
-                <span>⬇️</span>
-            </button>
+            <button class="download-btn" id="downloadJpgBtn">📸 Deskargatu JPG gisa ⬇️</button>
         </div>
 
-        <!-- Tarjeta principal que se capturará como imagen -->
         <div class="stats-card" id="statsCard">
-            <!-- Header con logo Larraun Pilota Elkartea -->
             <div class="header">
                 <div class="logo-container">
-                    <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;\'>⛰️</div>';">
+                    <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;\'>⛰️</div>'">
                 </div>
                 <div class="title-section">
                     <h1>LARRAUN PILOTA</h1>
                     <div class="club-name">ELKARTEA</div>
                     <div class="subhead">
                         <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
-                        <span>⚾ 21 PARTIDU</span>
+                        <span>⚾ 25 PARTIDU</span>
                     </div>
                     <div class="date-range">
-                        <i>📅</i> 2026ko martxoaren 13a - 2026ko martxoaren 15a
+                        <i>📅</i> 2026ko martxoaren 9a - 2026ko martxoaren 15a
                     </div>
                 </div>
             </div>
 
-            <!-- Global atala: gazta-grafikoa (donut) -->
             <div class="global-section">
                 <div class="donut-container">
                     <div class="donut-chart" id="donutChart"></div>
                     <div class="donut-legend">
-                        <div class="legend-item"><div class="legend-color win"></div><span>Garaipenak (11)</span></div>
-                        <div class="legend-item"><div class="legend-color loss"></div><span>Porrotak (10)</span></div>
+                        <div class="legend-item"><div class="legend-color win"></div><span>Garaipenak (16)</span></div>
+                        <div class="legend-item"><div class="legend-color loss"></div><span>Porrotak (9)</span></div>
                     </div>
                 </div>
                 <div class="global-numbers-card">
                     <div class="global-stat-item">
                         <div class="global-stat-label">GARAIPENAK</div>
-                        <div class="global-stat-number win-color">11</div>
+                        <div class="global-stat-number win-color">16</div>
                     </div>
                     <div class="global-stat-item">
                         <div class="global-stat-label">PORROTAK</div>
-                        <div class="global-stat-number loss-color">10</div>
+                        <div class="global-stat-number loss-color">9</div>
                     </div>
                     <div class="global-stat-item">
                         <div class="global-stat-label">GUZTIRA</div>
-                        <div class="global-stat-number total-color">21</div>
+                        <div class="global-stat-number total-color">25</div>
                     </div>
                 </div>
                 <div class="balance-badge positive">
-                    ⚖️ +1 (%52.4 GARAIPEN)
+                    ⚖️ +7 (%64 GARAIPEN)
                 </div>
             </div>
 
-            <!-- Kategorien grid: ordenatuta adin minimoaren arabera -->
-            <div class="categories-grid" id="categoriesContainer">
-                <!-- Dinamikoki kargatuko da JS bidez, adinaren arabera ordenatuta -->
-            </div>
+            <div class="categories-grid" id="categoriesContainer"></div>
 
-            <!-- Footer -->
             <div class="footer-note">
-                <span>⚡ Datu iturria: emaitzak-kartela7.html · 2026ko martxoak 13-15</span>
+                <span>⚡ Datu iturria: emaitzak-kartela7.html · 2026ko martxoak 9-15</span>
                 <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
             </div>
             <div class="matches-played">
@@ -545,112 +489,67 @@
         </div>
     </div>
 
-    <!-- Loading overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            Irudia prestatzen...<br>
-            Itxaron mesedez
-        </div>
+        <div class="loading-spinner">Irudia prestatzen...<br>Itxaron mesedez</div>
     </div>
 
     <script>
         (function() {
-            // --------------------------------------------------------------
-            // 1. KATEGORIEN ESTATISTIKAK (emaitzetatik ateratako datuak)
+            // DATOS CORRECTOS SEGÚN LA SEMANA DEL 9 AL 15 DE MARZO
             const categoriesStats = [
-                { name: 'SEIN', wins: 2, losses: 0, total: 2, minAge: 8 },
-                { name: 'HAUR', wins: 0, losses: 2, total: 2, minAge: 10 },
-                { name: 'KIMU', wins: 3, losses: 2, total: 5, minAge: 12 },
-                { name: 'KADETE', wins: 2, losses: 1, total: 3, minAge: 14 },
-                { name: 'GAZTE', wins: 2, losses: 2, total: 4, minAge: 16 },
-                { name: 'HELDUAK', wins: 2, losses: 3, total: 5, minAge: 18 }
+                { name: 'SEIN', wins: 4, losses: 0, total: 4 },
+                { name: 'HAUR', wins: 0, losses: 2, total: 2 },
+                { name: 'KIMU', wins: 4, losses: 1, total: 5 },
+                { name: 'KADETE', wins: 2, losses: 1, total: 3 },
+                { name: 'GAZTE', wins: 2, losses: 2, total: 4 },
+                { name: 'HELDUAK', wins: 4, losses: 3, total: 7 }
             ];
 
-            // ORDENATU kategoriak adin minimoaren arabera
-            categoriesStats.sort((a, b) => a.minAge - b.minAge);
-
-            // Kolore mapping
-            const colorMappingFromJSON = {
-                "SEIN":    { bg: "linear-gradient(135deg, #2b2b4f, #1f1f3a)", borderAccent: "#5f5faf" },
-                "HAUR":    { bg: "linear-gradient(135deg, #2a3b2f, #1d2a21)", borderAccent: "#6aab5a" },
-                "KIMU":    { bg: "linear-gradient(135deg, #3a2f4a, #26203a)", borderAccent: "#b87cd9" },
-                "KADETE":  { bg: "linear-gradient(135deg, #3d2a2f, #2a1e22)", borderAccent: "#d97a6c" },
-                "GAZTE":   { bg: "linear-gradient(135deg, #3d3a2a, #2c291f)", borderAccent: "#e5c56a" },
-                "HELDUAK": { bg: "linear-gradient(135deg, #2f3a42, #212b32)", borderAccent: "#6c9ebf" }
+            // COLORES DESDE data/categoriaedad.json
+            const categoryColors = {
+                "SEIN": "#FFCC85",
+                "HAUR": "#85E055",
+                "KIMU": "#ffff00",
+                "KADETE": "#82C6FF",
+                "GAZTE": "#4242D6",
+                "HELDUAK": "#9898FA"
             };
-            
-            function getCategoryBackground(categoryName) {
-                const defaultBg = "linear-gradient(135deg, #25253f, #1a1a2e)";
-                const defaultAccent = "#aaaadd";
-                if (colorMappingFromJSON[categoryName]) {
-                    return {
-                        background: colorMappingFromJSON[categoryName].bg,
-                        borderColor: colorMappingFromJSON[categoryName].borderAccent
-                    };
-                }
-                return {
-                    background: defaultBg,
-                    borderColor: defaultAccent
-                };
+
+            function getCategoryColor(categoryName) {
+                return categoryColors[categoryName] || "#2a2a40";
             }
-            
-            // GLOBAL DONUT
-            const totalWins = 11;
-            const totalLosses = 10;
-            const totalGames = totalWins + totalLosses;
+
+            // GLOBAL DONUT - 16 victorias, 9 derrotas
+            const totalWins = 16;
+            const totalLosses = 9;
+            const totalGames = 25;
             const winPercentage = (totalWins / totalGames) * 100;
-            
+
             const donutChart = document.getElementById('donutChart');
             if (donutChart) {
-                donutChart.style.background = `conic-gradient(
-                    #2ee6a8 0% ${winPercentage}%,
-                    #ff7b89 ${winPercentage}% 100%
-                )`;
+                donutChart.style.background = `conic-gradient(#2ee6a8 0% ${winPercentage}%, #ff7b89 ${winPercentage}% 100%)`;
             }
-            
-            const balanceDiv = document.querySelector('.balance-badge');
-            if (balanceDiv) {
-                const winRateGlobal = (11 / 21 * 100).toFixed(1);
-                balanceDiv.innerHTML = `⚖️ +1 (%${winRateGlobal} GARAIPEN)`;
-            }
-            
+
             // Generar categorías
             const container = document.getElementById('categoriesContainer');
             if (container) {
                 categoriesStats.forEach(cat => {
-                    const maxTotalCat = cat.total;
-                    const winPercent = (cat.wins / maxTotalCat) * 100;
-                    const lossPercent = (cat.losses / maxTotalCat) * 100;
-                    
-                    const { background, borderColor } = getCategoryBackground(cat.name);
+                    const winPercent = (cat.wins / cat.total) * 100;
+                    const lossPercent = (cat.losses / cat.total) * 100;
+                    const bgColor = getCategoryColor(cat.name);
                     
                     const card = document.createElement('div');
                     card.className = 'category-card';
-                    card.style.background = background;
-                    card.style.border = `1px solid ${borderColor}`;
-                    card.style.boxShadow = `0 8px 18px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`;
+                    card.style.background = `linear-gradient(135deg, ${bgColor}dd, ${bgColor}55)`;
+                    card.style.border = `2px solid ${bgColor}`;
                     
                     const headerDiv = document.createElement('div');
                     headerDiv.className = 'category-header';
                     headerDiv.innerHTML = `
-                        <div class="category-name" style="color: #fff; text-shadow: 0 2px 6px black;">${cat.name}</div>
-                        <div class="category-total" style="background: rgba(0,0,0,0.6); color: #ffecb3;">🎯 ${cat.total} partidu</div>
+                        <div class="category-name" style="color: white;">${cat.name}</div>
+                        <div class="category-total" style="background: rgba(0,0,0,0.6); color: white;">🎯 ${cat.total} partidu</div>
                     `;
                     card.appendChild(headerDiv);
-                    
-                    const ageIndicator = document.createElement('div');
-                    ageIndicator.style.fontSize = '0.7rem';
-                    ageIndicator.style.color = '#ffdb7e';
-                    ageIndicator.style.marginBottom = '12px';
-                    ageIndicator.style.display = 'flex';
-                    ageIndicator.style.alignItems = 'center';
-                    ageIndicator.style.gap = '6px';
-                    ageIndicator.style.backgroundColor = 'rgba(0,0,0,0.3)';
-                    ageIndicator.style.padding = '4px 12px';
-                    ageIndicator.style.borderRadius = '20px';
-                    ageIndicator.style.width = 'fit-content';
-                    ageIndicator.innerHTML = `👥 Adin minimoa: ${cat.minAge} urte`;
-                    card.appendChild(ageIndicator);
                     
                     const barsContainer = document.createElement('div');
                     barsContainer.className = 'horizontal-bars';
@@ -680,16 +579,14 @@
                     card.appendChild(barsContainer);
                     
                     const ratioNote = document.createElement('div');
-                    ratioNote.style.fontSize = '0.7rem';
+                    ratioNote.style.fontSize = '0.75rem';
                     ratioNote.style.color = '#f0f0e0';
                     ratioNote.style.marginTop = '12px';
                     ratioNote.style.textAlign = 'center';
-                    ratioNote.style.borderTop = `1px solid ${borderColor}`;
-                    ratioNote.style.paddingTop = '8px';
-                    ratioNote.style.backgroundColor = 'rgba(0,0,0,0.3)';
+                    ratioNote.style.backgroundColor = 'rgba(0,0,0,0.5)';
                     ratioNote.style.borderRadius = '30px';
-                    ratioNote.style.padding = '6px 8px';
-                    const winRate = cat.total > 0 ? ((cat.wins / cat.total) * 100).toFixed(1) : 0;
+                    ratioNote.style.padding = '8px';
+                    const winRate = ((cat.wins / cat.total) * 100).toFixed(1);
                     ratioNote.innerHTML = `📈 Eraginkortasuna: %${winRate} garaipen (${cat.wins}/${cat.total})`;
                     card.appendChild(ratioNote);
                     
@@ -698,95 +595,44 @@
                     setTimeout(() => {
                         const winFill = winRow.querySelector('.bar-fill.win-fill');
                         const lossFill = lossRow.querySelector('.bar-fill.loss-fill');
-                        if (winFill) {
-                            winFill.style.width = `${winPercent}%`;
-                            if (cat.wins > 0 && winPercent < 12) {
-                                winFill.style.justifyContent = 'center';
-                                winFill.style.paddingRight = '0';
-                            } else if (cat.wins > 0) {
-                                winFill.style.justifyContent = 'flex-end';
-                            }
-                        }
-                        if (lossFill) {
-                            lossFill.style.width = `${lossPercent}%`;
-                            if (cat.losses > 0 && lossPercent < 12) {
-                                lossFill.style.justifyContent = 'center';
-                                lossFill.style.paddingRight = '0';
-                            } else if (cat.losses > 0) {
-                                lossFill.style.justifyContent = 'flex-end';
-                            }
-                        }
-                    }, 80);
+                        if (winFill) winFill.style.width = `${winPercent}%`;
+                        if (lossFill) lossFill.style.width = `${lossPercent}%`;
+                    }, 100);
                 });
             }
-            
-            // Estilos adicionales
-            const extraStyle = document.createElement('style');
-            extraStyle.textContent = `
-                .bar-fill { transition: width 0.55s cubic-bezier(0.22, 0.97, 0.36, 1.02); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.3px; }
-                .category-card .category-name { font-weight: 800; background: linear-gradient(135deg, #fff, #ffefb0); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
-                .bar-track { background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(2px); }
-                @media (max-width: 550px) { .bar-fill { font-size: 0.7rem; padding-right: 6px; } .bar-value { font-size: 1rem; min-width: 35px; } .category-name { font-size: 1.4rem; } }
-                .category-card:hover { border-width: 2px; }
-                .date-range { background: rgba(255, 215, 0, 0.15); backdrop-filter: blur(4px); }
-            `;
-            document.head.appendChild(extraStyle);
-            
-            // Manejar error de logo
-            const logoImg = document.querySelector('.logo-container img');
-            if (logoImg) {
-                logoImg.addEventListener('error', function() {
-                    const container = this.parentElement;
-                    container.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;">⛰️</div>';
-                });
-            }
-            
-            // --------------------------------------------------------------
-            // FUNCIONALIDAD DE DESCARGA JPG
+
+            // Descarga JPG
             const downloadBtn = document.getElementById('downloadJpgBtn');
             const statsCard = document.getElementById('statsCard');
             const loadingOverlay = document.getElementById('loadingOverlay');
-            
+
             async function downloadAsJPG() {
                 if (!statsCard) return;
-                
-                // Mostrar loading
                 loadingOverlay.classList.add('active');
                 
                 try {
-                    // Esperar un pequeño delay para asegurar que todos los estilos estén aplicados
                     await new Promise(resolve => setTimeout(resolve, 100));
-                    
-                    // Capturar la tarjeta con html2canvas
                     const canvas = await html2canvas(statsCard, {
-                        scale: 2.5, // Mayor calidad para la imagen
+                        scale: 2.5,
                         backgroundColor: null,
                         logging: false,
-                        useCORS: true, // Para imágenes externas
-                        allowTaint: false
+                        useCORS: true
                     });
                     
-                    // Crear enlace de descarga
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
                     link.download = `Larraun_Pilota_Estatistikak_${timestamp}.jpg`;
                     link.href = canvas.toDataURL('image/jpeg', 0.95);
                     link.click();
-                    
                 } catch (error) {
-                    console.error('Error al generar la imagen:', error);
-                    alert('Errorea irudia sortzean. Saiatu berriro mesedez.');
+                    console.error('Error:', error);
+                    alert('Errorea irudia sortzean.');
                 } finally {
-                    // Ocultar loading después de un pequeño delay
-                    setTimeout(() => {
-                        loadingOverlay.classList.remove('active');
-                    }, 500);
+                    setTimeout(() => loadingOverlay.classList.remove('active'), 500);
                 }
             }
             
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', downloadAsJPG);
-            }
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadAsJPG);
         })();
     </script>
 </body>
