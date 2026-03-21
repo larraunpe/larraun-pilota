@@ -97,11 +97,11 @@
         }
 
         .title-section h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: white;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .title-section .club-name {
@@ -171,6 +171,8 @@
             position: relative;
             margin-bottom: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            /* Aseguramos que el gráfico se renderice correctamente */
+            background: conic-gradient(#2ee6a8 0% 64%, #ff7b89 64% 100%);
         }
 
         .donut-chart::after {
@@ -417,9 +419,66 @@
             color: #1e1e2f;
         }
 
+        /* Mejoras para impresión: asegurar que el gráfico circular se vea correctamente */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .stats-card {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ccc;
+                padding: 20px;
+                max-width: 100%;
+            }
+            .download-btn-container {
+                display: none;
+            }
+            .global-section {
+                background: #f5f5f5;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .donut-chart {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                /* Aseguramos que el conic-gradient se imprima correctamente */
+                background: conic-gradient(#2ee6a8 0% 64%, #ff7b89 64% 100%) !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .donut-chart::after {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            .category-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+            .bar-fill {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .global-numbers-card {
+                background: #e0e0e0;
+            }
+            .balance-badge {
+                border: 1px solid #2ee6a8;
+            }
+            .win-color, .loss-color, .total-color {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
         @media (max-width: 700px) {
             .stats-card { padding: 28px 18px; }
-            .title-section h1 { font-size: 1.8rem; }
+            .title-section h1 { font-size: 1.5rem; }
             .global-section { flex-direction: column; }
             .global-numbers-card { justify-content: center; }
             .balance-badge { white-space: normal; text-align: center; }
@@ -438,8 +497,7 @@
                     <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;\'>⛰️</div>'">
                 </div>
                 <div class="title-section">
-                    <h1>LARRAUN PILOTA</h1>
-                    <div class="club-name">ELKARTEA</div>
+                    <h1>LARRAUN PILOTA ELKARTEA</h1>
                     <div class="subhead">
                         <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
                         <span>⚾ 25 PARTIDU</span>
@@ -528,7 +586,11 @@
 
             const donutChart = document.getElementById('donutChart');
             if (donutChart) {
-                donutChart.style.background = `conic-gradient(#2ee6a8 0% ${winPercentage}%, #ff7b89 ${winPercentage}% 100%)`;
+                // Aplicamos el conic-gradient tanto en estilo inline como en una clase para impresión
+                const gradientStyle = `conic-gradient(#2ee6a8 0% ${winPercentage}%, #ff7b89 ${winPercentage}% 100%)`;
+                donutChart.style.background = gradientStyle;
+                // También guardamos como atributo para que el print lo mantenga
+                donutChart.setAttribute('data-win-percent', winPercentage);
             }
 
             // Generar categorías
@@ -602,6 +664,31 @@
                 });
             }
 
+            // Añadir estilo adicional para impresión que fuerza los colores
+            const printStyle = document.createElement('style');
+            printStyle.textContent = `
+                @media print {
+                    .donut-chart {
+                        background: conic-gradient(#2ee6a8 0% ${winPercentage}%, #ff7b89 ${winPercentage}% 100%) !important;
+                        print-color-adjust: exact;
+                        -webkit-print-color-adjust: exact;
+                    }
+                    .bar-fill {
+                        print-color-adjust: exact;
+                        -webkit-print-color-adjust: exact;
+                    }
+                    .win-color, .loss-color, .total-color {
+                        print-color-adjust: exact;
+                        -webkit-print-color-adjust: exact;
+                    }
+                    .legend-color {
+                        print-color-adjust: exact;
+                        -webkit-print-color-adjust: exact;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyle);
+
             // Descarga JPG
             const downloadBtn = document.getElementById('downloadJpgBtn');
             const statsCard = document.getElementById('statsCard');
@@ -617,7 +704,14 @@
                         scale: 2.5,
                         backgroundColor: null,
                         logging: false,
-                        useCORS: true
+                        useCORS: true,
+                        onclone: (clonedDoc, element) => {
+                            // Asegurar que en el clon el gráfico circular mantiene los colores
+                            const clonedDonut = clonedDoc.getElementById('donutChart');
+                            if (clonedDonut) {
+                                clonedDonut.style.background = `conic-gradient(#2ee6a8 0% ${winPercentage}%, #ff7b89 ${winPercentage}% 100%)`;
+                            }
+                        }
                     });
                     
                     const link = document.createElement('a');
