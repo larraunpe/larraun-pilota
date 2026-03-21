@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Panel de Control | Larraun Pilota</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #f0f4f8 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            color: #0a1e2f;
+        }
+
+        /* Contenedor principal */
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header con logo y título */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c2c, #2b5e3b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.01em;
+            display: inline-block;
+            padding: 0 1rem;
+        }
+
+        .club-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 100px;
+            padding: 0.5rem 1.5rem;
+            margin-top: 0.75rem;
+            font-weight: 500;
+            color: #1f4f2b;
+            border: 1px solid rgba(60,100,50,0.2);
+        }
+
+        .club-badge:before {
+            content: "🎾";
+            font-size: 1.2rem;
+        }
+
+        /* Grid de tarjetas */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Tarjetas sección */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            padding: 1.5rem 1.8rem 0.8rem 1.8rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+
+        .card-header h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .card-header h2 i {
+            font-size: 1.8rem;
+        }
+
+        .cartelera .card-header h2 { color: #c2410c; }
+        .resultados .card-header h2 { color: #1e4a76; }
+        .otros .card-header h2 { color: #4b5563; }
+
+        .badge-count {
+            background: #eef2ff;
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 0.75rem;
+            color: #1f3a5f;
+        }
+
+        .links-container {
+            padding: 1.2rem 1.5rem 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        /* Estilo de cada enlace (accesible y táctil) */
+        .dashboard-link {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.85rem 1.2rem;
+            background: #ffffff;
+            border-radius: 1.2rem;
+            text-decoration: none;
+            color: #1f2a3e;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid #e9edf2;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .dashboard-link:hover {
+            background: #f8fafc;
+            border-color: #b9d0b0;
+            transform: translateX(6px);
+            box-shadow: 0 6px 12px -8px rgba(0,0,0,0.1);
+        }
+
+        .link-icon {
+            font-size: 1.4rem;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .link-text {
+            flex: 1;
+            font-size: 1rem;
+            letter-spacing: -0.2px;
+        }
+
+        .link-url {
+            font-size: 0.7rem;
+            color: #6f7c91;
+            font-family: monospace;
+            opacity: 0.7;
+            word-break: break-all;
+        }
+
+        /* Grupo especial para destacar algunos */
+        .highlight-link {
+            background: #fef9e6;
+            border-left: 4px solid #e67e22;
+        }
+
+        /* Footer */
+        .footer-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: #4a5b6e;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* responsive */
+        @media (max-width: 680px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header h2 {
+                font-size: 1.4rem;
+            }
+            .dashboard-link {
+                padding: 0.7rem 1rem;
+            }
+            .link-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* accesibilidad: focus visible */
+        .dashboard-link:focus-visible {
+            outline: 3px solid #2c7a4b;
+            outline-offset: 2px;
+            background: #f0f9f0;
+        }
+
+        /* iconos simulados con emojis para consistencia */
+        .icon-kartelera:before { content: "📅"; }
+        .icon-asteko:before { content: "📆"; }
+        .icon-kartela7:before { content: "🎯"; }
+        .icon-etxeko:before { content: "🏠"; }
+        .icon-ordutegi:before { content: "⏰"; }
+        .icon-emaitzak:before { content: "📊"; }
+        .icon-azken:before { content: "🏆"; }
+        .icon-estadistika:before { content: "📈"; }
+        .icon-historiko:before { content: "📜"; }
+        .icon-berriak:before { content: "📰"; }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <div class="header">
+        <h1>🎯 Larraun Pilota<br><span style="font-size: 1rem;">Panel de Control / Aginte Panela</span></h1>
+        <div class="club-badge">
+            Club de Pelota · Escritorio rápido
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- SECCIÓN CARTELERA (principal) -->
+        <div class="card cartelera">
+            <div class="card-header">
+                <h2>
+                    <span>📢</span> Cartelera / Egitaraua
+                    <span class="badge-count">9 accesos</span>
+                </h2>
+                <p style="font-size: 0.8rem; color: #5a6e4a; margin-top: 6px;">Partidos, carteles y horarios</p>
+            </div>
+            <div class="links-container">
+                <a href="https://larraunpilota.eus/kartelera.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📅</span>
+                    <span class="link-text">Kartelera general</span>
+                    <span class="link-url">kartelera.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/asteko-kartela.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📆</span>
+                    <span class="link-text">Asteko kartela (semanal)</span>
+                    <span class="link-url">asteko-kartela.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/kartela7.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🎯</span>
+                    <span class="link-text">Kartela 7</span>
+                    <span class="link-url">kartela7.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/kartela8.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🎯</span>
+                    <span class="link-text">Kartela 8</span>
+                    <span class="link-url">kartela8.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/ordutegiak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">⏰</span>
+                    <span class="link-text">Ordutegiak / Horarios</span>
+                    <span class="link-url">ordutegiak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/etxekoak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🏠</span>
+                    <span class="link-text">Etxekoak (local)</span>
+                    <span class="link-url">etxekoak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/etxeko-partiduak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🏠⚡</span>
+                    <span class="link-text">Etxeko partiduak</span>
+                    <span class="link-url">etxeko-partiduak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/eguneko-partidak1.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🌞</span>
+                    <span class="link-text">Eguneko partidak (diario)</span>
+                    <span class="link-url">eguneko-partidak1.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/jaialdiak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🎉</span>
+                    <span class="link-text">Jaialdiak / Festivales</span>
+                    <span class="link-url">jaialdiak.html</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECCIÓN RESULTADOS (emaitzak, estadísticas) -->
+        <div class="card resultados">
+            <div class="card-header">
+                <h2>
+                    <span>🏆</span> Emaitzak / Resultados
+                    <span class="badge-count">7 accesos</span>
+                </h2>
+                <p style="font-size: 0.8rem; color: #2c5282;">Últimos marcadores y estadísticas</p>
+            </div>
+            <div class="links-container">
+                <a href="https://larraunpilota.eus/emaitzak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📊</span>
+                    <span class="link-text">Emaitzak general</span>
+                    <span class="link-url">emaitzak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/emaitzak-kartela.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📋</span>
+                    <span class="link-text">Emaitzak kartela</span>
+                    <span class="link-url">emaitzak-kartela.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/azken-emaitzak.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">⚡</span>
+                    <span class="link-text">Azken emaitzak (últimos)</span>
+                    <span class="link-url">azken-emaitzak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/emaitzak-kartela3.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🗂️</span>
+                    <span class="link-text">Emaitzak kartela 3</span>
+                    <span class="link-url">emaitzak-kartela3.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/emaitzak-kartela4.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🗂️</span>
+                    <span class="link-text">Emaitzak kartela 4</span>
+                    <span class="link-url">emaitzak-kartela4.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/emaitzak-kartela5.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📌</span>
+                    <span class="link-text">Emaitzak kartela 5</span>
+                    <span class="link-url">emaitzak-kartela5.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/estadistika.html" class="dashboard-link highlight-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📈</span>
+                    <span class="link-text">📊 Estadistika / Estadísticas</span>
+                    <span class="link-url">estadistika.html</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECCIÓN OTROS RECURSOS (histórico, index, noticias) -->
+        <div class="card otros">
+            <div class="card-header">
+                <h2>
+                    <span>🔗</span> Beste atalak / Otros
+                    <span class="badge-count">3 + destacados</span>
+                </h2>
+                <p style="font-size: 0.8rem; color: #4b5563;">Portada, histórico y novedades</p>
+            </div>
+            <div class="links-container">
+                <a href="https://larraunpilota.eus/index.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">🏠</span>
+                    <span class="link-text">Web orrialde nagusia / Inicio</span>
+                    <span class="link-url">index.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/historiko.html" class="dashboard-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📜</span>
+                    <span class="link-text">Historikoa / Archivo histórico</span>
+                    <span class="link-url">historiko.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/#berriak" class="dashboard-link highlight-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📰</span>
+                    <span class="link-text">Berriak / Noticias (sección)</span>
+                    <span class="link-url">#berriak</span>
+                </a>
+                <!-- extra: si en algún momento se quiere más control, puedes agregar un enlace directo a la página de contacto o lo que necesites -->
+                <div style="margin-top: 0.5rem; padding: 0.5rem 0.8rem; background: #f1f5f9; border-radius: 1rem; font-size: 0.75rem; color: #2d5f3e; text-align: center;">
+                    ⚡ Acceso rápido a todas las herramientas del club
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda fila opcional: podrías agrupar más secciones si lo deseas, pero ya incluimos todos los links solicitados -->
+    <div class="grid" style="grid-template-columns: 1fr 1fr;">
+        <!-- mini bloque de utilidad: vista previa rápida de enlaces recurrentes -->
+        <div class="card" style="background: #eef3fa;">
+            <div class="card-header">
+                <h2 style="font-size: 1.2rem;">✨ Accesos directos favoritos</h2>
+            </div>
+            <div class="links-container" style="flex-direction: row; flex-wrap: wrap; gap: 0.8rem;">
+                <a href="https://larraunpilota.eus/kartelera.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">📅 Kartelera</a>
+                <a href="https://larraunpilota.eus/emaitzak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">🏆 Emaitzak</a>
+                <a href="https://larraunpilota.eus/asteko-kartela.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">📆 Astekoa</a>
+                <a href="https://larraunpilota.eus/azken-emaitzak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">⚡ Azkenak</a>
+            </div>
+        </div>
+        <div class="card" style="background: #faf7f0;">
+            <div class="card-header">
+                <h2 style="font-size: 1.2rem;">🎯 Información útil</h2>
+            </div>
+            <div class="links-container">
+                <p style="font-size: 0.85rem; line-height: 1.4;">Este panel agrupa todas las páginas de carteleras, resultados y secciones históricas de Larraun Pilota. 
+                Todos los enlaces abren en nueva pestaña para mantener el escritorio siempre accesible.</p>
+                <p style="font-size: 0.75rem; color: #3d5a6c; margin-top: 0.5rem;">📌 Sugerencia: puedes marcar esta página como favorita para acceder rápidamente al control del club.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        <span>🎾 Larraun Pilota · Panel de control unificado · </span>
+        <span>Enlaces actualizados a marzo 2026 · </span>
+        <span><a href="https://larraunpilota.eus/index.html" style="color: #2b6e3c; text-decoration: none;">Visitar web oficial</a></span>
+        <br><small>Todas las páginas se abren en nueva pestaña para facilitar la navegación.</small>
+    </div>
+</div>
+</body>
+</html>
