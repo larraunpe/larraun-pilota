@@ -69,7 +69,6 @@
       color: #b30000;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
       margin: 0;
     }
     @media (min-width: 480px) {
@@ -114,11 +113,8 @@
       transform: translateY(-2px);
       background: #d9e2ea;
     }
-    .aste-botoia.aktibo:hover {
-      background: #9a0000;
-    }
 
-    /* TORNEO FILTROAK (FNP / BESTE OFIZIALAK / EZ OFIZIALAK) */
+    /* TORNEO FILTROAK */
     .iturri-filtroak {
       display: flex;
       flex-wrap: wrap;
@@ -136,24 +132,20 @@
       cursor: pointer;
       transition: 0.2s;
       color: #1f2f3e;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
     .iturri-botoia.aktibo {
       background: #003366;
       color: white;
-      border-color: #001f44;
       box-shadow: 0 4px 10px rgba(0,51,102,0.3);
-    }
-    .iturri-botoia[data-iturria="ez-ofizialak"].aktibo {
-      background: #b00000;
-      border-color: #7a0000;
     }
     .iturri-botoia[data-iturria="beste-ofizialak"].aktibo {
       background: #198754;
-      border-color: #0f5c3a;
+    }
+    .iturri-botoia[data-iturria="ez-ofizialak"].aktibo {
+      background: #b00000;
     }
 
-    /* KATEGORIA SELECTOR (chip) */
+    /* KATEGORIA SELECTOR */
     .kategoria-chip-zerrenda {
       display: flex;
       flex-wrap: wrap;
@@ -178,7 +170,6 @@
       background: #b30000;
       color: white;
       border-color: #8b0000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     @media (min-width: 640px) {
       .kategoria-chip {
@@ -187,7 +178,7 @@
       }
     }
 
-    /* BLOKE TXAPELKETA (FNP, BESTE OFIZIALAK, EZ OFIZIALAK) */
+    /* TXAPELKETA BLOKEA */
     .txapelketa-blokea {
       margin-bottom: 32px;
       border-radius: 24px;
@@ -201,33 +192,24 @@
       color: white;
       font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-    .txapelketa-titulua img {
-      height: 32px;
-      filter: brightness(0) invert(1);
     }
     @media (min-width: 768px) {
       .txapelketa-titulua {
         padding: 18px 28px;
         font-size: 2rem;
       }
-      .txapelketa-titulua img {
-        height: 42px;
-      }
     }
 
-    /* Kategoria atala */
+    /* KATEGORIA SAILA */
     .kategoria-saila {
       margin: 20px 16px 20px 16px;
       border-radius: 28px;
       background: #ffffff;
       overflow: hidden;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-      transition: all 0.1s;
     }
     .kategoria-saila.ezkutatu {
       display: none;
@@ -236,8 +218,8 @@
       padding: 12px 20px;
       font-size: 1.5rem;
       font-weight: 800;
-      background: rgba(0, 0, 0, 0.03);
       border-left: 10px solid;
+      background: rgba(0, 0, 0, 0.02);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -249,13 +231,8 @@
         font-size: 1.9rem;
       }
     }
-    .kategoria-izena {
-      background: #f8fafc;
-      padding: 4px 18px;
-      border-radius: 60px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
+
+    /* PARTIDA TXARTELA */
     .partida-txartela {
       border-left: 8px solid;
       margin: 12px 16px 16px 16px;
@@ -263,8 +240,8 @@
       border-radius: 20px;
       padding: 16px 18px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: 0.1s;
       position: relative;
+      transition: 0.2s;
     }
     @media (min-width: 768px) {
       .partida-txartela {
@@ -272,17 +249,11 @@
         padding: 20px 26px;
       }
     }
-    /* finalen franja urreztatua */
     .partida-txartela.finala {
       background: linear-gradient(135deg, #fffef7 0%, #fff8e7 100%);
       border-left-width: 10px;
       box-shadow: 0 5px 16px rgba(255, 193, 7, 0.25);
     }
-    .partida-txartela.finala .modalidad-link {
-      background: #ffdf8c;
-      border-color: #ffb347;
-    }
-    /* irabazi larraun: marko berdea */
     .partida-txartela.larraun-irabazi {
       background: #f0fff0;
       border-right: 3px solid #2b8c2b;
@@ -297,15 +268,12 @@
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
     @media (min-width: 640px) {
       .irabazi-badge {
         top: 18px;
         right: 24px;
         font-size: 0.8rem;
-        padding: 5px 14px;
       }
     }
 
@@ -314,9 +282,6 @@
       color: #3a546d;
       margin-bottom: 12px;
       font-weight: 500;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
     }
     .etxekoa, .kanpokoa {
       font-size: 1.15rem;
@@ -341,7 +306,6 @@
       font-size: 0.75rem;
       font-weight: 800;
       display: inline-block;
-      margin-left: 8px;
     }
 
     .scoreboard-moderno {
@@ -358,9 +322,11 @@
       color: white;
       min-width: 55px;
       text-align: center;
+      border-radius: 30px;
+      padding: 2px 12px;
     }
-    .score-local { background: #0d47a1; border-radius: 30px; padding: 2px 12px; }
-    .score-bisita { background: #b71c1c; border-radius: 30px; padding: 2px 12px; }
+    .score-local { background: #0d47a1; }
+    .score-bisita { background: #b71c1c; }
 
     .sets-labur {
       font-size: 0.85rem;
@@ -375,7 +341,13 @@
       font-size: 0.85rem;
       color: #2c5a7a;
       margin-top: 8px;
-      font-style: italic;
+    }
+    .frontoi-destacado {
+      background: #e3f2fd;
+      padding: 3px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      font-weight: 600;
     }
     .modalidad-link {
       display: inline-block;
@@ -389,12 +361,12 @@
       transition: 0.2s;
       margin-top: 10px;
       border: 1px solid #b0bec5;
+      cursor: pointer;
     }
     .modalidad-link:hover {
       background: #ffd966;
       transform: scale(1.02);
       box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      color: #1f2f1f;
     }
     .ez-partidurik {
       text-align: center;
@@ -413,446 +385,408 @@
       border-top: 1px solid #ddd;
       padding-top: 20px;
     }
+    .loading {
+      text-align: center;
+      padding: 60px;
+      font-size: 1.3rem;
+      color: #b30000;
+    }
   </style>
 </head>
 <body>
 <div class="emaiketa-kontenedorea">
   <div class="header-emaitzak">
-    <img src="/images/logo-larraun.png" alt="Larraun Pilota">
+    <img src="/images/logo-larraun.png" alt="Larraun Pilota" onerror="this.style.display='none'">
     <h1>EMAITZAK</h1>
-    <img src="/images/logo-fnp.png" alt="FNP">
+    <img src="/images/logo-fnp.png" alt="FNP" onerror="this.style.display='none'">
   </div>
 
-  <!-- selector asteak -->
   <div class="aste-nabigazioa" id="aste-nabigazioa"></div>
-
-  <!-- filtro torneo: FNP / BESTE OFIZIALAK / EZ OFIZIALAK -->
   <div class="iturri-filtroak" id="iturri-filtroak"></div>
-
-  <!-- chips kategoriak (dinamikoak) -->
   <div id="kategoria-chips" class="kategoria-chip-zerrenda"></div>
-
-  <!-- hemen agertuko dira txapelketa blokeak -->
-  <div id="emaitzak-container"></div>
-  <footer>⚾ Larraun Pilota Elkartea • Emaitzak antolatuta txapelketaren eta adinaren arabera</footer>
+  <div id="emaitzak-container"><div class="loading">⏳ Partidak kargatzen...</div></div>
+  <footer>⚾ Larraun Pilota Elkartea • Emaitzak txapelketaren eta adinaren arabera</footer>
 </div>
 
 <script>
-  // ----- 1. KATEGORIAK ETA KOLOREAK (categoriaedad.json) -----
-  let kategoriakMap = new Map();       // izena (UPPERCASE) -> { kolorea, kategoriaNagusia, edadMin }
-  let kategoriaNagusiOrdena = [];      // [{ izena, edadMin, kolorea }]
+// FASES para destacar finales
+const FASES = ["FINALA", "FINAL ZORTZIRENAK", "FINAL LAURDENAK", "FINAL AURREKOAK", "FINAL ERDIAK", "SEMIFINALA", "LIGAXKA", "KANPORAKETA"];
 
-  async function loadKategoriak() {
+function extraerFase(texto) {
+  if (!texto) return "";
+  for (let f of FASES) {
+    if (texto.toUpperCase().includes(f)) return f;
+  }
+  return "";
+}
+
+function parseDate(fechaStr) {
+  if (!fechaStr) return null;
+  const parts = fechaStr.split('/');
+  if (parts.length !== 3) return null;
+  return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+}
+
+function monday(d) {
+  const x = new Date(d);
+  const day = x.getDay() || 7;
+  if (day !== 1) x.setDate(x.getDate() - day + 1);
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+
+function esDescanso(m) {
+  return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
+}
+
+function involucraLarraun(m) {
+  return (m.etxekoa || "").toUpperCase().includes("LARRAUN") || (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
+}
+
+function isLarraunWin(m) {
+  if (!m.emaitza) return false;
+  const em = m.emaitza.toLowerCase().trim();
+  const etxekoaL = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
+  const kanpokoaL = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
+  return em === "irabazita" && (etxekoaL || kanpokoaL);
+}
+
+function formatSets(sets) {
+  if (!sets || !sets.length) return "";
+  return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
+}
+
+// Kategoriak eta koloreak - definizioak
+const kategoriaKoloreak = {
+  "KIMU": "#f9a825",
+  "SEIN": "#7cb342", 
+  "ALEBINAK": "#039be5",
+  "HAURRAK": "#5e35b1",
+  "KADETE": "#ff7043",
+  "GAZTE": "#e53935",
+  "ESKUZ KOPA": "#00897b",
+  "BESTE": "#90a4ae"
+};
+
+const kategoriaOrdena = ["KIMU", "SEIN", "ALEBINAK", "HAURRAK", "KADETE", "GAZTE", "ESKUZ KOPA", "BESTE"];
+
+function getKategoriaNagusia(testua) {
+  if (!testua) return "BESTE";
+  const up = testua.toUpperCase();
+  if (up.includes("KIMU")) return "KIMU";
+  if (up.includes("SEIN")) return "SEIN";
+  if (up.includes("ALEBIN")) return "ALEBINAK";
+  if (up.includes("HAUR")) return "HAURRAK";
+  if (up.includes("KADETE")) return "KADETE";
+  if (up.includes("GAZTE")) return "GAZTE";
+  if (up.includes("ESKUZ KOPA")) return "ESKUZ KOPA";
+  return "BESTE";
+}
+
+// Estado global
+let globalMatches = [];
+let currentWeek = "actual";
+let currentTorneo = "fnp";
+let currentKategoria = "GUZTIAK";
+
+// Fuentes de datos (igual que el HTML original)
+const SOURCES = [
+  { url: "/data/resultados-larraun.json", origen: "oficial", tipoTorneo: "fnp" },
+  { url: "/data/resultados-no-oficiales.json", origen: "no-oficial", tipoTorneo: null }
+];
+
+async function loadMatches() {
+  const allMatches = [];
+  
+  for (const src of SOURCES) {
     try {
-      const resp = await fetch('/data/categoriaedad.json');
-      if (!resp.ok) throw new Error();
-      const raw = await resp.json();
-      // raw formatua: [ { "KADETE":"#4caf50", EDADMIN:12, EDADMAX:14 }, ... ]
-      const edadMinToNagusia = new Map();
-      // lehen pasada: lotu edadMin -> kategoria nagusia
-      for (const item of raw) {
-        const izena = Object.keys(item).find(k => k !== 'EDADMIN' && k !== 'EDADMAX');
-        if (!izena) continue;
-        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-        if (!edadMinToNagusia.has(edadMin)) {
-          edadMinToNagusia.set(edadMin, izena);
-        }
-      }
-      for (const item of raw) {
-        const izena = Object.keys(item).find(k => k !== 'EDADMIN' && k !== 'EDADMAX');
-        if (!izena) continue;
-        const kolorea = item[izena];
-        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-        const kategoriaNagusia = edadMinToNagusia.get(edadMin) || izena;
-        kategoriakMap.set(izena.toUpperCase().trim(), {
-          kolorea: kolorea,
-          kategoriaNagusia: kategoriaNagusia,
-          edadMin: edadMin,
-          izenaOriginal: izena
+      const resp = await fetch(src.url);
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      
+      for (let m of data) {
+        const esOficialFNP = src.origen === "oficial";
+        const esNoOficial = src.origen === "no-oficial";
+        const esBesteOfizial = esNoOficial && String(m.ofiziala).toLowerCase() === "true";
+        const esEzOfizial = esNoOficial && String(m.ofiziala).toLowerCase() !== "true";
+        
+        let tipoTorneo = "";
+        if (esOficialFNP) tipoTorneo = "fnp";
+        else if (esBesteOfizial) tipoTorneo = "beste-ofizialak";
+        else if (esEzOfizial) tipoTorneo = "ez-ofizialak";
+        
+        const fecha = parseDate(m.fecha);
+        if (!fecha) continue;
+        
+        allMatches.push({
+          ...m,
+          _date: fecha,
+          tipoTorneo: tipoTorneo,
+          fase_mostrar: extraerFase(m.modalidad || m.lehiaketa || ""),
+          modalidad: m.modalidad || "",
+          lehiaketa: m.lehiaketa || m.modalidad || "",
+          etxekoa: m.etxekoa || "",
+          kanpokoak: m.kanpokoak || "",
+          emaitza: m.emaitza || "",
+          tanteoa: m.tanteoa || "",
+          sets: m.sets || [],
+          fronton: m.fronton || "",
+          url: m.url && m.url !== "-" ? m.url : null
         });
       }
-      // sortu kategoria nagusiak
-      const nagusiSet = new Set();
-      for (let [_, val] of kategoriakMap.entries()) {
-        nagusiSet.add(val.kategoriaNagusia);
-      }
-      kategoriaNagusiOrdena = Array.from(nagusiSet).map(nag => {
-        let edad = 999;
-        let kol = '#cccccc';
-        for (let [_, info] of kategoriakMap.entries()) {
-          if (info.kategoriaNagusia === nag) {
-            edad = info.edadMin;
-            kol = info.kolorea;
-            break;
-          }
-        }
-        return { izena: nag, edadMin: edad, kolorea: kol };
-      }).sort((a,b) => a.edadMin - b.edadMin);
     } catch(e) {
-      console.warn("categoriaedad.json ez da kargatu, default balioak erabiliko dira");
-      kategoriaNagusiOrdena = [
-        { izena: "KIMU", edadMin: 8, kolorea: "#f9a825" },
-        { izena: "SEIN", edadMin: 10, kolorea: "#7cb342" },
-        { izena: "ALEBINAK", edadMin: 12, kolorea: "#039be5" },
-        { izena: "HAURRAK", edadMin: 14, kolorea: "#5e35b1" },
-        { izena: "KADETE", edadMin: 16, kolorea: "#ff7043" },
-        { izena: "GAZTE", edadMin: 18, kolorea: "#e53935" },
-        { izena: "ESKUZ KOPA", edadMin: 20, kolorea: "#00897b" },
-        { izena: "Beste", edadMin: 99, kolorea: "#90a4ae" }
-      ];
-      for (let kat of kategoriaNagusiOrdena) {
-        kategoriakMap.set(kat.izena.toUpperCase(), { kolorea: kat.kolorea, kategoriaNagusia: kat.izena, edadMin: kat.edadMin });
-      }
+      console.warn("Errorea kargatzean:", src.url, e);
     }
   }
+  
+  return allMatches;
+}
 
-  // kategoria nagusia aurkitu lehiaketa/testuaren arabera
-  function getKategoriaNagusia(testua) {
-    if (!testua) return "Beste";
-    const up = testua.toUpperCase();
-    for (let [key, info] of kategoriakMap.entries()) {
-      if (up.includes(key)) {
-        return info.kategoriaNagusia;
-      }
-    }
-    if (up.includes("KIMU")) return "KIMU";
-    if (up.includes("SEIN")) return "SEIN";
-    if (up.includes("ALEBIN")) return "ALEBINAK";
-    if (up.includes("HAUR")) return "HAURRAK";
-    if (up.includes("KADETE")) return "KADETE";
-    if (up.includes("GAZTE")) return "GAZTE";
-    if (up.includes("ESKUZ KOPA")) return "ESKUZ KOPA";
-    return "Beste";
+function getMatchesByWeek(weekType) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const thisMon = monday(today);
+  
+  let startDate, endDate;
+  
+  if (weekType === "actual") {
+    startDate = thisMon;
+    endDate = new Date(thisMon);
+    endDate.setDate(thisMon.getDate() + 6);
+    endDate.setHours(23, 59, 59, 999);
+  } else {
+    const lastMon = new Date(thisMon);
+    lastMon.setDate(thisMon.getDate() - 7);
+    startDate = lastMon;
+    endDate = new Date(lastMon);
+    endDate.setDate(lastMon.getDate() + 6);
+    endDate.setHours(23, 59, 59, 999);
   }
+  
+  return globalMatches.filter(m => {
+    if (!m._date) return false;
+    if (!involucraLarraun(m)) return false;
+    if (esDescanso(m)) return false;
+    return m._date >= startDate && m._date <= endDate;
+  });
+}
 
-  // ----- 2. DATUAK JASO (emaitzak) -----
-  async function fetchEmaitzak() {
-    const sources = [
-      { url: "/data/resultados-larraun.json", origen: "oficial", tipoTorneo: "FNP" },
-      { url: "/data/resultados-no-oficiales.json", origen: "no-oficial", tipoTorneo: null }
-    ];
-    const allMatches = [];
-    for (const src of sources) {
-      try {
-        const resp = await fetch(src.url);
-        if (!resp.ok) continue;
-        const data = await resp.json();
-        for (let m of data) {
-          const ofizialaFlag = src.origen === "oficial" ? true : (String(m.ofiziala).toLowerCase() === "true");
-          let tipo = "";
-          if (src.origen === "oficial") tipo = "FNP";
-          else if (ofizialaFlag === true) tipo = "BESTE OFIZIALAK";
-          else tipo = "EZ OFIZIALAK";
-
-          const fechaParse = m.fecha ? parseDate(m.fecha) : null;
-          if (!fechaParse) continue;
-
-          allMatches.push({
-            ...m,
-            fechaRaw: m.fecha,
-            _date: fechaParse,
-            tipoTorneo: tipo,
-            ofiziala: ofizialaFlag,
-            modalidad: m.modalidad || "",
-            lehiaketa: m.lehiaketa || m.modalidad || "",
-            etxekoa: m.etxekoa || "",
-            kanpokoak: m.kanpokoak || "",
-            emaitza: m.emaitza || "",
-            tanteoa: m.tanteoa || "",
-            sets: m.sets || [],
-            fronton: m.fronton || "",
-            urlInfo: m.url && m.url !== "-" ? m.url : null,
-            fase_mostrar: extraerFase(m.modalidad || m.lehiaketa || "")
-          });
-        }
-      } catch(e) { console.warn("errorea kargatzean", src.url, e); }
-    }
-    return allMatches;
+function groupByTorneoAndKategoria(matches) {
+  const result = {
+    "fnp": new Map(),
+    "beste-ofizialak": new Map(),
+    "ez-ofizialak": new Map()
+  };
+  
+  for (const m of matches) {
+    const torneo = m.tipoTorneo;
+    if (!result[torneo]) continue;
+    
+    const kat = getKategoriaNagusia(m.lehiaketa || m.modalidad);
+    if (!result[torneo].has(kat)) result[torneo].set(kat, []);
+    result[torneo].get(kat).push(m);
   }
-
-  function parseDate(fechaStr) {
-    if (!fechaStr) return null;
-    const parts = fechaStr.split('/');
-    if (parts.length !== 3) return null;
-    return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  
+  // Ordenar categorías dentro de cada torneo
+  for (let t in result) {
+    const catMap = result[t];
+    const sortedCats = Array.from(catMap.keys()).sort((a, b) => {
+      const idxA = kategoriaOrdena.indexOf(a);
+      const idxB = kategoriaOrdena.indexOf(b);
+      if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+      if (idxA === -1) return 1;
+      if (idxB === -1) return -1;
+      return idxA - idxB;
+    });
+    const newMap = new Map();
+    for (let cat of sortedCats) newMap.set(cat, catMap.get(cat));
+    result[t] = newMap;
   }
+  
+  return result;
+}
 
-  function extraerFase(texto) {
-    const fases = ["FINALA","FINAL ZORTZIRENAK","FINAL LAURDENAK","FINAL AURREKOAK","FINAL ERDIAK","SEMIFINALA","LIGAXKA","KANPORAKETA"];
-    if (!texto) return "";
-    for (let f of fases) {
-      if (texto.toUpperCase().includes(f)) return f;
-    }
-    return "";
+function renderHTML(matchesByTorneo) {
+  const container = document.getElementById("emaitzak-container");
+  
+  const hasAny = Object.values(matchesByTorneo).some(map => map && map.size > 0);
+  if (!hasAny) {
+    container.innerHTML = `<div class="ez-partidurik">🏆 Ez dago partidarik aste honetan (Larraunen partidak edo atsedenik gabe)</div>`;
+    return;
   }
-
-  function involucraLarraun(m) {
-    return (m.etxekoa || "").toUpperCase().includes("LARRAUN") || (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
-  }
-
-  function esDescanso(m) {
-    return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
-  }
-
-  // irabazi duen ala ez
-  function isLarraunWin(m) {
-    if (!m.emaitza) return false;
-    const em = m.emaitza.toLowerCase().trim();
-    const etxekoaL = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
-    const kanpokoaL = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
-    if (em === "irabazita") {
-      return (etxekoaL || kanpokoaL);
-    } else if (em === "galduta") {
-      return false;
-    }
-    // bestela tanteoa begiratu?
-    return false;
-  }
-
-  // ASTEKOAK (lunes a domingo)
-  function getWeekRange(refDate) {
-    const d = new Date(refDate);
-    const day = d.getDay() || 7;
-    const mon = new Date(d);
-    mon.setDate(d.getDate() - (day-1));
-    mon.setHours(0,0,0,0);
-    const sun = new Date(mon);
-    sun.setDate(mon.getDate() + 6);
-    sun.setHours(23,59,59,999);
-    return { start: mon, end: sun };
-  }
-
-  // programaren logika nagusia
-  let globalMatches = [];
-  let currentWeek = null;  // "actual" / "anterior"
-  let currentTorneo = "FNP";
-  let currentKategoria = "GUZTIAK";
-
-  async function init() {
-    await loadKategoriak();
-    globalMatches = await fetchEmaitzak();
-    // iragazi: data <= gaur, larraun inplikatuta, eta kendu descansoak
-    const today = new Date(); today.setHours(0,0,0,0);
-    globalMatches = globalMatches.filter(m => m._date && m._date <= today && involucraLarraun(m) && !esDescanso(m));
-    // sortu UI
-    renderAsteSelectors();
-    renderTorneoSelectors();
-    updateView();
-  }
-
-  function getMatchesByWeek(weekType) {
-    const today = new Date(); today.setHours(0,0,0,0);
-    const thisWeekRange = getWeekRange(today);
-    let targetRange;
-    if (weekType === "actual") {
-      targetRange = thisWeekRange;
-    } else {
-      const lastMonday = new Date(thisWeekRange.start);
-      lastMonday.setDate(lastMonday.getDate() - 7);
-      targetRange = getWeekRange(lastMonday);
-    }
-    return globalMatches.filter(m => m._date >= targetRange.start && m._date <= targetRange.end);
-  }
-
-  function groupByTorneoAndCategoria(matches) {
-    const result = {
-      "FNP": new Map(),
-      "BESTE OFIZIALAK": new Map(),
-      "EZ OFIZIALAK": new Map()
-    };
-    for (const m of matches) {
-      const torneo = m.tipoTorneo;
-      if (!result[torneo]) continue;
-      const kat = getKategoriaNagusia(m.lehiaketa || m.modalidad);
-      if (!result[torneo].has(kat)) result[torneo].set(kat, []);
-      result[torneo].get(kat).push(m);
-    }
-    // ordenatu kategoriak adinaren arabera
-    for (let t in result) {
-      const catMap = result[t];
-      const sortedCats = Array.from(catMap.keys()).sort((a,b) => {
-        const infoA = kategoriaNagusiOrdena.find(k => k.izena === a) || { edadMin: 999 };
-        const infoB = kategoriaNagusiOrdena.find(k => k.izena === b) || { edadMin: 999 };
-        return infoA.edadMin - infoB.edadMin;
-      });
-      const newMap = new Map();
-      for (let cat of sortedCats) newMap.set(cat, catMap.get(cat));
-      result[t] = newMap;
-    }
-    return result;
-  }
-
-  function renderHTML(matchesByTorneo) {
-    const container = document.getElementById("emaitzak-container");
-    if (!matchesByTorneo || (Object.values(matchesByTorneo).every(m => m.size === 0))) {
-      container.innerHTML = `<div class="ez-partidurik">🏆 Asteko emaitzarik ez (Larraunen partidarik gabe edo atsedena kanporatuta)</div>`;
-      return;
-    }
-    let html = "";
-    const ordenTorneo = ["FNP", "BESTE OFIZIALAK", "EZ OFIZIALAK"];
-    for (let torneo of ordenTorneo) {
-      const katMap = matchesByTorneo[torneo];
-      if (!katMap || katMap.size === 0) continue;
-      let torneoIcon = torneo === "FNP" ? "🏅 FNP (OFIZIALAK)" : (torneo === "BESTE OFIZIALAK" ? "🏛️ BESTE OFIZIALAK" : "⚪ EZ OFIZIALAK");
-      let bgTono = torneo === "FNP" ? "#003366" : (torneo === "BESTE OFIZIALAK" ? "#198754" : "#b00000");
-      html += `<div class="txapelketa-blokea">
-        <div class="txapelketa-titulua" style="background: ${bgTono};">
-          <span>${torneoIcon}</span>
+  
+  const torneoConfig = {
+    "fnp": { label: "🏅 FNP (OFIZIALAK)", color: "#003366" },
+    "beste-ofizialak": { label: "🏛️ BESTE OFIZIALAK", color: "#198754" },
+    "ez-ofizialak": { label: "⚪ EZ OFIZIALAK", color: "#b00000" }
+  };
+  
+  let html = "";
+  const torneoOrder = ["fnp", "beste-ofizialak", "ez-ofizialak"];
+  
+  for (let torneo of torneoOrder) {
+    const katMap = matchesByTorneo[torneo];
+    if (!katMap || katMap.size === 0) continue;
+    
+    const cfg = torneoConfig[torneo];
+    html += `<div class="txapelketa-blokea">
+      <div class="txapelketa-titulua" style="background: ${cfg.color};">
+        <span>${cfg.label}</span>
+      </div>`;
+    
+    for (let [katIzena, partidak] of katMap.entries()) {
+      const katColor = kategoriaKoloreak[katIzena] || "#cccccc";
+      const mostrarOculto = (currentKategoria !== "GUZTIAK" && currentKategoria !== katIzena) ? "ezkutatu" : "";
+      
+      // Ordenar partidas por fecha
+      partidak.sort((a, b) => a._date - b._date);
+      
+      html += `<div class="kategoria-saila ${mostrarOculto}" data-kategoria="${katIzena}" style="border-top: 3px solid ${katColor}">
+        <div class="kategoria-header" style="border-left-color: ${katColor};">
+          <span>⚾ ${katIzena}</span>
+          <span style="font-size: 0.9rem; background: #f0f0f0; padding: 2px 12px; border-radius: 30px;">${partidak.length} partida</span>
         </div>`;
-      for (let [katIzena, partidak] of katMap.entries()) {
-        const katColor = kategoriaNagusiOrdena.find(k => k.izena === katIzena)?.kolorea || "#ccc";
-        const mostrar = (currentKategoria === "GUZTIAK" || currentKategoria === katIzena) ? "" : "ezkutatu";
-        html += `<div class="kategoria-saila ${mostrar}" data-kategoria="${katIzena}" style="border-top: 3px solid ${katColor}">
-          <div class="kategoria-header" style="border-left-color: ${katColor};">
-            <span>⚾ ${katIzena}</span> <span class="kategoria-izena">(${partidak.length} partida)</span>
-          </div>`;
-        // partidak ordenatu data, gero fase FINALA aurretik
-        partidak.sort((a,b) => a._date - b._date);
-        for (let p of partidak) {
-          const isFinal = p.fase_mostrar === "FINALA";
-          const larraunWin = isLarraunWin(p);
-          let cardClasses = "partida-txartela";
-          if (isFinal) cardClasses += " finala";
-          if (larraunWin) cardClasses += " larraun-irabazi";
-          const marcador = p.tanteoa && p.tanteoa.includes("-") ? p.tanteoa : "";
-          const [local, visit] = marcador ? marcador.split("-").map(x=>x.trim()) : ["",""];
-          const scoreHTML = marcador ? `<div class="scoreboard-moderno"><span class="score-local">${local}</span><span class="score-bisita">${visit}</span></div>` : "";
-          const setsHTML = p.sets && p.sets.length ? `<div class="sets-labur">🎯 ${p.sets.join(" ").replace(/\(/g," / ").replace(/\)/g,"")}</div>` : "";
-          const frontonClass = /lekunberri|aldatz/i.test(p.fronton||"") ? "fronton-destacado" : "";
-          const linkUrl = p.urlInfo && p.urlInfo !== "-" ? p.urlInfo : null;
-          const modalidadHtml = linkUrl ? `<a href="${linkUrl}" target="_blank" class="modalidad-link">🔗 ${p.lehiaketa || p.modalidad} &nbsp;↗️</a>` : `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.lehiaketa || p.modalidad}</span>`;
-          const fechaLocal = p.fechaRaw;
-          html += `<div class="${cardClasses}" style="border-left-color: ${katColor};">
-            ${larraunWin ? '<div class="irabazi-badge">✔️ LARRAUN IRABAZI</div>' : ''}
-            <div class="partida-data">📅 ${fechaLocal}</div>
-            <div class="etxekoa">🏠 ${p.etxekoa} ${p.etxekoa?.toUpperCase().includes("LARRAUN") ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
-            <div class="kanpokoa">✈️ ${p.kanpokoak} ${p.kanpokoak?.toUpperCase().includes("LARRAUN") ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
-            ${scoreHTML}
-            ${setsHTML}
-            <div class="frontoi-lerroa ${frontonClass}">📍 ${p.fronton || "Frontoia"}</div>
-            <div>${modalidadHtml}</div>
+      
+      for (let p of partidak) {
+        const isFinal = p.fase_mostrar === "FINALA";
+        const larraunWin = isLarraunWin(p);
+        let cardClasses = "partida-txartela";
+        if (isFinal) cardClasses += " finala";
+        if (larraunWin) cardClasses += " larraun-irabazi";
+        
+        // Marcador
+        let marcadorHTML = "";
+        if (p.tanteoa && p.tanteoa.includes("-")) {
+          const [local, visit] = p.tanteoa.split("-").map(x => x.trim());
+          marcadorHTML = `<div class="scoreboard-moderno">
+            <span class="score-local">${local}</span>
+            <span class="score-bisita">${visit}</span>
           </div>`;
         }
-        html += `</div>`;
+        
+        const setsHTML = p.sets && p.sets.length ? `<div class="sets-labur">🎯 ${formatSets(p.sets)}</div>` : "";
+        const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "fronton-destacado" : "";
+        const linkUrl = p.url;
+        const modalidadHTML = linkUrl ? 
+          `<a href="${linkUrl}" target="_blank" class="modalidad-link">🔗 ${p.lehiaketa || p.modalidad} ↗️</a>` : 
+          `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.lehiaketa || p.modalidad}</span>`;
+        
+        const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
+        const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+        
+        html += `<div class="${cardClasses}" style="border-left-color: ${katColor};">
+          ${larraunWin ? '<div class="irabazi-badge">✔️ LARRAUN IRABAZI</div>' : ''}
+          <div class="partida-data">📅 ${p.fecha}</div>
+          <div class="etxekoa">🏠 ${p.etxekoa} ${etxekoaLarraun ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
+          <div class="kanpokoa">✈️ ${p.kanpokoak} ${kanpokoaLarraun ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
+          ${marcadorHTML}
+          ${setsHTML}
+          <div class="frontoi-lerroa ${frontonClass}">📍 ${p.fronton || "Frontoia"}</div>
+          <div>${modalidadHTML}</div>
+        </div>`;
       }
       html += `</div>`;
     }
-    container.innerHTML = html;
-    // aplikatu kategoria iragazkia ezkutatu/erakutsi
-    if (currentKategoria !== "GUZTIAK") {
-      document.querySelectorAll(".kategoria-saila").forEach(el => {
-        if (el.getAttribute("data-kategoria") !== currentKategoria) el.classList.add("ezkutatu");
-        else el.classList.remove("ezkutatu");
-      });
-    } else {
-      document.querySelectorAll(".kategoria-saila").forEach(el => el.classList.remove("ezkutatu"));
-    }
+    html += `</div>`;
   }
-
-  function updateView() {
-    const weekMatches = getMatchesByWeek(currentWeek);
-    const grouped = groupByTorneoAndCategoria(weekMatches);
-    renderHTML(grouped);
-    renderKategoriaChips(weekMatches);
-  }
-
-  function renderKategoriaChips(matches) {
-    const container = document.getElementById("kategoria-chips");
-    const katsSet = new Set();
-    for (let m of matches) {
-      katsSet.add(getKategoriaNagusia(m.lehiaketa || m.modalidad));
-    }
-    const kats = Array.from(katsSet).sort((a,b) => {
-      const ia = kategoriaNagusiOrdena.find(k=>k.izena===a)?.edadMin || 999;
-      const ib = kategoriaNagusiOrdena.find(k=>k.izena===b)?.edadMin || 999;
-      return ia-ib;
-    });
-    let btns = `<button class="kategoria-chip ${currentKategoria === "GUZTIAK" ? "aktibo" : ""}" data-kategoria="GUZTIAK">🌐 GUZTIAK</button>`;
-    for (let kat of kats) {
-      btns += `<button class="kategoria-chip ${currentKategoria === kat ? "aktibo" : ""}" data-kategoria="${kat}">${kat}</button>`;
-    }
-    container.innerHTML = btns;
-    document.querySelectorAll(".kategoria-chip").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const kat = btn.getAttribute("data-kategoria");
-        currentKategoria = kat;
-        updateView();
-      });
+  
+  container.innerHTML = html;
+  
+  // Aplicar filtro de categoría después de renderizar
+  if (currentKategoria !== "GUZTIAK") {
+    document.querySelectorAll(".kategoria-saila").forEach(el => {
+      if (el.getAttribute("data-kategoria") !== currentKategoria) {
+        el.classList.add("ezkutatu");
+      } else {
+        el.classList.remove("ezkutatu");
+      }
     });
   }
+}
 
-  function renderAsteSelectors() {
-    const container = document.getElementById("aste-nabigazioa");
-    container.innerHTML = `
-      <button class="aste-botoia ${currentWeek === "actual" ? "aktibo" : ""}" data-aste="actual">📅 ASTE HONETAKO EMAITZAK</button>
-      <button class="aste-botoia ${currentWeek === "anterior" ? "aktibo" : ""}" data-aste="anterior">📆 AURREKO ASTEKO EMAITZAK</button>
-    `;
-    document.querySelectorAll(".aste-botoia").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        currentWeek = btn.getAttribute("data-aste");
-        renderAsteSelectors();
-        updateView();
-      });
-    });
+function updateKategoriaChips(matches) {
+  const container = document.getElementById("kategoria-chips");
+  const katsSet = new Set();
+  for (let m of matches) {
+    katsSet.add(getKategoriaNagusia(m.lehiaketa || m.modalidad));
   }
-
-  function renderTorneoSelectors() {
-    const container = document.getElementById("iturri-filtroak");
-    const torneos = [
-      { id: "FNP", label: "🏅 FNP" },
-      { id: "BESTE OFIZIALAK", label: "🏛️ BESTE OFIZIALAK" },
-      { id: "EZ OFIZIALAK", label: "⚪ EZ OFIZIALAK" }
-    ];
-    container.innerHTML = torneos.map(t => `<button class="iturri-botoia ${currentTorneo === t.id ? "aktibo" : ""}" data-iturria="${t.id}">${t.label}</button>`).join("");
-    document.querySelectorAll(".iturri-botoia").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        currentTorneo = btn.getAttribute("data-iturria");
-        renderTorneoSelectors();
-        updateView();
-      });
-    });
-  }
-
-  // filtratu partidak torneo aktiboaren arabera (groupByTorneoAndCategoria baino lehen)
-  function getMatchesByWeekAndTorneo(weekType) {
-    let matches = getMatchesByWeek(weekType);
-    if (currentTorneo !== "FNP" && currentTorneo !== "BESTE OFIZIALAK" && currentTorneo !== "EZ OFIZIALAK") return matches;
-    return matches.filter(m => m.tipoTorneo === currentTorneo);
-  }
-
-  // override groupby
-  const originalGroup = groupByTorneoAndCategoria;
-  window.groupByTorneoAndCategoria = (matches) => {
-    const filtered = matches.filter(m => m.tipoTorneo === currentTorneo);
-    return originalGroup(filtered);
-  };
-
-  // final touch
-  function finalUpdate() {
-    const weekMatches = getMatchesByWeek(currentWeek);
-    const torneoFiltered = weekMatches.filter(m => m.tipoTorneo === currentTorneo);
-    const grouped = groupByTorneoAndCategoria(torneoFiltered);
-    renderHTML(grouped);
-    renderKategoriaChips(torneoFiltered);
-  }
-
-  // Override original
-  const superRender = () => {
-    const weekMatches = getMatchesByWeek(currentWeek);
-    const torneoFiltered = weekMatches.filter(m => m.tipoTorneo === currentTorneo);
-    const grouped = groupByTorneoAndCategoria(torneoFiltered);
-    renderHTML(grouped);
-    renderKategoriaChips(torneoFiltered);
-  };
-  window.updateView = superRender;
-  init().then(() => {
-    currentWeek = "actual";
-    currentTorneo = "FNP";
-    currentKategoria = "GUZTIAK";
-    renderAsteSelectors();
-    renderTorneoSelectors();
-    updateView();
+  
+  const kats = Array.from(katsSet).sort((a, b) => {
+    const idxA = kategoriaOrdena.indexOf(a);
+    const idxB = kategoriaOrdena.indexOf(b);
+    if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
   });
+  
+  let html = `<button class="kategoria-chip ${currentKategoria === "GUZTIAK" ? "aktibo" : ""}" data-kategoria="GUZTIAK">🌐 GUZTIAK</button>`;
+  for (let kat of kats) {
+    html += `<button class="kategoria-chip ${currentKategoria === kat ? "aktibo" : ""}" data-kategoria="${kat}">${kat}</button>`;
+  }
+  container.innerHTML = html;
+  
+  document.querySelectorAll(".kategoria-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentKategoria = btn.getAttribute("data-kategoria");
+      updateKategoriaChips(getMatchesByWeek(currentWeek).filter(m => m.tipoTorneo === currentTorneo));
+      updateView();
+    });
+  });
+}
+
+function updateView() {
+  let matches = getMatchesByWeek(currentWeek);
+  matches = matches.filter(m => m.tipoTorneo === currentTorneo);
+  const grouped = groupByTorneoAndKategoria(matches);
+  renderHTML(grouped);
+  updateKategoriaChips(matches);
+}
+
+function renderAsteSelectors() {
+  const container = document.getElementById("aste-nabigazioa");
+  container.innerHTML = `
+    <button class="aste-botoia ${currentWeek === "actual" ? "aktibo" : ""}" data-aste="actual">📅 ASTE HONETAKO EMAITZAK</button>
+    <button class="aste-botoia ${currentWeek === "anterior" ? "aktibo" : ""}" data-aste="anterior">📆 AURREKO ASTEKO EMAITZAK</button>
+  `;
+  document.querySelectorAll(".aste-botoia").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentWeek = btn.getAttribute("data-aste");
+      renderAsteSelectors();
+      updateView();
+    });
+  });
+}
+
+function renderTorneoSelectors() {
+  const container = document.getElementById("iturri-filtroak");
+  const torneos = [
+    { id: "fnp", label: "🏅 FNP" },
+    { id: "beste-ofizialak", label: "🏛️ BESTE OFIZIALAK" },
+    { id: "ez-ofizialak", label: "⚪ EZ OFIZIALAK" }
+  ];
+  container.innerHTML = torneos.map(t => 
+    `<button class="iturri-botoia ${currentTorneo === t.id ? "aktibo" : ""}" data-iturria="${t.id}">${t.label}</button>`
+  ).join("");
+  document.querySelectorAll(".iturri-botoia").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentTorneo = btn.getAttribute("data-iturria");
+      renderTorneoSelectors();
+      updateView();
+    });
+  });
+}
+
+// Inicializar
+async function init() {
+  document.getElementById("emaitzak-container").innerHTML = '<div class="loading">⏳ Partidak kargatzen...</div>';
+  globalMatches = await loadMatches();
+  renderAsteSelectors();
+  renderTorneoSelectors();
+  updateView();
+}
+
+init();
 </script>
 </body>
 </html>
