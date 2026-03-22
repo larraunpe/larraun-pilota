@@ -41,7 +41,6 @@
       .header img { height: 80px; }
     }
 
-    /* Selectores */
     .selector-group {
       display: flex;
       flex-wrap: wrap;
@@ -61,7 +60,6 @@
     .btn.active {
       background: #b30000;
       color: white;
-      box-shadow: 0 3px 8px rgba(179,0,0,0.3);
     }
     .btn-torneo.fnp.active { background: #003366; }
     .btn-torneo.beste.active { background: #198754; }
@@ -87,10 +85,8 @@
     .chip.active {
       background: #b30000;
       color: white;
-      border-color: #8b0000;
     }
 
-    /* Bloques */
     .torneo-block {
       margin-bottom: 32px;
       border-radius: 24px;
@@ -186,11 +182,6 @@
       padding-top: 20px;
       color: #5f6c7a;
     }
-    .loading {
-      text-align: center;
-      padding: 60px;
-      font-size: 1.3rem;
-    }
   </style>
 </head>
 <body>
@@ -204,12 +195,51 @@
   <div id="week-selector" class="selector-group"></div>
   <div id="torneo-selector" class="selector-group"></div>
   <div id="kategoria-chips" class="kategoria-chips"></div>
-  <div id="results-container"><div class="loading">⏳ Kargatzen...</div></div>
+  <div id="results-container"></div>
   <footer>⚾ Larraun Pilota Elkartea • Emaitzak asteka eta kategoriaka</footer>
 </div>
 
 <script>
-  // ---------- CONFIGURACIÓN ----------
+  // ==================== DATOS DIRECTOS DESDE TU HTML ====================
+  // Extraídos de https://larraunpilota.eus/emaitzak.html
+  const PARTIDOS_RAW = [
+    // FINALA - LARRAUN vs BURUZGAIN (EZ OFIZIALA)
+    { fecha: "2026/03/15", etxekoa: "LARRAUN (Igor Nazabal)", kanpokoak: "BURUZGAIN (Pablo Aldaz)", emaitza: "irabazita", tanteoa: "22-10", modalidad: "FINALA - EZ OFIZIALA", lehiaketa: "FINALA", tipo: "ez", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs ALDABIDE
+    { fecha: "2026/03/14", etxekoa: "LARRAUN (B. Goikoetxea - L. Goikoetxea)", kanpokoak: "ALDABIDE (M. Zabalza - E. Leiza)", emaitza: "galduta", tanteoa: "0-2", sets: ["/ 6-9", "5-9"], modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs SAN MIGUEL
+    { fecha: "2026/03/14", etxekoa: "LARRAUN (M. Argaña - E. Balda)", kanpokoak: "SAN MIGUEL (E. Gomez - J. Peral)", emaitza: "galduta", tanteoa: "14-18", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs SAN MIGUEL (irabazi)
+    { fecha: "2026/03/14", etxekoa: "LARRAUN (O. Ijurko - E. Oreja)", kanpokoak: "SAN MIGUEL (I. Barbarin - E. Pascual)", emaitza: "irabazita", tanteoa: "22-8", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs AURRERA
+    { fecha: "2026/03/14", etxekoa: "LARRAUN (U. Otamendi - M. Laso)", kanpokoak: "AURRERA (J. Baleztena - O. Alkorta)", emaitza: "irabazita", tanteoa: "22-14", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs ARDOI (individual)
+    { fecha: "2026/03/13", etxekoa: "LARRAUN (J. Ezkurdia)", kanpokoak: "ARDOI (M. Abadia)", emaitza: "irabazita", tanteoa: "18-15", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Ardoi" },
+    // LIGAXKA - LARRAUN vs ZUGARRALDE
+    { fecha: "2026/03/13", etxekoa: "LARRAUN (M. Lazkoz)", kanpokoak: "ZUGARRALDE (J. Gastesi)", emaitza: "irabazita", tanteoa: "18-8", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LARRAUN vs SORAUREN
+    { fecha: "2026/03/12", etxekoa: "LARRAUN (M. Galartza - I. Garziarena)", kanpokoak: "SORAUREN (M. Agirre - I. Irigoien)", emaitza: "irabazita", tanteoa: "30-19", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Larraun" },
+    // LIGAXKA - LAGUNAK vs LARRAUN (bisita irabazi)
+    { fecha: "2026/03/12", etxekoa: "LAGUNAK (O. Peña - A. Molina)", kanpokoak: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)", emaitza: "irabazita", tanteoa: "13-18", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Lagunak" },
+    // LIGAXKA - TXARUTA vs LARRAUN (bisita galdu)
+    { fecha: "2026/03/11", etxekoa: "TXARUTA (X. Agesta - P. Anbustegi)", kanpokoak: "LARRAUN (U. Ariztimuño - I. Lociga)", emaitza: "galduta", tanteoa: "2-0", sets: ["/ 9-4", "9-1"], modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Txaruta" },
+    // LIGAXKA - AURRERA vs LARRAUN (bisita irabazi)
+    { fecha: "2026/03/10", etxekoa: "AURRERA (A. Amundarain - J. Saralegi)", kanpokoak: "LARRAUN (U. Agirrezabala - A. Apezetxea)", emaitza: "irabazita", tanteoa: "0-2", sets: ["/ 0-9", "5-9"], modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Aurrera" },
+    // FINAL LAURDENAK - BEHAR ZANA vs LARRAUN (EZ OFIZIALA)
+    { fecha: "2026/03/09", etxekoa: "BEHAR ZANA (Otaegi - Elola)", kanpokoak: "LARRAUN (O. Ijurko - Oreja)", emaitza: "galduta", tanteoa: "18-10", modalidad: "FINAL LAURDENAK", lehiaketa: "FINAL LAURDENAK", tipo: "ez", fronton: "Behar Zana" },
+    // LIGAXKA - IRURTZUN vs LARRAUN (bisita irabazi)
+    { fecha: "2026/03/08", etxekoa: "IRURTZUN (A. Yaben)", kanpokoak: "LARRAUN (L. Navarro)", emaitza: "irabazita", tanteoa: "18-14", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Iruztzun" },
+    // LIGAXKA - IRURTZUN vs LARRAUN
+    { fecha: "2026/03/08", etxekoa: "IRURTZUN (O. Gordo)", kanpokoak: "LARRAUN (M. Goikoetxea)", emaitza: "irabazita", tanteoa: "15-18", modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Iruztzun" },
+    // KANPORAKETA - LARRAUN vs ALDABIDE (EZ OFIZIALA)
+    { fecha: "2026/03/07", etxekoa: "LARRAUN – OBERENA (Centeno – Andueza)", kanpokoak: "ALDABIDE (Loidi – Maduit)", emaitza: "galduta", tanteoa: "11-18", modalidad: "KANPORAKETA", lehiaketa: "KANPORAKETA", tipo: "ez", fronton: "Larraun" },
+    // KANPORAKETA - ARAXES-LARRAUN vs UMORE ONA
+    { fecha: "2026/03/07", etxekoa: "ARAXES – LARRAUN (Esnaola – Argaña)", kanpokoak: "UMORE ONA – TOKI EDERRA (Lujanbio – Petrox)", emaitza: "galduta", tanteoa: "7-18", modalidad: "KANPORAKETA", lehiaketa: "KANPORAKETA", tipo: "ez", fronton: "Araxes" },
+    // LIGAXKA - ZUGARRALDE vs LARRAUN (bisita irabazi)
+    { fecha: "2026/03/06", etxekoa: "ZUGARRALDE (A. Agerri - E. Requena)", kanpokoak: "LARRAUN (O. Mitxaus - S. Galartza)", emaitza: "irabazita", tanteoa: "0-2", sets: ["/ 1-9", "6-9"], modalidad: "LIGAXKA", lehiaketa: "LIGAXKA", tipo: "fnp", fronton: "Zugarralde" }
+  ];
+
+  // ==================== CONFIGURACIÓN ====================
   const FASES = ["FINALA","FINAL ZORTZIRENAK","FINAL LAURDENAK","FINAL AURREKOAK","FINAL ERDIAK","SEMIFINALA"];
   const KOLORE_KATEGORIAK = {
     "KIMU": "#f9a825", "SEIN": "#7cb342", "ALEBINAK": "#039be5",
@@ -259,66 +289,38 @@
     return `${start.toLocaleDateString('eu')} - ${end.toLocaleDateString('eu')}`;
   }
 
-  function isLarraunWin(m) {
-    if (!m.emaitza) return false;
-    const em = m.emaitza.toLowerCase().trim();
-    const lokalLarraun = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
-    const bisitaLarraun = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
-    return em === "irabazita" && (lokalLarraun || bisitaLarraun);
-  }
-
-  function esDescanso(m) {
-    return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
-  }
-
-  function involucraLarraun(m) {
-    return (m.etxekoa || "").toUpperCase().includes("LARRAUN") || (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
-  }
-
-  // ---------- CARGA DE DATOS ----------
+  // Procesar partidos
   let allMatches = [];
-  let weeksMap = new Map(); // weekKey -> array de partidos
+  let weeksMap = new Map();
 
-  async function loadData() {
-    const sources = [
-      { url: "/data/resultados-larraun.json", tipo: "fnp" },
-      { url: "/data/resultados-no-oficiales.json", tipo: "no-oficial" }
-    ];
-    let raw = [];
-    for (let src of sources) {
-      try {
-        let resp = await fetch(src.url);
-        if (!resp.ok) continue;
-        let data = await resp.json();
-        for (let m of data) {
-          let fecha = parseDate(m.fecha);
-          if (!fecha) continue;
-          let esFnp = src.tipo === "fnp";
-          let esNoOficial = src.tipo === "no-oficial";
-          let esBesteOfizial = esNoOficial && String(m.ofiziala).toLowerCase() === "true";
-          let esEzOfizial = esNoOficial && String(m.ofiziala).toLowerCase() !== "true";
-          let torneo = esFnp ? "fnp" : (esBesteOfizial ? "beste" : "ez");
-          
-          raw.push({
-            ...m,
-            _date: fecha,
-            tipoTorneo: torneo,
-            fase: extraerFase(m.modalidad || m.lehiaketa || ""),
-            lehiaketa: m.lehiaketa || m.modalidad || "",
-            etxekoa: m.etxekoa || "",
-            kanpokoak: m.kanpokoak || "",
-            tanteoa: m.tanteoa || "",
-            sets: m.sets || [],
-            fronton: m.fronton || "",
-            urlInfo: m.url && m.url !== "-" ? m.url : null,
-            emaitza: m.emaitza || ""
-          });
-        }
-      } catch(e) { console.warn("Error cargando", src.url, e); }
+  function processMatches() {
+    for (let p of PARTIDOS_RAW) {
+      let fecha = parseDate(p.fecha);
+      if (!fecha) continue;
+      
+      // Determinar tipo de torneo
+      let tipo = p.tipo;
+      if (!tipo) {
+        if (p.modalidad && p.modalidad.includes("EZ OFIZIALA")) tipo = "ez";
+        else if (p.modalidad && p.modalidad.includes("OFIZIALA")) tipo = "fnp";
+        else tipo = "fnp";
+      }
+      
+      let match = {
+        ...p,
+        _date: fecha,
+        tipoTorneo: tipo,
+        fase: extraerFase(p.modalidad || p.lehiaketa || ""),
+        lehiaketa: p.lehiaketa || p.modalidad || "",
+        etxekoa: p.etxekoa || "",
+        kanpokoak: p.kanpokoak || "",
+        tanteoa: p.tanteoa || "",
+        sets: p.sets || [],
+        fronton: p.fronton || "",
+        emaitza: p.emaitza || ""
+      };
+      allMatches.push(match);
     }
-    // Filtrar: solo Larraun, sin descanso, fecha <= hoy
-    let today = new Date(); today.setHours(0,0,0,0);
-    allMatches = raw.filter(m => m._date <= today && involucraLarraun(m) && !esDescanso(m));
     
     // Agrupar por semana
     weeksMap.clear();
@@ -328,12 +330,12 @@
       if (!weeksMap.has(weekKey)) weeksMap.set(weekKey, []);
       weeksMap.get(weekKey).push(m);
     }
-    // Ordenar semanas descendente (más reciente primero)
-    let sortedWeeks = Array.from(weeksMap.keys()).sort((a,b) => new Date(b) - new Date(a));
-    return sortedWeeks;
+    
+    // Ordenar semanas descendente
+    return Array.from(weeksMap.keys()).sort((a,b) => new Date(b) - new Date(a));
   }
 
-  // ---------- RENDERIZADO ----------
+  // Estado
   let currentWeekKey = null;
   let currentTorneo = "fnp";
   let currentKategoria = "GUZTIAK";
@@ -420,12 +422,12 @@
     let container = document.getElementById("results-container");
     let matches = weeksMap.get(currentWeekKey) || [];
     matches = matches.filter(m => m.tipoTorneo === currentTorneo);
+    
     if (matches.length === 0) {
       container.innerHTML = '<div class="empty">🏆 Ez dago partidarik aste honetan kategoria honetan.</div>';
       return;
     }
 
-    // Agrupar por categoría
     let byCat = new Map();
     for (let m of matches) {
       let kat = getKategoria(m.lehiaketa);
@@ -434,7 +436,6 @@
       byCat.get(kat).push(m);
     }
 
-    // Ordenar categorías
     let sortedCats = Array.from(byCat.keys()).sort((a,b) => {
       let ia = KATEGORIA_ORDENA.indexOf(a);
       let ib = KATEGORIA_ORDENA.indexOf(b);
@@ -459,12 +460,11 @@
       html += `<div class="categoria-section">
         <div class="categoria-header" style="border-left-color: ${katColor}">⚾ ${kat}  ·  (${partidak.length} partida)</div>`;
       
-      // Ordenar partidas por fecha
       partidak.sort((a,b) => a._date - b._date);
       
       for (let p of partidak) {
         let isFinal = p.fase === "FINALA";
-        let larraunWin = isLarraunWin(p);
+        let larraunWin = p.emaitza === "irabazita";
         let cardClass = "match-card";
         if (isFinal) cardClass += " final";
         if (larraunWin) cardClass += " larraun-win";
@@ -481,10 +481,8 @@
           setsHtml = `<div style="margin:6px 0; font-size:0.85rem;">🎯 ${setsTxt}</div>`;
         }
         
-        let frontonClass = /lekunberri|aldatz/i.test(p.fronton||"") ? "fronton-destacado" : "";
-        let linkHtml = p.urlInfo ? 
-          `<a href="${p.urlInfo}" target="_blank" class="modalidad-link">🔗 ${p.lehiaketa} ↗️</a>` :
-          `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.lehiaketa}</span>`;
+        let frontonClass = /lekunberri|aldatz/i.test(p.fronton||"") ? "background:#e3f2fd; display:inline-block; padding:2px 12px; border-radius:20px;" : "";
+        let linkHtml = `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.lehiaketa}</span>`;
         
         let etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
         let kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
@@ -496,7 +494,7 @@
           <div style="font-weight:700; margin:6px 0;">✈️ ${p.kanpokoak} ${kanpokoaLarraun ? '<span style="background:#ffecb3; padding:2px 10px; border-radius:20px;">LARRAUN</span>' : ''}</div>
           ${marcador}
           ${setsHtml}
-          <div style="margin:8px 0; ${frontonClass ? 'background:#e3f2fd; display:inline-block; padding:2px 12px; border-radius:20px;' : ''}">📍 ${p.fronton || "Frontoia"}</div>
+          <div style="margin:8px 0; ${frontonClass}">📍 ${p.fronton || "Frontoia"}</div>
           <div>${linkHtml}</div>
         </div>`;
       }
@@ -506,19 +504,16 @@
     container.innerHTML = html;
   }
 
-  // ---------- INICIO ----------
-  async function start() {
-    let weeks = await loadData();
-    if (weeks.length === 0) {
-      document.getElementById("results-container").innerHTML = '<div class="empty">❌ Ez da partidarik aurkitu.</div>';
-      return;
-    }
+  // Iniciar
+  let weeks = processMatches();
+  if (weeks.length === 0) {
+    document.getElementById("results-container").innerHTML = '<div class="empty">❌ Ez da partidarik aurkitu.</div>';
+  } else {
     renderWeekSelector(weeks);
     renderTorneoSelector();
     renderKategoriaChips();
     renderResults();
   }
-  start();
 </script>
 </body>
 </html>
