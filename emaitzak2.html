@@ -127,19 +127,22 @@
       background: linear-gradient(135deg, #fffef7, #fff6e0);
       border-left-width: 8px;
     }
-    .match-card.larraun-win {
-      background: #f0fff0;
-    }
     .win-badge {
       position: absolute;
       top: 12px;
       right: 18px;
-      background: #1b8f3a;
-      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
       padding: 4px 12px;
       border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: bold;
+    }
+    .win-badge.irabazi {
+      background: #1b8f3a;
+      color: white;
+    }
+    .win-badge.galdu {
+      background: #b00000;
+      color: white;
     }
     .score {
       display: inline-flex;
@@ -166,11 +169,19 @@
       text-decoration: none;
       font-weight: 700;
       color: #004d40;
-      margin-top: 10px;
+      margin-top: 8px;
+      transition: 0.2s;
+      cursor: pointer;
     }
     .modalidad-link:hover {
       background: #ffd966;
       transform: scale(1.02);
+    }
+    .click-info {
+      font-size: 0.7rem;
+      color: #6c757d;
+      margin-left: 8px;
+      display: inline-block;
     }
     .empty {
       text-align: center;
@@ -191,15 +202,46 @@
       font-size: 1.3rem;
       color: #b30000;
     }
-    .larraun-mark {
-      background: #ffecb3;
-      border-radius: 30px;
-      padding: 2px 12px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      display: inline-block;
-      margin-left: 8px;
+    .etxekoa-line {
+      color: #0d47a1;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 8px 0;
     }
+    .kanpokoa-line {
+      color: #b71c1c;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 8px 0;
+    }
+    .larraun-destacado {
+      font-weight: 900;
+      font-size: 1.2rem;
+      background: #ffecb3;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+    .info-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 16px;
+      margin: 6px 0;
+      font-size: 0.9rem;
+      color: #3a546d;
+    }
+    .fronton-text {
+      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .resultado-text {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .resultado-text.irabazi { color: #1b8f3a; }
+    .resultado-text.galdu { color: #b00000; }
   </style>
 </head>
 <body>
@@ -218,23 +260,35 @@
 </div>
 
 <script>
-// ==================== FUNCIONES DEL HTML ORIGINAL (COPIA EXACTA) ====================
+// ==================== FUNCIONES AUXILIARES ====================
 function parseDate(f) { return f ? new Date(f + "T00:00") : null; }
-function monday(d) {
+
+function getMonday(d) {
   const x = new Date(d);
   const day = x.getDay() || 7;
   if (day !== 1) x.setDate(x.getDate() - day + 1);
   x.setHours(0, 0, 0, 0);
   return x;
 }
+
+function getWeekRange(date) {
+  const monday = getMonday(date);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23, 59, 59, 999);
+  return { start: monday, end: sunday };
+}
+
 function esDescanso(m) {
   return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
 }
+
 function involucraALarraun(partido) {
   const etxekoa = (partido.etxekoa || "").toUpperCase();
   const kanpokoa = (partido.kanpokoak || "").toUpperCase();
   return etxekoa.includes("LARRAUN") || kanpokoa.includes("LARRAUN");
 }
+
 function extraerFase(modalidadTexto) {
   const FASES = ["LIGAXKA", "KANPORAKETA", "FINAL ZORTZIRENAK", "FINAL LAURDENEN LIGAXKA", "FINAL LAURDENAK", "FINAL AURREKOAK", "FINALA", "LIGA", "FINAL ERDIAK", "SEMIFINALA"];
   if (!modalidadTexto) return "";
@@ -243,12 +297,31 @@ function extraerFase(modalidadTexto) {
   }
   return "";
 }
+
 function formatSets(sets) {
   if (!sets || !sets.length) return "";
   return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
 }
 
-// ==================== CATEGORÍAS DESDE categoriaedad.json ====================
+function limpiarTextoPilota(texto) {
+  if (!texto) return "";
+  // Eliminar "LARRAUN" duplicado al final si ya está al principio
+  const upper = texto.toUpperCase();
+  if (upper.startsWith("LARRAUN") && upper.endsWith("LARRAUN")) {
+    return texto.substring(0, texto.length - 7).trim();
+  }
+  return texto;
+}
+
+function isLarraunWin(m) {
+  if (!m.emaitza) return false;
+  const em = m.emaitza.toLowerCase().trim();
+  const etxekoaL = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
+  const kanpokoaL = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
+  return em === "irabazita" && (etxekoaL || kanpokoaL);
+}
+
+// ==================== CATEGORÍAS ====================
 let kategoriaMap = new Map();
 let kategoriaOrdena = [];
 
@@ -334,23 +407,15 @@ function getKategoriaFromText(texto) {
   return "Beste";
 }
 
-function isLarraunWin(m) {
-  if (!m.emaitza) return false;
-  const em = m.emaitza.toLowerCase().trim();
-  const etxekoaL = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
-  const kanpokoaL = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
-  return em === "irabazita" && (etxekoaL || kanpokoaL);
-}
-
-// ==================== CARGA DE DATOS (IGUAL QUE EL ORIGINAL) ====================
+// ==================== CARGA DE DATOS ====================
 const SOURCES = [
   { url: "/data/resultados-larraun.json", origen: "oficial" },
   { url: "/data/resultados-no-oficiales.json", origen: "no-oficial" }
 ];
 
-let globalMatches = [];
-let weeksMap = new Map();
-let weeksList = [];
+let allMatches = [];
+let thisWeekMatches = [];
+let lastWeekMatches = [];
 
 async function loadMatches() {
   const all = await Promise.all(
@@ -380,45 +445,36 @@ async function loadMatches() {
   return data;
 }
 
-function groupByWeeks(matches) {
-  const weeks = new Map();
-  for (const m of matches) {
-    const weekStart = monday(m._date);
-    const weekKey = weekStart.toISOString().split('T')[0];
-    if (!weeks.has(weekKey)) weeks.set(weekKey, []);
-    weeks.get(weekKey).push(m);
+function filterByWeek(matches, weekType) {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const thisWeekRange = getWeekRange(today);
+  
+  if (weekType === "actual") {
+    return matches.filter(m => m._date >= thisWeekRange.start && m._date <= thisWeekRange.end);
+  } else {
+    const lastMonday = new Date(thisWeekRange.start);
+    lastMonday.setDate(lastMonday.getDate() - 7);
+    const lastWeekRange = getWeekRange(lastMonday);
+    return matches.filter(m => m._date >= lastWeekRange.start && m._date <= lastWeekRange.end);
   }
-  const sortedKeys = Array.from(weeks.keys()).sort((a,b) => new Date(b) - new Date(a));
-  return { weeks, sortedKeys };
 }
 
 // ==================== ESTADO Y RENDER ====================
-let currentWeekKey = null;
+let currentWeek = "actual";
 let currentTorneo = "fnp";
 let currentKategoria = "GUZTIAK";
+let loadedMatches = [];
 
 function renderWeekSelector() {
   const container = document.getElementById("week-selector");
-  if (!weeksList.length) {
-    container.innerHTML = '<button class="btn">Ez dago asteko partidarik</button>';
-    return;
-  }
-  if (!currentWeekKey) currentWeekKey = weeksList[0];
-  
-  let html = '';
-  for (const wk of weeksList) {
-    const date = new Date(wk);
-    const endDate = new Date(date);
-    endDate.setDate(date.getDate() + 6);
-    const label = `${date.toLocaleDateString('eu')} - ${endDate.toLocaleDateString('eu')}`;
-    const activeClass = wk === currentWeekKey ? 'active' : '';
-    html += `<button class="btn ${activeClass}" data-week="${wk}">📅 ${label}</button>`;
-  }
-  container.innerHTML = html;
+  container.innerHTML = `
+    <button class="btn ${currentWeek === "actual" ? "active" : ""}" data-week="actual">📅 ASTE HONETAKO EMAITZAK</button>
+    <button class="btn ${currentWeek === "anterior" ? "active" : ""}" data-week="anterior">📆 AURREKO ASTEKO EMAITZAK</button>
+  `;
   
   document.querySelectorAll('#week-selector .btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      currentWeekKey = btn.dataset.week;
+      currentWeek = btn.dataset.week;
       renderWeekSelector();
       renderTorneoSelector();
       renderKategoriaChips();
@@ -453,8 +509,8 @@ function renderTorneoSelector() {
 }
 
 function renderKategoriaChips() {
-  const matches = weeksMap.get(currentWeekKey) || [];
-  let filtered = matches.filter(m => {
+  let matches = filterByWeek(loadedMatches, currentWeek);
+  matches = matches.filter(m => {
     if (currentTorneo === "fnp") return m.origen === "oficial";
     if (currentTorneo === "beste") return m.origen === "no-oficial" && m.ofiziala === true;
     if (currentTorneo === "ez") return m.origen === "no-oficial" && m.ofiziala === false;
@@ -462,7 +518,7 @@ function renderKategoriaChips() {
   });
   
   const kategoriaSet = new Set();
-  for (const m of filtered) {
+  for (const m of matches) {
     kategoriaSet.add(getKategoriaFromText(m.modalidad));
   }
   
@@ -493,23 +549,23 @@ function renderKategoriaChips() {
 
 function renderResults() {
   const container = document.getElementById("results-container");
-  const matches = weeksMap.get(currentWeekKey) || [];
+  let matches = filterByWeek(loadedMatches, currentWeek);
   
-  let filtered = matches.filter(m => {
+  matches = matches.filter(m => {
     if (currentTorneo === "fnp") return m.origen === "oficial";
     if (currentTorneo === "beste") return m.origen === "no-oficial" && m.ofiziala === true;
     if (currentTorneo === "ez") return m.origen === "no-oficial" && m.ofiziala === false;
     return true;
   });
   
-  if (filtered.length === 0) {
+  if (matches.length === 0) {
     container.innerHTML = '<div class="empty">🏆 Ez dago partidarik aste honetan.</div>';
     return;
   }
   
   // Agrupar por categoría
   const byCat = new Map();
-  for (const m of filtered) {
+  for (const m of matches) {
     const kat = getKategoriaFromText(m.modalidad);
     if (currentKategoria !== "GUZTIAK" && kat !== currentKategoria) continue;
     if (!byCat.has(kat)) byCat.set(kat, []);
@@ -549,34 +605,51 @@ function renderResults() {
     
     for (const p of partidak) {
       const isFinal = p.fase_mostrar === "FINALA";
-      const larraunWin = isLarraunWin(p);
       let cardClass = "match-card";
       if (isFinal) cardClass += " final";
-      if (larraunWin) cardClass += " larraun-win";
       
+      const larraunWin = isLarraunWin(p);
+      const larraunPresent = (p.etxekoa || "").toUpperCase().includes("LARRAUN") || (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+      
+      // Limpiar textos duplicados
+      const etxekoaLimpio = limpiarTextoPilota(p.etxekoa);
+      const kanpokoaLimpio = limpiarTextoPilota(p.kanpokoak);
+      
+      const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
+      const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+      
+      // Marcador
       let marcadorHTML = "";
       if (p.tanteoa && p.tanteoa.includes("-")) {
         const [local, visit] = p.tanteoa.split("-").map(x => x.trim());
         marcadorHTML = `<div class="score"><span class="local">${local}</span><span class="visit">${visit}</span></div>`;
       }
       
-      const setsHTML = p.sets && p.sets.length ? `<div style="margin:6px 0; font-size:0.85rem;">🎯 ${formatSets(p.sets)}</div>` : "";
-      const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "background:#e3f2fd; display:inline-block; padding:2px 12px; border-radius:20px;" : "";
-      const linkHTML = p.url && p.url !== "-" ? 
-        `<a href="${p.url}" target="_blank" class="modalidad-link">🔗 ${p.modalidad} ↗️</a>` :
-        `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""}</span>`;
+      const setsHTML = p.sets && p.sets.length ? `<span>🎯 ${formatSets(p.sets)}</span>` : "";
+      const resultadoHTML = p.emaitza ? `<span class="resultado-text ${larraunWin ? 'irabazi' : 'galdu'}">${larraunWin ? 'IRABAZI' : 'GALDUTA'}</span>` : "";
       
-      const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
-      const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+      const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "fronton-destacado" : "";
+      const linkHTML = p.url && p.url !== "-" ? 
+        `<a href="${p.url}" target="_blank" class="modalidad-link">🔗 ${p.modalidad || ""} <span class="click-info">(ℹ️ klikatu informazio gehiago)</span></a>` :
+        `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""} <span class="click-info">(ℹ️ informazio gehiago)</span></span>`;
       
       html += `<div class="${cardClass}" style="border-left-color: ${katColor}">
-        ${larraunWin ? '<div class="win-badge">✔️ LARRAUN IRABAZI</div>' : ''}
-        <div style="color:#3a546d; margin-bottom:8px;">📅 ${p.fecha}</div>
-        <div style="font-weight:700; margin:6px 0;">🏠 ${p.etxekoa} ${etxekoaLarraun ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
-        <div style="font-weight:700; margin:6px 0;">✈️ ${p.kanpokoak} ${kanpokoaLarraun ? '<span class="larraun-mark">LARRAUN</span>' : ''}</div>
+        <div class="info-line">
+          <span>📅 ${p.fecha}</span>
+          <span class="fronton-text">📍 ${p.fronton || "Frontoia"}</span>
+          ${resultadoHTML ? `<span>| ${resultadoHTML}</span>` : ''}
+          ${setsHTML ? `<span>| ${setsHTML}</span>` : ''}
+        </div>
+        
+        <div class="etxekoa-line">
+          🏠 ${etxekoaLimpio} ${etxekoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+        </div>
+        <div class="kanpokoa-line">
+          ✈️ ${kanpokoaLimpio} ${kanpokoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+        </div>
+        
         ${marcadorHTML}
-        ${setsHTML}
-        <div style="margin:8px 0; ${frontonClass}">📍 ${p.fronton || "Frontoia"}</div>
+        
         <div>${linkHTML}</div>
       </div>`;
     }
@@ -589,18 +662,13 @@ function renderResults() {
 // ==================== INICIO ====================
 async function init() {
   await loadKategoriak();
-  const matches = await loadMatches();
-  const { weeks, sortedKeys } = groupByWeeks(matches);
+  loadedMatches = await loadMatches();
   
-  weeksMap = weeks;
-  weeksList = sortedKeys;
-  
-  if (weeksList.length === 0) {
+  if (loadedMatches.length === 0) {
     document.getElementById("results-container").innerHTML = '<div class="empty">❌ Ez da partidarik aurkitu.</div>';
     return;
   }
   
-  currentWeekKey = weeksList[0];
   renderWeekSelector();
   renderTorneoSelector();
   renderKategoriaChips();
