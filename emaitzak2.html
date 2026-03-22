@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>Larraun Pilota – EMAITZAK | Kategoriaka Antolatuta</title>
+  <title>Larraun Pilota – EMAITZA INTERAKTIBOAK | Kategoriaka Antolatuta</title>
   <link rel="icon" type="image/png" href="/emaitzak.png">
-  <meta property="og:title" content="Emaitzak – Larraun Pilota Elkartea">
+  <meta property="og:title" content="Emaitza Interaktiboak – Larraun Pilota Elkartea">
+  <meta property="og:description" content="Pilotarien emaitzak, asteka, txapelketaka eta kategoriaka antolatuta">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -27,8 +28,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 4px solid #b30000;
     }
     .header img { height: 55px; width: auto; object-fit: contain; }
@@ -40,6 +41,24 @@
     @media (min-width: 768px) {
       .header h1 { font-size: 3rem; }
       .header img { height: 80px; }
+    }
+    
+    .info-interaktiboa {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-bottom: 20px;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 40px;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .info-interaktiboa i {
+      font-style: normal;
+      display: inline-block;
     }
 
     .selector-group {
@@ -183,19 +202,35 @@
     .resultado-line {
       display: flex;
       flex-wrap: wrap;
-      align-items: baseline;
+      align-items: center;
       gap: 12px;
       margin: 8px 0;
       font-size: 0.95rem;
       font-weight: 500;
     }
-    .tanteo-text {
+    .tanteo-container {
+      display: inline-flex;
       background: #1e293b;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .tanteo-local {
+      background: #0d47a1;
       color: white;
       padding: 4px 14px;
-      border-radius: 30px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.1rem;
+      min-width: 60px;
+      text-align: center;
+    }
+    .tanteo-bisita {
+      background: #b71c1c;
+      color: white;
+      padding: 4px 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      min-width: 60px;
+      text-align: center;
     }
     .sets-text {
       color: #2c3e50;
@@ -218,15 +253,25 @@
       border-radius: 40px;
       text-decoration: none;
       font-weight: 700;
-      color: #004d40;
       margin-top: 8px;
       transition: 0.2s;
       cursor: pointer;
       font-size: 0.85rem;
     }
     .modalidad-link:hover {
-      background: #ffd966;
       transform: scale(1.02);
+    }
+    /* Estilos para FINALA según resultado */
+    .modalidad-link.final-irabazi {
+      background: linear-gradient(135deg, #ffd966, #ffb347);
+      color: #2c2c2c;
+      border: 1px solid #e6a017;
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+    }
+    .modalidad-link.final-galdu {
+      background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+      color: #2c2c2c;
+      border: 1px solid #808080;
     }
     .click-info {
       font-size: 0.65rem;
@@ -249,15 +294,19 @@
 <div class="container">
   <div class="header">
     <img src="/images/logo-larraun.png" alt="Larraun" onerror="this.style.display='none'">
-    <h1>EMAITZAK</h1>
+    <h1>EMAITZA INTERAKTIBOAK</h1>
     <img src="/images/logo-fnp.png" alt="FNP" onerror="this.style.display='none'">
+  </div>
+  
+  <div class="info-interaktiboa">
+    <i>💡 Egin klik lehiaketaren izenean partidaren informazio gehiago ikusteko</i>
   </div>
 
   <div id="week-selector" class="selector-group"></div>
   <div id="torneo-selector" class="selector-group"></div>
   <div id="kategoria-chips" class="kategoria-chips"></div>
   <div id="results-container"><div class="loading">⏳ Partidak kargatzen...</div></div>
-  <footer>⚾ Larraun Pilota Elkartea • Emaitzak asteka eta kategoriaka</footer>
+  <footer>⚾ Larraun Pilota Elkartea • Emaitza interaktiboak asteka eta kategoriaka</footer>
 </div>
 
 <script>
@@ -304,17 +353,26 @@ function formatSets(sets) {
   return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
 }
 
-// Función para limpiar el texto: eliminar "LARRAUN" duplicado y separar nombres
-function procesarTextoPilota(texto, esLarraun) {
-  if (!texto) return { principal: "", secundario: "" };
-  
+// Función para limpiar el texto: eliminar "LARRAUN" duplicado al final (sin dejar espacio extra)
+function limpiarTextoPilota(texto) {
+  if (!texto) return texto;
   let limpio = texto;
-  // Eliminar "LARRAUN" duplicado al final
-  if (limpio.toUpperCase().endsWith("LARRAUN")) {
+  // Eliminar "LARRAUN" duplicado al final (con posible espacio antes)
+  // Patrón: termina con " LARRAUN" o "LARRAUN"
+  if (limpio.toUpperCase().endsWith(" LARRAUN")) {
+    limpio = limpio.substring(0, limpio.length - 8).trim();
+  } else if (limpio.toUpperCase().endsWith("LARRAUN")) {
     limpio = limpio.substring(0, limpio.length - 7).trim();
   }
+  return limpio;
+}
+
+// Función para separar el nombre principal de los apellidos adicionales
+function separarNombres(texto) {
+  if (!texto) return { principal: "", secundario: "" };
   
-  // Buscar el patrón: nombre principal (algo en paréntesis) y luego el resto
+  let limpio = limpiarTextoPilota(texto);
+  
   const parenMatch = limpio.match(/^([^\(]+\([^\)]+\))\s*(.*)$/);
   if (parenMatch) {
     return {
@@ -619,9 +677,12 @@ function renderResults() {
       
       const larraunWin = isLarraunWin(p);
       
-      // Procesar textos de los equipos
-      const etxekoaInfo = procesarTextoPilota(p.etxekoa, true);
-      const kanpokoaInfo = procesarTextoPilota(p.kanpokoak, false);
+      // Procesar textos de los equipos - limpiar LARRAUN duplicado
+      const etxekoaLimpio = limpiarTextoPilota(p.etxekoa);
+      const kanpokoaLimpio = limpiarTextoPilota(p.kanpokoak);
+      
+      const etxekoaInfo = separarNombres(etxekoaLimpio);
+      const kanpokoaInfo = separarNombres(kanpokoaLimpio);
       
       const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
       const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
@@ -635,22 +696,32 @@ function renderResults() {
         }
       }
       
-      // Línea de fecha y frontón
-      const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "fronton-destacado" : "";
-      
-      // Línea de resultado (tanteo, sets, resultado)
+      // Tanteo con azul y rojo
       let tanteoHTML = "";
       if (p.tanteoa && p.tanteoa.includes("-")) {
-        tanteoHTML = `<span class="tanteo-text">${p.tanteoa}</span>`;
+        const [local, visit] = p.tanteoa.split("-").map(x => x.trim());
+        tanteoHTML = `<div class="tanteo-container">
+          <span class="tanteo-local">${local}</span>
+          <span class="tanteo-bisita">${visit}</span>
+        </div>`;
       }
       
       const setsHTML = p.sets && p.sets.length ? `<span class="sets-text">🎯 ${formatSets(p.sets)}</span>` : "";
       const resultadoHTML = p.emaitza ? `<span class="resultado-text ${larraunWin ? 'irabazi' : 'galdu'}">${larraunWin ? 'IRABAZI' : 'GALDUTA'}</span>` : "";
       
-      // Enlace del modalidad
+      // Estilo especial para FINALA según resultado
+      let modalidadClass = "modalidad-link";
+      if (isFinal) {
+        if (larraunWin) {
+          modalidadClass += " final-irabazi";
+        } else {
+          modalidadClass += " final-galdu";
+        }
+      }
+      
       const linkHTML = p.url && p.url !== "-" ? 
-        `<a href="${p.url}" target="_blank" class="modalidad-link">🔗 ${p.modalidad || ""} <span class="click-info">(ℹ️ klikatu informazio gehiago)</span></a>` :
-        `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""} <span class="click-info">(ℹ️ informazio gehiago)</span></span>`;
+        `<a href="${p.url}" target="_blank" class="${modalidadClass}">🔗 ${p.modalidad || ""} <span class="click-info">(ℹ️ klikatu informazio gehiago)</span></a>` :
+        `<span class="${modalidadClass}" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""} <span class="click-info">(ℹ️ informazio gehiago)</span></span>`;
       
       html += `<div class="${cardClass}" style="border-left-color: ${katColor}">
         <div class="info-line">
@@ -672,8 +743,8 @@ function renderResults() {
         
         <div class="resultado-line">
           ${tanteoHTML}
-          ${setsHTML ? `| ${setsHTML}` : ''}
-          ${resultadoHTML ? `| ${resultadoHTML}` : ''}
+          ${setsHTML ? `${tanteoHTML ? '' : ''} ${setsHTML}` : ''}
+          ${resultadoHTML ? `${(tanteoHTML || setsHTML) ? '|' : ''} ${resultadoHTML}` : ''}
         </div>
         
         <div>${linkHTML}</div>
