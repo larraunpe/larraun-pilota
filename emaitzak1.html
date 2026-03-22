@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Larraun Pilota – EMAITZAK | Kategoriaka Antolatuta</title>
+  <link rel="icon" type="image/png" href="/emaitzak.png">
+  <meta property="og:title" content="Emaitzak – Larraun Pilota Elkartea">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #eef2f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+      padding: 20px 24px 32px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 4px solid #b30000;
+    }
+    .header img { height: 55px; width: auto; object-fit: contain; }
+    .header h1 {
+      font-size: 2rem;
+      color: #b30000;
+      letter-spacing: 1px;
+    }
+    @media (min-width: 768px) {
+      .header h1 { font-size: 3rem; }
+      .header img { height: 80px; }
+    }
+
+    .selector-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .btn {
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 700;
+      background: #f0f2f5;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn.active {
+      background: #b30000;
+      color: white;
+    }
+    .btn-torneo.fnp.active { background: #003366; }
+    .btn-torneo.beste.active { background: #198754; }
+    .btn-torneo.ez.active { background: #b00000; }
+
+    .kategoria-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 12px;
+    }
+    .chip {
+      background: #edf2f7;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      transition: 0.2s;
+    }
+    .chip.active {
+      background: #b30000;
+      color: white;
+    }
+
+    .torneo-block {
+      margin-bottom: 32px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .torneo-header {
+      padding: 14px 24px;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .categoria-section {
+      margin: 20px 16px;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .categoria-header {
+      padding: 12px 20px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      border-left: 8px solid;
+      background: #fafafa;
+    }
+    .match-card {
+      border-left: 6px solid;
+      margin: 12px 20px 20px;
+      padding: 16px 20px;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .match-card.final {
+      background: linear-gradient(135deg, #fffef7, #fff6e0);
+      border-left-width: 8px;
+    }
+    .empty {
+      text-align: center;
+      padding: 48px;
+      color: #6c757d;
+      font-size: 1.2rem;
+    }
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      color: #5f6c7a;
+    }
+    .loading {
+      text-align: center;
+      padding: 60px;
+      font-size: 1.3rem;
+      color: #b30000;
+    }
+    
+    /* Estilos para los textos */
+    .etxekoa-line {
+      color: #0d47a1;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 6px 0;
+    }
+    .kanpokoa-line {
+      color: #b71c1c;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 6px 0;
+    }
+    .info-adicional {
+      font-size: 0.7rem;
+      color: #5a6e7c;
+      font-weight: normal;
+      margin-left: 6px;
+    }
+    .info-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+      margin: 8px 0 4px 0;
+      font-size: 0.9rem;
+      color: #3a546d;
+    }
+    .fronton-text {
+      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .resultado-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .tanteo-container {
+      display: inline-flex;
+      background: #1e293b;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .tanteo-local {
+      background: #0d47a1;
+      color: white;
+      padding: 4px 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      min-width: 60px;
+      text-align: center;
+    }
+    .tanteo-bisita {
+      background: #b71c1c;
+      color: white;
+      padding: 4px 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      min-width: 60px;
+      text-align: center;
+    }
+    .sets-text {
+      color: #2c3e50;
+      background: #f1f5f9;
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+    .resultado-text.irabazi {
+      color: #1b8f3a;
+      font-weight: 700;
+    }
+    .resultado-text.galdu {
+      color: #b00000;
+      font-weight: 700;
+    }
+    .modalidad-link {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 6px 18px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      color: #004d40;
+      margin-top: 8px;
+      transition: 0.2s;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .modalidad-link:hover {
+      background: #ffd966;
+      transform: scale(1.02);
+    }
+    .click-info {
+      font-size: 0.65rem;
+      color: #6c757d;
+      margin-left: 6px;
+      font-weight: normal;
+    }
+    .larraun-destacado {
+      font-weight: 900;
+      font-size: 1.2rem;
+      background: #ffecb3;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="/images/logo-larraun.png" alt="Larraun" onerror="this.style.display='none'">
+    <h1>EMAITZAK</h1>
+    <img src="/images/logo-fnp.png" alt="FNP" onerror="this.style.display='none'">
+  </div>
+
+  <div id="week-selector" class="selector-group"></div>
+  <div id="torneo-selector" class="selector-group"></div>
+  <div id="kategoria-chips" class="kategoria-chips"></div>
+  <div id="results-container"><div class="loading">⏳ Partidak kargatzen...</div></div>
+  <footer>⚾ Larraun Pilota Elkartea • Emaitzak asteka eta kategoriaka</footer>
+</div>
+
+<script>
+// ==================== FUNCIONES AUXILIARES ====================
+function parseDate(f) { return f ? new Date(f + "T00:00") : null; }
+
+function getMonday(d) {
+  const x = new Date(d);
+  const day = x.getDay() || 7;
+  if (day !== 1) x.setDate(x.getDate() - day + 1);
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+
+function getWeekRange(date) {
+  const monday = getMonday(date);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23, 59, 59, 999);
+  return { start: monday, end: sunday };
+}
+
+function esDescanso(m) {
+  return /atsedena/i.test(m.etxekoa) || /atsedena/i.test(m.kanpokoak);
+}
+
+function involucraALarraun(partido) {
+  const etxekoa = (partido.etxekoa || "").toUpperCase();
+  const kanpokoa = (partido.kanpokoak || "").toUpperCase();
+  return etxekoa.includes("LARRAUN") || kanpokoa.includes("LARRAUN");
+}
+
+function extraerFase(modalidadTexto) {
+  const FASES = ["LIGAXKA", "KANPORAKETA", "FINAL ZORTZIRENAK", "FINAL LAURDENEN LIGAXKA", "FINAL LAURDENAK", "FINAL AURREKOAK", "FINALA", "LIGA", "FINAL ERDIAK", "SEMIFINALA"];
+  if (!modalidadTexto) return "";
+  for (const fase of FASES) {
+    if (modalidadTexto.includes(fase)) return fase;
+  }
+  return "";
+}
+
+function formatSets(sets) {
+  if (!sets || !sets.length) return "";
+  return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
+}
+
+// Función para limpiar el texto: eliminar "LARRAUN" duplicado al final
+function limpiarTextoPilota(texto) {
+  if (!texto) return texto;
+  let limpio = texto;
+  // Eliminar "LARRAUN" duplicado al final (con posible espacio antes)
+  if (limpio.toUpperCase().endsWith("LARRAUN")) {
+    limpio = limpio.substring(0, limpio.length - 7).trim();
+  }
+  // También eliminar si termina con " LARRAUN" (con espacio)
+  if (limpio.toUpperCase().endsWith(" LARRAUN")) {
+    limpio = limpio.substring(0, limpio.length - 8).trim();
+  }
+  return limpio;
+}
+
+// Función para separar el nombre principal de los apellidos adicionales
+function separarNombres(texto) {
+  if (!texto) return { principal: "", secundario: "" };
+  
+  let limpio = limpiarTextoPilota(texto);
+  
+  // Buscar el patrón: nombre principal (algo en paréntesis) y luego el resto
+  const parenMatch = limpio.match(/^([^\(]+\([^\)]+\))\s*(.*)$/);
+  if (parenMatch) {
+    return {
+      principal: parenMatch[1].trim(),
+      secundario: parenMatch[2].trim()
+    };
+  }
+  
+  return { principal: limpio, secundario: "" };
+}
+
+function isLarraunWin(m) {
+  if (!m.emaitza) return false;
+  const em = m.emaitza.toLowerCase().trim();
+  const etxekoaL = (m.etxekoa || "").toUpperCase().includes("LARRAUN");
+  const kanpokoaL = (m.kanpokoak || "").toUpperCase().includes("LARRAUN");
+  return em === "irabazita" && (etxekoaL || kanpokoaL);
+}
+
+// ==================== CATEGORÍAS ====================
+let kategoriaMap = new Map();
+let kategoriaOrdena = [];
+
+async function loadKategoriak() {
+  try {
+    const resp = await fetch('/data/categoriaedad.json');
+    if (resp.ok) {
+      const data = await resp.json();
+      const edadMinToNagusia = new Map();
+      
+      for (const item of data) {
+        const izena = Object.keys(item).find(k => k !== 'EDADMIN' && k !== 'EDADMAX');
+        if (!izena) continue;
+        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+        if (!edadMinToNagusia.has(edadMin)) {
+          edadMinToNagusia.set(edadMin, izena);
+        }
+      }
+      
+      for (const item of data) {
+        const izena = Object.keys(item).find(k => k !== 'EDADMIN' && k !== 'EDADMAX');
+        if (!izena) continue;
+        const kolorea = item[izena];
+        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+        const kategoriaNagusia = edadMinToNagusia.get(edadMin) || izena;
+        kategoriaMap.set(izena.toUpperCase().trim(), {
+          kolorea: kolorea,
+          kategoriaNagusia: kategoriaNagusia,
+          edadMin: edadMin
+        });
+      }
+      
+      const nagusiSet = new Set();
+      for (const [_, info] of kategoriaMap) {
+        nagusiSet.add(info.kategoriaNagusia);
+      }
+      kategoriaOrdena = Array.from(nagusiSet).map(nag => {
+        let edad = 999;
+        let kol = '#cccccc';
+        for (const [_, info] of kategoriaMap) {
+          if (info.kategoriaNagusia === nag) {
+            edad = info.edadMin;
+            kol = info.kolorea;
+            break;
+          }
+        }
+        return { izena: nag, edadMin: edad, kolorea: kol };
+      }).sort((a,b) => a.edadMin - b.edadMin);
+    }
+  } catch(e) {
+    console.warn("Error cargando categorías:", e);
+  }
+  
+  if (kategoriaOrdena.length === 0) {
+    kategoriaOrdena = [
+      { izena: "KIMU", edadMin: 8, kolorea: "#f9a825" },
+      { izena: "SEIN", edadMin: 10, kolorea: "#7cb342" },
+      { izena: "ALEBINAK", edadMin: 12, kolorea: "#039be5" },
+      { izena: "HAURRAK", edadMin: 14, kolorea: "#5e35b1" },
+      { izena: "KADETE", edadMin: 16, kolorea: "#ff7043" },
+      { izena: "GAZTE", edadMin: 18, kolorea: "#e53935" },
+      { izena: "ESKUZ KOPA", edadMin: 20, kolorea: "#00897b" },
+      { izena: "Beste", edadMin: 99, kolorea: "#90a4ae" }
+    ];
+  }
+}
+
+function getKategoriaFromText(texto) {
+  if (!texto) return "Beste";
+  const up = texto.toUpperCase();
+  for (const [key, info] of kategoriaMap) {
+    if (up.includes(key)) {
+      return info.kategoriaNagusia;
+    }
+  }
+  if (up.includes("KIMU")) return "KIMU";
+  if (up.includes("SEIN")) return "SEIN";
+  if (up.includes("ALEBIN")) return "ALEBINAK";
+  if (up.includes("HAUR")) return "HAURRAK";
+  if (up.includes("KADETE")) return "KADETE";
+  if (up.includes("GAZTE")) return "GAZTE";
+  if (up.includes("ESKUZ KOPA")) return "ESKUZ KOPA";
+  return "Beste";
+}
+
+// ==================== CARGA DE DATOS ====================
+const SOURCES = [
+  { url: "/data/resultados-larraun.json", origen: "oficial" },
+  { url: "/data/resultados-no-oficiales.json", origen: "no-oficial" }
+];
+
+let loadedMatches = [];
+let currentWeek = "actual";
+let currentTorneo = "fnp";
+let currentKategoria = "GUZTIAK";
+
+async function loadMatches() {
+  const all = await Promise.all(
+    SOURCES.map(s =>
+      fetch(s.url)
+        .then(r => r.json())
+        .then(arr =>
+          arr.map(o => ({
+            ...o,
+            origen: s.origen,
+            ofiziala: s.origen === "no-oficial" ? String(o.ofiziala).toLowerCase() === "true" : true,
+            _date: parseDate(o.fecha),
+            fase_mostrar: extraerFase(o.modalidad)
+          }))
+        )
+        .catch(e => {
+          console.warn("Error loading", s.url, e);
+          return [];
+        })
+    )
+  );
+  
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const data = all.flat()
+    .filter(m => m._date && m._date <= today && involucraALarraun(m) && !esDescanso(m));
+  
+  return data;
+}
+
+function filterByWeek(matches, weekType) {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const thisWeekRange = getWeekRange(today);
+  
+  if (weekType === "actual") {
+    return matches.filter(m => m._date >= thisWeekRange.start && m._date <= thisWeekRange.end);
+  } else {
+    const lastMonday = new Date(thisWeekRange.start);
+    lastMonday.setDate(lastMonday.getDate() - 7);
+    const lastWeekRange = getWeekRange(lastMonday);
+    return matches.filter(m => m._date >= lastWeekRange.start && m._date <= lastWeekRange.end);
+  }
+}
+
+// ==================== RENDER ====================
+function renderWeekSelector() {
+  const container = document.getElementById("week-selector");
+  container.innerHTML = `
+    <button class="btn ${currentWeek === "actual" ? "active" : ""}" data-week="actual">📅 ASTE HONETAKO EMAITZAK</button>
+    <button class="btn ${currentWeek === "anterior" ? "active" : ""}" data-week="anterior">📆 AURREKO ASTEKO EMAITZAK</button>
+  `;
+  
+  document.querySelectorAll('#week-selector .btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentWeek = btn.dataset.week;
+      renderWeekSelector();
+      renderTorneoSelector();
+      renderKategoriaChips();
+      renderResults();
+    });
+  });
+}
+
+function renderTorneoSelector() {
+  const container = document.getElementById("torneo-selector");
+  const torneos = [
+    { id: "fnp", label: "🏅 FNP", class: "fnp" },
+    { id: "beste", label: "🏛️ BESTE OFIZIALAK", class: "beste" },
+    { id: "ez", label: "⚪ EZ OFIZIALAK", class: "ez" }
+  ];
+  
+  let html = '';
+  for (const t of torneos) {
+    const activeClass = currentTorneo === t.id ? 'active' : '';
+    html += `<button class="btn btn-torneo ${t.class} ${activeClass}" data-torneo="${t.id}">${t.label}</button>`;
+  }
+  container.innerHTML = html;
+  
+  document.querySelectorAll('#torneo-selector .btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentTorneo = btn.dataset.torneo;
+      renderTorneoSelector();
+      renderKategoriaChips();
+      renderResults();
+    });
+  });
+}
+
+function renderKategoriaChips() {
+  let matches = filterByWeek(loadedMatches, currentWeek);
+  matches = matches.filter(m => {
+    if (currentTorneo === "fnp") return m.origen === "oficial";
+    if (currentTorneo === "beste") return m.origen === "no-oficial" && m.ofiziala === true;
+    if (currentTorneo === "ez") return m.origen === "no-oficial" && m.ofiziala === false;
+    return true;
+  });
+  
+  const kategoriaSet = new Set();
+  for (const m of matches) {
+    kategoriaSet.add(getKategoriaFromText(m.modalidad));
+  }
+  
+  const kategorias = Array.from(kategoriaSet).sort((a,b) => {
+    const idxA = kategoriaOrdena.findIndex(k => k.izena === a);
+    const idxB = kategoriaOrdena.findIndex(k => k.izena === b);
+    if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
+  });
+  
+  const container = document.getElementById("kategoria-chips");
+  let html = `<div class="chip ${currentKategoria === 'GUZTIAK' ? 'active' : ''}" data-kat="GUZTIAK">🌐 GUZTIAK</div>`;
+  for (const kat of kategorias) {
+    html += `<div class="chip ${currentKategoria === kat ? 'active' : ''}" data-kat="${kat}">${kat}</div>`;
+  }
+  container.innerHTML = html;
+  
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      currentKategoria = chip.dataset.kat;
+      renderKategoriaChips();
+      renderResults();
+    });
+  });
+}
+
+function renderResults() {
+  const container = document.getElementById("results-container");
+  let matches = filterByWeek(loadedMatches, currentWeek);
+  
+  matches = matches.filter(m => {
+    if (currentTorneo === "fnp") return m.origen === "oficial";
+    if (currentTorneo === "beste") return m.origen === "no-oficial" && m.ofiziala === true;
+    if (currentTorneo === "ez") return m.origen === "no-oficial" && m.ofiziala === false;
+    return true;
+  });
+  
+  if (matches.length === 0) {
+    container.innerHTML = '<div class="empty">🏆 Ez dago partidarik aste honetan.</div>';
+    return;
+  }
+  
+  // Agrupar por categoría
+  const byCat = new Map();
+  for (const m of matches) {
+    const kat = getKategoriaFromText(m.modalidad);
+    if (currentKategoria !== "GUZTIAK" && kat !== currentKategoria) continue;
+    if (!byCat.has(kat)) byCat.set(kat, []);
+    byCat.get(kat).push(m);
+  }
+  
+  const sortedCats = Array.from(byCat.keys()).sort((a,b) => {
+    const idxA = kategoriaOrdena.findIndex(k => k.izena === a);
+    const idxB = kategoriaOrdena.findIndex(k => k.izena === b);
+    if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
+  });
+  
+  const torneoConfig = {
+    fnp: { label: "🏅 FNP (OFIZIALAK)", color: "#003366" },
+    beste: { label: "🏛️ BESTE OFIZIALAK", color: "#198754" },
+    ez: { label: "⚪ EZ OFIZIALAK", color: "#b00000" }
+  };
+  const cfg = torneoConfig[currentTorneo];
+  
+  let html = `<div class="torneo-block">
+    <div class="torneo-header" style="background: ${cfg.color}">${cfg.label}</div>`;
+  
+  for (const kat of sortedCats) {
+    const partidak = byCat.get(kat);
+    const katColor = kategoriaOrdena.find(k => k.izena === kat)?.kolorea || "#ccc";
+    
+    partidak.sort((a,b) => a._date - b._date);
+    
+    html += `<div class="categoria-section">
+      <div class="categoria-header" style="border-left-color: ${katColor}">
+        <span>⚾ ${kat}</span>
+        <span style="font-size:0.9rem; background:#f0f0f0; padding:2px 12px; border-radius:30px;">${partidak.length} partida</span>
+      </div>`;
+    
+    for (const p of partidak) {
+      const isFinal = p.fase_mostrar === "FINALA";
+      let cardClass = "match-card";
+      if (isFinal) cardClass += " final";
+      
+      const larraunWin = isLarraunWin(p);
+      
+      // Procesar textos de los equipos - limpiar LARRAUN duplicado
+      const etxekoaLimpio = limpiarTextoPilota(p.etxekoa);
+      const kanpokoaLimpio = limpiarTextoPilota(p.kanpokoak);
+      
+      const etxekoaInfo = separarNombres(etxekoaLimpio);
+      const kanpokoaInfo = separarNombres(kanpokoaLimpio);
+      
+      const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
+      const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+      
+      // Formatear fecha
+      let fechaFormateada = p.fecha;
+      if (p.fecha && p.fecha.includes('/')) {
+        const parts = p.fecha.split('/');
+        if (parts.length === 3) {
+          fechaFormateada = `${parts[0]}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
+        }
+      }
+      
+      // Tanteo con azul y rojo
+      let tanteoHTML = "";
+      if (p.tanteoa && p.tanteoa.includes("-")) {
+        const [local, visit] = p.tanteoa.split("-").map(x => x.trim());
+        tanteoHTML = `<div class="tanteo-container">
+          <span class="tanteo-local">${local}</span>
+          <span class="tanteo-bisita">${visit}</span>
+        </div>`;
+      }
+      
+      const setsHTML = p.sets && p.sets.length ? `<span class="sets-text">🎯 ${formatSets(p.sets)}</span>` : "";
+      const resultadoHTML = p.emaitza ? `<span class="resultado-text ${larraunWin ? 'irabazi' : 'galdu'}">${larraunWin ? 'IRABAZI' : 'GALDUTA'}</span>` : "";
+      
+      // Enlace del modalidad
+      const linkHTML = p.url && p.url !== "-" ? 
+        `<a href="${p.url}" target="_blank" class="modalidad-link">🔗 ${p.modalidad || ""} <span class="click-info">(ℹ️ klikatu informazio gehiago)</span></a>` :
+        `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""} <span class="click-info">(ℹ️ informazio gehiago)</span></span>`;
+      
+      html += `<div class="${cardClass}" style="border-left-color: ${katColor}">
+        <div class="info-line">
+          <span>📅 ${fechaFormateada}</span>
+          <span class="fronton-text">📍 ${p.fronton || "Frontoia"}</span>
+        </div>
+        
+        <div class="etxekoa-line">
+          🏠 ${etxekoaInfo.principal}
+          ${etxekoaInfo.secundario ? `<span class="info-adicional">[${etxekoaInfo.secundario}]</span>` : ''}
+          ${etxekoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+        </div>
+        
+        <div class="kanpokoa-line">
+          ✈️ ${kanpokoaInfo.principal}
+          ${kanpokoaInfo.secundario ? `<span class="info-adicional">[${kanpokoaInfo.secundario}]</span>` : ''}
+          ${kanpokoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+        </div>
+        
+        <div class="resultado-line">
+          ${tanteoHTML}
+          ${setsHTML ? `${tanteoHTML ? '|' : ''} ${setsHTML}` : ''}
+          ${resultadoHTML ? `${(tanteoHTML || setsHTML) ? '|' : ''} ${resultadoHTML}` : ''}
+        </div>
+        
+        <div>${linkHTML}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// ==================== INICIO ====================
+async function init() {
+  await loadKategoriak();
+  loadedMatches = await loadMatches();
+  
+  if (loadedMatches.length === 0) {
+    document.getElementById("results-container").innerHTML = '<div class="empty">❌ Ez da partidarik aurkitu.</div>';
+    return;
+  }
+  
+  renderWeekSelector();
+  renderTorneoSelector();
+  renderKategoriaChips();
+  renderResults();
+}
+
+init();
+</script>
+</body>
+</html>
