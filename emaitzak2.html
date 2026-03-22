@@ -127,62 +127,6 @@
       background: linear-gradient(135deg, #fffef7, #fff6e0);
       border-left-width: 8px;
     }
-    .win-badge {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      padding: 4px 12px;
-      border-radius: 30px;
-    }
-    .win-badge.irabazi {
-      background: #1b8f3a;
-      color: white;
-    }
-    .win-badge.galdu {
-      background: #b00000;
-      color: white;
-    }
-    .score {
-      display: inline-flex;
-      background: #1e293b;
-      border-radius: 50px;
-      padding: 4px 16px;
-      gap: 16px;
-      margin: 8px 0;
-    }
-    .score span {
-      font-size: 1.5rem;
-      font-weight: 800;
-      padding: 2px 12px;
-      border-radius: 30px;
-      color: white;
-    }
-    .score .local { background: #0d47a1; }
-    .score .visit { background: #b71c1c; }
-    .modalidad-link {
-      display: inline-block;
-      background: #e9ecef;
-      padding: 6px 18px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 700;
-      color: #004d40;
-      margin-top: 8px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    .modalidad-link:hover {
-      background: #ffd966;
-      transform: scale(1.02);
-    }
-    .click-info {
-      font-size: 0.7rem;
-      color: #6c757d;
-      margin-left: 8px;
-      display: inline-block;
-    }
     .empty {
       text-align: center;
       padding: 48px;
@@ -202,32 +146,32 @@
       font-size: 1.3rem;
       color: #b30000;
     }
+    
+    /* Estilos para los textos */
     .etxekoa-line {
       color: #0d47a1;
       font-weight: bold;
       font-size: 1.1rem;
-      margin: 8px 0;
+      margin: 6px 0;
     }
     .kanpokoa-line {
       color: #b71c1c;
       font-weight: bold;
       font-size: 1.1rem;
-      margin: 8px 0;
+      margin: 6px 0;
     }
-    .larraun-destacado {
-      font-weight: 900;
-      font-size: 1.2rem;
-      background: #ffecb3;
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 20px;
+    .info-adicional {
+      font-size: 0.7rem;
+      color: #5a6e7c;
+      font-weight: normal;
+      margin-left: 6px;
     }
     .info-line {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: 16px;
-      margin: 6px 0;
+      gap: 12px;
+      margin: 8px 0 4px 0;
       font-size: 0.9rem;
       color: #3a546d;
     }
@@ -236,12 +180,69 @@
       padding: 2px 8px;
       border-radius: 20px;
     }
-    .resultado-text {
-      font-weight: 700;
-      font-size: 0.9rem;
+    .resultado-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+      margin: 8px 0;
+      font-size: 0.95rem;
+      font-weight: 500;
     }
-    .resultado-text.irabazi { color: #1b8f3a; }
-    .resultado-text.galdu { color: #b00000; }
+    .tanteo-text {
+      background: #1e293b;
+      color: white;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .sets-text {
+      color: #2c3e50;
+      background: #f1f5f9;
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+    .resultado-text.irabazi {
+      color: #1b8f3a;
+      font-weight: 700;
+    }
+    .resultado-text.galdu {
+      color: #b00000;
+      font-weight: 700;
+    }
+    .modalidad-link {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 6px 18px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      color: #004d40;
+      margin-top: 8px;
+      transition: 0.2s;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .modalidad-link:hover {
+      background: #ffd966;
+      transform: scale(1.02);
+    }
+    .click-info {
+      font-size: 0.65rem;
+      color: #6c757d;
+      margin-left: 6px;
+      font-weight: normal;
+    }
+    .larraun-destacado {
+      font-weight: 900;
+      font-size: 1.2rem;
+      background: #ffecb3;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-left: 6px;
+    }
   </style>
 </head>
 <body>
@@ -303,14 +304,26 @@ function formatSets(sets) {
   return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
 }
 
-function limpiarTextoPilota(texto) {
-  if (!texto) return "";
-  // Eliminar "LARRAUN" duplicado al final si ya está al principio
-  const upper = texto.toUpperCase();
-  if (upper.startsWith("LARRAUN") && upper.endsWith("LARRAUN")) {
-    return texto.substring(0, texto.length - 7).trim();
+// Función para limpiar el texto: eliminar "LARRAUN" duplicado y separar nombres
+function procesarTextoPilota(texto, esLarraun) {
+  if (!texto) return { principal: "", secundario: "" };
+  
+  let limpio = texto;
+  // Eliminar "LARRAUN" duplicado al final
+  if (limpio.toUpperCase().endsWith("LARRAUN")) {
+    limpio = limpio.substring(0, limpio.length - 7).trim();
   }
-  return texto;
+  
+  // Buscar el patrón: nombre principal (algo en paréntesis) y luego el resto
+  const parenMatch = limpio.match(/^([^\(]+\([^\)]+\))\s*(.*)$/);
+  if (parenMatch) {
+    return {
+      principal: parenMatch[1].trim(),
+      secundario: parenMatch[2].trim()
+    };
+  }
+  
+  return { principal: limpio, secundario: "" };
 }
 
 function isLarraunWin(m) {
@@ -413,9 +426,10 @@ const SOURCES = [
   { url: "/data/resultados-no-oficiales.json", origen: "no-oficial" }
 ];
 
-let allMatches = [];
-let thisWeekMatches = [];
-let lastWeekMatches = [];
+let loadedMatches = [];
+let currentWeek = "actual";
+let currentTorneo = "fnp";
+let currentKategoria = "GUZTIAK";
 
 async function loadMatches() {
   const all = await Promise.all(
@@ -459,12 +473,7 @@ function filterByWeek(matches, weekType) {
   }
 }
 
-// ==================== ESTADO Y RENDER ====================
-let currentWeek = "actual";
-let currentTorneo = "fnp";
-let currentKategoria = "GUZTIAK";
-let loadedMatches = [];
-
+// ==================== RENDER ====================
 function renderWeekSelector() {
   const container = document.getElementById("week-selector");
   container.innerHTML = `
@@ -609,46 +618,63 @@ function renderResults() {
       if (isFinal) cardClass += " final";
       
       const larraunWin = isLarraunWin(p);
-      const larraunPresent = (p.etxekoa || "").toUpperCase().includes("LARRAUN") || (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
       
-      // Limpiar textos duplicados
-      const etxekoaLimpio = limpiarTextoPilota(p.etxekoa);
-      const kanpokoaLimpio = limpiarTextoPilota(p.kanpokoak);
+      // Procesar textos de los equipos
+      const etxekoaInfo = procesarTextoPilota(p.etxekoa, true);
+      const kanpokoaInfo = procesarTextoPilota(p.kanpokoak, false);
       
       const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
       const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
       
-      // Marcador
-      let marcadorHTML = "";
-      if (p.tanteoa && p.tanteoa.includes("-")) {
-        const [local, visit] = p.tanteoa.split("-").map(x => x.trim());
-        marcadorHTML = `<div class="score"><span class="local">${local}</span><span class="visit">${visit}</span></div>`;
+      // Formatear fecha
+      let fechaFormateada = p.fecha;
+      if (p.fecha && p.fecha.includes('/')) {
+        const parts = p.fecha.split('/');
+        if (parts.length === 3) {
+          fechaFormateada = `${parts[0]}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
+        }
       }
       
-      const setsHTML = p.sets && p.sets.length ? `<span>🎯 ${formatSets(p.sets)}</span>` : "";
+      // Línea de fecha y frontón
+      const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "fronton-destacado" : "";
+      
+      // Línea de resultado (tanteo, sets, resultado)
+      let tanteoHTML = "";
+      if (p.tanteoa && p.tanteoa.includes("-")) {
+        tanteoHTML = `<span class="tanteo-text">${p.tanteoa}</span>`;
+      }
+      
+      const setsHTML = p.sets && p.sets.length ? `<span class="sets-text">🎯 ${formatSets(p.sets)}</span>` : "";
       const resultadoHTML = p.emaitza ? `<span class="resultado-text ${larraunWin ? 'irabazi' : 'galdu'}">${larraunWin ? 'IRABAZI' : 'GALDUTA'}</span>` : "";
       
-      const frontonClass = /lekunberri|aldatz/i.test(p.fronton || "") ? "fronton-destacado" : "";
+      // Enlace del modalidad
       const linkHTML = p.url && p.url !== "-" ? 
         `<a href="${p.url}" target="_blank" class="modalidad-link">🔗 ${p.modalidad || ""} <span class="click-info">(ℹ️ klikatu informazio gehiago)</span></a>` :
         `<span class="modalidad-link" style="background:#e2e3e5; cursor:default;">🏆 ${p.modalidad || ""} <span class="click-info">(ℹ️ informazio gehiago)</span></span>`;
       
       html += `<div class="${cardClass}" style="border-left-color: ${katColor}">
         <div class="info-line">
-          <span>📅 ${p.fecha}</span>
+          <span>📅 ${fechaFormateada}</span>
           <span class="fronton-text">📍 ${p.fronton || "Frontoia"}</span>
-          ${resultadoHTML ? `<span>| ${resultadoHTML}</span>` : ''}
-          ${setsHTML ? `<span>| ${setsHTML}</span>` : ''}
         </div>
         
         <div class="etxekoa-line">
-          🏠 ${etxekoaLimpio} ${etxekoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
-        </div>
-        <div class="kanpokoa-line">
-          ✈️ ${kanpokoaLimpio} ${kanpokoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+          🏠 ${etxekoaInfo.principal}
+          ${etxekoaInfo.secundario ? `<span class="info-adicional">[${etxekoaInfo.secundario}]</span>` : ''}
+          ${etxekoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
         </div>
         
-        ${marcadorHTML}
+        <div class="kanpokoa-line">
+          ✈️ ${kanpokoaInfo.principal}
+          ${kanpokoaInfo.secundario ? `<span class="info-adicional">[${kanpokoaInfo.secundario}]</span>` : ''}
+          ${kanpokoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
+        </div>
+        
+        <div class="resultado-line">
+          ${tanteoHTML}
+          ${setsHTML ? `| ${setsHTML}` : ''}
+          ${resultadoHTML ? `| ${resultadoHTML}` : ''}
+        </div>
         
         <div>${linkHTML}</div>
       </div>`;
