@@ -529,6 +529,48 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-03-08",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "AGOITZ (E. Arcelus - E. Balisa) ARCELUS GARCIA, E. BALISA IRIBARREN, E.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-6) (9-5)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-13",
+    "fronton": "Larrión-Allín - Municipal",
+    "etxekoa": "SAN MIGUEL (E. Argandoña - I. Echeverria) ECHEVERRIA SALTO, I. GARCIA ARIZALETA, M.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(2-9) (3-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "ABAXITABIDEA (U. Oteiza - T. Berruezo) OTEIZA AGIRRE, U. BERRUEZO PEREZ DE OBANOS, T.",
+    "tanteoa": "1-2",
+    "sets": [
+      "(8-9) (9-1) (1-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3107&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-03-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda) ARGAÑA ARRIBILLAGA, M. BALDA ETXEBERRIA, E.",
@@ -803,12 +845,12 @@
     "fecha": "2026-03-19",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
-    "kanpokoak": "PILOTAJAUKU (A. Azkona - U. Fresneda)",
-    "tanteoa": "22-0",
+    "kanpokoak": "PILOTAJAUKU (A. Azkona - U. Fresneda) *Equipo no presentado",
+    "tanteoa": "22-0*",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3114&temp=2025",
-    "emaitza": "irabazita",
+    "emaitza": "berdinketa",
     "ofiziala": true
   },
   {
@@ -1044,18 +1086,6 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026-03-19",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (I. Ijurko - E. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
-    "kanpokoak": "ERREKA (H. Fagoaga - I. Ancizar)",
-    "tanteoa": "22-0",
-    "sets": [],
-    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3119&temp=2025",
-    "emaitza": "irabazita",
-    "ofiziala": true
-  },
-  {
     "fecha": "2026-03-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola) ARTOLA ASTIBIA, A. ETXEPARE GONZALEZ, M.",
@@ -1082,13 +1112,13 @@
   {
     "fecha": "2026-03-21",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
-    "kanpokoak": "ESTERIBAR (U. Esain - A. Azcune)",
-    "tanteoa": "22-0",
+    "etxekoa": "LARRAUN (M. Etxepare - A. Artola) ETXEPARE GONZALEZ, M. ARTOLA ASTIBIA, A.",
+    "kanpokoak": "ESTERIBAR (U. Esain - A. Azcune) *Equipo no presentado",
+    "tanteoa": "22-0*",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3120&temp=2025",
-    "emaitza": "irabazita",
+    "emaitza": "berdinketa",
     "ofiziala": true
   },
   {
@@ -1113,6 +1143,18 @@
     "modalidad": "KOPA ESKUZ KOPA - ESKUZ BANAKA 4½ 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3137&temp=2025",
     "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-03-20",
+    "fronton": "Zizur Mayor - Ardoi",
+    "etxekoa": "ARDOI (E. Eraso)",
+    "kanpokoak": "LARRAUN (X. Telletxea) *Equipo no presentado",
+    "tanteoa": "18-0*",
+    "sets": [],
+    "modalidad": "KOPA ESKUZ KOPA - ESKUZ BANAKA 4½ 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3137&temp=2025",
+    "emaitza": "berdinketa",
     "ofiziala": true
   },
   {
