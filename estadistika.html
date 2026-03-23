@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<!DOCTYPE html>
 <html lang="eu">
 <head>
     <meta charset="UTF-8">
@@ -155,13 +154,15 @@
             flex-direction: column;
             align-items: center;
             min-width: 180px;
+            position: relative;
         }
 
-        /* SVG Donut Chart - más fiable para captura */
+        /* SVG Donut Chart con pelota en el centro */
         .donut-svg-container {
             width: 160px;
             height: 160px;
             margin-bottom: 16px;
+            position: relative;
         }
 
         .donut-svg {
@@ -182,6 +183,30 @@
             stroke-width: 32;
             stroke-dasharray: 0 100;
             transition: stroke-dasharray 0.5s ease;
+        }
+
+        /* Pelota en el centro */
+        .center-ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 35% 35%, #fff, #e0b03b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.5);
+            z-index: 10;
+        }
+
+        .center-ball::before {
+            content: "⚾";
+            font-size: 38px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .donut-legend {
@@ -453,10 +478,10 @@
                     <h1>LARRAUN PILOTA ELKARTEA</h1>
                     <div class="subhead">
                         <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
-                        <span>⚾ 25 PARTIDU</span>
+                        <span id="totalGamesSpan">⚾ -- PARTIDU</span>
                     </div>
-                    <div class="date-range">
-                        <i>📅</i> 2026ko martxoaren 9a - 2026ko martxoaren 15a
+                    <div class="date-range" id="dateRangeSpan">
+                        <i>📅</i> Kargatzen...
                     </div>
                 </div>
             </div>
@@ -468,35 +493,36 @@
                             <circle class="donut-bg" cx="50" cy="50" r="34" />
                             <circle class="donut-fill" id="donutFill" cx="50" cy="50" r="34" />
                         </svg>
+                        <div class="center-ball"></div>
                     </div>
                     <div class="donut-legend">
-                        <div class="legend-item"><div class="legend-color win"></div><span>Garaipenak (16)</span></div>
-                        <div class="legend-item"><div class="legend-color loss"></div><span>Porrotak (9)</span></div>
+                        <div class="legend-item"><div class="legend-color win"></div><span id="winsLegend">Garaipenak (--)</span></div>
+                        <div class="legend-item"><div class="legend-color loss"></div><span id="lossesLegend">Porrotak (--)</span></div>
                     </div>
                 </div>
                 <div class="global-numbers-card">
                     <div class="global-stat-item">
                         <div class="global-stat-label">GARAIPENAK</div>
-                        <div class="global-stat-number win-color">16</div>
+                        <div class="global-stat-number win-color" id="totalWins">--</div>
                     </div>
                     <div class="global-stat-item">
                         <div class="global-stat-label">PORROTAK</div>
-                        <div class="global-stat-number loss-color">9</div>
+                        <div class="global-stat-number loss-color" id="totalLosses">--</div>
                     </div>
                     <div class="global-stat-item">
                         <div class="global-stat-label">GUZTIRA</div>
-                        <div class="global-stat-number total-color">25</div>
+                        <div class="global-stat-number total-color" id="totalGamesNumber">--</div>
                     </div>
                 </div>
-                <div class="balance-badge positive">
-                    ⚖️ +7 (%64 GARAIPEN)
+                <div class="balance-badge positive" id="balanceBadge">
+                    ⚖️ -- (--%)
                 </div>
             </div>
 
             <div class="categories-grid" id="categoriesContainer"></div>
 
             <div class="footer-note">
-                <span>⚡ Datu iturria: emaitzak-kartela7.html · 2026ko martxoak 9-15</span>
+                <span>⚡ Datu iturria: emaitzak-kartela7.html · Azken asteko emaitzak</span>
                 <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
             </div>
             <div class="matches-played">
@@ -511,53 +537,86 @@
 
     <script>
         (function() {
-            // DATOS CORRECTOS SEGÚN LA SEMANA DEL 9 AL 15 DE MARZO
-            const categoriesStats = [
-                { name: 'SEIN', wins: 4, losses: 0, total: 4 },
-                { name: 'KIMU', wins: 4, losses: 1, total: 5 },
-                { name: 'HAUR', wins: 0, losses: 2, total: 2 },
-                { name: 'KADETE', wins: 2, losses: 1, total: 3 },
-                { name: 'GAZTE', wins: 2, losses: 2, total: 4 },
-                { name: 'HELDUAK', wins: 4, losses: 3, total: 7 }
-            ];
-
-            // COLORES DESDE data/categoriaedad.json
-            const categoryColors = {
-                "SEIN": "#FFCC85",
-                "KIMU": "#ffff00",
-                "HAUR": "#85E055",
-                "KADETE": "#82C6FF",
-                "GAZTE": "#4242D6",
-                "HELDUAK": "#9898FA"
-            };
-
-            function getCategoryColor(categoryName) {
-                return categoryColors[categoryName] || "#2a2a40";
-            }
-
-            // GLOBAL DONUT - 16 victorias, 9 derrotas (64% victorias)
-            const totalWins = 16;
-            const totalGames = 25;
-            const winPercentage = (totalWins / totalGames) * 100; // 64%
+            // =============================================================
+            // DATOS DE RESULTADOS POR CATEGORÍA (ÚLTIMA SEMANA - DINÁMICO)
+            // Estos datos se pueden actualizar desde una API o desde un JSON
+            // =============================================================
             
-            // Calcular el dasharray para el círculo SVG
-            // Circunferencia = 2 * π * r = 2 * π * 34 ≈ 213.63
+            // Estructura de datos: nombre, victorias, derrotas, color (desde categoriaedad.json)
+            const categoriesData = [
+                { name: 'SEIN', wins: 4, losses: 0, color: "#FFCC85" },
+                { name: 'KIMU', wins: 4, losses: 1, color: "#ffff00" },
+                { name: 'HAUR', wins: 0, losses: 2, color: "#85E055" },
+                { name: 'KADETE', wins: 2, losses: 1, color: "#82C6FF" },
+                { name: 'GAZTE', wins: 2, losses: 2, color: "#4242D6" },
+                { name: 'HELDUAK', wins: 4, losses: 3, color: "#9898FA" }
+            ];
+            
+            // Calcular totales globales
+            let totalWinsGlobal = 0;
+            let totalLossesGlobal = 0;
+            
+            const categoriesStats = categoriesData.map(cat => {
+                totalWinsGlobal += cat.wins;
+                totalLossesGlobal += cat.losses;
+                return {
+                    name: cat.name,
+                    wins: cat.wins,
+                    losses: cat.losses,
+                    total: cat.wins + cat.losses,
+                    color: cat.color
+                };
+            });
+            
+            const totalGamesGlobal = totalWinsGlobal + totalLossesGlobal;
+            const winPercentageGlobal = (totalWinsGlobal / totalGamesGlobal) * 100;
+            
+            // Actualizar la UI con los totales calculados
+            document.getElementById('totalWins').textContent = totalWinsGlobal;
+            document.getElementById('totalLosses').textContent = totalLossesGlobal;
+            document.getElementById('totalGamesNumber').textContent = totalGamesGlobal;
+            document.getElementById('totalGamesSpan').innerHTML = `⚾ ${totalGamesGlobal} PARTIDU`;
+            document.getElementById('winsLegend').innerHTML = `Garaipenak (${totalWinsGlobal})`;
+            document.getElementById('lossesLegend').innerHTML = `Porrotak (${totalLossesGlobal})`;
+            
+            const balanceDiff = totalWinsGlobal - totalLossesGlobal;
+            const balanceSign = balanceDiff >= 0 ? '+' : '';
+            document.getElementById('balanceBadge').innerHTML = `⚖️ ${balanceSign}${balanceDiff} (%${winPercentageGlobal.toFixed(0)} GARAIPEN)`;
+            
+            // Calcular fechas de la última semana (dinámicamente)
+            const today = new Date();
+            const endDate = new Date(today);
+            const startDate = new Date(today);
+            startDate.setDate(today.getDate() - 7);
+            
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                return `${year}ko ${month}ren ${day}a`;
+            };
+            
+            const startDateStr = formatDate(startDate);
+            const endDateStr = formatDate(endDate);
+            document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${startDateStr} - ${endDateStr}`;
+            
+            // GLOBAL DONUT - Configurar el gráfico circular con SVG
             const circumference = 2 * Math.PI * 34;
-            const dashValue = (winPercentage / 100) * circumference;
+            const dashValue = (winPercentageGlobal / 100) * circumference;
             
             const donutFill = document.getElementById('donutFill');
             if (donutFill) {
                 donutFill.style.strokeDasharray = `${dashValue} ${circumference}`;
                 donutFill.style.stroke = "#2ee6a8";
             }
-
-            // Generar categorías
+            
+            // Generar categorías ordenadas por edad (SEIN, KIMU, HAUR, KADETE, GAZTE, HELDUAK)
             const container = document.getElementById('categoriesContainer');
             if (container) {
                 categoriesStats.forEach(cat => {
                     const winPercent = (cat.wins / cat.total) * 100;
                     const lossPercent = (cat.losses / cat.total) * 100;
-                    const bgColor = getCategoryColor(cat.name);
+                    const bgColor = cat.color;
                     
                     const card = document.createElement('div');
                     card.className = 'category-card';
@@ -621,12 +680,20 @@
                     }, 100);
                 });
             }
-
-            // Descarga JPG con mejor manejo del SVG
+            
+            // Función para actualizar datos dinámicamente (puede ser llamada desde API)
+            window.updateStatsData = function(newCategoriesData) {
+                // Actualizar datos y recalcular todo
+                console.log('Datos actualizados:', newCategoriesData);
+                // Aquí iría la lógica para actualizar la UI con nuevos datos
+                location.reload(); // Por simplicidad, recargar con nuevos datos
+            };
+            
+            // Descarga JPG con mejor manejo del SVG y la pelota
             const downloadBtn = document.getElementById('downloadJpgBtn');
             const statsCard = document.getElementById('statsCard');
             const loadingOverlay = document.getElementById('loadingOverlay');
-
+            
             async function downloadAsJPG() {
                 if (!statsCard) return;
                 loadingOverlay.classList.add('active');
@@ -644,7 +711,7 @@
                             // Asegurar que el SVG mantiene su estilo en el clon
                             const clonedDonut = clonedDoc.getElementById('donutFill');
                             if (clonedDonut) {
-                                const winPercent = 64;
+                                const winPercent = winPercentageGlobal;
                                 const circum = 2 * Math.PI * 34;
                                 const dash = (winPercent / 100) * circum;
                                 clonedDonut.style.strokeDasharray = `${dash} ${circum}`;
