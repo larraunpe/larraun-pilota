@@ -157,7 +157,6 @@
             position: relative;
         }
 
-        /* SVG Donut Chart con pelota en el centro */
         .donut-svg-container {
             width: 160px;
             height: 160px;
@@ -185,7 +184,6 @@
             transition: stroke-dasharray 0.5s ease;
         }
 
-        /* Pelota en el centro */
         .center-ball {
             position: absolute;
             top: 50%;
@@ -437,23 +435,6 @@
             color: #1e1e2f;
         }
 
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-            }
-            .stats-card {
-                background: white;
-                box-shadow: none;
-                border: 1px solid #ccc;
-                padding: 20px;
-            }
-            .download-btn-container {
-                display: none;
-            }
-        }
-
         @media (max-width: 700px) {
             .stats-card { padding: 28px 18px; }
             .title-section h1 { font-size: 1.5rem; }
@@ -478,7 +459,7 @@
                     <h1>LARRAUN PILOTA ELKARTEA</h1>
                     <div class="subhead">
                         <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
-                        <span id="totalGamesSpan">⚾ -- PARTIDU</span>
+                        <span id="totalGamesSpan">⚾ Kargatzen...</span>
                     </div>
                     <div class="date-range" id="dateRangeSpan">
                         <i>📅</i> Kargatzen...
@@ -519,14 +500,16 @@
                 </div>
             </div>
 
-            <div class="categories-grid" id="categoriesContainer"></div>
+            <div class="categories-grid" id="categoriesContainer">
+                <div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">Kargatzen...</div>
+            </div>
 
             <div class="footer-note">
-                <span>⚡ Datu iturria: emaitzak-kartela7.html · Azken asteko emaitzak</span>
+                <span>⚡ Datu iturria: resultados-larraun.json · resultados-no-oficiales.json</span>
                 <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
             </div>
             <div class="matches-played">
-                📊 Gazta-grafiko globala + barra horizontalak kategoria bakoitzeko · Kategoriak adinaren arabera ordenatuta
+                📊 Azken asteko emaitzak automatikoki kalkulatuak · Kategoriak adinaren arabera ordenatuta
             </div>
         </div>
     </div>
@@ -537,159 +520,216 @@
 
     <script>
         (function() {
-            // =============================================================
-            // DATOS DE RESULTADOS POR CATEGORÍA (ÚLTIMA SEMANA - DINÁMICO)
-            // Estos datos se pueden actualizar desde una API o desde un JSON
-            // =============================================================
-            
-            // Estructura de datos: nombre, victorias, derrotas, color (desde categoriaedad.json)
-            const categoriesData = [
-                { name: 'SEIN', wins: 4, losses: 0, color: "#FFCC85" },
-                { name: 'KIMU', wins: 4, losses: 1, color: "#ffff00" },
-                { name: 'HAUR', wins: 0, losses: 2, color: "#85E055" },
-                { name: 'KADETE', wins: 2, losses: 1, color: "#82C6FF" },
-                { name: 'GAZTE', wins: 2, losses: 2, color: "#4242D6" },
-                { name: 'HELDUAK', wins: 4, losses: 3, color: "#9898FA" }
-            ];
-            
-            // Calcular totales globales
-            let totalWinsGlobal = 0;
-            let totalLossesGlobal = 0;
-            
-            const categoriesStats = categoriesData.map(cat => {
-                totalWinsGlobal += cat.wins;
-                totalLossesGlobal += cat.losses;
-                return {
-                    name: cat.name,
-                    wins: cat.wins,
-                    losses: cat.losses,
-                    total: cat.wins + cat.losses,
-                    color: cat.color
+            // Mapeo de categorías a partir de la modalidad en los partidos
+            const categoriaMapping = {
+                'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3'],
+                'KIMU': ['KIMU 1', 'KIMU 2', 'KIMU 4', 'KIMU'],
+                'HAUR': ['HAUR 1', 'HAUR 3', 'HAUR'],
+                'KADETE': ['KADETE 1', 'KADETE'],
+                'GAZTE': ['GAZTE 1', 'GAZTE 2', 'GAZTE'],
+                'HELDUAK': ['SENIOR', 'HELDUAK', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK']
+            };
+
+            // Colores desde categoriaedad.json
+            const categoryColors = {
+                "SEIN": "#FFCC85",
+                "KIMU": "#ffff00",
+                "HAUR": "#85E055",
+                "KADETE": "#82C6FF",
+                "GAZTE": "#4242D6",
+                "HELDUAK": "#9898FA"
+            };
+
+            // Orden de categorías por edad
+            const categoryOrder = ['SEIN', 'KIMU', 'HAUR', 'KADETE', 'GAZTE', 'HELDUAK'];
+
+            function getCategoryFromModalidad(modalidad) {
+                const modalidadUpper = modalidad.toUpperCase();
+                for (const [categoria, keywords] of Object.entries(categoriaMapping)) {
+                    for (const keyword of keywords) {
+                        if (modalidadUpper.includes(keyword.toUpperCase())) {
+                            return categoria;
+                        }
+                    }
+                }
+                return null;
+            }
+
+            function getWeekRange() {
+                const today = new Date();
+                // Semana anterior: del lunes al domingo
+                const startDate = new Date(today);
+                startDate.setDate(today.getDate() - today.getDay() - 6); // Lunes de la semana pasada
+                const endDate = new Date(today);
+                endDate.setDate(today.getDate() - today.getDay()); // Domingo de la semana pasada
+                
+                const formatDate = (date) => {
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;
+                    const day = date.getDate();
+                    return `${year}ko ${month}ren ${day}a`;
                 };
-            });
-            
-            const totalGamesGlobal = totalWinsGlobal + totalLossesGlobal;
-            const winPercentageGlobal = (totalWinsGlobal / totalGamesGlobal) * 100;
-            
-            // Actualizar la UI con los totales calculados
-            document.getElementById('totalWins').textContent = totalWinsGlobal;
-            document.getElementById('totalLosses').textContent = totalLossesGlobal;
-            document.getElementById('totalGamesNumber').textContent = totalGamesGlobal;
-            document.getElementById('totalGamesSpan').innerHTML = `⚾ ${totalGamesGlobal} PARTIDU`;
-            document.getElementById('winsLegend').innerHTML = `Garaipenak (${totalWinsGlobal})`;
-            document.getElementById('lossesLegend').innerHTML = `Porrotak (${totalLossesGlobal})`;
-            
-            const balanceDiff = totalWinsGlobal - totalLossesGlobal;
-            const balanceSign = balanceDiff >= 0 ? '+' : '';
-            document.getElementById('balanceBadge').innerHTML = `⚖️ ${balanceSign}${balanceDiff} (%${winPercentageGlobal.toFixed(0)} GARAIPEN)`;
-            
-            // Calcular fechas de la última semana (dinámicamente)
-            const today = new Date();
-            const endDate = new Date(today);
-            const startDate = new Date(today);
-            startDate.setDate(today.getDate() - 7);
-            
-            const formatDate = (date) => {
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                return `${year}ko ${month}ren ${day}a`;
-            };
-            
-            const startDateStr = formatDate(startDate);
-            const endDateStr = formatDate(endDate);
-            document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${startDateStr} - ${endDateStr}`;
-            
-            // GLOBAL DONUT - Configurar el gráfico circular con SVG
-            const circumference = 2 * Math.PI * 34;
-            const dashValue = (winPercentageGlobal / 100) * circumference;
-            
-            const donutFill = document.getElementById('donutFill');
-            if (donutFill) {
-                donutFill.style.strokeDasharray = `${dashValue} ${circumference}`;
-                donutFill.style.stroke = "#2ee6a8";
+                
+                return { start: startDate, end: endDate, startStr: formatDate(startDate), endStr: formatDate(endDate) };
+            }
+
+            async function loadAndProcessData() {
+                try {
+                    const weekRange = getWeekRange();
+                    document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${weekRange.startStr} - ${weekRange.endStr}`;
+                    
+                    // Cargar ambos archivos JSON
+                    const [oficialesRes, noOficialesRes] = await Promise.all([
+                        fetch('/data/resultados-larraun.json'),
+                        fetch('/data/resultados-no-oficiales.json')
+                    ]);
+                    
+                    const oficiales = await oficialesRes.json();
+                    const noOficiales = await noOficialesRes.json();
+                    const allMatches = [...oficiales, ...noOficiales];
+                    
+                    // Filtrar partidos de la semana pasada
+                    const weekMatches = allMatches.filter(match => {
+                        const matchDate = new Date(match.fecha);
+                        return matchDate >= weekRange.start && matchDate <= weekRange.end;
+                    });
+                    
+                    // Procesar por categoría
+                    const categoryStats = {};
+                    
+                    weekMatches.forEach(match => {
+                        const categoria = getCategoryFromModalidad(match.modalidad);
+                        if (!categoria) return;
+                        
+                        if (!categoryStats[categoria]) {
+                            categoryStats[categoria] = { wins: 0, losses: 0, total: 0 };
+                        }
+                        
+                        const emaitza = match.emaitza?.toLowerCase() || '';
+                        if (emaitza === 'irabazita') {
+                            categoryStats[categoria].wins++;
+                        } else if (emaitza === 'galduta') {
+                            categoryStats[categoria].losses++;
+                        }
+                        categoryStats[categoria].total++;
+                    });
+                    
+                    // Calcular totales globales
+                    let totalWins = 0, totalLosses = 0;
+                    Object.values(categoryStats).forEach(stat => {
+                        totalWins += stat.wins;
+                        totalLosses += stat.losses;
+                    });
+                    const totalGames = totalWins + totalLosses;
+                    const winPercentage = totalGames > 0 ? (totalWins / totalGames) * 100 : 0;
+                    
+                    // Actualizar UI global
+                    document.getElementById('totalWins').textContent = totalWins;
+                    document.getElementById('totalLosses').textContent = totalLosses;
+                    document.getElementById('totalGamesNumber').textContent = totalGames;
+                    document.getElementById('totalGamesSpan').innerHTML = `⚾ ${totalGames} PARTIDU`;
+                    document.getElementById('winsLegend').innerHTML = `Garaipenak (${totalWins})`;
+                    document.getElementById('lossesLegend').innerHTML = `Porrotak (${totalLosses})`;
+                    const balanceDiff = totalWins - totalLosses;
+                    const balanceSign = balanceDiff >= 0 ? '+' : '';
+                    document.getElementById('balanceBadge').innerHTML = `⚖️ ${balanceSign}${balanceDiff} (%${winPercentage.toFixed(0)} GARAIPEN)`;
+                    
+                    // Actualizar gráfico circular
+                    const circumference = 2 * Math.PI * 34;
+                    const dashValue = (winPercentage / 100) * circumference;
+                    const donutFill = document.getElementById('donutFill');
+                    if (donutFill) {
+                        donutFill.style.strokeDasharray = `${dashValue} ${circumference}`;
+                        donutFill.style.stroke = "#2ee6a8";
+                    }
+                    
+                    // Generar tarjetas de categorías en el orden correcto
+                    const container = document.getElementById('categoriesContainer');
+                    container.innerHTML = '';
+                    
+                    for (const categoria of categoryOrder) {
+                        const stats = categoryStats[categoria] || { wins: 0, losses: 0, total: 0 };
+                        if (stats.total === 0) continue;
+                        
+                        const winPercent = (stats.wins / stats.total) * 100;
+                        const lossPercent = (stats.losses / stats.total) * 100;
+                        const bgColor = categoryColors[categoria] || "#2a2a40";
+                        
+                        const card = document.createElement('div');
+                        card.className = 'category-card';
+                        card.style.background = `linear-gradient(135deg, ${bgColor}dd, ${bgColor}55)`;
+                        card.style.border = `2px solid ${bgColor}`;
+                        
+                        const headerDiv = document.createElement('div');
+                        headerDiv.className = 'category-header';
+                        headerDiv.innerHTML = `
+                            <div class="category-name">${categoria}</div>
+                            <div class="category-total">🎯 ${stats.total} partidu</div>
+                        `;
+                        card.appendChild(headerDiv);
+                        
+                        const barsContainer = document.createElement('div');
+                        barsContainer.className = 'horizontal-bars';
+                        
+                        const winRow = document.createElement('div');
+                        winRow.className = 'bar-row';
+                        winRow.innerHTML = `
+                            <div class="bar-label-icon win-icon">🏆 I</div>
+                            <div class="bar-track">
+                                <div class="bar-fill win-fill" style="width: 0%;">${stats.wins > 0 ? stats.wins : ''}</div>
+                            </div>
+                            <div class="bar-value win-value">${stats.wins}</div>
+                        `;
+                        
+                        const lossRow = document.createElement('div');
+                        lossRow.className = 'bar-row';
+                        lossRow.innerHTML = `
+                            <div class="bar-label-icon loss-icon">❌ G</div>
+                            <div class="bar-track">
+                                <div class="bar-fill loss-fill" style="width: 0%;">${stats.losses > 0 ? stats.losses : ''}</div>
+                            </div>
+                            <div class="bar-value loss-value">${stats.losses}</div>
+                        `;
+                        
+                        barsContainer.appendChild(winRow);
+                        barsContainer.appendChild(lossRow);
+                        card.appendChild(barsContainer);
+                        
+                        const ratioNote = document.createElement('div');
+                        ratioNote.style.fontSize = '0.75rem';
+                        ratioNote.style.color = '#f0f0e0';
+                        ratioNote.style.marginTop = '12px';
+                        ratioNote.style.textAlign = 'center';
+                        ratioNote.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                        ratioNote.style.borderRadius = '30px';
+                        ratioNote.style.padding = '8px';
+                        const winRate = ((stats.wins / stats.total) * 100).toFixed(1);
+                        ratioNote.innerHTML = `📈 Eraginkortasuna: %${winRate} garaipen (${stats.wins}/${stats.total})`;
+                        card.appendChild(ratioNote);
+                        
+                        container.appendChild(card);
+                        
+                        setTimeout(() => {
+                            const winFill = winRow.querySelector('.bar-fill.win-fill');
+                            const lossFill = lossRow.querySelector('.bar-fill.loss-fill');
+                            if (winFill) winFill.style.width = `${winPercent}%`;
+                            if (lossFill) lossFill.style.width = `${lossPercent}%`;
+                        }, 100);
+                    }
+                    
+                    if (container.children.length === 0) {
+                        container.innerHTML = '<div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">Ez da partidurik aurkitu aste honetan</div>';
+                    }
+                    
+                } catch (error) {
+                    console.error('Error cargando datos:', error);
+                    document.getElementById('categoriesContainer').innerHTML = '<div style="text-align: center; color: #ff7b89; grid-column: 1/-1; padding: 40px;">Errorea datuak kargatzean</div>';
+                }
             }
             
-            // Generar categorías ordenadas por edad (SEIN, KIMU, HAUR, KADETE, GAZTE, HELDUAK)
-            const container = document.getElementById('categoriesContainer');
-            if (container) {
-                categoriesStats.forEach(cat => {
-                    const winPercent = (cat.wins / cat.total) * 100;
-                    const lossPercent = (cat.losses / cat.total) * 100;
-                    const bgColor = cat.color;
-                    
-                    const card = document.createElement('div');
-                    card.className = 'category-card';
-                    card.style.background = `linear-gradient(135deg, ${bgColor}dd, ${bgColor}55)`;
-                    card.style.border = `2px solid ${bgColor}`;
-                    
-                    const headerDiv = document.createElement('div');
-                    headerDiv.className = 'category-header';
-                    headerDiv.innerHTML = `
-                        <div class="category-name">${cat.name}</div>
-                        <div class="category-total">🎯 ${cat.total} partidu</div>
-                    `;
-                    card.appendChild(headerDiv);
-                    
-                    const barsContainer = document.createElement('div');
-                    barsContainer.className = 'horizontal-bars';
-                    
-                    const winRow = document.createElement('div');
-                    winRow.className = 'bar-row';
-                    winRow.innerHTML = `
-                        <div class="bar-label-icon win-icon">🏆 I</div>
-                        <div class="bar-track">
-                            <div class="bar-fill win-fill" style="width: 0%;">${cat.wins > 0 ? cat.wins : ''}</div>
-                        </div>
-                        <div class="bar-value win-value">${cat.wins}</div>
-                    `;
-                    
-                    const lossRow = document.createElement('div');
-                    lossRow.className = 'bar-row';
-                    lossRow.innerHTML = `
-                        <div class="bar-label-icon loss-icon">❌ G</div>
-                        <div class="bar-track">
-                            <div class="bar-fill loss-fill" style="width: 0%;">${cat.losses > 0 ? cat.losses : ''}</div>
-                        </div>
-                        <div class="bar-value loss-value">${cat.losses}</div>
-                    `;
-                    
-                    barsContainer.appendChild(winRow);
-                    barsContainer.appendChild(lossRow);
-                    card.appendChild(barsContainer);
-                    
-                    const ratioNote = document.createElement('div');
-                    ratioNote.style.fontSize = '0.75rem';
-                    ratioNote.style.color = '#f0f0e0';
-                    ratioNote.style.marginTop = '12px';
-                    ratioNote.style.textAlign = 'center';
-                    ratioNote.style.backgroundColor = 'rgba(0,0,0,0.5)';
-                    ratioNote.style.borderRadius = '30px';
-                    ratioNote.style.padding = '8px';
-                    const winRate = ((cat.wins / cat.total) * 100).toFixed(1);
-                    ratioNote.innerHTML = `📈 Eraginkortasuna: %${winRate} garaipen (${cat.wins}/${cat.total})`;
-                    card.appendChild(ratioNote);
-                    
-                    container.appendChild(card);
-                    
-                    setTimeout(() => {
-                        const winFill = winRow.querySelector('.bar-fill.win-fill');
-                        const lossFill = lossRow.querySelector('.bar-fill.loss-fill');
-                        if (winFill) winFill.style.width = `${winPercent}%`;
-                        if (lossFill) lossFill.style.width = `${lossPercent}%`;
-                    }, 100);
-                });
-            }
+            loadAndProcessData();
             
-            // Función para actualizar datos dinámicamente (puede ser llamada desde API)
-            window.updateStatsData = function(newCategoriesData) {
-                // Actualizar datos y recalcular todo
-                console.log('Datos actualizados:', newCategoriesData);
-                // Aquí iría la lógica para actualizar la UI con nuevos datos
-                location.reload(); // Por simplicidad, recargar con nuevos datos
-            };
-            
-            // Descarga JPG con mejor manejo del SVG y la pelota
+            // Descarga JPG
             const downloadBtn = document.getElementById('downloadJpgBtn');
             const statsCard = document.getElementById('statsCard');
             const loadingOverlay = document.getElementById('loadingOverlay');
@@ -700,24 +740,12 @@
                 
                 try {
                     await new Promise(resolve => setTimeout(resolve, 100));
-                    
                     const canvas = await html2canvas(statsCard, {
                         scale: 2.5,
                         backgroundColor: '#1e1e2f',
                         logging: false,
                         useCORS: true,
-                        allowTaint: false,
-                        onclone: (clonedDoc, element) => {
-                            // Asegurar que el SVG mantiene su estilo en el clon
-                            const clonedDonut = clonedDoc.getElementById('donutFill');
-                            if (clonedDonut) {
-                                const winPercent = winPercentageGlobal;
-                                const circum = 2 * Math.PI * 34;
-                                const dash = (winPercent / 100) * circum;
-                                clonedDonut.style.strokeDasharray = `${dash} ${circum}`;
-                                clonedDonut.style.stroke = "#2ee6a8";
-                            }
-                        }
+                        allowTaint: false
                     });
                     
                     const link = document.createElement('a');
