@@ -166,15 +166,6 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
-    "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/28",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
@@ -184,9 +175,9 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
+    "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
     "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
@@ -205,5 +196,14 @@
     "etxekoa": "TOKI EDERRA (A. Zabaleta - E. Petrotx)",
     "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/28",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
   }
 ]
