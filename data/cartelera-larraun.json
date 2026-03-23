@@ -11,6 +11,15 @@
   {
     "fecha": "2026/03/27",
     "hora": "18:00 !Horario provisional",
+    "zkia": "6",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/27",
+    "hora": "18:00 !Horario provisional",
     "zkia": "3",
     "fronton": "Doneztebe - Ezkurra",
     "etxekoa": "ERREKA (M. Oiaregi - O. Eskudero)",
@@ -34,6 +43,15 @@
     "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/28",
+    "hora": "11:00 !Horario provisional",
+    "zkia": "3",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (A. Gomez - N. Iraizoz)",
+    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
@@ -121,15 +139,6 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/28",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
@@ -148,18 +157,9 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Gomez - N. Iraizoz)",
-    "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/28",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
@@ -175,8 +175,35 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
+    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
     "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/29",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LARRAUN (L. Navarro)",
+    "kanpokoak": "ZUGARRALDE (J. Arregi)",
+    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL ZORTZIRENAK"
+  },
+  {
+    "fecha": "2026/03/29",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LARRAUN (M. Lazkoz)",
+    "kanpokoak": "ARDOI (C. Vazquez)",
+    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL ZORTZIRENAK"
+  },
+  {
+    "fecha": "2026/03/29",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "LARRAUN (M. Goikoetxea)",
+    "kanpokoak": "IRURTZUN (A. Yaben)",
+    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL ZORTZIRENAK"
   }
 ]
