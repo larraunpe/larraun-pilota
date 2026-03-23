@@ -521,13 +521,15 @@
     <script>
         (function() {
             // Mapeo de categorías a partir de la modalidad en los partidos
+            // Incluyendo PALETA y todas las variantes
             const categoriaMapping = {
                 'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3'],
                 'KIMU': ['KIMU 1', 'KIMU 2', 'KIMU 4', 'KIMU'],
                 'HAUR': ['HAUR 1', 'HAUR 3', 'HAUR'],
                 'KADETE': ['KADETE 1', 'KADETE'],
                 'GAZTE': ['GAZTE 1', 'GAZTE 2', 'GAZTE'],
-                'HELDUAK': ['SENIOR', 'HELDUAK', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK']
+                'HELDUAK': ['SENIOR', 'HELDUAK', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK'],
+                'PALETA': ['PALETA', 'PALETA GOMA', 'PALETA GOMAZ', 'PGOMA']
             };
 
             // Colores desde categoriaedad.json
@@ -537,11 +539,12 @@
                 "HAUR": "#85E055",
                 "KADETE": "#82C6FF",
                 "GAZTE": "#4242D6",
-                "HELDUAK": "#9898FA"
+                "HELDUAK": "#9898FA",
+                "PALETA": "#F527DD"
             };
 
-            // Orden de categorías por edad
-            const categoryOrder = ['SEIN', 'KIMU', 'HAUR', 'KADETE', 'GAZTE', 'HELDUAK'];
+            // Orden de categorías por edad (según categoriaedad.json)
+            const categoryOrder = ['SEIN', 'KIMU', 'HAUR', 'KADETE', 'GAZTE', 'PALETA', 'HELDUAK'];
 
             function getCategoryFromModalidad(modalidad) {
                 const modalidadUpper = modalidad.toUpperCase();
@@ -552,16 +555,22 @@
                         }
                     }
                 }
+                // Si no se encuentra, intentar buscar palabras clave en el texto
+                if (modalidadUpper.includes('PALETA') || modalidadUpper.includes('PGOMA')) {
+                    return 'PALETA';
+                }
                 return null;
             }
 
-            function getWeekRange() {
+            function getLastWeekRange() {
                 const today = new Date();
-                // Semana anterior: del lunes al domingo
-                const startDate = new Date(today);
-                startDate.setDate(today.getDate() - today.getDay() - 6); // Lunes de la semana pasada
-                const endDate = new Date(today);
-                endDate.setDate(today.getDate() - today.getDay()); // Domingo de la semana pasada
+                // Calcular el lunes de la semana pasada
+                const dayOfWeek = today.getDay(); // 0 = domingo, 1 = lunes, etc.
+                const daysToLastMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+                const lastMonday = new Date(today);
+                lastMonday.setDate(today.getDate() - daysToLastMonday - 7);
+                const lastSunday = new Date(lastMonday);
+                lastSunday.setDate(lastMonday.getDate() + 6);
                 
                 const formatDate = (date) => {
                     const year = date.getFullYear();
@@ -570,12 +579,12 @@
                     return `${year}ko ${month}ren ${day}a`;
                 };
                 
-                return { start: startDate, end: endDate, startStr: formatDate(startDate), endStr: formatDate(endDate) };
+                return { start: lastMonday, end: lastSunday, startStr: formatDate(lastMonday), endStr: formatDate(lastSunday) };
             }
 
             async function loadAndProcessData() {
                 try {
-                    const weekRange = getWeekRange();
+                    const weekRange = getLastWeekRange();
                     document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${weekRange.startStr} - ${weekRange.endStr}`;
                     
                     // Cargar ambos archivos JSON
@@ -594,12 +603,18 @@
                         return matchDate >= weekRange.start && matchDate <= weekRange.end;
                     });
                     
+                    console.log('Partidos encontrados en la semana:', weekMatches.length);
+                    weekMatches.forEach(m => console.log(m.fecha, m.modalidad, m.emaitza));
+                    
                     // Procesar por categoría
                     const categoryStats = {};
                     
                     weekMatches.forEach(match => {
                         const categoria = getCategoryFromModalidad(match.modalidad);
-                        if (!categoria) return;
+                        if (!categoria) {
+                            console.log('Categoría no detectada:', match.modalidad);
+                            return;
+                        }
                         
                         if (!categoryStats[categoria]) {
                             categoryStats[categoria] = { wins: 0, losses: 0, total: 0 };
@@ -613,6 +628,8 @@
                         }
                         categoryStats[categoria].total++;
                     });
+                    
+                    console.log('Estadísticas por categoría:', categoryStats);
                     
                     // Calcular totales globales
                     let totalWins = 0, totalLosses = 0;
@@ -647,10 +664,12 @@
                     const container = document.getElementById('categoriesContainer');
                     container.innerHTML = '';
                     
+                    let hasData = false;
                     for (const categoria of categoryOrder) {
                         const stats = categoryStats[categoria] || { wins: 0, losses: 0, total: 0 };
                         if (stats.total === 0) continue;
                         
+                        hasData = true;
                         const winPercent = (stats.wins / stats.total) * 100;
                         const lossPercent = (stats.losses / stats.total) * 100;
                         const bgColor = categoryColors[categoria] || "#2a2a40";
@@ -717,7 +736,7 @@
                         }, 100);
                     }
                     
-                    if (container.children.length === 0) {
+                    if (!hasData) {
                         container.innerHTML = '<div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">Ez da partidurik aurkitu aste honetan</div>';
                     }
                     
