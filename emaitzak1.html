@@ -6,7 +6,6 @@
   <title>Larraun Pilota – EMAITZA INTERAKTIBOAK | Kategoriaka Antolatuta</title>
   <link rel="icon" type="image/png" href="/emaitzak.png">
   <meta property="og:title" content="Emaitza Interaktiboak – Larraun Pilota Elkartea">
-  <meta property="og:description" content="Pilotarien emaitzak, asteka, txapelketaka eta kategoriaka antolatuta">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -55,10 +54,6 @@
       width: auto;
       margin-left: auto;
       margin-right: auto;
-    }
-    .info-interaktiboa i {
-      font-style: normal;
-      display: inline-block;
     }
 
     .selector-group {
@@ -167,18 +162,24 @@
     }
     
     /* Estilos para los textos */
-    .etxekoa-line {
-      color: #0d47a1;
+    .etxekoa-line, .kanpokoa-line {
       font-weight: bold;
       font-size: 1.1rem;
       margin: 6px 0;
     }
-    .kanpokoa-line {
-      color: #b71c1c;
-      font-weight: bold;
+    .etxekoa-line { color: #0d47a1; }
+    .kanpokoa-line { color: #b71c1c; }
+    
+    /* Resaltado para LARRAUN dentro del texto */
+    .larraun-resaltado {
+      background: #ffecb3;
+      border-radius: 20px;
+      padding: 2px 10px;
+      display: inline-block;
+      font-weight: 900;
       font-size: 1.1rem;
-      margin: 6px 0;
     }
+    
     .info-adicional {
       font-size: 0.7rem;
       color: #5a6e7c;
@@ -261,7 +262,6 @@
     .modalidad-link:hover {
       transform: scale(1.02);
     }
-    /* Estilos para FINALA según resultado */
     .modalidad-link.final-irabazi {
       background: linear-gradient(135deg, #ffd966, #ffb347);
       color: #2c2c2c;
@@ -278,15 +278,6 @@
       color: #6c757d;
       margin-left: 6px;
       font-weight: normal;
-    }
-    .larraun-destacado {
-      font-weight: 900;
-      font-size: 1.2rem;
-      background: #ffecb3;
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 20px;
-      margin-left: 6px;
     }
   </style>
 </head>
@@ -353,18 +344,24 @@ function formatSets(sets) {
   return sets.join(" ").replace(/\(/g, " / ").replace(/\)/g, "");
 }
 
-// Función para limpiar el texto: eliminar "LARRAUN" duplicado al final (sin dejar espacio extra)
+// Función para limpiar el texto: eliminar "LARRAUN" duplicado al final
 function limpiarTextoPilota(texto) {
   if (!texto) return texto;
   let limpio = texto;
-  // Eliminar "LARRAUN" duplicado al final (con posible espacio antes)
-  // Patrón: termina con " LARRAUN" o "LARRAUN"
   if (limpio.toUpperCase().endsWith(" LARRAUN")) {
     limpio = limpio.substring(0, limpio.length - 8).trim();
   } else if (limpio.toUpperCase().endsWith("LARRAUN")) {
     limpio = limpio.substring(0, limpio.length - 7).trim();
   }
   return limpio;
+}
+
+// Función para resaltar LARRAUN dentro del texto (sin duplicar)
+function resaltarLarraun(texto) {
+  if (!texto) return texto;
+  // Buscar "LARRAUN" como palabra independiente (no dentro de paréntesis)
+  const regex = /\b(LARRAUN)\b/gi;
+  return texto.replace(regex, '<span class="larraun-resaltado">$1</span>');
 }
 
 // Función para separar el nombre principal de los apellidos adicionales
@@ -677,15 +674,16 @@ function renderResults() {
       
       const larraunWin = isLarraunWin(p);
       
-      // Procesar textos de los equipos - limpiar LARRAUN duplicado
+      // Procesar textos de los equipos
       const etxekoaLimpio = limpiarTextoPilota(p.etxekoa);
       const kanpokoaLimpio = limpiarTextoPilota(p.kanpokoak);
       
       const etxekoaInfo = separarNombres(etxekoaLimpio);
       const kanpokoaInfo = separarNombres(kanpokoaLimpio);
       
-      const etxekoaLarraun = (p.etxekoa || "").toUpperCase().includes("LARRAUN");
-      const kanpokoaLarraun = (p.kanpokoak || "").toUpperCase().includes("LARRAUN");
+      // Resaltar LARRAUN dentro del texto principal (sin etiqueta extra)
+      const etxekoaPrincipalResaltado = resaltarLarraun(etxekoaInfo.principal);
+      const kanpokoaPrincipalResaltado = resaltarLarraun(kanpokoaInfo.principal);
       
       // Formatear fecha
       let fechaFormateada = p.fecha;
@@ -730,15 +728,13 @@ function renderResults() {
         </div>
         
         <div class="etxekoa-line">
-          🏠 ${etxekoaInfo.principal}
+          🏠 ${etxekoaPrincipalResaltado}
           ${etxekoaInfo.secundario ? `<span class="info-adicional">[${etxekoaInfo.secundario}]</span>` : ''}
-          ${etxekoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
         </div>
         
         <div class="kanpokoa-line">
-          ✈️ ${kanpokoaInfo.principal}
+          ✈️ ${kanpokoaPrincipalResaltado}
           ${kanpokoaInfo.secundario ? `<span class="info-adicional">[${kanpokoaInfo.secundario}]</span>` : ''}
-          ${kanpokoaLarraun ? '<span class="larraun-destacado">LARRAUN</span>' : ''}
         </div>
         
         <div class="resultado-line">
