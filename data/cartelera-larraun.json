@@ -166,9 +166,18 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
     "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/28",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
+    "etxekoa": "TOKI EDERRA (A. Zabaleta - E. Petrotx)",
+    "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
@@ -184,26 +193,26 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
+    "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/28",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
     "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
   },
   {
-    "fecha": "2026/03/28",
+    "fecha": "2026/03/29",
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
-    "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/28",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "TOKI EDERRA (A. Zabaleta - E. Petrotx)",
-    "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
+    "etxekoa": "ZUGARRALDE (M. Baleztena)",
+    "kanpokoak": "LARRAUN (J. Ezkurdia)",
+    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 1. FINAL ZORTZIRENAK"
   }
 ]
