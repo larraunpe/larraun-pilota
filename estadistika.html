@@ -520,14 +520,14 @@
 
     <script>
         (function() {
-            // Mapeo de categorías a partir de la modalidad en los partidos - COMPLETO
+            // Mapeo de categorías a partir de la modalidad en los partidos
             const categoriaMapping = {
                 'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3', 'SEIN 2.', 'SEIN 3.', 'SEIN 4'],
                 'KIMU': ['KIMU', 'KIMU 1', 'KIMU 2', 'KIMU 3', 'KIMU 4', 'KIMU 1.', 'KIMU 2.', 'KIMU 4.'],
                 'HAUR': ['HAUR', 'HAUR 1', 'HAUR 2', 'HAUR 3', 'HAUR 1.', 'HAUR 2.', 'HAUR 3.'],
                 'KADETE': ['KADETE', 'KADETE 1', 'KADETE 2', 'KADETE 1.', 'KADETE 2.'],
                 'GAZTE': ['GAZTE', 'GAZTE 1', 'GAZTE 2', 'GAZTE 1.', 'GAZTE 2.'],
-                'HELDUAK': ['SENIOR', 'HELDUAK', 'HELDUAK 1', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK', 'MAILA', 'SORALUZE 4½', 'GOÑIREN OMENEZKOA'],
+                'HELDUAK': ['SENIOR', 'HELDUAK', 'HELDUAK 1', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK', 'MAILA', 'SORALUZE 4½', 'GOÑIREN OMENEZKOA', 'ZARAMAGAKO', 'SAN ESTEBAN'],
                 'PALETA': ['PALETA', 'PALETA GOMA', 'PALETA GOMAZ', 'PGOMA', 'PALETA GOMA NESKA', 'PALETA GOMA NESKAK']
             };
 
@@ -549,7 +549,6 @@
                 if (!modalidad) return null;
                 const modalidadUpper = modalidad.toUpperCase();
                 
-                // Primero buscar coincidencias exactas con el mapeo
                 for (const [categoria, keywords] of Object.entries(categoriaMapping)) {
                     for (const keyword of keywords) {
                         if (modalidadUpper.includes(keyword.toUpperCase())) {
@@ -558,7 +557,7 @@
                     }
                 }
                 
-                // Si no se encuentra, buscar por palabras clave más genéricas
+                // Búsqueda genérica
                 if (modalidadUpper.includes('SEIN')) return 'SEIN';
                 if (modalidadUpper.includes('KIMU')) return 'KIMU';
                 if (modalidadUpper.includes('HAUR')) return 'HAUR';
@@ -567,14 +566,52 @@
                 if (modalidadUpper.includes('PALETA') || modalidadUpper.includes('PGOMA')) return 'PALETA';
                 if (modalidadUpper.includes('SENIOR') || modalidadUpper.includes('HELDUAK') || 
                     modalidadUpper.includes('KOPA') || modalidadUpper.includes('GOÑIREN') || 
-                    modalidadUpper.includes('SORALUZE') || modalidadUpper.includes('PROMESAK')) return 'HELDUAK';
+                    modalidadUpper.includes('SORALUZE') || modalidadUpper.includes('PROMESAK') ||
+                    modalidadUpper.includes('ZARAMAGA') || modalidadUpper.includes('SAN ESTEBAN')) return 'HELDUAK';
                 
                 return null;
             }
 
             /**
-             * Calcula la semana ANTERIOR (lunes a domingo)
+             * Determina el resultado de un partido, considerando equipos no presentados
+             * Si un equipo no se presenta, el otro gana automáticamente
              */
+            function getMatchResult(match) {
+                const emaitza = match.emaitza?.toLowerCase() || '';
+                
+                // Si ya hay un resultado definido
+                if (emaitza === 'irabazita') return 'WIN';
+                if (emaitza === 'galduta') return 'LOSS';
+                
+                // Verificar si hay equipo no presentado en etxekoa o kanpokoak
+                const etxekoa = match.etxekoa || '';
+                const kanpokoak = match.kanpokoak || '';
+                const tanteoa = match.tanteoa || '';
+                
+                // Detectar equipo no presentado
+                const isNoPresented = (text) => text.includes('*Equipo no presentado') || text.includes('*Equipo no presentado') || tanteoa.includes('*');
+                
+                if (isNoPresented(etxekoa) || (tanteoa.includes('0*') && !tanteoa.includes('*0'))) {
+                    // El equipo local no se presentó, gana el visitante
+                    // Verificar si el visitante es Larraun
+                    if (kanpokoak.toUpperCase().includes('LARRAUN')) {
+                        return 'WIN';
+                    }
+                    return 'LOSS';
+                }
+                
+                if (isNoPresented(kanpokoak) || (tanteoa.includes('*0') && !tanteoa.includes('0*'))) {
+                    // El equipo visitante no se presentó, gana el local
+                    if (etxekoa.toUpperCase().includes('LARRAUN')) {
+                        return 'WIN';
+                    }
+                    return 'LOSS';
+                }
+                
+                // Si no se puede determinar, devolver null
+                return null;
+            }
+
             function getPreviousWeekRange() {
                 const today = new Date();
                 
@@ -621,7 +658,6 @@
                     console.log('Rango de fechas:', weekRange.startStr, 'a', weekRange.endStr);
                     console.log('Fecha actual:', new Date().toLocaleDateString());
                     
-                    // Cargar ambos archivos JSON
                     const [oficialesRes, noOficialesRes] = await Promise.all([
                         fetch('/data/resultados-larraun.json'),
                         fetch('/data/resultados-no-oficiales.json')
@@ -631,17 +667,16 @@
                     const noOficiales = await noOficialesRes.json();
                     const allMatches = [...oficiales, ...noOficiales];
                     
-                    // Filtrar partidos de la semana anterior
                     const weekMatches = allMatches.filter(match => {
                         const matchDate = new Date(match.fecha);
                         return matchDate >= weekRange.start && matchDate <= weekRange.end;
                     });
                     
-                    console.log(`📋 Total partidos encontrados en la semana: ${weekMatches.length}`);
+                    console.log(`📋 Total partidos en la semana: ${weekMatches.length}`);
                     
-                    // Procesar por categoría y mostrar los no detectados
                     const categoryStats = {};
                     const notDetected = [];
+                    let processedCount = 0;
                     
                     weekMatches.forEach(match => {
                         const categoria = getCategoryFromModalidad(match.modalidad);
@@ -654,29 +689,36 @@
                             categoryStats[categoria] = { wins: 0, losses: 0, total: 0 };
                         }
                         
-                        const emaitza = match.emaitza?.toLowerCase() || '';
-                        if (emaitza === 'irabazita') {
+                        // Determinar el resultado (considerando equipos no presentados)
+                        const result = getMatchResult(match);
+                        
+                        if (result === 'WIN') {
                             categoryStats[categoria].wins++;
-                        } else if (emaitza === 'galduta') {
+                            categoryStats[categoria].total++;
+                            processedCount++;
+                        } else if (result === 'LOSS') {
                             categoryStats[categoria].losses++;
+                            categoryStats[categoria].total++;
+                            processedCount++;
+                        } else {
+                            // Si no se pudo determinar, mostrar en consola
+                            console.log(`⚠️ Resultado no determinado: ${match.fecha} - ${match.modalidad} - emaitza: ${match.emaitza}`);
                         }
-                        categoryStats[categoria].total++;
                     });
                     
-                    // Mostrar partidos no detectados
                     if (notDetected.length > 0) {
-                        console.log('⚠️ Partidos NO detectados (faltan en el mapeo):');
+                        console.log('⚠️ Partidos NO detectados por categoría:');
                         notDetected.forEach(p => {
                             console.log(`   - ${p.fecha}: ${p.modalidad} (${p.emaitza})`);
                         });
                     }
                     
+                    console.log(`\n✅ Partidos procesados: ${processedCount}`);
                     console.log('📊 Estadísticas por categoría:');
                     Object.entries(categoryStats).forEach(([cat, stats]) => {
                         console.log(`   ${cat}: ${stats.wins}V - ${stats.losses}D (${stats.total} partidos)`);
                     });
                     
-                    // Calcular totales globales
                     let totalWins = 0, totalLosses = 0;
                     Object.values(categoryStats).forEach(stat => {
                         totalWins += stat.wins;
@@ -687,7 +729,6 @@
                     
                     console.log(`\n📈 TOTALES: ${totalWins} victorias - ${totalLosses} derrotas (${totalGames} partidos, ${winPercentage.toFixed(1)}% victorias)`);
                     
-                    // Actualizar UI global
                     document.getElementById('totalWins').textContent = totalWins;
                     document.getElementById('totalLosses').textContent = totalLosses;
                     document.getElementById('totalGamesNumber').textContent = totalGames;
@@ -698,7 +739,6 @@
                     const balanceSign = balanceDiff >= 0 ? '+' : '';
                     document.getElementById('balanceBadge').innerHTML = `⚖️ ${balanceSign}${balanceDiff} (%${winPercentage.toFixed(0)} GARAIPEN)`;
                     
-                    // Actualizar gráfico circular
                     const circumference = 2 * Math.PI * 34;
                     const dashValue = (winPercentage / 100) * circumference;
                     const donutFill = document.getElementById('donutFill');
@@ -707,7 +747,6 @@
                         donutFill.style.stroke = "#2ee6a8";
                     }
                     
-                    // Generar tarjetas de categorías
                     const container = document.getElementById('categoriesContainer');
                     container.innerHTML = '';
                     
@@ -787,13 +826,6 @@
                         container.innerHTML = '<div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">Ez da partidurik aurkitu aste honetan</div>';
                     }
                     
-                    // Mostrar resumen en consola
-                    if (notDetected.length > 0) {
-                        console.log(`\n❗ TOTAL: ${weekMatches.length - notDetected.length} partidos procesados, ${notDetected.length} no detectados`);
-                    } else {
-                        console.log(`\n✅ Todos los ${weekMatches.length} partidos fueron procesados correctamente`);
-                    }
-                    
                 } catch (error) {
                     console.error('Error cargando datos:', error);
                     document.getElementById('categoriesContainer').innerHTML = '<div style="text-align: center; color: #ff7b89; grid-column: 1/-1; padding: 40px;">Errorea datuak kargatzean</div>';
@@ -802,7 +834,6 @@
             
             loadAndProcessData();
             
-            // Descarga JPG
             const downloadBtn = document.getElementById('downloadJpgBtn');
             const statsCard = document.getElementById('statsCard');
             const loadingOverlay = document.getElementById('loadingOverlay');
