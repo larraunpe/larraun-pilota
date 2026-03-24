@@ -520,15 +520,15 @@
 
     <script>
         (function() {
-            // Mapeo de categorías a partir de la modalidad en los partidos
+            // Mapeo de categorías a partir de la modalidad en los partidos - COMPLETO
             const categoriaMapping = {
-                'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3'],
-                'KIMU': ['KIMU 1', 'KIMU 2', 'KIMU 4', 'KIMU'],
-                'HAUR': ['HAUR 1', 'HAUR 3', 'HAUR'],
-                'KADETE': ['KADETE 1', 'KADETE'],
-                'GAZTE': ['GAZTE 1', 'GAZTE 2', 'GAZTE'],
-                'HELDUAK': ['SENIOR', 'HELDUAK', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK'],
-                'PALETA': ['PALETA', 'PALETA GOMA', 'PALETA GOMAZ', 'PGOMA']
+                'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3', 'SEIN 2.', 'SEIN 3.', 'SEIN 4'],
+                'KIMU': ['KIMU', 'KIMU 1', 'KIMU 2', 'KIMU 3', 'KIMU 4', 'KIMU 1.', 'KIMU 2.', 'KIMU 4.'],
+                'HAUR': ['HAUR', 'HAUR 1', 'HAUR 2', 'HAUR 3', 'HAUR 1.', 'HAUR 2.', 'HAUR 3.'],
+                'KADETE': ['KADETE', 'KADETE 1', 'KADETE 2', 'KADETE 1.', 'KADETE 2.'],
+                'GAZTE': ['GAZTE', 'GAZTE 1', 'GAZTE 2', 'GAZTE 1.', 'GAZTE 2.'],
+                'HELDUAK': ['SENIOR', 'HELDUAK', 'HELDUAK 1', 'ESKUZ KOPA', 'GOÑIREN', 'SORALUZE', 'PROMESAK', 'MAILA', 'SORALUZE 4½', 'GOÑIREN OMENEZKOA'],
+                'PALETA': ['PALETA', 'PALETA GOMA', 'PALETA GOMAZ', 'PGOMA', 'PALETA GOMA NESKA', 'PALETA GOMA NESKAK']
             };
 
             // Colores desde categoriaedad.json
@@ -546,7 +546,10 @@
             const categoryOrder = ['SEIN', 'KIMU', 'HAUR', 'KADETE', 'GAZTE', 'PALETA', 'HELDUAK'];
 
             function getCategoryFromModalidad(modalidad) {
+                if (!modalidad) return null;
                 const modalidadUpper = modalidad.toUpperCase();
+                
+                // Primero buscar coincidencias exactas con el mapeo
                 for (const [categoria, keywords] of Object.entries(categoriaMapping)) {
                     for (const keyword of keywords) {
                         if (modalidadUpper.includes(keyword.toUpperCase())) {
@@ -554,20 +557,28 @@
                         }
                     }
                 }
+                
+                // Si no se encuentra, buscar por palabras clave más genéricas
+                if (modalidadUpper.includes('SEIN')) return 'SEIN';
+                if (modalidadUpper.includes('KIMU')) return 'KIMU';
+                if (modalidadUpper.includes('HAUR')) return 'HAUR';
+                if (modalidadUpper.includes('KADETE')) return 'KADETE';
+                if (modalidadUpper.includes('GAZTE')) return 'GAZTE';
+                if (modalidadUpper.includes('PALETA') || modalidadUpper.includes('PGOMA')) return 'PALETA';
+                if (modalidadUpper.includes('SENIOR') || modalidadUpper.includes('HELDUAK') || 
+                    modalidadUpper.includes('KOPA') || modalidadUpper.includes('GOÑIREN') || 
+                    modalidadUpper.includes('SORALUZE') || modalidadUpper.includes('PROMESAK')) return 'HELDUAK';
+                
                 return null;
             }
 
             /**
-             * Calcula la semana ANTERIOR (lunes a domingo) basada en la fecha actual.
-             * Ejemplo:
-             * - Si hoy es 24/03/2026 (martes), la semana anterior es del 16/03 al 22/03
-             * - El lunes 30/03, la semana anterior será del 23/03 al 29/03
+             * Calcula la semana ANTERIOR (lunes a domingo)
              */
             function getPreviousWeekRange() {
                 const today = new Date();
                 
-                // Obtener el lunes de la semana actual
-                let dayOfWeek = today.getDay(); // 0 domingo, 1 lunes, ... 6 sábado
+                let dayOfWeek = today.getDay();
                 let daysFromMonday;
                 if (dayOfWeek === 0) {
                     daysFromMonday = 6;
@@ -579,7 +590,6 @@
                 currentMonday.setDate(today.getDate() - daysFromMonday);
                 currentMonday.setHours(0, 0, 0, 0);
                 
-                // La semana anterior es de currentMonday - 7 días a currentMonday - 1 día
                 const previousMonday = new Date(currentMonday);
                 previousMonday.setDate(currentMonday.getDate() - 7);
                 
@@ -627,16 +637,16 @@
                         return matchDate >= weekRange.start && matchDate <= weekRange.end;
                     });
                     
-                    console.log(`Partidos encontrados en la semana (${weekRange.startStr} - ${weekRange.endStr}):`, weekMatches.length);
-                    weekMatches.forEach(m => console.log('  -', m.fecha, m.modalidad, m.emaitza));
+                    console.log(`📋 Total partidos encontrados en la semana: ${weekMatches.length}`);
                     
-                    // Procesar por categoría
+                    // Procesar por categoría y mostrar los no detectados
                     const categoryStats = {};
+                    const notDetected = [];
                     
                     weekMatches.forEach(match => {
                         const categoria = getCategoryFromModalidad(match.modalidad);
                         if (!categoria) {
-                            console.log('⚠️ Categoría NO detectada:', match.modalidad);
+                            notDetected.push({ fecha: match.fecha, modalidad: match.modalidad, emaitza: match.emaitza });
                             return;
                         }
                         
@@ -653,7 +663,18 @@
                         categoryStats[categoria].total++;
                     });
                     
-                    console.log('📊 Estadísticas por categoría:', categoryStats);
+                    // Mostrar partidos no detectados
+                    if (notDetected.length > 0) {
+                        console.log('⚠️ Partidos NO detectados (faltan en el mapeo):');
+                        notDetected.forEach(p => {
+                            console.log(`   - ${p.fecha}: ${p.modalidad} (${p.emaitza})`);
+                        });
+                    }
+                    
+                    console.log('📊 Estadísticas por categoría:');
+                    Object.entries(categoryStats).forEach(([cat, stats]) => {
+                        console.log(`   ${cat}: ${stats.wins}V - ${stats.losses}D (${stats.total} partidos)`);
+                    });
                     
                     // Calcular totales globales
                     let totalWins = 0, totalLosses = 0;
@@ -663,6 +684,8 @@
                     });
                     const totalGames = totalWins + totalLosses;
                     const winPercentage = totalGames > 0 ? (totalWins / totalGames) * 100 : 0;
+                    
+                    console.log(`\n📈 TOTALES: ${totalWins} victorias - ${totalLosses} derrotas (${totalGames} partidos, ${winPercentage.toFixed(1)}% victorias)`);
                     
                     // Actualizar UI global
                     document.getElementById('totalWins').textContent = totalWins;
@@ -684,7 +707,7 @@
                         donutFill.style.stroke = "#2ee6a8";
                     }
                     
-                    // Generar tarjetas de categorías en el orden correcto
+                    // Generar tarjetas de categorías
                     const container = document.getElementById('categoriesContainer');
                     container.innerHTML = '';
                     
@@ -762,6 +785,13 @@
                     
                     if (!hasData) {
                         container.innerHTML = '<div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">Ez da partidurik aurkitu aste honetan</div>';
+                    }
+                    
+                    // Mostrar resumen en consola
+                    if (notDetected.length > 0) {
+                        console.log(`\n❗ TOTAL: ${weekMatches.length - notDetected.length} partidos procesados, ${notDetected.length} no detectados`);
+                    } else {
+                        console.log(`\n✅ Todos los ${weekMatches.length} partidos fueron procesados correctamente`);
                     }
                     
                 } catch (error) {
