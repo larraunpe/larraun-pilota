@@ -509,7 +509,7 @@
                 <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
             </div>
             <div class="matches-played">
-                📊 Aste honetako emaitzak (astelehenetik igandera) · Kategoriak adinaren arabera ordenatuta
+                📊 Aurreko asteko emaitzak (astelehenetik igandera) · Kategoriak adinaren arabera ordenatuta
             </div>
         </div>
     </div>
@@ -558,33 +558,34 @@
             }
 
             /**
-             * Calcula la semana actual (lunes a domingo) basada en la fecha actual.
-             * La semana siempre es de LUNES a DOMINGO.
-             * Ejemplo: Si hoy es 24/03/2026 (martes), la semana es del 23/03 al 29/03.
-             * El lunes siguiente (30/03) empezará una nueva semana.
+             * Calcula la semana ANTERIOR (lunes a domingo) basada en la fecha actual.
+             * Ejemplo:
+             * - Si hoy es 24/03/2026 (martes), la semana anterior es del 16/03 al 22/03
+             * - El lunes 30/03, la semana anterior será del 23/03 al 29/03
              */
-            function getCurrentWeekRange() {
+            function getPreviousWeekRange() {
                 const today = new Date();
-                // Obtener el día de la semana (0 = domingo, 1 = lunes, ... 6 = sábado)
-                let dayOfWeek = today.getDay(); // 0 domingo, 1 lunes, ... 6 sábado
                 
-                // Ajustar para que lunes sea 0, martes 1, ..., domingo 6
+                // Obtener el lunes de la semana actual
+                let dayOfWeek = today.getDay(); // 0 domingo, 1 lunes, ... 6 sábado
                 let daysFromMonday;
                 if (dayOfWeek === 0) {
-                    // Si es domingo, el lunes de esta semana fue hace 6 días
                     daysFromMonday = 6;
                 } else {
-                    // Si es lunes (1) -> 0 días, martes (2) -> 1 día, etc.
                     daysFromMonday = dayOfWeek - 1;
                 }
                 
-                const monday = new Date(today);
-                monday.setDate(today.getDate() - daysFromMonday);
-                monday.setHours(0, 0, 0, 0);
+                const currentMonday = new Date(today);
+                currentMonday.setDate(today.getDate() - daysFromMonday);
+                currentMonday.setHours(0, 0, 0, 0);
                 
-                const sunday = new Date(monday);
-                sunday.setDate(monday.getDate() + 6);
-                sunday.setHours(23, 59, 59, 999);
+                // La semana anterior es de currentMonday - 7 días a currentMonday - 1 día
+                const previousMonday = new Date(currentMonday);
+                previousMonday.setDate(currentMonday.getDate() - 7);
+                
+                const previousSunday = new Date(previousMonday);
+                previousSunday.setDate(previousMonday.getDate() + 6);
+                previousSunday.setHours(23, 59, 59, 999);
                 
                 const formatDate = (date) => {
                     const year = date.getFullYear();
@@ -593,15 +594,22 @@
                     return `${year}ko ${month}ren ${day}a`;
                 };
                 
-                return { start: monday, end: sunday, startStr: formatDate(monday), endStr: formatDate(sunday) };
+                return { 
+                    start: previousMonday, 
+                    end: previousSunday, 
+                    startStr: formatDate(previousMonday), 
+                    endStr: formatDate(previousSunday) 
+                };
             }
 
             async function loadAndProcessData() {
                 try {
-                    const weekRange = getCurrentWeekRange();
+                    const weekRange = getPreviousWeekRange();
                     document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${weekRange.startStr} - ${weekRange.endStr}`;
                     
-                    console.log('Rango de fechas:', weekRange.start, 'a', weekRange.end);
+                    console.log('=== SEMANA ANTERIOR ===');
+                    console.log('Rango de fechas:', weekRange.startStr, 'a', weekRange.endStr);
+                    console.log('Fecha actual:', new Date().toLocaleDateString());
                     
                     // Cargar ambos archivos JSON
                     const [oficialesRes, noOficialesRes] = await Promise.all([
@@ -613,7 +621,7 @@
                     const noOficiales = await noOficialesRes.json();
                     const allMatches = [...oficiales, ...noOficiales];
                     
-                    // Filtrar partidos de la semana actual
+                    // Filtrar partidos de la semana anterior
                     const weekMatches = allMatches.filter(match => {
                         const matchDate = new Date(match.fecha);
                         return matchDate >= weekRange.start && matchDate <= weekRange.end;
@@ -628,7 +636,7 @@
                     weekMatches.forEach(match => {
                         const categoria = getCategoryFromModalidad(match.modalidad);
                         if (!categoria) {
-                            console.log('Categoría no detectada:', match.modalidad);
+                            console.log('⚠️ Categoría NO detectada:', match.modalidad);
                             return;
                         }
                         
@@ -645,7 +653,7 @@
                         categoryStats[categoria].total++;
                     });
                     
-                    console.log('Estadísticas por categoría:', categoryStats);
+                    console.log('📊 Estadísticas por categoría:', categoryStats);
                     
                     // Calcular totales globales
                     let totalWins = 0, totalLosses = 0;
