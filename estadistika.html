@@ -456,7 +456,7 @@
                     <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;\'>⛰️</div>'">
                 </div>
                 <div class="title-section">
-                    <h1>LPE - JOAN DEN ASTEKO ESTADISTIKAK</h1>
+                    <h1>LARRAUN PILOTA ELKARTEA</h1>
                     <div class="subhead">
                         <span>📊 ESTATISTIKAK 2026 · KATEGORIAK</span>
                         <span id="totalGamesSpan">⚾ Kargatzen...</span>
@@ -509,7 +509,7 @@
                 <span class="hashtags">#LarraunPilota #Estatistikak #EuskalPilota</span>
             </div>
             <div class="matches-played">
-                📊 Azken asteko emaitzak automatikoki kalkulatuak · Kategoriak adinaren arabera ordenatuta
+                📊 Aste honetako emaitzak (astelehenetik igandera) · Kategoriak adinaren arabera ordenatuta
             </div>
         </div>
     </div>
@@ -521,7 +521,6 @@
     <script>
         (function() {
             // Mapeo de categorías a partir de la modalidad en los partidos
-            // Incluyendo PALETA y todas las variantes
             const categoriaMapping = {
                 'SEIN': ['SEIN', 'SEIN 2', 'SEIN 3'],
                 'KIMU': ['KIMU 1', 'KIMU 2', 'KIMU 4', 'KIMU'],
@@ -543,7 +542,7 @@
                 "PALETA": "#F527DD"
             };
 
-            // Orden de categorías por edad (según categoriaedad.json)
+            // Orden de categorías por edad
             const categoryOrder = ['SEIN', 'KIMU', 'HAUR', 'KADETE', 'GAZTE', 'PALETA', 'HELDUAK'];
 
             function getCategoryFromModalidad(modalidad) {
@@ -555,22 +554,37 @@
                         }
                     }
                 }
-                // Si no se encuentra, intentar buscar palabras clave en el texto
-                if (modalidadUpper.includes('PALETA') || modalidadUpper.includes('PGOMA')) {
-                    return 'PALETA';
-                }
                 return null;
             }
 
-            function getLastWeekRange() {
+            /**
+             * Calcula la semana actual (lunes a domingo) basada en la fecha actual.
+             * La semana siempre es de LUNES a DOMINGO.
+             * Ejemplo: Si hoy es 24/03/2026 (martes), la semana es del 23/03 al 29/03.
+             * El lunes siguiente (30/03) empezará una nueva semana.
+             */
+            function getCurrentWeekRange() {
                 const today = new Date();
-                // Calcular el lunes de la semana pasada
-                const dayOfWeek = today.getDay(); // 0 = domingo, 1 = lunes, etc.
-                const daysToLastMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-                const lastMonday = new Date(today);
-                lastMonday.setDate(today.getDate() - daysToLastMonday - 7);
-                const lastSunday = new Date(lastMonday);
-                lastSunday.setDate(lastMonday.getDate() + 6);
+                // Obtener el día de la semana (0 = domingo, 1 = lunes, ... 6 = sábado)
+                let dayOfWeek = today.getDay(); // 0 domingo, 1 lunes, ... 6 sábado
+                
+                // Ajustar para que lunes sea 0, martes 1, ..., domingo 6
+                let daysFromMonday;
+                if (dayOfWeek === 0) {
+                    // Si es domingo, el lunes de esta semana fue hace 6 días
+                    daysFromMonday = 6;
+                } else {
+                    // Si es lunes (1) -> 0 días, martes (2) -> 1 día, etc.
+                    daysFromMonday = dayOfWeek - 1;
+                }
+                
+                const monday = new Date(today);
+                monday.setDate(today.getDate() - daysFromMonday);
+                monday.setHours(0, 0, 0, 0);
+                
+                const sunday = new Date(monday);
+                sunday.setDate(monday.getDate() + 6);
+                sunday.setHours(23, 59, 59, 999);
                 
                 const formatDate = (date) => {
                     const year = date.getFullYear();
@@ -579,13 +593,15 @@
                     return `${year}ko ${month}ren ${day}a`;
                 };
                 
-                return { start: lastMonday, end: lastSunday, startStr: formatDate(lastMonday), endStr: formatDate(lastSunday) };
+                return { start: monday, end: sunday, startStr: formatDate(monday), endStr: formatDate(sunday) };
             }
 
             async function loadAndProcessData() {
                 try {
-                    const weekRange = getLastWeekRange();
+                    const weekRange = getCurrentWeekRange();
                     document.getElementById('dateRangeSpan').innerHTML = `<i>📅</i> ${weekRange.startStr} - ${weekRange.endStr}`;
+                    
+                    console.log('Rango de fechas:', weekRange.start, 'a', weekRange.end);
                     
                     // Cargar ambos archivos JSON
                     const [oficialesRes, noOficialesRes] = await Promise.all([
@@ -597,14 +613,14 @@
                     const noOficiales = await noOficialesRes.json();
                     const allMatches = [...oficiales, ...noOficiales];
                     
-                    // Filtrar partidos de la semana pasada
+                    // Filtrar partidos de la semana actual
                     const weekMatches = allMatches.filter(match => {
                         const matchDate = new Date(match.fecha);
                         return matchDate >= weekRange.start && matchDate <= weekRange.end;
                     });
                     
-                    console.log('Partidos encontrados en la semana:', weekMatches.length);
-                    weekMatches.forEach(m => console.log(m.fecha, m.modalidad, m.emaitza));
+                    console.log(`Partidos encontrados en la semana (${weekRange.startStr} - ${weekRange.endStr}):`, weekMatches.length);
+                    weekMatches.forEach(m => console.log('  -', m.fecha, m.modalidad, m.emaitza));
                     
                     // Procesar por categoría
                     const categoryStats = {};
