@@ -29,7 +29,7 @@
   {
     "fecha": "2026/03/28",
     "hora": "09:30 !Horario provisional",
-    "zkia": "4",
+    "zkia": "3",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (E. Etxebeste - H. Roitegui)",
     "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
@@ -148,18 +148,18 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "OBERENA (J. Mendiola - Y. Echeverria)",
-    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA"
+    "etxekoa": "OBERENA (O. Muniain - G. Otxoa)",
+    "kanpokoak": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 1. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "OBERENA (O. Muniain - G. Otxoa)",
-    "kanpokoak": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA HAUR 1. LIGAXKA"
+    "etxekoa": "OBERENA (J. Mendiola - Y. Echeverria)",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun)",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA SEIN 4. LIGAXKA"
   },
   {
     "fecha": "2026/03/28",
@@ -184,6 +184,15 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
+    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
+    "kanpokoak": "Descanso",
+    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
+  },
+  {
+    "fecha": "2026/03/28",
+    "hora": "- !Horario provisional",
+    "zkia": "-",
+    "fronton": "-",
     "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
     "kanpokoak": "Descanso",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
@@ -196,14 +205,5 @@
     "etxekoa": "TOKI EDERRA (A. Zabaleta - E. Petrotx)",
     "kanpokoak": "LARRAUN (M. Argaña - E. Balda)",
     "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/03/28",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (A. Astiz - A. Dorronsoro)",
-    "kanpokoak": "Descanso",
-    "lehiaketa": "MANO PAREJAS - FASE 3 NKJ - ESKUZ BINAKA KIMU 4. LIGAXKA"
   }
 ]
