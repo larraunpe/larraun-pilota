@@ -31,6 +31,58 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
 .loading{text-align:center;padding:40px;font-size:1.2em;color:#666;}
 .error{text-align:center;padding:40px;color:#c62828;background:#ffebee;}
 .guardado{background:#e8f5e9!important;transition:background 0.3s;}
+
+/* Estilo para la nota de advertencia */
+.nota-container {
+  max-width: 1000px;
+  margin: 25px auto 0 auto;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fff8e7 0%, #fff3e0 100%);
+  border-left: 5px solid #ff9800;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-family: Arial, sans-serif;
+}
+
+.nota-texto {
+  font-size: 0.95rem;
+  color: #5d4037;
+  line-height: 1.5;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nota-icono {
+  font-size: 1.4rem;
+  color: #ff9800;
+}
+
+.nota-contenido {
+  flex: 1;
+}
+
+.nota-contenido strong {
+  color: #e65100;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nota-container {
+    margin: 20px 12px 0 12px;
+    padding: 12px 16px;
+  }
+  .nota-texto {
+    font-size: 0.85rem;
+  }
+  .nota-icono {
+    font-size: 1.2rem;
+  }
+}
 </style>
 </head>
 
@@ -39,21 +91,31 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
 <h1>JAIALDIAK</h1>
 
 <div class="table-container">
-  <table>
+   <table>
     <thead>
-      <tr>
+       <tr>
         <th>EGUNA</th>
         <th>ORDUA</th>
         <th>LEKUA</th>
         <th>ZB</th>
         <th>SENIOR</th>
         <th>EPAILEA(K)</th>
-      </tr>
+       </tr>
     </thead>
     <tbody id="taula">
-      <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
+       <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
     </tbody>
-  </table>
+   </table>
+</div>
+
+<!-- NOTA DE ADVERTENCIA -->
+<div class="nota-container">
+  <div class="nota-texto">
+    <span class="nota-icono">⚠️</span>
+    <span class="nota-contenido">
+      <strong>OHARRA:</strong> * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri.
+    </span>
+  </div>
 </div>
 
 <script>
