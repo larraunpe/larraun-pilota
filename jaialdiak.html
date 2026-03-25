@@ -5,10 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
+<!-- Incluir html2canvas para capturar la tabla como imagen -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
 body{font-family:Arial;background:#f4f4f4;padding:20px;margin:0;}
 h1{text-align:center;color:#33691e;margin-bottom:20px;font-weight:normal;}
-.table-container{overflow-x:auto;max-width:1000px;margin:auto;}
+
+/* Contenedor principal que se capturará como imagen */
+#captura-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.table-container{overflow-x:auto;margin:auto;}
 table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
 thead{background:#7cb342;color:white;}
 th,td{padding:12px 8px;border:1px solid #ccc;text-align:center;}
@@ -70,6 +83,65 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
   letter-spacing: 0.3px;
 }
 
+/* Estilo del botón */
+.boton-container {
+  max-width: 1000px;
+  margin: 25px auto 0 auto;
+  text-align: right;
+}
+
+.btn-jpg {
+  background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-jpg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #689f38 0%, #4c721f 100%);
+}
+
+.btn-jpg:active {
+  transform: translateY(0);
+}
+
+/* Mensaje de estado al generar JPG */
+.mensaje-jpg {
+  max-width: 1000px;
+  margin: 12px auto 0 auto;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-align: center;
+  display: none;
+}
+
+.mensaje-jpg.exito {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border-left: 4px solid #2e7d32;
+  display: block;
+}
+
+.mensaje-jpg.error {
+  background: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #c62828;
+  display: block;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nota-container {
@@ -82,41 +154,62 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
   .nota-icono {
     font-size: 1.2rem;
   }
+  .boton-container {
+    margin: 20px 12px 0 auto;
+  }
+  .btn-jpg {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  #captura-container {
+    padding: 12px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>JAIALDIAK</h1>
+<div id="captura-container">
+  <h1>JAIALDIAK</h1>
 
-<div class="table-container">
-   <table>
-    <thead>
-       <tr>
-        <th>EGUNA</th>
-        <th>ORDUA</th>
-        <th>LEKUA</th>
-        <th>ZB</th>
-        <th>SENIOR</th>
-        <th>EPAILEA(K)</th>
-       </tr>
-    </thead>
-    <tbody id="taula">
-       <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
-    </tbody>
-   </table>
-</div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>EGUNA</th>
+          <th>ORDUA</th>
+          <th>LEKUA</th>
+          <th>ZB</th>
+          <th>SENIOR</th>
+          <th>EPAILEA(K)</th>
+        </tr>
+      </thead>
+      <tbody id="taula">
+        <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-<!-- NOTA DE ADVERTENCIA -->
-<div class="nota-container">
-  <div class="nota-texto">
-    <span class="nota-icono">⚠️</span>
-    <span class="nota-contenido">
-      <strong>OHARRA:</strong> * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri.
-    </span>
+  <!-- NOTA DE ADVERTENCIA -->
+  <div class="nota-container">
+    <div class="nota-texto">
+      <span class="nota-icono">⚠️</span>
+      <span class="nota-contenido">
+        <strong>OHARRA:</strong> * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri.
+      </span>
+    </div>
   </div>
 </div>
+
+<!-- Botón para generar JPG -->
+<div class="boton-container">
+  <button class="btn-jpg" id="btn-generar-jpg">
+    📸 IRUDIA SORTU (JPG)
+  </button>
+</div>
+
+<div id="mensaje-jpg" class="mensaje-jpg"></div>
 
 <script>
 // --- CONFIGURACIÓN ---
@@ -134,8 +227,8 @@ function normalizarTexto(texto) {
   return texto.toString()
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // quitar tildes
-    .replace(/[-\s]/g, " ") // unificar espacios
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[-\s]/g, " ")
     .trim();
 }
 
@@ -148,18 +241,14 @@ function frontonesCoinciden(fronton1, fronton2) {
   const f1 = normalizarTexto(fronton1);
   const f2 = normalizarTexto(fronton2);
   
-  // Coincidencia exacta después de normalizar
   if (f1 === f2) return true;
   
-  // Extraer palabras clave
   const palabras1 = f1.split(" ");
   const palabras2 = f2.split(" ");
   
-  // Buscar si "jaian jai" está en ambos
   const tieneJaianJai1 = palabras1.some(p => p.includes("jaian") || p.includes("jai"));
   const tieneJaianJai2 = palabras2.some(p => p.includes("jaian") || p.includes("jai"));
   
-  // Buscar si "lekunberri" o "lekurbenti" está en ambos
   const tieneLekunberri1 = palabras1.some(p => p.includes("lekun") || p.includes("lekur"));
   const tieneLekunberri2 = palabras2.some(p => p.includes("lekun") || p.includes("lekur"));
   
@@ -178,7 +267,6 @@ async function cargarEpaileak() {
     const data = await response.json();
     epaileakData = Array.isArray(data) ? data : [];
     console.log(`${epaileakData.length} árbitros cargados`);
-    console.log("Datos de árbitros:", epaileakData);
     return epaileakData;
   } catch (error) {
     console.error("Error al cargar árbitros:", error);
@@ -220,7 +308,6 @@ async function guardar(fecha, hora, fronton, value, inputElement) {
       inputElement.style.backgroundColor = originalBg;
     }, 500);
 
-    // Actualizar epaileakData
     const index = epaileakData.findIndex(item =>
       item.fecha === fecha && 
       item.hora === hora && 
@@ -254,7 +341,6 @@ function normalizaHora(h) {
    Buscar árbitro guardado de forma flexible
 ========================= */
 function buscarEpaileGuardado(fecha, hora, fronton) {
-  // Primero: búsqueda exacta (fecha, hora y frontón normalizado)
   let guardado = epaileakData.find(item => {
     const mismaFecha = item.fecha === fecha;
     const mismaHora = item.hora === hora;
@@ -264,7 +350,6 @@ function buscarEpaileGuardado(fecha, hora, fronton) {
   
   if (guardado) return guardado;
   
-  // Segundo: búsqueda por hora y frontón (ignorando fecha)
   guardado = epaileakData.find(item => {
     const mismaHora = item.hora === hora;
     const mismoFronton = frontonesCoinciden(item.fronton, fronton);
@@ -273,7 +358,6 @@ function buscarEpaileGuardado(fecha, hora, fronton) {
   
   if (guardado) return guardado;
   
-  // Tercero: búsqueda solo por frontón (para mantener asignaciones)
   guardado = epaileakData.find(item => {
     const mismoFronton = frontonesCoinciden(item.fronton, fronton);
     return mismoFronton && item.epailea;
@@ -290,7 +374,6 @@ async function crearTabla() {
   tbody.innerHTML = '<tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>';
 
   try {
-    // 1. Cargar JSONs
     console.log("Cargando JSONs...");
     const [oficialesResp, noOficialesResp] = await Promise.all([
       fetch("data/cartelera-larraun.json"),
@@ -303,13 +386,11 @@ async function crearTabla() {
     const oficiales = await oficialesResp.json();
     const noOficiales = await noOficialesResp.json();
 
-    // 2. Combinar datos
     const data = [
       ...oficiales.map(p => ({ ...p, ofiziala: true })),
       ...noOficiales
     ];
 
-    // 3. Procesar partidos para agrupar por horario
     const jaialdiak = {};
     data.forEach(p => {
       if (!/lekunberri|aldatz|lekurbenti/i.test(p.fronton || "")) return;
@@ -335,18 +416,15 @@ async function crearTabla() {
       }
     });
 
-    // 4. Ordenar
     const filas = Object.values(jaialdiak).sort((a, b) => 
       new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora)
     );
 
-    // 5. Limpiar y construir tabla
     tbody.innerHTML = "";
 
     filas.forEach(j => {
       const tr = document.createElement("tr");
 
-      // Aplicar clases CSS
       if (/jaian\s*jai/i.test(j.fronton)) {
         tr.classList.add("lateral-jaianjai");
       } else if (/trinkete/i.test(j.fronton)) {
@@ -355,11 +433,9 @@ async function crearTabla() {
         tr.classList.add("lateral-default");
       }
 
-      // Buscar árbitro guardado con el nuevo método flexible
       const guardado = buscarEpaileGuardado(j.fecha, j.hora, j.fronton);
       const valorInicial = guardado ? guardado.epailea : "";
 
-      // Crear celdas
       const tdFecha = document.createElement("td");
       tdFecha.textContent = j.fecha;
       tr.appendChild(tdFecha);
@@ -411,6 +487,79 @@ async function crearTabla() {
 }
 
 /* =========================
+   Generar JPG de la tabla y la nota
+========================= */
+async function generarJPG() {
+  const container = document.getElementById("captura-container");
+  const mensajeDiv = document.getElementById("mensaje-jpg");
+  const boton = document.getElementById("btn-generar-jpg");
+  
+  // Deshabilitar botón mientras se genera
+  boton.disabled = true;
+  boton.style.opacity = "0.6";
+  boton.style.cursor = "wait";
+  
+  // Ocultar mensaje anterior
+  mensajeDiv.className = "mensaje-jpg";
+  mensajeDiv.style.display = "none";
+  
+  try {
+    // Mostrar mensaje de carga
+    mensajeDiv.textContent = "📸 Irudia sortzen... Itxaron mesedez.";
+    mensajeDiv.className = "mensaje-jpg";
+    mensajeDiv.style.display = "block";
+    
+    // Configuración para html2canvas
+    const canvas = await html2canvas(container, {
+      scale: 2, // Mayor calidad
+      backgroundColor: "#f4f4f4",
+      logging: false,
+      useCORS: true, // Para imágenes externas si las hubiera
+      windowWidth: container.scrollWidth,
+      windowHeight: container.scrollHeight
+    });
+    
+    // Crear imagen
+    const image = canvas.toDataURL("image/jpeg", 0.95);
+    
+    // Crear enlace de descarga
+    const link = document.createElement("a");
+    const fechaActual = new Date().toISOString().slice(0, 19).replace(/:/g, "-");
+    link.download = `jaialdiak_${fechaActual}.jpg`;
+    link.href = image;
+    link.click();
+    
+    // Mensaje de éxito
+    mensajeDiv.textContent = "✓ Irudia ondo sortu da! Deskarga hasi da.";
+    mensajeDiv.className = "mensaje-jpg exito";
+    
+    // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+      if (mensajeDiv.className === "mensaje-jpg exito") {
+        mensajeDiv.style.display = "none";
+      }
+    }, 3000);
+    
+  } catch (error) {
+    console.error("Error generando JPG:", error);
+    mensajeDiv.textContent = "✗ Errorea irudia sortzean: " + error.message;
+    mensajeDiv.className = "mensaje-jpg error";
+    
+    // Ocultar mensaje después de 4 segundos
+    setTimeout(() => {
+      if (mensajeDiv.className === "mensaje-jpg error") {
+        mensajeDiv.style.display = "none";
+      }
+    }, 4000);
+  } finally {
+    // Rehabilitar botón
+    boton.disabled = false;
+    boton.style.opacity = "1";
+    boton.style.cursor = "pointer";
+  }
+}
+
+/* =========================
    INICIALIZACIÓN
 ========================= */
 (async function init() {
@@ -419,6 +568,12 @@ async function crearTabla() {
   
   // 2. Crear tabla
   await crearTabla();
+  
+  // 3. Configurar botón para generar JPG
+  const btnGenerar = document.getElementById("btn-generar-jpg");
+  if (btnGenerar) {
+    btnGenerar.addEventListener("click", generarJPG);
+  }
 })();
 
 </script>
