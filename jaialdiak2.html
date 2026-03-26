@@ -5,173 +5,577 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jaialdiak – Larraun Pilota Elkartea</title>
 
+<!-- Incluir html2canvas para capturar la tabla como imagen -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
-body{font-family:Arial;background:#f4f4f4;padding:20px;}
-h1{text-align:center;color:#33691e;margin-bottom:20px;}
-table{width:100%;max-width:900px;margin:auto;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
-thead{background:#7cb342;}
-th,td{padding:10px;border:1px solid #ccc;text-align:center;}
+body{font-family:Arial;background:#f4f4f4;padding:20px;margin:0;}
+h1{text-align:center;color:#33691e;margin-bottom:20px;font-weight:normal;}
+
+/* Contenedor principal que se capturará como imagen */
+#captura-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.table-container{overflow-x:auto;margin:auto;}
+table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
+thead{background:#7cb342;color:white;}
+th,td{padding:12px 8px;border:1px solid #ccc;text-align:center;}
 th{font-weight:900;}
-input{width:100%;border:none;background:#e8f5e9;padding:6px;font-size:1em;}
-input:focus{outline:2px solid #7cb342;}
-.senior-bai{background:linear-gradient(90deg,#fffde7,#ffffff);}
+input{width:100%;border:none;background:#e8f5e9;padding:8px;font-size:1em;box-sizing:border-box;}
+input:focus{outline:2px solid #7cb342;background:#fff;}
+
+/* Senior BAI en azul */
+.senior-bai {
+  background-color: #2196F3 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Estilo para la fila completa */
 .lateral-jaianjai{box-shadow:inset 6px 0 0 #1565c0;}
 .lateral-trinkete{box-shadow:inset 6px 0 0 #2e7d32;}
 .lateral-default{box-shadow:inset 6px 0 0 #3f51b5;}
+
+.loading{text-align:center;padding:40px;font-size:1.2em;color:#666;}
+.error{text-align:center;padding:40px;color:#c62828;background:#ffebee;}
+.guardado{background:#e8f5e9!important;transition:background 0.3s;}
+
+/* Estilo para la nota de advertencia */
+.nota-container {
+  max-width: 1000px;
+  margin: 25px auto 0 auto;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fff8e7 0%, #fff3e0 100%);
+  border-left: 5px solid #ff9800;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-family: Arial, sans-serif;
+}
+
+.nota-texto {
+  font-size: 0.95rem;
+  color: #5d4037;
+  line-height: 1.5;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nota-icono {
+  font-size: 1.4rem;
+  color: #ff9800;
+}
+
+.nota-contenido {
+  flex: 1;
+}
+
+.nota-contenido strong {
+  color: #e65100;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Estilo del botón */
+.boton-container {
+  max-width: 1000px;
+  margin: 25px auto 0 auto;
+  text-align: right;
+}
+
+.btn-jpg {
+  background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-jpg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #689f38 0%, #4c721f 100%);
+}
+
+.btn-jpg:active {
+  transform: translateY(0);
+}
+
+/* Mensaje de estado al generar JPG */
+.mensaje-jpg {
+  max-width: 1000px;
+  margin: 12px auto 0 auto;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-align: center;
+  display: none;
+}
+
+.mensaje-jpg.exito {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border-left: 4px solid #2e7d32;
+  display: block;
+}
+
+.mensaje-jpg.error {
+  background: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #c62828;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nota-container {
+    margin: 20px 12px 0 12px;
+    padding: 12px 16px;
+  }
+  .nota-texto {
+    font-size: 0.85rem;
+  }
+  .nota-icono {
+    font-size: 1.2rem;
+  }
+  .boton-container {
+    margin: 20px 12px 0 auto;
+  }
+  .btn-jpg {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  #captura-container {
+    padding: 12px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<h1>JAIALDIAK</h1>
+<div id="captura-container">
+  <h1>JAIALDIAK</h1>
 
-<table>
-<thead>
-<tr>
-<th>EGUNA</th>
-<th>ORDUA</th>
-<th>LEKUA</th>
-<th>ZB</th>
-<th>SENIOR</th>
-<th>EPAILEA(K)</th>
-</tr>
-</thead>
-<tbody id="taula"></tbody>
-</table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>EGUNA</th>
+          <th>ORDUA</th>
+          <th>LEKUA</th>
+          <th>ZB</th>
+          <th>SENIOR</th>
+          <th>EPAILEA(K)</th>
+        </tr>
+      </thead>
+      <tbody id="taula">
+        <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOTA DE ADVERTENCIA -->
+  <div class="nota-container">
+    <div class="nota-texto">
+      <span class="nota-icono">⚠️</span>
+      <span class="nota-contenido">
+        <strong>OHARRA:</strong> * Jaialdien aurretik mopa pasa, markagailua eta aktak prestatu, sillak bere tokian jarri.
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Botón para generar JPG -->
+<div class="boton-container">
+  <button class="btn-jpg" id="btn-generar-jpg">
+    📸 IRUDIA SORTU (JPG)
+  </button>
+</div>
+
+<div id="mensaje-jpg" class="mensaje-jpg"></div>
 
 <script>
+// --- CONFIGURACIÓN ---
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-zUzbOBE3vIwdCJzWkCz2b5A2HzXcwGBJv46FeyzNaFPz6vrqFTwvVTxIEyuR8dCm/exec";
+const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA|ABSOLUTO)/i;
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj70d0n6jlVld_wE2QO8Hk8iF6gXuxHCcQZ36r4sC4raJF1DnMXxOkrvc0spWhWHwJ/exec";
-const SENIOR_RE = /(NAGUSI|HELDUA|SENIOR|ESPAINA)/i;
-
-let datosSheets = [];
-
-/* =========================
-   Cargar datos desde Sheets
-========================= */
-fetch(SCRIPT_URL)
-  .then(r => r.json())
-  .then(d => datosSheets = d || [])
-  .catch(() => datosSheets = [])
-  .finally(() => crearTabla());
+// Estado de la aplicación
+let epaileakData = [];
 
 /* =========================
-   Guardar en Sheets
+   Función para normalizar texto (quitar tildes y mayúsculas/minúsculas)
 ========================= */
-function guardar(fecha, hora, fronton, value){
+function normalizarTexto(texto) {
+  if (!texto) return "";
+  return texto.toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[-\s]/g, " ")
+    .trim();
+}
 
-  fetch(SCRIPT_URL, {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/x-www-form-urlencoded"
-    },
-    body:
-      `fecha=${encodeURIComponent(fecha)}`
-      + `&hora=${encodeURIComponent(hora)}`
-      + `&fronton=${encodeURIComponent(fronton)}`
-      + `&epailea=${encodeURIComponent(value)}`
-  });
+/* =========================
+   Función para comparar frontones de forma flexible
+========================= */
+function frontonesCoinciden(fronton1, fronton2) {
+  if (!fronton1 || !fronton2) return false;
+  
+  const f1 = normalizarTexto(fronton1);
+  const f2 = normalizarTexto(fronton2);
+  
+  if (f1 === f2) return true;
+  
+  const palabras1 = f1.split(" ");
+  const palabras2 = f2.split(" ");
+  
+  const tieneJaianJai1 = palabras1.some(p => p.includes("jaian") || p.includes("jai"));
+  const tieneJaianJai2 = palabras2.some(p => p.includes("jaian") || p.includes("jai"));
+  
+  const tieneLekunberri1 = palabras1.some(p => p.includes("lekun") || p.includes("lekur"));
+  const tieneLekunberri2 = palabras2.some(p => p.includes("lekun") || p.includes("lekur"));
+  
+  return (tieneJaianJai1 && tieneJaianJai2) || (tieneLekunberri1 && tieneLekunberri2);
+}
 
+/* =========================
+   Cargar árbitros desde Google Sheets
+========================= */
+async function cargarEpaileak() {
+  try {
+    console.log("Cargando árbitros...");
+    const response = await fetch(SCRIPT_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    epaileakData = Array.isArray(data) ? data : [];
+    console.log(`${epaileakData.length} árbitros cargados`);
+    return epaileakData;
+  } catch (error) {
+    console.error("Error al cargar árbitros:", error);
+    epaileakData = [];
+    return [];
+  }
+}
+
+/* =========================
+   Guardar en Google Sheets
+========================= */
+async function guardar(fecha, hora, fronton, value, inputElement) {
+  const originalBg = inputElement.style.backgroundColor;
+  inputElement.style.backgroundColor = "#fff9c4";
+  
+  try {
+    const params = new URLSearchParams({
+      fecha: fecha.trim(),
+      hora: hora.trim(),
+      fronton: fronton.trim(),
+      epailea: value.trim()
+    });
+
+    console.log("Guardando:", {fecha, hora, fronton, epailea: value});
+
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString()
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const result = await response.json();
+    console.log("Guardado OK:", result);
+    
+    inputElement.style.backgroundColor = "#c8e6c9";
+    setTimeout(() => {
+      inputElement.style.backgroundColor = originalBg;
+    }, 500);
+
+    const index = epaileakData.findIndex(item =>
+      item.fecha === fecha && 
+      item.hora === hora && 
+      frontonesCoinciden(item.fronton, fronton)
+    );
+    
+    if (index !== -1) {
+      epaileakData[index].epailea = value;
+    } else {
+      epaileakData.push({ fecha, hora, fronton, epailea: value });
+    }
+
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    inputElement.style.backgroundColor = "#ffcdd2";
+    setTimeout(() => {
+      inputElement.style.backgroundColor = originalBg;
+    }, 1000);
+  }
 }
 
 /* =========================
    Utilidades
 ========================= */
-function normalizaHora(h){
-  if(!h) return "00:00";
-  return h.slice(0,5);
+function normalizaHora(h) {
+  if (!h) return "00:00";
+  return h.slice(0, 5);
+}
+
+/* =========================
+   Buscar árbitro guardado de forma flexible
+========================= */
+function buscarEpaileGuardado(fecha, hora, fronton) {
+  let guardado = epaileakData.find(item => {
+    const mismaFecha = item.fecha === fecha;
+    const mismaHora = item.hora === hora;
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismaFecha && mismaHora && mismoFronton;
+  });
+  
+  if (guardado) return guardado;
+  
+  guardado = epaileakData.find(item => {
+    const mismaHora = item.hora === hora;
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismaHora && mismoFronton && item.epailea;
+  });
+  
+  if (guardado) return guardado;
+  
+  guardado = epaileakData.find(item => {
+    const mismoFronton = frontonesCoinciden(item.fronton, fronton);
+    return mismoFronton && item.epailea;
+  });
+  
+  return guardado;
 }
 
 /* =========================
    Crear tabla
 ========================= */
-function crearTabla(){
-
-Promise.all([
-  fetch("data/cartelera-larraun.json").then(r=>r.json()),
-  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
-]).then(([oficiales, noOficiales]) => {
-
-  const data = [
-    ...oficiales.map(p => ({ ...p, ofiziala:true })),
-    ...noOficiales
-  ];
-
-  const jaialdiak = {};
-
-  data.forEach(p => {
-
-    if(!/lekunberri|aldatz/i.test(p.fronton||"")) return;
-
-    const hora = normalizaHora(p.hora);
-    const key = `${p.fecha}|${hora}|${p.fronton}`;
-
-    if(!jaialdiak[key]){
-      jaialdiak[key] = {
-        fecha:p.fecha,
-        hora:hora,
-        fronton:p.fronton,
-        zb:0,
-        senior:"EZ"
-      };
-    }
-
-    jaialdiak[key].zb++;
-
-    const testua = `${p.lehiaketa||""} ${p.modalitatea||""}`;
-    if(SENIOR_RE.test(testua)){
-      jaialdiak[key].senior="BAI";
-    }
-  });
-
+async function crearTabla() {
   const tbody = document.getElementById("taula");
+  tbody.innerHTML = '<tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>';
 
-  Object.values(jaialdiak)
-    .sort((a,b)=> new Date(a.fecha+" "+a.hora) - new Date(b.fecha+" "+b.hora))
-    .forEach(j => {
+  try {
+    console.log("Cargando JSONs...");
+    const [oficialesResp, noOficialesResp] = await Promise.all([
+      fetch("data/cartelera-larraun.json"),
+      fetch("data/partidos-no-oficiales.json")
+    ]);
 
+    if (!oficialesResp.ok) throw new Error("No se pudo cargar cartelera-larraun.json");
+    if (!noOficialesResp.ok) throw new Error("No se pudo cargar partidos-no-oficiales.json");
+
+    const oficiales = await oficialesResp.json();
+    const noOficiales = await noOficialesResp.json();
+
+    const data = [
+      ...oficiales.map(p => ({ ...p, ofiziala: true })),
+      ...noOficiales
+    ];
+
+    const jaialdiak = {};
+    data.forEach(p => {
+      if (!/lekunberri|aldatz|lekurbenti/i.test(p.fronton || "")) return;
+
+      const hora = normalizaHora(p.hora);
+      const key = `${p.fecha}|${hora}|${p.fronton}`;
+
+      if (!jaialdiak[key]) {
+        jaialdiak[key] = {
+          fecha: p.fecha,
+          hora: hora,
+          fronton: p.fronton,
+          zb: 0,
+          senior: "EZ"
+        };
+      }
+
+      jaialdiak[key].zb++;
+
+      const testua = `${p.lehiaketa || ""} ${p.modalitatea || ""}`;
+      if (SENIOR_RE.test(testua)) {
+        jaialdiak[key].senior = "BAI";
+      }
+    });
+
+    const filas = Object.values(jaialdiak).sort((a, b) => 
+      new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora)
+    );
+
+    tbody.innerHTML = "";
+
+    filas.forEach(j => {
       const tr = document.createElement("tr");
 
-      if(j.senior === "BAI") tr.classList.add("senior-bai");
-
-      if(/jaian\s*jai/i.test(j.fronton)){
+      if (/jaian\s*jai/i.test(j.fronton)) {
         tr.classList.add("lateral-jaianjai");
-      } else if(/trinkete/i.test(j.fronton)){
+      } else if (/trinkete/i.test(j.fronton)) {
         tr.classList.add("lateral-trinkete");
       } else {
         tr.classList.add("lateral-default");
       }
 
-      // Buscar si existe guardado en Sheets
-      const guardado = datosSheets.find(item =>
-        item.fecha === j.fecha &&
-        item.hora === j.hora &&
-        item.fronton === j.fronton
-      );
-
+      const guardado = buscarEpaileGuardado(j.fecha, j.hora, j.fronton);
       const valorInicial = guardado ? guardado.epailea : "";
 
-      tr.innerHTML = `
-        <td>${j.fecha}</td>
-        <td>${j.hora}</td>
-        <td>${j.fronton}</td>
-        <td><strong>${j.zb}</strong></td>
-        <td><strong>${j.senior}</strong></td>
-        <td>
-          <input
-            value="${valorInicial}"
-            onchange="guardar('${j.fecha}', '${j.hora}', '${j.fronton}', this.value)"
-          >
-        </td>
-      `;
+      const tdFecha = document.createElement("td");
+      tdFecha.textContent = j.fecha;
+      tr.appendChild(tdFecha);
+
+      const tdHora = document.createElement("td");
+      tdHora.textContent = j.hora;
+      tr.appendChild(tdHora);
+
+      const tdFronton = document.createElement("td");
+      tdFronton.textContent = j.fronton;
+      tr.appendChild(tdFronton);
+
+      const tdZb = document.createElement("td");
+      tdZb.innerHTML = `<strong>${j.zb}</strong>`;
+      tr.appendChild(tdZb);
+
+      const tdSenior = document.createElement("td");
+      if (j.senior === "BAI") {
+        tdSenior.style.backgroundColor = "#2196F3";
+        tdSenior.style.color = "white";
+        tdSenior.style.fontWeight = "bold";
+        tdSenior.innerHTML = `<strong>BAI</strong>`;
+      } else {
+        tdSenior.innerHTML = `<strong>EZ</strong>`;
+      }
+      tr.appendChild(tdSenior);
+
+      const tdInput = document.createElement("td");
+      const input = document.createElement("input");
+      input.value = valorInicial;
+      input.placeholder = "...";
+      
+      input.onchange = function() {
+        guardar(j.fecha, j.hora, j.fronton, this.value, this);
+      };
+      
+      tdInput.appendChild(input);
+      tr.appendChild(tdInput);
 
       tbody.appendChild(tr);
     });
 
-});
+    console.log(`Tabla creada con ${filas.length} filas`);
+
+  } catch (error) {
+    console.error("Error creando tabla:", error);
+    tbody.innerHTML = `<tr><td colspan="6" class="error">Errorea: ${error.message}</td></tr>`;
+  }
 }
 
-</script>
+/* =========================
+   Generar JPG de la tabla y la nota
+========================= */
+async function generarJPG() {
+  const container = document.getElementById("captura-container");
+  const mensajeDiv = document.getElementById("mensaje-jpg");
+  const boton = document.getElementById("btn-generar-jpg");
+  
+  // Deshabilitar botón mientras se genera
+  boton.disabled = true;
+  boton.style.opacity = "0.6";
+  boton.style.cursor = "wait";
+  
+  // Ocultar mensaje anterior
+  mensajeDiv.className = "mensaje-jpg";
+  mensajeDiv.style.display = "none";
+  
+  try {
+    // Mostrar mensaje de carga
+    mensajeDiv.textContent = "📸 Irudia sortzen... Itxaron mesedez.";
+    mensajeDiv.className = "mensaje-jpg";
+    mensajeDiv.style.display = "block";
+    
+    // Configuración para html2canvas
+    const canvas = await html2canvas(container, {
+      scale: 2, // Mayor calidad
+      backgroundColor: "#f4f4f4",
+      logging: false,
+      useCORS: true, // Para imágenes externas si las hubiera
+      windowWidth: container.scrollWidth,
+      windowHeight: container.scrollHeight
+    });
+    
+    // Crear imagen
+    const image = canvas.toDataURL("image/jpeg", 0.95);
+    
+    // Crear enlace de descarga
+    const link = document.createElement("a");
+    const fechaActual = new Date().toISOString().slice(0, 19).replace(/:/g, "-");
+    link.download = `jaialdiak_${fechaActual}.jpg`;
+    link.href = image;
+    link.click();
+    
+    // Mensaje de éxito
+    mensajeDiv.textContent = "✓ Irudia ondo sortu da! Deskarga hasi da.";
+    mensajeDiv.className = "mensaje-jpg exito";
+    
+    // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+      if (mensajeDiv.className === "mensaje-jpg exito") {
+        mensajeDiv.style.display = "none";
+      }
+    }, 3000);
+    
+  } catch (error) {
+    console.error("Error generando JPG:", error);
+    mensajeDiv.textContent = "✗ Errorea irudia sortzean: " + error.message;
+    mensajeDiv.className = "mensaje-jpg error";
+    
+    // Ocultar mensaje después de 4 segundos
+    setTimeout(() => {
+      if (mensajeDiv.className === "mensaje-jpg error") {
+        mensajeDiv.style.display = "none";
+      }
+    }, 4000);
+  } finally {
+    // Rehabilitar botón
+    boton.disabled = false;
+    boton.style.opacity = "1";
+    boton.style.cursor = "pointer";
+  }
+}
 
+/* =========================
+   INICIALIZACIÓN
+========================= */
+(async function init() {
+  // 1. Cargar árbitros
+  await cargarEpaileak();
+  
+  // 2. Crear tabla
+  await crearTabla();
+  
+  // 3. Configurar botón para generar JPG
+  const btnGenerar = document.getElementById("btn-generar-jpg");
+  if (btnGenerar) {
+    btnGenerar.addEventListener("click", generarJPG);
+  }
+})();
+
+</script>
 </body>
 </html>
