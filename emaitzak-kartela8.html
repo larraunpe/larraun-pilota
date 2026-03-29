@@ -5,7 +5,7 @@
 <title>EMAITZAK - LARRAUN PILOTA ELKARTEA</title>
  
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DotGothic16&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
@@ -154,15 +154,15 @@ body{
 
 .fila{
   display:grid;
-  grid-template-columns: 1.8fr 9fr 6fr 9fr 1.8fr;
+  grid-template-columns: 1.6fr 9fr 5.5fr 9fr 1.6fr 0.8fr;
   align-items:center;
-  padding:10px 8px;
-  gap:4px;
+  padding:10px 6px;
+  gap:2px;
 }
 
 .logo{
-  width:55px;
-  height:55px;
+  width:52px;
+  height:52px;
   object-fit:contain;
 }
 
@@ -183,21 +183,21 @@ body{
   letter-spacing:1px;
 }
 .local{
-  padding-left:8px;
+  padding-left:6px;
 }
 
 .visit{
-  padding-right:8px;
+  padding-right:6px;
 }
 .visit{text-align:right}
 
 .principal{
-  font-size:17px;
+  font-size:16px;
   font-weight:700;
 }
 
 .pelotaris{
-  font-size:6.5px;
+  font-size:6px;
   font-weight:700;
 }
 
@@ -212,32 +212,32 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:38px;
+  font-size:36px;
   font-weight:900;
   white-space:nowrap;
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .resultado-linea{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
+  gap:10px;
 }
 
 .icono-wrapper{
-  width:28px;
+  width:26px;
   display:flex;
   justify-content:center;
 }
 
 .icono-resultado{
-  width:24px;
-  height:24px;
+  width:22px;
+  height:22px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  font-size:13px;
   font-weight:900;
   border-radius:4px;
   color:#fff;
@@ -247,8 +247,8 @@ body{
 .pierde{ background:#e53935; }
 
 .sets{
-  font-size:12px;
-  margin-top:3px;
+  font-size:11px;
+  margin-top:2px;
   font-weight:700;
 }
 
@@ -276,30 +276,22 @@ body{
 
 /* ================= QR ================= */
 
-.qr-container{
-  width:45px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  margin:0 4px;
+.qr-cell{
+  width:42px;
+  text-align:center;
 }
 
 .qr-code{
-  width:40px;
-  height:40px;
+  width:38px;
+  height:38px;
+  margin:0 auto;
   cursor:pointer;
-  transition:transform 0.2s;
-}
-
-.qr-code:hover{
-  transform:scale(1.05);
 }
 
 .qr-label{
-  font-size:7px;
+  font-size:6px;
   font-family:'Share Tech Mono', monospace;
-  color:#666;
+  color:#888;
   margin-top:2px;
   text-align:center;
 }
@@ -387,6 +379,12 @@ body{
   }
 }
 
+/* Ajuste para que el QR no rompa el diseño en pantallas pequeñas */
+@media (max-width: 1123px) {
+  .fila {
+    grid-template-columns: 1.6fr 9fr 5.5fr 9fr 1.6fr 0.8fr;
+  }
+}
 
 </style>
 </head>
@@ -541,7 +539,7 @@ function ordenar(lista){
     if(esDescanso(a) && !esDescanso(b)) return 1;
     if(!esDescanso(a) && esDescanso(b)) return -1;
 
-    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
+    const fa=new Date(p.fecha+"T"+(p.hora||"00:00"));
     const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
 
     return fa-fb;
@@ -638,36 +636,13 @@ else if(est==="lose"){
 }
 
   // Crear contenedor QR
-  const qrContainer = document.createElement("div");
-  qrContainer.className = "qr-container";
-  
-  const qrDiv = document.createElement("div");
-  qrDiv.className = "qr-code";
-  
-  const qrLabel = document.createElement("div");
-  qrLabel.className = "qr-label";
-  qrLabel.textContent = "INFO";
-  
-  qrContainer.appendChild(qrDiv);
-  qrContainer.appendChild(qrLabel);
-  
-  // Generar QR si hay URL
-  if(p.url && p.url !== "#"){
-    setTimeout(() => {
-      new QRCode(qrDiv, {
-        text: p.url,
-        width: 40,
-        height: 40,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    }, 0);
-  } else {
-    qrDiv.style.opacity = "0.3";
-    qrDiv.style.backgroundColor = "#f0f0f0";
-    qrDiv.style.borderRadius = "4px";
-  }
+  const qrId = "qr_" + Math.random().toString(36).substr(2, 9);
+  const qrHtml = `
+    <div class="qr-cell">
+      <div id="${qrId}" class="qr-code"></div>
+      <div class="qr-label">INFO</div>
+    </div>
+  `;
 
   const div=document.createElement("div");
   div.className = 
@@ -715,21 +690,33 @@ else if(est==="lose"){
       </div>
 
       ${logoClub(p.kanpokoak)}
-
+      
+      ${qrHtml}
     </div>
   `;
   
-  // Insertar QR después del marcador (en la fila)
-  const fila = div.querySelector(".fila");
-  const scoreDiv = fila.querySelector(".score");
-  const qrClone = qrContainer.cloneNode(true);
-  
-  // Insertar QR después del score
-  if(scoreDiv && scoreDiv.nextSibling){
-    fila.insertBefore(qrClone, scoreDiv.nextSibling);
-  } else {
-    fila.appendChild(qrClone);
-  }
+  // Generar QR después de insertar en el DOM
+  setTimeout(() => {
+    const qrContainer = div.querySelector(`#${qrId}`);
+    if(qrContainer && p.url && p.url !== "#"){
+      try {
+        new QRCode(qrContainer, {
+          text: p.url,
+          width: 38,
+          height: 38,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } catch(e) {
+        console.log("Error generando QR:", e);
+      }
+    } else if(qrContainer && (!p.url || p.url === "#")) {
+      qrContainer.style.opacity = "0.3";
+      qrContainer.style.backgroundColor = "#f0f0f0";
+      qrContainer.style.borderRadius = "4px";
+    }
+  }, 0);
 
   return div;
 }
@@ -824,7 +811,7 @@ Promise.all([
   await document.fonts.ready;
 
   // Esperar a que los QRs se generen
-  await new Promise(resolve => setTimeout(resolve, 500));
+  await new Promise(resolve => setTimeout(resolve, 800));
 
   const imagenes = Array.from(document.images);
   await Promise.all(
