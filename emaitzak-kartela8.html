@@ -5,7 +5,6 @@
 <title>EMAITZAK - LARRAUN PILOTA ELKARTEA</title>
  
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DotGothic16&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
@@ -137,10 +136,10 @@ body{
 
 .fila{
   display:grid;
-  grid-template-columns: 1.6fr 9fr 5.5fr 9fr 1.6fr 0.9fr;
+  grid-template-columns: 1.6fr 8fr 5fr 8fr 1.6fr 1.2fr;
   align-items:center;
   padding:10px 6px;
-  gap:2px;
+  gap:4px;
 }
 
 .logo{
@@ -189,7 +188,7 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:36px;
+  font-size:34px;
   font-weight:900;
   white-space:nowrap;
   letter-spacing:1px;
@@ -254,24 +253,32 @@ body{
 /* ================= QR ================= */
 
 .qr-cell{
-  width:45px;
+  width:70px;
   text-align:center;
+  cursor:pointer;
 }
 
-.qr-code canvas,
-.qr-code img {
-  width: 40px !important;
-  height: 40px !important;
-  margin: 0 auto;
+.qr-code-img {
+  width: 65px !important;
+  height: 65px !important;
   display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.qr-code-img:hover {
+  transform: scale(1.05);
 }
 
 .qr-label{
-  font-size:7px;
+  font-size:8px;
   font-family:'Share Tech Mono', monospace;
   color:#666;
-  margin-top:2px;
+  margin-top:4px;
   text-align:center;
+  font-weight:bold;
 }
 
 /* ================= FINALA BORDE DORADO ================= */
@@ -376,7 +383,6 @@ body{
 
 <script>
 // ================= DATOS DE EJEMPLO CON URLs REALES =================
-// Estas URLs son de ejemplo que apuntan a tu dominio - reemplázalas con las reales cuando las tengas
 
 const DATOS_EJEMPLO = {
   larraun: [
@@ -410,17 +416,6 @@ const DATOS_EJEMPLO = {
       tanteoa: "22-12",
       url: "https://larraunpilota.eus/partidua/2026-03-28/larraun-lagunak",
       ofiziala: true
-    },
-    {
-      fecha: "2026-03-27",
-      fronton: "Zizur Mayor",
-      lehiaketa: "NKJ - ESKUZ BINAKA",
-      etxekoa: "ARDOI (L. Abaurrea - U. Olleta)",
-      kanpokoak: "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-      tanteoa: "8-22",
-      sets: "(2-9) (6-13)",
-      url: "https://larraunpilota.eus/partidua/2026-03-27/ardoi-larraun",
-      ofiziala: true
     }
   ],
   noOficiales: [
@@ -433,22 +428,11 @@ const DATOS_EJEMPLO = {
       tanteoa: "15-22",
       url: "https://larraunpilota.eus/partidua/2026-03-28/buruzgain-larraun",
       ofiziala: false
-    },
-    {
-      fecha: "2026-03-22",
-      fronton: "Barañain",
-      lehiaketa: "SAN ESTEBAN TXAPELKETA",
-      etxekoa: "ALDABIDE (Loidi - Maduit)",
-      kanpokoak: "LARRAUN (Centeno - Andueza)",
-      tanteoa: "18-11",
-      url: "https://larraunpilota.eus/partidua/2026-03-22/aldabide-larraun",
-      ofiziala: false
     }
   ],
   fases: {
     "FINALA": "Finala",
     "FASE 3": "Fase 3",
-    "FASE 2": "Fase 2",
     "ZORTZIRENAK": "1/8 Finala"
   },
   categorias: {
@@ -581,42 +565,13 @@ function extraerFase(texto){
   return { limpio:texto, etiqueta:"" };
 }
 
-// Función mejorada para generar QR de forma confiable
-function generarQR(elemento, url) {
-  if (!elemento || !url || url === "#") return;
-  
-  // Limpiar el contenido previo
-  elemento.innerHTML = "";
-  
-  try {
-    // Usar la librería QRCode
-    new QRCode(elemento, {
-      text: url,
-      width: 40,
-      height: 40,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-    
-    // Asegurar que el canvas generado tenga el tamaño correcto
-    setTimeout(() => {
-      const canvas = elemento.querySelector("canvas");
-      if (canvas) {
-        canvas.style.width = "40px";
-        canvas.style.height = "40px";
-      }
-    }, 50);
-    
-  } catch(e) {
-    console.error("Error generando QR:", e);
-    // Fallback: mostrar texto simple
-    elemento.style.fontSize = "8px";
-    elemento.style.wordBreak = "break-all";
-    elemento.style.backgroundColor = "#f0f0f0";
-    elemento.style.padding = "2px";
-    elemento.textContent = url.substring(0, 30);
-  }
+// ================= GENERACIÓN DE QR CON GOOGLE CHARTS (MUY FIABLE) =================
+
+function generarQRGoogle(url, size = 80) {
+  // Codificar la URL para que sea segura en el parámetro GET
+  const encodedUrl = encodeURIComponent(url);
+  // Usar Google Charts API para generar QR (muy fiable y compatible con todos los lectores)
+  return `https://chart.googleapis.com/chart?chs=${size}x${size}&cht=qr&chl=${encodedUrl}&choe=UTF-8`;
 }
 
 function crearPartido(p){
@@ -638,11 +593,34 @@ function crearPartido(p){
   }
 
   const faseData = extraerFase(p.lehiaketa || p.modalidad);
-  const qrId = "qr_" + Math.random().toString(36).substr(2, 9);
   const urlPartido = p.url || "#";
+  
+  // Generar QR usando Google Charts (tamaño 70x70 para mejor escaneo)
+  let qrImgSrc = "";
+  let qrClickUrl = "#";
+  
+  if (urlPartido !== "#" && urlPartido) {
+    qrImgSrc = generarQRGoogle(urlPartido, 70);
+    qrClickUrl = urlPartido;
+  }
   
   const div = document.createElement("div");
   div.className = "partido " + est + " " + obtenerClaseCategoria(p.lehiaketa || p.modalidad) + (esFinala ? " partido-finala" : "");
+  
+  // Si hay URL válida, el QR será una imagen que al hacer clic abre la URL
+  // También el texto "INFO" es clickeable
+  const qrHtml = (urlPartido !== "#" && urlPartido) ? `
+    <div class="qr-cell" onclick="window.open('${urlPartido}', '_blank')" style="cursor:pointer;">
+      <img class="qr-code-img" src="${qrImgSrc}" alt="QR code">
+      <div class="qr-label">📱 ESCANEA</div>
+    </div>
+  ` : `
+    <div class="qr-cell" style="opacity:0.4;">
+      <div style="width:65px;height:65px;background:#f0f0f0;border-radius:6px;margin:0 auto;"></div>
+      <div class="qr-label">SIN INFO</div>
+    </div>
+  `;
+  
   div.innerHTML = `
     <a href="${urlPartido}" target="_blank" class="partido-header ${colorHeader}">
       <span>${p.fecha} · ${p.fronton} · ${urlPartido !== "#" ? `<u>${faseData.limpio}</u>` : faseData.limpio} ${faseData.etiqueta}</span>
@@ -666,26 +644,9 @@ function crearPartido(p){
         ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
       </div>
       ${logoClub(p.kanpokoak)}
-      <div class="qr-cell">
-        <div id="${qrId}" class="qr-code"></div>
-        <div class="qr-label">INFO</div>
-      </div>
+      ${qrHtml}
     </div>
   `;
-  
-  // Generar QR después de que el elemento esté en el DOM
-  setTimeout(() => {
-    const qrContainer = div.querySelector(`#${qrId}`);
-    if (qrContainer && urlPartido !== "#") {
-      generarQR(qrContainer, urlPartido);
-    } else if (qrContainer) {
-      qrContainer.style.opacity = "0.3";
-      qrContainer.style.backgroundColor = "#f0f0f0";
-      qrContainer.style.borderRadius = "4px";
-      qrContainer.style.width = "40px";
-      qrContainer.style.height = "40px";
-    }
-  }, 0);
   
   return div;
 }
@@ -720,7 +681,7 @@ async function cargarDatos() {
   lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
   lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial), "bloque-ezofizial"));
   
-  // Intentar cargar datos reales (silenciosamente)
+  // Intentar cargar datos reales
   try {
     const [larraunReal, noOficialesReal, fasesReal, categoriasReal] = await Promise.all([
       fetch("data/resultados-larraun.json").then(r => r.json()).catch(() => null),
@@ -745,7 +706,7 @@ async function cargarDatos() {
       lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizialReal), "bloque-ezofizial"));
     }
   } catch(e) {
-    console.log("Usando datos de ejemplo (archivos JSON no encontrados)");
+    console.log("Usando datos de ejemplo");
   }
 }
 
@@ -758,8 +719,7 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
   const btn = document.getElementById("btnExportar");
   btn.style.display = "none";
   await document.fonts.ready;
-  // Esperar a que todos los QR terminen de generarse
-  await new Promise(resolve => setTimeout(resolve, 800));
+  await new Promise(resolve => setTimeout(resolve, 500));
   
   const bloques = Array.from(document.querySelector("#lista").children);
   const headerHTML = document.querySelector(".header").outerHTML;
