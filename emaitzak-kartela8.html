@@ -258,11 +258,12 @@ body{
   text-align:center;
 }
 
-.qr-code{
-  width:40px;
-  height:40px;
-  margin:0 auto;
-  cursor:pointer;
+.qr-code canvas,
+.qr-code img {
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 auto;
+  display: block;
 }
 
 .qr-label{
@@ -374,8 +375,8 @@ body{
 </div>
 
 <script>
-// ================= DATOS DE EJEMPLO CON URLs REALES PARA LOS QR =================
-// Estos datos se mostrarán inmediatamente. Luego puedes reemplazarlos con tus archivos JSON.
+// ================= DATOS DE EJEMPLO CON URLs REALES =================
+// Estas URLs son de ejemplo que apuntan a tu dominio - reemplázalas con las reales cuando las tengas
 
 const DATOS_EJEMPLO = {
   larraun: [
@@ -387,7 +388,7 @@ const DATOS_EJEMPLO = {
       kanpokoak: "ALDABIDE (M. Zabalza - E. Leiza)",
       tanteoa: "22-18",
       sets: "(9-6) (13-12)",
-      url: "https://larraunpilota.eus/partidua/2026-03-30/1",
+      url: "https://larraunpilota.eus/partidua/2026-03-30/larraun-aldabide",
       ofiziala: true
     },
     {
@@ -397,7 +398,7 @@ const DATOS_EJEMPLO = {
       etxekoa: "LARRAUN (J. Ezkurdia)",
       kanpokoak: "ARDOI (M. Abadia)",
       tanteoa: "18-15",
-      url: "https://larraunpilota.eus/partidua/2026-03-29/2",
+      url: "https://larraunpilota.eus/partidua/2026-03-29/larraun-ardoi",
       ofiziala: true
     },
     {
@@ -407,7 +408,18 @@ const DATOS_EJEMPLO = {
       etxekoa: "LARRAUN (O. Ijurko - E. Oreja)",
       kanpokoak: "LAGUNAK (A. Gomez - N. Iraizoz)",
       tanteoa: "22-12",
-      url: "https://larraunpilota.eus/partidua/2026-03-28/3",
+      url: "https://larraunpilota.eus/partidua/2026-03-28/larraun-lagunak",
+      ofiziala: true
+    },
+    {
+      fecha: "2026-03-27",
+      fronton: "Zizur Mayor",
+      lehiaketa: "NKJ - ESKUZ BINAKA",
+      etxekoa: "ARDOI (L. Abaurrea - U. Olleta)",
+      kanpokoak: "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      tanteoa: "8-22",
+      sets: "(2-9) (6-13)",
+      url: "https://larraunpilota.eus/partidua/2026-03-27/ardoi-larraun",
       ofiziala: true
     }
   ],
@@ -419,7 +431,17 @@ const DATOS_EJEMPLO = {
       etxekoa: "BURUZGAIN (Aldaz - Tellechea)",
       kanpokoak: "LARRAUN (Nazabal - Tellechea)",
       tanteoa: "15-22",
-      url: "https://larraunpilota.eus/partidua/2026-03-28/4",
+      url: "https://larraunpilota.eus/partidua/2026-03-28/buruzgain-larraun",
+      ofiziala: false
+    },
+    {
+      fecha: "2026-03-22",
+      fronton: "Barañain",
+      lehiaketa: "SAN ESTEBAN TXAPELKETA",
+      etxekoa: "ALDABIDE (Loidi - Maduit)",
+      kanpokoak: "LARRAUN (Centeno - Andueza)",
+      tanteoa: "18-11",
+      url: "https://larraunpilota.eus/partidua/2026-03-22/aldabide-larraun",
       ofiziala: false
     }
   ],
@@ -559,6 +581,44 @@ function extraerFase(texto){
   return { limpio:texto, etiqueta:"" };
 }
 
+// Función mejorada para generar QR de forma confiable
+function generarQR(elemento, url) {
+  if (!elemento || !url || url === "#") return;
+  
+  // Limpiar el contenido previo
+  elemento.innerHTML = "";
+  
+  try {
+    // Usar la librería QRCode
+    new QRCode(elemento, {
+      text: url,
+      width: 40,
+      height: 40,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    
+    // Asegurar que el canvas generado tenga el tamaño correcto
+    setTimeout(() => {
+      const canvas = elemento.querySelector("canvas");
+      if (canvas) {
+        canvas.style.width = "40px";
+        canvas.style.height = "40px";
+      }
+    }, 50);
+    
+  } catch(e) {
+    console.error("Error generando QR:", e);
+    // Fallback: mostrar texto simple
+    elemento.style.fontSize = "8px";
+    elemento.style.wordBreak = "break-all";
+    elemento.style.backgroundColor = "#f0f0f0";
+    elemento.style.padding = "2px";
+    elemento.textContent = url.substring(0, 30);
+  }
+}
+
 function crearPartido(p){
   const fronton = (p.fronton || "").toLowerCase();
   const esAzul = fronton.includes("lekunberri") || fronton.includes("aldatz");
@@ -579,12 +639,13 @@ function crearPartido(p){
 
   const faseData = extraerFase(p.lehiaketa || p.modalidad);
   const qrId = "qr_" + Math.random().toString(36).substr(2, 9);
+  const urlPartido = p.url || "#";
   
   const div = document.createElement("div");
   div.className = "partido " + est + " " + obtenerClaseCategoria(p.lehiaketa || p.modalidad) + (esFinala ? " partido-finala" : "");
   div.innerHTML = `
-    <a href="${p.url||'#'}" target="_blank" class="partido-header ${colorHeader}">
-      <span>${p.fecha} · ${p.fronton} · ${p.url?`<u>${faseData.limpio}</u>`:faseData.limpio} ${faseData.etiqueta}</span>
+    <a href="${urlPartido}" target="_blank" class="partido-header ${colorHeader}">
+      <span>${p.fecha} · ${p.fronton} · ${urlPartido !== "#" ? `<u>${faseData.limpio}</u>` : faseData.limpio} ${faseData.etiqueta}</span>
     </a>
     <div class="fila">
       ${logoClub(p.etxekoa)}
@@ -612,26 +673,19 @@ function crearPartido(p){
     </div>
   `;
   
-  // Generar QR después de insertar
+  // Generar QR después de que el elemento esté en el DOM
   setTimeout(() => {
     const qrContainer = div.querySelector(`#${qrId}`);
-    if(qrContainer && p.url && p.url !== "#"){
-      try {
-        new QRCode(qrContainer, {
-          text: p.url,
-          width: 40,
-          height: 40,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      } catch(e) { console.log("QR error:", e); }
-    } else if(qrContainer) {
+    if (qrContainer && urlPartido !== "#") {
+      generarQR(qrContainer, urlPartido);
+    } else if (qrContainer) {
       qrContainer.style.opacity = "0.3";
       qrContainer.style.backgroundColor = "#f0f0f0";
       qrContainer.style.borderRadius = "4px";
+      qrContainer.style.width = "40px";
+      qrContainer.style.height = "40px";
     }
-  }, 10);
+  }, 0);
   
   return div;
 }
@@ -647,10 +701,10 @@ function bloque(titulo, lista, clase){
   return frag;
 }
 
-// ================= CARGA DE DATOS (con fallback a datos de ejemplo) =================
+// ================= CARGA DE DATOS =================
 
 async function cargarDatos() {
-  // Primero usar los datos de ejemplo para que se vea algo siempre
+  // Cargar datos de ejemplo primero
   FASES = DATOS_EJEMPLO.fases;
   CATEGORIAS = DATOS_EJEMPLO.categorias;
   generarClasesCategorias();
@@ -658,9 +712,9 @@ async function cargarDatos() {
   const lista = document.getElementById("lista");
   const todos = filtrarPeriodo([...DATOS_EJEMPLO.larraun, ...DATOS_EJEMPLO.noOficiales]);
   
-  const nkj = todos.filter(p => DATOS_EJEMPLO.larraun.includes(p));
-  const ofizial = todos.filter(p => !DATOS_EJEMPLO.larraun.includes(p) && p.ofiziala === true);
-  const ezOfizial = todos.filter(p => !DATOS_EJEMPLO.larraun.includes(p) && p.ofiziala !== true);
+  const nkj = todos.filter(p => DATOS_EJEMPLO.larraun.some(e => e === p));
+  const ofizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala === true);
+  const ezOfizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala !== true);
   
   lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkj), "bloque-nkj"));
   lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
@@ -675,7 +729,7 @@ async function cargarDatos() {
       fetch("data/categoriacartel.json").then(r => r.json()).catch(() => null)
     ]);
     
-    if(larraunReal && noOficialesReal) {
+    if(larraunReal && noOficialesReal && larraunReal.length > 0) {
       FASES = fasesReal || DATOS_EJEMPLO.fases;
       CATEGORIAS = categoriasReal || DATOS_EJEMPLO.categorias;
       generarClasesCategorias();
@@ -704,7 +758,8 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
   const btn = document.getElementById("btnExportar");
   btn.style.display = "none";
   await document.fonts.ready;
-  await new Promise(resolve => setTimeout(resolve, 500));
+  // Esperar a que todos los QR terminen de generarse
+  await new Promise(resolve => setTimeout(resolve, 800));
   
   const bloques = Array.from(document.querySelector("#lista").children);
   const headerHTML = document.querySelector(".header").outerHTML;
