@@ -591,7 +591,7 @@ function extraerFase(texto){
 
 // ================= GENERACIÓN DE QR CON API DE QR SERVER (MÁS ESTABLE) =================
 
-function generarQRServer(url, size = 70) {
+function generarQRServer(url, size = 90) {
   // Usar qrserver.com que es muy estable y no tiene problemas de CORS
   const encodedUrl = encodeURIComponent(url);
   return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodedUrl}&margin=0`;
