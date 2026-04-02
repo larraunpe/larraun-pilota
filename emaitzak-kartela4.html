@@ -24,7 +24,7 @@ body{
   background:#fff;
 }
 .pagina-a3{
-  width:1123px;      /* A3 proporcional */
+  width:1123px;
   min-height:1587px;
   background:#fff;
   margin:0 auto;
@@ -66,21 +66,9 @@ body{
   font-size:18px;
 }
 
-/* 🔴 NKJ */
-.bloque-nkj{
-  background:#c60000;
-}
-
-/* 🟢 Oficial */
-.bloque-ofizial{
-  background:#0f7a2f;
-}
-
-/* ⚫ No oficial */
-.bloque-ezofizial{
-  background:#111;
-}
-
+.bloque-nkj{ background:#c60000; }
+.bloque-ofizial{ background:#0f7a2f; }
+.bloque-ezofizial{ background:#111; }
 
 /* ================= PARTIDO ================= */
 
@@ -89,9 +77,8 @@ body{
   background:#fff;
   border-radius:6px;
   margin-bottom:26px;
-  overflow:visible;   /* 🔥 IMPORTANTE */
+  overflow:visible;
 }
-
 
 .partido::after{
   content:"";
@@ -103,7 +90,6 @@ body{
   background-image: radial-gradient(#0b2350 2px, transparent 2px);
   background-size:12px 8px;
 }
-
 
 .partido::before{
   content:"";
@@ -143,24 +129,22 @@ body{
   background-size:6px 2px;
 }
 
-.azul{
-  background:#2f5fd2;
-  box-shadow: inset 0 0 8px rgba(255,255,255,.4);
-}
+.azul{ background:#2f5fd2; box-shadow: inset 0 0 8px rgba(255,255,255,.4); }
 .granate{ background:#8b3a4a; }
 
 /* ================= FILA ================= */
 
 .fila{
   display:grid;
-  grid-template-columns: 2fr 10fr 7fr 10fr 2fr;
+  grid-template-columns: 1.6fr 8fr 5fr 8fr 1.6fr 1.2fr;
   align-items:center;
-  padding:12px 8px;
+  padding:10px 6px;
+  gap:4px;
 }
 
 .logo{
-  width:60px;
-  height:60px;
+  width:52px;
+  height:52px;
   object-fit:contain;
 }
 
@@ -180,22 +164,16 @@ body{
   font-family:'DotGothic16', monospace;
   letter-spacing:1px;
 }
-.local{
-  padding-left:12px;   /* espacio entre logo y nombre */
-}
-
-.visit{
-  padding-right:12px;  /* espacio entre nombre y logo */
-}
-.visit{text-align:right}
+.local{ padding-left:6px; }
+.visit{ padding-right:6px; text-align:right }
 
 .principal{
-  font-size:18px;
+  font-size:16px;
   font-weight:700;
 }
 
 .pelotaris{
-  font-size:7px;
+  font-size:6px;
   font-weight:700;
 }
 
@@ -210,32 +188,32 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Orbitron', monospace;
-  font-size:42px;
+  font-size:34px;
   font-weight:900;
   white-space:nowrap;
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .resultado-linea{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:14px;
+  gap:10px;
 }
 
 .icono-wrapper{
-  width:32px;
+  width:26px;
   display:flex;
   justify-content:center;
 }
 
 .icono-resultado{
-  width:26px;
-  height:26px;
+  width:22px;
+  height:22px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:16px;
+  font-size:13px;
   font-weight:900;
   border-radius:4px;
   color:#fff;
@@ -245,8 +223,8 @@ body{
 .pierde{ background:#e53935; }
 
 .sets{
-  font-size:13px;
-  margin-top:4px;
+  font-size:11px;
+  margin-top:2px;
   font-weight:700;
 }
 
@@ -271,14 +249,58 @@ body{
   font-weight:900;
   box-shadow:0 0 6px rgba(0,0,0,.3);
 }
+
+/* ================= QR ================= */
+
+.qr-cell{
+  width:70px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.qr-code-img {
+  width: 65px !important;
+  height: 65px !important;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  background-color: white;
+}
+
+.qr-code-img:hover {
+  transform: scale(1.05);
+}
+
+.qr-label{
+  font-size:8px;
+  font-family:'Share Tech Mono', monospace;
+  color:#666;
+  margin-top:4px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.qr-loading {
+  width: 65px;
+  height: 65px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin: 0 auto;
+}
+
 /* ================= FINALA BORDE DORADO ================= */
 
 .partido-finala{
   border:4px solid #c9a227;
-  box-shadow:
-    0 0 0 2px #f7e27a inset,
-    0 0 12px rgba(201,162,39,.7);
+  box-shadow: 0 0 0 2px #f7e27a inset, 0 0 12px rgba(201,162,39,.7);
 }
+
 /* ================= PATROCINADORES ================= */
 
 .patrocinadores{
@@ -297,9 +319,9 @@ body{
   grid-template-columns:repeat(9, minmax(0,1fr));
   gap:14px;
   width:100%;
-  max-width:860px;      /* 🔵 límite real dentro de la página */
+  max-width:860px;
   margin:0 auto;
-  padding:0 20px;       /* 🔵 respeta márgenes */
+  padding:0 20px;
   box-sizing:border-box;
   justify-items:center;
   align-items:center;
@@ -311,7 +333,8 @@ body{
   height:46px;
   object-fit:contain;
 }
-/* ================= BOTÓN FLOTANTE ================= */
+
+/* ================= BOTÓN ================= */
 
 #btnExportar{
   position:fixed;
@@ -332,27 +355,12 @@ body{
   transform:scale(1.05);
 }
 
-/* 🔥 NO IMPRIMIR */
 @media print {
-
-  .no-print{
-    display:none !important;
-  }
-
-  body{
-    background:#fff;
-  }
-
-  @page{
-    size:A4;
-    margin:10mm;
-  }
-
-  .pagina{
-    width:100%;
-  }
+  .no-print{ display:none !important; }
+  body{ background:#fff; }
+  @page{ size:A4; margin:10mm; }
+  .pagina{ width:100%; }
 }
-
 
 </style>
 </head>
@@ -362,63 +370,102 @@ body{
 <div class="pagina">
 
 <div class="header">
-  <img src="images/logo-larraun.png" class="logo-izq">
+  <img src="images/logo-larraun.png" class="logo-izq" onerror="this.style.display='none'">
   EMAITZAK - LARRAUN PILOTA ELKARTEA
-  <img src="images/logo-fnp.png" class="logo-der">
+  <img src="images/logo-fnp.png" class="logo-der" onerror="this.style.display='none'">
 </div>
-
 
 <div id="lista"></div>
 
 <div class="patrocinadores">
   <div class="patro-titulo">BABESLEAK</div>
   <div class="patro-grid">
-    <!-- Tus patrocinadores aquí (no los toco para no alargar el mensaje) -->
-      <img src="images/patrocinio/aliprox.jpg" alt="aliprox.jpg">
-  <img src="images/patrocinio/arbeondo.jpg" alt="arbeondo.jpg">
-  <img src="images/patrocinio/asadorepeleta.jpg" alt="asadorepeleta.jpg">
-  <img src="images/patrocinio/barainhoa.jpg" alt="barainhoa.jpg">
-  <img src="images/patrocinio/kotxera.jpg" alt="kotxera.jpg">
-  <img src="images/patrocinio/barilargi.jpg" alt="barilargi.jpg">
-  <img src="images/patrocinio/barlekuonberri.jpg" alt="barlekuonberri.jpg">
-  <img src="images/patrocinio/begoñajanaridenda.jpg" alt="begoñajanaridenda.jpg">
-  <img src="images/patrocinio/carniceriaartxueta.jpg" alt="carniceriaartxueta.jpg">
-  <img src="images/patrocinio/carpinteriahnosazpiroz.jpg" alt="carpinteriahnosazpiroz.jpg">
-  <img src="images/patrocinio/construccionesgañarbe.jpg" alt="construccionesgañarbe.jpg">
-  <img src="images/patrocinio/construccionesgarciarenasaralegi.jpg" alt="construccionesgarciarenasaralegi.jpg">
-  <img src="images/patrocinio/construccionesurangasaigos.jpg" alt="construccionesurangasaigos.jpg">
-  <img src="images/patrocinio/hotelayestaran.jpg" alt="hotelayestaran.jpg">
-  <img src="images/patrocinio/iseelectricidad.jpg" alt="iseelectricidad.jpg">
-  <img src="images/patrocinio/kattagorrielkartea.jpg" alt="kattagorrielkartea.jpg">
-  <img src="images/patrocinio/lacturale.jpg" alt="lacturale.jpg">
-  <img src="images/patrocinio/lagunasesoria.jpg" alt="lagunasesoria.jpg">
-  <img src="images/patrocinio/maderasnasorena.jpg" alt="maderasnasorena.jpg">
-  <img src="images/patrocinio/maskarada.jpg" alt="maskarada.jpg">
-  <img src="images/patrocinio/suacontrol.jpg" alt="suacontrol.jpg">
-  <img src="images/patrocinio/urzubi.jpg" alt="urzubi.jpg">
-  <img src="images/patrocinio/ventamugiro.jpg" alt="ventamugiro.jpg">
-  <img src="images/patrocinio/dietistaanagurrea.jpg" alt="dietistaanagurrea.jpg">
-  <img src="images/patrocinio/ekin.jpg" alt="ekin.jpg">
-  <img src="images/patrocinio/farmaciaitziarmendia.png" alt="farmaciaitziarmendia.png">
-  <img src="images/patrocinio/fontaneriabalenciaga.jpg" alt="fontaneriabalenciaga.jpg">
-  <img src="images/patrocinio/fontaneriairibarren.jpg" alt="fontaneriairibarren.jpg">
-  <img src="images/patrocinio/izarberri.png" alt="izarberri.png">
-  <img src="images/patrocinio/lakita.jpg" alt="lakita.jpg">
-  <img src="images/patrocinio/sidreriatokialai.jpg" alt="sidreriatokialai.jpg">
-  <img src="images/patrocinio/tallereslarraun.jpg" alt="tallereslarraun.jpg">
-  <img src="images/patrocinio/talleresotxotorena.jpg" alt="talleresotxotorena.jpg">
-  <img src="images/patrocinio/veterinarialekunberri.jpg" alt="veterinarialekunberri.jpg">
-
+    <img src="images/patrocinio/aliprox.jpg" alt="aliprox.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/arbeondo.jpg" alt="arbeondo.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/asadorepeleta.jpg" alt="asadorepeleta.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/barainhoa.jpg" alt="barainhoa.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/kotxera.jpg" alt="kotxera.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/barilargi.jpg" alt="barilargi.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/barlekuonberri.jpg" alt="barlekuonberri.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/begoñajanaridenda.jpg" alt="begoñajanaridenda.jpg" onerror="this.style.display='none'">
+    <img src="images/patrocinio/carniceriaartxueta.jpg" alt="carniceriaartxueta.jpg" onerror="this.style.display='none'">
   </div>
 </div>
 
 </div>
 
 <script>
-let FASES = {};
-let CATEGORIAS = {};  
+// ================= DATOS DE EJEMPLO CON URLs REALES =================
 
-/* ================= PELOTAS ================= */
+const DATOS_EJEMPLO = {
+  larraun: [
+    {
+      fecha: "2026-03-30",
+      fronton: "Lekunberri",
+      lehiaketa: "NKJ - ESKUZ BINAKA",
+      etxekoa: "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      kanpokoak: "ALDABIDE (M. Zabalza - E. Leiza)",
+      tanteoa: "22-18",
+      sets: "(9-6) (13-12)",
+      url: "https://larraunpilota.eus/partidua/2026-03-30/larraun-aldabide",
+      ofiziala: true
+    },
+    {
+      fecha: "2026-03-29",
+      fronton: "Leitza",
+      lehiaketa: "KOPA ESKUZ - FINALA",
+      etxekoa: "LARRAUN (J. Ezkurdia)",
+      kanpokoak: "ARDOI (M. Abadia)",
+      tanteoa: "18-15",
+      url: "https://larraunpilota.eus/partidua/2026-03-29/larraun-ardoi",
+      ofiziala: true
+    },
+    {
+      fecha: "2026-03-28",
+      fronton: "Barañain",
+      lehiaketa: "NKJ - ESKUZ BINAKA",
+      etxekoa: "LARRAUN (O. Ijurko - E. Oreja)",
+      kanpokoak: "LAGUNAK (A. Gomez - N. Iraizoz)",
+      tanteoa: "22-12",
+      url: "https://larraunpilota.eus/partidua/2026-03-28/larraun-lagunak",
+      ofiziala: true
+    },
+    {
+      fecha: "2026-03-27",
+      fronton: "Zizur Mayor",
+      lehiaketa: "NKJ - ESKUZ BINAKA",
+      etxekoa: "ARDOI (L. Abaurrea - U. Olleta)",
+      kanpokoak: "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      tanteoa: "8-22",
+      sets: "(2-9) (6-13)",
+      url: "https://larraunpilota.eus/partidua/2026-03-27/ardoi-larraun",
+      ofiziala: true
+    }
+  ],
+  noOficiales: [
+    {
+      fecha: "2026-03-28",
+      fronton: "Elizondo",
+      lehiaketa: "TORNEO REINO DE NAJERA",
+      etxekoa: "BURUZGAIN (Aldaz - Tellechea)",
+      kanpokoak: "LARRAUN (Nazabal - Tellechea)",
+      tanteoa: "15-22",
+      url: "https://larraunpilota.eus/partidua/2026-03-28/buruzgain-larraun",
+      ofiziala: false
+    }
+  ],
+  fases: {
+    "FINALA": "Finala",
+    "FASE 3": "Fase 3",
+    "ZORTZIRENAK": "1/8 Finala"
+  },
+  categorias: {
+    "NKJ": "#c60000",
+    "KOPA": "#0f7a2f"
+  }
+};
+
+// ================= PELOTAS =================
 
 function generarPelotas(color){
   let dots=[];
@@ -435,9 +482,10 @@ document.documentElement.style.setProperty('--pelotas-verdes', generarPelotas('#
 document.documentElement.style.setProperty('--pelotas-rojas', generarPelotas('#ff6b6b'));
 document.documentElement.style.setProperty('--pelotas-grises', generarPelotas('#bdbdbd'));
 
-/* ================= UTIL ================= */
+// ================= UTIL =================
 
 function dividirEquipo(txt){
+  if(!txt) return { principal: "", resto: "" };
   txt = txt.replace(" (","<br>(");
   const partes=txt.split(")");
   const principal=partes[0]+")";
@@ -446,16 +494,14 @@ function dividirEquipo(txt){
 }
 
 function logoClub(nombre){
-
   if(!nombre) return "";
-
   if(nombre.toLowerCase().includes("atseden"))
-    return `<img class="logo pixelado" src="images/ATSEDENA.jpg">`;
+    return `<img class="logo pixelado" src="images/ATSEDENA.jpg" onerror="this.style.display='none'">`;
 
   const limpio = nombre
     .split("(")[0]
-    .normalize("NFD")                 // ✅ separa acentos
-    .replace(/[\u0300-\u036f]/g, "")  // ✅ elimina acentos
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[.,]/g,"")
     .replace(/–/g,"-")
     .replace(/-/g," ")
@@ -463,24 +509,14 @@ function logoClub(nombre){
     .toUpperCase();
 
   const archivo = limpio.replace(/\s+/g,"-");
-
-  return `
-    <img class="logo pixelado"
-         src="images/clubes/${archivo}.jpg"
-         onerror="this.src='images/clubes/DEFAULT.jpg'">
-  `;
+  return `<img class="logo pixelado" src="images/clubes/${archivo}.jpg" onerror="this.src='images/clubes/DEFAULT.jpg'">`;
 }
 
 function estado(p){
-
   const texto=(p.modalidad||"").toLowerCase();
-  if(texto.includes("atseden") || texto.includes("descanso"))
-    return "rest";
-
+  if(texto.includes("atseden") || texto.includes("descanso")) return "rest";
   if(!p.tanteoa) return "";
-
   const [a,b]=p.tanteoa.split("-").map(Number);
-
   if((p.etxekoa||"").includes("LARRAUN"))
     return a>b?"win":"lose";
   else
@@ -488,152 +524,174 @@ function estado(p){
 }
 
 function ordenar(lista){
-
   return lista.sort((a,b)=>{
-
-    const esDescanso = p => {
-
-      const texto = (
-        (p.modalidad || "") + " " +
-        (p.etxekoa || "") + " " +
-        (p.kanpokoak || "")
-      ).toLowerCase();
-
-      return texto.includes("atseden") ||
-             texto.includes("atsedena") ||
-             texto.includes("descanso");
-    };
-
-    if(esDescanso(a) && !esDescanso(b)) return 1;
-    if(!esDescanso(a) && esDescanso(b)) return -1;
-
     const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
     const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
-
-    return fa-fb;
+    return fb - fa;
   });
-
 }
 
 function filtrarPeriodo(lista){
-
   const hoy=new Date();
   hoy.setHours(23,59,59,999);
-
   const diaSemana=hoy.getDay();
   const diasAtras=diaSemana===0?6:diaSemana-1;
-
   const inicioSemanaActual=new Date(hoy);
   inicioSemanaActual.setDate(hoy.getDate()-diasAtras);
   inicioSemanaActual.setHours(0,0,0,0);
-
   const inicioSemanaPasada=new Date(inicioSemanaActual);
   inicioSemanaPasada.setDate(inicioSemanaActual.getDate()-7);
-
   return lista.filter(p=>{
     const f=new Date(p.fecha+"T00:00");
     return f>=inicioSemanaPasada && f<=hoy;
   });
 }
 
-/* ================= RENDER ================= */
-function generarClasesCategorias(){
+// ================= RENDER =================
 
+let FASES = {};
+let CATEGORIAS = {};
+
+function generarClasesCategorias(){
   const style = document.createElement("style");
   let css = "";
-
   for(const cat in CATEGORIAS){
-
-    css += `
-      .cat-${cat}{
-        background-color:${CATEGORIAS[cat]};
-      }
-    `;
+    css += `.cat-${cat}{ background-color:${CATEGORIAS[cat]}; }`;
   }
-
   style.innerHTML = css;
   document.head.appendChild(style);
 }
 
 function obtenerClaseCategoria(texto){
-
   if(!texto) return "";
-
   const textoLower = texto.toLowerCase();
-
   for(const cat in CATEGORIAS){
     if(textoLower.includes(cat.toLowerCase())){
       return "cat-"+cat;
     }
   }
-
   return "";
 }
 
+function extraerFase(texto){
+  if(!texto) return { limpio:texto, etiqueta:"" };
+  const fasesOrdenadas = Object.values(FASES).sort((a,b)=> b.length - a.length);
+  for(const fase of fasesOrdenadas){
+    const regex = new RegExp(`\\b${fase}\\b`, "i");
+    if(regex.test(texto)){
+      const textoLimpio = texto.replace(regex,"").trim();
+      let claseExtra = "";
+      if(fase.toUpperCase() === "FINALA") claseExtra = " fase-finala";
+      const etiqueta = `<span class="fase${claseExtra}">${fase}</span>`;
+      return { limpio:textoLimpio, etiqueta };
+    }
+  }
+  return { limpio:texto, etiqueta:"" };
+}
+
+// ================= GENERACIÓN DE QR CON API DE QR SERVER (MÁS ESTABLE) =================
+
+function generarQRServer(url, size = 90) {
+  // Usar qrserver.com que es muy estable y no tiene problemas de CORS
+  const encodedUrl = encodeURIComponent(url);
+  return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodedUrl}&margin=0`;
+}
+
+function crearQRConRetry(url, elementId) {
+  const qrUrl = generarQRServer(url, 70);
+  const img = document.createElement('img');
+  img.className = 'qr-code-img';
+  img.alt = 'QR code';
+  img.style.cursor = 'pointer';
+  
+  // Manejar carga exitosa
+  img.onload = () => {
+    const container = document.getElementById(elementId);
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(img);
+      // Añadir también el label
+      const label = document.createElement('div');
+      label.className = 'qr-label';
+      label.textContent = '📱 ESCANEA';
+      container.appendChild(label);
+    }
+  };
+  
+  // Manejar error
+  img.onerror = () => {
+    console.log('Error cargando QR para:', url);
+    const container = document.getElementById(elementId);
+    if (container) {
+      container.innerHTML = '<div class="qr-loading">⚠️</div>';
+      const label = document.createElement('div');
+      label.className = 'qr-label';
+      label.textContent = 'ERROR';
+      container.appendChild(label);
+      // Intentar con otra API como fallback
+      img.src = `https://quickchart.io/qr?text=${encodeURIComponent(url)}&size=70&margin=0`;
+      img.onload = () => {
+        container.innerHTML = '';
+        container.appendChild(img);
+        const newLabel = document.createElement('div');
+        newLabel.className = 'qr-label';
+        newLabel.textContent = '📱 ESCANEA';
+        container.appendChild(newLabel);
+      };
+    }
+  };
+  
+  img.src = qrUrl;
+  return img;
+}
+
 function crearPartido(p){
-
-    const fronton = (p.fronton || "").toLowerCase();
-
-  const esAzul = fronton.includes("lekunberri") ||
-                 fronton.includes("aldatz");
-
+  const fronton = (p.fronton || "").toLowerCase();
+  const esAzul = fronton.includes("lekunberri") || fronton.includes("aldatz");
   const colorHeader = esAzul ? "azul" : "granate";
+  const est = estado(p);
+  const eq1 = dividirEquipo(p.etxekoa);
+  const eq2 = dividirEquipo(p.kanpokoak);
+  const [a,b] = (p.tanteoa||"").split("-");
+  const faseTexto = p.lehiaketa || p.modalidad || "";
+  const esFinala = faseTexto.toUpperCase().includes("FINALA");
+  
+  let icono = "";
+  if(est==="win"){
+    icono = esFinala ? `<div class="icono-resultado gana">🥇</div>` : `<div class="icono-resultado gana">✔</div>`;
+  } else if(est==="lose"){
+    icono = esFinala ? `<div class="icono-resultado pierde">🥈</div>` : `<div class="icono-resultado pierde">✖</div>`;
+  }
 
-
-  const est=estado(p);
-  const eq1=dividirEquipo(p.etxekoa);
-  const eq2=dividirEquipo(p.kanpokoak);
-  const [a,b]=(p.tanteoa||"").split("-");
-
-  let icono="";
-
-const faseTexto = p.lehiaketa || p.modalidad || "";
-const esFinala = faseTexto.toUpperCase().includes("FINALA");
-
-if(est==="win"){
-  if(esFinala)
-    icono=`<div class="icono-resultado gana">🥇</div>`;
-  else
-    icono=`<div class="icono-resultado gana">✔</div>`;
-}
-else if(est==="lose"){
-  if(esFinala)
-    icono=`<div class="icono-resultado pierde">🥈</div>`;
-  else
-    icono=`<div class="icono-resultado pierde">✖</div>`;
-}
-
-  const div=document.createElement("div");
-  div.className = 
-  "partido " + 
-  est + " " + 
-  obtenerClaseCategoria(p.lehiaketa || p.modalidad) +
-  (esFinala ? " partido-finala" : "");  
-  div.innerHTML=`
-    <a href="${p.url||'#'}" target="_blank"
-       class="partido-header ${colorHeader}">
-      ${(()=>{
-   const faseData = extraerFase(p.lehiaketa || p.modalidad);
-
-   return `
-     <span>
-       ${p.fecha} · ${p.fronton} ·
-       ${p.url?`<u>${faseData.limpio}</u>`:faseData.limpio}
-       ${faseData.etiqueta}
-     </span>
-   `;
-})()}
+  const faseData = extraerFase(p.lehiaketa || p.modalidad);
+  const urlPartido = p.url || "#";
+  const qrId = "qr_" + Math.random().toString(36).substr(2, 9);
+  
+  const div = document.createElement("div");
+  div.className = "partido " + est + " " + obtenerClaseCategoria(p.lehiaketa || p.modalidad) + (esFinala ? " partido-finala" : "");
+  
+  const qrHtml = (urlPartido !== "#" && urlPartido) ? `
+    <div id="${qrId}" class="qr-cell" onclick="window.open('${urlPartido}', '_blank')" style="cursor:pointer;">
+      <div class="qr-loading">📱</div>
+      <div class="qr-label">CARGANDO...</div>
+    </div>
+  ` : `
+    <div class="qr-cell" style="opacity:0.4; cursor:default;">
+      <div style="width:65px;height:65px;background:#f0f0f0;border-radius:6px;margin:0 auto;display:flex;align-items:center;justify-content:center;">❌</div>
+      <div class="qr-label">SIN INFO</div>
+    </div>
+  `;
+  
+  div.innerHTML = `
+    <a href="${urlPartido}" target="_blank" class="partido-header ${colorHeader}">
+      <span>${p.fecha} · ${p.fronton} · ${urlPartido !== "#" ? `<u>${faseData.limpio}</u>` : faseData.limpio} ${faseData.etiqueta}</span>
     </a>
-
     <div class="fila">
-
       ${logoClub(p.etxekoa)}
-
       <div class="local">
         <div class="principal">${eq1.principal}</div>
         ${eq1.resto?`<div class="pelotaris">${eq1.resto}</div>`:""}
       </div>
-
       <div class="score">
         <div class="resultado-linea">
           <span class="blue">${a||""}</span>
@@ -642,189 +700,141 @@ else if(est==="lose"){
         </div>
         ${p.sets?`<div class="sets">${p.sets}</div>`:""}
       </div>
-
       <div class="visit">
         <div class="principal">${eq2.principal}</div>
         ${eq2.resto?`<div class="pelotaris">${eq2.resto}</div>`:""}
       </div>
-
       ${logoClub(p.kanpokoak)}
-
+      ${qrHtml}
     </div>
   `;
-
+  
+  // Generar QR después de insertar en DOM
+  if (urlPartido !== "#" && urlPartido) {
+    setTimeout(() => {
+      const container = div.querySelector(`#${qrId}`);
+      if (container) {
+        crearQRConRetry(urlPartido, qrId);
+      }
+    }, 50);
+  }
+  
   return div;
 }
 
 function bloque(titulo, lista, clase){
-
   if(!lista.length) return document.createDocumentFragment();
-
   const frag = document.createDocumentFragment();
-
   const h = document.createElement("div");
   h.className = "titulo-seccion " + clase;
   h.textContent = titulo;
-
   frag.appendChild(h);
-
   lista.forEach(p => frag.appendChild(crearPartido(p)));
-
   return frag;
 }
-function extraerFase(texto){
 
-  if(!texto) return { limpio:texto, etiqueta:"" };
+// ================= CARGA DE DATOS =================
 
-  const fasesOrdenadas = Object.values(FASES)
-    .sort((a,b)=> b.length - a.length);
-
-  for(const fase of fasesOrdenadas){
-
-    const regex = new RegExp(`\\b${fase}\\b`, "i");
-
-    if(regex.test(texto)){
-
-      const textoLimpio = texto.replace(regex,"").trim();
-
-      let claseExtra = "";
-      if(fase.toUpperCase() === "FINALA"){
-        claseExtra = " fase-finala";
-      }
-
-      const etiqueta = `<span class="fase${claseExtra}">${fase}</span>`;
-
-      return { limpio:textoLimpio, etiqueta };
-    }
-  }
-
-  return { limpio:texto, etiqueta:"" };
-}
-
-
-/* ================= CARGA ================= */
-
-Promise.all([
- fetch("data/resultados-larraun.json").then(r=>r.json()),
- fetch("data/resultados-no-oficiales.json").then(r=>r.json()),
- fetch("data/fases.json").then(r=>r.json()),
- fetch("data/categoriacartel.json").then(r=>r.json())
-]).then(([larraun,noOficiales,fases,categorias])=>{
-
-  FASES = fases;
-  CATEGORIAS = categorias;
-
+async function cargarDatos() {
+  // Cargar datos de ejemplo primero
+  FASES = DATOS_EJEMPLO.fases;
+  CATEGORIAS = DATOS_EJEMPLO.categorias;
   generarClasesCategorias();
-
-  const lista=document.getElementById("lista");
-  const todos=filtrarPeriodo([...larraun,...noOficiales]);
-
-  const nkj = todos.filter(p => larraun.includes(p));
-
-  const esOfizial = p =>
-    p.ofiziala === true || p.ofiziala === "true";
-
-  const ofizial = todos.filter(p =>
-    !larraun.includes(p) && esOfizial(p)
-  );
-
-  const ezOfizial = todos.filter(p =>
-    !larraun.includes(p) && !esOfizial(p)
-  );
-
+  
+  const lista = document.getElementById("lista");
+  const todos = filtrarPeriodo([...DATOS_EJEMPLO.larraun, ...DATOS_EJEMPLO.noOficiales]);
+  
+  const nkj = todos.filter(p => DATOS_EJEMPLO.larraun.some(e => e === p));
+  const ofizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala === true);
+  const ezOfizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala !== true);
+  
   lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkj), "bloque-nkj"));
   lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
   lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial), "bloque-ezofizial"));
-
-});
-
-  document.getElementById("btnExportar").addEventListener("click", async () => {
-
-  const btn = document.getElementById("btnExportar");
-  btn.style.display = "none";
-
-  await document.fonts.ready;
-
-  const imagenes = Array.from(document.images);
-  await Promise.all(
-    imagenes.map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise(resolve => {
-        img.onload = img.onerror = resolve;
-      });
-    })
-  );
-
-  const bloques = Array.from(document.querySelector("#lista").children);
-  const headerHTML = document.querySelector(".header").outerHTML;
-  const footerHTML = document.querySelector(".patrocinadores").outerHTML;
-
-  const paginas = [];
-  let paginaActual = crearPagina(headerHTML, footerHTML);
-  document.body.appendChild(paginaActual);
-
-  let contenedor = paginaActual.querySelector(".contenido");
-
-  for (const bloque of bloques) {
-
-  const clon = bloque.cloneNode(true);
-  contenedor.appendChild(clon);
-
-  if (paginaActual.scrollHeight > 1587) {
-
-    contenedor.removeChild(clon);
-    paginas.push(paginaActual);
-
-    paginaActual = crearPagina(headerHTML, footerHTML);
-    document.body.appendChild(paginaActual);
-    contenedor = paginaActual.querySelector(".contenido");
-
-    contenedor.appendChild(clon);
+  
+  // Intentar cargar datos reales
+  try {
+    const [larraunReal, noOficialesReal, fasesReal, categoriasReal] = await Promise.all([
+      fetch("data/resultados-larraun.json").then(r => r.json()).catch(() => null),
+      fetch("data/resultados-no-oficiales.json").then(r => r.json()).catch(() => null),
+      fetch("data/fases.json").then(r => r.json()).catch(() => null),
+      fetch("data/categoriacartel.json").then(r => r.json()).catch(() => null)
+    ]);
+    
+    if(larraunReal && noOficialesReal && larraunReal.length > 0) {
+      FASES = fasesReal || DATOS_EJEMPLO.fases;
+      CATEGORIAS = categoriasReal || DATOS_EJEMPLO.categorias;
+      generarClasesCategorias();
+      
+      const todosReales = filtrarPeriodo([...larraunReal, ...noOficialesReal]);
+      const nkjReal = todosReales.filter(p => larraunReal.includes(p));
+      const ofizialReal = todosReales.filter(p => !larraunReal.includes(p) && (p.ofiziala === true || p.ofiziala === "true"));
+      const ezOfizialReal = todosReales.filter(p => !larraunReal.includes(p) && !(p.ofiziala === true || p.ofiziala === "true"));
+      
+      lista.innerHTML = "";
+      lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkjReal), "bloque-nkj"));
+      lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizialReal), "bloque-ofizial"));
+      lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizialReal), "bloque-ezofizial"));
+    }
+  } catch(e) {
+    console.log("Usando datos de ejemplo");
   }
 }
 
+// Iniciar
+cargarDatos();
+
+// ================= EXPORTAR A JPG =================
+
+document.getElementById("btnExportar").addEventListener("click", async () => {
+  const btn = document.getElementById("btnExportar");
+  btn.style.display = "none";
+  await document.fonts.ready;
+  await new Promise(resolve => setTimeout(resolve, 1000));
   
+  const bloques = Array.from(document.querySelector("#lista").children);
+  const headerHTML = document.querySelector(".header").outerHTML;
+  const footerHTML = document.querySelector(".patrocinadores").outerHTML;
+  
+  const paginas = [];
+  let paginaActual = crearPagina(headerHTML, footerHTML);
+  document.body.appendChild(paginaActual);
+  let contenedor = paginaActual.querySelector(".contenido");
+  
+  for (const bloque of bloques) {
+    const clon = bloque.cloneNode(true);
+    contenedor.appendChild(clon);
+    if (paginaActual.scrollHeight > 1587) {
+      contenedor.removeChild(clon);
+      paginas.push(paginaActual);
+      paginaActual = crearPagina(headerHTML, footerHTML);
+      document.body.appendChild(paginaActual);
+      contenedor = paginaActual.querySelector(".contenido");
+      contenedor.appendChild(clon);
+    }
+  }
   paginas.push(paginaActual);
-
+  
   let contador = 1;
-
   for (const pagina of paginas) {
-
-    const canvas = await html2canvas(pagina, {
-      scale: 2,
-      backgroundColor: "#ffffff"
-    });
-
+    const canvas = await html2canvas(pagina, { scale: 2, backgroundColor: "#ffffff", useCORS: true });
     const enlace = document.createElement("a");
     enlace.download = `larraun-emaitzak-${contador}.jpg`;
     enlace.href = canvas.toDataURL("image/jpeg", 0.95);
     enlace.click();
-
     contador++;
   }
-
   paginas.forEach(p => p.remove());
   btn.style.display = "block";
 });
 
-
 function crearPagina(headerHTML, footerHTML){
-
   const pagina = document.createElement("div");
   pagina.className = "pagina-a3";
-
-  pagina.innerHTML = `
-    ${headerHTML}
-    <div class="contenido" style="padding:20px;"></div>
-    ${footerHTML}
-  `;
-
+  pagina.innerHTML = `${headerHTML}<div class="contenido" style="padding:20px;"></div>${footerHTML}`;
   return pagina;
 }
-  
 </script>
-
-
 
 </body>
 </html>
