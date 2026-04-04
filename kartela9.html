@@ -2,13 +2,11 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8"/>
-<title>Larraun Kartela - Edición Piedra</title>
+<title>Larraun Kartela Paginado</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-
-  
 
 /* ================= BASE ================= */
 
@@ -27,14 +25,15 @@ body{
 /* A3 vertical realista */
 .pagina{
   width:900px;
+  height:1270px; /* proporción A3 */
   margin:30px auto;
   display:flex;
   flex-direction:column;
   background:#3f8159;
   position:relative;
+  overflow:hidden;
   box-shadow:0 0 18px rgba(0,0,0,.4);
 }
-
 
 /* ================= HEADER ================= */
 
@@ -92,7 +91,7 @@ body{
 /* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
-  top:65px;
+  top:65px;          /* un poco más arriba */
   left:50%;
   transform:translateX(-50%);
 
@@ -100,6 +99,7 @@ body{
   height:30px;
   border-radius:50%;
 
+  /* degradado esférico */
   background:
     radial-gradient(circle at 35% 30%,
       #ffffff 0%,
@@ -111,11 +111,12 @@ body{
   border:1.5px solid #d9d9d9;
 
   box-shadow:
-    inset -4px -6px 10px rgba(0,0,0,.35),
-    inset 4px 4px 8px rgba(255,255,255,.9),
-    0 3px 5px rgba(0,0,0,.4);
+    inset -4px -6px 10px rgba(0,0,0,.35), /* sombra interna */
+    inset 4px 4px 8px rgba(255,255,255,.9), /* brillo */
+    0 3px 5px rgba(0,0,0,.4); /* sombra exterior */
 }
 
+/* costuras rojas más finas y realistas */
 .pelota-real::before,
 .pelota-real::after{
   content:"";
@@ -137,14 +138,12 @@ body{
   height:12px;
   background:#000;
 }
-
 /* ================= PELOTAZOS ================= */
-
-.pelotazos{
+  .pelotazos{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:20;
+  z-index:20;            /* por delante de TODO */
   mix-blend-mode:multiply;
 }
 
@@ -160,7 +159,8 @@ body{
 .contenido{
   flex:1;
   padding:20px;
-  overflow:hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* ================= BLOQUES ================= */
@@ -202,12 +202,13 @@ body{
 
 .linea{
   display:flex;
-  padding:6px 10px;
+  padding:6px 8px;
   border-top:1px solid #ddd;
   font-size:13px;
   align-items:center;
   font-weight:900;
   border-radius:4px;
+  box-sizing:border-box;
   transition: all 0.2s ease;
 }
 
@@ -223,113 +224,115 @@ body{
   border-left: 4px solid #d4af37;
   border-right: 4px solid #d4af37;
   position: relative;
-  padding: 12px 10px;
+  padding: 12px 8px;
 }
 
-.larraun{
-  font-weight:900;
-  font-size:15px;
-}
-/* 4% */
 .zkia{
   flex:0 0 4%;
+  min-width:0;
   font-size:15px;
   font-weight:900;
   color:#2c3e2f;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
 
-/* === NUEVO ESTILO PARA ETXEKO Y KANPOKOAK === */
-/* 32% cada uno - TEXTO MÁS GRANDE + EFECTO GRABADO EN PIEDRA FUERTE */
+/* ================= ESTILOS NUEVOS - TEXTO MÁS GRANDE + GRABADO PIEDRA ================= */
+
 .etxekoa{
   flex:0 0 32%;
-  color:#103c54;
-  font-size:18px;          /* Texto más grande */
+  min-width:0;
+  color:#0a2f42;
+  font-size:17px;
   font-weight:800;
-  letter-spacing:0.5px;
+  letter-spacing:0.3px;
+  line-height:1.25;
   
-  /* EFECTO GRABADO EN PIEDRA (marcado) */
+  /* EFECTO GRABADO EN PIEDRA FUERTE */
   text-shadow: 
-    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
-    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
-    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+    0px 2px 2px rgba(0,0,0,0.35),
+    0px -1px 1px rgba(255,255,255,0.7),
+    1px 0px 0px rgba(0,0,0,0.15);
   
-  background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #e8f0f5 0%, #c8d8e8 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #1a4d6b;  /* Color base oscuro para dar sensación de grabado */
-  text-fill-color: #1a4d6b;
-  transition: all 0.2s ease;
+  -webkit-text-fill-color: #0a2f42;
+  text-fill-color: #0a2f42;
 }
 
 .kanpokoa{
   flex:0 0 32%;
-  color:#b00000;
-  font-size:18px;          /* Texto más grande */
+  min-width:0;
+  color:#8b0000;
+  font-size:17px;
   font-weight:800;
-  letter-spacing:0.5px;
+  letter-spacing:0.3px;
+  line-height:1.25;
   
-  /* EFECTO GRABADO EN PIEDRA (marcado) */
+  /* EFECTO GRABADO EN PIEDRA FUERTE */
   text-shadow: 
-    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
-    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
-    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+    0px 2px 2px rgba(0,0,0,0.35),
+    0px -1px 1px rgba(255,255,255,0.7),
+    1px 0px 0px rgba(0,0,0,0.15);
   
-  background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
+  background: linear-gradient(135deg, #fff0f0 0%, #ffd0d0 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #a01020;  /* Color base oscuro para dar sensación de grabado */
-  text-fill-color: #a01020;
+  -webkit-text-fill-color: #8b0000;
+  text-fill-color: #8b0000;
 }
 
-.equipo{
-  line-height:1.2;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  word-break:break-word;
-}
-
-/* Resalte especial para equipos LARRAUN (más destacado) */
+/* ESTILO ESPECIAL PARA LARRAUN - MÁS DESTACADO */
 .etxekoa strong, .kanpokoa strong {
   display: inline-block;
   font-weight: 900;
-  color: #000000;
-  background: linear-gradient(135deg, #ffd89b 0%, #c7e9fb 100%);
+  font-size: 18px;
+  background: linear-gradient(135deg, #ffd89b 0%, #ffb347 50%, #c7e9fb 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: #1a4d6b;
   text-fill-color: #1a4d6b;
   text-shadow: 
-    0px 1px 2px rgba(255,215,0,0.6),
-    0px -1px 0px rgba(255,255,200,0.9),
-    1px 1px 0px rgba(0,0,0,0.25);
-  letter-spacing: 0.3px;
+    0px 1px 2px rgba(255,215,0,0.5),
+    0px -1px 0px rgba(255,255,200,0.8),
+    2px 2px 0px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
   transform: scale(1.02);
   transition: all 0.2s ease;
   position: relative;
+  padding: 0 2px;
 }
 
-/* Efecto adicional de "brillo" para Larraun */
-.etxekoa strong::after, .kanpokoa strong::after {
+/* Efecto de brillo adicional para Larraun */
+.etxekoa strong::before, .kanpokoa strong::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.15), transparent);
+  top: -2px;
+  left: -4px;
+  right: -4px;
+  bottom: -2px;
+  background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.2), transparent);
   pointer-events: none;
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: -1;
 }
 
-/* 32% */
+/* Sutil subrayado dorado para Larraun */
+.etxekoa strong::after, .kanpokoa strong::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, #ffd700, #d4af37, transparent);
+  border-radius: 2px;
+}
+
 .lehiaketa{
   flex:0 0 32%;
+  min-width:0;
   text-align:right;
-  font-size:12px;
   display:flex;
   justify-content:flex-end;
   align-items:center;
@@ -338,11 +341,11 @@ body{
 }
 
 .fase{
-  font-size:10px;              /* más pequeña */
+  font-size:10px;
   font-weight:700;
   padding:2px 6px;
   border-radius:6px;
-  background:#e7d3c2;          /* beige elegante */
+  background:#e7d3c2;
   color:#5a2d0c;
   white-space:nowrap;
   letter-spacing:.5px;
@@ -372,27 +375,36 @@ body{
   overflow: visible;
   z-index: 2;
 }
- /* ================= FOOTER ================= */
+  
+
+/* ================= FOOTER COMPLETO ================= */
 
 .footer{
   display:flex;
   flex-direction:column;
 }
 
+/* chapa negra */
 .chapa{
   height:12px;
   background:#000;
 }
 
+/* colchón gris tipo frontón */
 .pie-gris{
   padding:14px 12px;
 
+  /* degradado compatible html2canvas */
   background:linear-gradient(#4a4a4a, #2f2f2f);
 
+  /* efecto acolchonado */
   box-shadow:
     inset 0 10px 14px rgba(255,255,255,.25),
     inset 0 -12px 18px rgba(0,0,0,.6);
 }
+
+
+/* patrocinadores */
 
 .logos-grid{
   display:grid;
@@ -411,22 +423,22 @@ body{
   height:36px;
   object-fit:contain;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="exportar">
-<button onclick="exportar()">📸 DESKARGATU KARTELA</button>
+<button onclick="exportar()">📸 DESKARGATU ORRI GUZTIAK</button>
 </div>
 
 <div id="contenedorPaginas"></div>
 
+
 <script>
 
-  let FASES = {};
-  let CATEGORIAS = {};
+let FASES = {};
+let CATEGORIAS = {};
 
 /* ================= CREAR HEADER/FOOTER REUTILIZABLE ================= */
 
@@ -469,10 +481,12 @@ function nuevaPagina(){
  const p=document.createElement("div");
  p.className="pagina";
 
+ /* capa pelotazos (primero, para que quede debajo del contenido pero visible) */
  const pel=document.createElement("div");
  pel.className="pelotazos";
  p.appendChild(pel);
 
+ /* header + contenido + footer SOLO UNA VEZ */
  p.insertAdjacentHTML("beforeend",
    crearHeader()+
    `<div class="contenido"></div>`+
@@ -481,6 +495,7 @@ function nuevaPagina(){
 
  document.getElementById("contenedorPaginas").appendChild(p);
 
+ generarPelotazos(pel);
  rellenarLogos(p);
 
  return p.querySelector(".contenido");
@@ -488,22 +503,18 @@ function nuevaPagina(){
 
 function generarPelotazos(contenedor){
 
- const altura = document.querySelector(".pagina").scrollHeight;
-
- for(let i=0;i<6000;i++){
-
+ for(let i=0;i<4500;i++){
    const d=document.createElement("div");
    const s=Math.random()*4+2;
 
    d.className="pelota-dot";
    d.style.width=d.style.height=s+"px";
    d.style.left=Math.random()*900+"px";
-   d.style.top=Math.random()*altura+"px";
+   d.style.top=Math.random()*1270+"px";
 
    contenedor.appendChild(d);
  }
 }
-
 function rellenarLogos(pagina){
 
  const LOGOS=[
@@ -526,12 +537,56 @@ function rellenarLogos(pagina){
    .join("");
 }
 
-  
+
+
+/* ================= PAGINACIÓN REAL ================= */
+
+function paginarBloques(bloques){
+
+ let contenidoActual = nuevaPagina();
+
+ for(let i=0; i<bloques.length; i++){
+
+   const bloque = bloques[i];
+
+   // Si es un título y el siguiente es un grupo, probamos juntos
+   if(
+     bloque.classList.contains("bloque") &&
+     bloques[i+1] &&
+     bloques[i+1].classList.contains("grupo")
+   ){
+
+     contenidoActual.appendChild(bloque);
+     contenidoActual.appendChild(bloques[i+1]);
+
+     if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
+       // no caben juntos → nueva página
+       contenidoActual.removeChild(bloque);
+       contenidoActual.removeChild(bloques[i+1]);
+
+       contenidoActual = nuevaPagina();
+       contenidoActual.appendChild(bloque);
+       contenidoActual.appendChild(bloques[i+1]);
+     }
+
+     i++; // saltamos el grupo ya procesado
+     continue;
+   }
+
+   // comportamiento normal
+   contenidoActual.appendChild(bloque);
+
+   if(contenidoActual.scrollHeight > contenidoActual.clientHeight){
+     contenidoActual.removeChild(bloque);
+     contenidoActual = nuevaPagina();
+     contenidoActual.appendChild(bloque);
+   }
+ }
+}
+
 /* ================= CREAR BLOQUES PARTIDOS ================= */
 function formatearEquipo(texto){
-
   if(!texto) return "";
-
   // Inserta salto justo antes del paréntesis
   return texto.replace(" (","<br>(");
 }
@@ -541,7 +596,7 @@ function formatearLehiaketa(texto, esFinala = false){
   if(!texto) return "";
 
   const fasesOrdenadas = Object.values(FASES)
-    .sort((a,b)=> b.length - a.length);  // 🔥 más largas primero
+    .sort((a,b)=> b.length - a.length);
 
   let textoProcesado = texto;
   let faseEncontrada = null;
@@ -586,6 +641,7 @@ function generarClasesCategorias(){
   style.innerHTML = css;
   document.head.appendChild(style);
 }
+
 function obtenerClaseCategoria(texto){
 
   if(!texto) return "";
@@ -613,6 +669,10 @@ function crearBloques(titulo,data){
  h2.innerHTML=`<h2>${titulo}</h2>`;
  arr.push(h2);
 
+ /* ==========================
+    1️⃣ FILTRAR DESCANSOS
+ ========================== */
+
  const dataFiltrada = data.filter(p=>{
 
    const e=(p.etxekoa||"").toLowerCase();
@@ -625,6 +685,10 @@ function crearBloques(titulo,data){
      k.includes("atseden")
    );
  });
+
+ /* ==========================
+    2️⃣ ORDENAR
+ ========================== */
 
  dataFiltrada.sort((a,b)=>{
 
@@ -640,6 +704,10 @@ function crearBloques(titulo,data){
    return (a.fronton || "").localeCompare(b.fronton || "");
  });
 
+ /* ==========================
+    3️⃣ AGRUPAR
+ ========================== */
+
  const grupos={};
 
  dataFiltrada.forEach(p=>{
@@ -649,6 +717,7 @@ function crearBloques(titulo,data){
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
  });
+
 
  Object.values(grupos).forEach(partidos=>{
 
@@ -675,10 +744,8 @@ function crearBloques(titulo,data){
        let etx = formatearEquipo(p.etxekoa);
        let kan = formatearEquipo(p.kanpokoak);
 
-       // Aplicamos clase especial si contiene "Larraun" (no usamos <strong> directamente porque luego se procesa)
-       // Lo hacemos de forma más inteligente: reemplazamos Larraun por <strong>Larraun</strong> pero preservando el formato
+       // Aplicamos formato especial para Larraun (reemplazo inteligente)
        if(etx.toLowerCase().includes("larraun")){
-         // Reemplazamos cada instancia de Larraun (con cualquier variante de mayúsculas) por su versión destacada
          etx = etx.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
 
@@ -688,15 +755,16 @@ function crearBloques(titulo,data){
 
        // Clase adicional para la línea si es FINALA
        const lineaClass = esFinala ? "linea finala-linea" : "linea";
-       
+
        return `
          <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}">
            <div class="zkia">${p.zkia}</div>
-           <div class="etxekoa equipo">${etx}</div>
-           <div class="kanpokoa equipo">${kan}</div>
+           <div class="etxekoa">${etx}</div>
+           <div class="kanpokoa">${kan}</div>
            <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa, esFinala)}</div>
          </div>
        `;
+
      }).join("")}
    `;
 
@@ -705,6 +773,8 @@ function crearBloques(titulo,data){
 
  return arr;
 }
+
+
 
 /* ================= FETCH + CONSTRUIR ================= */
 
@@ -718,7 +788,7 @@ Promise.all([
  FASES = fases;
  CATEGORIAS = categorias;
 
- generarClasesCategorias();   // 🔥 ESTO FALTABA
+ generarClasesCategorias();
 
  const bloques=[
    ...crearBloques("FNP PARTIDUAK",oficiales),
@@ -726,29 +796,31 @@ Promise.all([
    ...crearBloques("TXAPELKETAK EZ OFIZIALAK",noOficiales.filter(p=>p.ofiziala!=="true"))
  ];
 
- const contenido = nuevaPagina();
-
- bloques.forEach(b=>contenido.appendChild(b));
-
- const pel = document.querySelector(".pelotazos");
- generarPelotazos(pel);
+ paginarBloques(bloques);
 
 });
-/* ================= EXPORTAR ================= */
+
+
+/* ================= EXPORTAR TODAS LAS PÁGINAS ================= */
 
 async function exportar(){
 
- const pagina=document.querySelector(".pagina");
+ const paginas=document.querySelectorAll(".pagina");
 
- const canvas=await html2canvas(pagina,{
-   scale:2,
-   useCORS:true
- });
+ let i=1;
 
- const a=document.createElement("a");
- a.href=canvas.toDataURL("image/jpeg",0.95);
- a.download="kartela-completo.jpg";
- a.click();
+ for(const p of paginas){
+
+   const canvas=await html2canvas(p,{scale:2,useCORS:true});
+
+   const a=document.createElement("a");
+   a.href=canvas.toDataURL("image/jpeg",0.95);
+   a.download=`kartela-${i}.jpg`;
+   a.click();
+
+   i++;
+ }
+
 }
 
 </script>
