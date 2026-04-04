@@ -159,7 +159,8 @@ body{
 .contenido{
   flex:1;
   padding:20px;
-  overflow:hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* ================= BLOQUES ================= */
@@ -207,7 +208,7 @@ body{
   align-items:center;
   font-weight:900;
   border-radius:4px;
-  box-sizing:border-box;      /* 🔥 clave */
+  box-sizing:border-box;
   transition: all 0.2s ease;
 }
 
@@ -223,24 +224,109 @@ body{
   border-left: 4px solid #d4af37;
   border-right: 4px solid #d4af37;
   position: relative;
-  padding: 12px 8px; /* Un poco más de padding para dar espacio a la etiqueta más alta */
+  padding: 12px 8px;
 }
 
 .zkia{
   flex:0 0 4%;
   min-width:0;
+  font-size:15px;
+  font-weight:900;
+  color:#2c3e2f;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
+
+/* ================= ESTILOS NUEVOS - TEXTO MÁS GRANDE + GRABADO PIEDRA ================= */
 
 .etxekoa{
   flex:0 0 32%;
   min-width:0;
-  color:#103c54;
+  color:#0a2f42;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:0.3px;
+  line-height:1.25;
+  
+  /* EFECTO GRABADO EN PIEDRA FUERTE */
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.35),
+    0px -1px 1px rgba(255,255,255,0.7),
+    1px 0px 0px rgba(0,0,0,0.15);
+  
+  background: linear-gradient(135deg, #e8f0f5 0%, #c8d8e8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #0a2f42;
+  text-fill-color: #0a2f42;
 }
 
 .kanpokoa{
   flex:0 0 32%;
   min-width:0;
-  color:#b00000;
+  color:#8b0000;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:0.3px;
+  line-height:1.25;
+  
+  /* EFECTO GRABADO EN PIEDRA FUERTE */
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.35),
+    0px -1px 1px rgba(255,255,255,0.7),
+    1px 0px 0px rgba(0,0,0,0.15);
+  
+  background: linear-gradient(135deg, #fff0f0 0%, #ffd0d0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #8b0000;
+  text-fill-color: #8b0000;
+}
+
+/* ESTILO ESPECIAL PARA LARRAUN - MÁS DESTACADO */
+.etxekoa strong, .kanpokoa strong {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 18px;
+  background: linear-gradient(135deg, #ffd89b 0%, #ffb347 50%, #c7e9fb 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #1a4d6b;
+  text-fill-color: #1a4d6b;
+  text-shadow: 
+    0px 1px 2px rgba(255,215,0,0.5),
+    0px -1px 0px rgba(255,255,200,0.8),
+    2px 2px 0px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0 2px;
+}
+
+/* Efecto de brillo adicional para Larraun */
+.etxekoa strong::before, .kanpokoa strong::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -4px;
+  right: -4px;
+  bottom: -2px;
+  background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.2), transparent);
+  pointer-events: none;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+/* Sutil subrayado dorado para Larraun */
+.etxekoa strong::after, .kanpokoa strong::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, #ffd700, #d4af37, transparent);
+  border-radius: 2px;
 }
 
 .lehiaketa{
@@ -250,8 +336,8 @@ body{
   display:flex;
   justify-content:flex-end;
   align-items:center;
-  gap:8px; /* Aumentado para dar más espacio a la etiqueta */
-  min-height: 44px; /* Altura mínima para albergar la etiqueta grande */
+  gap:8px;
+  min-height: 44px;
 }
 
 .fase{
@@ -274,16 +360,16 @@ body{
   background:linear-gradient(145deg, #c9a227, #f7e27a);
   color:#000;
   font-weight:900;
-  font-size:12px; /* Un poco más grande */
-  padding: 14px 6px; /* Altura aumentada (2px * 4 = 8px, más 6px extra = 14px) */
-  border-radius: 12px; /* Más redondeado */
+  font-size:12px;
+  padding: 14px 6px;
+  border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 3px rgba(255,255,255,0.8);
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 1px solid #b38b1e;
   line-height: 1.2;
-  min-width: 60px; /* Ancho mínimo para mantener proporción */
-  height: auto; /* La altura la determina el padding */
+  min-width: 60px;
+  height: auto;
   white-space: nowrap;
   position: relative;
   overflow: visible;
@@ -499,6 +585,12 @@ function paginarBloques(bloques){
 }
 
 /* ================= CREAR BLOQUES PARTIDOS ================= */
+function formatearEquipo(texto){
+  if(!texto) return "";
+  // Inserta salto justo antes del paréntesis
+  return texto.replace(" (","<br>(");
+}
+
 function formatearLehiaketa(texto, esFinala = false){
 
   if(!texto) return "";
@@ -566,7 +658,7 @@ function obtenerClaseCategoria(texto){
   return "";
 }
 
-  function crearBloques(titulo,data){
+function crearBloques(titulo,data){
 
  if(!data || data.length===0) return [];
 
@@ -629,7 +721,7 @@ function obtenerClaseCategoria(texto){
 
  Object.values(grupos).forEach(partidos=>{
 
-   const g=document.createElement("div");   // 👈 FALTABA ESTO
+   const g=document.createElement("div");
    g.className="grupo";
 
    const fronton = partidos[0].fronton || "";
@@ -649,15 +741,16 @@ function obtenerClaseCategoria(texto){
        // Determinar si es FINALA
        const esFinala = p.lehiaketa && p.lehiaketa.toUpperCase().includes("FINALA");
        
-       let etx = p.etxekoa;
-       let kan = p.kanpokoak;
+       let etx = formatearEquipo(p.etxekoa);
+       let kan = formatearEquipo(p.kanpokoak);
 
+       // Aplicamos formato especial para Larraun (reemplazo inteligente)
        if(etx.toLowerCase().includes("larraun")){
-         etx = "<strong>"+etx+"</strong>";
+         etx = etx.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
 
        if(kan.toLowerCase().includes("larraun")){
-         kan = "<strong>"+kan+"</strong>";
+         kan = kan.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
 
        // Clase adicional para la línea si es FINALA
