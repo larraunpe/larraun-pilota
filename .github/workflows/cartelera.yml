@@ -24,7 +24,7 @@ jobs:
         run: npm install jsdom --no-save
 
       - name: Ejecutar scraper
-        run: node scripts/scrape-cartelera.js
+        run: node scripts/scrape-cartelera.mjs
 
       - name: Commit cambios
         run: |
