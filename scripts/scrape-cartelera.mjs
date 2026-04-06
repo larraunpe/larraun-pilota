@@ -1,6 +1,6 @@
 import https from "https";
 import { JSDOM } from "jsdom";
-import fs from "fs";
+import fs from "fs/promises";
 
 const URL = "https://www.fnpelota.com/pub/cartelera.asp?idioma=eu";
 
