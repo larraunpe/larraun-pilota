@@ -83,28 +83,28 @@ function convertirPareja(texto) {
 
       // solo partidos donde juegue LARRAUN
       const esLarraun =
-  etxekoa.includes("LARRAUN") ||
-  kanpokoak.includes("LARRAUN") ||
-  CONVERSION.some(rule =>
-    etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
-  );
+        etxekoa.includes("LARRAUN") ||
+        kanpokoak.includes("LARRAUN") ||
+        CONVERSION.some(rule =>
+          etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
+        );
 
-if (!esLarraun) return;
-
+      if (!esLarraun) return;
 
       partidos.push({
         fecha,
         hora,
         zkia,
         fronton,
-        etxekoa: convertirPareja(etxekoa),
+        etxekoa: convertirPareja(etxekoa),  // ← CORREGIDO: ahora es etxekoa
         kanpokoak: convertirPareja(kanpokoak),
         lehiaketa
       });
     });
 
-    fs.mkdirSync("data", { recursive: true });
-    fs.writeFileSync(
+    // Usar fs/promises (asíncrono)
+    await fs.mkdir("data", { recursive: true });
+    await fs.writeFile(
       "data/cartelera-larraun.json",
       JSON.stringify(partidos, null, 2)
     );
