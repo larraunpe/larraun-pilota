@@ -1,5 +1,23 @@
 [
   {
+    "fecha": "2026/04/10",
+    "hora": "19:00 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Larraintzar - Ulzama",
+    "etxekoa": "ULTZAMA (A. Gascue)",
+    "kanpokoak": "LARRAUN (M. Lazkoz)",
+    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL LAURDENAK"
+  },
+  {
+    "fecha": "2026/04/12",
+    "hora": "12:00 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Galartza - I. Garziarena)",
+    "kanpokoak": "AUÑAMENDI (N. Eciolaza - I. Zabalza)",
+    "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA"
+  },
+  {
     "fecha": "2026/04/12",
     "hora": "- !Horario provisional",
     "zkia": "-",
@@ -7,23 +25,5 @@
     "etxekoa": "P.P.SAN SEBASTIAN (O. Lizarraga)",
     "kanpokoak": "LARRAUN (M. Goikoetxea)",
     "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL LAURDENAK"
-  },
-  {
-    "fecha": "2026/04/12",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "ULTZAMA (A. Gascue)",
-    "kanpokoak": "LARRAUN (M. Lazkoz)",
-    "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL LAURDENAK"
-  },
-  {
-    "fecha": "2026/04/12",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (M. Galartza - I. Garziarena)",
-    "kanpokoak": "AUÑAMENDI (N. Eciolaza - I. Zabalza)",
-    "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA"
   }
 ]
