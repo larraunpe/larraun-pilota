@@ -40,7 +40,6 @@
       }
     }
 
-    /* header estilo */
     .header-kudeaketa {
       display: flex;
       align-items: center;
@@ -91,7 +90,6 @@
       }
     }
 
-    /* pestañas idioma */
     .idioma-toggle {
       display: flex;
       gap: 10px;
@@ -118,7 +116,55 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
-    /* selector partido */
+    /* filtro categoria */
+    .filtro-kategoria {
+      background: #f8f9fc;
+      border-radius: 28px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .filtro-titulua {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .kategoria-filtro-botoiak {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .kat-filtro-btn {
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      background: #e2e6ea;
+      color: #1e466e;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .kat-filtro-btn.aktibo {
+      background: #b30000;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .kat-filtro-btn:hover {
+      transform: translateY(-2px);
+    }
+
     .partidu-aukeraketa {
       background: #f8f9fc;
       border-radius: 28px;
@@ -175,7 +221,6 @@
       color: #1e466e;
     }
 
-    /* opciones horario */
     .aukerak-taldea {
       margin: 28px 0 20px;
     }
@@ -231,7 +276,6 @@
       margin-top: 10px;
     }
 
-    /* observaciones */
     .observaciones-area {
       margin: 20px 0 24px;
     }
@@ -251,7 +295,6 @@
       outline: none;
     }
 
-    /* botón */
     .btn-whatsapp {
       background: #25D366;
       border: none;
@@ -321,17 +364,25 @@
     </div>
   </div>
 
+  <!-- FILTRO POR CATEGORÍA -->
+  <div class="filtro-kategoria" id="filtroKategoriaContainer">
+    <div class="filtro-titulua">
+      <span>🏷️</span> <span id="filtroLabel">Iragazi kategoria / Filtrar por categoría</span>
+    </div>
+    <div class="kategoria-filtro-botoiak" id="kategoriaFiltroBotoiak">
+      <button class="kat-filtro-btn aktibo" data-kategoria="GUZTIAK">🔘 GUZTIAK / TODOS</button>
+    </div>
+  </div>
+
   <!-- selector partido -->
   <div class="partidu-aukeraketa">
     <div class="label-izan">
       <span>🏆</span> <span id="selectPartidoLabel">🔽 Hautatu partidua / Selecciona el partido</span>
     </div>
-    <select id="partidoSelect">
+    <select id="partidoSelect" disabled>
       <option value="">-- Kargatzen... / Cargando --</option>
     </select>
-    <div id="partidoInfoPreview" class="partidu-info-laburra" style="display: none;">
-      <!-- se rellena dinámicamente -->
-    </div>
+    <div id="partidoInfoPreview" class="partidu-info-laburra" style="display: none;"></div>
   </div>
 
   <!-- opciones horario -->
@@ -345,7 +396,7 @@
 
   <!-- observaciones -->
   <div class="observaciones-area">
-    <label id="obsLabel" style="font-weight: 700; display: block; margin-bottom: 8px;">📝 Oharrak / Observaciones (aukerakoa / opcional)</label>
+    <label id="obsLabel" style="font-weight: 700; display: block; margin-bottom: 8px;">📝 Oharrak / Observaciones (aukerakoa)</label>
     <textarea id="observaciones" rows="3" placeholder="Adibidez: ezin dugu goizeko ordutegira, mesedez ahal bada arratsaldez. / Ej: no podemos por la mañana, por favor tarde si es posible."></textarea>
   </div>
 
@@ -355,29 +406,101 @@
   </button>
   <div id="errorMsg" class="error-msg"></div>
   <footer>
-    <span>📲 Mezua zure telefonoan irekiko da bidali aurretik · El mensaje se abrirá en tu teléfono antes de enviar</span>
+    <span>📲 Mezua bidaliko da 669866803 telefono zenbakira · El mensaje se enviará al número 669866803</span>
   </footer>
 </div>
 
 <script>
-  // -----------------------------------------------
-  // 1. DATUAK KARGATU (partidak ofizialak + ez ofizialak)
-  // -----------------------------------------------
-  let partidaGuztiak = [];      // array con todos los partidos (oficiales + no oficiales)
+  // --------------------------------------------------------------
+  // 1. DATUAK ETA KATEGORIAK KARGATU
+  // --------------------------------------------------------------
+  let kategoriakMap = new Map();
+  let kategoriaNagusiakOrdenatuak = [];
+  let partidaGuztiak = [];
   let partidoSeleccionado = null;
+  let currentLang = 'eu';
+  let currentKategoriaFilter = 'GUZTIAK';
+  const WHATSAPP_NUMBER = "669866803";
 
-  // Fechas de festivos en Navarra 2025 (ampliable)
-  // formato 'YYYY-MM-DD'
   const festivosNavarra = [
     '2025-01-01', '2025-01-06', '2025-04-18', '2025-05-01', '2025-07-25',
     '2025-08-15', '2025-10-12', '2025-11-01', '2025-12-06', '2025-12-08', '2025-12-25'
   ];
-  // Para simplificar, también detectamos cualquier fecha que caiga en festivo local (podemos ampliar)
+
   function esFestivoEnNavarra(fechaStr) {
     if (!fechaStr) return false;
-    // fechaStr formato "YYYY/MM/DD" o "YYYY-MM-DD"? en nuestros datos viene "2025/04/10"
     let normalizada = fechaStr.replace(/\//g, '-');
     return festivosNavarra.includes(normalizada);
+  }
+
+  async function kargatuKategoriak() {
+    try {
+      const resp = await fetch('/data/categoriaedad.json');
+      if (!resp.ok) throw new Error('Kategoriak ezin kargatu');
+      const data = await resp.json();
+      const edadMinToKategoria = new Map();
+      data.forEach(item => {
+        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+        if (!izena) return;
+        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+        if (!edadMinToKategoria.has(edadMin)) {
+          edadMinToKategoria.set(edadMin, izena);
+        }
+      });
+      data.forEach(item => {
+        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+        if (!izena) return;
+        const kolorea = item[izena];
+        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+        const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
+        kategoriakMap.set(izena.toUpperCase().trim(), {
+          kolorea: kolorea,
+          edadMin: edadMin,
+          izena: izena,
+          kategoriaNagusia: kategoriaNagusia
+        });
+      });
+      const kategoriaNagusiakSet = new Set();
+      data.forEach(item => {
+        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+        if (!izena) return;
+        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+        const nagusia = edadMinToKategoria.get(edadMin);
+        if (nagusia) kategoriaNagusiakSet.add(nagusia);
+      });
+      const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
+        const item = data.find(i => {
+          const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          return iIzena === izena;
+        });
+        return {
+          izena: izena,
+          edadMin: item ? parseInt(item.EDADMIN, 10) : 999
+        };
+      });
+      kategoriaNagusiakOrdenatuak = kategoriaNagusiakArray.sort((a,b) => a.edadMin - b.edadMin).map(k => k.izena);
+    } catch (e) {
+      console.warn('Kategoriak kargatzean errorea:', e);
+      kategoriaNagusiakOrdenatuak = ['BENJAMIN', 'ALEBINAK', 'KIMU', 'SEIN', 'KADETE', 'GAZTE', 'JUVENIL', 'SENIOR', 'Beste'];
+    }
+  }
+
+  function kategoriaNagusiaPartida(partida) {
+    const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
+    if (!testua) return 'Beste';
+    for (let [k, info] of kategoriakMap.entries()) {
+      if (testua.includes(k)) {
+        return info.kategoriaNagusia;
+      }
+    }
+    if (testua.includes('HAUR')) return 'HAURRAK';
+    if (testua.includes('KADETE')) return 'KADETE';
+    if (testua.includes('KIMU')) return 'KIMU';
+    if (testua.includes('GAZTE')) return 'GAZTE';
+    if (testua.includes('ALEBIN')) return 'ALEBINAK';
+    if (testua.includes('SEIN')) return 'SEIN';
+    if (testua.includes('BENJA')) return 'BENJAMIN';
+    return 'Beste';
   }
 
   async function kargatuPartidak() {
@@ -389,32 +512,115 @@
       if (!oficialesResp.ok || !noOficialesResp.ok) throw new Error('Errorea datuak kargatzean');
       const ofi = await oficialesResp.json();
       const noOfi = await noOficialesResp.json();
-      
-      // unimos, añadiendo un flag de fuente para debug
       const todos = [...ofi, ...noOfi];
-      // limpiar textos 'Descanso'
       todos.forEach(p => {
         if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
         if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+        p.kategoria = kategoriaNagusiaPartida(p);
       });
       partidaGuztiak = todos;
     } catch (err) {
       console.error(err);
-      const select = document.getElementById('partidoSelect');
-      select.innerHTML = '<option value="">❌ Ezin izan da partidurik kargatu / No se pudieron cargar partidos</option>';
+      partidaGuztiak = [];
     }
   }
 
-  // Obtener nombre del equipo Larraun (el que contenga LARRAUN)
-  function getEquipoLarraun(partida) {
-    const local = partida.etxekoa || '';
-    const visitante = partida.kanpokoak || '';
-    if (local.toUpperCase().includes('LARRAUN')) return local;
-    if (visitante.toUpperCase().includes('LARRAUN')) return visitante;
-    return null;
+  function getKategoriaAktiboak() {
+    const kats = new Set();
+    partidaGuztiak.forEach(p => { if(p.kategoria) kats.add(p.kategoria); });
+    const orden = kategoriaNagusiakOrdenatuak;
+    const lista = Array.from(kats).sort((a,b) => {
+      const idxA = orden.indexOf(a);
+      const idxB = orden.indexOf(b);
+      if(idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if(idxA !== -1) return -1;
+      if(idxB !== -1) return 1;
+      return a.localeCompare(b);
+    });
+    return lista;
   }
 
-  // Formatear fecha legible
+  function getPartidosFiltrados() {
+    if (currentKategoriaFilter === 'GUZTIAK') return partidaGuztiak;
+    return partidaGuztiak.filter(p => p.kategoria === currentKategoriaFilter);
+  }
+
+  function actualizarSelectPartidos() {
+    const select = document.getElementById('partidoSelect');
+    const partidosFiltrados = getPartidosFiltrados();
+    if (partidosFiltrados.length === 0) {
+      select.innerHTML = '<option value="">-- Ez dago partidurik kategoria honetan / No hay partidos en esta categoría --</option>';
+      select.disabled = true;
+      partidoSeleccionado = null;
+      document.getElementById('partidoInfoPreview').style.display = 'none';
+      return;
+    }
+    select.disabled = false;
+    select.innerHTML = '<option value="">-- Aukeratu partidua / Seleccionar partido --</option>';
+    partidosFiltrados.forEach((p, idx) => {
+      const local = p.etxekoa || '?';
+      const visitante = p.kanpokoak || '?';
+      const comp = p.lehiaketa || p.modalidad || '';
+      const fechaCorta = p.fecha || 'sin fecha';
+      const option = document.createElement('option');
+      option.value = idx;
+      option.textContent = `${fechaCorta} | ${local} vs ${visitante} | ${comp}  (${p.kategoria})`;
+      select.appendChild(option);
+    });
+    if (partidoSeleccionado && !partidosFiltrados.includes(partidoSeleccionado)) {
+      partidoSeleccionado = null;
+      document.getElementById('partidoInfoPreview').style.display = 'none';
+      renderizarOpciones(currentLang, null);
+    }
+    select.value = "";
+  }
+
+  function renderizarFiltroKategoria() {
+    const container = document.getElementById('kategoriaFiltroBotoiak');
+    const categoriasDisponibles = getKategoriaAktiboak();
+    container.innerHTML = '';
+    const todosBtn = document.createElement('button');
+    todosBtn.className = `kat-filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`;
+    todosBtn.setAttribute('data-kategoria', 'GUZTIAK');
+    todosBtn.textContent = currentLang === 'eu' ? '🔘 GUZTIAK' : '🔘 TODOS';
+    todosBtn.addEventListener('click', () => {
+      currentKategoriaFilter = 'GUZTIAK';
+      actualizarFiltroUI();
+      actualizarSelectPartidos();
+      partidoSeleccionado = null;
+      document.getElementById('partidoInfoPreview').style.display = 'none';
+      renderizarOpciones(currentLang, null);
+    });
+    container.appendChild(todosBtn);
+    categoriasDisponibles.forEach(kat => {
+      const btn = document.createElement('button');
+      btn.className = `kat-filtro-btn ${currentKategoriaFilter === kat ? 'aktibo' : ''}`;
+      btn.setAttribute('data-kategoria', kat);
+      btn.textContent = kat;
+      btn.addEventListener('click', () => {
+        currentKategoriaFilter = kat;
+        actualizarFiltroUI();
+        actualizarSelectPartidos();
+        partidoSeleccionado = null;
+        document.getElementById('partidoInfoPreview').style.display = 'none';
+        renderizarOpciones(currentLang, null);
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function actualizarFiltroUI() {
+    const botones = document.querySelectorAll('#kategoriaFiltroBotoiak .kat-filtro-btn');
+    botones.forEach(btn => {
+      const katVal = btn.getAttribute('data-kategoria');
+      if (katVal === currentKategoriaFilter) btn.classList.add('aktibo');
+      else btn.classList.remove('aktibo');
+    });
+    const filtroLabel = document.getElementById('filtroLabel');
+    if (currentLang === 'eu') filtroLabel.innerHTML = `🏷️ Iragazi kategoria (${currentKategoriaFilter === 'GUZTIAK' ? 'Guztiak' : currentKategoriaFilter})`;
+    else filtroLabel.innerHTML = `🏷️ Filtrar por categoría (${currentKategoriaFilter === 'GUZTIAK' ? 'Todos' : currentKategoriaFilter})`;
+  }
+
   function formatearFecha(fechaStr, lang) {
     if (!fechaStr) return lang === 'eu' ? 'data ezezaguna' : 'fecha desconocida';
     const partes = fechaStr.split('/');
@@ -424,20 +630,13 @@
     const diasSemanaEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata'];
     const diasSemanaEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const diaSemana = fechaObj.getDay();
-    if (lang === 'eu') {
-      return `${diasSemanaEu[diaSemana]}, ${dia}/${mes}/${anyo}`;
-    } else {
-      return `${diasSemanaEs[diaSemana]}, ${dia}/${mes}/${anyo}`;
-    }
+    if (lang === 'eu') return `${diasSemanaEu[diaSemana]}, ${dia}/${mes}/${anyo}`;
+    else return `${diasSemanaEs[diaSemana]}, ${dia}/${mes}/${anyo}`;
   }
 
-  // Actualizar preview del partido seleccionado
   function actualizarPreviewPartido(partida, lang) {
     const previewDiv = document.getElementById('partidoInfoPreview');
-    if (!partida) {
-      previewDiv.style.display = 'none';
-      return;
-    }
+    if (!partida) { previewDiv.style.display = 'none'; return; }
     previewDiv.style.display = 'block';
     const fechaFormateada = formatearFecha(partida.fecha, lang);
     const local = partida.etxekoa || '?';
@@ -445,28 +644,20 @@
     const fronton = partida.fronton || 'Frontoi zehaztu gabe';
     const lehiaketa = partida.lehiaketa || partida.modalidad || 'Lehiaketa';
     const horaRaw = partida.hora || '--:--';
-    const horaMostrar = horaRaw.includes('provisional') ? horaRaw : horaRaw;
-    
     if (lang === 'eu') {
-      previewDiv.innerHTML = `
-        <div class="info-linea"><strong>📅 Data:</strong> ${fechaFormateada}  |  🕒 ${horaMostrar}</div>
-        <div class="info-linea"><strong>🏟️ Frontoi:</strong> ${fronton}</div>
-        <div class="info-linea"><strong>🏠 Etxekoa:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Kanpokoa:</strong> ${visitante}</div>
-        <div class="info-linea"><strong>🏆 Lehiaketa:</strong> ${lehiaketa}</div>
-      `;
+      previewDiv.innerHTML = `<div class="info-linea"><strong>📅 Data:</strong> ${fechaFormateada}  |  🕒 ${horaRaw}</div>
+      <div class="info-linea"><strong>🏟️ Frontoi:</strong> ${fronton}</div>
+      <div class="info-linea"><strong>🏠 Etxekoa:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Kanpokoa:</strong> ${visitante}</div>
+      <div class="info-linea"><strong>🏆 Lehiaketa:</strong> ${lehiaketa} (${partida.kategoria})</div>`;
     } else {
-      previewDiv.innerHTML = `
-        <div class="info-linea"><strong>📅 Fecha:</strong> ${fechaFormateada}  |  🕒 ${horaMostrar}</div>
-        <div class="info-linea"><strong>🏟️ Frontón:</strong> ${fronton}</div>
-        <div class="info-linea"><strong>🏠 Local:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Visitante:</strong> ${visitante}</div>
-        <div class="info-linea"><strong>🏆 Competición:</strong> ${lehiaketa}</div>
-      `;
+      previewDiv.innerHTML = `<div class="info-linea"><strong>📅 Fecha:</strong> ${fechaFormateada}  |  🕒 ${horaRaw}</div>
+      <div class="info-linea"><strong>🏟️ Frontón:</strong> ${fronton}</div>
+      <div class="info-linea"><strong>🏠 Local:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Visitante:</strong> ${visitante}</div>
+      <div class="info-linea"><strong>🏆 Competición:</strong> ${lehiaketa} (${partida.kategoria})</div>`;
     }
   }
 
-  // Generar opciones de horario (dinámico según festivos)
-  function generarOpcionesHorario(fechaPartidoStr, langActual) {
-    // opciones base
+  function generarOpcionesHorario(fechaPartidoStr) {
     const opcionesBase = [
       { id: 'lun_tarde',  labelEu: 'Astelehena arratsaldea', labelEs: 'Lunes tarde' },
       { id: 'mar_tarde',  labelEu: 'Asteartea arratsaldea', labelEs: 'Martes tarde' },
@@ -479,38 +670,25 @@
       { id: 'dom_tarde',  labelEu: 'Igandea arratsaldea', labelEs: 'Domingo tarde' }
     ];
     let opciones = [...opcionesBase];
-    // festivos detectar si el partido es de una semana concreta? según requerimiento: dar opción festivo de lunes a viernes por la mañana si es festivo en Navarra
-    // Necesitamos una fecha de referencia? Usamos la fecha del partido para determinar la semana? Pero la solicitud pide: "Si se detecta que un día de lunes a viernes es festivo en Navarra, dará la opción de ese día por la mañana."
-    // Tomamos como referencia la semana del partido: comprobar fechas de lunes a viernes de esa semana. Simplemente generamos dinámicamente.
     if (fechaPartidoStr) {
       const partes = fechaPartidoStr.split('/');
       if (partes.length === 3) {
-        const anyo = parseInt(partes[0]);
-        const mes = parseInt(partes[1])-1;
-        const dia = parseInt(partes[2]);
+        const anyo = parseInt(partes[0]), mes = parseInt(partes[1])-1, dia = parseInt(partes[2]);
         const fechaRef = new Date(anyo, mes, dia);
-        // obtenemos el lunes de esa semana
-        const diaSemana = fechaRef.getDay(); // 0 domingo
+        const diaSemana = fechaRef.getDay();
         const diffLunes = diaSemana === 0 ? 6 : diaSemana-1;
         const lunes = new Date(fechaRef);
         lunes.setDate(fechaRef.getDate() - diffLunes);
-        // revisar lunes a viernes de esa semana
         for (let i=0; i<5; i++) {
           const diaActual = new Date(lunes);
           diaActual.setDate(lunes.getDate() + i);
           const fechaStrNorm = `${diaActual.getFullYear()}-${String(diaActual.getMonth()+1).padStart(2,'0')}-${String(diaActual.getDate()).padStart(2,'0')}`;
           if (festivosNavarra.includes(fechaStrNorm)) {
-            // añadir opción mañana de ese día de semana (nombre)
-            const nombreDiaEu = ['Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala'][i];
-            const nombreDiaEs = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'][i];
+            const nombreEu = ['Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala'][i];
+            const nombreEs = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'][i];
             const opId = `fest_${i}_manana`;
-            // evitar duplicados
             if (!opciones.some(o => o.id === opId)) {
-              opciones.push({
-                id: opId,
-                labelEu: `${nombreDiaEu} goiza (JAIA)`,
-                labelEs: `${nombreDiaEs} mañana (FESTIVO)`
-              });
+              opciones.push({ id: opId, labelEu: `${nombreEu} goiza (JAIA)`, labelEs: `${nombreEs} mañana (FESTIVO)` });
             }
           }
         }
@@ -520,10 +698,9 @@
   }
 
   let opcionesActuales = [];
-
   function renderizarOpciones(lang, fechaPartido) {
     const container = document.getElementById('opcionesContainer');
-    const opciones = generarOpcionesHorario(fechaPartido, lang);
+    const opciones = generarOpcionesHorario(fechaPartido);
     opcionesActuales = opciones;
     container.innerHTML = '';
     opciones.forEach(op => {
@@ -539,17 +716,13 @@
       wrapper.appendChild(document.createTextNode(' ' + label));
       container.appendChild(wrapper);
     });
-    // mostrar mensaje festivos si aplica
     const festMsgDiv = document.getElementById('festivosMsg');
     if (opciones.some(o => o.id.startsWith('fest_'))) {
       festMsgDiv.style.display = 'block';
       festMsgDiv.innerHTML = lang === 'eu' ? '📢 Jaieguna dela eta, goizeko aukera erantsi da astelehenetik ostiralera.' : '📢 Se ha añadido opción por la mañana en días festivos (de lunes a viernes).';
-    } else {
-      festMsgDiv.style.display = 'none';
-    }
+    } else festMsgDiv.style.display = 'none';
   }
 
-  // Obtener opciones marcadas (texto en cada idioma)
   function getOpcionesMarcadas(lang) {
     const checkboxes = document.querySelectorAll('#opcionesContainer input[type="checkbox"]');
     const seleccionadas = [];
@@ -558,7 +731,6 @@
         const label = lang === 'eu' ? cb.getAttribute('data-label-eu') : cb.getAttribute('data-label-es');
         if (label) seleccionadas.push(label);
         else {
-          // fallback
           const op = opcionesActuales.find(o => o.id === cb.value);
           if (op) seleccionadas.push(lang === 'eu' ? op.labelEu : op.labelEs);
         }
@@ -567,147 +739,112 @@
     return seleccionadas;
   }
 
-  // Generar mensaje final (bilingüe)
+  function getEquipoLarraun(partida) {
+    const local = partida.etxekoa || '';
+    const visitante = partida.kanpokoak || '';
+    if (local.toUpperCase().includes('LARRAUN')) return local;
+    if (visitante.toUpperCase().includes('LARRAUN')) return visitante;
+    return null;
+  }
+
+  // NUEVA FUNCIÓN: genera el texto del enfrentamiento completo "🏠 LOCAL vs ✈️ VISITANTE"
+  function getEnfrentamientoTexto(partida, lang) {
+    const local = partida.etxekoa || '?';
+    const visitante = partida.kanpokoak || '?';
+    if (lang === 'eu') {
+      return `🏠 ${local} vs ✈️ ${visitante}`;
+    } else {
+      return `🏠 ${local} vs ✈️ ${visitante}`;
+    }
+  }
+
+  // GENERAR MENSAJE CON EL FORMATO SOLICITADO: dos puntos y luego la línea del enfrentamiento
   function generarMensaje(lang) {
     if (!partidoSeleccionado) return null;
     const equipoLarraun = getEquipoLarraun(partidoSeleccionado);
     if (!equipoLarraun) return null;
-    const fechaOriginal = partidoSeleccionado.fecha;
-    const fechaLegible = formatearFecha(fechaOriginal, lang);
+    const fechaLegible = formatearFecha(partidoSeleccionado.fecha, lang);
     const fronton = partidoSeleccionado.fronton || 'Frontoi zehaztu gabe';
     const opcionesSel = getOpcionesMarcadas(lang);
     if (opcionesSel.length === 0) return null;
     const observaciones = document.getElementById('observaciones').value.trim();
+    const enfrentamiento = getEnfrentamientoTexto(partidoSeleccionado, lang);
     
-    let mensaje = '';
+    let msg = '';
     if (lang === 'eu') {
-      mensaje = `🔄 *ORDUTEGI ALDAKETA ESKAERA* 🔄\n\n`;
-      mensaje += `🏠 ${equipoLarraun} taldeak partiduaren ordutegia aldatzea eskatzen du.\n`;
-      mensaje += `📅 Jatorrizko partidua: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'ordua zehazteke'}\n`;
-      mensaje += `🎯 Frontoia: ${fronton}\n\n`;
-      mensaje += `✅ *Proposatutako ordutegi aukerak:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}\n`;
-      if (observaciones) {
-        mensaje += `\n📌 *Oharrak:* ${observaciones}\n`;
-      }
-      mensaje += `\n🙏 Eskerrik asko aldez aurretik.\n📍 Larraun Pilota Elkartea`;
+      msg = `🔄 *ORDUTEGI ALDAKETA ESKAERA* 🔄\n\n`;
+      msg += `${equipoLarraun} taldeak partiduaren ordutegia aldatzea eskatzen du:\n`;
+      msg += `${enfrentamiento}\n`;
+      msg += `📅 Jatorrizko partidua: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'ordua zehazteke'}\n`;
+      msg += `🎯 Frontoia: ${fronton}\n\n✅ *Proposatutako ordutegi aukerak:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
+      if (observaciones) msg += `\n\n📌 *Oharrak:* ${observaciones}`;
+      msg += `\n\n🙏 Eskerrik asko aldez aurretik.\n📍 Larraun Pilota Elkartea`;
     } else {
-      mensaje = `🔄 *SOLICITUD DE CAMBIO DE HORARIO* 🔄\n\n`;
-      mensaje += `🏠 El equipo formado por *${equipoLarraun}* solicita cambiar el horario del partido.\n`;
-      mensaje += `📅 Partido fijado: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'hora por definir'}\n`;
-      mensaje += `🎯 Frontón: ${fronton}\n\n`;
-      mensaje += `✅ *Opciones propuestas:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}\n`;
-      if (observaciones) {
-        mensaje += `\n📌 *Nota:* ${observaciones}\n`;
-      }
-      mensaje += `\n🙏 Muchas gracias de antemano. Un saludo.\n📍 Larraun Pilota Elkartea`;
+      msg = `🔄 *SOLICITUD DE CAMBIO DE HORARIO* 🔄\n\n`;
+      msg += `El equipo formado por *${equipoLarraun}* solicita cambiar el horario del partido:\n`;
+      msg += `${enfrentamiento}\n`;
+      msg += `📅 Partido fijado: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'hora por definir'}\n`;
+      msg += `🎯 Frontón: ${fronton}\n\n✅ *Opciones propuestas:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
+      if (observaciones) msg += `\n\n📌 *Nota:* ${observaciones}`;
+      msg += `\n\n🙏 Muchas gracias de antemano. Un saludo.\n📍 Larraun Pilota Elkartea`;
     }
-    // Añadir emojis extra y formato amigable
-    return mensaje;
+    return msg;
   }
 
-  // Actualizar interfaz según idioma
-  let currentLang = 'eu';
-  function actualizarIdioma(lang) {
-    currentLang = lang;
-    // textos estáticos
-    document.getElementById('selectPartidoLabel').innerHTML = lang === 'eu' ? '🔽 Hautatu partidua' : '🔽 Selecciona el partido';
-    document.getElementById('horarioTitle').innerHTML = lang === 'eu' ? '📅 Proposatu ordutegi berriak' : '📅 Propón nuevos horarios';
-    document.getElementById('obsLabel').innerHTML = lang === 'eu' ? '📝 Oharrak / Observaciones (aukerakoa)' : '📝 Observaciones (opcional)';
-    document.getElementById('btnText').innerHTML = lang === 'eu' ? 'WhatsApp bidez mezua sortu' : 'Generar mensaje WhatsApp';
-    // volver a renderizar opciones con el idioma actual y fecha del partido seleccionado
-    if (partidoSeleccionado) {
-      renderizarOpciones(lang, partidoSeleccionado.fecha);
-      actualizarPreviewPartido(partidoSeleccionado, lang);
-    } else {
-      // si no hay partido, igual renderizar opciones por si acaso
-      renderizarOpciones(lang, null);
-    }
-    // cambiar placeholder textarea
-    const textarea = document.getElementById('observaciones');
-    if (lang === 'eu') {
-      textarea.placeholder = "Adibidez: ezin dugu goizeko ordutegira, mesedez ahal bada arratsaldez.";
-    } else {
-      textarea.placeholder = "Ejemplo: no podemos por la mañana, por favor tarde si es posible.";
-    }
-  }
-
-  // Llenar selector de partidos
-  async function initSelectPartidos() {
+  // Eventos e inicialización
+  async function init() {
+    await kargatuKategoriak();
     await kargatuPartidak();
+    renderizarFiltroKategoria();
+    actualizarSelectPartidos();
     const select = document.getElementById('partidoSelect');
-    if (partidaGuztiak.length === 0) {
-      select.innerHTML = '<option value="">❌ Ez dago partidarik / No hay partidos</option>';
-      return;
-    }
-    select.innerHTML = '<option value="">-- Aukeratu partidua / Seleccionar partido --</option>';
-    partidaGuztiak.forEach((p, idx) => {
-      const local = p.etxekoa || '?';
-      const visitante = p.kanpokoak || '?';
-      const comp = p.lehiaketa || p.modalidad || '';
-      const fechaCorta = p.fecha || 'sin fecha';
-      const option = document.createElement('option');
-      option.value = idx;
-      option.textContent = `${fechaCorta} | ${local} vs ${visitante} | ${comp}`;
-      select.appendChild(option);
-    });
     select.addEventListener('change', (e) => {
       const idx = e.target.value;
-      if (idx === "") {
-        partidoSeleccionado = null;
-        document.getElementById('partidoInfoPreview').style.display = 'none';
-        renderizarOpciones(currentLang, null);
-        return;
-      }
-      partidoSeleccionado = partidaGuztiak[parseInt(idx)];
+      if (idx === "") { partidoSeleccionado = null; document.getElementById('partidoInfoPreview').style.display = 'none'; renderizarOpciones(currentLang, null); return; }
+      const partidosFilt = getPartidosFiltrados();
+      partidoSeleccionado = partidosFilt[parseInt(idx)];
       actualizarPreviewPartido(partidoSeleccionado, currentLang);
       renderizarOpciones(currentLang, partidoSeleccionado.fecha);
-      const errorDiv = document.getElementById('errorMsg');
-      errorDiv.style.display = 'none';
+      document.getElementById('errorMsg').style.display = 'none';
     });
+    document.getElementById('enviarWhatsappBtn').addEventListener('click', () => {
+      if (!partidoSeleccionado) { mostrarError(currentLang === 'eu' ? '❌ Hautatu partidua lehenik.' : '❌ Selecciona un partido primero.'); return; }
+      if (getOpcionesMarcadas(currentLang).length === 0) { mostrarError(currentLang === 'eu' ? '⚠️ Aukeratu gutxienez ordutegi aukera bat.' : '⚠️ Selecciona al menos una opción de horario.'); return; }
+      const mensaje = generarMensaje(currentLang);
+      if (!mensaje) { mostrarError(currentLang === 'eu' ? '❌ Errorea mezua sortzean.' : '❌ Error generando mensaje.'); return; }
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    });
+    function mostrarError(texto) { const err = document.getElementById('errorMsg'); err.textContent = texto; err.style.display = 'block'; setTimeout(()=> err.style.display='none', 4000); }
+    const langBtns = document.querySelectorAll('.idioma-boton');
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const lang = e.target.getAttribute('data-lang');
+        if (!lang) return;
+        currentLang = lang;
+        langBtns.forEach(b => b.classList.remove('aktibo'));
+        e.target.classList.add('aktibo');
+        actualizarIdioma(currentLang);
+      });
+    });
+    actualizarIdioma('eu');
   }
 
-  // Evento botón WhatsApp
-  document.getElementById('enviarWhatsappBtn').addEventListener('click', () => {
-    if (!partidoSeleccionado) {
-      const errorDiv = document.getElementById('errorMsg');
-      errorDiv.style.display = 'block';
-      errorDiv.innerHTML = currentLang === 'eu' ? '❌ Hautatu partidua lehenik.' : '❌ Selecciona un partido primero.';
-      return;
-    }
-    const opcionesMarcadas = getOpcionesMarcadas(currentLang);
-    if (opcionesMarcadas.length === 0) {
-      const errorDiv = document.getElementById('errorMsg');
-      errorDiv.style.display = 'block';
-      errorDiv.innerHTML = currentLang === 'eu' ? '⚠️ Aukeratu gutxienez ordutegi aukera bat.' : '⚠️ Selecciona al menos una opción de horario.';
-      return;
-    }
-    const mensaje = generarMensaje(currentLang);
-    if (!mensaje) {
-      const errorDiv = document.getElementById('errorMsg');
-      errorDiv.style.display = 'block';
-      errorDiv.innerHTML = currentLang === 'eu' ? '❌ Errorea mezua sortzean.' : '❌ Error generando mensaje.';
-      return;
-    }
-    const urlWhatsapp = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-    window.open(urlWhatsapp, '_blank');
-  });
+  function actualizarIdioma(lang) {
+    document.getElementById('selectPartidoLabel').innerHTML = lang === 'eu' ? '🔽 Hautatu partidua' : '🔽 Selecciona el partido';
+    document.getElementById('horarioTitle').innerHTML = lang === 'eu' ? '📅 Proposatu ordutegi berriak' : '📅 Propón nuevos horarios';
+    document.getElementById('obsLabel').innerHTML = lang === 'eu' ? '📝 Oharrak (aukerakoa)' : '📝 Observaciones (opcional)';
+    document.getElementById('btnText').innerHTML = lang === 'eu' ? 'WhatsApp bidez mezua sortu' : 'Generar mensaje WhatsApp';
+    document.getElementById('filtroLabel').innerHTML = lang === 'eu' ? '🏷️ Iragazi kategoria' : '🏷️ Filtrar por categoría';
+    const textarea = document.getElementById('observaciones');
+    textarea.placeholder = lang === 'eu' ? 'Adibidez: ezin dugu goizeko ordutegira, mesedez arratsaldez.' : 'Ejemplo: no podemos por la mañana, por favor tarde.';
+    renderizarFiltroKategoria();
+    actualizarFiltroUI();
+    if (partidoSeleccionado) actualizarPreviewPartido(partidoSeleccionado, lang);
+    renderizarOpciones(lang, partidoSeleccionado ? partidoSeleccionado.fecha : null);
+  }
 
-  // Toggle idioma
-  const langBtns = document.querySelectorAll('.idioma-boton');
-  langBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const lang = e.target.getAttribute('data-lang');
-      if (!lang) return;
-      langBtns.forEach(b => b.classList.remove('aktibo'));
-      e.target.classList.add('aktibo');
-      actualizarIdioma(lang);
-    });
-  });
-
-  // Inicializar todo
-  initSelectPartidos().then(() => {
-    actualizarIdioma('eu');
-  });
+  init();
 </script>
 </body>
 </html>
