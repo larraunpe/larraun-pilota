@@ -778,7 +778,7 @@
       msg += `📅 Jatorrizko partidua: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'ordua zehazteke'}\n`;
       msg += `📍 Frontoia: ${fronton}\n\n✅ *Proposatutako ordutegi aukerak:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
       if (observaciones) msg += `\n\n📌 *Oharrak:* ${observaciones}`;
-      msg += `\n\n🙏 Eskerrik asko aldez aurretik.\n🧑‍🧑‍🧒‍🧒 Larraun Pilota Elkartea`;
+      msg += `\n\n🙏 Eskerrik asko aldez aurretik.\n🔵 Larraun Pilota Elkartea`;
     } else {
       msg = `🔄 *SOLICITUD DE CAMBIO DE HORARIO* 🔄\n\n`;
       msg += `El equipo formado por *${equipoLarraun}* solicita cambiar el horario del partido:\n`;
@@ -786,7 +786,7 @@
       msg += `📅 Partido fijado: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'hora por definir'}\n`;
       msg += `📍 Frontón: ${fronton}\n\n✅ *Opciones propuestas:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
       if (observaciones) msg += `\n\n📌 *Nota:* ${observaciones}`;
-      msg += `\n\n🙏 Muchas gracias de antemano. Un saludo.\n🧑‍🧑‍🧒‍🧒 Larraun Pilota Elkartea`;
+      msg += `\n\n🙏 Muchas gracias de antemano. Un saludo.\n🔵 Larraun Pilota Elkartea`;
     }
     return msg;
   }
