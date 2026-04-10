@@ -837,7 +837,7 @@
     document.getElementById('btnText').innerHTML = lang === 'eu' ? 'WhatsApp bidez mezua sortu' : 'Generar mensaje WhatsApp';
     document.getElementById('filtroLabel').innerHTML = lang === 'eu' ? '🏷️ Iragazi kategoria' : '🏷️ Filtrar por categoría';
     const textarea = document.getElementById('observaciones');
-    textarea.placeholder = lang === 'eu' ? 'Adibidez: ezin dugu goizeko ordutegira, mesedez arratsaldez.' : 'Ejemplo: no podemos por la mañana, por favor tarde.';
+    textarea.placeholder = lang === 'eu' ? 'Adibidez: Adibidez: Larunbatean ere izan liteke, 12:00etan hasita.' : 'Ejemplo: Podría ser también el sábado, a partir de las 12:00 horas.';
     renderizarFiltroKategoria();
     actualizarFiltroUI();
     if (partidoSeleccionado) actualizarPreviewPartido(partidoSeleccionado, lang);
