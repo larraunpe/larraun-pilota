@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Larraun Pilota Elkartera - Escudo y Pelota</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* Evita selección molesta, mejora la experiencia en iconos */
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Roboto', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+            padding: 20px;
+        }
+
+        /* Tarjeta principal que simula un entorno de club / frontón */
+        .club-card {
+            max-width: 700px;
+            width: 100%;
+            background: #fef7e0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(210, 180, 100, 0.08) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            border-radius: 64px 48px 64px 48px;
+            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.35), inset 0 1px 2px rgba(255, 255, 200, 0.7);
+            padding: 2rem 2rem 2.5rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 215, 130, 0.6);
+        }
+
+        /* Encabezado con identidad del club */
+        .club-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        /* Aquí reemplazamos el 📍 por un diseño inspirado en el logo:
+           Escudo con pelota vasca y tipografía "Larraun Pilota Elkartera" integrada.
+           Este contenedor es el "nuevo marcador / icono" mucho más representativo */
+        .logo-emblem {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            transform: scale(1);
+            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: default;
+        }
+
+        .logo-emblem:hover {
+            transform: scale(1.02);
+        }
+
+        /* Escudo principal: forma clásica de escudo deportivo vasco/francés moderno */
+        .shield-icon {
+            position: relative;
+            width: 110px;
+            height: 130px;
+            background: linear-gradient(135deg, #c93a2b, #9e2a1f);
+            border-radius: 30% 30% 20% 20% / 60% 60% 30% 30%;
+            box-shadow: 0 8px 0 0 #631a10, 0 12px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: 2px solid #ffcd7e;
+        }
+
+        /* Detalle de bordes dorados */
+        .shield-icon::before {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1.5px solid rgba(255, 220, 120, 0.7);
+            border-radius: 24% 24% 16% 16% / 55% 55% 25% 25%;
+            pointer-events: none;
+        }
+
+        /* La pelota de pilota vasca (elemento central) */
+        .pelota-icon {
+            width: 48px;
+            height: 48px;
+            background: radial-gradient(circle at 30% 30%, #f9eec1, #e7c27d);
+            border-radius: 50%;
+            box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.1), 0 5px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Costuras típicas de la pelota de cuero (remate artesanal) */
+        .pelota-icon::after {
+            content: "";
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(100, 60, 20, 0.25) 0px,
+                rgba(100, 60, 20, 0.25) 2px,
+                transparent 2px,
+                transparent 8px
+            );
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        .pelota-icon::before {
+            content: "⚾";
+            font-size: 0px; /* Ocultamos posible caracter */
+            display: none;
+        }
+
+        /* Costura típica en X o curvas con pseudoelemento extra */
+        .pelota-seam {
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border-top: 2px solid #a5612a;
+            border-bottom: 2px solid #a5612a;
+            opacity: 0.7;
+            transform: rotate(45deg);
+        }
+
+        /* Las iniciales o nombre del club integrado en el escudo */
+        .club-acronym {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ffeaac;
+            text-shadow: 0 1px 2px #6a2a1a;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 10px;
+            border-radius: 40px;
+            margin-top: 5px;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Texto principal "Larraun Pilota Elkartera" bajo el escudo */
+        .club-name {
+            margin-top: 16px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2b5e2f, #143b17);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            letter-spacing: -0.3px;
+        }
+
+        .club-sub {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #b45f2b;
+            letter-spacing: 1px;
+            border-top: 1px dashed #dba45a;
+            display: inline-block;
+            padding-top: 6px;
+            margin-top: 6px;
+        }
+
+        /* Sección de contenido: ejemplo de uso del nuevo ícono */
+        .info-panel {
+            background: rgba(255, 248, 225, 0.9);
+            border-radius: 42px;
+            padding: 1.4rem 1.8rem;
+            margin: 20px 0 10px;
+            box-shadow: inset 0 0 0 1px #fff7e8, 0 12px 18px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-panel h3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3e2b;
+            border-left: 5px solid #c0392b;
+            padding-left: 18px;
+            margin-bottom: 1rem;
+        }
+
+        /* Aquí usamos el nuevo elemento "mini-emblema" para acompañar títulos y demostrar consistencia visual */
+        .mini-shield {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 42px;
+            background: linear-gradient(145deg, #c0392b, #a0261a);
+            border-radius: 30% 30% 20% 20% / 50% 50% 25% 25%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .mini-pelota {
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 35% 35%, #f5e2a1, #deb887);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: inset -1px -1px 0 rgba(0,0,0,0.1);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c2b26;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 60px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .feature-list li:hover {
+            background: #fff3e0;
+            transform: translateX(6px);
+        }
+
+        .feature-icon {
+            background: #ece3d0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: inset 0 0 0 1px #dbbf8c;
+        }
+
+        .address-line {
+            background: #e9e0ce;
+            padding: 16px 20px;
+            border-radius: 48px;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .address-line span:first-child {
+            background: #2c5a2a;
+            padding: 8px 16px;
+            border-radius: 60px;
+            color: #ffefbf;
+            font-size: 0.9rem;
+        }
+
+        /* botón de ejemplo interactivo */
+        .cta-button {
+            background: #c0392b;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 0 0 #731f15;
+            font-family: inherit;
+        }
+
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 0 #731f15;
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #826e48;
+        }
+
+        @media (max-width: 500px) {
+            .club-card {
+                padding: 1.5rem;
+            }
+            .club-name {
+                font-size: 1.2rem;
+            }
+            .shield-icon {
+                width: 85px;
+                height: 100px;
+            }
+            .pelota-icon {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="club-card">
+    <div class="club-header">
+        <!-- Nuevo diseño emblemático en lugar del 📍: escudo + pelota + identidad -->
+        <div class="logo-emblem">
+            <div class="shield-icon">
+                <div class="pelota-icon">
+                    <div class="pelota-seam"></div>
+                </div>
+                <div class="club-acronym">LPE</div>
+            </div>
+        </div>
+        <div class="club-name">LARRUAN PILOTA ELKARTERA</div>
+        <div class="club-sub">"Harro gaude gure pilotaz" · Orgullo de nuestra pelota</div>
+    </div>
+
+    <div class="info-panel">
+        <h3>
+            <span class="mini-shield"><span class="mini-pelota"></span></span>
+            Elkartea · El Club
+        </h3>
+        <p style="margin-bottom: 14px; line-height: 1.4; color: #3e362b;">
+            Un símbolo que representa nuestra pasión: el <strong>escudo</strong> con los colores 
+            tradicionales de Larraun y la <strong>pelota de pilota vasca</strong> como corazón del club.
+            El antiguo 📍 ha sido reemplazado por este emblema con carácter, identidad y tradición.
+        </p>
+        <ul class="feature-list">
+            <li>
+                <div class="feature-icon">🏆</div>
+                <div>Campeonatos navarros de pala y mano</div>
+            </li>
+            <li>
+                <div class="feature-icon">🎾</div>
+                <div>Frontón municipal "Larraun Arena"</div>
+            </li>
+            <li>
+                <div class="feature-icon">🤝</div>
+                <div>Más de 200 socios y cantera propia</div>
+            </li>
+        </ul>
+        <!-- Demostramos que ahora en toda la interfaz usamos el estilo del logo, incluso en dirección -->
+        <div class="address-line">
+            <span>📍 Antigua referencia (📍 sustituida)</span>
+            <span style="background: none; padding: 0; color:#884d2a;">
+                ⚡ <strong>NUEVO EMBLEMA:</strong>
+            </span>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: #e3cfae; border-radius: 50px; padding: 5px 12px;">
+                <div style="width: 24px; height: 24px; background: radial-gradient(#e3b87c, #b9692c); border-radius: 50%; box-shadow: inset 0 0 0 1px #ffd58c;"></div>
+                <span style="font-weight: bold;">Escudo Larraun</span>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+            <button class="cta-button" id="interactiveBtn">
+                <div class="mini-shield" style="width: 28px; height: 32px; background: #e6a017;"><div class="mini-pelota" style="width: 16px; height: 16px;"></div></div>
+                Conoce el escudo
+            </button>
+        </div>
+    </div>
+    <div class="footer-note">
+        Diseño inspirado en la identidad de Larraun Pilota Elkartera · Escudo y pelota como seña principal.
+    </div>
+</div>
+
+<script>
+    // Pequeña interacción para enfatizar el cambio del antiguo emoticono (📍) por el nuevo emblema.
+    const btn = document.getElementById('interactiveBtn');
+    const card = document.querySelector('.club-card');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            // Efecto visual y mensaje que resalta la transformación del logo
+            const originalShield = document.querySelector('.shield-icon');
+            if (originalShield) {
+                originalShield.style.transform = 'scale(1.07)';
+                setTimeout(() => {
+                    originalShield.style.transform = '';
+                }, 300);
+            }
+            // Pequeño toast/notificación elegante (sin librerías)
+            const toast = document.createElement('div');
+            toast.innerText = '✨ ¡Adiós 📍! El nuevo emblema representa nuestro escudo y la pelota vasca ✨';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '25px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#1f3b1a';
+            toast.style.color = '#f9eec1';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '60px';
+            toast.style.fontWeight = 'bold';
+            toast.style.fontSize = '0.9rem';
+            toast.style.zIndex = '999';
+            toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+            toast.style.borderLeft = '5px solid #e6b422';
+            toast.style.backdropFilter = 'blur(6px)';
+            toast.style.fontFamily = 'inherit';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 2800);
+        });
+    }
+
+    // Adicional: mostrar en consola que se ha reemplazado el símbolo de ubicación por identidad visual
+    console.log('✅ Logo actualizado: Se ha reemplazado el emoticono 📍 por un escudo personalizado con pelota de pilota vasca + tipografía LARRUAN PILOTA ELKARTERA');
+</script>
+</body>
+</html>
