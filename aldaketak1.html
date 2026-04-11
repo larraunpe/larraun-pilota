@@ -468,7 +468,7 @@
   </button>
   <div id="errorMsg" class="error-msg"></div>
   <footer>
-    <span>📲 Mezua bidaliko da 669866803 telefono zenbakira · El mensaje se enviará al número 669866803</span>
+    <span>📲 Mezua bidaliko da 613997710 telefono zenbakira · El mensaje se enviará al número 613997710</span>
   </footer>
 </div>
 
@@ -482,7 +482,7 @@
   let partidoSeleccionado = null;
   let currentLang = 'eu';
   let currentKategoriaFilter = 'GUZTIAK';
-  const WHATSAPP_NUMBER = "669866803";
+  const WHATSAPP_NUMBER = "613997710";
 
   // Variable para el solicitante seleccionado
   let solicitanteSeleccionado = null; // almacena el texto del equipo solicitante
@@ -859,17 +859,17 @@
       msg += `*${solicitante}* taldeak partiduaren ordutegia aldatzea eskatzen du:\n`;
       msg += `${enfrentamiento}\n`;
       msg += `📅 Jatorrizko partidua: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'ordua zehazteke'}\n`;
-      msg += `🎯 Frontoia: ${fronton}\n\n✅ *Proposatutako ordutegi aukerak:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
+      msg += `📍 Frontoia: ${fronton}\n\n✅ *Proposatutako ordutegi aukerak:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
       if (observaciones) msg += `\n\n📌 *Oharrak:* ${observaciones}`;
-      msg += `\n\n🙏 Eskerrik asko aldez aurretik.\n📍 Larraun Pilota Elkartea`;
+      msg += `\n\n🙏 Eskerrik asko aldez aurretik.\n🔵 Larraun Pilota Elkartea`;
     } else {
       msg = `🔄 *SOLICITUD DE CAMBIO DE HORARIO* 🔄\n\n`;
       msg += `El equipo *${solicitante}* solicita cambiar el horario del partido:\n`;
       msg += `${enfrentamiento}\n`;
       msg += `📅 Partido fijado: *${fechaLegible}* - 🕒 ${partidoSeleccionado.hora || 'hora por definir'}\n`;
-      msg += `🎯 Frontón: ${fronton}\n\n✅ *Opciones propuestas:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
+      msg += `📍 Frontón: ${fronton}\n\n✅ *Opciones propuestas:*\n${opcionesSel.map(o => `   • ${o}`).join('\n')}`;
       if (observaciones) msg += `\n\n📌 *Nota:* ${observaciones}`;
-      msg += `\n\n🙏 Muchas gracias de antemano. Un saludo.\n📍 Larraun Pilota Elkartea`;
+      msg += `\n\n🙏 Muchas gracias de antemano. Un saludo.\n🔵 Larraun Pilota Elkartea`;
     }
     return msg;
   }
