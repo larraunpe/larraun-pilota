@@ -5,296 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>Larraun Pilota – Cambio de horario acordado | Federación</title>
   <link rel="icon" type="image/png" href="/egutegia.png">
-  <meta property="og:title" content="Cambio de horario acordado – Larraun Pilota">
-  <meta property="og:description" content="Notificar a la federación el cambio de horario acordado para un partido">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-      background: #f0f2f5;
-      padding: 16px;
-    }
-
-    .kartela {
-      max-width: 1300px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 28px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      padding: 20px 20px 30px;
-    }
-
-    @media (min-width: 768px) {
-      body { padding: 24px; }
-      .kartela { padding: 32px 40px 40px; border-radius: 36px; }
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 4px solid #b30000;
-    }
-
-    .logo-group {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .header img {
-      height: 55px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    @media (min-width: 768px) {
-      .header img { height: 80px; }
-    }
-
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #b30000;
-      letter-spacing: 1px;
-      text-align: center;
-    }
-
-    @media (min-width: 480px) {
-      .header h1 { font-size: 2rem; }
-    }
-    @media (min-width: 768px) {
-      .header h1 { font-size: 2.6rem; }
-    }
-
-    .idioma-toggle {
-      display: flex;
-      gap: 10px;
-      background: #e9ecef;
-      padding: 5px 12px;
-      border-radius: 60px;
-    }
-
-    .idioma-boton {
-      background: none;
-      border: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 6px 18px;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #2c3e66;
-    }
-
-    .idioma-boton.aktibo {
-      background: #b30000;
-      color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
-    .filtro-categoria {
-      background: #f8f9fc;
-      border-radius: 28px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .filtro-titulo {
-      font-weight: 800;
-      font-size: 1rem;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .filtro-botones {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .filtro-btn {
-      padding: 8px 18px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      border: none;
-      border-radius: 40px;
-      background: #e2e6ea;
-      color: #1e466e;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .filtro-btn.aktibo {
-      background: #b30000;
-      color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #f0f2f5; padding: 16px; }
+    .kartela { max-width: 1300px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.2); overflow: hidden; padding: 20px 20px 30px; }
+    @media (min-width: 768px) { body { padding: 24px; } .kartela { padding: 32px 40px 40px; border-radius: 36px; } }
+    .header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 4px solid #b30000; }
+    .logo-group { display: flex; gap: 20px; align-items: center; }
+    .header img { height: 55px; width: auto; object-fit: contain; }
+    @media (min-width: 768px) { .header img { height: 80px; } }
+    .header h1 { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; color: #b30000; letter-spacing: 1px; text-align: center; }
+    @media (min-width: 480px) { .header h1 { font-size: 2rem; } }
+    @media (min-width: 768px) { .header h1 { font-size: 2.6rem; } }
+    .idioma-toggle { display: flex; gap: 10px; background: #e9ecef; padding: 5px 12px; border-radius: 60px; }
+    .idioma-boton { background: none; border: none; font-weight: 700; font-size: 0.9rem; padding: 6px 18px; border-radius: 40px; cursor: pointer; transition: 0.2s; color: #2c3e66; }
+    .idioma-boton.aktibo { background: #b30000; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    .filtro-categoria { background: #f8f9fc; border-radius: 28px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .filtro-titulo { font-weight: 800; font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filtro-botones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .filtro-btn { padding: 8px 18px; font-size: 0.85rem; font-weight: 700; border: none; border-radius: 40px; background: #e2e6ea; color: #1e466e; cursor: pointer; transition: 0.2s; }
+    .filtro-btn.aktibo { background: #b30000; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
     .filtro-btn:hover { transform: translateY(-2px); }
-
-    .partido-seleccion {
-      background: #f8f9fc;
-      border-radius: 28px;
-      padding: 20px;
-      margin-bottom: 28px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .label-principal {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    select, input, textarea {
-      width: 100%;
-      padding: 12px 16px;
-      font-size: 1rem;
-      border-radius: 60px;
-      border: 2px solid #ccc;
-      background: white;
-      font-weight: 500;
-    }
-
+    .partido-seleccion { background: #f8f9fc; border-radius: 28px; padding: 20px; margin-bottom: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .label-principal { font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    select, input, textarea { width: 100%; padding: 12px 16px; font-size: 1rem; border-radius: 60px; border: 2px solid #ccc; background: white; font-weight: 500; }
     input, textarea { border-radius: 28px; }
     select:focus, input:focus, textarea:focus { border-color: #b30000; outline: none; }
-
-    .campos-editables {
-      margin-top: 20px;
-      background: #ffffffea;
-      padding: 16px 20px;
-      border-radius: 28px;
-      border: 1px solid #ddd;
-    }
-
-    .campo-row {
-      margin-bottom: 16px;
-    }
-
-    .campo-label {
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .info-partido-preview {
-      margin-top: 18px;
-      background: #ffffff;
-      padding: 14px 18px;
-      border-radius: 28px;
-      border-left: 8px solid #b30000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .info-linea {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 6px 0;
-      font-size: 0.95rem;
-    }
-
+    .campos-editables { margin-top: 20px; background: #ffffffea; padding: 16px 20px; border-radius: 28px; border: 1px solid #ddd; }
+    .campo-row { margin-bottom: 16px; }
+    .campo-label { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .info-partido-preview { margin-top: 18px; background: #ffffff; padding: 14px 18px; border-radius: 28px; border-left: 8px solid #b30000; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .info-linea { display: flex; flex-wrap: wrap; gap: 12px; margin: 6px 0; font-size: 0.95rem; }
     .info-linea strong { min-width: 90px; color: #1e466e; }
-
-    .botones-accion {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 28px 0 20px;
-      justify-content: center;
-    }
-
-    .btn-whatsapp, .btn-email, .btn-fnp {
-      border: none;
-      padding: 14px 24px;
-      font-size: 1rem;
-      font-weight: 700;
-      border-radius: 60px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-      flex: 1;
-      min-width: 200px;
-      color: white;
-    }
-
-    .btn-whatsapp { background: #25D366; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .botones-accion { display: flex; flex-wrap: wrap; gap: 15px; margin: 28px 0 20px; justify-content: center; }
+    .btn { border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: 60px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: 0.2s; flex: 1; min-width: 180px; color: white; }
+    .btn-whatsapp { background: #25D366; }
     .btn-whatsapp:hover { background: #1da15e; transform: translateY(-2px); }
-    .btn-email { background: #1e466e; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    .btn-email:hover { background: #0f2e4a; transform: translateY(-2px); }
-    .btn-fnp { background: #b30000; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .btn-fnp { background: #b30000; }
     .btn-fnp:hover { background: #800000; transform: translateY(-2px); }
-
-    .error-msg {
-      color: #b30000;
-      background: #ffe6e6;
-      border-radius: 40px;
-      padding: 10px 16px;
-      margin-top: 16px;
-      font-weight: 600;
-      display: none;
-      text-align: center;
-    }
-
-    .success-msg {
-      color: #155724;
-      background: #d4edda;
-      border-radius: 40px;
-      padding: 10px 16px;
-      margin-top: 16px;
-      font-weight: 600;
-      display: none;
-      text-align: center;
-    }
-
-    footer {
-      margin-top: 36px;
-      text-align: center;
-      font-weight: 500;
-      border-top: 2px solid #ddd;
-      padding-top: 20px;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    @media (max-width: 600px) {
-      .btn-whatsapp, .btn-email, .btn-fnp { padding: 12px 16px; font-size: 0.9rem; min-width: 160px; }
-    }
+    .btn-email { background: #1e466e; }
+    .btn-email:hover { background: #0f2e4a; transform: translateY(-2px); }
+    .error-msg, .success-msg { border-radius: 40px; padding: 10px 16px; margin-top: 16px; font-weight: 600; display: none; text-align: center; }
+    .error-msg { color: #b30000; background: #ffe6e6; }
+    .success-msg { color: #155724; background: #d4edda; }
+    footer { margin-top: 36px; text-align: center; font-weight: 500; border-top: 2px solid #ddd; padding-top: 20px; font-size: 0.9rem; color: #444; }
+    @media (max-width: 600px) { .btn { padding: 10px 12px; font-size: 0.85rem; min-width: 140px; } }
   </style>
 </head>
 <body>
 <div class="kartela">
   <div class="header">
-    <div class="logo-group">
-      <img src="images/logo-larraun.png" alt="Larraun Pilota">
-      <img src="images/logo-fnp.png" alt="FNP">
-    </div>
+    <div class="logo-group"><img src="images/logo-larraun.png" alt="Larraun Pilota"><img src="images/logo-fnp.png" alt="FNP"></div>
     <h1 id="tituloPrincipal">⚡ CAMBIO DE HORARIO ACORDADO</h1>
     <div class="idioma-toggle" id="idiomaToggle">
       <button class="idioma-boton aktibo" data-lang="es">CASTELLANO</button>
@@ -302,483 +63,102 @@
     </div>
   </div>
 
-  <!-- Filtro categoría -->
   <div class="filtro-categoria">
     <div class="filtro-titulo" id="filtroTitulo">🏷️ Filtrar por categoría</div>
-    <div class="filtro-botones" id="filtroBotonesContainer">
-      <button class="filtro-btn aktibo" data-kategoria="GUZTIAK">🔘 TODOS</button>
-    </div>
+    <div class="filtro-botones" id="filtroBotonesContainer"><button class="filtro-btn aktibo" data-kategoria="GUZTIAK">🔘 TODOS</button></div>
   </div>
 
-  <!-- Selección partido -->
   <div class="partido-seleccion">
     <div class="label-principal" id="selectPartidoLabel">🏆 Seleccionar partido</div>
-    <select id="partidoSelect" disabled>
-      <option value="">-- Cargando partidos... --</option>
-    </select>
-
-    <!-- Campos editables para nuevo horario acordado -->
+    <select id="partidoSelect" disabled><option value="">-- Cargando partidos... --</option></select>
     <div class="campos-editables">
-      <div class="campo-row">
-        <div class="campo-label"><span>📅</span> <span id="nuevaFechaLabel">Nueva fecha (acordada)</span></div>
-        <input type="date" id="nuevaFechaInput">
-      </div>
-      <div class="campo-row">
-        <div class="campo-label"><span>⏰</span> <span id="nuevaHoraLabel">Nueva hora (acordada)</span></div>
-        <input type="time" id="nuevaHoraInput">
-      </div>
-      <div class="campo-row">
-        <div class="campo-label"><span>🎯</span> <span id="nuevoFrontonLabel">Frontón (acordado)</span></div>
-        <input type="text" id="nuevoFrontonInput" placeholder="Ej: Lekunberri, Tafalla, etc.">
-      </div>
+      <div class="campo-row"><div class="campo-label"><span>📅</span> <span id="nuevaFechaLabel">Nueva fecha (acordada)</span></div><input type="date" id="nuevaFechaInput"></div>
+      <div class="campo-row"><div class="campo-label"><span>⏰</span> <span id="nuevaHoraLabel">Nueva hora (acordada)</span></div><input type="time" id="nuevaHoraInput"></div>
+      <div class="campo-row"><div class="campo-label"><span>🎯</span> <span id="nuevoFrontonLabel">Frontón (acordado)</span></div><input type="text" id="nuevoFrontonInput" placeholder="Ej: Lekunberri, Tafalla, etc."></div>
     </div>
-
     <div id="partidoPreview" class="info-partido-preview" style="display: none;"></div>
   </div>
 
-  <!-- Botones de acción: WhatsApp, Email FNP copia, Email Gmail copia -->
   <div class="botones-accion">
-    <button id="btnWhatsapp" class="btn-whatsapp">💬 WhatsApp (669866803)</button>
-    <button id="btnEmailFNP" class="btn-fnp">✉️ Email FNP (copiar mensaje)</button>
-    <button id="btnGmail" class="btn-email">📧 Copiar para Gmail / Otros</button>
+    <button id="btnWhatsapp" class="btn btn-whatsapp">💬 WhatsApp (669866803)</button>
+    <button id="btnFormularioFNP" class="btn btn-fnp">📋 Rellenar formulario FNP</button>
+    <button id="btnEmailFNP" class="btn btn-email">✉️ Email FNP (copiar mensaje)</button>
   </div>
   <div id="errorMsg" class="error-msg"></div>
   <div id="successMsg" class="success-msg"></div>
-  <footer>
-    <span id="footerText">📲 Selecciona el partido, ajusta los nuevos datos y notifica a la federación</span>
-  </footer>
+  <footer><span id="footerText">📲 Selecciona el partido, ajusta los nuevos datos y notifica a la federación</span></footer>
 </div>
 
 <script>
-  // ---------------------------
-  // DATOS Y VARIABLES GLOBALES
-  // ---------------------------
-  let partidaGuztiak = [];
-  let partidoSeleccionado = null;
-  let currentLang = 'es';
-  let currentKategoriaFilter = 'GUZTIAK';
-  let kategoriakMap = new Map();
-  let kategoriaNagusiakOrdenatuak = [];
-
-  // Email destino FNP
+  // --- DATOS Y VARIABLES GLOBALES ---
+  let partidaGuztiak = []; let partidoSeleccionado = null; let currentLang = 'es';
+  let currentKategoriaFilter = 'GUZTIAK'; let kategoriakMap = new Map(); let kategoriaNagusiakOrdenatuak = [];
   const EMAIL_FNP = "fnp@fnpelota.com";
+  const DEFAULT_EMAIL = "larraunpe@gmail.com";
+  const DEFAULT_NAME = "LARRAUN PILOTA ELKARTEA";
 
-  async function kargatuKategoriak() {
-    try {
-      const resp = await fetch('/data/categoriaedad.json');
-      if (!resp.ok) throw new Error('Kategoriak ezin kargatu');
-      const data = await resp.json();
-      const edadMinToKategoria = new Map();
-      data.forEach(item => {
-        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-        if (!izena) return;
-        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-        if (!edadMinToKategoria.has(edadMin)) edadMinToKategoria.set(edadMin, izena);
-      });
-      data.forEach(item => {
-        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-        if (!izena) return;
-        const kolorea = item[izena];
-        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-        const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
-        kategoriakMap.set(izena.toUpperCase().trim(), { kolorea, edadMin, izena, kategoriaNagusia });
-      });
-      const kategoriaNagusiakSet = new Set();
-      data.forEach(item => {
-        const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-        if (!izena) return;
-        const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
-        const nagusia = edadMinToKategoria.get(edadMin);
-        if (nagusia) kategoriaNagusiakSet.add(nagusia);
-      });
-      const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
-        const item = data.find(i => {
-          const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-          return iIzena === izena;
-        });
-        return { izena, edadMin: item ? parseInt(item.EDADMIN, 10) : 999 };
-      });
+  async function kargatuKategoriak() { /* ... misma lógica que antes ... */ 
+    try { const resp = await fetch('/data/categoriaedad.json'); if(!resp.ok) throw new Error(); const data = await resp.json(); const edadMinToKategoria = new Map();
+      data.forEach(item => { const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX'); if(!izena) return; const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999; if(!edadMinToKategoria.has(edadMin)) edadMinToKategoria.set(edadMin, izena); });
+      data.forEach(item => { const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX'); if(!izena) return; const kolorea = item[izena]; const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999; const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena; kategoriakMap.set(izena.toUpperCase().trim(), { kolorea, edadMin, izena, kategoriaNagusia }); });
+      const kategoriaNagusiakSet = new Set(); data.forEach(item => { const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX'); if(!izena) return; const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999; const nagusia = edadMinToKategoria.get(edadMin); if(nagusia) kategoriaNagusiakSet.add(nagusia); });
+      const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => { const item = data.find(i => { const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX'); return iIzena === izena; }); return { izena, edadMin: item ? parseInt(item.EDADMIN,10) : 999 }; });
       kategoriaNagusiakOrdenatuak = kategoriaNagusiakArray.sort((a,b) => a.edadMin - b.edadMin).map(k => k.izena);
-    } catch(e) {
-      console.warn('Error cargando categorías:', e);
-      kategoriaNagusiakOrdenatuak = ['BENJAMIN', 'ALEBINAK', 'KIMU', 'SEIN', 'KADETE', 'GAZTE', 'JUVENIL', 'SENIOR', 'Beste'];
-    }
+    } catch(e) { console.warn(e); kategoriaNagusiakOrdenatuak = ['BENJAMIN', 'ALEBINAK', 'KIMU', 'SEIN', 'KADETE', 'GAZTE', 'JUVENIL', 'SENIOR', 'Beste']; }
   }
+  function kategoriaNagusiaPartida(partida) { const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase(); if(!testua) return 'Beste'; for(let [k, info] of kategoriakMap.entries()) if(testua.includes(k)) return info.kategoriaNagusia; if(testua.includes('HAUR')) return 'HAURRAK'; if(testua.includes('KADETE')) return 'KADETE'; if(testua.includes('KIMU')) return 'KIMU'; if(testua.includes('GAZTE')) return 'GAZTE'; if(testua.includes('ALEBIN')) return 'ALEBINAK'; if(testua.includes('SEIN')) return 'SEIN'; return 'Beste'; }
+  async function kargatuPartidak() { try { const [oficialesResp, noOficialesResp] = await Promise.all([fetch('/data/cartelera-larraun.json'), fetch('/data/partidos-no-oficiales.json')]); if(!oficialesResp.ok || !noOficialesResp.ok) throw new Error(); const ofi = await oficialesResp.json(); const noOfi = await noOficialesResp.json(); const todos = [...ofi, ...noOfi]; todos.forEach(p => { if(p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena'); if(p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena'); p.kategoria = kategoriaNagusiaPartida(p); }); partidaGuztiak = todos; } catch(err) { console.error(err); partidaGuztiak = []; } }
+  function getKategoriaAktiboak() { const kats = new Set(); partidaGuztiak.forEach(p => { if(p.kategoria) kats.add(p.kategoria); }); const orden = kategoriaNagusiakOrdenatuak; return Array.from(kats).sort((a,b) => { const idxA = orden.indexOf(a); const idxB = orden.indexOf(b); if(idxA !== -1 && idxB !== -1) return idxA - idxB; if(idxA !== -1) return -1; if(idxB !== -1) return 1; return a.localeCompare(b); }); }
+  function getPartidosFiltrados() { if(currentKategoriaFilter === 'GUZTIAK') return partidaGuztiak; return partidaGuztiak.filter(p => p.kategoria === currentKategoriaFilter); }
+  function actualizarSelectPartidos() { const select = document.getElementById('partidoSelect'); const filtrados = getPartidosFiltrados(); if(filtrados.length === 0) { select.innerHTML = '<option value="">-- No hay partidos en esta categoría --</option>'; select.disabled = true; partidoSeleccionado = null; document.getElementById('partidoPreview').style.display = 'none'; return; } select.disabled = false; select.innerHTML = '<option value="">-- Seleccionar partido --</option>'; filtrados.forEach((p, idx) => { const local = p.etxekoa || '?'; const visitante = p.kanpokoak || '?'; const comp = p.lehiaketa || p.modalidad || ''; const fechaCorta = p.fecha || 'sin fecha'; const option = document.createElement('option'); option.value = idx; option.textContent = `${fechaCorta} | ${local} vs ${visitante} | ${comp} (${p.kategoria})`; select.appendChild(option); }); if(partidoSeleccionado && !filtrados.includes(partidoSeleccionado)) { partidoSeleccionado = null; document.getElementById('partidoPreview').style.display = 'none'; limpiarCamposEditables(); } select.value = ""; }
+  function limpiarCamposEditables() { document.getElementById('nuevaFechaInput').value = ''; document.getElementById('nuevaHoraInput').value = ''; document.getElementById('nuevoFrontonInput').value = ''; }
+  function formatearFechaParaInput(fechaStr) { if(!fechaStr) return ''; const partes = fechaStr.split('/'); if(partes.length !== 3) return ''; const [anyo, mes, dia] = partes; return `${anyo}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}`; }
+  function formatearFechaLegible(fechaStr, lang) { if(!fechaStr) return lang === 'es' ? 'fecha desconocida' : 'data ezezaguna'; const partes = fechaStr.split('/'); if(partes.length !== 3) return fechaStr; const [anyo, mes, dia] = partes; const fechaObj = new Date(anyo, mes-1, dia); const diasEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']; const diasEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata']; const diaSemana = fechaObj.getDay(); if(lang === 'es') return `${diasEs[diaSemana]}, ${dia}/${mes}/${anyo}`; else return `${diasEu[diaSemana]}, ${dia}/${mes}/${anyo}`; }
+  function actualizarPreviewPartido(partida, lang) { const previewDiv = document.getElementById('partidoPreview'); if(!partida) { previewDiv.style.display = 'none'; return; } previewDiv.style.display = 'block'; const fechaOriginalLegible = formatearFechaLegible(partida.fecha, lang); const local = partida.etxekoa || '?'; const visitante = partida.kanpokoak || '?'; const frontonOrig = partida.fronton || 'Frontón sin especificar'; const horaOrig = partida.hora || '--:--'; if(lang === 'es') { previewDiv.innerHTML = `<div class="info-linea"><strong>📅 Fecha original:</strong> ${fechaOriginalLegible}  |  🕒 ${horaOrig}</div><div class="info-linea"><strong>🎯 Frontón original:</strong> ${frontonOrig}</div><div class="info-linea"><strong>🏠 Local:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Visitante:</strong> ${visitante}</div><div class="info-linea"><strong>🏆 Competición:</strong> ${partida.lehiaketa || partida.modalidad || ''} (${partida.kategoria})</div>`; } else { previewDiv.innerHTML = `<div class="info-linea"><strong>📅 Jatorrizko data:</strong> ${fechaOriginalLegible}  |  🕒 ${horaOrig}</div><div class="info-linea"><strong>🎯 Jatorrizko frontoia:</strong> ${frontonOrig}</div><div class="info-linea"><strong>🏠 Etxekoa:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Kanpokoa:</strong> ${visitante}</div><div class="info-linea"><strong>🏆 Lehiaketa:</strong> ${partida.lehiaketa || partida.modalidad || ''} (${partida.kategoria})</div>`; } }
+  function cargarDatosPorDefecto(partida) { if(!partida) return; document.getElementById('nuevaFechaInput').value = formatearFechaParaInput(partida.fecha); let horaDefecto = partida.hora || ''; if(horaDefecto && horaDefecto.includes('provisional')) horaDefecto = horaDefecto.replace('provisional', '').trim(); if(horaDefecto && horaDefecto.match(/\d{1,2}:\d{2}/)) { const match = horaDefecto.match(/(\d{1,2}:\d{2})/); if(match) horaDefecto = match[1]; } document.getElementById('nuevaHoraInput').value = horaDefecto || ''; document.getElementById('nuevoFrontonInput').value = partida.fronton || ''; }
+  function generarMensajeCambio(lang) { if(!partidoSeleccionado) return null; const local = partidoSeleccionado.etxekoa || '?'; const visitante = partidoSeleccionado.kanpokoak || '?'; const enfrentamiento = `${local} vs ${visitante}`; const fechaOriginalLegible = formatearFechaLegible(partidoSeleccionado.fecha, lang); const horaOriginal = partidoSeleccionado.hora || '--:--'; const frontonOriginal = partidoSeleccionado.fronton || 'Frontón sin especificar'; const nuevaFechaRaw = document.getElementById('nuevaFechaInput').value; const nuevaHora = document.getElementById('nuevaHoraInput').value; const nuevoFronton = document.getElementById('nuevoFrontonInput').value.trim(); if(!nuevaFechaRaw || !nuevaHora || !nuevoFronton) return null; const fechaObj = new Date(nuevaFechaRaw); const diasEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']; const diasEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata']; const diaSemana = fechaObj.getDay(); let nuevaFechaLegible = ''; if(lang === 'es') nuevaFechaLegible = `${diasEs[diaSemana]}, ${fechaObj.getDate()}/${fechaObj.getMonth()+1}/${fechaObj.getFullYear()}`; else nuevaFechaLegible = `${diasEu[diaSemana]}, ${fechaObj.getDate()}/${fechaObj.getMonth()+1}/${fechaObj.getFullYear()}`;
+    if(lang === 'es') { return `📢 *CAMBIO DE HORARIO ACORDADO* 📢\n\nPartido: ${enfrentamiento}\n📅 Fecha original: ${fechaOriginalLegible} - 🕒 ${horaOriginal}\n🎯 Frontón original: ${frontonOriginal}\n\n✅ *NUEVO HORARIO ACORDADO:*\n📅 Nueva fecha: ${nuevaFechaLegible}\n🕒 Nueva hora: ${nuevaHora}\n🎯 Nuevo frontón: ${nuevoFronton}\n\n⚡ Rogamos actualizar la información en los sistemas oficiales.\nMuchas gracias.\n📍 Larraun Pilota Elkartea / FNP`; 
+    } else { return `📢 *ORDUTEGI ALDAKETA ADOSTUA* 📢\n\nPartidua: ${enfrentamiento}\n📅 Jatorrizko data: ${fechaOriginalLegible} - 🕒 ${horaOriginal}\n🎯 Jatorrizko frontoia: ${frontonOriginal}\n\n✅ *ADOSTUTAKO ORDUTEGI BERRIA:*\n📅 Data berria: ${nuevaFechaLegible}\n🕒 Ordu berria: ${nuevaHora}\n🎯 Frontoi berria: ${nuevoFronton}\n\n⚡ Mesedez, eguneratu informazioa sistema ofizialetan.\nEskerrik asko.\n📍 Larraun Pilota Elkartea / FNP`; } }
+  function mostrarError(texto) { const errDiv = document.getElementById('errorMsg'); const successDiv = document.getElementById('successMsg'); successDiv.style.display = 'none'; errDiv.textContent = texto; errDiv.style.display = 'block'; setTimeout(() => errDiv.style.display = 'none', 4500); }
+  function mostrarExito(texto) { const errDiv = document.getElementById('errorMsg'); const successDiv = document.getElementById('successMsg'); errDiv.style.display = 'none'; successDiv.textContent = texto; successDiv.style.display = 'block'; setTimeout(() => successDiv.style.display = 'none', 4500); }
+  function renderizarFiltros() { const container = document.getElementById('filtroBotonesContainer'); const categorias = getKategoriaAktiboak(); container.innerHTML = ''; const todosBtn = document.createElement('button'); todosBtn.className = `filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`; todosBtn.setAttribute('data-kategoria', 'GUZTIAK'); todosBtn.textContent = currentLang === 'es' ? '🔘 TODOS' : '🔘 GUZTIAK'; todosBtn.addEventListener('click', () => { currentKategoriaFilter = 'GUZTIAK'; actualizarFiltrosUI(); actualizarSelectPartidos(); partidoSeleccionado = null; document.getElementById('partidoPreview').style.display = 'none'; limpiarCamposEditables(); }); container.appendChild(todosBtn); categorias.forEach(kat => { const btn = document.createElement('button'); btn.className = `filtro-btn ${currentKategoriaFilter === kat ? 'aktibo' : ''}`; btn.setAttribute('data-kategoria', kat); btn.textContent = kat; btn.addEventListener('click', () => { currentKategoriaFilter = kat; actualizarFiltrosUI(); actualizarSelectPartidos(); partidoSeleccionado = null; document.getElementById('partidoPreview').style.display = 'none'; limpiarCamposEditables(); }); container.appendChild(btn); }); }
+  function actualizarFiltrosUI() { const btns = document.querySelectorAll('#filtroBotonesContainer .filtro-btn'); btns.forEach(btn => { const kat = btn.getAttribute('data-kategoria'); if(kat === currentKategoriaFilter) btn.classList.add('aktibo'); else btn.classList.remove('aktibo'); }); const titulo = document.getElementById('filtroTitulo'); if(currentLang === 'es') titulo.innerHTML = '🏷️ Filtrar por categoría'; else titulo.innerHTML = '🏷️ Iragazi kategoria'; }
+  function actualizarIdioma(lang) { currentLang = lang; document.getElementById('tituloPrincipal').innerHTML = lang === 'es' ? '⚡ CAMBIO DE HORARIO ACORDADO' : '⚡ ORDUTEGI ALDAKETA ADOSTUA'; document.getElementById('selectPartidoLabel').innerHTML = lang === 'es' ? '🏆 Seleccionar partido' : '🏆 Hautatu partidua'; document.getElementById('nuevaFechaLabel').innerHTML = lang === 'es' ? '📅 Nueva fecha (acordada)' : '📅 Data berria (adostua)'; document.getElementById('nuevaHoraLabel').innerHTML = lang === 'es' ? '⏰ Nueva hora (acordada)' : '⏰ Ordu berria (adostua)'; document.getElementById('nuevoFrontonLabel').innerHTML = lang === 'es' ? '🎯 Frontón (acordado)' : '🎯 Frontoia (adostua)'; document.getElementById('footerText').innerHTML = lang === 'es' ? '📲 Selecciona el partido, ajusta los nuevos datos y notifica a la federación' : '📲 Hautatu partidua, bete datu berriak eta jakinarazi federazioari'; renderizarFiltros(); if(partidoSeleccionado) actualizarPreviewPartido(partidoSeleccionado, lang); }
+  function bindEventos() { document.getElementById('partidoSelect').addEventListener('change', (e) => { const idx = e.target.value; if(idx === "") { partidoSeleccionado = null; document.getElementById('partidoPreview').style.display = 'none'; limpiarCamposEditables(); return; } const filtrados = getPartidosFiltrados(); partidoSeleccionado = filtrados[parseInt(idx)]; actualizarPreviewPartido(partidoSeleccionado, currentLang); cargarDatosPorDefecto(partidoSeleccionado); }); }
+  function validarYObtenerMensaje() { if(!partidoSeleccionado) { mostrarError(currentLang === 'es' ? '❌ Selecciona un partido primero.' : '❌ Hautatu partidua lehenik.'); return null; } const nuevaFecha = document.getElementById('nuevaFechaInput').value; const nuevaHora = document.getElementById('nuevaHoraInput').value; const nuevoFronton = document.getElementById('nuevoFrontonInput').value.trim(); if(!nuevaFecha || !nuevaHora || !nuevoFronton) { mostrarError(currentLang === 'es' ? '⚠️ Completa los tres campos: fecha, hora y frontón acordados.' : '⚠️ Bete hiru eremuak: data, ordua eta frontoia adostuak.'); return null; } const mensaje = generarMensajeCambio(currentLang); if(!mensaje) { mostrarError(currentLang === 'es' ? '❌ Error generando mensaje.' : '❌ Errorea mezua sortzean.'); return null; } return mensaje; }
 
-  function kategoriaNagusiaPartida(partida) {
-    const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
-    if (!testua) return 'Beste';
-    for (let [k, info] of kategoriakMap.entries()) {
-      if (testua.includes(k)) return info.kategoriaNagusia;
-    }
-    if (testua.includes('HAUR')) return 'HAURRAK';
-    if (testua.includes('KADETE')) return 'KADETE';
-    if (testua.includes('KIMU')) return 'KIMU';
-    if (testua.includes('GAZTE')) return 'GAZTE';
-    if (testua.includes('ALEBIN')) return 'ALEBINAK';
-    if (testua.includes('SEIN')) return 'SEIN';
-    return 'Beste';
-  }
-
-  async function kargatuPartidak() {
-    try {
-      const [oficialesResp, noOficialesResp] = await Promise.all([
-        fetch('/data/cartelera-larraun.json'),
-        fetch('/data/partidos-no-oficiales.json')
-      ]);
-      if (!oficialesResp.ok || !noOficialesResp.ok) throw new Error('Error al cargar partidos');
-      const ofi = await oficialesResp.json();
-      const noOfi = await noOficialesResp.json();
-      const todos = [...ofi, ...noOfi];
-      todos.forEach(p => {
-        if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
-        if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
-        p.kategoria = kategoriaNagusiaPartida(p);
-      });
-      partidaGuztiak = todos;
-    } catch(err) {
-      console.error(err);
-      partidaGuztiak = [];
-    }
-  }
-
-  function getKategoriaAktiboak() {
-    const kats = new Set();
-    partidaGuztiak.forEach(p => { if(p.kategoria) kats.add(p.kategoria); });
-    const orden = kategoriaNagusiakOrdenatuak;
-    return Array.from(kats).sort((a,b) => {
-      const idxA = orden.indexOf(a);
-      const idxB = orden.indexOf(b);
-      if(idxA !== -1 && idxB !== -1) return idxA - idxB;
-      if(idxA !== -1) return -1;
-      if(idxB !== -1) return 1;
-      return a.localeCompare(b);
-    });
-  }
-
-  function getPartidosFiltrados() {
-    if (currentKategoriaFilter === 'GUZTIAK') return partidaGuztiak;
-    return partidaGuztiak.filter(p => p.kategoria === currentKategoriaFilter);
-  }
-
-  function actualizarSelectPartidos() {
-    const select = document.getElementById('partidoSelect');
-    const filtrados = getPartidosFiltrados();
-    if (filtrados.length === 0) {
-      select.innerHTML = '<option value="">-- No hay partidos en esta categoría --</option>';
-      select.disabled = true;
-      partidoSeleccionado = null;
-      document.getElementById('partidoPreview').style.display = 'none';
-      return;
-    }
-    select.disabled = false;
-    select.innerHTML = '<option value="">-- Seleccionar partido --</option>';
-    filtrados.forEach((p, idx) => {
-      const local = p.etxekoa || '?';
-      const visitante = p.kanpokoak || '?';
-      const comp = p.lehiaketa || p.modalidad || '';
-      const fechaCorta = p.fecha || 'sin fecha';
-      const option = document.createElement('option');
-      option.value = idx;
-      option.textContent = `${fechaCorta} | ${local} vs ${visitante} | ${comp} (${p.kategoria})`;
-      select.appendChild(option);
-    });
-    if (partidoSeleccionado && !filtrados.includes(partidoSeleccionado)) {
-      partidoSeleccionado = null;
-      document.getElementById('partidoPreview').style.display = 'none';
-      limpiarCamposEditables();
-    }
-    select.value = "";
-  }
-
-  function limpiarCamposEditables() {
-    document.getElementById('nuevaFechaInput').value = '';
-    document.getElementById('nuevaHoraInput').value = '';
-    document.getElementById('nuevoFrontonInput').value = '';
-  }
-
-  function formatearFechaParaInput(fechaStr) {
-    if (!fechaStr) return '';
-    const partes = fechaStr.split('/');
-    if (partes.length !== 3) return '';
-    const [anyo, mes, dia] = partes;
-    return `${anyo}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}`;
-  }
-
-  function formatearFechaLegible(fechaStr, lang) {
-    if (!fechaStr) return lang === 'es' ? 'fecha desconocida' : 'data ezezaguna';
-    const partes = fechaStr.split('/');
-    if (partes.length !== 3) return fechaStr;
-    const [anyo, mes, dia] = partes;
-    const fechaObj = new Date(anyo, mes-1, dia);
-    const diasEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const diasEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata'];
-    const diaSemana = fechaObj.getDay();
-    if (lang === 'es') return `${diasEs[diaSemana]}, ${dia}/${mes}/${anyo}`;
-    else return `${diasEu[diaSemana]}, ${dia}/${mes}/${anyo}`;
-  }
-
-  function actualizarPreviewPartido(partida, lang) {
-    const previewDiv = document.getElementById('partidoPreview');
-    if (!partida) { previewDiv.style.display = 'none'; return; }
-    previewDiv.style.display = 'block';
-    const fechaOriginalLegible = formatearFechaLegible(partida.fecha, lang);
-    const local = partida.etxekoa || '?';
-    const visitante = partida.kanpokoak || '?';
-    const frontonOrig = partida.fronton || 'Frontón sin especificar';
-    const horaOrig = partida.hora || '--:--';
-    if (lang === 'es') {
-      previewDiv.innerHTML = `
-        <div class="info-linea"><strong>📅 Fecha original:</strong> ${fechaOriginalLegible}  |  🕒 ${horaOrig}</div>
-        <div class="info-linea"><strong>🎯 Frontón original:</strong> ${frontonOrig}</div>
-        <div class="info-linea"><strong>🏠 Local:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Visitante:</strong> ${visitante}</div>
-        <div class="info-linea"><strong>🏆 Competición:</strong> ${partida.lehiaketa || partida.modalidad || ''} (${partida.kategoria})</div>
-      `;
-    } else {
-      previewDiv.innerHTML = `
-        <div class="info-linea"><strong>📅 Jatorrizko data:</strong> ${fechaOriginalLegible}  |  🕒 ${horaOrig}</div>
-        <div class="info-linea"><strong>🎯 Jatorrizko frontoia:</strong> ${frontonOrig}</div>
-        <div class="info-linea"><strong>🏠 Etxekoa:</strong> ${local} &nbsp;|&nbsp; <strong>✈️ Kanpokoa:</strong> ${visitante}</div>
-        <div class="info-linea"><strong>🏆 Lehiaketa:</strong> ${partida.lehiaketa || partida.modalidad || ''} (${partida.kategoria})</div>
-      `;
-    }
-  }
-
-  function cargarDatosPorDefecto(partida) {
-    if (!partida) return;
-    const fechaInput = formatearFechaParaInput(partida.fecha);
-    document.getElementById('nuevaFechaInput').value = fechaInput;
-    let horaDefecto = partida.hora || '';
-    if (horaDefecto && horaDefecto.includes('provisional')) horaDefecto = horaDefecto.replace('provisional', '').trim();
-    if (horaDefecto && horaDefecto.match(/\d{1,2}:\d{2}/)) {
-      const match = horaDefecto.match(/(\d{1,2}:\d{2})/);
-      if (match) horaDefecto = match[1];
-    }
-    document.getElementById('nuevaHoraInput').value = horaDefecto || '';
-    document.getElementById('nuevoFrontonInput').value = partida.fronton || '';
-  }
-
-  function generarMensajeCambio(lang) {
-    if (!partidoSeleccionado) return null;
-    const local = partidoSeleccionado.etxekoa || '?';
-    const visitante = partidoSeleccionado.kanpokoak || '?';
-    const enfrentamiento = `${local} vs ${visitante}`;
-    const fechaOriginalLegible = formatearFechaLegible(partidoSeleccionado.fecha, lang);
-    const horaOriginal = partidoSeleccionado.hora || '--:--';
-    const frontonOriginal = partidoSeleccionado.fronton || 'Frontón sin especificar';
-    const nuevaFechaRaw = document.getElementById('nuevaFechaInput').value;
-    const nuevaHora = document.getElementById('nuevaHoraInput').value;
-    const nuevoFronton = document.getElementById('nuevoFrontonInput').value.trim();
-    if (!nuevaFechaRaw || !nuevaHora || !nuevoFronton) return null;
-    const fechaObj = new Date(nuevaFechaRaw);
-    const diasEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const diasEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata'];
-    const diaSemana = fechaObj.getDay();
-    let nuevaFechaLegible = '';
-    if (lang === 'es') nuevaFechaLegible = `${diasEs[diaSemana]}, ${fechaObj.getDate()}/${fechaObj.getMonth()+1}/${fechaObj.getFullYear()}`;
-    else nuevaFechaLegible = `${diasEu[diaSemana]}, ${fechaObj.getDate()}/${fechaObj.getMonth()+1}/${fechaObj.getFullYear()}`;
-    
-    if (lang === 'es') {
-      return `📢 *CAMBIO DE HORARIO ACORDADO* 📢\n\n` +
-             `Partido: ${enfrentamiento}\n` +
-             `📅 Fecha original: ${fechaOriginalLegible} - 🕒 ${horaOriginal}\n` +
-             `🎯 Frontón original: ${frontonOriginal}\n\n` +
-             `✅ *NUEVO HORARIO ACORDADO:*\n` +
-             `📅 Nueva fecha: ${nuevaFechaLegible}\n` +
-             `🕒 Nueva hora: ${nuevaHora}\n` +
-             `🎯 Nuevo frontón: ${nuevoFronton}\n\n` +
-             `⚡ Rogamos actualizar la información en los sistemas oficiales.\n` +
-             `Muchas gracias.\n📍 Larraun Pilota Elkartea / FNP`;
-    } else {
-      return `📢 *ORDUTEGI ALDAKETA ADOSTUA* 📢\n\n` +
-             `Partidua: ${enfrentamiento}\n` +
-             `📅 Jatorrizko data: ${fechaOriginalLegible} - 🕒 ${horaOriginal}\n` +
-             `🎯 Jatorrizko frontoia: ${frontonOriginal}\n\n` +
-             `✅ *ADOSTUTAKO ORDUTEGI BERRIA:*\n` +
-             `📅 Data berria: ${nuevaFechaLegible}\n` +
-             `🕒 Ordu berria: ${nuevaHora}\n` +
-             `🎯 Frontoi berria: ${nuevoFronton}\n\n` +
-             `⚡ Mesedez, eguneratu informazioa sistema ofizialetan.\n` +
-             `Eskerrik asko.\n📍 Larraun Pilota Elkartea / FNP`;
-    }
-  }
-
-  function mostrarError(texto) {
-    const errDiv = document.getElementById('errorMsg');
-    const successDiv = document.getElementById('successMsg');
-    successDiv.style.display = 'none';
-    errDiv.textContent = texto;
-    errDiv.style.display = 'block';
-    setTimeout(() => errDiv.style.display = 'none', 4500);
-  }
-
-  function mostrarExito(texto) {
-    const errDiv = document.getElementById('errorMsg');
-    const successDiv = document.getElementById('successMsg');
-    errDiv.style.display = 'none';
-    successDiv.textContent = texto;
-    successDiv.style.display = 'block';
-    setTimeout(() => successDiv.style.display = 'none', 4500);
-  }
-
-  function renderizarFiltros() {
-    const container = document.getElementById('filtroBotonesContainer');
-    const categorias = getKategoriaAktiboak();
-    container.innerHTML = '';
-    const todosBtn = document.createElement('button');
-    todosBtn.className = `filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`;
-    todosBtn.setAttribute('data-kategoria', 'GUZTIAK');
-    todosBtn.textContent = currentLang === 'es' ? '🔘 TODOS' : '🔘 GUZTIAK';
-    todosBtn.addEventListener('click', () => {
-      currentKategoriaFilter = 'GUZTIAK';
-      actualizarFiltrosUI();
-      actualizarSelectPartidos();
-      partidoSeleccionado = null;
-      document.getElementById('partidoPreview').style.display = 'none';
-      limpiarCamposEditables();
-    });
-    container.appendChild(todosBtn);
-    categorias.forEach(kat => {
-      const btn = document.createElement('button');
-      btn.className = `filtro-btn ${currentKategoriaFilter === kat ? 'aktibo' : ''}`;
-      btn.setAttribute('data-kategoria', kat);
-      btn.textContent = kat;
-      btn.addEventListener('click', () => {
-        currentKategoriaFilter = kat;
-        actualizarFiltrosUI();
-        actualizarSelectPartidos();
-        partidoSeleccionado = null;
-        document.getElementById('partidoPreview').style.display = 'none';
-        limpiarCamposEditables();
-      });
-      container.appendChild(btn);
-    });
-  }
-
-  function actualizarFiltrosUI() {
-    const btns = document.querySelectorAll('#filtroBotonesContainer .filtro-btn');
-    btns.forEach(btn => {
-      const kat = btn.getAttribute('data-kategoria');
-      if (kat === currentKategoriaFilter) btn.classList.add('aktibo');
-      else btn.classList.remove('aktibo');
-    });
-    const titulo = document.getElementById('filtroTitulo');
-    if (currentLang === 'es') titulo.innerHTML = '🏷️ Filtrar por categoría';
-    else titulo.innerHTML = '🏷️ Iragazi kategoria';
-  }
-
-  function actualizarIdioma(lang) {
-    currentLang = lang;
-    document.getElementById('tituloPrincipal').innerHTML = lang === 'es' ? '⚡ CAMBIO DE HORARIO ACORDADO' : '⚡ ORDUTEGI ALDAKETA ADOSTUA';
-    document.getElementById('selectPartidoLabel').innerHTML = lang === 'es' ? '🏆 Seleccionar partido' : '🏆 Hautatu partidua';
-    document.getElementById('nuevaFechaLabel').innerHTML = lang === 'es' ? '📅 Nueva fecha (acordada)' : '📅 Data berria (adostua)';
-    document.getElementById('nuevaHoraLabel').innerHTML = lang === 'es' ? '⏰ Nueva hora (acordada)' : '⏰ Ordu berria (adostua)';
-    document.getElementById('nuevoFrontonLabel').innerHTML = lang === 'es' ? '🎯 Frontón (acordado)' : '🎯 Frontoia (adostua)';
-    document.getElementById('footerText').innerHTML = lang === 'es' ? '📲 Selecciona el partido, ajusta los nuevos datos y notifica a la federación' : '📲 Hautatu partidua, bete datu berriak eta jakinarazi federazioari';
-    renderizarFiltros();
-    if (partidoSeleccionado) {
-      actualizarPreviewPartido(partidoSeleccionado, lang);
-    }
-  }
-
-  function bindEventos() {
-    const select = document.getElementById('partidoSelect');
-    select.addEventListener('change', (e) => {
-      const idx = e.target.value;
-      if (idx === "") {
-        partidoSeleccionado = null;
-        document.getElementById('partidoPreview').style.display = 'none';
-        limpiarCamposEditables();
-        return;
-      }
-      const filtrados = getPartidosFiltrados();
-      partidoSeleccionado = filtrados[parseInt(idx)];
-      actualizarPreviewPartido(partidoSeleccionado, currentLang);
-      cargarDatosPorDefecto(partidoSeleccionado);
-    });
-  }
-
-  // Función común para validar y obtener mensaje
-  function validarYObtenerMensaje() {
-    if (!partidoSeleccionado) {
-      mostrarError(currentLang === 'es' ? '❌ Selecciona un partido primero.' : '❌ Hautatu partidua lehenik.');
-      return null;
-    }
-    const nuevaFecha = document.getElementById('nuevaFechaInput').value;
-    const nuevaHora = document.getElementById('nuevaHoraInput').value;
-    const nuevoFronton = document.getElementById('nuevoFrontonInput').value.trim();
-    if (!nuevaFecha || !nuevaHora || !nuevoFronton) {
-      mostrarError(currentLang === 'es' ? '⚠️ Completa los tres campos: fecha, hora y frontón acordados.' : '⚠️ Bete hiru eremuak: data, ordua eta frontoia adostuak.');
-      return null;
-    }
-    const mensaje = generarMensajeCambio(currentLang);
-    if (!mensaje) {
-      mostrarError(currentLang === 'es' ? '❌ Error generando mensaje.' : '❌ Errorea mezua sortzean.');
-      return null;
-    }
-    return mensaje;
+  // --- NUEVA FUNCIÓN: PREPARAR MENSAJE PARA FORMULARIO WEB ---
+  function prepararMensajeFormulario() {
+    const mensaje = validarYObtenerMensaje();
+    if(!mensaje) return null;
+    // Texto adaptado para pegar en un formulario web (sin asteriscos ni formatos Markdown)
+    const mensajeLimpio = mensaje.replace(/\*/g, ''); // quitamos ** para texto plano
+    const asunto = `Cambio horario acordado: ${partidoSeleccionado.etxekoa || '?'} vs ${partidoSeleccionado.kanpokoak || '?'}`;
+    return { asunto, cuerpo: mensajeLimpio };
   }
 
   // Botón WhatsApp
-  document.getElementById('btnWhatsapp').addEventListener('click', () => {
-    const mensaje = validarYObtenerMensaje();
-    if (!mensaje) return;
-    const url = `https://wa.me/669866803?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
-  });
-
-  // Botón Email FNP: copia mensaje + destinatario
-  document.getElementById('btnEmailFNP').addEventListener('click', async () => {
-    const mensaje = validarYObtenerMensaje();
-    if (!mensaje) return;
-    const textoCompleto = `Para: ${EMAIL_FNP}\n\n${mensaje}`;
+  document.getElementById('btnWhatsapp').addEventListener('click', () => { const mensaje = validarYObtenerMensaje(); if(mensaje) window.open(`https://wa.me/669866803?text=${encodeURIComponent(mensaje)}`, '_blank'); });
+  
+  // Botón Email FNP: copia completo
+  document.getElementById('btnEmailFNP').addEventListener('click', async () => { const mensaje = validarYObtenerMensaje(); if(!mensaje) return; const textoCompleto = `Para: ${EMAIL_FNP}\n\n${mensaje}`; try { await navigator.clipboard.writeText(textoCompleto); mostrarExito(currentLang === 'es' ? `✅ Mensaje copiado con destinatario ${EMAIL_FNP}. Pégalo en tu correo.` : `✅ Mezua kopiatuta ${EMAIL_FNP} helbidearekin. Itsatsi zure postan.`); } catch(err) { mostrarError(currentLang === 'es' ? '❌ No se pudo copiar.' : '❌ Ezin izan da kopiatu.'); } });
+  
+  // NUEVO BOTÓN: Rellenar formulario FNP (abre web, copia mensaje y muestra instrucciones)
+  document.getElementById('btnFormularioFNP').addEventListener('click', async () => {
+    const preparado = prepararMensajeFormulario();
+    if(!preparado) return;
+    const { asunto, cuerpo } = preparado;
+    const instrucciones = currentLang === 'es' 
+      ? `📋 PASOS PARA RELLENAR EL FORMULARIO FNP:\n\n1. Se abrirá la página web de contacto.\n2. Pega el cuerpo del mensaje (ya copiado) en el campo "Mensaje *".\n3. Verifica que el campo "Nombre *" sea: ${DEFAULT_NAME}\n4. Verifica que el campo "E-mail *" sea: ${DEFAULT_EMAIL}\n5. Acepta la política de privacidad.\n6. Introduce el código de verificación que verás en pantalla.\n7. Haz clic en Enviar.\n\n✅ El cuerpo del mensaje ya está en tu portapapeles.`
+      : `📋 FORMULARIOA BETE AHAL IZATEKO URRATSAK:\n\n1. Harremanetarako web orria irekiko da.\n2. Itsatsi mezuaren gorputza (dagoeneko kopiatuta dago) "Mensaje *" eremuan.\n3. Egiaztatu "Nombre *" eremua: ${DEFAULT_NAME}\n4. Egiaztatu "E-mail *" eremua: ${DEFAULT_EMAIL}\n5. Onartu pribatutasun politika.\n6. Sartu pantailan ikusiko duzun egiaztapen-kodea.\n7. Egin klik Bidali.\n\n✅ Mezuaren gorputza zure arbelean dago.`;
     try {
-      await navigator.clipboard.writeText(textoCompleto);
-      const exitoMsg = currentLang === 'es' 
-        ? `✅ Mensaje copiado al portapapeles con destinatario ${EMAIL_FNP}. Ahora pégalo en tu cliente de correo (Gmail, Outlook...).`
-        : `✅ Mezua arbelean kopiatuta ${EMAIL_FNP} helbidearekin. Itsatsi zure posta bezeroan (Gmail, Outlook...).`;
-      mostrarExito(exitoMsg);
-    } catch (err) {
-      mostrarError(currentLang === 'es' ? '❌ No se pudo copiar. Copia manualmente.' : '❌ Ezin izan da kopiatu. Kopiatu eskuz.');
-    }
+      await navigator.clipboard.writeText(cuerpo);
+      alert(instrucciones);
+      window.open('https://www.fnpelota.com/pub/contacto.asp?idioma=ca', '_blank');
+    } catch(err) { mostrarError(currentLang === 'es' ? '❌ No se pudo copiar el mensaje.' : '❌ Ezin izan da mezua kopiatu.'); }
   });
 
-  // Botón Gmail / otros: solo copia el cuerpo del mensaje (sin prefijo)
-  document.getElementById('btnGmail').addEventListener('click', async () => {
-    const mensaje = validarYObtenerMensaje();
-    if (!mensaje) return;
-    try {
-      await navigator.clipboard.writeText(mensaje);
-      const exitoMsg = currentLang === 'es' 
-        ? '✅ Cuerpo del mensaje copiado. Ábrelo en Gmail (o tu correo) y pégalo. Destinatario sugerido: fnp@fnpelota.com'
-        : '✅ Mezuaren gorputza kopiatuta. Ireki Gmail (edo zure posta) eta itsatsi. Hartzailea: fnp@fnpelota.com';
-      mostrarExito(exitoMsg);
-    } catch (err) {
-      mostrarError(currentLang === 'es' ? '❌ No se pudo copiar. Copia manualmente.' : '❌ Ezin izan da kopiatu. Kopiatu eskuz.');
-    }
-  });
-
-  async function init() {
-    await kargatuKategoriak();
-    await kargatuPartidak();
-    renderizarFiltros();
-    actualizarSelectPartidos();
-    bindEventos();
-    const langBtns = document.querySelectorAll('.idioma-boton');
-    langBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const lang = e.target.getAttribute('data-lang');
-        if (!lang) return;
-        currentLang = lang;
-        langBtns.forEach(b => b.classList.remove('aktibo'));
-        e.target.classList.add('aktibo');
-        actualizarIdioma(currentLang);
-        if (partidoSeleccionado) actualizarPreviewPartido(partidoSeleccionado, currentLang);
-      });
-    });
-    actualizarIdioma('es');
-  }
-
+  async function init() { await kargatuKategoriak(); await kargatuPartidak(); renderizarFiltros(); actualizarSelectPartidos(); bindEventos(); const langBtns = document.querySelectorAll('.idioma-boton'); langBtns.forEach(btn => { btn.addEventListener('click', (e) => { const lang = e.target.getAttribute('data-lang'); if(!lang) return; currentLang = lang; langBtns.forEach(b => b.classList.remove('aktibo')); e.target.classList.add('aktibo'); actualizarIdioma(currentLang); if(partidoSeleccionado) actualizarPreviewPartido(partidoSeleccionado, currentLang); }); }); actualizarIdioma('es'); }
   init();
 </script>
 </body>
