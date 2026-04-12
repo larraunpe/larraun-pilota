@@ -1,4 +1,7 @@
 [
-  {     "fecha": "2026/04/12",     "hora": "10:00",     "zkia": "1",     "fronton": "Barañain – Retegi",     "etxekoa": "LARRAUN – INTXURRE (Balda – Garaikoetxea)",     "kanpokoak": "LEA IBARRA (Bengoetxea – Goikoetxea)",     "lehiaketa": "SAN ESTEBAN-EKO ESKUZ BINAKAKO TXAPELKETA. KADETE KANPORAKETA",    "ofiziala": "false"  },
-  {     "fecha": "2026/04/12",     "hora": "10:00",     "zkia": "2",     "fronton": "Barañain – Retegi",     "etxekoa": "TXARUTA (Braña – Zubieta)",     "kanpokoak": "LARRAUN (Ijurko – Sotil)",     "lehiaketa": "SAN ESTEBAN-EKO ESKUZ BINAKAKO TXAPELKETA. KADETE KANPORAKETA",    "ofiziala": "false"  }
+  {     "fecha": "2026/04/15",     "hora": "19:00",     "zkia": "2",     "fronton": "Irurtzun – Bi Ahizpe",     "etxekoa": "LARRAUN (Astiz – Sotil) ",     "kanpokoak": "HERNANI (Apaolaza – Balerdi)",     "lehiaketa": "IRURTZUNGO PILOTA TXAPELKETA. HELDUAK KANPORAKETA",     "ofiziala": "false"   },
+  {     "fecha": "2026/04/16",     "hora": "18:30",     "zkia": "4",     "fronton": "Lesaka",     "etxekoa": "ALDE ZAHARRA (I. Atxa)",     "kanpokoak": "LARRAUN (J. Ezkurdia)",     "lehiaketa": "BENITO TAINTA MEMORIALA 4 ½. NAGUSIAK KANPORAKETA",     "ofiziala": "false"   },
+  {     "fecha": "2026/04/19",     "hora": "09:30",     "zkia": "2",     "fronton": "Lesaka",     "etxekoa": "LARRAUN (X. Goldarazena)",     "kanpokoak": "BURUZGAIN (E. Alsua)",     "lehiaketa": "BENITO TAINTA MEMORIALA 4 ½. INFANTILAK KANPORAKETA",     "ofiziala": "false"   },
+  {     "fecha": "2026/04/19",     "hora": "17:30",     "zkia": "1",     "fronton": "Najera",     "etxekoa": "BURUZGAIN – LARRAUN (Aldaz – Tellechea)",     "kanpokoak": "",     "lehiaketa": "TORNEO REINO DE NAJERA. PROMESAS FINAL LAURDENAK",     "ofiziala": "false"   }
+
 ]
