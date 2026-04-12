@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Larraun Pilota – Gestión de horarios (Organización + Pelotaris)</title>
+    <title>Larraun Pilota – Ordutegien Kudeaketa (Antolaketa + Pilotariak)</title>
     <link rel="icon" type="image/png" href="/egutegia.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,86 +30,81 @@
         .btn-primary:hover { background: #800000; transform: translateY(-2px); }
         .btn-success { background: #28a745; color: white; }
         .btn-success:hover { background: #218838; }
-        .btn-warning { background: #ffc107; color: #333; }
         .btn-secondary { background: #6c757d; color: white; }
         .opcion-grilla { display: flex; flex-wrap: wrap; gap: 12px; margin: 15px 0; }
         .opcion-voto { background: #f1f3f5; border-radius: 50px; padding: 10px 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
-        .opcion-texto { font-weight: 700; }
-        .votos-container { display: flex; gap: 15px; flex-wrap: wrap; }
-        .voto-jugador { background: white; border-radius: 40px; padding: 4px 12px; font-size: 0.8rem; border: 1px solid #ccc; }
-        .voto-si { background: #d4edda; color: #155724; border-color: #28a745; }
+        .votos-container { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+        .btn-jugador { padding: 8px 16px; border-radius: 40px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; font-size: 0.85rem; }
+        .btn-local { background: #cfe2ff; color: #084298; border: 1px solid #084298; }
+        .btn-local.aktibo { background: #0d6efd; color: white; border-color: #0d6efd; }
+        .btn-visitante { background: #f8d7da; color: #721c24; border: 1px solid #721c24; }
+        .btn-visitante.aktibo { background: #dc3545; color: white; border-color: #dc3545; }
         .error-msg, .success-msg { border-radius: 40px; padding: 10px; margin-top: 15px; display: none; text-align: center; }
         .error-msg { background: #ffe6e6; color: #b30000; }
         .success-msg { background: #d4edda; color: #155724; }
         .badge { background: #b30000; color: white; padding: 4px 10px; border-radius: 40px; font-size: 0.75rem; }
         .info-partido { background: #fff8e7; border-radius: 24px; padding: 16px; margin-bottom: 20px; }
-        .jugador-card { background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        .equipo-titulo { font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; color: #b30000; }
         footer { margin-top: 36px; text-align: center; font-size: 0.8rem; color: #666; }
-        @media (max-width: 600px) { .opcion-voto { flex-direction: column; align-items: flex-start; } }
+        @media (max-width: 600px) { .btn-jugador { padding: 6px 12px; font-size: 0.75rem; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
         <div class="logo-group"><img src="images/logo-larraun.png" alt="Larraun"><img src="images/logo-fnp.png" alt="FNP"></div>
-        <h1 id="titulo">🗓️ GESTIÓN DE HORARIOS</h1>
-        <div class="idioma-toggle"><button class="idioma-boton aktibo" data-lang="es">ES</button><button class="idioma-boton" data-lang="eu">EU</button></div>
+        <h1 id="titulo">🗓️ ORDUTEGIEN KUDEAKETA</h1>
+        <div class="idioma-toggle"><button class="idioma-boton aktibo" data-lang="eu">EUSKARA</button><button class="idioma-boton" data-lang="es">CASTELLANO</button></div>
     </div>
 
-    <!-- FASE 1: ORGANIZACIÓN (solo visible si no hay encuesta activa) -->
-    <div id="faseOrganizacion">
-        <div class="filtro-categoria"><div class="filtro-titulo" id="filtroTitulo">🏷️ Filtrar por categoría</div><div id="filtroBotones" class="filtro-botones"></div></div>
-        <div class="card"><div class="filtro-titulo" id="selectLabel">🏆 Seleccionar partido</div><select id="partidoSelect"><option>-- Cargando... --</option></select></div>
-        <div id="configOrganizacion" style="display: none;">
-            <div class="card">
-                <div class="filtro-titulo">📌 Tipo de partido</div>
-                <div style="display: flex; gap: 20px;"><label><input type="radio" name="tipoPartido" value="banaka"> 🏅 Banaka (Individual)</label><label><input type="radio" name="tipoPartido" value="binaka"> 👥 Binaka (Parejas)</label></div>
+    <!-- FASE 1: ANTOLAKETA -->
+    <div id="faseAntolaketa">
+        <div class="filtro-categoria"><div class="filtro-titulo" id="filtroTitulo">🏷️ Iragazi kategoria</div><div id="filtroBotones" class="filtro-botones"></div></div>
+        <div class="card"><div class="filtro-titulo" id="selectLabel">🏆 Hautatu partidua</div><select id="partidoSelect"><option>-- Kargatzen... --</option></select></div>
+        <div id="configAntolaketa" style="display: none;">
+            <div class="card"><div class="filtro-titulo" id="tipoLabel">📌 Partidu mota</div>
+                <div style="display: flex; gap: 20px;"><label><input type="radio" name="tipoPartido" value="banaka"> 🏅 Banaka (Banaka)</label><label><input type="radio" name="tipoPartido" value="binaka"> 👥 Binaka (Binaka)</label></div>
             </div>
-            <div class="card">
-                <div class="filtro-titulo">⏰ Opciones de horario (propuestas por la organización)</div>
+            <div class="card"><div class="filtro-titulo" id="opcionesLabel">⏰ Ordutegi aukerak (antolakuntzak proposatuta)</div>
                 <div id="opcionesOrgGrilla" class="opcion-grilla"></div>
-                <div style="margin-top: 15px;"><label>📝 Observaciones (ej: entre las 17:00 y 21:00)</label><textarea id="observacionesOrg" rows="2" placeholder="Información adicional sobre los horarios..."></textarea></div>
+                <div style="margin-top: 15px;"><label id="obsLabel">📝 Oharrak (adib: 17:00 eta 21:00 artean)</label><textarea id="observacionesOrg" rows="2" placeholder="Informazio gehigarria ordutegiei buruz..."></textarea></div>
             </div>
-            <button id="btnPublicarEncuesta" class="btn btn-primary">📢 Publicar encuesta para pelotaris</button>
+            <button id="btnPublicarEncuesta" class="btn btn-primary" id="publicarBtn">📢 Argitaratu inkesta pilotarientzat</button>
         </div>
     </div>
 
-    <!-- FASE 2: PELOTARIS (votación) -->
-    <div id="fasePelotaris" style="display: none;">
-        <div class="info-partido" id="infoPartidoVotacion"></div>
+    <!-- FASE 2: PILOTARIAK (bozketa) -->
+    <div id="fasePilotariak" style="display: none;">
+        <div class="info-partido" id="infoPartidoBozketa"></div>
         <div id="observacionesMostradas" class="card" style="background:#e7f3ff;"></div>
-        <div id="votacionContainer"></div>
+        <div id="bozketaContainer"></div>
         <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
-            <button id="btnResetVotacion" class="btn btn-secondary">🔄 Resetear votación (nueva encuesta)</button>
-            <button id="btnEnviarResultados" class="btn btn-success">💬 Enviar resultados por WhatsApp</button>
+            <button id="btnResetBozketa" class="btn btn-secondary">🔄 Berrabiarazi bozketa (inkesta berria)</button>
+            <button id="btnEnviarEmaitzak" class="btn btn-success">💬 Bidali emaitzak WhatsApp bidez</button>
         </div>
     </div>
 
     <div id="errorMsg" class="error-msg"></div>
     <div id="successMsg" class="success-msg"></div>
-    <footer><span id="footerText">📌 Fase 1: Organización propone horarios. Fase 2: Pelotaris votan.</span></footer>
+    <footer><span id="footerText">📌 1. fasea: Antolakuntzak ordutegiak proposatzen ditu. 2. fasea: Pilotariek bozkatzen dute.</span></footer>
 </div>
 
 <script>
-    // ------------------ DATOS GLOBALES ------------------
+    // ------------------ DATU GLOBALAK ------------------
     let partidaGuztiak = [];
     let kategoriakMap = new Map();
     let kategoriaNagusiakOrdenatuak = [];
-    let currentLang = 'es';
+    let currentLang = 'eu';
     let currentKategoriaFilter = 'GUZTIAK';
     
-    // Estado principal (se guarda en localStorage)
     let estado = {
-        fase: 'organizacion', // 'organizacion' o 'votacion'
+        fase: 'antolaketa',
         partido: null,
         tipoPartido: 'banaka',
-        opcionesOrg: [],      // array de {id, texto}
+        opcionesOrg: [],
         observaciones: '',
-        votos: {}             // estructura: { opcionId: { jugadorId: true/false } }
+        votos: {}
     };
 
-    // Lista de opciones base
     const opcionesBase = [
         { id: 'lun_tarde',  labelEu: 'Astelehena arratsaldea', labelEs: 'Lunes tarde' },
         { id: 'mar_tarde',  labelEu: 'Asteartea arratsaldea', labelEs: 'Martes tarde' },
@@ -122,48 +117,43 @@
         { id: 'dom_tarde',  labelEu: 'Igandea arratsaldea', labelEs: 'Domingo tarde' }
     ];
 
-    // --- Funciones de identificación de pelotaris ---
+    // --- Pilotarien identifikazioa ---
     function extraerClubs(nombreEquipo) {
         if (!nombreEquipo) return [];
-        // Formato típico: "CLUB1 - CLUB2 (PELOTARI1 - PELOTARI2)"
         const parentesisIndex = nombreEquipo.indexOf('(');
         let clubsPart = parentesisIndex !== -1 ? nombreEquipo.substring(0, parentesisIndex).trim() : nombreEquipo;
-        // Separar por guión
         return clubsPart.split('-').map(c => c.trim()).filter(c => c);
     }
 
-    function extraerPelotaris(nombreEquipo) {
+    function extraerPilotariak(nombreEquipo) {
         if (!nombreEquipo) return [];
         const match = nombreEquipo.match(/\(([^)]+)\)/);
         if (!match) return [];
-        const pelotarisStr = match[1];
-        return pelotarisStr.split('-').map(p => p.trim()).filter(p => p);
+        return match[1].split('-').map(p => p.trim()).filter(p => p);
     }
 
-    function getJugadores(partido, tipo) {
+    function getPilotariak(partido, tipo) {
         const localRaw = partido.etxekoa || '';
-        const visitanteRaw = partido.kanpokoak || '';
-        const localPelotaris = extraerPelotaris(localRaw);
-        const visitantePelotaris = extraerPelotaris(visitanteRaw);
+        const kanpokoaRaw = partido.kanpokoak || '';
+        const localPilotariak = extraerPilotariak(localRaw);
+        const kanpokoaPilotariak = extraerPilotariak(kanpokoaRaw);
         const localClubs = extraerClubs(localRaw);
-        const visitanteClubs = extraerClubs(visitanteRaw);
+        const kanpokoaClubs = extraerClubs(kanpokoaRaw);
         
-        let jugadores = [];
+        let pilotariak = [];
         if (tipo === 'banaka') {
-            // Individual: 1 jugador por equipo
-            jugadores.push({ id: 'local_1', nombre: localPelotaris[0] || 'Jugador 1 Local', equipo: 'local', club: localClubs.join(' - ') || 'Local' });
-            jugadores.push({ id: 'visitante_1', nombre: visitantePelotaris[0] || 'Jugador 1 Visitante', equipo: 'visitante', club: visitanteClubs.join(' - ') || 'Visitante' });
+            pilotariak.push({ id: 'local_1', izena: localPilotariak[0] || 'Jokalari 1 Etxekoa', taldea: 'local', kluba: localClubs.join(' - ') || 'Etxekoa' });
+            pilotariak.push({ id: 'kanpokoa_1', izena: kanpokoaPilotariak[0] || 'Jokalari 1 Kanpokoa', taldea: 'kanpokoa', kluba: kanpokoaClubs.join(' - ') || 'Kanpokoa' });
         } else {
-            // Parejas: 2 jugadores por equipo
             for (let i = 0; i < 2; i++) {
-                jugadores.push({ id: `local_${i+1}`, nombre: localPelotaris[i] || `Jugador ${i+1} Local`, equipo: 'local', club: localClubs.join(' - ') || 'Local' });
-                jugadores.push({ id: `visitante_${i+1}`, nombre: visitantePelotaris[i] || `Jugador ${i+1} Visitante`, equipo: 'visitante', club: visitanteClubs.join(' - ') || 'Visitante' });
+                pilotariak.push({ id: `local_${i+1}`, izena: localPilotariak[i] || `Jokalari ${i+1} Etxekoa`, taldea: 'local', kluba: localClubs.join(' - ') || 'Etxekoa' });
+                pilotariak.push({ id: `kanpokoa_${i+1}`, izena: kanpokoaPilotariak[i] || `Jokalari ${i+1} Kanpokoa`, taldea: 'kanpokoa', kluba: kanpokoaClubs.join(' - ') || 'Kanpokoa' });
             }
         }
-        return jugadores;
+        return pilotariak;
     }
 
-    // --- Carga de datos (categorías y partidos) ---
+    // --- Datuen karga (kategoriak eta partidak) ---
     async function kargatuKategoriak() {
         try {
             const resp = await fetch('/data/categoriaedad.json');
@@ -247,10 +237,10 @@
         else return `${diasEu[diaSemana]}, ${dia}/${mes}/${anyo}`;
     }
 
-    // --- Gestión de estado persistente ---
-    function guardarEstado() { localStorage.setItem('gestionHorariosV2', JSON.stringify(estado)); }
-    function cargarEstado() {
-        const saved = localStorage.getItem('gestionHorariosV2');
+    // --- Estado persistente ---
+    function gordeEgoera() { localStorage.setItem('ordutegienKudeaketa', JSON.stringify(estado)); }
+    function kargatuEgoera() {
+        const saved = localStorage.getItem('ordutegienKudeaketa');
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
@@ -261,45 +251,45 @@
         }
     }
 
-    // --- RENDERIZADO SEGÚN FASE ---
-    function actualizarUI() {
-        if (estado.fase === 'organizacion') {
-            document.getElementById('faseOrganizacion').style.display = 'block';
-            document.getElementById('fasePelotaris').style.display = 'none';
-            cargarFiltrosYSelect();
+    // --- UI errendatzea ---
+    function eguneratuUI() {
+        if (estado.fase === 'antolaketa') {
+            document.getElementById('faseAntolaketa').style.display = 'block';
+            document.getElementById('fasePilotariak').style.display = 'none';
+            kargatuFiltroakEtaSelect();
             if (estado.partido) {
-                document.getElementById('configOrganizacion').style.display = 'block';
-                cargarConfigOrganizacion();
+                document.getElementById('configAntolaketa').style.display = 'block';
+                kargatuConfigAntolaketa();
             } else {
-                document.getElementById('configOrganizacion').style.display = 'none';
+                document.getElementById('configAntolaketa').style.display = 'none';
             }
         } else {
-            document.getElementById('faseOrganizacion').style.display = 'none';
-            document.getElementById('fasePelotaris').style.display = 'block';
-            renderizarVotacion();
+            document.getElementById('faseAntolaketa').style.display = 'none';
+            document.getElementById('fasePilotariak').style.display = 'block';
+            errendatuBozketa();
         }
     }
 
-    function cargarFiltrosYSelect() {
-        const categorias = [...new Set(partidaGuztiak.map(p => p.kategoria))];
+    function kargatuFiltroakEtaSelect() {
+        const kategorias = [...new Set(partidaGuztiak.map(p => p.kategoria))];
         const container = document.getElementById('filtroBotones');
         container.innerHTML = '';
-        const todosBtn = document.createElement('button');
-        todosBtn.className = `filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`;
-        todosBtn.textContent = currentLang === 'es' ? 'TODOS' : 'GUZTIAK';
-        todosBtn.onclick = () => { currentKategoriaFilter = 'GUZTIAK'; actualizarFiltrosUI(); cargarSelectPartidos(); };
-        container.appendChild(todosBtn);
-        categorias.forEach(kat => {
+        const guztiakBtn = document.createElement('button');
+        guztiakBtn.className = `filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`;
+        guztiakBtn.textContent = currentLang === 'es' ? 'TODOS' : 'GUZTIAK';
+        guztiakBtn.onclick = () => { currentKategoriaFilter = 'GUZTIAK'; eguneratuFiltroakUI(); kargatuSelectPartidak(); };
+        container.appendChild(guztiakBtn);
+        kategorias.forEach(kat => {
             const btn = document.createElement('button');
             btn.className = `filtro-btn ${currentKategoriaFilter === kat ? 'aktibo' : ''}`;
             btn.textContent = kat;
-            btn.onclick = () => { currentKategoriaFilter = kat; actualizarFiltrosUI(); cargarSelectPartidos(); };
+            btn.onclick = () => { currentKategoriaFilter = kat; eguneratuFiltroakUI(); kargatuSelectPartidak(); };
             container.appendChild(btn);
         });
-        cargarSelectPartidos();
+        kargatuSelectPartidak();
     }
 
-    function actualizarFiltrosUI() {
+    function eguneratuFiltroakUI() {
         document.querySelectorAll('#filtroBotones .filtro-btn').forEach(btn => {
             const kat = btn.textContent === 'TODOS' || btn.textContent === 'GUZTIAK' ? 'GUZTIAK' : btn.textContent;
             if (kat === currentKategoriaFilter) btn.classList.add('aktibo');
@@ -307,14 +297,14 @@
         });
     }
 
-    function cargarSelectPartidos() {
+    function kargatuSelectPartidak() {
         const select = document.getElementById('partidoSelect');
         const filtrados = getPartidosFiltrados();
-        select.innerHTML = '<option value="">-- Seleccionar partido --</option>';
+        select.innerHTML = '<option value="">-- Hautatu partidua --</option>';
         filtrados.forEach((p, idx) => {
             const option = document.createElement('option');
             option.value = idx;
-            option.textContent = `${p.fecha || 'sin fecha'} | ${p.etxekoa || '?'} vs ${p.kanpokoak || '?'} | ${p.kategoria}`;
+            option.textContent = `${p.fecha || 'data gabe'} | ${p.etxekoa || '?'} vs ${p.kanpokoak || '?'} | ${p.kategoria}`;
             select.appendChild(option);
         });
         select.onchange = () => {
@@ -324,24 +314,22 @@
                 estado.opcionesOrg = [];
                 estado.observaciones = '';
                 estado.votos = {};
-                guardarEstado();
-                cargarConfigOrganizacion();
-                document.getElementById('configOrganizacion').style.display = 'block';
+                gordeEgoera();
+                kargatuConfigAntolaketa();
+                document.getElementById('configAntolaketa').style.display = 'block';
             } else {
                 estado.partido = null;
-                document.getElementById('configOrganizacion').style.display = 'none';
-                guardarEstado();
+                document.getElementById('configAntolaketa').style.display = 'none';
+                gordeEgoera();
             }
         };
     }
 
-    function cargarConfigOrganizacion() {
-        // Tipo partido
+    function kargatuConfigAntolaketa() {
         document.querySelectorAll('input[name="tipoPartido"]').forEach(radio => {
             radio.checked = (radio.value === estado.tipoPartido);
-            radio.onchange = () => { if(radio.checked) estado.tipoPartido = radio.value; guardarEstado(); };
+            radio.onchange = () => { if(radio.checked) estado.tipoPartido = radio.value; gordeEgoera(); };
         });
-        // Opciones grilla
         const grilla = document.getElementById('opcionesOrgGrilla');
         grilla.innerHTML = '';
         opcionesBase.forEach(op => {
@@ -359,55 +347,48 @@
                 } else {
                     estado.opcionesOrg = estado.opcionesOrg.filter(o => o.id !== op.id);
                 }
-                guardarEstado();
+                gordeEgoera();
             };
             grilla.appendChild(wrapper);
         });
         document.getElementById('observacionesOrg').value = estado.observaciones || '';
-        document.getElementById('observacionesOrg').oninput = (e) => { estado.observaciones = e.target.value; guardarEstado(); };
+        document.getElementById('observacionesOrg').oninput = (e) => { estado.observaciones = e.target.value; gordeEgoera(); };
     }
 
-    // --- VOTACIÓN ---
-    function renderizarVotacion() {
+    // --- BOZKETA (koloreak: urdina etxekoa, gorria kanpokoa) ---
+    function errendatuBozketa() {
         const partido = estado.partido;
         if (!partido) return;
-        const jugadores = getJugadores(partido, estado.tipoPartido);
-        // Info partido
-        const infoDiv = document.getElementById('infoPartidoVotacion');
+        const pilotariak = getPilotariak(partido, estado.tipoPartido);
+        const infoDiv = document.getElementById('infoPartidoBozketa');
         infoDiv.innerHTML = `
-            <p><strong>🏆 ${partido.lehiaketa || partido.modalidad || 'Competición'}</strong></p>
+            <p><strong>🏆 ${partido.lehiaketa || partido.modalidad || 'Lehiaketa'}</strong></p>
             <p>🏠 ${partido.etxekoa}  vs  ✈️ ${partido.kanpokoak}</p>
-            <p>📅 ${formatearFecha(partido.fecha, currentLang)}  |  🕒 ${partido.hora || '--:--'}  |  🎯 ${partido.fronton || 'Frontón?'}</p>
-            <p>📌 Tipo: ${estado.tipoPartido === 'banaka' ? (currentLang === 'es' ? 'Individual (Banaka)' : 'Banaka') : (currentLang === 'es' ? 'Parejas (Binaka)' : 'Binaka')}</p>
+            <p>📅 ${formatearFecha(partido.fecha, currentLang)}  |  🕒 ${partido.hora || '--:--'}  |  🎯 ${partido.fronton || 'Frontoia?'}</p>
+            <p>📌 Mota: ${estado.tipoPartido === 'banaka' ? 'Banaka' : 'Binaka'}</p>
         `;
-        // Observaciones
         const obsDiv = document.getElementById('observacionesMostradas');
-        if (estado.observaciones) obsDiv.innerHTML = `<strong>📝 ${currentLang === 'es' ? 'Observaciones:' : 'Oharrak:'}</strong> ${estado.observaciones}`;
+        if (estado.observaciones) obsDiv.innerHTML = `<strong>📝 ${currentLang === 'es' ? 'Oharrak:' : 'Observaciones:'}</strong> ${estado.observaciones}`;
         else obsDiv.innerHTML = '';
-        // Inicializar votos si no existe
         if (!estado.votos) estado.votos = {};
         estado.opcionesOrg.forEach(op => { if (!estado.votos[op.id]) estado.votos[op.id] = {}; });
-        // Renderizar cada opción con los votos de los jugadores
-        const container = document.getElementById('votacionContainer');
+        const container = document.getElementById('bozketaContainer');
         container.innerHTML = '';
         estado.opcionesOrg.forEach(op => {
             const opDiv = document.createElement('div');
             opDiv.className = 'card';
-            opDiv.innerHTML = `<div class="filtro-titulo">⏰ ${op.texto}</div><div class="votos-container" id="votos-${op.id}"></div>`;
+            opDiv.innerHTML = `<div class="filtro-titulo">⏰ ${op.texto}</div><div class="votos-container" id="votos-${op.id.replace(/[^a-zA-Z0-9]/g, '_')}"></div>`;
             const votosContainer = opDiv.querySelector(`.votos-container`);
-            jugadores.forEach(jug => {
-                const estaVotado = estado.votos[op.id]?.[jug.id] === true;
+            pilotariak.forEach(pilot => {
+                const bozkatuta = estado.votos[op.id]?.[pilot.id] === true;
                 const btn = document.createElement('button');
-                btn.className = `btn ${estaVotado ? 'btn-success' : 'btn-secondary'}`;
-                btn.style.padding = '6px 12px';
-                btn.style.fontSize = '0.8rem';
-                btn.innerHTML = `${jug.nombre} ${estaVotado ? '✓' : '○'}`;
+                btn.className = `btn-jugador ${pilot.taldea === 'local' ? 'btn-local' : 'btn-visitante'} ${bozkatuta ? 'aktibo' : ''}`;
+                btn.innerHTML = `${pilot.izena} (${pilot.kluba}) ${bozkatuta ? '✓' : '○'}`;
                 btn.onclick = () => {
-                    // Toggle voto
                     if (!estado.votos[op.id]) estado.votos[op.id] = {};
-                    estado.votos[op.id][jug.id] = !estado.votos[op.id][jug.id];
-                    guardarEstado();
-                    renderizarVotacion(); // refrescar
+                    estado.votos[op.id][pilot.id] = !estado.votos[op.id][pilot.id];
+                    gordeEgoera();
+                    errendatuBozketa();
                 };
                 votosContainer.appendChild(btn);
             });
@@ -415,53 +396,54 @@
         });
     }
 
-    // --- Generar mensaje final con resultados ---
-    function generarMensajeResultados() {
+    // --- Mezua sortu ---
+    function sortuEmaitzenMezua() {
         if (!estado.partido) return null;
         const p = estado.partido;
-        const jugadores = getJugadores(p, estado.tipoPartido);
-        let mensaje = currentLang === 'es' 
-            ? `🗓️ *RESULTADOS VOTACIÓN HORARIOS* 🗓️\n\nPartido: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Fecha original: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontón: ${p.fronton || '?'}\n📌 Tipo: ${estado.tipoPartido === 'banaka' ? 'Individual' : 'Parejas'}\n`
-            : `🗓️ *ORDUTEGI BOTAZIOAREN EMAITZAK* 🗓️\n\nPartidua: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Jatorrizko data: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontoia: ${p.fronton || '?'}\n📌 Mota: ${estado.tipoPartido === 'banaka' ? 'Banaka' : 'Binaka'}\n`;
-        if (estado.observaciones) mensaje += `\n📝 Observaciones: ${estado.observaciones}\n`;
-        mensaje += `\n✅ *Resultados por opción:*\n`;
+        const pilotariak = getPilotariak(p, estado.tipoPartido);
+        let mezua = currentLang === 'eu' 
+            ? `🗓️ *ORDUTEGI BOZKETAREN EMAITZAK* 🗓️\n\nPartidua: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Jatorrizko data: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontoia: ${p.fronton || '?'}\n📌 Mota: ${estado.tipoPartido === 'banaka' ? 'Banaka' : 'Binaka'}\n`
+            : `🗓️ *RESULTADOS VOTACIÓN HORARIOS* 🗓️\n\nPartido: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Fecha original: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontón: ${p.fronton || '?'}\n📌 Tipo: ${estado.tipoPartido === 'banaka' ? 'Individual' : 'Parejas'}\n`;
+        if (estado.observaciones) mezua += `\n📝 Oharrak: ${estado.observaciones}\n`;
+        mezua += `\n✅ *Aukera bakoitzaren emaitzak:*\n`;
         estado.opcionesOrg.forEach(op => {
-            mensaje += `\n⏰ ${op.texto}:\n`;
-            jugadores.forEach(jug => {
-                const voto = estado.votos[op.id]?.[jug.id] === true;
-                mensaje += `   • ${jug.nombre}: ${voto ? '✓ Disponible' : '✗ No disponible'}\n`;
+            mezua += `\n⏰ ${op.texto}:\n`;
+            pilotariak.forEach(pilot => {
+                const voto = estado.votos[op.id]?.[pilot.id] === true;
+                const disponibilidad = voto ? (currentLang === 'eu' ? '✓ Eskuragarri' : '✓ Disponible') : (currentLang === 'eu' ? '✗ Ez eskuragarri' : '✗ No disponible');
+                mezua += `   • ${pilot.izena} (${pilot.kluba}): ${disponibilidad}\n`;
             });
         });
-        mensaje += `\n⚡ Se ruega confirmación del horario definitivo.\n📍 Larraun Pilota Elkartea`;
-        return mensaje;
+        mezua += `\n⚡ Mesedez, konfirmatu behin betiko ordutegia.\n📍 Larraun Pilota Elkartea`;
+        return mezua;
     }
 
-    // --- Eventos principales ---
+    // --- Eventuak ---
     document.getElementById('btnPublicarEncuesta').addEventListener('click', () => {
         if (estado.opcionesOrg.length === 0) {
-            mostrarError(currentLang === 'es' ? 'Debes seleccionar al menos una opción de horario.' : 'Aukeratu ordutegi aukera bat gutxienez.');
+            mostrarError(currentLang === 'eu' ? 'Aukeratu ordutegi aukera bat gutxienez.' : 'Selecciona al menos una opción de horario.');
             return;
         }
-        estado.fase = 'votacion';
-        guardarEstado();
-        actualizarUI();
+        estado.fase = 'pilotariak';
+        gordeEgoera();
+        eguneratuUI();
     });
 
-    document.getElementById('btnResetVotacion').addEventListener('click', () => {
-        if (confirm(currentLang === 'es' ? '¿Resetear toda la votación? Se perderán los votos.' : 'Botazioa berrabiarazi? Botoak galduko dira.')) {
-            estado.fase = 'organizacion';
+    document.getElementById('btnResetBozketa').addEventListener('click', () => {
+        if (confirm(currentLang === 'eu' ? 'Bozketa guztia berrabiarazi? Botoak galduko dira.' : '¿Resetear toda la votación? Se perderán los votos.')) {
+            estado.fase = 'antolaketa';
             estado.votos = {};
             estado.opcionesOrg = [];
             estado.observaciones = '';
-            guardarEstado();
-            actualizarUI();
+            gordeEgoera();
+            eguneratuUI();
         }
     });
 
-    document.getElementById('btnEnviarResultados').addEventListener('click', () => {
-        const mensaje = generarMensajeResultados();
-        if (!mensaje) return;
-        const url = `https://wa.me/669866803?text=${encodeURIComponent(mensaje)}`;
+    document.getElementById('btnEnviarEmaitzak').addEventListener('click', () => {
+        const mezua = sortuEmaitzenMezua();
+        if (!mezua) return;
+        const url = `https://wa.me/669866803?text=${encodeURIComponent(mezua)}`;
         window.open(url, '_blank');
     });
 
@@ -472,22 +454,25 @@
         setTimeout(() => errDiv.style.display = 'none', 4000);
     }
 
-    // Idioma
-    function actualizarTextosIdioma() {
+    // Hizkuntza aldaketa
+    function eguneratuHizkuntzaTestuak() {
         document.getElementById('filtroTitulo').innerHTML = currentLang === 'es' ? '🏷️ Filtrar por categoría' : '🏷️ Iragazi kategoria';
         document.getElementById('selectLabel').innerHTML = currentLang === 'es' ? '🏆 Seleccionar partido' : '🏆 Hautatu partidua';
-        document.getElementById('footerText').innerHTML = currentLang === 'es' ? '📌 Fase 1: Organización propone horarios. Fase 2: Pelotaris votan.' : '📌 1. fase: Antolakuntzak ordutegiak proposatzen ditu. 2. fase: Pilotariek bozkatzen dute.';
-        if (estado.fase === 'votacion') renderizarVotacion();
-        else if (estado.partido) cargarConfigOrganizacion();
+        document.getElementById('tipoLabel').innerHTML = currentLang === 'es' ? '📌 Tipo de partido' : '📌 Partidu mota';
+        document.getElementById('opcionesLabel').innerHTML = currentLang === 'es' ? '⏰ Opciones de horario (propuestas por la organización)' : '⏰ Ordutegi aukerak (antolakuntzak proposatuta)';
+        document.getElementById('obsLabel').innerHTML = currentLang === 'es' ? '📝 Observaciones (ej: entre las 17:00 y 21:00)' : '📝 Oharrak (adib: 17:00 eta 21:00 artean)';
+        document.getElementById('footerText').innerHTML = currentLang === 'es' ? '📌 Fase 1: Organización propone horarios. Fase 2: Pelotaris votan.' : '📌 1. fasea: Antolakuntzak ordutegiak proposatzen ditu. 2. fasea: Pilotariek bozkatzen dute.';
+        if (estado.fase === 'pilotariak') errendatuBozketa();
+        else if (estado.partido) kargatuConfigAntolaketa();
     }
 
-    // Inicialización
+    // Hasieraketa
     async function init() {
         await kargatuKategoriak();
         await kargatuPartidak();
-        cargarEstado();
-        actualizarUI();
-        actualizarTextosIdioma();
+        kargatuEgoera();
+        eguneratuUI();
+        eguneratuHizkuntzaTestuak();
         const langBtns = document.querySelectorAll('.idioma-boton');
         langBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -496,9 +481,9 @@
                 currentLang = lang;
                 langBtns.forEach(b => b.classList.remove('aktibo'));
                 e.target.classList.add('aktibo');
-                actualizarTextosIdioma();
-                if (estado.fase === 'organizacion' && estado.partido) cargarConfigOrganizacion();
-                else if (estado.fase === 'votacion') renderizarVotacion();
+                eguneratuHizkuntzaTestuak();
+                if (estado.fase === 'antolaketa' && estado.partido) kargatuConfigAntolaketa();
+                else if (estado.fase === 'pilotariak') errendatuBozketa();
             });
         });
     }
