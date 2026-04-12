@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.5.0  # ✅ versión actualizada (Node 24)
+        uses: actions/checkout@v4  # ✅ usa la etiqueta v4 (siempre la última de la rama v4)
         
       - name: Setup Node
-        uses: actions/setup-node@v4.4.0  # ✅ versión actualizada (Node 24)
+        uses: actions/setup-node@v4  # ✅ usa la etiqueta v4
         with:
-          node-version: 20  # ⚠️ Esto sigue siendo Node 20 para tu script
+          node-version: 20
 
       - name: Instalar jsdom
         run: npm install jsdom --no-save
