@@ -1,0 +1,37 @@
+{
+  "fecha_generacion": "2026-04-12T20:17:51.461Z",
+  "semana": "2026/04/13 - 2026/04/19",
+  "partidos": [
+    {
+      "semana": "2026/04/13 - 2026/04/19",
+      "fecha": "2026/04/10",
+      "hora": "19:00",
+      "zkia": "1",
+      "fronton": "Larraintzar - Ulzama",
+      "etxekoa": "ULTZAMA (A. Gascue)",
+      "kanpokoak": "LARRAUN (M. Lazkoz)",
+      "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL LAURDENAK"
+    },
+    {
+      "semana": "2026/04/13 - 2026/04/19",
+      "fecha": "2026/04/11",
+      "hora": "10:00",
+      "zkia": "1",
+      "fronton": "Tafalla - Ereta",
+      "etxekoa": "P.P.SAN SEBASTIAN (O. Lizarraga)",
+      "kanpokoak": "LARRAUN (M. Goikoetxea)",
+      "lehiaketa": "ESKUZ KOPA - ESKUZ BANAKA 4½ 2ª FINAL LAURDENAK"
+    },
+    {
+      "semana": "2026/04/13 - 2026/04/19",
+      "fecha": "2026/04/12",
+      "hora": "12:00",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Galartza - I. Garziarena)",
+      "kanpokoak": "AUÑAMENDI (N. Eciolaza - I. Zabalza)",
+      "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA"
+    }
+  ],
+  "total_partidos": 3
+}
