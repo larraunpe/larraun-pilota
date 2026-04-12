@@ -2,9 +2,8 @@ name: Actualizar cartelera - Semana siguiente
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 08:00, 15:00 y 20:00 Europe/Madrid
     - cron: "0 7,8,13,14,15,18,19,20 * * *"
-  workflow_dispatch:  # Permite ejecución manual
+  workflow_dispatch:
 
 jobs:
   update-next-week:
@@ -12,24 +11,23 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v4.5.0  # ✅ versión actualizada (Node 24)
+        
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.4.0  # ✅ versión actualizada (Node 24)
         with:
-          node-version: 20
+          node-version: 20  # ⚠️ Esto sigue siendo Node 20 para tu script
 
       - name: Instalar jsdom
         run: npm install jsdom --no-save
 
-      - name: Ejecutar scraper (semana siguiente)
+      - name: Ejecutar scraper
         run: node scripts/scrape-cartelera-proxima-semana.mjs
 
-      - name: Commit y push de cambios
+      - name: Commit y push
         run: |
           git config user.name "larraun-bot"
           git config user.email "bot@larraunpilota.eus"
-          
           git add data/cartelera-proxima-semana.json
           git commit -m "🔄 Actualiza cartelera semana siguiente ($(date +'%Y-%m-%d'))" || echo "Sin cambios"
           git push
