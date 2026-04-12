@@ -3,389 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Larraun Pilota – Gestión de horarios (Banaka / Binaka)</title>
+    <title>Larraun Pilota – Gestión de horarios (Organización + Pelotaris)</title>
     <link rel="icon" type="image/png" href="/egutegia.png">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #f0f2f5;
-            padding: 16px;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        @media (min-width: 768px) {
-            body {
-                padding: 24px;
-            }
-
-            .container {
-                padding: 32px 40px 40px;
-                border-radius: 36px;
-            }
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 4px solid #b30000;
-        }
-
-        .logo-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .header img {
-            height: 55px;
-            width: auto;
-        }
-
-        @media (min-width: 768px) {
-            .header img {
-                height: 80px;
-            }
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: #b30000;
-        }
-
-        @media (min-width: 768px) {
-            .header h1 {
-                font-size: 2.6rem;
-            }
-        }
-
-        .idioma-toggle {
-            display: flex;
-            gap: 10px;
-            background: #e9ecef;
-            padding: 5px 12px;
-            border-radius: 60px;
-        }
-
-        .idioma-boton {
-            background: none;
-            border: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 6px 18px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #2c3e66;
-        }
-
-        .idioma-boton.aktibo {
-            background: #b30000;
-            color: white;
-        }
-
-        /* Filtros */
-        .filtro-categoria {
-            background: #f8f9fc;
-            border-radius: 28px;
-            padding: 16px 20px;
-            margin-bottom: 24px;
-        }
-
-        .filtro-titulo {
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        .filtro-botones {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .filtro-btn {
-            padding: 8px 18px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 40px;
-            background: #e2e6ea;
-            color: #1e466e;
-            cursor: pointer;
-        }
-
-        .filtro-btn.aktibo {
-            background: #b30000;
-            color: white;
-        }
-
-        /* Zona partido seleccionado */
-        .partido-bloqueado {
-            background: #fff8e7;
-            border: 2px solid #b30000;
-            border-radius: 28px;
-            padding: 20px;
-            margin-bottom: 28px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-partido {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px dashed #ccc;
-        }
-
-        .partido-datos {
-            flex: 1;
-        }
-
-        .partido-datos p {
-            margin: 5px 0;
-            font-size: 1rem;
-        }
-
-        .badge {
-            background: #b30000;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .tipo-selector {
-            margin: 15px 0;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-            background: #f1f3f5;
-            padding: 12px 18px;
-            border-radius: 60px;
-        }
-
-        .tipo-selector label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .tipo-selector input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .opciones-horario {
-            margin-top: 20px;
-        }
-
-        .opcion-grilla {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .opcion-check {
-            background: #f1f3f5;
-            border-radius: 50px;
-            padding: 8px 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .opcion-check input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #b30000;
-        }
-
-        .opcion-check:hover {
-            background: #e2e6ea;
-            transform: scale(0.98);
-        }
-
-        .btn-reset {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 60px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .btn-reset:hover {
-            background: #5a6268;
-        }
-
-        .btn-success {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 60px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        .mensaje-preview {
-            background: #e9ecef;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 25px;
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-
-        .error-msg {
-            color: #b30000;
-            background: #ffe6e6;
-            border-radius: 40px;
-            padding: 10px;
-            margin-top: 15px;
-            display: none;
-            text-align: center;
-        }
-
-        .success-msg {
-            color: #155724;
-            background: #d4edda;
-            border-radius: 40px;
-            padding: 10px;
-            margin-top: 15px;
-            display: none;
-            text-align: center;
-        }
-
-        footer {
-            margin-top: 36px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        @media (max-width: 600px) {
-            .opcion-check {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #f0f2f5; padding: 16px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.2); padding: 20px; }
+        @media (min-width: 768px) { body { padding: 24px; } .container { padding: 32px 40px; } }
+        .header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 4px solid #b30000; }
+        .logo-group { display: flex; gap: 20px; align-items: center; }
+        .header img { height: 55px; width: auto; }
+        @media (min-width: 768px) { .header img { height: 80px; } }
+        .header h1 { font-size: 1.8rem; font-weight: 800; color: #b30000; }
+        .idioma-toggle { display: flex; gap: 10px; background: #e9ecef; padding: 5px 12px; border-radius: 60px; }
+        .idioma-boton { background: none; border: none; font-weight: 700; padding: 6px 18px; border-radius: 40px; cursor: pointer; }
+        .idioma-boton.aktibo { background: #b30000; color: white; }
+        .filtro-categoria { background: #f8f9fc; border-radius: 28px; padding: 16px 20px; margin-bottom: 24px; }
+        .filtro-titulo { font-weight: 800; margin-bottom: 12px; }
+        .filtro-botones { display: flex; flex-wrap: wrap; gap: 10px; }
+        .filtro-btn { padding: 8px 18px; border: none; border-radius: 40px; background: #e2e6ea; font-weight: 700; cursor: pointer; }
+        .filtro-btn.aktibo { background: #b30000; color: white; }
+        select, input, textarea { width: 100%; padding: 12px 16px; border-radius: 60px; border: 2px solid #ccc; font-size: 1rem; }
+        .card { background: #f8f9fc; border-radius: 28px; padding: 20px; margin-bottom: 24px; }
+        .btn { border: none; padding: 12px 24px; border-radius: 60px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background: #b30000; color: white; }
+        .btn-primary:hover { background: #800000; transform: translateY(-2px); }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #218838; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .opcion-grilla { display: flex; flex-wrap: wrap; gap: 12px; margin: 15px 0; }
+        .opcion-voto { background: #f1f3f5; border-radius: 50px; padding: 10px 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
+        .opcion-texto { font-weight: 700; }
+        .votos-container { display: flex; gap: 15px; flex-wrap: wrap; }
+        .voto-jugador { background: white; border-radius: 40px; padding: 4px 12px; font-size: 0.8rem; border: 1px solid #ccc; }
+        .voto-si { background: #d4edda; color: #155724; border-color: #28a745; }
+        .error-msg, .success-msg { border-radius: 40px; padding: 10px; margin-top: 15px; display: none; text-align: center; }
+        .error-msg { background: #ffe6e6; color: #b30000; }
+        .success-msg { background: #d4edda; color: #155724; }
+        .badge { background: #b30000; color: white; padding: 4px 10px; border-radius: 40px; font-size: 0.75rem; }
+        .info-partido { background: #fff8e7; border-radius: 24px; padding: 16px; margin-bottom: 20px; }
+        .jugador-card { background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .equipo-titulo { font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; color: #b30000; }
+        footer { margin-top: 36px; text-align: center; font-size: 0.8rem; color: #666; }
+        @media (max-width: 600px) { .opcion-voto { flex-direction: column; align-items: flex-start; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div class="logo-group">
-            <img src="images/logo-larraun.png" alt="Larraun Pilota">
-            <img src="images/logo-fnp.png" alt="FNP">
-        </div>
+        <div class="logo-group"><img src="images/logo-larraun.png" alt="Larraun"><img src="images/logo-fnp.png" alt="FNP"></div>
         <h1 id="titulo">🗓️ GESTIÓN DE HORARIOS</h1>
-        <div class="idioma-toggle" id="idiomaToggle">
-            <button class="idioma-boton aktibo" data-lang="es">ES</button>
-            <button class="idioma-boton" data-lang="eu">EU</button>
+        <div class="idioma-toggle"><button class="idioma-boton aktibo" data-lang="es">ES</button><button class="idioma-boton" data-lang="eu">EU</button></div>
+    </div>
+
+    <!-- FASE 1: ORGANIZACIÓN (solo visible si no hay encuesta activa) -->
+    <div id="faseOrganizacion">
+        <div class="filtro-categoria"><div class="filtro-titulo" id="filtroTitulo">🏷️ Filtrar por categoría</div><div id="filtroBotones" class="filtro-botones"></div></div>
+        <div class="card"><div class="filtro-titulo" id="selectLabel">🏆 Seleccionar partido</div><select id="partidoSelect"><option>-- Cargando... --</option></select></div>
+        <div id="configOrganizacion" style="display: none;">
+            <div class="card">
+                <div class="filtro-titulo">📌 Tipo de partido</div>
+                <div style="display: flex; gap: 20px;"><label><input type="radio" name="tipoPartido" value="banaka"> 🏅 Banaka (Individual)</label><label><input type="radio" name="tipoPartido" value="binaka"> 👥 Binaka (Parejas)</label></div>
+            </div>
+            <div class="card">
+                <div class="filtro-titulo">⏰ Opciones de horario (propuestas por la organización)</div>
+                <div id="opcionesOrgGrilla" class="opcion-grilla"></div>
+                <div style="margin-top: 15px;"><label>📝 Observaciones (ej: entre las 17:00 y 21:00)</label><textarea id="observacionesOrg" rows="2" placeholder="Información adicional sobre los horarios..."></textarea></div>
+            </div>
+            <button id="btnPublicarEncuesta" class="btn btn-primary">📢 Publicar encuesta para pelotaris</button>
         </div>
     </div>
 
-    <!-- Filtro categoría (solo visible si no hay partido bloqueado) -->
-    <div id="filtrosContainer" class="filtro-categoria">
-        <div class="filtro-titulo" id="filtroTitulo">🏷️ Filtrar por categoría</div>
-        <div class="filtro-botones" id="filtroBotones"></div>
-    </div>
-
-    <!-- Selector de partido (solo visible si no hay partido bloqueado) -->
-    <div id="selectorPartidoContainer" class="filtro-categoria">
-        <div class="filtro-titulo" id="selectLabel">🏆 Seleccionar partido</div>
-        <select id="partidoSelect" style="width: 100%; padding: 12px; border-radius: 60px;">
-            <option value="">-- Cargando... --</option>
-        </select>
-    </div>
-
-    <!-- ZONA BLOQUEADA: partido fijo + opciones -->
-    <div id="partidoBloqueado" style="display: none;" class="partido-bloqueado">
-        <div class="info-partido">
-            <div class="partido-datos" id="partidoInfoBloqueado"></div>
-            <button id="btnResetPartido" class="btn-reset">🔄 <span id="resetText">Cambiar partido</span></button>
+    <!-- FASE 2: PELOTARIS (votación) -->
+    <div id="fasePelotaris" style="display: none;">
+        <div class="info-partido" id="infoPartidoVotacion"></div>
+        <div id="observacionesMostradas" class="card" style="background:#e7f3ff;"></div>
+        <div id="votacionContainer"></div>
+        <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+            <button id="btnResetVotacion" class="btn btn-secondary">🔄 Resetear votación (nueva encuesta)</button>
+            <button id="btnEnviarResultados" class="btn btn-success">💬 Enviar resultados por WhatsApp</button>
         </div>
-
-        <!-- Tipo: Banaka / Binaka -->
-        <div class="tipo-selector">
-            <span id="tipoLabel">📌 Tipo de partido:</span>
-            <label>
-                <input type="radio" name="tipoPartido" value="banaka"> <span id="banakaLabel">🏅 Banaka (Individual)</span>
-            </label>
-            <label>
-                <input type="radio" name="tipoPartido" value="binaka"> <span id="binakaLabel">👥 Binaka (Parejas)</span>
-            </label>
-        </div>
-
-        <!-- Opciones de horario -->
-        <div class="opciones-horario">
-            <div><strong id="horarioTitulo">⏰ Opciones de horario propuestas:</strong></div>
-            <div id="opcionesHorarioGrilla" class="opcion-grilla"></div>
-        </div>
-
-        <!-- Botón generar mensaje -->
-        <button id="btnGenerarMensaje" class="btn-success">💬 <span id="btnGenText">Generar mensaje para WhatsApp</span></button>
-
-        <!-- Mensaje generado (preview) -->
-        <div id="mensajePreview" class="mensaje-preview" style="display: none;"></div>
     </div>
 
     <div id="errorMsg" class="error-msg"></div>
     <div id="successMsg" class="success-msg"></div>
-    <footer>
-        <span id="footerText">📌 Selecciona un partido → se bloquea. Los datos se guardan automáticamente.</span>
-    </footer>
+    <footer><span id="footerText">📌 Fase 1: Organización propone horarios. Fase 2: Pelotaris votan.</span></footer>
 </div>
 
 <script>
@@ -395,15 +98,18 @@
     let kategoriaNagusiakOrdenatuak = [];
     let currentLang = 'es';
     let currentKategoriaFilter = 'GUZTIAK';
-
-    // Estado persistente (se guarda en localStorage)
-    let estadoActual = {
-        partidoBloqueado: null,      // objeto partido
-        tipoPartido: 'banaka',       // 'banaka' o 'binaka'
-        opcionesSeleccionadas: []    // array de strings con las opciones marcadas (en el idioma actual, pero guardamos clave)
+    
+    // Estado principal (se guarda en localStorage)
+    let estado = {
+        fase: 'organizacion', // 'organizacion' o 'votacion'
+        partido: null,
+        tipoPartido: 'banaka',
+        opcionesOrg: [],      // array de {id, texto}
+        observaciones: '',
+        votos: {}             // estructura: { opcionId: { jugadorId: true/false } }
     };
 
-    // Lista base de opciones horario (IDs y textos)
+    // Lista de opciones base
     const opcionesBase = [
         { id: 'lun_tarde',  labelEu: 'Astelehena arratsaldea', labelEs: 'Lunes tarde' },
         { id: 'mar_tarde',  labelEu: 'Asteartea arratsaldea', labelEs: 'Martes tarde' },
@@ -416,62 +122,48 @@
         { id: 'dom_tarde',  labelEu: 'Igandea arratsaldea', labelEs: 'Domingo tarde' }
     ];
 
-    // Cargar estado guardado
-    function cargarEstadoGuardado() {
-        const guardado = localStorage.getItem('gestionHorariosEstado');
-        if (guardado) {
-            try {
-                const parsed = JSON.parse(guardado);
-                if (parsed.partidoBloqueado && parsed.tipoPartido) {
-                    estadoActual = parsed;
-                    // Aseguramos que opcionesSeleccionadas sea array
-                    if (!estadoActual.opcionesSeleccionadas) estadoActual.opcionesSeleccionadas = [];
-                }
-            } catch(e) {}
-        }
+    // --- Funciones de identificación de pelotaris ---
+    function extraerClubs(nombreEquipo) {
+        if (!nombreEquipo) return [];
+        // Formato típico: "CLUB1 - CLUB2 (PELOTARI1 - PELOTARI2)"
+        const parentesisIndex = nombreEquipo.indexOf('(');
+        let clubsPart = parentesisIndex !== -1 ? nombreEquipo.substring(0, parentesisIndex).trim() : nombreEquipo;
+        // Separar por guión
+        return clubsPart.split('-').map(c => c.trim()).filter(c => c);
     }
 
-    function guardarEstado() {
-        localStorage.setItem('gestionHorariosEstado', JSON.stringify(estadoActual));
+    function extraerPelotaris(nombreEquipo) {
+        if (!nombreEquipo) return [];
+        const match = nombreEquipo.match(/\(([^)]+)\)/);
+        if (!match) return [];
+        const pelotarisStr = match[1];
+        return pelotarisStr.split('-').map(p => p.trim()).filter(p => p);
     }
 
-    // Guardar partido bloqueado
-    function bloquearPartido(partido) {
-        estadoActual.partidoBloqueado = partido;
-        estadoActual.opcionesSeleccionadas = []; // reset opciones al cambiar partido
-        guardarEstado();
-        actualizarUIBloqueado();
-    }
-
-    function resetearPartido() {
-        estadoActual.partidoBloqueado = null;
-        estadoActual.opcionesSeleccionadas = [];
-        estadoActual.tipoPartido = 'banaka';
-        guardarEstado();
-        actualizarUI();
-    }
-
-    // Alternar tipo partido
-    function setTipoPartido(tipo) {
-        estadoActual.tipoPartido = tipo;
-        guardarEstado();
-        actualizarUIBloqueado();
-    }
-
-    // Marcar/desmarcar opción (guardamos el id)
-    function toggleOpcion(opcionId, checked) {
-        if (checked) {
-            if (!estadoActual.opcionesSeleccionadas.includes(opcionId)) {
-                estadoActual.opcionesSeleccionadas.push(opcionId);
-            }
+    function getJugadores(partido, tipo) {
+        const localRaw = partido.etxekoa || '';
+        const visitanteRaw = partido.kanpokoak || '';
+        const localPelotaris = extraerPelotaris(localRaw);
+        const visitantePelotaris = extraerPelotaris(visitanteRaw);
+        const localClubs = extraerClubs(localRaw);
+        const visitanteClubs = extraerClubs(visitanteRaw);
+        
+        let jugadores = [];
+        if (tipo === 'banaka') {
+            // Individual: 1 jugador por equipo
+            jugadores.push({ id: 'local_1', nombre: localPelotaris[0] || 'Jugador 1 Local', equipo: 'local', club: localClubs.join(' - ') || 'Local' });
+            jugadores.push({ id: 'visitante_1', nombre: visitantePelotaris[0] || 'Jugador 1 Visitante', equipo: 'visitante', club: visitanteClubs.join(' - ') || 'Visitante' });
         } else {
-            estadoActual.opcionesSeleccionadas = estadoActual.opcionesSeleccionadas.filter(id => id !== opcionId);
+            // Parejas: 2 jugadores por equipo
+            for (let i = 0; i < 2; i++) {
+                jugadores.push({ id: `local_${i+1}`, nombre: localPelotaris[i] || `Jugador ${i+1} Local`, equipo: 'local', club: localClubs.join(' - ') || 'Local' });
+                jugadores.push({ id: `visitante_${i+1}`, nombre: visitantePelotaris[i] || `Jugador ${i+1} Visitante`, equipo: 'visitante', club: visitanteClubs.join(' - ') || 'Visitante' });
+            }
         }
-        guardarEstado();
-        actualizarUIBloqueado(); // para refrescar checks
+        return jugadores;
     }
 
-    // ---------- Funciones auxiliares (categorías, etc) ----------
+    // --- Carga de datos (categorías y partidos) ---
     async function kargatuKategoriak() {
         try {
             const resp = await fetch('/data/categoriaedad.json');
@@ -481,14 +173,14 @@
             data.forEach(item => {
                 const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
                 if (!izena) return;
-                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999;
                 if (!edadMinToKategoria.has(edadMin)) edadMinToKategoria.set(edadMin, izena);
             });
             data.forEach(item => {
                 const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
                 if (!izena) return;
                 const kolorea = item[izena];
-                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999;
                 const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
                 kategoriakMap.set(izena.toUpperCase().trim(), { kolorea, edadMin, izena, kategoriaNagusia });
             });
@@ -496,22 +188,16 @@
             data.forEach(item => {
                 const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
                 if (!izena) return;
-                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+                const edadMin = item.EDADMIN ? parseInt(item.EDADMIN,10) : 999;
                 const nagusia = edadMinToKategoria.get(edadMin);
                 if (nagusia) kategoriaNagusiakSet.add(nagusia);
             });
             const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
-                const item = data.find(i => {
-                    const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
-                    return iIzena === izena;
-                });
-                return { izena, edadMin: item ? parseInt(item.EDADMIN, 10) : 999 };
+                const item = data.find(i => { const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX'); return iIzena === izena; });
+                return { izena, edadMin: item ? parseInt(item.EDADMIN,10) : 999 };
             });
-            kategoriaNagusiakOrdenatuak = kategoriaNagusiakArray.sort((a, b) => a.edadMin - b.edadMin).map(k => k.izena);
-        } catch (e) {
-            console.warn(e);
-            kategoriaNagusiakOrdenatuak = ['BENJAMIN', 'ALEBINAK', 'KIMU', 'SEIN', 'KADETE', 'GAZTE', 'JUVENIL', 'SENIOR', 'Beste'];
-        }
+            kategoriaNagusiakOrdenatuak = kategoriaNagusiakArray.sort((a,b) => a.edadMin - b.edadMin).map(k => k.izena);
+        } catch(e) { console.warn(e); kategoriaNagusiakOrdenatuak = ['BENJAMIN','ALEBINAK','KIMU','SEIN','KADETE','GAZTE','JUVENIL','SENIOR','Beste']; }
     }
 
     function kategoriaNagusiaPartida(partida) {
@@ -529,10 +215,7 @@
 
     async function kargatuPartidak() {
         try {
-            const [oficialesResp, noOficialesResp] = await Promise.all([
-                fetch('/data/cartelera-larraun.json'),
-                fetch('/data/partidos-no-oficiales.json')
-            ]);
+            const [oficialesResp, noOficialesResp] = await Promise.all([fetch('/data/cartelera-larraun.json'), fetch('/data/partidos-no-oficiales.json')]);
             if (!oficialesResp.ok || !noOficialesResp.ok) throw new Error();
             const ofi = await oficialesResp.json();
             const noOfi = await noOficialesResp.json();
@@ -543,24 +226,7 @@
                 p.kategoria = kategoriaNagusiaPartida(p);
             });
             partidaGuztiak = todos;
-        } catch (err) {
-            console.error(err);
-            partidaGuztiak = [];
-        }
-    }
-
-    function getKategoriaAktiboak() {
-        const kats = new Set();
-        partidaGuztiak.forEach(p => { if (p.kategoria) kats.add(p.kategoria); });
-        const orden = kategoriaNagusiakOrdenatuak;
-        return Array.from(kats).sort((a, b) => {
-            const idxA = orden.indexOf(a);
-            const idxB = orden.indexOf(b);
-            if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-            if (idxA !== -1) return -1;
-            if (idxB !== -1) return 1;
-            return a.localeCompare(b);
-        });
+        } catch(err) { console.error(err); partidaGuztiak = []; }
     }
 
     function getPartidosFiltrados() {
@@ -573,139 +239,70 @@
         const partes = fechaStr.split('/');
         if (partes.length !== 3) return fechaStr;
         const [anyo, mes, dia] = partes;
-        const fechaObj = new Date(anyo, mes - 1, dia);
-        const diasEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        const diasEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata'];
+        const fechaObj = new Date(anyo, mes-1, dia);
+        const diasEs = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+        const diasEu = ['Igandea','Astelehena','Asteartea','Asteazkena','Osteguna','Ostirala','Larunbata'];
         const diaSemana = fechaObj.getDay();
         if (lang === 'es') return `${diasEs[diaSemana]}, ${dia}/${mes}/${anyo}`;
         else return `${diasEu[diaSemana]}, ${dia}/${mes}/${anyo}`;
     }
 
-    function getTextoOpcion(opcionId, lang) {
-        const op = opcionesBase.find(o => o.id === opcionId);
-        if (!op) return opcionId;
-        return lang === 'es' ? op.labelEs : op.labelEu;
-    }
-
-    // Generar mensaje final
-    function generarMensaje() {
-        if (!estadoActual.partidoBloqueado) return null;
-        const p = estadoActual.partidoBloqueado;
-        const local = p.etxekoa || '?';
-        const visitante = p.kanpokoak || '?';
-        const enfrentamiento = `${local} vs ${visitante}`;
-        const fechaOriginal = formatearFecha(p.fecha, currentLang);
-        const horaOriginal = p.hora || '--:--';
-        const frontonOriginal = p.fronton || 'Frontón sin especificar';
-        const tipoTexto = estadoActual.tipoPartido === 'banaka' ? (currentLang === 'es' ? 'Individual (Banaka)' : 'Banaka') : (currentLang === 'es' ? 'Parejas (Binaka)' : 'Binaka');
-        const opcionesSeleccionadasTexto = estadoActual.opcionesSeleccionadas.map(id => getTextoOpcion(id, currentLang));
-        if (opcionesSeleccionadasTexto.length === 0) return null;
-        let mensaje = '';
-        if (currentLang === 'es') {
-            mensaje = `🗓️ *SOLICITUD DE HORARIO - ${tipoTexto.toUpperCase()}* 🗓️\n\n`;
-            mensaje += `Partido: ${enfrentamiento}\n`;
-            mensaje += `📅 Fecha original: ${fechaOriginal} - 🕒 ${horaOriginal}\n`;
-            mensaje += `🎯 Frontón: ${frontonOriginal}\n\n`;
-            mensaje += `✅ *Los pelotarios proponen las siguientes opciones:*\n${opcionesSeleccionadasTexto.map(o => `   • ${o}`).join('\n')}\n\n`;
-            mensaje += `⚡ Quedamos a la espera de confirmación.\nMuchas gracias.\n📍 Larraun Pilota Elkartea`;
-        } else {
-            mensaje = `🗓️ *ORDUTEGI ESKAERA - ${tipoTexto.toUpperCase()}* 🗓️\n\n`;
-            mensaje += `Partidua: ${enfrentamiento}\n`;
-            mensaje += `📅 Jatorrizko data: ${fechaOriginal} - 🕒 ${horaOriginal}\n`;
-            mensaje += `🎯 Frontoia: ${frontonOriginal}\n\n`;
-            mensaje += `✅ *Pilotariek aukera hauek proposatzen dituzte:*\n${opcionesSeleccionadasTexto.map(o => `   • ${o}`).join('\n')}\n\n`;
-            mensaje += `⚡ Konfirmazioaren zain.\nEskerrik asko.\n📍 Larraun Pilota Elkartea`;
+    // --- Gestión de estado persistente ---
+    function guardarEstado() { localStorage.setItem('gestionHorariosV2', JSON.stringify(estado)); }
+    function cargarEstado() {
+        const saved = localStorage.getItem('gestionHorariosV2');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (parsed.fase && parsed.partido) estado = parsed;
+                if (!estado.votos) estado.votos = {};
+                if (!estado.opcionesOrg) estado.opcionesOrg = [];
+            } catch(e) {}
         }
-        return mensaje;
     }
 
-    // ---------------- UI DINÁMICA ----------------
+    // --- RENDERIZADO SEGÚN FASE ---
     function actualizarUI() {
-        const hayBloqueado = estadoActual.partidoBloqueado !== null;
-        document.getElementById('filtrosContainer').style.display = hayBloqueado ? 'none' : 'block';
-        document.getElementById('selectorPartidoContainer').style.display = hayBloqueado ? 'none' : 'block';
-        document.getElementById('partidoBloqueado').style.display = hayBloqueado ? 'block' : 'none';
-        if (!hayBloqueado) {
-            // Cargar filtros y select
+        if (estado.fase === 'organizacion') {
+            document.getElementById('faseOrganizacion').style.display = 'block';
+            document.getElementById('fasePelotaris').style.display = 'none';
             cargarFiltrosYSelect();
+            if (estado.partido) {
+                document.getElementById('configOrganizacion').style.display = 'block';
+                cargarConfigOrganizacion();
+            } else {
+                document.getElementById('configOrganizacion').style.display = 'none';
+            }
         } else {
-            actualizarUIBloqueado();
+            document.getElementById('faseOrganizacion').style.display = 'none';
+            document.getElementById('fasePelotaris').style.display = 'block';
+            renderizarVotacion();
         }
     }
 
-    function actualizarUIBloqueado() {
-        const p = estadoActual.partidoBloqueado;
-        if (!p) return;
-        const infoDiv = document.getElementById('partidoInfoBloqueado');
-        infoDiv.innerHTML = `
-            <p><strong>🏆 ${p.lehiaketa || p.modalidad || 'Competición'}</strong> <span class="badge">${p.kategoria || ''}</span></p>
-            <p>🏠 ${p.etxekoa || '?'}  vs  ✈️ ${p.kanpokoak || '?'}</p>
-            <p>📅 ${formatearFecha(p.fecha, currentLang)}  |  🕒 ${p.hora || '--:--'}</p>
-            <p>🎯 ${p.fronton || 'Frontón?'}</p>
-        `;
-        // Radio tipo
-        document.querySelectorAll('input[name="tipoPartido"]').forEach(radio => {
-            radio.checked = (radio.value === estadoActual.tipoPartido);
-        });
-        // Grilla opciones
-        const grilla = document.getElementById('opcionesHorarioGrilla');
-        grilla.innerHTML = '';
-        opcionesBase.forEach(op => {
-            const label = currentLang === 'es' ? op.labelEs : op.labelEu;
-            const checked = estadoActual.opcionesSeleccionadas.includes(op.id);
-            const wrapper = document.createElement('label');
-            wrapper.className = 'opcion-check';
-            const cb = document.createElement('input');
-            cb.type = 'checkbox';
-            cb.checked = checked;
-            cb.addEventListener('change', (e) => toggleOpcion(op.id, e.target.checked));
-            wrapper.appendChild(cb);
-            wrapper.appendChild(document.createTextNode(' ' + label));
-            grilla.appendChild(wrapper);
-        });
-        // Preview mensaje
-        const mensaje = generarMensaje();
-        const previewDiv = document.getElementById('mensajePreview');
-        if (mensaje) {
-            previewDiv.style.display = 'block';
-            previewDiv.textContent = mensaje;
-        } else {
-            previewDiv.style.display = 'none';
-        }
-    }
-
-    async function cargarFiltrosYSelect() {
-        const categorias = getKategoriaAktiboak();
+    function cargarFiltrosYSelect() {
+        const categorias = [...new Set(partidaGuztiak.map(p => p.kategoria))];
         const container = document.getElementById('filtroBotones');
         container.innerHTML = '';
         const todosBtn = document.createElement('button');
         todosBtn.className = `filtro-btn ${currentKategoriaFilter === 'GUZTIAK' ? 'aktibo' : ''}`;
-        todosBtn.textContent = currentLang === 'es' ? '🔘 TODOS' : '🔘 GUZTIAK';
-        todosBtn.onclick = () => {
-            currentKategoriaFilter = 'GUZTIAK';
-            actualizarFiltrosUI();
-            cargarSelectPartidos();
-        };
+        todosBtn.textContent = currentLang === 'es' ? 'TODOS' : 'GUZTIAK';
+        todosBtn.onclick = () => { currentKategoriaFilter = 'GUZTIAK'; actualizarFiltrosUI(); cargarSelectPartidos(); };
         container.appendChild(todosBtn);
         categorias.forEach(kat => {
             const btn = document.createElement('button');
             btn.className = `filtro-btn ${currentKategoriaFilter === kat ? 'aktibo' : ''}`;
             btn.textContent = kat;
-            btn.onclick = () => {
-                currentKategoriaFilter = kat;
-                actualizarFiltrosUI();
-                cargarSelectPartidos();
-            };
+            btn.onclick = () => { currentKategoriaFilter = kat; actualizarFiltrosUI(); cargarSelectPartidos(); };
             container.appendChild(btn);
         });
         cargarSelectPartidos();
     }
 
     function actualizarFiltrosUI() {
-        const btns = document.querySelectorAll('#filtroBotones .filtro-btn');
-        btns.forEach(btn => {
-            const kat = btn.textContent.replace('🔘 TODOS', 'GUZTIAK').replace('🔘 GUZTIAK', 'GUZTIAK');
-            if ((kat === 'GUZTIAK' && currentKategoriaFilter === 'GUZTIAK') || kat === currentKategoriaFilter) btn.classList.add('aktibo');
+        document.querySelectorAll('#filtroBotones .filtro-btn').forEach(btn => {
+            const kat = btn.textContent === 'TODOS' || btn.textContent === 'GUZTIAK' ? 'GUZTIAK' : btn.textContent;
+            if (kat === currentKategoriaFilter) btn.classList.add('aktibo');
             else btn.classList.remove('aktibo');
         });
     }
@@ -713,75 +310,184 @@
     function cargarSelectPartidos() {
         const select = document.getElementById('partidoSelect');
         const filtrados = getPartidosFiltrados();
-        if (filtrados.length === 0) {
-            select.innerHTML = '<option value="">-- No hay partidos --</option>';
-            return;
-        }
         select.innerHTML = '<option value="">-- Seleccionar partido --</option>';
         filtrados.forEach((p, idx) => {
-            const local = p.etxekoa || '?';
-            const visitante = p.kanpokoak || '?';
-            const fecha = p.fecha || 'sin fecha';
             const option = document.createElement('option');
             option.value = idx;
-            option.textContent = `${fecha} | ${local} vs ${visitante} | ${p.kategoria}`;
+            option.textContent = `${p.fecha || 'sin fecha'} | ${p.etxekoa || '?'} vs ${p.kanpokoak || '?'} | ${p.kategoria}`;
             select.appendChild(option);
         });
         select.onchange = () => {
             const idx = select.value;
             if (idx !== "") {
-                const partido = filtrados[parseInt(idx)];
-                bloquearPartido(partido);
+                estado.partido = filtrados[parseInt(idx)];
+                estado.opcionesOrg = [];
+                estado.observaciones = '';
+                estado.votos = {};
+                guardarEstado();
+                cargarConfigOrganizacion();
+                document.getElementById('configOrganizacion').style.display = 'block';
+            } else {
+                estado.partido = null;
+                document.getElementById('configOrganizacion').style.display = 'none';
+                guardarEstado();
             }
         };
     }
 
-    // Eventos fijos
-    document.getElementById('btnResetPartido').addEventListener('click', () => resetearPartido());
-    document.getElementById('btnGenerarMensaje').addEventListener('click', () => {
-        const mensaje = generarMensaje();
-        if (!mensaje) {
-            mostrarError(currentLang === 'es' ? 'Selecciona al menos una opción de horario.' : 'Aukeratu ordutegi aukera bat gutxienez.');
+    function cargarConfigOrganizacion() {
+        // Tipo partido
+        document.querySelectorAll('input[name="tipoPartido"]').forEach(radio => {
+            radio.checked = (radio.value === estado.tipoPartido);
+            radio.onchange = () => { if(radio.checked) estado.tipoPartido = radio.value; guardarEstado(); };
+        });
+        // Opciones grilla
+        const grilla = document.getElementById('opcionesOrgGrilla');
+        grilla.innerHTML = '';
+        opcionesBase.forEach(op => {
+            const label = currentLang === 'es' ? op.labelEs : op.labelEu;
+            const checked = estado.opcionesOrg.some(o => o.id === op.id);
+            const wrapper = document.createElement('label');
+            wrapper.className = 'opcion-voto';
+            wrapper.style.background = '#fff';
+            wrapper.style.cursor = 'pointer';
+            wrapper.innerHTML = `<input type="checkbox" value="${op.id}" ${checked ? 'checked' : ''}> <span>${label}</span>`;
+            const cb = wrapper.querySelector('input');
+            cb.onchange = (e) => {
+                if (e.target.checked) {
+                    if (!estado.opcionesOrg.find(o => o.id === op.id)) estado.opcionesOrg.push({ id: op.id, texto: label });
+                } else {
+                    estado.opcionesOrg = estado.opcionesOrg.filter(o => o.id !== op.id);
+                }
+                guardarEstado();
+            };
+            grilla.appendChild(wrapper);
+        });
+        document.getElementById('observacionesOrg').value = estado.observaciones || '';
+        document.getElementById('observacionesOrg').oninput = (e) => { estado.observaciones = e.target.value; guardarEstado(); };
+    }
+
+    // --- VOTACIÓN ---
+    function renderizarVotacion() {
+        const partido = estado.partido;
+        if (!partido) return;
+        const jugadores = getJugadores(partido, estado.tipoPartido);
+        // Info partido
+        const infoDiv = document.getElementById('infoPartidoVotacion');
+        infoDiv.innerHTML = `
+            <p><strong>🏆 ${partido.lehiaketa || partido.modalidad || 'Competición'}</strong></p>
+            <p>🏠 ${partido.etxekoa}  vs  ✈️ ${partido.kanpokoak}</p>
+            <p>📅 ${formatearFecha(partido.fecha, currentLang)}  |  🕒 ${partido.hora || '--:--'}  |  🎯 ${partido.fronton || 'Frontón?'}</p>
+            <p>📌 Tipo: ${estado.tipoPartido === 'banaka' ? (currentLang === 'es' ? 'Individual (Banaka)' : 'Banaka') : (currentLang === 'es' ? 'Parejas (Binaka)' : 'Binaka')}</p>
+        `;
+        // Observaciones
+        const obsDiv = document.getElementById('observacionesMostradas');
+        if (estado.observaciones) obsDiv.innerHTML = `<strong>📝 ${currentLang === 'es' ? 'Observaciones:' : 'Oharrak:'}</strong> ${estado.observaciones}`;
+        else obsDiv.innerHTML = '';
+        // Inicializar votos si no existe
+        if (!estado.votos) estado.votos = {};
+        estado.opcionesOrg.forEach(op => { if (!estado.votos[op.id]) estado.votos[op.id] = {}; });
+        // Renderizar cada opción con los votos de los jugadores
+        const container = document.getElementById('votacionContainer');
+        container.innerHTML = '';
+        estado.opcionesOrg.forEach(op => {
+            const opDiv = document.createElement('div');
+            opDiv.className = 'card';
+            opDiv.innerHTML = `<div class="filtro-titulo">⏰ ${op.texto}</div><div class="votos-container" id="votos-${op.id}"></div>`;
+            const votosContainer = opDiv.querySelector(`.votos-container`);
+            jugadores.forEach(jug => {
+                const estaVotado = estado.votos[op.id]?.[jug.id] === true;
+                const btn = document.createElement('button');
+                btn.className = `btn ${estaVotado ? 'btn-success' : 'btn-secondary'}`;
+                btn.style.padding = '6px 12px';
+                btn.style.fontSize = '0.8rem';
+                btn.innerHTML = `${jug.nombre} ${estaVotado ? '✓' : '○'}`;
+                btn.onclick = () => {
+                    // Toggle voto
+                    if (!estado.votos[op.id]) estado.votos[op.id] = {};
+                    estado.votos[op.id][jug.id] = !estado.votos[op.id][jug.id];
+                    guardarEstado();
+                    renderizarVotacion(); // refrescar
+                };
+                votosContainer.appendChild(btn);
+            });
+            container.appendChild(opDiv);
+        });
+    }
+
+    // --- Generar mensaje final con resultados ---
+    function generarMensajeResultados() {
+        if (!estado.partido) return null;
+        const p = estado.partido;
+        const jugadores = getJugadores(p, estado.tipoPartido);
+        let mensaje = currentLang === 'es' 
+            ? `🗓️ *RESULTADOS VOTACIÓN HORARIOS* 🗓️\n\nPartido: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Fecha original: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontón: ${p.fronton || '?'}\n📌 Tipo: ${estado.tipoPartido === 'banaka' ? 'Individual' : 'Parejas'}\n`
+            : `🗓️ *ORDUTEGI BOTAZIOAREN EMAITZAK* 🗓️\n\nPartidua: ${p.etxekoa} vs ${p.kanpokoak}\n📅 Jatorrizko data: ${formatearFecha(p.fecha, currentLang)}\n🎯 Frontoia: ${p.fronton || '?'}\n📌 Mota: ${estado.tipoPartido === 'banaka' ? 'Banaka' : 'Binaka'}\n`;
+        if (estado.observaciones) mensaje += `\n📝 Observaciones: ${estado.observaciones}\n`;
+        mensaje += `\n✅ *Resultados por opción:*\n`;
+        estado.opcionesOrg.forEach(op => {
+            mensaje += `\n⏰ ${op.texto}:\n`;
+            jugadores.forEach(jug => {
+                const voto = estado.votos[op.id]?.[jug.id] === true;
+                mensaje += `   • ${jug.nombre}: ${voto ? '✓ Disponible' : '✗ No disponible'}\n`;
+            });
+        });
+        mensaje += `\n⚡ Se ruega confirmación del horario definitivo.\n📍 Larraun Pilota Elkartea`;
+        return mensaje;
+    }
+
+    // --- Eventos principales ---
+    document.getElementById('btnPublicarEncuesta').addEventListener('click', () => {
+        if (estado.opcionesOrg.length === 0) {
+            mostrarError(currentLang === 'es' ? 'Debes seleccionar al menos una opción de horario.' : 'Aukeratu ordutegi aukera bat gutxienez.');
             return;
         }
+        estado.fase = 'votacion';
+        guardarEstado();
+        actualizarUI();
+    });
+
+    document.getElementById('btnResetVotacion').addEventListener('click', () => {
+        if (confirm(currentLang === 'es' ? '¿Resetear toda la votación? Se perderán los votos.' : 'Botazioa berrabiarazi? Botoak galduko dira.')) {
+            estado.fase = 'organizacion';
+            estado.votos = {};
+            estado.opcionesOrg = [];
+            estado.observaciones = '';
+            guardarEstado();
+            actualizarUI();
+        }
+    });
+
+    document.getElementById('btnEnviarResultados').addEventListener('click', () => {
+        const mensaje = generarMensajeResultados();
+        if (!mensaje) return;
         const url = `https://wa.me/669866803?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
     });
-    document.querySelectorAll('input[name="tipoPartido"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.checked) setTipoPartido(e.target.value);
-        });
-    });
 
     function mostrarError(msg) {
-        const err = document.getElementById('errorMsg');
-        err.textContent = msg;
-        err.style.display = 'block';
-        setTimeout(() => err.style.display = 'none', 4000);
+        const errDiv = document.getElementById('errorMsg');
+        errDiv.textContent = msg;
+        errDiv.style.display = 'block';
+        setTimeout(() => errDiv.style.display = 'none', 4000);
     }
 
     // Idioma
     function actualizarTextosIdioma() {
         document.getElementById('filtroTitulo').innerHTML = currentLang === 'es' ? '🏷️ Filtrar por categoría' : '🏷️ Iragazi kategoria';
         document.getElementById('selectLabel').innerHTML = currentLang === 'es' ? '🏆 Seleccionar partido' : '🏆 Hautatu partidua';
-        document.getElementById('resetText').innerHTML = currentLang === 'es' ? 'Cambiar partido' : 'Partidua aldatu';
-        document.getElementById('tipoLabel').innerHTML = currentLang === 'es' ? '📌 Tipo de partido:' : '📌 Partidu mota:';
-        document.getElementById('banakaLabel').innerHTML = currentLang === 'es' ? '🏅 Banaka (Individual)' : '🏅 Banaka';
-        document.getElementById('binakaLabel').innerHTML = currentLang === 'es' ? '👥 Binaka (Parejas)' : '👥 Binaka';
-        document.getElementById('horarioTitulo').innerHTML = currentLang === 'es' ? '⏰ Opciones de horario propuestas:' : '⏰ Proposatutako ordutegi aukerak:';
-        document.getElementById('btnGenText').innerHTML = currentLang === 'es' ? 'Generar mensaje para WhatsApp' : 'WhatsApp mezua sortu';
-        document.getElementById('footerText').innerHTML = currentLang === 'es' ? '📌 Selecciona un partido → se bloquea. Los datos se guardan automáticamente.' : '📌 Hautatu partidua → blokeatu egiten da. Datu guztiak automatikoki gordetzen dira.';
-        if (estadoActual.partidoBloqueado) actualizarUIBloqueado();
+        document.getElementById('footerText').innerHTML = currentLang === 'es' ? '📌 Fase 1: Organización propone horarios. Fase 2: Pelotaris votan.' : '📌 1. fase: Antolakuntzak ordutegiak proposatzen ditu. 2. fase: Pilotariek bozkatzen dute.';
+        if (estado.fase === 'votacion') renderizarVotacion();
+        else if (estado.partido) cargarConfigOrganizacion();
     }
 
     // Inicialización
     async function init() {
         await kargatuKategoriak();
         await kargatuPartidak();
-        cargarEstadoGuardado();
+        cargarEstado();
         actualizarUI();
         actualizarTextosIdioma();
-        // Idioma toggle
         const langBtns = document.querySelectorAll('.idioma-boton');
         langBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -791,8 +497,8 @@
                 langBtns.forEach(b => b.classList.remove('aktibo'));
                 e.target.classList.add('aktibo');
                 actualizarTextosIdioma();
-                if (!estadoActual.partidoBloqueado) cargarFiltrosYSelect();
-                else actualizarUIBloqueado();
+                if (estado.fase === 'organizacion' && estado.partido) cargarConfigOrganizacion();
+                else if (estado.fase === 'votacion') renderizarVotacion();
             });
         });
     }
