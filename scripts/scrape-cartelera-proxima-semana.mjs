@@ -9,10 +9,7 @@ const BASE_URL = "https://www.fnpelota.com/pub/cartelera.asp?idioma=eu";
 function getNextWeekRange() {
   const today = new Date();
   
-  // Obtener el día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
   let currentDay = today.getDay();
-  
-  // Calcular el próximo lunes
   let daysUntilNextMonday;
   if (currentDay === 0) {
     daysUntilNextMonday = 1;
@@ -43,13 +40,24 @@ function getNextWeekRange() {
 // ---------- Utilidades ----------
 function getHTML(url) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, (res) => {
+    const options = {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+      }
+    };
+    
+    return new Promise((resolve, reject) => {
+      https.get(url, options, (res) => {
         let data = "";
         res.on("data", (chunk) => (data += chunk));
         res.on("end", () => resolve(data));
-      })
-      .on("error", reject);
+      }).on("error", reject);
+    });
   });
 }
 
@@ -71,62 +79,99 @@ function convertirPareja(texto) {
   return limpio;
 }
 
-// ---------- Extraer partidos de la tabla CORRECTAMENTE ----------
+// ---------- Extraer partidos de la tabla (VERSIÓN MEJORADA) ----------
 function extractPartidosFromHTML(html, targetWeekRange) {
   const dom = new JSDOM(html);
   const document = dom.window.document;
   
-  // Buscar todas las tablas
+  // DEBUG: Guardar HTML para depuración (solo si hay error)
+  // await fs.writeFile("data/debug.html", html);
+  
+  // Buscar TODAS las tablas
   const tables = document.querySelectorAll("table");
+  console.log(`🔍 Encontradas ${tables.length} tablas en el HTML`);
+  
   let partidosTable = null;
   
-  // Encontrar la tabla que contiene la cartelera (suele ser la primera con border=1)
-  for (const table of tables) {
-    if (table.getAttribute("border") === "1") {
+  // Buscar la tabla que contiene fechas (formato YYYY/MM/DD)
+  for (let i = 0; i < tables.length; i++) {
+    const table = tables[i];
+    const rows = table.querySelectorAll("tr");
+    let hasDatePattern = false;
+    
+    for (const row of rows) {
+      const cells = row.querySelectorAll("td");
+      if (cells.length >= 6) {
+        const firstCell = cells[0].textContent.trim();
+        if (firstCell.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+          hasDatePattern = true;
+          break;
+        }
+      }
+    }
+    
+    if (hasDatePattern) {
       partidosTable = table;
+      console.log(`✅ Tabla de partidos encontrada en índice ${i}`);
       break;
     }
   }
   
   if (!partidosTable) {
-    console.log("⚠️  No se encontró la tabla de partidos");
+    console.log("⚠️ No se encontró tabla con fechas en formato YYYY/MM/DD");
+    
+    // Intentar buscar cualquier tabla con múltiples filas
+    for (let i = 0; i < tables.length; i++) {
+      const table = tables[i];
+      const rows = table.querySelectorAll("tr");
+      if (rows.length > 5) {
+        console.log(`📋 Posible tabla candidata en índice ${i} con ${rows.length} filas`);
+        partidosTable = table;
+        break;
+      }
+    }
+  }
+  
+  if (!partidosTable) {
+    console.log("❌ No se pudo encontrar ninguna tabla de partidos");
     return [];
   }
   
   const rows = [...partidosTable.querySelectorAll("tr")];
-  const partidos = [];
+  console.log(`📊 Procesando ${rows.length} filas de la tabla`);
   
-  // Extraer el rango de fechas objetivo (para filtrar)
+  const partidos = [];
   const [targetStart, targetEnd] = targetWeekRange.split(" - ");
   
-  rows.forEach(row => {
+  rows.forEach((row, idx) => {
     const tds = [...row.querySelectorAll("td")];
     if (tds.length < 6) return;
     
     const cols = tds.map(td => td.textContent.replace(/\s+/g, " ").trim());
     const [fecha, hora, zkia, fronton, etxekoa, kanpokoak, lehiaketa] = cols;
     
-    // Verificar si la fecha está dentro de la semana objetivo
-    if (fecha && fecha.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
-      if (fecha < targetStart || fecha > targetEnd) {
-        return; // Saltar partidos fuera de la semana
-      }
-    } else {
-      return; // Si no hay fecha válida, saltar
+    // Depuración: mostrar primeras filas
+    if (idx < 3 && fecha) {
+      console.log(`📝 Fila ${idx}: fecha="${fecha}", local="${etxekoa?.substring(0, 30)}", visitante="${kanpokoak?.substring(0, 30)}"`);
     }
     
-    // Verificar si Larraun juega (local o visitante)
-    const esLarraunLocal = etxekoa && (
-      etxekoa.includes("LARRAUN") || 
-      CONVERSION.some(rule => etxekoa.includes(rule.match))
-    );
+    // Verificar formato de fecha
+    if (!fecha || !fecha.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+      return;
+    }
     
-    const esLarraunVisitante = kanpokoak && (
-      kanpokoak.includes("LARRAUN") || 
-      CONVERSION.some(rule => kanpokoak.includes(rule.match))
-    );
+    // Filtrar por rango de fechas
+    if (fecha < targetStart || fecha > targetEnd) {
+      return;
+    }
     
-    if (!esLarraunLocal && !esLarraunVisitante) return;
+    // Verificar si juega Larraun
+    const textToSearch = `${etxekoa || ""} ${kanpokoak || ""}`.toUpperCase();
+    const esLarraun = textToSearch.includes("LARRAUN");
+    
+    if (!esLarraun) return;
+    
+    console.log(`🎾 PARTIDO ENCONTRADO: ${fecha} - ${fronton}`);
     
     partidos.push({
       semana: targetWeekRange,
@@ -143,30 +188,6 @@ function extractPartidosFromHTML(html, targetWeekRange) {
   return partidos;
 }
 
-// ---------- Obtener opciones del selector de semanas ----------
-function getWeekOptions(html) {
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
-  const select = document.querySelector("select[name='selSemana']");
-  
-  if (!select) {
-    return [];
-  }
-  
-  const options = [];
-  const optionElements = select.querySelectorAll("option");
-  
-  optionElements.forEach(opt => {
-    const value = opt.getAttribute("value");
-    const text = opt.textContent.trim();
-    if (value && value !== "fechaInicial" && value !== "") {
-      options.push({ value, text });
-    }
-  });
-  
-  return options;
-}
-
 // ---------- Main ----------
 async function main() {
   try {
@@ -174,18 +195,18 @@ async function main() {
     
     console.log(`📅 Hoy es: ${new Date().toLocaleDateString('es-ES')}`);
     console.log(`🎯 Buscando partidos para la SEMANA SIGUIENTE: ${range}`);
-    console.log(`   (Lunes ${nextMonday.toLocaleDateString('es-ES')} - Domingo ${nextSunday.toLocaleDateString('es-ES')})`);
     
-    // Obtener la página con la semana seleccionada
+    // Construir URL
     const url = `${BASE_URL}&selSemana=${encodeURIComponent(range)}&selClub=&selCompeticion=&excel=0`;
-    console.log(`\n🌐 Solicitando: ${url}`);
+    console.log(`🌐 Solicitando: ${url}`);
     
     const html = await getHTML(url);
+    console.log(`📄 HTML recibido: ${html.length} caracteres`);
     
-    // Extraer partidos de la tabla
+    // Extraer partidos
     const partidos = extractPartidosFromHTML(html, range);
     
-    // Guardar en data/
+    // Guardar resultado
     await fs.mkdir("data", { recursive: true });
     const filename = "data/cartelera-proxima-semana.json";
     
@@ -202,14 +223,11 @@ async function main() {
     console.log(`📊 Total de partidos de Larraun: ${partidos.length}`);
     
     if (partidos.length === 0) {
-      console.log(`\n⚠️  No se encontraron partidos de Larraun para la semana ${range}`);
-    } else {
-      console.log(`\n📋 Partidos encontrados:`);
-      partidos.forEach((p, idx) => {
-        console.log(`  ${idx + 1}. ${p.fecha} ${p.hora} - ${p.fronton}`);
-        console.log(`     ${p.etxekoa} vs ${p.kanpokoak}`);
-        console.log(`     (${p.lehiaketa})`);
-      });
+      console.log(`\n⚠️ No se encontraron partidos para la semana ${range}`);
+      console.log(`   Posibles causas:`);
+      console.log(`   1. La federación aún no ha publicado los partidos`);
+      console.log(`   2. Larraun no juega esa semana`);
+      console.log(`   3. La estructura de la página ha cambiado`);
     }
     
   } catch (err) {
