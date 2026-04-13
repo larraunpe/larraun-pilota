@@ -1,9 +1,10 @@
 import https from "https";
 import { JSDOM } from "jsdom";
 import fs from "fs/promises";
+import { URLSearchParams } from "url";
 
 // ---------- Configuración ----------
-const BASE_URL = "https://www.fnpelota.com/pub/cartelera.asp?idioma=eu";
+const BASE_URL = "https://www.fnpelota.com/pub/cartelera.asp";
 
 // ---------- Calcular la semana siguiente (LUNES a DOMINGO) ----------
 function getNextWeekRange() {
@@ -37,27 +38,35 @@ function getNextWeekRange() {
   return { start, end, range, nextMonday, nextSunday };
 }
 
-// ---------- Utilidades ----------
-function getHTML(url) {
+// ---------- Enviar petición POST con los parámetros del formulario ----------
+function postFormData(params) {
   return new Promise((resolve, reject) => {
+    const postData = new URLSearchParams(params).toString();
+    
     const options = {
+      hostname: 'www.fnpelota.com',
+      path: '/pub/cartelera.asp',
+      method: 'POST',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(postData),
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
+        'Accept-Language': 'es-ES,es;q=0.9',
+        'Origin': 'https://www.fnpelota.com',
+        'Referer': 'https://www.fnpelota.com/pub/cartelera.asp?idioma=eu'
       }
     };
     
-    return new Promise((resolve, reject) => {
-      https.get(url, options, (res) => {
-        let data = "";
-        res.on("data", (chunk) => (data += chunk));
-        res.on("end", () => resolve(data));
-      }).on("error", reject);
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => resolve(data));
     });
+    
+    req.on("error", reject);
+    req.write(postData);
+    req.end();
   });
 }
 
@@ -79,15 +88,12 @@ function convertirPareja(texto) {
   return limpio;
 }
 
-// ---------- Extraer partidos de la tabla (VERSIÓN MEJORADA) ----------
+// ---------- Extraer partidos de la tabla ----------
 function extractPartidosFromHTML(html, targetWeekRange) {
   const dom = new JSDOM(html);
   const document = dom.window.document;
   
-  // DEBUG: Guardar HTML para depuración (solo si hay error)
-  // await fs.writeFile("data/debug.html", html);
-  
-  // Buscar TODAS las tablas
+  // Buscar todas las tablas
   const tables = document.querySelectorAll("table");
   console.log(`🔍 Encontradas ${tables.length} tablas en el HTML`);
   
@@ -118,22 +124,7 @@ function extractPartidosFromHTML(html, targetWeekRange) {
   }
   
   if (!partidosTable) {
-    console.log("⚠️ No se encontró tabla con fechas en formato YYYY/MM/DD");
-    
-    // Intentar buscar cualquier tabla con múltiples filas
-    for (let i = 0; i < tables.length; i++) {
-      const table = tables[i];
-      const rows = table.querySelectorAll("tr");
-      if (rows.length > 5) {
-        console.log(`📋 Posible tabla candidata en índice ${i} con ${rows.length} filas`);
-        partidosTable = table;
-        break;
-      }
-    }
-  }
-  
-  if (!partidosTable) {
-    console.log("❌ No se pudo encontrar ninguna tabla de partidos");
+    console.log("⚠️ No se encontró tabla con fechas");
     return [];
   }
   
@@ -143,17 +134,12 @@ function extractPartidosFromHTML(html, targetWeekRange) {
   const partidos = [];
   const [targetStart, targetEnd] = targetWeekRange.split(" - ");
   
-  rows.forEach((row, idx) => {
+  rows.forEach(row => {
     const tds = [...row.querySelectorAll("td")];
     if (tds.length < 6) return;
     
     const cols = tds.map(td => td.textContent.replace(/\s+/g, " ").trim());
     const [fecha, hora, zkia, fronton, etxekoa, kanpokoak, lehiaketa] = cols;
-    
-    // Depuración: mostrar primeras filas
-    if (idx < 3 && fecha) {
-      console.log(`📝 Fila ${idx}: fecha="${fecha}", local="${etxekoa?.substring(0, 30)}", visitante="${kanpokoak?.substring(0, 30)}"`);
-    }
     
     // Verificar formato de fecha
     if (!fecha || !fecha.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
@@ -165,13 +151,13 @@ function extractPartidosFromHTML(html, targetWeekRange) {
       return;
     }
     
-    // Verificar si juega Larraun
-    const textToSearch = `${etxekoa || ""} ${kanpokoak || ""}`.toUpperCase();
-    const esLarraun = textToSearch.includes("LARRAUN");
+    // Verificar si juega Larraun (búsqueda más flexible)
+    const textoCompleto = `${etxekoa || ""} ${kanpokoak || ""}`.toUpperCase();
+    const esLarraun = textoCompleto.includes("LARRAUN");
     
     if (!esLarraun) return;
     
-    console.log(`🎾 PARTIDO ENCONTRADO: ${fecha} - ${fronton}`);
+    console.log(`🎾 PARTIDO: ${fecha} ${hora} - ${fronton}`);
     
     partidos.push({
       semana: targetWeekRange,
@@ -194,13 +180,21 @@ async function main() {
     const { start, end, range, nextMonday, nextSunday } = getNextWeekRange();
     
     console.log(`📅 Hoy es: ${new Date().toLocaleDateString('es-ES')}`);
-    console.log(`🎯 Buscando partidos para la SEMANA SIGUIENTE: ${range}`);
+    console.log(`🎯 Buscando partidos para: ${range}`);
     
-    // Construir URL
-    const url = `${BASE_URL}&selSemana=${encodeURIComponent(range)}&selClub=&selCompeticion=&excel=0`;
-    console.log(`🌐 Solicitando: ${url}`);
+    // Parámetros que espera el formulario (los mismos que envía el botón "BILATU")
+    const formParams = {
+      idioma: 'eu',
+      selSemana: range,
+      selClub: '',
+      selCompeticion: '',
+      excel: '0'
+    };
     
-    const html = await getHTML(url);
+    console.log(`\n📤 Enviando petición POST con parámetros:`);
+    console.log(formParams);
+    
+    const html = await postFormData(formParams);
     console.log(`📄 HTML recibido: ${html.length} caracteres`);
     
     // Extraer partidos
@@ -222,16 +216,8 @@ async function main() {
     console.log(`\n✅ Archivo guardado: ${filename}`);
     console.log(`📊 Total de partidos de Larraun: ${partidos.length}`);
     
-    if (partidos.length === 0) {
-      console.log(`\n⚠️ No se encontraron partidos para la semana ${range}`);
-      console.log(`   Posibles causas:`);
-      console.log(`   1. La federación aún no ha publicado los partidos`);
-      console.log(`   2. Larraun no juega esa semana`);
-      console.log(`   3. La estructura de la página ha cambiado`);
-    }
-    
   } catch (err) {
-    console.error("❌ ERROR en scraping:", err);
+    console.error("❌ ERROR:", err);
     process.exit(1);
   }
 }
