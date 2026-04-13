@@ -55,6 +55,15 @@
   },
   {
     "fecha": "2026/04/17",
+    "hora": "19:30 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Pamplona - Oberena F 1",
+    "etxekoa": "OBERENA (A. Casillas - A. Sasigain)",
+    "kanpokoak": "LARRAUN (M. Galartza - I. Garziarena)",
+    "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/17",
     "hora": "20:15 !Horario provisional",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
@@ -88,15 +97,6 @@
     "etxekoa": "BETI ONAK (M. Leiza - E. Rekalde)",
     "kanpokoak": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA KADETE LIGAXKA"
-  },
-  {
-    "fecha": "2026/04/18",
-    "hora": "12:00 !Horario provisional",
-    "zkia": "1",
-    "fronton": "Pamplona - Oberena F 1",
-    "etxekoa": "OBERENA (A. Casillas - A. Sasigain)",
-    "kanpokoak": "LARRAUN (M. Galartza - I. Garziarena)",
-    "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA"
   },
   {
     "fecha": "2026/04/18",
