@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Salinas de Pamplona - Mutilendako",
     "etxekoa": "NOAIN (J. Jauregi - I. Lizarraga)",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "2",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (J. Sayas - M. Izaguirre)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "4",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (X. Rocha - I. Zabala)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "5",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (E. San - A. Carabias)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "6",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (A. Mendia - I. Santano)",
@@ -46,7 +46,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "3",
     "fronton": "Zizur Mayor - Ardoi",
     "etxekoa": "ARDOI (O. Goñi - A. Gomez)",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "19:30 !Horario provisional",
+    "hora": "19:30",
     "zkia": "1",
     "fronton": "Pamplona - Oberena F 1",
     "etxekoa": "OBERENA (A. Casillas - A. Sasigain)",
@@ -64,7 +64,7 @@
   },
   {
     "fecha": "2026/04/17",
-    "hora": "20:15 !Horario provisional",
+    "hora": "20:15",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
@@ -73,7 +73,7 @@
   },
   {
     "fecha": "2026/04/18",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "ATARRABIA (I. Berasain - M. Iturri)",
@@ -82,7 +82,7 @@
   },
   {
     "fecha": "2026/04/18",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Doneztebe - Ezkurra",
     "etxekoa": "ERREKA (U. Mendiburu - O. Telletxea)",
@@ -91,7 +91,7 @@
   },
   {
     "fecha": "2026/04/18",
-    "hora": "11:30 !Horario provisional",
+    "hora": "11:30",
     "zkia": "1",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "BETI ONAK (M. Leiza - E. Rekalde)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/04/18",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "1",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (B. Garate - G. Unanua)",
@@ -109,7 +109,7 @@
   },
   {
     "fecha": "2026/04/18",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "2",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (E. Prim - I. Garatea)",
@@ -118,7 +118,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -127,7 +127,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
@@ -136,7 +136,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
@@ -145,7 +145,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
@@ -154,7 +154,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
@@ -163,7 +163,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
@@ -172,7 +172,7 @@
   },
   {
     "fecha": "2026/04/19",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
