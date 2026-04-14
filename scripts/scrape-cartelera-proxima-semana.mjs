@@ -7,9 +7,7 @@ const BASE_URL = "https://www.fnpelota.com/pub/cartelera.asp";
 
 // ---------- Calcular el número de semana (ISO 8601) ----------
 function getWeekNumber(date) {
-  // Copia la fecha para no modificar la original
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  // Jueves de la misma semana
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
   const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
@@ -25,13 +23,7 @@ function getNextWeekNumber() {
   
   const nextMonday = new Date(today);
   nextMonday.setDate(today.getDate() + daysUntilNextMonday);
-  
-  // Obtener el número de semana del próximo lunes
   const weekNumber = getWeekNumber(nextMonday);
-  
-  // Calcular las fechas para mostrar (opcional)
-  const nextSunday = new Date(nextMonday);
-  nextSunday.setDate(nextMonday.getDate() + 6);
   
   const formatYMD = (date) => {
     const year = date.getFullYear();
@@ -39,6 +31,9 @@ function getNextWeekNumber() {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}/${month}/${day}`;
   };
+  
+  const nextSunday = new Date(nextMonday);
+  nextSunday.setDate(nextMonday.getDate() + 6);
   
   return {
     weekNumber: weekNumber,
@@ -53,6 +48,8 @@ function postFormData(params) {
   return new Promise((resolve, reject) => {
     const postData = new URLSearchParams(params).toString();
     
+    console.log("📤 POST Data:", postData);
+    
     const options = {
       hostname: 'www.fnpelota.com',
       path: '/pub/cartelera.asp',
@@ -61,8 +58,12 @@ function postFormData(params) {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': Buffer.byteLength(postData),
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
+        'Accept-Language': 'es-ES,es;q=0.9',
         'Origin': 'https://www.fnpelota.com',
-        'Referer': 'https://www.fnpelota.com/pub/cartelera.asp?idioma=eu'
+        'Referer': 'https://www.fnpelota.com/pub/cartelera.asp?idioma=eu',
+        'Cache-Control': 'max-age=0',
+        'Upgrade-Insecure-Requests': '1'
       }
     };
     
@@ -144,8 +145,8 @@ function extractPartidosFromHTML(html, weekInfo) {
     if (!textoCompleto.includes("LARRAUN")) return;
     
     partidos.push({
-      semana: weekInfo.range,
       semana_numero: weekInfo.weekNumber,
+      semana_fechas: weekInfo.range,
       fecha, 
       hora: hora || "-", 
       zkia: zkia || "-",
@@ -168,26 +169,29 @@ async function main() {
     console.log(`🎯 Semana siguiente: #${weekInfo.weekNumber}`);
     console.log(`   Fechas: ${weekInfo.range}`);
     
-    // Parámetros del formulario (usando el número de semana)
+    // PARÁMETROS CORRECTOS (según la captura)
     const formParams = {
       idioma: 'eu',
-      Semana: [weekInfo.weekNumber.toString(), ''],
-      seCompoction: ['0', ''],
-      seClub: ['0', ''],
+      selSemana: weekInfo.weekNumber.toString(),
+      selCompeticion: '0',
+      selClubMedio: '0',
       rbOrden: '1'
     };
     
     console.log(`\n📤 Enviando petición POST...`);
-    console.log(`   Parámetros: Semana=${weekInfo.weekNumber}`);
+    console.log(`   Parámetros:`, formParams);
     
     const html = await postFormData(formParams);
     console.log(`📄 HTML recibido: ${html.length} caracteres`);
+    
+    // Guardar HTML para depuración (opcional)
+    await fs.mkdir("data", { recursive: true });
+    await fs.writeFile("data/debug-last.html", html);
     
     // Extraer partidos
     const partidos = extractPartidosFromHTML(html, weekInfo);
     
     // Guardar resultado
-    await fs.mkdir("data", { recursive: true });
     const filename = "data/cartelera-proxima-semana.json";
     
     const output = {
@@ -205,11 +209,12 @@ async function main() {
     
     if (partidos.length === 0) {
       console.log(`\n⚠️ No se encontraron partidos para la semana ${weekInfo.weekNumber}`);
-      console.log(`   (${weekInfo.range})`);
+      console.log(`   Posiblemente Larraun no juega esa semana o aún no están publicados`);
     } else {
       console.log(`\n📋 Partidos encontrados:`);
       partidos.forEach((p, idx) => {
         console.log(`  ${idx + 1}. ${p.fecha} ${p.hora} - ${p.fronton}`);
+        console.log(`     ${p.etxekoa} vs ${p.kanpokoak}`);
       });
     }
     
