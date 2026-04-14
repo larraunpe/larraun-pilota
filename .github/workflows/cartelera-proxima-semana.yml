@@ -8,13 +8,14 @@ on:
 jobs:
   update-next-week:
     runs-on: ubuntu-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # 🔧 Elimina la advertencia
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # ✅ usa la etiqueta v4 (siempre la última de la rama v4)
+        uses: actions/checkout@v4
         
       - name: Setup Node
-        uses: actions/setup-node@v4  # ✅ usa la etiqueta v4
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
