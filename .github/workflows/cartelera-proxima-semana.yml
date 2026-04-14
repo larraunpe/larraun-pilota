@@ -9,7 +9,7 @@ jobs:
   update-next-week:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # 🔧 Elimina la advertencia
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,6 +24,12 @@ jobs:
 
       - name: Ejecutar scraper
         run: node scripts/scrape-cartelera-proxima-semana.mjs
+
+      - name: 📤 Subir HTML de depuración
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-html
+          path: data/debug-response.html
 
       - name: Commit y push
         run: |
