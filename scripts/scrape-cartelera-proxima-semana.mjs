@@ -35,7 +35,22 @@ function postFormData(params) {
   });
 }
 
-// Reglas de conversión
+function getWeekNumber(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
+function getNextWeekNumber() {
+  const today = new Date();
+  const currentDay = today.getDay();
+  const daysUntilNextMonday = currentDay === 0 ? 1 : 8 - currentDay;
+  const nextMonday = new Date(today);
+  nextMonday.setDate(today.getDate() + daysUntilNextMonday);
+  return getWeekNumber(nextMonday);
+}
+
 const CONVERSION = [
   { match: "D. Centeno - B. Esnaola", value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)" },
   { match: "A. Eguzkiza - L. Navarro", value: "LARRAUN (L. Navarro - M. Lazkoz)" },
@@ -53,117 +68,11 @@ function convertirPareja(texto) {
   return limpio;
 }
 
-function extractPartidosFromHTML(html) {
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
-  
-  // Buscar todas las tablas
-  const tables = document.querySelectorAll("table");
-  let partidosTable = null;
-  
-  // Encontrar la tabla que contiene la cartelera
-  for (const table of tables) {
-    const rows = table.querySelectorAll("tr");
-    let hasDatePattern = false;
-    
-    for (const row of rows) {
-      const cells = row.querySelectorAll("td");
-      if (cells.length >= 6) {
-        const firstCell = cells[0].textContent.trim();
-        if (firstCell.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
-          hasDatePattern = true;
-          break;
-        }
-      }
-    }
-    
-    if (hasDatePattern) {
-      partidosTable = table;
-      break;
-    }
-  }
-  
-  if (!partidosTable) {
-    console.log("⚠️ No se encontró la tabla de partidos");
-    return [];
-  }
-  
-  const rows = [...partidosTable.querySelectorAll("tr")];
-  const partidos = [];
-  
-  for (const row of rows) {
-    const tds = [...row.querySelectorAll("td")];
-    
-    // Saltar filas que no tienen suficientes celdas
-    if (tds.length < 6) continue;
-    
-    // Extraer el texto de cada celda
-    const cellsText = tds.map(td => td.textContent.replace(/\s+/g, " ").trim());
-    
-    // Asegurar que tenemos al menos 7 columnas (fecha, hora, zkia, fronton, lokal, bisita, lehiaketa)
-    const fecha = cellsText[0] || "";
-    const hora = cellsText[1] || "";
-    const zkia = cellsText[2] || "";
-    const fronton = cellsText[3] || "";
-    const etxekoa = cellsText[4] || "";
-    const kanpokoak = cellsText[5] || "";
-    const lehiaketa = cellsText[6] || "";
-    
-    // Validar formato de fecha
-    if (!fecha.match(/^\d{4}\/\d{2}\/\d{2}$/)) continue;
-    
-    // Verificar si Larraun juega
-    const textoCompleto = `${etxekoa} ${kanpokoak}`.toUpperCase();
-    if (!textoCompleto.includes("LARRAUN")) continue;
-    
-    console.log(`✅ Partido encontrado: ${fecha} - ${fronton} - ${etxekoa} vs ${kanpokoak}`);
-    
-    partidos.push({
-      fecha,
-      hora: hora || "-",
-      zkia: zkia || "-",
-      fronton: fronton || "-",
-      etxekoa: convertirPareja(etxekoa),
-      kanpokoak: convertirPareja(kanpokoak),
-      lehiaketa: lehiaketa || "-"
-    });
-  }
-  
-  return partidos;
-}
-
 async function main() {
   try {
-    // Calcular el número de semana para la semana siguiente
-    const today = new Date();
-    const currentDay = today.getDay();
-    const daysUntilNextMonday = currentDay === 0 ? 1 : 8 - currentDay;
-    const nextMonday = new Date(today);
-    nextMonday.setDate(today.getDate() + daysUntilNextMonday);
+    const weekNumber = getNextWeekNumber();
+    console.log(`📅 Semana siguiente: #${weekNumber}`);
     
-    const getWeekNumber = (date) => {
-      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-      d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-    };
-    
-    const weekNumber = getWeekNumber(nextMonday);
-    
-    const formatYMD = (date) => {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}/${month}/${day}`;
-    };
-    
-    const nextSunday = new Date(nextMonday);
-    nextSunday.setDate(nextMonday.getDate() + 6);
-    const weekRange = `${formatYMD(nextMonday)} - ${formatYMD(nextSunday)}`;
-    
-    console.log(`📅 Semana siguiente: #${weekNumber} (${weekRange})`);
-    
-    // Parámetros POST
     const formParams = {
       idioma: 'eu',
       selSemana: weekNumber.toString(),
@@ -172,22 +81,69 @@ async function main() {
       rbOrden: '1'
     };
     
-    console.log(`📤 Enviando petición POST con selSemana=${weekNumber}...`);
-    
+    console.log(`📤 Enviando POST...`);
     const html = await postFormData(formParams);
     console.log(`📄 HTML recibido: ${html.length} caracteres`);
     
-    // Extraer partidos
-    const partidos = extractPartidosFromHTML(html);
+    // GUARDAR HTML PARA DEPURACIÓN
+    await fs.mkdir("data", { recursive: true });
+    await fs.writeFile("data/debug-response.html", html);
+    console.log(`💾 HTML guardado en data/debug-response.html`);
+    
+    // Buscar LARRAUN en el HTML (cualquier aparición)
+    const tieneLarraun = html.toUpperCase().includes("LARRAUN");
+    console.log(`🔍 ¿Contiene "LARRAUN"? ${tieneLarraun ? "SÍ" : "NO"}`);
+    
+    // Buscar la tabla con el método más flexible posible
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
+    
+    // Intentar encontrar cualquier tabla que contenga fechas
+    const allTables = document.querySelectorAll("table");
+    console.log(`📋 Tablas encontradas: ${allTables.length}`);
+    
+    let partidos = [];
+    
+    // Método 1: Buscar por filas que contengan fechas
+    const allRows = document.querySelectorAll("tr");
+    console.log(`📊 Filas totales: ${allRows.length}`);
+    
+    for (const row of allRows) {
+      const cells = row.querySelectorAll("td");
+      if (cells.length >= 6) {
+        const firstCellText = cells[0].textContent.trim();
+        // Si la primera celda parece una fecha (YYYY/MM/DD)
+        if (firstCellText.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+          const fecha = firstCellText;
+          const hora = cells[1]?.textContent.trim() || "-";
+          const zkia = cells[2]?.textContent.trim() || "-";
+          const fronton = cells[3]?.textContent.trim() || "-";
+          const etxekoa = cells[4]?.textContent.trim() || "";
+          const kanpokoak = cells[5]?.textContent.trim() || "";
+          const lehiaketa = cells[6]?.textContent.trim() || "";
+          
+          const textoCompleto = `${etxekoa} ${kanpokoak}`.toUpperCase();
+          if (textoCompleto.includes("LARRAUN")) {
+            console.log(`✅ ENCONTRADO: ${fecha} - ${fronton}`);
+            partidos.push({
+              fecha,
+              hora,
+              zkia,
+              fronton,
+              etxekoa: convertirPareja(etxekoa),
+              kanpokoak: convertirPareja(kanpokoak),
+              lehiaketa
+            });
+          }
+        }
+      }
+    }
     
     // Guardar resultado
-    await fs.mkdir("data", { recursive: true });
     const filename = "data/cartelera-proxima-semana.json";
-    
     const output = {
       fecha_generacion: new Date().toISOString(),
       semana_numero: weekNumber,
-      semana_fechas: weekRange,
       total_partidos: partidos.length,
       partidos: partidos
     };
@@ -195,14 +151,7 @@ async function main() {
     await fs.writeFile(filename, JSON.stringify(output, null, 2));
     
     console.log(`\n✅ Archivo guardado: ${filename}`);
-    console.log(`📊 Total de partidos de Larraun encontrados: ${partidos.length}`);
-    
-    if (partidos.length > 0) {
-      console.log(`\n📋 Lista de partidos:`);
-      partidos.forEach((p, idx) => {
-        console.log(`  ${idx + 1}. ${p.fecha} ${p.hora} - ${p.fronton}`);
-      });
-    }
+    console.log(`📊 Total de partidos de Larraun: ${partidos.length}`);
     
   } catch (err) {
     console.error("❌ ERROR:", err);
