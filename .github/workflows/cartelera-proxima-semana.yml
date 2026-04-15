@@ -28,8 +28,8 @@ jobs:
       - name: 📤 Subir HTML de depuración
         uses: actions/upload-artifact@v4
         with:
-          name: debug-html
-          path: data/debug-response.html
+          name: debug-completo
+          path: data/debug-completo.html
 
       - name: Commit y push
         run: |
