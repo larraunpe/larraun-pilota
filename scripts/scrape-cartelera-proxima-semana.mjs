@@ -4,17 +4,16 @@ import fs from "fs/promises";
 
 const BASE_URL = "https://www.fnpelota.com/pub/cartelera.asp";
 
-function postFormData(params) {
+// Cliente HTTP que mantiene cookies
+let cookieJar = "";
+
+function request(method, path, postData = null) {
   return new Promise((resolve, reject) => {
-    const postData = new URLSearchParams(params).toString();
-    
     const options = {
       hostname: 'www.fnpelota.com',
-      path: '/pub/cartelera.asp',
-      method: 'POST',
+      path: path,
+      method: method,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(postData),
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
         'Accept-Language': 'es-ES,es;q=0.9',
@@ -23,14 +22,37 @@ function postFormData(params) {
       }
     };
     
+    // Añadir cookies si existen
+    if (cookieJar) {
+      options.headers['Cookie'] = cookieJar;
+    }
+    
+    if (method === 'POST' && postData) {
+      options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      options.headers['Content-Length'] = Buffer.byteLength(postData);
+    }
+    
     const req = https.request(options, (res) => {
+      // Guardar cookies de la respuesta
+      const setCookie = res.headers['set-cookie'];
+      if (setCookie) {
+        setCookie.forEach(cookie => {
+          const cookieValue = cookie.split(';')[0];
+          cookieJar = cookieValue;
+          console.log(`🍪 Cookie guardada: ${cookieValue.substring(0, 50)}...`);
+        });
+      }
+      
       let data = "";
       res.on("data", chunk => data += chunk);
       res.on("end", () => resolve(data));
     });
     
     req.on("error", reject);
-    req.write(postData);
+    
+    if (method === 'POST' && postData) {
+      req.write(postData);
+    }
     req.end();
   });
 }
@@ -74,6 +96,13 @@ async function main() {
     const weekNumber = getNextWeekNumber();
     console.log(`📅 Semana siguiente: #${weekNumber}`);
     
+    // PASO 1: Visitar la página en euskera para obtener la cookie de idioma
+    console.log(`\n🌐 PASO 1: Estableciendo idioma euskera...`);
+    const initialHtml = await request('GET', '/pub/cartelera.asp?idioma=eu');
+    console.log(`   ✅ Página inicial recibida (${initialHtml.length} caracteres)`);
+    
+    // PASO 2: Enviar el POST con la cookie de sesión
+    console.log(`\n📤 PASO 2: Enviando búsqueda para semana ${weekNumber}...`);
     const formParams = {
       idioma: 'eu',
       selSemana: weekNumber.toString(),
@@ -81,17 +110,22 @@ async function main() {
       selClubMedio: '0',
       rbOrden: '1'
     };
+    const postData = new URLSearchParams(formParams).toString();
     
-    console.log(`📤 Enviando POST...`);
-    const html = await postFormData(formParams);
-    console.log(`📄 HTML recibido: ${html.length} caracteres`);
+    const html = await request('POST', '/pub/cartelera.asp', postData);
+    console.log(`   ✅ HTML recibido: ${html.length} caracteres`);
+    
+    // Verificar el idioma del HTML recibido
+    const tieneEuskera = html.includes("Astea") || html.includes("Kartelera");
+    const tieneCastellano = html.includes("Semana") || html.includes("Cartelera");
+    console.log(`   🌐 Idioma detectado: ${tieneEuskera ? "EUSKERA" : tieneCastellano ? "CASTELLANO" : "DESCONOCIDO"}`);
     
     const dom = new JSDOM(html);
     const document = dom.window.document;
     
     // Buscar todas las filas de la tabla
     const allRows = document.querySelectorAll("tr");
-    console.log(`📊 Filas totales: ${allRows.length}`);
+    console.log(`\n📊 Filas totales: ${allRows.length}`);
     
     const partidos = [];
     
@@ -100,7 +134,7 @@ async function main() {
       if (cells.length >= 6) {
         const firstCellText = cells[0].textContent.trim();
         
-        // El formato de fecha ahora es DD/MM/YYYY (ej: 24/04/2026)
+        // El formato de fecha es DD/MM/YYYY (ej: 24/04/2026)
         if (firstCellText.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
           const fecha = firstCellText;
           const hora = cells[1]?.textContent.trim() || "-";
@@ -118,7 +152,6 @@ async function main() {
           
           if (textoCompleto.includes("LARRAUN")) {
             console.log(`✅ ENCONTRADO: ${fecha} - ${fronton}`);
-            console.log(`   ${etxekoa} vs ${kanpokoak}`);
             
             partidos.push({
               fecha,
