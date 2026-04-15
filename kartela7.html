@@ -2,8 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Larraun Kartela - Edición Piedra (Ajuste Total + Colores)</title>
+<title>Larraun Kartela - Edición Piedra</title>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
@@ -12,36 +11,20 @@
   
 
 /* ================= BASE ================= */
-* {
-  box-sizing: border-box;
-}
 
 body{
   margin:0;
   background:#1b4d31;
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
+
 .exportar{
   text-align:center;
   margin:18px;
 }
-.exportar button {
-  background: #f5c542;
-  border: none;
-  padding: 12px 28px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 40px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: 0.1s linear;
-  font-family: inherit;
-}
-.exportar button:active {
-  transform: scale(0.97);
-}
 
 /* ================= A3 ================= */
+/* A3 vertical realista */
 .pagina{
   width:900px;
   margin:30px auto;
@@ -52,16 +35,25 @@ body{
   box-shadow:0 0 18px rgba(0,0,0,.4);
 }
 
+
 /* ================= HEADER ================= */
+
 .header{
   height:120px;
   position:relative;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  /* degradado SIMPLE (html2canvas sí lo pinta bien) */
   background:linear-gradient(#3d6fe6, #2448b5);
+
+  /* solo 1 sombra interior ligera (las múltiples fallan) */
   box-shadow: inset 0 -10px 18px rgba(0,0,0,.35);
 }
+
+/* brillo superior falso (elemento real, no shadow) */
 .header::after{
   content:"";
   position:absolute;
@@ -69,8 +61,13 @@ body{
   left:0;
   right:0;
   height:35px;
+
   background:linear-gradient(rgba(255,255,255,.35), transparent);
 }
+
+
+
+/* logos laterales MÁS GRANDES */
 .logo-izq,.logo-der{
   position:absolute;
   top:18px;
@@ -79,28 +76,46 @@ body{
 .logo-izq{ left:14px; }
 .logo-der{ right:14px; }
 
+/* título MÁS curvado */
 .titulo-curvo{
   width:100%;
   height:100px;
 }
+
 .titulo-curvo text{
   font-size:34px;
   font-weight:900;
   fill:white;
   letter-spacing:2px;
 }
+
+/* pelota MÁS pequeña y MÁS arriba */
 .pelota-real{
   position:absolute;
   top:65px;
   left:50%;
   transform:translateX(-50%);
+
   width:30px;
   height:30px;
   border-radius:50%;
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f5f5f5 40%, #e2e2e2 65%, #cfcfcf 100%);
+
+  background:
+    radial-gradient(circle at 35% 30%,
+      #ffffff 0%,
+      #f5f5f5 40%,
+      #e2e2e2 65%,
+      #cfcfcf 100%
+    );
+
   border:1.5px solid #d9d9d9;
-  box-shadow: inset -4px -6px 10px rgba(0,0,0,.35), inset 4px 4px 8px rgba(255,255,255,.9), 0 3px 5px rgba(0,0,0,.4);
+
+  box-shadow:
+    inset -4px -6px 10px rgba(0,0,0,.35),
+    inset 4px 4px 8px rgba(255,255,255,.9),
+    0 3px 5px rgba(0,0,0,.4);
 }
+
 .pelota-real::before,
 .pelota-real::after{
   content:"";
@@ -112,16 +127,19 @@ body{
   border-radius:50%;
   opacity:.85;
 }
+
 .pelota-real::before{ top:6px; }
 .pelota-real::after{ bottom:6px; }
 
 /* ================= CHAPAS ================= */
+
 .chapa{
   height:12px;
   background:#000;
 }
 
 /* ================= PELOTAZOS ================= */
+
 .pelotazos{
   position:absolute;
   inset:0;
@@ -129,6 +147,7 @@ body{
   z-index:20;
   mix-blend-mode:multiply;
 }
+
 .pelota-dot{
   position:absolute;
   border-radius:50%;
@@ -137,6 +156,7 @@ body{
 }
 
 /* ================= CONTENIDO ================= */
+
 .contenido{
   flex:1;
   padding:20px;
@@ -144,6 +164,7 @@ body{
 }
 
 /* ================= BLOQUES ================= */
+
 .bloque h2{
   text-align:center;
   margin:24px 0 16px 0;
@@ -151,17 +172,22 @@ body{
   font-size:26px;
   font-weight:900;
   letter-spacing:3px;
-  text-shadow: 0 2px 0 #fff, 0 -2px 0 rgba(0,0,0,.5), 2px 3px 4px rgba(0,0,0,.6);
+
+  text-shadow:
+    0 2px 0 #fff,
+    0 -2px 0 rgba(0,0,0,.5),
+    2px 3px 4px rgba(0,0,0,.6);
 }
 
 /* ================= PARTIDOS ================= */
+
 .grupo{
   background:#fff;
   border-radius:10px;
   overflow:hidden;
   margin-bottom:8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
 .grupo-header{
   padding:6px 12px;
   font-weight:bold;
@@ -169,85 +195,137 @@ body{
   background:#2448b5;
   font-size:13px;
 }
+
 .grupo-header.rojo{
   background:#b00000;
 }
 
 .linea{
   display:flex;
-  padding:8px 10px;
+  padding:6px 10px;
   border-top:1px solid #ddd;
+  font-size:13px;
   align-items:center;
   font-weight:900;
   border-radius:4px;
   transition: all 0.2s ease;
-  background-color: #fff; /* Fondo sólido para evitar sombras raras */
 }
 
-/* Línea especial final */
+/* Estilo para línea cuando es FINALA */
 .linea.finala-linea {
-  background: #fff8e7;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 215, 0, 0.25) 0px,
+    rgba(255, 215, 0, 0.25) 20px,
+    rgba(220, 220, 220, 0.25) 20px,
+    rgba(220, 220, 220, 0.25) 40px
+  );
   border-left: 4px solid #d4af37;
   border-right: 4px solid #d4af37;
   position: relative;
-  padding: 10px 10px;
-  box-shadow: inset 0 0 0 1px rgba(212,175,55,0.3);
+  padding: 12px 10px;
 }
 
-/* Contenedores de equipo con ajuste dinámico de texto */
-.etxekoa, .kanpokoa {
-  flex: 0 0 32%;
-  font-weight: 800;
-  line-height: 1.3;
-  overflow: visible;
-  white-space: nowrap;
-  transition: font-size 0.05s ease;
-  font-size: 16px;
-  letter-spacing: 0.2px;
-  display: flex;
-  align-items: center;
+.larraun{
+  font-weight:900;
+  font-size:15px;
 }
-
-/* Estilos de texto grabado en piedra (versión mejorada sin conflictos) */
-.etxekoa {
-  color: #103c54;
-  text-shadow: 0px 1px 1px rgba(0,0,0,0.2), 0px -1px 0px rgba(255,255,255,0.7);
-  background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: #1a4d6b;
-}
-.kanpokoa {
-  color: #b00000;
-  text-shadow: 0px 1px 1px rgba(0,0,0,0.2), 0px -1px 0px rgba(255,255,255,0.7);
-  background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: #a01020;
-}
-
-/* Resalte especial LARRAUN */
-.etxekoa strong, .kanpokoa strong {
-  display: inline-block;
-  font-weight: 900;
-  background: linear-gradient(135deg, #ffd89b 0%, #c7e9fb 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: #1a4d6b;
-  text-shadow: 0px 1px 2px rgba(255,215,0,0.4);
-  letter-spacing: 0.3px;
-  margin: 0 1px;
-}
-
+/* 4% */
 .zkia{
   flex:0 0 4%;
-  font-size:14px;
+  font-size:15px;
   font-weight:900;
   color:#2c3e2f;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-  min-width: 28px;
 }
 
+/* === NUEVO ESTILO PARA ETXEKO Y KANPOKOAK === */
+/* 32% cada uno - TEXTO MÁS GRANDE + EFECTO GRABADO EN PIEDRA FUERTE */
+.etxekoa{
+  flex:0 0 32%;
+  color:#103c54;
+  font-size:18px;          /* Texto más grande */
+  font-weight:800;
+  letter-spacing:0.5px;
+  
+  /* EFECTO GRABADO EN PIEDRA (marcado) */
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
+    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
+    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+  
+  background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #1a4d6b;  /* Color base oscuro para dar sensación de grabado */
+  text-fill-color: #1a4d6b;
+  transition: all 0.2s ease;
+}
+
+.kanpokoa{
+  flex:0 0 32%;
+  color:#b00000;
+  font-size:18px;          /* Texto más grande */
+  font-weight:800;
+  letter-spacing:0.5px;
+  
+  /* EFECTO GRABADO EN PIEDRA (marcado) */
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
+    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
+    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+  
+  background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #a01020;  /* Color base oscuro para dar sensación de grabado */
+  text-fill-color: #a01020;
+}
+
+.equipo{
+  line-height:1.2;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  word-break:break-word;
+}
+
+/* Resalte especial para equipos LARRAUN (más destacado) */
+.etxekoa strong, .kanpokoa strong {
+  display: inline-block;
+  font-weight: 900;
+  color: #000000;
+  background: linear-gradient(135deg, #ffd89b 0%, #c7e9fb 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #1a4d6b;
+  text-fill-color: #1a4d6b;
+  text-shadow: 
+    0px 1px 2px rgba(255,215,0,0.6),
+    0px -1px 0px rgba(255,255,200,0.9),
+    1px 1px 0px rgba(0,0,0,0.25);
+  letter-spacing: 0.3px;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Efecto adicional de "brillo" para Larraun */
+.etxekoa strong::after, .kanpokoa strong::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.15), transparent);
+  pointer-events: none;
+  border-radius: 8px;
+  z-index: -1;
+}
+
+/* 32% */
 .lehiaketa{
   flex:0 0 32%;
   text-align:right;
@@ -258,87 +336,80 @@ body{
   gap:8px;
   min-height: 44px;
 }
+
 .fase{
-  font-size:10px;
+  font-size:10px;              /* más pequeña */
   font-weight:700;
   padding:2px 6px;
   border-radius:6px;
-  background:#e7d3c2;
+  background:#e7d3c2;          /* beige elegante */
   color:#5a2d0c;
   white-space:nowrap;
   letter-spacing:.5px;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
+
+/* Estilo para FINALA - 4 veces más alta */
 .fase-finala{
   background:linear-gradient(145deg, #c9a227, #f7e27a);
   color:#000;
   font-weight:900;
   font-size:12px;
-  padding: 8px 6px;
+  padding: 14px 6px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 3px rgba(255,255,255,0.8);
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 1px solid #b38b1e;
   line-height: 1.2;
   min-width: 60px;
+  height: auto;
   white-space: nowrap;
+  position: relative;
+  overflow: visible;
+  z-index: 2;
 }
+ /* ================= FOOTER ================= */
 
-/* ================= FOOTER ================= */
 .footer{
   display:flex;
   flex-direction:column;
 }
+
+.chapa{
+  height:12px;
+  background:#000;
+}
+
 .pie-gris{
   padding:14px 12px;
+
   background:linear-gradient(#4a4a4a, #2f2f2f);
-  box-shadow: inset 0 10px 14px rgba(255,255,255,.25), inset 0 -12px 18px rgba(0,0,0,.6);
+
+  box-shadow:
+    inset 0 10px 14px rgba(255,255,255,.25),
+    inset 0 -12px 18px rgba(0,0,0,.6);
 }
+
 .logos-grid{
   display:grid;
   grid-template-columns:repeat(10,1fr);
   gap:8px;
 }
+
 .logo-item{
   background:#fff;
   padding:6px;
   border-radius:6px;
 }
+
 .logo-item img{
   width:100%;
   height:36px;
   object-fit:contain;
-}
-
-/* Clases para categorías */
-.cat-final { background: rgba(255,215,0,0.15); }
-
-/* Ajustes para impresión: forzar colores sólidos y evitar degradados raros */
-@media print {
-  body {
-    background: white;
-  }
-  .pagina {
-    margin: 0;
-    box-shadow: none;
-    background: #3f8159;
-  }
-  .linea {
-    background-color: #fff !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  .etxekoa, .kanpokoa {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  .grupo-header {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
 }
 
 </style>
@@ -347,7 +418,7 @@ body{
 <body>
 
 <div class="exportar">
-<button onclick="exportar()">📸 DESKARGATU KARTELA (Calidad perfecta)</button>
+<button onclick="exportar()">📸 DESKARGATU KARTELA</button>
 </div>
 
 <div id="contenedorPaginas"></div>
@@ -357,18 +428,21 @@ body{
   let FASES = {};
   let CATEGORIAS = {};
 
-/* ------------------ UTILS ------------------ */
+/* ================= CREAR HEADER/FOOTER REUTILIZABLE ================= */
+
 function crearHeader(){
  return `
  <div class="header">
-   <img src="images/logo-larraun.png" class="logo-izq" alt="logo" crossorigin="anonymous">
-   <img src="images/logo-fnp.png" class="logo-der" alt="fnp" crossorigin="anonymous">
+   <img src="images/logo-larraun.png" class="logo-izq">
+   <img src="images/logo-fnp.png" class="logo-der">
+
    <svg class="titulo-curvo" viewBox="0 0 900 120">
      <path id="arco" d="M60,110 Q450,-60 840,110" fill="transparent"/>
      <text text-anchor="middle">
        <textPath href="#arco" startOffset="50%">LARRAUN PILOTA ELKARTEA</textPath>
      </text>
    </svg>
+
    <div class="pelota-real"></div>
  </div>
  <div class="chapa"></div>
@@ -378,268 +452,246 @@ function crearHeader(){
 function crearFooter(){
  return `
  <div class="chapa"></div>
+
 <div class="footer">
   <div class="pie-gris">
     <div class="logos-grid"></div>
   </div>
 </div>
+
  `;
 }
 
+/* ================= CREAR NUEVA PÁGINA ================= */
+
 function nuevaPagina(){
+
  const p=document.createElement("div");
  p.className="pagina";
+
  const pel=document.createElement("div");
  pel.className="pelotazos";
  p.appendChild(pel);
+
  p.insertAdjacentHTML("beforeend",
    crearHeader()+
    `<div class="contenido"></div>`+
    crearFooter()
  );
+
  document.getElementById("contenedorPaginas").appendChild(p);
+
  rellenarLogos(p);
+
  return p.querySelector(".contenido");
 }
 
 function generarPelotazos(contenedor){
- const altura = document.querySelector(".pagina")?.scrollHeight || 1600;
- for(let i=0;i<2200;i++){
+
+ const altura = document.querySelector(".pagina").scrollHeight;
+
+ for(let i=0;i<6000;i++){
+
    const d=document.createElement("div");
    const s=Math.random()*4+2;
+
    d.className="pelota-dot";
    d.style.width=d.style.height=s+"px";
    d.style.left=Math.random()*900+"px";
    d.style.top=Math.random()*altura+"px";
+
    contenedor.appendChild(d);
  }
 }
 
 function rellenarLogos(pagina){
- const LOGOS = [ "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
+
+ const LOGOS=[
+ "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
  "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
  "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
- "construccionesurangasaigos.jpg","hotelayestaran.jpg","iseelectricidad.jpg","kattagorrielkartea.jpg",
- "lacturale.jpg","lagunasesoria.jpg","maderasnasorena.jpg","maskarada.jpg","suacontrol.jpg","urzubi.jpg",
- "ventamugiro.jpg","dietistaanagurrea.jpg","ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg",
- "fontaneriairibarren.jpg","izarberri.png","lakita.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
- "talleresotxotorena.jpg","veterinarialekunberri.jpg" ];
+ "construccionesurangasaigos.jpg","hotelayestaran.jpg",
+ "iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
+ "maderasnasorena.jpg","maskarada.jpg","suacontrol.jpg","urzubi.jpg",
+ "ventamugiro.jpg","dietistaanagurrea.jpg","ekin.jpg",
+ "farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
+ "izarberri.png","lakita.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
+ "talleresotxotorena.jpg","veterinarialekunberri.jpg"
+ ];
+
  const grid=pagina.querySelector(".logos-grid");
- if(grid) grid.innerHTML = LOGOS.map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}" crossorigin="anonymous" loading="lazy"></div>`).join("");
+
+ grid.innerHTML = LOGOS
+   .map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`)
+   .join("");
 }
 
-/* ------------------ AJUSTE TOTAL DE FUENTE (FUNCIONAL Y AGRESIVO) ------------------ */
-function ajustarTextoEquipoCompleto(contenedorPagina) {
-  if (!contenedorPagina) return;
   
-  const equiposCells = contenedorPagina.querySelectorAll('.etxekoa, .kanpokoa');
-  
-  equiposCells.forEach(cell => {
-    // Guardamos el contenido original pero aseguramos que NO tiene <br>
-    let rawHtml = cell.innerHTML;
-    // Eliminamos cualquier <br> residual y lo reemplazamos por espacio
-    let cleanHtml = rawHtml.replace(/<br\s*\/?>/gi, ' ');
-    // Pero hay que conservar etiquetas <strong> y otros spans
-    cell.innerHTML = cleanHtml;
-    
-    // Forzamos white-space nowrap para medir correctamente
-    const originalWhiteSpace = cell.style.whiteSpace;
-    cell.style.whiteSpace = 'nowrap';
-    
-    // Obtenemos el ancho disponible del contenedor padre (el elemento .linea tiene padding)
-    const parentLinea = cell.closest('.linea');
-    let maxWidth = cell.clientWidth;
-    if (maxWidth < 10 && parentLinea) {
-      // Si por algún motivo el ancho es 0, calculamos desde el contenedor
-      const lineaRect = parentLinea.getBoundingClientRect();
-      const cellRect = cell.getBoundingClientRect();
-      maxWidth = (lineaRect.width * 0.32) - 16; // estimación
-    }
-    if (maxWidth < 30) maxWidth = 200;
-    
-    // Obtenemos el tamaño actual de fuente
-    let currentFontSize = parseFloat(getComputedStyle(cell).fontSize);
-    if (isNaN(currentFontSize)) currentFontSize = 16;
-    
-    // Creamos un elemento espejo para medir
-    const mirror = document.createElement('div');
-    mirror.style.position = 'absolute';
-    mirror.style.visibility = 'hidden';
-    mirror.style.whiteSpace = 'nowrap';
-    mirror.style.fontFamily = getComputedStyle(cell).fontFamily;
-    mirror.style.fontWeight = getComputedStyle(cell).fontWeight;
-    mirror.style.letterSpacing = getComputedStyle(cell).letterSpacing;
-    mirror.style.fontSize = currentFontSize + 'px';
-    mirror.style.padding = '0';
-    mirror.style.margin = '0';
-    mirror.style.border = 'none';
-    // Usamos el texto limpio pero con etiquetas HTML (strong incluidas)
-    mirror.innerHTML = cleanHtml;
-    document.body.appendChild(mirror);
-    
-    let textWidth = mirror.scrollWidth;
-    let newFontSize = currentFontSize;
-    let safety = 0;
-    
-    if (textWidth > maxWidth && maxWidth > 10) {
-      // Calcular proporción y reducir
-      let ratio = maxWidth / textWidth;
-      newFontSize = Math.max(9, Math.floor(currentFontSize * ratio * 0.92));
-      
-      // Reducimos iterativamente hasta que quepa
-      while (safety < 8) {
-        mirror.style.fontSize = newFontSize + 'px';
-        const testWidth = mirror.scrollWidth;
-        if (testWidth <= maxWidth || newFontSize <= 9) break;
-        newFontSize = Math.max(9, newFontSize - 1);
-        safety++;
-      }
-    } else if (textWidth < maxWidth - 15 && currentFontSize < 18) {
-      // Si sobra espacio podemos aumentar ligeramente hasta 18px
-      let possibleInc = Math.min(18, currentFontSize + 1);
-      mirror.style.fontSize = possibleInc + 'px';
-      if (mirror.scrollWidth <= maxWidth && possibleInc <= 18) {
-        newFontSize = possibleInc;
-      }
-    }
-    
-    // Aplicamos tamaño final
-    cell.style.fontSize = newFontSize + 'px';
-    cell.style.whiteSpace = 'nowrap';
-    cell.style.overflow = 'visible';
-    
-    // Pequeño ajuste para que el texto no se corte visualmente
-    if (parentLinea) {
-      cell.style.paddingRight = '4px';
-    }
-    
-    document.body.removeChild(mirror);
-  });
-  
-  // Segunda pasada para elementos muy largos que podrían haber quedado fuera
-  setTimeout(() => {
-    equiposCells.forEach(cell => {
-      const parentLinea = cell.closest('.linea');
-      if (!parentLinea) return;
-      const maxWidth = cell.clientWidth;
-      if (maxWidth < 20) return;
-      const currentSize = parseFloat(cell.style.fontSize);
-      if (isNaN(currentSize)) return;
-      const mirror2 = document.createElement('div');
-      mirror2.style.cssText = 'position:absolute; visibility:hidden; white-space:nowrap; font-family:inherit; font-weight:inherit;';
-      mirror2.style.fontSize = currentSize + 'px';
-      mirror2.innerHTML = cell.innerHTML;
-      document.body.appendChild(mirror2);
-      if (mirror2.scrollWidth > maxWidth + 5 && currentSize > 9) {
-        let newSz = Math.max(9, currentSize - 1);
-        cell.style.fontSize = newSz + 'px';
-      }
-      document.body.removeChild(mirror2);
-    });
-  }, 20);
-}
-
-/* ------------------ FORMATEO ------------------ */
+/* ================= CREAR BLOQUES PARTIDOS ================= */
 function formatearEquipo(texto){
+
   if(!texto) return "";
-  // Eliminamos saltos de línea y reemplazamos ( por espacio para mantener todo junto
-  let limpio = texto.replace(/<br\s*\/?>/gi, ' ');
-  // Nos aseguramos que no haya dobles espacios
-  limpio = limpio.replace(/\s+/g, ' ').trim();
-  return limpio;
+
+  // Inserta salto justo antes del paréntesis
+  return texto.replace(" (","<br>(");
 }
 
 function formatearLehiaketa(texto, esFinala = false){
+
   if(!texto) return "";
-  const fasesOrdenadas = Object.values(FASES).sort((a,b)=> b.length - a.length);
+
+  const fasesOrdenadas = Object.values(FASES)
+    .sort((a,b)=> b.length - a.length);  // 🔥 más largas primero
+
   let textoProcesado = texto;
+  let faseEncontrada = null;
+
   for(const fase of fasesOrdenadas){
-    const regex = new RegExp(`\\b${fase}\\b`, "gi");
+
+    const regex = new RegExp(`\\b${fase}\\b`, "g");
+
     if(regex.test(textoProcesado)){
-      let claseExtra = (fase.toUpperCase() === "FINALA") ? " fase-finala" : "";
-      textoProcesado = textoProcesado.replace(regex, `<span class="fase${claseExtra}">${fase}</span>`);
-      break;
+      faseEncontrada = fase;
+      let claseExtra = "";
+
+      if(fase.toUpperCase() === "FINALA"){
+        claseExtra = " fase-finala";
+      }
+
+      textoProcesado = textoProcesado.replace(
+        regex,
+        `<span class="fase${claseExtra}">${fase}</span>`
+      );
+      break; // Solo procesamos la primera fase encontrada
     }
   }
+
   return textoProcesado;
 }
 
 function generarClasesCategorias(){
+
   const style = document.createElement("style");
   let css = "";
+
   for(const cat in CATEGORIAS){
-    css += `.cat-${cat}{ background:${CATEGORIAS[cat]}; }\n`;
+
+    css += `
+      .cat-${cat}{
+        background:${CATEGORIAS[cat]};
+      }
+    `;
   }
+
   style.innerHTML = css;
   document.head.appendChild(style);
 }
 function obtenerClaseCategoria(texto){
+
   if(!texto) return "";
+
   const textoLower = texto.toLowerCase();
+
   for(const cat in CATEGORIAS){
-    if(textoLower.includes(cat.toLowerCase())) return "cat-"+cat;
+
+    if(textoLower.includes(cat.toLowerCase())){
+      return "cat-"+cat;
+    }
   }
+
   return "";
 }
 
-function crearBloques(titulo, data){
+function crearBloques(titulo,data){
+
  if(!data || data.length===0) return [];
+
  const arr=[];
+
  const h2=document.createElement("div");
  h2.className="bloque";
  h2.innerHTML=`<h2>${titulo}</h2>`;
  arr.push(h2);
- 
+
  const dataFiltrada = data.filter(p=>{
+
    const e=(p.etxekoa||"").toLowerCase();
    const k=(p.kanpokoak||"").toLowerCase();
-   return !(e.includes("descanso") || e.includes("atseden") || k.includes("descanso") || k.includes("atseden"));
+
+   return !(
+     e.includes("descanso") ||
+     e.includes("atseden") ||
+     k.includes("descanso") ||
+     k.includes("atseden")
+   );
  });
- 
+
  dataFiltrada.sort((a,b)=>{
+
    const fechaA = new Date(a.fecha.replace(/\//g,"-"));
    const fechaB = new Date(b.fecha.replace(/\//g,"-"));
+
    if(fechaA - fechaB !== 0) return fechaA - fechaB;
-   if(a.hora !== b.hora) return a.hora.localeCompare(b.hora);
+
+   if(a.hora !== b.hora){
+     return a.hora.localeCompare(b.hora);
+   }
+
    return (a.fronton || "").localeCompare(b.fronton || "");
  });
- 
+
  const grupos={};
- dataFiltrada.forEach(p=>{ const key = p.fecha+"|"+p.hora+"|"+p.fronton; if(!grupos[key]) grupos[key]=[]; grupos[key].push(p); });
- 
+
+ dataFiltrada.forEach(p=>{
+
+   const key = p.fecha+"|"+p.hora+"|"+p.fronton;
+
+   if(!grupos[key]) grupos[key]=[];
+   grupos[key].push(p);
+ });
+
  Object.values(grupos).forEach(partidos=>{
+
    const g=document.createElement("div");
    g.className="grupo";
+
    const fronton = partidos[0].fronton || "";
-   const esLocal = fronton.toLowerCase().includes("lekunberri") || fronton.toLowerCase().includes("aldatz");
+
+   const esLocal =
+     fronton.toLowerCase().includes("lekunberri") ||
+     fronton.toLowerCase().includes("aldatz");
+
    const colorClase = esLocal ? "" : " rojo";
+
    g.innerHTML=`
      <div class="grupo-header${colorClase}">
        ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
      </div>
      ${partidos.map(p => {
+       
+       // Determinar si es FINALA
        const esFinala = p.lehiaketa && p.lehiaketa.toUpperCase().includes("FINALA");
+       
        let etx = formatearEquipo(p.etxekoa);
        let kan = formatearEquipo(p.kanpokoak);
-       
-       // Aplicamos strong a LARRAUN (independientemente mayúsculas)
-       if(etx && etx.toLowerCase().includes("larraun")){
+
+       // Aplicamos clase especial si contiene "Larraun" (no usamos <strong> directamente porque luego se procesa)
+       // Lo hacemos de forma más inteligente: reemplazamos Larraun por <strong>Larraun</strong> pero preservando el formato
+       if(etx.toLowerCase().includes("larraun")){
+         // Reemplazamos cada instancia de Larraun (con cualquier variante de mayúsculas) por su versión destacada
          etx = etx.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
-       if(kan && kan.toLowerCase().includes("larraun")){
+
+       if(kan.toLowerCase().includes("larraun")){
          kan = kan.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
-       
-       // Si el texto está vacío, mostrar guión
-       if(!etx) etx = "—";
-       if(!kan) kan = "—";
-       
+
+       // Clase adicional para la línea si es FINALA
        const lineaClass = esFinala ? "linea finala-linea" : "linea";
-       const categoriaClase = obtenerClaseCategoria(p.lehiaketa);
        
        return `
-         <div class="${lineaClass} ${categoriaClase}">
-           <div class="zkia">${p.zkia || ''}</div>
+         <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}">
+           <div class="zkia">${p.zkia}</div>
            <div class="etxekoa equipo">${etx}</div>
            <div class="kanpokoa equipo">${kan}</div>
            <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa, esFinala)}</div>
@@ -647,118 +699,59 @@ function crearBloques(titulo, data){
        `;
      }).join("")}
    `;
+
    arr.push(g);
  });
+
  return arr;
 }
 
-/* ------------------ CARGA Y RENDER CON DOBLE AJUSTE ------------------ */
+/* ================= FETCH + CONSTRUIR ================= */
+
 Promise.all([
  fetch("data/cartelera-larraun.json").then(r=>r.json()),
  fetch("data/partidos-no-oficiales.json").then(r=>r.json()),
  fetch("data/fases.json").then(r=>r.json()),
  fetch("data/categoriacartel.json").then(r=>r.json())
 ]).then(([oficiales,noOficiales,fases,categorias])=>{
+
  FASES = fases;
  CATEGORIAS = categorias;
- generarClasesCategorias();
- 
- // Aseguramos que cada partido tenga un identificador zkia
- const oficialesConId = oficiales.map((item,idx)=>({...item, zkia: item.zkia || (idx+1).toString()}));
- const noOfiConId = noOficiales.map((item,idx)=>({...item, zkia: item.zkia || (idx+101).toString()}));
- 
- const bloques=[
-   ...crearBloques("FNP PARTIDUAK", oficialesConId),
-   ...crearBloques("BESTE TXAPELKETAK OFIZIALAK", noOfiConId.filter(p=>p.ofiziala==="true")),
-   ...crearBloques("TXAPELKETAK EZ OFIZIALAK", noOfiConId.filter(p=>p.ofiziala!=="true"))
- ];
- 
- const contenido = nuevaPagina();
- bloques.forEach(b=>contenido.appendChild(b));
- 
- // Pelotazos decorativos
- const pel = document.querySelector(".pelotazos");
- if(pel) generarPelotazos(pel);
- 
- // AJUSTE CRÍTICO: Aplicamos varias veces para asegurar que todos los textos se ven completos
- const ejecutarAjuste = () => {
-   ajustarTextoEquipoCompleto(contenido);
- };
- 
- // Ejecutamos inmediatamente y luego con delays para capturar cambios de layout
- ejecutarAjuste();
- setTimeout(ejecutarAjuste, 50);
- setTimeout(ejecutarAjuste, 150);
- setTimeout(ejecutarAjuste, 400);
- 
- // También ajustamos cuando termine de cargar todas las imágenes de logos (afecta al layout)
- window.addEventListener('load', () => {
-   setTimeout(ejecutarAjuste, 100);
-   setTimeout(ejecutarAjuste, 300);
- });
- 
- // Observer para detectar cambios en el DOM y reajustar
- const observer = new MutationObserver(() => {
-   ejecutarAjuste();
- });
- observer.observe(contenido, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
- 
-}).catch(err=>{
- console.error("Error cargando datos:", err);
- const fallbackDiv = document.getElementById("contenedorPaginas");
- if(fallbackDiv) fallbackDiv.innerHTML = '<div style="color:white; background:#b00000; padding:20px; text-align:center;">❌ ERROR: No se pudieron cargar los archivos JSON. Verifica que existan en la carpeta "data".</div>';
-});
 
-/* ================= EXPORTAR MEJORADA (colores fieles) ================= */
+ generarClasesCategorias();   // 🔥 ESTO FALTABA
+
+ const bloques=[
+   ...crearBloques("FNP PARTIDUAK",oficiales),
+   ...crearBloques("BESTE TXAPELKETAK OFIZIALAK",noOficiales.filter(p=>p.ofiziala==="true")),
+   ...crearBloques("TXAPELKETAK EZ OFIZIALAK",noOficiales.filter(p=>p.ofiziala!=="true"))
+ ];
+
+ const contenido = nuevaPagina();
+
+ bloques.forEach(b=>contenido.appendChild(b));
+
+ const pel = document.querySelector(".pelotazos");
+ generarPelotazos(pel);
+
+});
+/* ================= EXPORTAR ================= */
+
 async function exportar(){
+
  const pagina=document.querySelector(".pagina");
- if(!pagina) return;
- 
- // Forzar último ajuste antes de capturar
- const contenidoActual = document.querySelector(".contenido");
- if(contenidoActual) {
-   ajustarTextoEquipoCompleto(contenidoActual);
-   await new Promise(r => setTimeout(r, 60));
- }
- 
- try {
-   const canvas = await html2canvas(pagina, {
-     scale: 2.5,
-     useCORS: true,
-     logging: false,
-     backgroundColor: '#3f8159',
-     allowTaint: false,
-     imageTimeout: 0,
-     onclone: (clonedDoc, element) => {
-       // Aseguramos que en el clon los colores sean sólidos
-       const clonedLines = clonedDoc.querySelectorAll('.linea');
-       clonedLines.forEach(line => {
-         line.style.backgroundColor = '#ffffff';
-       });
-       const clonedEtxe = clonedDoc.querySelectorAll('.etxekoa, .kanpokoa');
-       clonedEtxe.forEach(el => {
-         el.style.webkitTextFillColor = 'inherit';
-         el.style.background = 'none';
-       });
-     }
-   });
-   
-   const a = document.createElement("a");
-   a.href = canvas.toDataURL("image/jpeg", 0.98);
-   a.download = "kartela-larraun-final.jpg";
-   a.click();
- } catch(e) {
-   console.error(e);
-   alert("Error al generar la imagen: " + e.message);
- }
+
+ const canvas=await html2canvas(pagina,{
+   scale:2,
+   useCORS:true
+ });
+
+ const a=document.createElement("a");
+ a.href=canvas.toDataURL("image/jpeg",0.95);
+ a.download="kartela-completo.jpg";
+ a.click();
 }
 
-// Helper para que al hacer scroll o resize también ajuste
-window.addEventListener('resize', () => {
-  const contenido = document.querySelector('.contenido');
-  if(contenido) setTimeout(() => ajustarTextoEquipoCompleto(contenido), 30);
-});
-
 </script>
+
 </body>
 </html>
