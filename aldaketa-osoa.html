@@ -23,7 +23,6 @@
     .idioma-boton { background: none; border: none; font-weight: 700; font-size: 0.9rem; padding: 6px 18px; border-radius: 40px; cursor: pointer; transition: 0.2s; color: #2c3e66; }
     .idioma-boton.aktibo { background: #b30000; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
-    /* selector de semana */
     .semana-selector { background: #f8f9fc; border-radius: 28px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .semana-botoiak { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 10px; }
     .semana-btn { padding: 10px 24px; font-size: 1rem; font-weight: 700; border: none; border-radius: 40px; background: #e2e6ea; color: #1e466e; cursor: pointer; transition: all 0.2s; }
@@ -81,10 +80,10 @@
 
   <!-- SELECTOR DE SEMANA -->
   <div class="semana-selector">
-    <div class="filtro-titulua" id="semanaLabel">📅 Aukertau asteko partiduak / Seleccionar semana</div>
+    <div class="filtro-titulua" id="semanaLabel">📅 Aukeratu asteko partiduak / Seleccionar semana</div>
     <div class="semana-botoiak" id="semanaBotoiak">
-      <button class="semana-btn aktibo" data-semana="actual">🔵 Aste hau / Semana actual</button>
-      <button class="semana-btn" data-semana="proxima">⏩ Hurrengo astea / Semana próxima</button>
+      <button class="semana-btn" data-semana="actual">🔵 Aste hau / Semana actual</button>
+      <button class="semana-btn aktibo" data-semana="proxima">⏩ Hurrengo astea / Semana próxima</button>
     </div>
   </div>
 
@@ -133,7 +132,7 @@
   let partidoSeleccionado = null;
   let currentLang = 'eu';
   let currentKategoriaFilter = 'GUZTIAK';
-  let currentSemana = 'actual';   // 'actual' o 'proxima'
+  let currentSemana = 'proxima';   // 'actual' o 'proxima' - POR DEFECTO PRÓXIMA
   let currentPartidosList = [];    // referencia a la lista activa
   const WHATSAPP_NUMBER = "613997710";
 
@@ -154,8 +153,17 @@
     return local.includes('LARRAUN') || visitante.includes('LARRAUN');
   }
 
+  // Normalizar partido (limpiar textos, añadir campos necesarios)
+  function normalizarPartido(p) {
+    if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
+    if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+    p.kategoria = kategoriaNagusiaPartida(p);
+    p.participaLarraun = participaLarraun(p);
+    return p;
+  }
+
   // --------------------------------------------------------------
-  // 2. CARGAR CATEGORÍAS (igual que antes)
+  // 2. CARGAR CATEGORÍAS
   // --------------------------------------------------------------
   async function kargatuKategoriak() {
     try {
@@ -225,26 +233,19 @@
       const ofi = await oficialesResp.json();
       const noOfi = await noOficialesResp.json();
       const actuales = [...ofi, ...noOfi];
-      actuales.forEach(p => {
-        if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
-        if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
-        p.kategoria = kategoriaNagusiaPartida(p);
-        p.participaLarraun = participaLarraun(p);
-      });
+      actuales.forEach(p => normalizarPartido(p));
       partidaGuztiak = actuales;
 
-      // Semana próxima: cartelera-proxima-semana.json
+      // Semana próxima: cartelera-proxima-semana.json (estructura con "partidos" dentro)
       try {
         const proximaResp = await fetch('/data/cartelera-proxima-semana.json');
         if (proximaResp.ok) {
-          const proxima = await proximaResp.json();
-          proxima.forEach(p => {
-            if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
-            if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
-            p.kategoria = kategoriaNagusiaPartida(p);
-            p.participaLarraun = participaLarraun(p);
-          });
-          partidaProximaSemana = proxima;
+          const data = await proximaResp.json();
+          // La estructura tiene un array "partidos"
+          const partidosArray = data.partidos || [];
+          partidosArray.forEach(p => normalizarPartido(p));
+          partidaProximaSemana = partidosArray;
+          console.log(`Kargatutako hurrengo asteko partidak: ${partidaProximaSemana.length}`);
         } else {
           console.warn('Ez da cartelera-proxima-semana.json kargatu');
           partidaProximaSemana = [];
@@ -286,7 +287,7 @@
   }
 
   // --------------------------------------------------------------
-  // 4. FUNCIONES UI (selectores, preview, opciones)
+  // 4. FUNCIONES UI
   // --------------------------------------------------------------
   function actualizarSelectPartidos() {
     const select = document.getElementById('partidoSelect');
@@ -411,7 +412,6 @@
       <div class="info-linea"><strong>🏆 Competición:</strong> ${lehiaketa} (${partida.kategoria})</div>`;
     }
     
-    // Mostrar aviso si Larraun no participa (aunque no debería poder seleccionarse, por seguridad)
     if (!partida.participaLarraun) {
       avisoDiv.style.display = 'block';
       avisoDiv.innerHTML = lang === 'eu' ? '⚠️ Partidu honetan LARRAUNek ez du parte hartzen. Ezin da ordutegi aldaketarik eskatu.' : '⚠️ LARRAUN no participa en este partido. No se puede solicitar cambio de horario.';
@@ -466,7 +466,6 @@
     const opciones = generarOpcionesHorario(fechaPartido);
     opcionesActuales = opciones;
     container.innerHTML = '';
-    // Si no hay partido seleccionado o el partido no tiene Larraun, deshabilitamos las opciones
     const deshabilitado = !partidoSeleccionado || !partidoSeleccionado.participaLarraun;
     opciones.forEach(op => {
       const label = lang === 'eu' ? op.labelEu : op.labelEs;
@@ -556,16 +555,13 @@
   // Cambio de semana
   function cambiarSemana(semana) {
     currentSemana = semana;
-    // Actualizar botones
     document.querySelectorAll('.semana-btn').forEach(btn => {
       if (btn.getAttribute('data-semana') === semana) btn.classList.add('aktibo');
       else btn.classList.remove('aktibo');
     });
-    // Resetear selección
     partidoSeleccionado = null;
     document.getElementById('partidoInfoPreview').style.display = 'none';
     document.getElementById('noLarraunAviso').style.display = 'none';
-    // Recargar filtros y select
     renderizarFiltroKategoria();
     actualizarSelectPartidos();
     renderizarOpciones(currentLang, null);
@@ -649,7 +645,6 @@
     document.getElementById('btnText').innerHTML = lang === 'eu' ? 'WhatsApp bidez mezua sortu' : 'Generar mensaje WhatsApp';
     document.getElementById('filtroLabel').innerHTML = lang === 'eu' ? '🏷️ Iragazi kategoria' : '🏷️ Filtrar por categoría';
     document.getElementById('semanaLabel').innerHTML = lang === 'eu' ? '📅 Aukeratu asteko partiduak' : '📅 Seleccionar semana';
-    // Actualizar textos de los botones de semana
     const semanaBtns = document.querySelectorAll('.semana-btn');
     if (semanaBtns.length >= 2) {
       semanaBtns[0].innerHTML = lang === 'eu' ? '🔵 Aste hau' : '🔵 Semana actual';
