@@ -92,82 +92,74 @@ async function main() {
     const html = await postFormDataWithLanguage(weekNumber, 'eu');
     console.log(`   ✅ HTML recibido: ${html.length} caracteres`);
     
-    // Guardar HTML para depuración
+    // Guardar HTML completo
     await fs.mkdir("data", { recursive: true });
-    await fs.writeFile("data/debug-euskera.html", html);
-    console.log(`   💾 HTML guardado en data/debug-euskera.html`);
+    await fs.writeFile("data/debug-completo.html", html);
+    console.log(`   💾 HTML completo guardado en data/debug-completo.html`);
     
+    // Extraer y mostrar las primeras 30 filas de la tabla
     const dom = new JSDOM(html);
     const document = dom.window.document;
     
-    // Buscar todas las filas de la tabla
-    const allRows = document.querySelectorAll("tr");
-    console.log(`\n📊 Filas totales: ${allRows.length}`);
+    // Buscar la tabla principal
+    const tables = document.querySelectorAll("table");
+    console.log(`\n📋 Tablas encontradas: ${tables.length}`);
     
-    // Primero, buscar las cabeceras para identificar las columnas
-    let localColIndex = 4;  // Por defecto, asumimos que Local está en columna 4
-    let visitanteColIndex = 5;  // Por defecto, Visitante en columna 5
-    
-    for (const row of allRows) {
-      const headers = row.querySelectorAll("th");
-      if (headers.length >= 6) {
-        const headerTexts = Array.from(headers).map(h => h.textContent.trim());
-        console.log(`\n📋 Cabeceras encontradas: ${headerTexts.join(" | ")}`);
-        
-        // Buscar índices de Etxekoa y Kanpokoak
-        const localIndex = headerTexts.findIndex(h => h === "Etxekoa" || h === "Local");
-        const visitanteIndex = headerTexts.findIndex(h => h === "Kanpokoak" || h === "Visitante");
-        
-        if (localIndex !== -1) localColIndex = localIndex;
-        if (visitanteIndex !== -1) visitanteColIndex = visitanteIndex;
-        
-        console.log(`   → Etxekoa en columna ${localColIndex}, Kanpokoak en columna ${visitanteColIndex}`);
+    let targetTable = null;
+    for (let i = 0; i < tables.length; i++) {
+      const table = tables[i];
+      const rows = table.querySelectorAll("tr");
+      if (rows.length > 5) {
+        targetTable = table;
+        console.log(`   ✅ Tabla ${i} seleccionada (${rows.length} filas)`);
         break;
       }
     }
     
+    if (!targetTable) {
+      console.log("❌ No se encontró ninguna tabla con suficientes filas");
+      return;
+    }
+    
+    const allRows = targetTable.querySelectorAll("tr");
+    console.log(`\n📊 Analizando ${allRows.length} filas...`);
+    
+    // Mostrar las primeras 10 filas para depuración
+    console.log("\n🔍 PRIMERAS 10 FILAS:");
+    for (let i = 0; i < Math.min(10, allRows.length); i++) {
+      const row = allRows[i];
+      const cells = row.querySelectorAll("td");
+      const cellTexts = Array.from(cells).map(cell => cell.textContent.trim().substring(0, 50));
+      console.log(`  Fila ${i}: ${cells.length} celdas - ${cellTexts.join(" | ")}`);
+    }
+    
+    // Ahora buscar partidos de Larraun
     const partidos = [];
-    let filaNumero = 0;
     
     for (const row of allRows) {
       const cells = row.querySelectorAll("td");
       if (cells.length >= 6) {
         const firstCellText = cells[0].textContent.trim();
         
+        // Buscar fechas en formato DD/MM/YYYY
         if (firstCellText.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-          filaNumero++;
           const fecha = firstCellText;
           const hora = cells[1]?.textContent.trim() || "-";
           const zkia = cells[2]?.textContent.trim() || "-";
           const fronton = cells[3]?.textContent.trim() || "-";
-          
-          // Usar los índices detectados
-          let etxekoa = cells[localColIndex]?.textContent.trim() || "";
-          let kanpokoak = cells[visitanteColIndex]?.textContent.trim() || "";
+          let etxekoa = cells[4]?.textContent.trim() || "";
+          let kanpokoak = cells[5]?.textContent.trim() || "";
           const lehiaketa = cells[6]?.textContent.trim() || "";
           
-          // Limpiar textos
           etxekoa = etxekoa.replace(/\s+/g, " ").trim();
           kanpokoak = kanpokoak.replace(/\s+/g, " ").trim();
           
           const textoCompleto = `${etxekoa} ${kanpokoak}`.toUpperCase();
           
-          // Depuración: mostrar primeras 5 filas
-          if (filaNumero <= 5) {
-            console.log(`\n🔍 Fila ${filaNumero}: ${fecha} ${fronton}`);
-            console.log(`   Etxekoa: "${etxekoa}"`);
-            console.log(`   Kanpokoak: "${kanpokoak}"`);
-            console.log(`   ¿Contiene LARRAUN? ${textoCompleto.includes("LARRAUN") ? "SÍ" : "NO"}`);
-          }
-          
           if (textoCompleto.includes("LARRAUN")) {
             console.log(`✅ ENCONTRADO: ${fecha} - ${fronton}`);
-            
             partidos.push({
-              fecha,
-              hora,
-              zkia,
-              fronton,
+              fecha, hora, zkia, fronton,
               etxekoa: convertirPareja(etxekoa),
               kanpokoak: convertirPareja(kanpokoak),
               lehiaketa
@@ -177,8 +169,9 @@ async function main() {
       }
     }
     
-    console.log(`\n📊 Total de filas con fechas procesadas: ${filaNumero}`);
+    console.log(`\n📊 Total de partidos de Larraun encontrados: ${partidos.length}`);
     
+    // Guardar resultado
     const filename = "data/cartelera-proxima-semana.json";
     const output = {
       fecha_generacion: new Date().toISOString(),
@@ -188,9 +181,7 @@ async function main() {
     };
     
     await fs.writeFile(filename, JSON.stringify(output, null, 2));
-    
     console.log(`\n✅ Archivo guardado: ${filename}`);
-    console.log(`📊 Total de partidos de Larraun: ${partidos.length}`);
     
   } catch (err) {
     console.error("❌ ERROR:", err);
