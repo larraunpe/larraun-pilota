@@ -78,7 +78,6 @@
     </div>
   </div>
 
-  <!-- SELECTOR DE SEMANA -->
   <div class="semana-selector">
     <div class="filtro-titulua" id="semanaLabel">📅 Aukeratu asteko partiduak / Seleccionar semana</div>
     <div class="semana-botoiak" id="semanaBotoiak">
@@ -87,7 +86,6 @@
     </div>
   </div>
 
-  <!-- FILTRO CATEGORÍA -->
   <div class="filtro-kategoria" id="filtroKategoriaContainer">
     <div class="filtro-titulua"><span>🏷️</span> <span id="filtroLabel">Iragazi kategoria / Filtrar por categoría</span></div>
     <div class="kategoria-filtro-botoiak" id="kategoriaFiltroBotoiak">
@@ -95,7 +93,6 @@
     </div>
   </div>
 
-  <!-- selector partido -->
   <div class="partidu-aukeraketa">
     <div class="label-izan"><span>🏆</span> <span id="selectPartidoLabel">🔽 Hautatu partidua / Selecciona el partido</span></div>
     <select id="partidoSelect" disabled><option value="">-- Kargatzen... / Cargando --</option></select>
@@ -103,14 +100,12 @@
     <div id="noLarraunAviso" class="no-larraun-aviso" style="display: none;"></div>
   </div>
 
-  <!-- opciones horario -->
   <div class="aukerak-taldea">
     <div class="aukerak-titulua"><span>⏰</span> <span id="horarioTitle">📅 Proposatu ordutegi berriak / Propón nuevos horarios</span></div>
     <div id="opcionesContainer" class="opcion-grilla"></div>
     <div id="festivosMsg" class="festibo-oharra" style="display: none;"></div>
   </div>
 
-  <!-- observaciones -->
   <div class="observaciones-area">
     <label id="obsLabel" style="font-weight: 700; display: block; margin-bottom: 8px;">📝 Oharrak / Observaciones (aukerakoa)</label>
     <textarea id="observaciones" rows="3" placeholder="Adibidez: Larunbatean ere izan liteke, 12:00etan hasita. / Ej: Podría ser también el sábado, a partir de las 12:00 horas."></textarea>
@@ -132,8 +127,7 @@
   let partidoSeleccionado = null;
   let currentLang = 'eu';
   let currentKategoriaFilter = 'GUZTIAK';
-  let currentSemana = 'proxima';   // 'actual' o 'proxima' - POR DEFECTO PRÓXIMA
-  let currentPartidosList = [];    // referencia a la lista activa
+  let currentSemana = 'proxima';   // POR DEFECTO PRÓXIMA
   const WHATSAPP_NUMBER = "613997710";
 
   const festivosNavarra = [
@@ -146,14 +140,35 @@
     return festivosNavarra.includes(fechaStr.replace(/\//g, '-'));
   }
 
-  // Función para comprobar si Larraun participa en un partido
   function participaLarraun(partida) {
     const local = (partida.etxekoa || '').toUpperCase();
     const visitante = (partida.kanpokoak || '').toUpperCase();
     return local.includes('LARRAUN') || visitante.includes('LARRAUN');
   }
 
-  // Normalizar partido (limpiar textos, añadir campos necesarios)
+  // Extraer categoría principal del texto de lehiaketa
+  function kategoriaNagusiaPartida(partida) {
+    const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
+    if (!testua) return 'Beste';
+    
+    // Mapeo de categorías en euskera (NKJ, LIGAXKA)
+    if (testua.includes('SEIN')) return 'SEIN';
+    if (testua.includes('KIMU')) return 'KIMU';
+    if (testua.includes('KADETE')) return 'KADETE';
+    if (testua.includes('GAZTE')) return 'GAZTE';
+    if (testua.includes('HAUR')) return 'HAURRAK';
+    if (testua.includes('ALEBIN')) return 'ALEBINAK';
+    if (testua.includes('BENJAMIN')) return 'BENJAMIN';
+    if (testua.includes('JUVENIL')) return 'JUVENIL';
+    if (testua.includes('SENIOR')) return 'SENIOR';
+    
+    // Fallback con el mapa de categorías
+    for (let [k, info] of kategoriakMap.entries()) {
+      if (testua.includes(k)) return info.kategoriaNagusia;
+    }
+    return 'Beste';
+  }
+
   function normalizarPartido(p) {
     if (p.etxekoa && p.etxekoa.includes('Descanso')) p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
     if (p.kanpokoak && p.kanpokoak.includes('Descanso')) p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
@@ -204,23 +219,8 @@
     }
   }
 
-  function kategoriaNagusiaPartida(partida) {
-    const testua = (partida.lehiaketa || partida.modalidad || '').toUpperCase();
-    if (!testua) return 'Beste';
-    for (let [k, info] of kategoriakMap.entries()) {
-      if (testua.includes(k)) return info.kategoriaNagusia;
-    }
-    if (testua.includes('HAUR')) return 'HAURRAK';
-    if (testua.includes('KADETE')) return 'KADETE';
-    if (testua.includes('KIMU')) return 'KIMU';
-    if (testua.includes('GAZTE')) return 'GAZTE';
-    if (testua.includes('ALEBIN')) return 'ALEBINAK';
-    if (testua.includes('SEIN')) return 'SEIN';
-    return 'Beste';
-  }
-
   // --------------------------------------------------------------
-  // 3. CARGAR PARTIDOS (semana actual y próxima)
+  // 3. CARGAR PARTIDOS
   // --------------------------------------------------------------
   async function kargatuPartidak() {
     try {
@@ -236,12 +236,11 @@
       actuales.forEach(p => normalizarPartido(p));
       partidaGuztiak = actuales;
 
-      // Semana próxima: cartelera-proxima-semana.json (estructura con "partidos" dentro)
+      // Semana próxima: cartelera-proxima-semana.json
       try {
         const proximaResp = await fetch('/data/cartelera-proxima-semana.json');
         if (proximaResp.ok) {
           const data = await proximaResp.json();
-          // La estructura tiene un array "partidos"
           const partidosArray = data.partidos || [];
           partidosArray.forEach(p => normalizarPartido(p));
           partidaProximaSemana = partidosArray;
@@ -310,7 +309,6 @@
       const option = document.createElement('option');
       option.value = idx;
       option.textContent = `${fechaCorta} | ${local} vs ${visitante} | ${comp} (${p.kategoria})`;
-      // Si Larraun NO participa, deshabilitamos la opción
       if (!p.participaLarraun) {
         option.disabled = true;
         option.textContent += ' ⛔ (Larraunik gabe / Sin Larraun)';
@@ -372,11 +370,28 @@
     else filtroLabel.innerHTML = `🏷️ Filtrar por categoría (${currentKategoriaFilter === 'GUZTIAK' ? 'Todos' : currentKategoriaFilter})`;
   }
 
+  // Formatear fecha: soporta tanto "YYYY/MM/DD" como "DD/MM/YYYY"
   function formatearFecha(fechaStr, lang) {
     if (!fechaStr) return lang === 'eu' ? 'data ezezaguna' : 'fecha desconocida';
-    const partes = fechaStr.split('/');
-    if (partes.length !== 3) return fechaStr;
-    const [anyo, mes, dia] = partes;
+    
+    let anyo, mes, dia;
+    // Si la fecha tiene formato YYYY/MM/DD
+    if (fechaStr.match(/^\d{4}\/\d{1,2}\/\d{1,2}$/)) {
+      const partes = fechaStr.split('/');
+      anyo = parseInt(partes[0]);
+      mes = parseInt(partes[1]);
+      dia = parseInt(partes[2]);
+    } 
+    // Si tiene formato DD/MM/YYYY
+    else if (fechaStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+      const partes = fechaStr.split('/');
+      dia = parseInt(partes[0]);
+      mes = parseInt(partes[1]);
+      anyo = parseInt(partes[2]);
+    } else {
+      return fechaStr;
+    }
+    
     const fechaObj = new Date(anyo, mes-1, dia);
     const diasSemanaEu = ['Igandea', 'Astelehena', 'Asteartea', 'Asteazkena', 'Osteguna', 'Ostirala', 'Larunbata'];
     const diasSemanaEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -434,9 +449,19 @@
     ];
     let opciones = [...opcionesBase];
     if (fechaPartidoStr) {
-      const partes = fechaPartidoStr.split('/');
-      if (partes.length === 3) {
-        const anyo = parseInt(partes[0]), mes = parseInt(partes[1])-1, dia = parseInt(partes[2]);
+      let anyo, mes, dia;
+      if (fechaPartidoStr.match(/^\d{4}\/\d{1,2}\/\d{1,2}$/)) {
+        const partes = fechaPartidoStr.split('/');
+        anyo = parseInt(partes[0]);
+        mes = parseInt(partes[1])-1;
+        dia = parseInt(partes[2]);
+      } else if (fechaPartidoStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+        const partes = fechaPartidoStr.split('/');
+        dia = parseInt(partes[0]);
+        mes = parseInt(partes[1])-1;
+        anyo = parseInt(partes[2]);
+      }
+      if (anyo && mes !== undefined && dia) {
         const fechaRef = new Date(anyo, mes, dia);
         const diaSemana = fechaRef.getDay();
         const diffLunes = diaSemana === 0 ? 6 : diaSemana-1;
@@ -513,7 +538,7 @@
     return null;
   }
 
-  function getEnfrentamientoTexto(partida, lang) {
+  function getEnfrentamientoTexto(partida) {
     const local = partida.etxekoa || '?';
     const visitante = partida.kanpokoak || '?';
     return `🏠 ${local} vs ✈️ ${visitante}`;
@@ -529,7 +554,7 @@
     const opcionesSel = getOpcionesMarcadas(lang);
     if (opcionesSel.length === 0) return null;
     const observaciones = document.getElementById('observaciones').value.trim();
-    const enfrentamiento = getEnfrentamientoTexto(partidoSeleccionado, lang);
+    const enfrentamiento = getEnfrentamientoTexto(partidoSeleccionado);
     
     let msg = '';
     if (lang === 'eu') {
@@ -552,7 +577,6 @@
     return msg;
   }
 
-  // Cambio de semana
   function cambiarSemana(semana) {
     currentSemana = semana;
     document.querySelectorAll('.semana-btn').forEach(btn => {
@@ -574,7 +598,6 @@
     await kargatuKategoriak();
     await kargatuPartidak();
     
-    // Eventos de semana
     document.querySelectorAll('.semana-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const semana = e.target.getAttribute('data-semana');
