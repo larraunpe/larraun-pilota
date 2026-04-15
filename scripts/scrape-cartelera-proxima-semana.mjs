@@ -65,6 +65,7 @@ function getNextWeekNumber() {
   return getWeekNumber(nextMonday);
 }
 
+// Reglas de conversión
 const CONVERSION = [
   { match: "D. Centeno - B. Esnaola", value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)" },
   { match: "A. Eguzkiza - L. Navarro", value: "LARRAUN (L. Navarro - M. Lazkoz)" },
@@ -91,63 +92,24 @@ async function main() {
     const html = await postFormDataWithLanguage(weekNumber, 'eu');
     console.log(`   ✅ HTML recibido: ${html.length} caracteres`);
     
-    // Guardar HTML completo para depuración
-    await fs.mkdir("data", { recursive: true });
-    await fs.writeFile("data/debug-completo.html", html);
-    console.log(`   💾 HTML guardado en data/debug-completo.html`);
-    
-    // Analizar el HTML
     const dom = new JSDOM(html);
     const document = dom.window.document;
     
-    // Buscar la tabla de partidos
-    const tables = document.querySelectorAll("table");
-    console.log(`\n📋 Tablas encontradas: ${tables.length}`);
+    // Buscar TODAS las filas de la tabla (sin importar la tabla específica)
+    const allRows = document.querySelectorAll("tr");
+    console.log(`📊 Filas totales encontradas: ${allRows.length}`);
     
-    let targetTable = null;
-    for (let i = 0; i < tables.length; i++) {
-      const table = tables[i];
-      const rows = table.querySelectorAll("tr");
-      if (rows.length > 5) {
-        targetTable = table;
-        console.log(`   ✅ Usando tabla ${i} (${rows.length} filas)`);
-        break;
-      }
-    }
-    
-    if (!targetTable) {
-      console.log("❌ No se encontró tabla con datos");
-      return;
-    }
-    
-    const allRows = targetTable.querySelectorAll("tr");
-    
-    // Mostrar primeras filas para depuración
-    console.log("\n🔍 PRIMERAS 5 FILAS DE DATOS:");
-    let dataRowCount = 0;
-    
-    for (const row of allRows) {
-      const cells = row.querySelectorAll("td");
-      if (cells.length >= 6 && dataRowCount < 5) {
-        const firstCell = cells[0].textContent.trim();
-        if (firstCell.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-          dataRowCount++;
-          console.log(`  ${dataRowCount}. Fecha: ${firstCell}, Frontón: ${cells[3]?.textContent.trim()}`);
-          console.log(`     Local: ${cells[4]?.textContent.trim().substring(0, 60)}`);
-          console.log(`     Visitante: ${cells[5]?.textContent.trim().substring(0, 60)}`);
-        }
-      }
-    }
-    
-    // Extraer todos los partidos de Larraun
     const partidos = [];
+    let filasConFecha = 0;
     
     for (const row of allRows) {
       const cells = row.querySelectorAll("td");
       if (cells.length >= 6) {
         const firstCellText = cells[0].textContent.trim();
         
-        if (firstCellText.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+        // El formato de fecha es YYYY/MM/DD (ej: 2026/04/24)
+        if (firstCellText.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+          filasConFecha++;
           const fecha = firstCellText;
           const hora = cells[1]?.textContent.trim() || "-";
           const zkia = cells[2]?.textContent.trim() || "-";
@@ -156,15 +118,21 @@ async function main() {
           let kanpokoak = cells[5]?.textContent.trim() || "";
           const lehiaketa = cells[6]?.textContent.trim() || "";
           
+          // Limpiar textos
           etxekoa = etxekoa.replace(/\s+/g, " ").trim();
           kanpokoak = kanpokoak.replace(/\s+/g, " ").trim();
           
           const textoCompleto = `${etxekoa} ${kanpokoak}`.toUpperCase();
           
           if (textoCompleto.includes("LARRAUN")) {
-            console.log(`\n✅ ENCONTRADO: ${fecha} - ${fronton}`);
+            console.log(`✅ ENCONTRADO: ${fecha} - ${fronton}`);
+            console.log(`   ${etxekoa} vs ${kanpokoak}`);
+            
             partidos.push({
-              fecha, hora, zkia, fronton,
+              fecha,
+              hora,
+              zkia,
+              fronton,
               etxekoa: convertirPareja(etxekoa),
               kanpokoak: convertirPareja(kanpokoak),
               lehiaketa
@@ -174,10 +142,13 @@ async function main() {
       }
     }
     
-    console.log(`\n📊 Total de partidos de Larraun: ${partidos.length}`);
+    console.log(`\n📊 Filas con fechas encontradas: ${filasConFecha}`);
+    console.log(`📊 Total de partidos de Larraun: ${partidos.length}`);
     
     // Guardar resultado
+    await fs.mkdir("data", { recursive: true });
     const filename = "data/cartelera-proxima-semana.json";
+    
     const output = {
       fecha_generacion: new Date().toISOString(),
       semana_numero: weekNumber,
