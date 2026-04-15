@@ -202,13 +202,15 @@ body{
 
 .linea{
   display:flex;
-  padding:6px 10px;
+  padding:8px 10px;
   border-top:1px solid #ddd;
   font-size:13px;
-  align-items:center;
+  align-items:flex-start;
   font-weight:900;
   border-radius:4px;
   transition: all 0.2s ease;
+  gap: 8px;
+  min-height: 44px;
 }
 
 /* Estilo para línea cuando es FINALA */
@@ -230,65 +232,80 @@ body{
   font-weight:900;
   font-size:15px;
 }
-/* 4% */
+
+/* 4% - ajustado para mejor distribucion */
 .zkia{
   flex:0 0 4%;
-  font-size:15px;
+  min-width: 30px;
+  font-size:14px;
   font-weight:900;
   color:#2c3e2f;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  text-align: center;
+  padding-top: 2px;
 }
 
 /* === NUEVO ESTILO PARA ETXEKO Y KANPOKOAK === */
-/* 32% cada uno - TEXTO MÁS GRANDE + EFECTO GRABADO EN PIEDRA FUERTE */
+/* Distribución más flexible - cada uno 34% para dar espacio */
 .etxekoa{
-  flex:0 0 32%;
+  flex:0 0 34%;
   color:#103c54;
-  font-size:18px;          /* Texto más grande */
+  font-size:16px;          /* Tamaño base ajustable */
   font-weight:800;
   letter-spacing:0.5px;
+  line-height: 1.3;        /* Mejor espacio entre líneas */
   
   /* EFECTO GRABADO EN PIEDRA (marcado) */
   text-shadow: 
-    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
-    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
-    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+    0px 2px 2px rgba(0,0,0,0.3),
+    0px -1px 0px rgba(255,255,255,0.8),
+    1px 0px 0px rgba(0,0,0,0.1);
   
   background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #1a4d6b;  /* Color base oscuro para dar sensación de grabado */
+  -webkit-text-fill-color: #1a4d6b;
   text-fill-color: #1a4d6b;
   transition: all 0.2s ease;
+  
+  /* Permitir que el texto fluya y se ajuste */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
 }
 
 .kanpokoa{
-  flex:0 0 32%;
+  flex:0 0 34%;
   color:#b00000;
-  font-size:18px;          /* Texto más grande */
+  font-size:16px;
   font-weight:800;
   letter-spacing:0.5px;
+  line-height: 1.3;
   
   /* EFECTO GRABADO EN PIEDRA (marcado) */
   text-shadow: 
-    0px 2px 2px rgba(0,0,0,0.3),      /* sombra oscura hacia abajo (profundidad) */
-    0px -1px 0px rgba(255,255,255,0.8), /* luz superior (resalte) */
-    1px 0px 0px rgba(0,0,0,0.1);       /* sombra lateral sutil */
+    0px 2px 2px rgba(0,0,0,0.3),
+    0px -1px 0px rgba(255,255,255,0.8),
+    1px 0px 0px rgba(0,0,0,0.1);
   
   background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #a01020;  /* Color base oscuro para dar sensación de grabado */
+  -webkit-text-fill-color: #a01020;
   text-fill-color: #a01020;
+  
+  /* Permitir que el texto fluya y se ajuste */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
 }
 
 .equipo{
-  line-height:1.2;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  word-break:break-word;
+  line-height:1.3;
+  display: block;           /* Cambiado de -webkit-box a block */
+  word-break: break-word;
+  white-space: normal;
+  overflow: visible;
 }
 
 /* Resalte especial para equipos LARRAUN (más destacado) */
@@ -306,7 +323,6 @@ body{
     0px -1px 0px rgba(255,255,200,0.9),
     1px 1px 0px rgba(0,0,0,0.25);
   letter-spacing: 0.3px;
-  transform: scale(1.02);
   transition: all 0.2s ease;
   position: relative;
 }
@@ -325,9 +341,10 @@ body{
   z-index: -1;
 }
 
-/* 32% */
+/* 28% - más compacto para dar espacio a los equipos */
 .lehiaketa{
-  flex:0 0 32%;
+  flex:0 0 24%;
+  min-width: 110px;
   text-align:right;
   font-size:12px;
   display:flex;
@@ -335,6 +352,7 @@ body{
   align-items:center;
   gap:8px;
   min-height: 44px;
+  flex-wrap: wrap;
 }
 
 .fase{
@@ -372,7 +390,21 @@ body{
   overflow: visible;
   z-index: 2;
 }
- /* ================= FOOTER ================= */
+
+/* Media query para textos muy largos - reducción automática de fuente */
+@media (max-width: 900px) {
+  .etxekoa, .kanpokoa {
+    font-size: 14px;
+  }
+}
+
+/* Para líneas con textos muy largos, reducción dinámica */
+.linea[data-long-text="true"] .etxekoa,
+.linea[data-long-text="true"] .kanpokoa {
+  font-size: 13px;
+}
+
+/* ================= FOOTER ================= */
 
 .footer{
   display:flex;
@@ -532,8 +564,13 @@ function formatearEquipo(texto){
 
   if(!texto) return "";
 
-  // Inserta salto justo antes del paréntesis
-  return texto.replace(" (","<br>(");
+  // Inserta salto justo antes del paréntesis para mejor legibilidad
+  let resultado = texto.replace(" (","<br>(");
+  
+  // También inserta saltos después de guiones para nombres compuestos largos
+  resultado = resultado.replace(/([a-záéíóúñ])\s+([A-ZÁÉÍÓÚÑ])/g, '$1<br>$2');
+  
+  return resultado;
 }
 
 function formatearLehiaketa(texto, esFinala = false){
@@ -675,10 +712,13 @@ function crearBloques(titulo,data){
        let etx = formatearEquipo(p.etxekoa);
        let kan = formatearEquipo(p.kanpokoak);
 
-       // Aplicamos clase especial si contiene "Larraun" (no usamos <strong> directamente porque luego se procesa)
-       // Lo hacemos de forma más inteligente: reemplazamos Larraun por <strong>Larraun</strong> pero preservando el formato
+       // Contar caracteres para detectar textos muy largos
+       const textoEtxeko = p.etxekoa || "";
+       const textoKanpokoa = p.kanpokoak || "";
+       const esTextoMuyLargo = textoEtxeko.length > 40 || textoKanpokoa.length > 40;
+       
+       // Aplicamos clase especial si contiene "Larraun"
        if(etx.toLowerCase().includes("larraun")){
-         // Reemplazamos cada instancia de Larraun (con cualquier variante de mayúsculas) por su versión destacada
          etx = etx.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
        }
 
@@ -689,8 +729,11 @@ function crearBloques(titulo,data){
        // Clase adicional para la línea si es FINALA
        const lineaClass = esFinala ? "linea finala-linea" : "linea";
        
+       // Añadir atributo data-long-text si el texto es muy largo
+       const longTextAttr = esTextoMuyLargo ? ' data-long-text="true"' : '';
+       
        return `
-         <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}">
+         <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}"${longTextAttr}>
            <div class="zkia">${p.zkia}</div>
            <div class="etxekoa equipo">${etx}</div>
            <div class="kanpokoa equipo">${kan}</div>
