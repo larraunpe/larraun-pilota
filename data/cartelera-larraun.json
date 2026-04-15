@@ -118,6 +118,15 @@
   },
   {
     "fecha": "2026/04/19",
+    "hora": "09:30",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
+    "kanpokoak": "IK. SAN FERMIN (A. Vicuña - E. Zarranz)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/19",
     "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
@@ -148,15 +157,6 @@
     "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
-    "kanpokoak": "IK. SAN FERMIN (A. Vicuña - E. Zarranz)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/04/19",
-    "hora": "10:00",
-    "zkia": "5",
-    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
     "kanpokoak": "ABAXITABIDEA (M. Perez - M. Berruezo)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
@@ -164,7 +164,7 @@
   {
     "fecha": "2026/04/19",
     "hora": "10:00",
-    "zkia": "6",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
     "kanpokoak": "ERREKA (M. Oiaregi - O. Eskudero)",
@@ -173,7 +173,7 @@
     {
     "fecha": "2026/04/19",
     "hora": "10:00",
-    "zkia": "7",
+    "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
     "kanpokoak": "ATARRABIA (I. Meca - I. Petrotx) * SUSP.",
