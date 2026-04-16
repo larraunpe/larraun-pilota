@@ -10,7 +10,6 @@
   <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
   <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
   <style>
-    /* (estilos igual que antes) */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       margin: 0;
@@ -682,40 +681,24 @@
       if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
       if (!noOficialesResp.ok) throw new Error('ezin partida ez ofizialak kargatu');
       
-      partidakOficiales = await oficialesResp.json();
-      partidakNoOficiales = await noOficialesResp.json();
+      // Para FNP: Si cartelera-proxima-semana.json tiene estructura con "partidos"
+      const carteleraData = await noOficialesResp.json();
+      if (carteleraData.partidos) {
+        partidakOficiales = carteleraData.partidos;
+      } else {
+        partidakOficiales = carteleraData;
+      }
+      
+      partidakNoOficiales = await oficialesResp.json();
     } catch (e) {
       document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
       return;
     }
 
-    // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO (siempre semana actual) ----------
-    // Calculamos la semana actual basada en la fecha de hoy
-    const gaur = new Date();
-    
-    // Ajustamos a la zona horaria local para evitar problemas
-    const hoy = new Date(gaur.getFullYear(), gaur.getMonth(), gaur.getDate());
-    
-    // Calculamos el inicio de la semana (lunes)
-    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, etc.
-    const diffToMonday = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
-    
-    const astekoLehen = new Date(hoy);
-    astekoLehen.setDate(hoy.getDate() - diffToMonday);
-    astekoLehen.setHours(0, 0, 0, 0);
-    
-    // Calculamos el final de la semana (domingo)
-    const astekoAzken = new Date(astekoLehen);
-    astekoAzken.setDate(astekoLehen.getDate() + 6);
-    astekoAzken.setHours(23, 59, 59, 999);
-    
-    console.log('Astea (egungoa):', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
-    
-    // Guardamos en variables globales para usarlas en getPartidakByIturria
-    window.astekoLehen = astekoLehen;
-    window.astekoAzken = astekoAzken;
+    // ---------- 4. ELIMINADA RESTRICCIÓN DE FECHAS - Mostrar todos los partidos ----------
+    // Ya no filtramos por semana, mostramos todos los partidos de los archivos
 
-    // ---------- 5. Partidak iragazi ----------
+    // ---------- 5. Partidak iragazi (sin restricción de fechas) ----------
     function getPartidakByIturria(iturria) {
       let partidakIturria;
       
@@ -728,21 +711,9 @@
         );
       }
 
-      // Aste honetako partidak usando las fechas calculadas
-      function dateStrToDate(fechaStr) {
-        if (!fechaStr) return null;
-        const parts = fechaStr.split('/');
-        if (parts.length !== 3) return null;
-        return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
-      }
-
-      const partidakAsteHonetan = partidakIturria.filter(p => {
-        if (!p.fecha) return false;
-        const d = dateStrToDate(p.fecha);
-        return d && d >= window.astekoLehen && d <= window.astekoAzken;
-      });
-
-      partidakAsteHonetan.forEach(p => {
+      // Ya no filtramos por fecha, mostramos todos los partidos
+      // Solo procesamos los textos para reemplazar 'Descanso' por 'Atsedena'
+      partidakIturria.forEach(p => {
         if (p.etxekoa && p.etxekoa.includes('Descanso')) {
           p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
         }
@@ -751,7 +722,7 @@
         }
       });
 
-      return partidakAsteHonetan;
+      return partidakIturria;
     }
 
     // ---------- 6. Kategoria esleitu ----------
@@ -780,7 +751,7 @@
       const partidakAsteHonetan = getPartidakByIturria(iturria);
 
       if (partidakAsteHonetan.length === 0) {
-        document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partida ofizialik.</div>';
+        document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">🗓 Ez dago partidarik.</div>';
         document.getElementById('kategoria-selector-container').innerHTML = '';
         return;
       }
