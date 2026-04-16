@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Larraun Pilota – ORDUTEGIAK (asterako provisionalak)</title>
+  <link rel="icon" type="image/png" href="/egutegia.png">
+  <meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
+  <meta property="og:description" content="Asterako partiden ordutegi provisionalak, kategoriaka antolatuta">
+  <meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
+  <meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
+  <style>
+    /* (estilos igual que antes) */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f0f2f5;
+      padding: 10px;
+    }
+    .ordutegi-kartela {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px 24px 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 20, 30, 0.2);
+      overflow: hidden;
+      padding: 20px 15px 25px 15px;
+    }
+    @media (min-width: 768px) {
+      body { padding: 20px; }
+      .ordutegi-kartela {
+        border-radius: 32px 32px 24px 24px;
+        padding: 30px 35px 35px 35px;
+      }
+    }
+    
+    .header-ordutegiak {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #b30000;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 4px solid #b30000;
+      }
+    }
+    
+    .header-ordutegiak img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak img {
+        height: 80px;
+      }
+    }
+    
+    .header-ordutegiak h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #b30000;
+      margin: 0 5px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    @media (min-width: 480px) {
+      .header-ordutegiak h1 { font-size: 2.2rem; }
+    }
+    @media (min-width: 768px) {
+      .header-ordutegiak h1 {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        margin: 0 20px;
+      }
+    }
+    
+    .iturria-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .iturria-selector {
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+    }
+    
+    .iturria-botoia {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      flex: 0 1 auto;
+    }
+    @media (min-width: 768px) {
+      .iturria-botoia {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .iturria-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .iturria-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    .kategoria-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    @media (min-width: 768px) {
+      .kategoria-selector {
+        gap: 15px;
+        margin-bottom: 35px;
+      }
+    }
+    
+    .kategoria-botoia {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+    @media (min-width: 480px) {
+      .kategoria-botoia {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .kategoria-botoia {
+        padding: 12px 28px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .kategoria-botoia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .kategoria-botoia.aktibo {
+      background: #b30000;
+      color: white;
+      border-color: #800000;
+    }
+    
+    .kategoria-botoia.guztiak {
+      background: #333;
+      color: white;
+    }
+    
+    .kategoriak-ordena {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .kategoriak-ordena { gap: 30px; }
+    }
+    
+    .kategoria-blokea {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background-color: #ffffff;
+    }
+    @media (min-width: 768px) {
+      .kategoria-blokea { border-radius: 24px; }
+    }
+    
+    .kategoria-titulua {
+      padding: 12px 16px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #1a1a1a;
+      border-bottom: none;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+    @media (min-width: 480px) {
+      .kategoria-titulua {
+        padding: 14px 20px;
+        font-size: 1.8rem;
+        gap: 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      .kategoria-titulua {
+        padding: 16px 28px;
+        font-size: 2.4rem;
+        gap: 16px;
+      }
+    }
+    
+    .kategoria-titulua span.emoji-big {
+      font-size: 1.8rem;
+      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+    }
+    @media (min-width: 768px) {
+      .kategoria-titulua span.emoji-big { font-size: 2.8rem; }
+    }
+    
+    .egun-saila {
+      margin: 12px 10px 15px 10px;
+      border-left: 6px solid;
+      background: #ffffff;
+      border-radius: 14px 6px 6px 14px;
+      padding: 10px 12px 6px 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    @media (min-width: 768px) {
+      .egun-saila {
+        margin: 20px 20px 25px 20px;
+        border-left: 8px solid;
+        border-radius: 18px 8px 8px 18px;
+        padding: 12px 15px 8px 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+    }
+    
+    .egun-izena {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2c5d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #b0b0b0;
+      padding-bottom: 6px;
+      text-transform: capitalize;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 768px) {
+      .egun-izena {
+        font-size: 1.8rem;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+      }
+    }
+    
+    .frontoi-taldea {
+      margin-bottom: 15px;
+      margin-left: 4px;
+    }
+    @media (min-width: 768px) {
+      .frontoi-taldea {
+        margin-bottom: 20px;
+        margin-left: 8px;
+      }
+    }
+    
+    .frontoi-izena {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #f2f2f2;
+      display: inline-block;
+      padding: 5px 16px 5px 14px;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      border: 2px solid #aaa;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      word-break: break-word;
+      max-width: 100%;
+    }
+    @media (min-width: 768px) {
+      .frontoi-izena {
+        font-size: 1.4rem;
+        padding: 6px 24px 6px 20px;
+        border-radius: 40px;
+        margin-bottom: 12px;
+      }
+    }
+    
+    .frontoi-izena.berezia {
+      background: #0b5ed7 !important;
+      color: white !important;
+      border-color: #003f8c;
+      box-shadow: 0 3px 0 #002856;
+    }
+    
+    .partido-txikia {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #ffffff;
+      padding: 12px 12px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 480px) {
+      .partido-txikia {
+        gap: 15px;
+        padding: 14px 16px;
+      }
+    }
+    @media (min-width: 768px) {
+      .partido-txikia {
+        gap: 20px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+        border-left: 8px solid;
+      }
+    }
+    
+    .ordu-blokea {
+      min-width: 80px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      background: #0b2c5d;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 3px 0 #04162e;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    @media (min-width: 480px) {
+      .ordu-blokea {
+        min-width: 100px;
+        font-size: 1.2rem;
+        padding: 6px 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea {
+        min-width: 120px;
+        font-size: 1.4rem;
+        padding: 8px 16px;
+        box-shadow: 0 4px 0 #04162e;
+      }
+    }
+    
+    .ordu-blokea.provisorio {
+      background: #b34a00;
+      box-shadow: 0 3px 0 #6b2d00;
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea.provisorio { box-shadow: 0 4px 0 #6b2d00; }
+    }
+    
+    .ordu-blokea small {
+      font-size: 0.65rem;
+      font-weight: 500;
+      display: block;
+      opacity: 0.95;
+    }
+    @media (min-width: 768px) {
+      .ordu-blokea small { font-size: 0.75rem; }
+    }
+    
+    .partido-info {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .parejak {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    @media (min-width: 480px) {
+      .parejak { font-size: 1.1rem; gap: 5px; }
+    }
+    @media (min-width: 768px) {
+      .parejak { font-size: 1.2rem; gap: 6px; }
+    }
+    
+    .etxekoa, .kanpokoak {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      word-break: break-word;
+    }
+    
+    .etxekoa { color: #0b2c5d; }
+    .kanpokoak { color: #b00000; }
+    
+    .larraun-handiagoa {
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: #ffe6e6;
+      padding: 2px 8px;
+      border-radius: 30px;
+      border: 2px solid #b30000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    @media (min-width: 480px) {
+      .larraun-handiagoa { font-size: 1.2rem; padding: 3px 10px; }
+    }
+    @media (min-width: 768px) {
+      .larraun-handiagoa { font-size: 1.5rem; padding: 3px 12px; }
+    }
+    
+    .lehiaketa-labur {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #333;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 768px) {
+      .lehiaketa-labur {
+        margin-top: 10px;
+        font-size: 1rem;
+        gap: 12px;
+      }
+    }
+    
+    .zkia-etiketa {
+      background: #333;
+      color: white;
+      border-radius: 30px;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    @media (min-width: 768px) {
+      .zkia-etiketa {
+        padding: 4px 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .fase-tag {
+      background: #d4af37;
+      color: #1a1a1a;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    @media (min-width: 768px) {
+      .fase-tag {
+        font-size: 0.85rem;
+        padding: 4px 12px;
+      }
+    }
+    
+    .footer-ordutegiak {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 2px solid #bbb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #1f1f1f;
+      font-weight: 600;
+      text-align: center;
+    }
+    @media (min-width: 480px) {
+      .footer-ordutegiak {
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 1rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .footer-ordutegiak {
+        margin-top: 45px;
+        padding-top: 20px;
+        border-top: 3px solid #aaa;
+        font-size: 1.1rem;
+      }
+    }
+    
+    .footer-ordutegiak .social {
+      background: #b30000;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      display: inline-block;
+    }
+    @media (min-width: 768px) {
+      .footer-ordutegiak .social {
+        padding: 8px 22px;
+      }
+    }
+    
+    .ez-partidurik {
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #777;
+      font-style: italic;
+    }
+    @media (min-width: 768px) {
+      .ez-partidurik {
+        padding: 30px;
+        font-size: 1.8rem;
+      }
+    }
+
+    .kategoria-ezkutuan {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+<div class="ordutegi-kartela">
+  <div class="header-ordutegiak">
+    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <h1>ORDUTEGIAK</h1>
+    <img src="images/logo-fnp.png" alt="FNP">
+  </div>
+
+  <div id="iturria-selector-container" class="iturria-selector"></div>
+  <div id="kategoria-selector-container" class="kategoria-selector"></div>
+
+  <div id="kategoriak-container" class="kategoriak-ordena">
+    <div class="ez-partidurik" id="loading-placeholder">⏳ partidak kargatzen...</div>
+  </div>
+
+  <div class="footer-ordutegiak">
+    <div>📍 Larraun Pilota Elkartea</div>
+    <div class="social">@larraunpilota</div>
+  </div>
+</div>
+
+<script>
+  (async function() {
+    // ---------- 1. Kategoriak kargatu ----------
+    let kategoriakRaw = [];
+    let kategoriakMap = new Map();
+    let edadMinToKategoria = new Map();
+
+    try {
+      const katResp = await fetch('/data/categoriaedad.json');
+      if (katResp.ok) {
+        kategoriakRaw = await katResp.json();
+        
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          
+          if (!edadMinToKategoria.has(edadMin)) {
+            edadMinToKategoria.set(edadMin, izena);
+          }
+        });
+
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const kolorea = item[izena];
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin) || izena;
+          
+          kategoriakMap.set(izena.toUpperCase().trim(), {
+            kolorea: kolorea,
+            edadMin: edadMin,
+            izena: izena,
+            kategoriaNagusia: kategoriaNagusia
+          });
+        });
+
+        const kategoriaNagusiakSet = new Set();
+        kategoriakRaw.forEach(item => {
+          const izena = Object.keys(item).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+          if (!izena) return;
+          const edadMin = item.EDADMIN ? parseInt(item.EDADMIN, 10) : 999;
+          const kategoriaNagusia = edadMinToKategoria.get(edadMin);
+          if (kategoriaNagusia) {
+            kategoriaNagusiakSet.add(kategoriaNagusia);
+          }
+        });
+
+        const kategoriaNagusiakArray = Array.from(kategoriaNagusiakSet).map(izena => {
+          const item = kategoriakRaw.find(i => {
+            const iIzena = Object.keys(i).find(key => key !== 'EDADMIN' && key !== 'EDADMAX');
+            return iIzena === izena;
+          });
+          return {
+            izena: izena,
+            edadMin: item ? parseInt(item.EDADMIN, 10) : 999
+          };
+        });
+
+        kategoriakRaw = kategoriaNagusiakArray.sort((a, b) => {
+          if (a.edadMin !== b.edadMin) return a.edadMin - b.edadMin;
+          return a.izena.localeCompare(b.izena);
+        }).map(item => ({ [item.izena]: kategoriakMap.get(item.izena.toUpperCase().trim())?.kolorea || '#cccccc', EDADMIN: item.edadMin }));
+
+      } else {
+        console.warn('ez da categoriaedad.json kargatu');
+      }
+    } catch (e) {
+      console.warn('kategoriak kargatzean errorea:', e);
+    }
+
+    // ---------- 2. Iturriaren selectorea ----------
+    const iturriaSelectorContainer = document.getElementById('iturria-selector-container');
+    
+    const iturriak = [
+      { id: 'fnp', izena: 'FNP' },
+      { id: 'beste-ofizialak', izena: 'BESTE OFIZIALAK' },
+      { id: 'ez-ofizialak', izena: 'EZ OFIZIALAK' }
+    ];
+    
+    const iturriaBotoiak = [];
+    let iturriaAktibo = 'fnp';
+    
+    iturriak.forEach(iturri => {
+      const botoia = document.createElement('button');
+      botoia.className = `iturria-botoia ${iturri.id === iturriaAktibo ? 'aktibo' : ''}`;
+      botoia.textContent = iturri.izena;
+      botoia.setAttribute('data-iturria', iturri.id);
+      iturriaSelectorContainer.appendChild(botoia);
+      iturriaBotoiak.push(botoia);
+    });
+
+    // ---------- 3. Partidak kargatu ----------
+    let partidakOficiales = [];
+    let partidakNoOficiales = [];
+
+    try {
+      const [oficialesResp, noOficialesResp] = await Promise.all([
+        fetch('/data/proxima-no-oficiales.json'),
+        fetch('/data/cartelera-proxima-semana.json')
+      ]);
+      
+      if (!oficialesResp.ok) throw new Error('ezin partida ofizialak kargatu');
+      if (!noOficialesResp.ok) throw new Error('ezin partida ez ofizialak kargatu');
+      
+      partidakOficiales = await oficialesResp.json();
+      partidakNoOficiales = await noOficialesResp.json();
+    } catch (e) {
+      document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';
+      return;
+    }
+
+    // ---------- 4. ASTE HONETAKO PARTIDAK - CORREGIDO (siempre semana actual) ----------
+    // Calculamos la semana actual basada en la fecha de hoy
+    const gaur = new Date();
+    
+    // Ajustamos a la zona horaria local para evitar problemas
+    const hoy = new Date(gaur.getFullYear(), gaur.getMonth(), gaur.getDate());
+    
+    // Calculamos el inicio de la semana (lunes)
+    const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, etc.
+    const diffToMonday = diaSemana === 0 ? 6 : diaSemana - 1; // Si es domingo (0), restamos 6 para ir al lunes anterior
+    
+    const astekoLehen = new Date(hoy);
+    astekoLehen.setDate(hoy.getDate() - diffToMonday);
+    astekoLehen.setHours(0, 0, 0, 0);
+    
+    // Calculamos el final de la semana (domingo)
+    const astekoAzken = new Date(astekoLehen);
+    astekoAzken.setDate(astekoLehen.getDate() + 6);
+    astekoAzken.setHours(23, 59, 59, 999);
+    
+    console.log('Astea (egungoa):', astekoLehen.toLocaleDateString(), '-', astekoAzken.toLocaleDateString());
+    
+    // Guardamos en variables globales para usarlas en getPartidakByIturria
+    window.astekoLehen = astekoLehen;
+    window.astekoAzken = astekoAzken;
+
+    // ---------- 5. Partidak iragazi ----------
+    function getPartidakByIturria(iturria) {
+      let partidakIturria;
+      
+      if (iturria === 'fnp') {
+        partidakIturria = partidakOficiales;
+      } else {
+        const ofizialaBalioa = iturria === 'beste-ofizialak' ? 'true' : 'false';
+        partidakIturria = partidakNoOficiales.filter(p => 
+          String(p.ofiziala).toLowerCase() === ofizialaBalioa
+        );
+      }
+
+      // Aste honetako partidak usando las fechas calculadas
+      function dateStrToDate(fechaStr) {
+        if (!fechaStr) return null;
+        const parts = fechaStr.split('/');
+        if (parts.length !== 3) return null;
+        return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+      }
+
+      const partidakAsteHonetan = partidakIturria.filter(p => {
+        if (!p.fecha) return false;
+        const d = dateStrToDate(p.fecha);
+        return d && d >= window.astekoLehen && d <= window.astekoAzken;
+      });
+
+      partidakAsteHonetan.forEach(p => {
+        if (p.etxekoa && p.etxekoa.includes('Descanso')) {
+          p.etxekoa = p.etxekoa.replace('Descanso', 'Atsedena');
+        }
+        if (p.kanpokoak && p.kanpokoak.includes('Descanso')) {
+          p.kanpokoak = p.kanpokoak.replace('Descanso', 'Atsedena');
+        }
+      });
+
+      return partidakAsteHonetan;
+    }
+
+    // ---------- 6. Kategoria esleitu ----------
+    function kategoriaNagusia(testua) {
+      if (!testua) return 'Beste';
+      const up = testua.toUpperCase();
+      
+      for (let [k, info] of kategoriakMap.entries()) {
+        if (up.includes(k)) {
+          return info.kategoriaNagusia;
+        }
+      }
+      
+      if (up.includes('HAUR')) return 'HAURRAK';
+      if (up.includes('KADETE')) return 'KADETE';
+      if (up.includes('KIMU')) return 'KIMU';
+      if (up.includes('GAZTE')) return 'GAZTE';
+      if (up.includes('ALEBIN')) return 'ALEBINAK';
+      if (up.includes('SEIN')) return 'SEIN';
+      if (up.includes('ESKUZ KOPA')) return 'ESKUZ KOPA';
+      return 'Beste';
+    }
+
+    // ---------- 7. HTML birsortu ----------
+    function renderPartidak(iturria) {
+      const partidakAsteHonetan = getPartidakByIturria(iturria);
+
+      if (partidakAsteHonetan.length === 0) {
+        document.getElementById('kategoriak-container').innerHTML = '<div class="ez-partidurik">🗓 Aste honetan ez dago partida ofizialik.</div>';
+        document.getElementById('kategoria-selector-container').innerHTML = '';
+        return;
+      }
+
+      const partidakKategoriaka = new Map();
+      partidakAsteHonetan.forEach(p => {
+        const iz = kategoriaNagusia(p.lehiaketa || p.modalidad || '');
+        if (!partidakKategoriaka.has(iz)) partidakKategoriaka.set(iz, []);
+        partidakKategoriaka.get(iz).push(p);
+      });
+
+      const ordenaPrior = new Map();
+      kategoriakRaw.forEach((item, index) => {
+        const izena = Object.keys(item)[0];
+        if (izena) {
+          ordenaPrior.set(izena.toUpperCase().trim(), index);
+        }
+      });
+
+      const kategoriaIzenak = Array.from(partidakKategoriaka.keys()).sort((a, b) => {
+        const aUp = a.toUpperCase().trim();
+        const bUp = b.toUpperCase().trim();
+        const idxA = ordenaPrior.has(aUp) ? ordenaPrior.get(aUp) : 999;
+        const idxB = ordenaPrior.has(bUp) ? ordenaPrior.get(bUp) : 999;
+        if (idxA !== idxB) return idxA - idxB;
+        return a.localeCompare(b);
+      });
+
+      const selectorContainer = document.getElementById('kategoria-selector-container');
+      selectorContainer.innerHTML = '';
+      
+      const guztiakBotoia = document.createElement('button');
+      guztiakBotoia.className = 'kategoria-botoia guztiak aktibo';
+      guztiakBotoia.textContent = 'Guztiak';
+      guztiakBotoia.setAttribute('data-kategoria', 'guztiak');
+      selectorContainer.appendChild(guztiakBotoia);
+      
+      const kategoriaBotoiak = [];
+      kategoriaIzenak.forEach(katIzen => {
+        const botoia = document.createElement('button');
+        botoia.className = 'kategoria-botoia';
+        botoia.textContent = katIzen;
+        botoia.setAttribute('data-kategoria', katIzen);
+        selectorContainer.appendChild(botoia);
+        kategoriaBotoiak.push(botoia);
+      });
+
+      const container = document.getElementById('kategoriak-container');
+      container.innerHTML = '';
+
+      const egunakEus = ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'];
+
+      const kategoriaBlokeak = {};
+
+      for (let katIzen of kategoriaIzenak) {
+        const partidaLista = partidakKategoriaka.get(katIzen);
+        const katUp = katIzen.toUpperCase().trim();
+        
+        let kolorea = '#cccccc';
+        for (let [k, info] of kategoriakMap.entries()) {
+          if (info.kategoriaNagusia === katIzen) {
+            kolorea = info.kolorea;
+            break;
+          }
+        }
+        const bordeKolorea = kolorea;
+
+        const katBlokea = document.createElement('div');
+        katBlokea.className = 'kategoria-blokea';
+        katBlokea.style.backgroundColor = bordeKolorea;
+        katBlokea.setAttribute('data-kategoria', katIzen);
+
+        const tituluaDiv = document.createElement('div');
+        tituluaDiv.className = 'kategoria-titulua';
+        tituluaDiv.style.backgroundColor = `rgba(255, 255, 255, 0.95)`;
+        tituluaDiv.innerHTML = `<span class="emoji-big">⚾</span> ${katIzen}  ·  (${partidaLista.length} partida)`;
+        katBlokea.appendChild(tituluaDiv);
+
+        // Función parseOrdua corregida
+        function parseOrdua(horaStr) {
+          if (!horaStr || horaStr.trim() === '' || horaStr.trim() === '-' || horaStr.startsWith('-')) {
+            return '23:59';
+          }
+          const match = horaStr.match(/(\d{1,2}:\d{2})/);
+          return match ? match[1] : '23:59';
+        }
+
+        function extractLevelNumber(txt) {
+          const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
+          return match ? parseInt(match[2], 10) : 999;
+        }
+
+        function dateStrToDate(fechaStr) {
+          if (!fechaStr) return null;
+          const parts = fechaStr.split('/');
+          if (parts.length !== 3) return null;
+          return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+        }
+
+        partidaLista.sort((a, b) => {
+          const dA = dateStrToDate(a.fecha);
+          const dB = dateStrToDate(b.fecha);
+          if (!dA && !dB) return 0;
+          if (!dA) return 1;
+          if (!dB) return -1;
+          if (dA.getTime() !== dB.getTime()) return dA - dB;
+
+          const horaA = parseOrdua(a.hora || '');
+          const horaB = parseOrdua(b.hora || '');
+          if (horaA !== horaB) return horaA.localeCompare(horaB);
+
+          const frontA = a.fronton || '';
+          const frontB = b.fronton || '';
+          if (frontA !== frontB) return frontA.localeCompare(frontB);
+
+          const levelA = extractLevelNumber(a.lehiaketa);
+          const levelB = extractLevelNumber(b.lehiaketa);
+          return levelB - levelA;
+        });
+
+        let currentDateStr = null;
+        let currentDateDiv = null;
+        let currentFrontoi = null;
+        let frontoiDiv = null;
+
+        partidaLista.forEach(p => {
+          const fechaStr = p.fecha;
+          if (fechaStr !== currentDateStr) {
+            currentDateStr = fechaStr;
+            const dObj = dateStrToDate(fechaStr);
+            const egunIndizea = dObj ? dObj.getDay() : 0;
+            const egunIzenaEus = egunakEus[egunIndizea] || 'eguna';
+            const egunFormat = dObj ? `${egunIzenaEus}, ${fechaStr.replace(/\//g,'/')}` : fechaStr;
+
+            currentDateDiv = document.createElement('div');
+            currentDateDiv.className = 'egun-saila';
+            currentDateDiv.style.borderLeftColor = bordeKolorea;
+            currentDateDiv.innerHTML = `<div class="egun-izena">📅 ${egunFormat}</div>`;
+            katBlokea.appendChild(currentDateDiv);
+            currentFrontoi = null;
+          }
+
+          const frontIzen = p.fronton || 'Frontoia zehaztu gabe';
+          if (frontIzen !== currentFrontoi) {
+            currentFrontoi = frontIzen;
+            frontoiDiv = document.createElement('div');
+            frontoiDiv.className = 'frontoi-taldea';
+
+            const frontoiSpan = document.createElement('div');
+            frontoiSpan.className = 'frontoi-izena';
+            if (/lekunberri|aldatz/i.test(frontIzen)) {
+              frontoiSpan.classList.add('berezia');
+            }
+            frontoiSpan.textContent = '🎯 ' + frontIzen;
+            frontoiDiv.appendChild(frontoiSpan);
+            currentDateDiv.appendChild(frontoiDiv);
+          }
+
+          const partidaDiv = document.createElement('div');
+          partidaDiv.className = 'partido-txikia';
+          partidaDiv.style.borderLeftColor = bordeKolorea;
+
+          const orduGarbi = parseOrdua(p.hora || '');
+          const orduErakutsi = orduGarbi === '23:59' ? '⏳ ERABAKITZEKE' : orduGarbi;
+          const prov = (p.hora && p.hora.includes('provisional')) ? 'provisorio' : '';
+
+          const etxekoaTestua = p.etxekoa || '?';
+          const kanpokoaTestua = p.kanpokoak || '?';
+
+          const etxekoaLarraun = etxekoaTestua.toUpperCase().includes('LARRAUN');
+          const kanpokoaLarraun = kanpokoaTestua.toUpperCase().includes('LARRAUN');
+
+          const etxekoaClass = `etxekoa ${etxekoaLarraun ? 'larraun-handiagoa' : ''}`;
+          const kanpokoClass = `kanpokoak ${kanpokoaLarraun ? 'larraun-handiagoa' : ''}`;
+
+          partidaDiv.innerHTML = `
+            <div class="ordu-blokea ${prov}">${orduErakutsi} ${prov ? '<small>provis.</small>' : ''}</div>
+            <div class="partido-info">
+              <div class="parejak">
+                <span class="${etxekoaClass}">🏠 ${etxekoaTestua}</span>
+                <span class="${kanpokoClass}">✈️ ${kanpokoaTestua}</span>
+              </div>
+              <div class="lehiaketa-labur">
+                <span>🏆 ${p.lehiaketa || p.modalidad || ''}</span>
+                ${p.zkia && p.zkia !== '-' ? `<span class="zkia-etiketa">#${p.zkia}</span>` : ''}
+                ${p.lehiaketa?.toUpperCase().includes('FINALA') ? '<span class="fase-tag">⚡ FINALA</span>' : ''}
+              </div>
+            </div>
+          `;
+          frontoiDiv.appendChild(partidaDiv);
+        });
+
+        container.appendChild(katBlokea);
+        kategoriaBlokeak[katIzen] = katBlokea;
+      }
+
+      function filterKategoriak(kategoria) {
+        if (kategoria === 'guztiak') {
+          Object.values(kategoriaBlokeak).forEach(blokea => {
+            blokea.classList.remove('kategoria-ezkutuan');
+          });
+        } else {
+          Object.values(kategoriaBlokeak).forEach(blokea => {
+            if (blokea.getAttribute('data-kategoria') === kategoria) {
+              blokea.classList.remove('kategoria-ezkutuan');
+            } else {
+              blokea.classList.add('kategoria-ezkutuan');
+            }
+          });
+        }
+
+        guztiakBotoia.classList.remove('aktibo');
+        kategoriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+
+        if (kategoria === 'guztiak') {
+          guztiakBotoia.classList.add('aktibo');
+        } else {
+          const botoiaAktiboa = kategoriaBotoiak.find(b => b.getAttribute('data-kategoria') === kategoria);
+          if (botoiaAktiboa) botoiaAktiboa.classList.add('aktibo');
+        }
+      }
+
+      guztiakBotoia.addEventListener('click', () => filterKategoriak('guztiak'));
+      kategoriaBotoiak.forEach(botoia => {
+        botoia.addEventListener('click', (e) => {
+          const kategoria = e.target.getAttribute('data-kategoria');
+          filterKategoriak(kategoria);
+        });
+      });
+    }
+
+    // Hasierako render
+    renderPartidak('fnp');
+
+    iturriaBotoiak.forEach(botoia => {
+      botoia.addEventListener('click', (e) => {
+        const iturria = e.target.getAttribute('data-iturria');
+        iturriaBotoiak.forEach(b => b.classList.remove('aktibo'));
+        e.target.classList.add('aktibo');
+        renderPartidak(iturria);
+      });
+    });
+
+  })();
+</script>
+</body>
+</html>
