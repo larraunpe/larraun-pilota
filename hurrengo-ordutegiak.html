@@ -839,9 +839,20 @@
           return match ? match[1] : '23:59';
         }
 
+        // Función mejorada para extraer el número de nivel
         function extractLevelNumber(txt) {
-          const match = txt?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);
-          return match ? parseInt(match[2], 10) : 999;
+          if (!txt) return 999;
+          // Busca patrones como "SEIN 1", "SEIN 2", "KIMU 3", etc.
+          const match = txt.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s+(\d+)/i);
+          if (match) {
+            return parseInt(match[2], 10);
+          }
+          // También busca si hay un número suelto antes de LIGAXKA
+          const match2 = txt.match(/(\d+)\s*\.\s*LIGAXKA/i);
+          if (match2) {
+            return parseInt(match2[1], 10);
+          }
+          return 999;
         }
 
         function dateStrToDate(fechaStr) {
@@ -867,9 +878,15 @@
           const frontB = b.fronton || '';
           if (frontA !== frontB) return frontA.localeCompare(frontB);
 
+          // Ordenar por número de nivel de menor a mayor (1, 2, 3...)
           const levelA = extractLevelNumber(a.lehiaketa);
           const levelB = extractLevelNumber(b.lehiaketa);
-          return levelB - levelA;
+          if (levelA !== levelB) return levelA - levelB;
+          
+          // Si todo lo demás es igual, ordenar por zkia (número de partido)
+          const zkiaA = parseInt(a.zkia) || 0;
+          const zkiaB = parseInt(b.zkia) || 0;
+          return zkiaA - zkiaB;
         });
 
         let currentDateStr = null;
