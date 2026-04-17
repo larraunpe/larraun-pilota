@@ -1517,5 +1517,41 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3154&temp=2025",
     "emaitza": "irabazita",
     "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-17",
+    "fronton": "Pamplona - Oberena F 1",
+    "etxekoa": "OBERENA (A. Casillas - A. Sasigain) CASILLAS LACOSTA, A. SASIGAIN IGLESIAS, A.",
+    "kanpokoak": "LARRAUN (M. Galartza - I. Garziarena) GALARTZA ROTETA, M. GARZIARENA GURIDI, I.",
+    "tanteoa": "9-30",
+    "sets": [],
+    "modalidad": "KOPA PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3154&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-17",
+    "fronton": "Zizur Mayor - Ardoi",
+    "etxekoa": "ARDOI (O. Goñi - A. Gomez)",
+    "kanpokoak": "LARRAUN (U. Otamendi - M. Laso)",
+    "tanteoa": "22-19",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3177&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-17",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) OREJA ALTUNA, E. IJURKO BAKAIKUA, O.",
+    "kanpokoak": "AURRERA (J. Baleztena - O. Alkorta) BALEZTENA OTXOTORENA, J. ALKORTA ORONOZ, O.",
+    "tanteoa": "13-22",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3177&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
   }
 ]
