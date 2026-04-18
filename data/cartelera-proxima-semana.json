@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-04-17T20:51:44.725Z",
+  "fecha_generacion": "2026-04-18T08:01:12.165Z",
   "semana_numero": 17,
   "total_partidos": 15,
   "partidos": [
@@ -80,6 +80,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+      "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/25",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
       "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
@@ -92,15 +101,6 @@
       "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
       "kanpokoak": "LARRAUN (J. Bildarraz - I. Sotil)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-      "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
     },
     {
       "fecha": "2026/04/25",
