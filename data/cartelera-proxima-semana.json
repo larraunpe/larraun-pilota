@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-04-18T08:01:12.165Z",
+  "fecha_generacion": "2026-04-18T14:02:11.915Z",
   "semana_numero": 17,
   "total_partidos": 15,
   "partidos": [
@@ -29,6 +29,15 @@
       "etxekoa": "ALDABIDE (T. Arbizu - S. Arrizabalaga)",
       "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/24",
+      "hora": "19:15 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Betelu - Escuelas",
+      "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
+      "kanpokoak": "ABAXITABIDEA (M. Casajus - H. Astibia)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
     },
     {
       "fecha": "2026/04/25",
@@ -61,15 +70,6 @@
       "fecha": "2026/04/25",
       "hora": "09:30 !Horario provisional",
       "zkia": "4",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
-      "kanpokoak": "ABAXITABIDEA (M. Casajus - H. Astibia)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "09:30 !Horario provisional",
-      "zkia": "5",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
       "kanpokoak": "SAN MIGUEL (A. Yanci - A. Elbusto)",
