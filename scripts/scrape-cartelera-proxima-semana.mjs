@@ -95,7 +95,7 @@ async function main() {
     const dom = new JSDOM(html);
     const document = dom.window.document;
     
-    // Buscar TODAS las filas de la tabla (sin importar la tabla específica)
+    // Buscar TODAS las filas de la tabla
     const allRows = document.querySelectorAll("tr");
     console.log(`📊 Filas totales encontradas: ${allRows.length}`);
     
@@ -122,19 +122,24 @@ async function main() {
           etxekoa = etxekoa.replace(/\s+/g, " ").trim();
           kanpokoak = kanpokoak.replace(/\s+/g, " ").trim();
           
-          const textoCompleto = `${etxekoa} ${kanpokoak}`.toUpperCase();
+          // PRIMERO: Aplicar conversión a ambos equipos
+          const etxekoaConvertido = convertirPareja(etxekoa);
+          const kanpokoakConvertido = convertirPareja(kanpokoak);
+          
+          // LUEGO: Filtrar por "LARRAUN" usando los textos YA convertidos
+          const textoCompleto = `${etxekoaConvertido} ${kanpokoakConvertido}`.toUpperCase();
           
           if (textoCompleto.includes("LARRAUN")) {
             console.log(`✅ ENCONTRADO: ${fecha} - ${fronton}`);
-            console.log(`   ${etxekoa} vs ${kanpokoak}`);
+            console.log(`   ${etxekoaConvertido} vs ${kanpokoakConvertido}`);
             
             partidos.push({
               fecha,
               hora,
               zkia,
               fronton,
-              etxekoa: convertirPareja(etxekoa),
-              kanpokoak: convertirPareja(kanpokoak),
+              etxekoa: etxekoaConvertido,
+              kanpokoak: kanpokoakConvertido,
               lehiaketa
             });
           }
