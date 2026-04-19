@@ -1,8 +1,26 @@
 {
-  "fecha_generacion": "2026-04-19T15:39:40.762Z",
+  "fecha_generacion": "2026-04-19T18:55:23.548Z",
   "semana_numero": 17,
   "total_partidos": 16,
   "partidos": [
+    {
+      "fecha": "2026/04/24",
+      "hora": "17:00 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+      "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
+      "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/24",
+      "hora": "17:30 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Leitza - Amazabal",
+      "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
+      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+    },
     {
       "fecha": "2026/04/24",
       "hora": "18:15 !Horario provisional",
@@ -23,7 +41,7 @@
     },
     {
       "fecha": "2026/04/24",
-      "hora": "19:00 !Horario provisional",
+      "hora": "19:30 !Horario provisional",
       "zkia": "1",
       "fronton": "Arbizu - Arbizu",
       "etxekoa": "ALDABIDE (M. Zabalza - E. Leiza)",
@@ -32,12 +50,21 @@
     },
     {
       "fecha": "2026/04/24",
-      "hora": "19:00 !Horario provisional",
+      "hora": "19:30 !Horario provisional",
       "zkia": "2",
       "fronton": "Arbizu - Arbizu",
       "etxekoa": "ALDABIDE (T. Arbizu - S. Arrizabalaga)",
       "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/25",
+      "hora": "09:30 !Horario provisional",
+      "zkia": "6",
+      "fronton": "Leitza - Amazabal",
+      "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
+      "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/04/25",
@@ -77,24 +104,6 @@
     },
     {
       "fecha": "2026/04/25",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Leitza - Amazabal",
-      "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
-      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "5",
-      "fronton": "Leitza - Amazabal",
-      "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
-      "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
       "hora": "11:30 !Horario provisional",
       "zkia": "1",
       "fronton": "Lekunberri - Jaian Jai",
@@ -127,15 +136,6 @@
       "fronton": "-",
       "etxekoa": "HUARTE (A. Herce - E. Bronte)",
       "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
-      "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
     },
     {
