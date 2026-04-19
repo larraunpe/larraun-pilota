@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8"/>
+<title>Larraun Kartela - Behin-behineko Edizioa</title>
+
+<style>
+
+/* ================= BASE ================= */
+body{
+  margin:0;
+  background:#9bc4a0;  /* Fondo exterior más claro */
+  font-family:"Trebuchet MS","Arial Black",sans-serif;
+}
+
+/* ================= A3 ================= */
+.pagina{
+  width:900px;
+  margin:30px auto;
+  display:flex;
+  flex-direction:column;
+  background:#C1F9B4;  /* Verde más claro solicitado */
+  position:relative;
+  box-shadow:0 0 18px rgba(0,0,0,.4);
+}
+
+/* ================= HEADER ================= */
+
+.header{
+  height:120px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(#5ba86b, #3d7a4a);
+  box-shadow: inset 0 -10px 18px rgba(0,0,0,.35);
+}
+
+/* brillo superior */
+.header::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:35px;
+  background:linear-gradient(rgba(255,255,255,.35), transparent);
+}
+
+/* logos laterales */
+.logo-izq,.logo-der{
+  position:absolute;
+  top:18px;
+  height:85px;
+}
+.logo-izq{ left:14px; }
+.logo-der{ right:14px; }
+
+/* título curvado */
+.titulo-curvo{
+  width:100%;
+  height:100px;
+}
+
+.titulo-curvo text{
+  font-size:34px;
+  font-weight:900;
+  fill:white;
+  letter-spacing:2px;
+}
+
+/* TEXTO "behin-behineko kartelera" en lugar de la pelota */
+.texto-provisional{
+  position:absolute;
+  top:78px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.5);
+  color:#FFD966;
+  font-size:14px;
+  font-weight:bold;
+  padding:4px 12px;
+  border-radius:30px;
+  letter-spacing:1px;
+  white-space:nowrap;
+  backdrop-filter:blur(4px);
+  font-family:monospace;
+  text-transform:uppercase;
+}
+
+/* ================= CHAPAS ================= */
+.chapa{
+  height:12px;
+  background:#000;
+}
+
+/* ================= PELOTAZOS (menos cantidad) ================= */
+.pelotazos{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:20;
+  mix-blend-mode:multiply;
+}
+
+.pelota-dot{
+  position:absolute;
+  border-radius:50%;
+  background:#000;
+  opacity:.2;
+}
+
+/* ================= CONTENIDO ================= */
+.contenido{
+  flex:1;
+  padding:20px;
+  overflow:hidden;
+}
+
+/* ================= BLOQUES ================= */
+.bloque h2{
+  text-align:center;
+  margin:24px 0 16px 0;
+  color:#2c5e2a;
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:3px;
+  text-shadow:
+    0 2px 0 #fff,
+    0 -2px 0 rgba(0,0,0,.3),
+    2px 3px 4px rgba(0,0,0,.5);
+}
+
+/* ================= PARTIDOS ================= */
+.grupo{
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+
+.grupo-header{
+  padding:6px 12px;
+  font-weight:bold;
+  color:#fff;
+  background:#3d7a4a;
+  font-size:13px;
+}
+
+.grupo-header.rojo{
+  background:#b00000;
+}
+
+.linea{
+  display:flex;
+  padding:8px 10px;
+  border-top:1px solid #ddd;
+  font-size:13px;
+  align-items:flex-start;
+  font-weight:900;
+  border-radius:4px;
+  transition: all 0.2s ease;
+  gap: 8px;
+  min-height: 44px;
+}
+
+/* Estilo para línea cuando es FINALA */
+.linea.finala-linea {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 215, 0, 0.25) 0px,
+    rgba(255, 215, 0, 0.25) 20px,
+    rgba(220, 220, 220, 0.25) 20px,
+    rgba(220, 220, 220, 0.25) 40px
+  );
+  border-left: 4px solid #d4af37;
+  border-right: 4px solid #d4af37;
+  position: relative;
+  padding: 12px 10px;
+}
+
+.larraun{
+  font-weight:900;
+  font-size:15px;
+}
+
+.zkia{
+  flex:0 0 4%;
+  min-width: 30px;
+  font-size:14px;
+  font-weight:900;
+  color:#2c3e2f;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  text-align: center;
+  padding-top: 2px;
+}
+
+.etxekoa{
+  flex:0 0 34%;
+  color:#103c54;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:0.5px;
+  line-height: 1.3;
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.3),
+    0px -1px 0px rgba(255,255,255,0.8),
+    1px 0px 0px rgba(0,0,0,0.1);
+  background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #1a4d6b;
+  text-fill-color: #1a4d6b;
+  transition: all 0.2s ease;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
+}
+
+.kanpokoa{
+  flex:0 0 34%;
+  color:#b00000;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:0.5px;
+  line-height: 1.3;
+  text-shadow: 
+    0px 2px 2px rgba(0,0,0,0.3),
+    0px -1px 0px rgba(255,255,255,0.8),
+    1px 0px 0px rgba(0,0,0,0.1);
+  background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #a01020;
+  text-fill-color: #a01020;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
+}
+
+.equipo{
+  line-height:1.3;
+  display: block;
+  word-break: break-word;
+  white-space: normal;
+  overflow: visible;
+}
+
+/* Resalte especial para equipos LARRAUN */
+.etxekoa strong, .kanpokoa strong {
+  display: inline-block;
+  font-weight: 900;
+  color: #000000;
+  background: linear-gradient(135deg, #ffd89b 0%, #c7e9fb 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #1a4d6b;
+  text-fill-color: #1a4d6b;
+  text-shadow: 
+    0px 1px 2px rgba(255,215,0,0.6),
+    0px -1px 0px rgba(255,255,200,0.9),
+    1px 1px 0px rgba(0,0,0,0.25);
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.etxekoa strong::after, .kanpokoa strong::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.15), transparent);
+  pointer-events: none;
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.lehiaketa{
+  flex:0 0 24%;
+  min-width: 110px;
+  text-align:right;
+  font-size:12px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+  min-height: 44px;
+  flex-wrap: wrap;
+}
+
+.fase{
+  font-size:10px;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:6px;
+  background:#e7d3c2;
+  color:#5a2d0c;
+  white-space:nowrap;
+  letter-spacing:.5px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo para FINALA */
+.fase-finala{
+  background:linear-gradient(145deg, #c9a227, #f7e27a);
+  color:#000;
+  font-weight:900;
+  font-size:12px;
+  padding: 14px 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 3px rgba(255,255,255,0.8);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid #b38b1e;
+  line-height: 1.2;
+  min-width: 60px;
+  height: auto;
+  white-space: nowrap;
+  position: relative;
+  overflow: visible;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .etxekoa, .kanpokoa {
+    font-size: 14px;
+  }
+}
+
+.linea[data-long-text="true"] .etxekoa,
+.linea[data-long-text="true"] .kanpokoa {
+  font-size: 13px;
+}
+
+/* ================= FOOTER ================= */
+.footer{
+  display:flex;
+  flex-direction:column;
+}
+
+.pie-gris{
+  padding:14px 12px;
+  background:linear-gradient(#4a4a4a, #2f2f2f);
+  box-shadow:
+    inset 0 10px 14px rgba(255,255,255,.25),
+    inset 0 -12px 18px rgba(0,0,0,.6);
+}
+
+.logos-grid{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:8px;
+}
+
+.logo-item{
+  background:#fff;
+  padding:6px;
+  border-radius:6px;
+}
+
+.logo-item img{
+  width:100%;
+  height:36px;
+  object-fit:contain;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="contenedorPaginas"></div>
+
+<script>
+
+  let FASES = {};
+  let CATEGORIAS = {};
+
+/* ================= CREAR HEADER/FOOTER REUTILIZABLE ================= */
+function crearHeader(){
+ return `
+ <div class="header">
+   <img src="images/logo-larraun.png" class="logo-izq">
+   <img src="images/logo-fnp.png" class="logo-der">
+
+   <svg class="titulo-curvo" viewBox="0 0 900 120">
+     <path id="arco" d="M60,110 Q450,-60 840,110" fill="transparent"/>
+     <text text-anchor="middle">
+       <textPath href="#arco" startOffset="50%">LARRAUN PILOTA ELKARTEA</textPath>
+     </text>
+   </svg>
+
+   <!-- Texto provisional en lugar de la pelota -->
+   <div class="texto-provisional">behin-behineko kartelera</div>
+ </div>
+ <div class="chapa"></div>
+ `;
+}
+
+function crearFooter(){
+ return `
+ <div class="chapa"></div>
+ <div class="footer">
+   <div class="pie-gris">
+     <div class="logos-grid"></div>
+   </div>
+ </div>
+ `;
+}
+
+/* ================= CREAR NUEVA PÁGINA ================= */
+function nuevaPagina(){
+ const p=document.createElement("div");
+ p.className="pagina";
+
+ const pel=document.createElement("div");
+ pel.className="pelotazos";
+ p.appendChild(pel);
+
+ p.insertAdjacentHTML("beforeend",
+   crearHeader()+
+   `<div class="contenido"></div>`+
+   crearFooter()
+ );
+
+ document.getElementById("contenedorPaginas").appendChild(p);
+ rellenarLogos(p);
+ return p.querySelector(".contenido");
+}
+
+function generarPelotazos(contenedor){
+ // Menos pelotazos: de 6000 a 800
+ for(let i=0;i<800;i++){
+   const d=document.createElement("div");
+   const s=Math.random()*4+2;
+   d.className="pelota-dot";
+   d.style.width=d.style.height=s+"px";
+   d.style.left=Math.random()*900+"px";
+   d.style.top=Math.random()*2000+"px";
+   contenedor.appendChild(d);
+ }
+}
+
+function rellenarLogos(pagina){
+ const LOGOS=[
+ "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
+ "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
+ "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
+ "construccionesurangasaigos.jpg","hotelayestaran.jpg",
+ "iseelectricidad.jpg","kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg",
+ "maderasnasorena.jpg","maskarada.jpg","suacontrol.jpg","urzubi.jpg",
+ "ventamugiro.jpg","dietistaanagurrea.jpg","ekin.jpg",
+ "farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
+ "izarberri.png","lakita.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
+ "talleresotxotorena.jpg","veterinarialekunberri.jpg"
+ ];
+
+ const grid=pagina.querySelector(".logos-grid");
+ grid.innerHTML = LOGOS
+   .map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`)
+   .join("");
+}
+
+/* ================= CREAR BLOQUES PARTIDOS ================= */
+function formatearEquipo(texto){
+  if(!texto) return "";
+  let resultado = texto.replace(" (","<br>(");
+  resultado = resultado.replace(/([a-záéíóúñ])\s+([A-ZÁÉÍÓÚÑ])/g, '$1<br>$2');
+  return resultado;
+}
+
+function formatearLehiaketa(texto, esFinala = false){
+  if(!texto) return "";
+  const fasesOrdenadas = Object.values(FASES)
+    .sort((a,b)=> b.length - a.length);
+  let textoProcesado = texto;
+  for(const fase of fasesOrdenadas){
+    const regex = new RegExp(`\\b${fase}\\b`, "g");
+    if(regex.test(textoProcesado)){
+      let claseExtra = (fase.toUpperCase() === "FINALA") ? " fase-finala" : "";
+      textoProcesado = textoProcesado.replace(
+        regex,
+        `<span class="fase${claseExtra}">${fase}</span>`
+      );
+      break;
+    }
+  }
+  return textoProcesado;
+}
+
+function generarClasesCategorias(){
+  const style = document.createElement("style");
+  let css = "";
+  for(const cat in CATEGORIAS){
+    css += `.cat-${cat}{ background:${CATEGORIAS[cat]}; }\n`;
+  }
+  style.innerHTML = css;
+  document.head.appendChild(style);
+}
+
+function obtenerClaseCategoria(texto){
+  if(!texto) return "";
+  const textoLower = texto.toLowerCase();
+  for(const cat in CATEGORIAS){
+    if(textoLower.includes(cat.toLowerCase())){
+      return "cat-"+cat;
+    }
+  }
+  return "";
+}
+
+function crearBloques(titulo, data){
+ if(!data || data.length===0) return [];
+ const arr=[];
+ const h2=document.createElement("div");
+ h2.className="bloque";
+ h2.innerHTML=`<h2>${titulo}</h2>`;
+ arr.push(h2);
+
+ // Filtrar descansos
+ const dataFiltrada = data.filter(p=>{
+   const e=(p.etxekoa||"").toLowerCase();
+   const k=(p.kanpokoak||"").toLowerCase();
+   return !(e.includes("descanso") || e.includes("atseden") || k.includes("descanso") || k.includes("atseden"));
+ });
+
+ // Ordenar por fecha y hora
+ dataFiltrada.sort((a,b)=>{
+   const fechaA = new Date(a.fecha.replace(/\//g,"-"));
+   const fechaB = new Date(b.fecha.replace(/\//g,"-"));
+   if(fechaA - fechaB !== 0) return fechaA - fechaB;
+   if(a.hora !== b.hora) return a.hora.localeCompare(b.hora);
+   return (a.fronton || "").localeCompare(b.fronton || "");
+ });
+
+ const grupos={};
+ dataFiltrada.forEach(p=>{
+   const key = p.fecha+"|"+p.hora+"|"+p.fronton;
+   if(!grupos[key]) grupos[key]=[];
+   grupos[key].push(p);
+ });
+
+ Object.values(grupos).forEach(partidos=>{
+   const g=document.createElement("div");
+   g.className="grupo";
+   const fronton = partidos[0].fronton || "";
+   const esLocal = fronton.toLowerCase().includes("lekunberri") || fronton.toLowerCase().includes("aldatz");
+   const colorClase = esLocal ? "" : " rojo";
+   g.innerHTML=`
+     <div class="grupo-header${colorClase}">
+       ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
+     </div>
+     ${partidos.map(p => {
+       const esFinala = p.lehiaketa && p.lehiaketa.toUpperCase().includes("FINALA");
+       let etx = formatearEquipo(p.etxekoa);
+       let kan = formatearEquipo(p.kanpokoak);
+       const textoEtxeko = p.etxekoa || "";
+       const textoKanpokoa = p.kanpokoak || "";
+       const esTextoMuyLargo = textoEtxeko.length > 40 || textoKanpokoa.length > 40;
+       if(etx.toLowerCase().includes("larraun")){
+         etx = etx.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
+       }
+       if(kan.toLowerCase().includes("larraun")){
+         kan = kan.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
+       }
+       const lineaClass = esFinala ? "linea finala-linea" : "linea";
+       const longTextAttr = esTextoMuyLargo ? ' data-long-text="true"' : '';
+       return `
+         <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}"${longTextAttr}>
+           <div class="zkia">${p.zkia}</div>
+           <div class="etxekoa equipo">${etx}</div>
+           <div class="kanpokoa equipo">${kan}</div>
+           <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa, esFinala)}</div>
+         </div>
+       `;
+     }).join("")}
+   `;
+   arr.push(g);
+ });
+ return arr;
+}
+
+/* ================= FETCH + CONSTRUIR ================= */
+Promise.all([
+  fetch("data/cartelera-proxima-semana.json").then(r=>r.json()),
+  fetch("data/proxima-no-oficiales.json").then(r=>r.json()),
+  fetch("data/fases.json").then(r=>r.json()),
+  fetch("data/categoriacartel.json").then(r=>r.json())
+]).then(([oficiales, noOficiales, fases, categorias])=>{
+ FASES = fases;
+ CATEGORIAS = categorias;
+ generarClasesCategorias();
+
+ // Separar noOficiales en oficiales no FNP y no oficiales
+ const otrosOficiales = noOficiales.filter(p=>p.ofiziala==="true");
+ const noOficialesList = noOficiales.filter(p=>p.ofiziala!=="true");
+
+ const bloques=[
+   ...crearBloques("FNP PARTIDUAK", oficiales),
+   ...crearBloques("BESTE TXAPELKETAK OFIZIALAK", otrosOficiales),
+   ...crearBloques("TXAPELKETAK EZ OFIZIALAK", noOficialesList)
+ ];
+
+ const contenido = nuevaPagina();
+ bloques.forEach(b=>contenido.appendChild(b));
+
+ const pel = document.querySelector(".pelotazos");
+ generarPelotazos(pel);
+}).catch(error=>{
+  console.error("Error cargando datos:", error);
+  const errorDiv = document.createElement("div");
+  errorDiv.style.padding = "40px";
+  errorDiv.style.textAlign = "center";
+  errorDiv.style.color = "red";
+  errorDiv.style.fontWeight = "bold";
+  errorDiv.innerHTML = "Errorea datuak kargatzean. Egiaztatu fitxategiak existitzen direla.<br><br>" + error.message;
+  document.getElementById("contenedorPaginas").appendChild(errorDiv);
+});
+
+</script>
+
+</body>
+</html>
