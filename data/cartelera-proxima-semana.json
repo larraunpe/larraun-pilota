@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-04-19T08:06:43.553Z",
+  "fecha_generacion": "2026-04-19T14:00:34.782Z",
   "semana_numero": 17,
   "total_partidos": 16,
   "partidos": [
@@ -77,21 +77,30 @@
     },
     {
       "fecha": "2026/04/25",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Leitza - Amazabal",
+      "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
+      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/25",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "5",
+      "fronton": "Leitza - Amazabal",
+      "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
+      "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/04/25",
       "hora": "11:30 !Horario provisional",
       "zkia": "1",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
       "kanpokoak": "IRURTZUN (A. Uharte - U. Lanz)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
-      "kanpokoak": "LARRAUN (I. Ijurko - E. Ijurko)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/04/25",
@@ -128,15 +137,6 @@
       "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
       "kanpokoak": "LARRAUN (A. Astiz - A. Dorronsoro)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/04/25",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
-      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
     },
     {
       "fecha": "2026/04/25",
