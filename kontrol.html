@@ -176,6 +176,17 @@
             border-left: 4px solid #e67e22;
         }
 
+        /* Estilo para enlaces nuevos de horarios provisionales */
+        .provisional-link {
+            background: linear-gradient(135deg, #fff9e8, #fff5e0);
+            border-left: 4px solid #f59e0b;
+        }
+
+        .provisional-link:hover {
+            background: linear-gradient(135deg, #fff5e0, #fff0d4);
+            border-color: #d97706;
+        }
+
         /* Footer */
         .footer-info {
             text-align: center;
@@ -339,36 +350,58 @@
             </div>
         </div>
 
-        <!-- NUEVA SECCIÓN: ALDAKETAK / CAMBIOS DE HORARIO -->
+        <!-- SECCIÓN ACTUALIZADA: ALDAKETAK / CAMBIOS DE HORARIO -->
         <div class="card cambios">
             <div class="card-header">
                 <h2>
                     <span>🕒</span> Aldaketak / Cambios de horario
-                    <span class="badge-count">3 akzeso</span>
+                    <span class="badge-count">5 akzeso</span>
                 </h2>
-                <p style="font-size: 0.8rem; color: #b45309; margin-top: 6px;">Aldaketa-eskaerak eta oharrak</p>
+                <p style="font-size: 0.8rem; color: #b45309; margin-top: 6px;">Aldaketa-eskaerak, oharrak eta ordutegi behin-behinekoak</p>
             </div>
             <div class="links-container">
+                <!-- Nuevos enlaces destacados: horarios provisionales -->
+                <a href="https://larraunpilota.eus/hurrengo-ordutegiak.html" class="dashboard-link provisional-link" target="_blank" rel="noopener">
+                    <span class="link-icon">⏰📋</span>
+                    <span class="link-text">
+                        <strong>📋 Hurrengo asteko ordutegiak / Horarios provisionales semana próxima</strong>
+                        <span style="display: block; font-size: 0.7rem; font-weight: normal; color: #b45309;">⚠️ Behin-behinekoak / Provisional</span>
+                    </span>
+                    <span class="link-url">hurrengo-ordutegiak.html</span>
+                </a>
+                <a href="https://larraunpilota.eus/hurrengo-ordutegiak-kartela.html" class="dashboard-link provisional-link" target="_blank" rel="noopener">
+                    <span class="link-icon">📅⚠️</span>
+                    <span class="link-text">
+                        <strong>📋 Hurrengo asteko kartela / Cartelera provisional semana próxima</strong>
+                        <span style="display: block; font-size: 0.7rem; font-weight: normal; color: #b45309;">⚠️ Behin-behinekoak / Provisional</span>
+                    </span>
+                    <span class="link-url">hurrengo-ordutegiak-kartela.html</span>
+                </a>
+                
+                <!-- Separador visual sutil -->
+                <div style="height: 2px; background: linear-gradient(90deg, transparent, #fde68a, transparent); margin: 0.3rem 0;"></div>
+                
+                <!-- Enlaces existentes -->
                 <a href="https://larraunpilota.eus/aldaketak.html" class="dashboard-link" target="_blank" rel="noopener">
                     <span class="link-icon">👥</span>
-                    <span class="link-text">Astelenako eskaera</span>
+                    <span class="link-text">Astelenako eskaera / Solicitud de cambio (lunes)</span>
                     <span class="link-url">aldaketak.html</span>
                 </a>
                 <a href="https://larraunpilota.eus/aldaketak1.html" class="dashboard-link" target="_blank" rel="noopener">
                     <span class="link-icon">🤝</span>
-                    <span class="link-text">Eskabide orokorra (beste kluba ere)</span>
+                    <span class="link-text">Eskabide orokorra (beste kluba ere) / Solicitud general</span>
                     <span class="link-url">aldaketak1.html</span>
                 </a>
                 <a href="https://larraunpilota.eus/aldaketa-osoa.html" class="dashboard-link highlight-link" target="_blank" rel="noopener">
                     <span class="link-icon">📢</span>
-                    <span class="link-text">Ostegunako eskaera</span>
+                    <span class="link-text">Ostegunako eskaera / Solicitud de cambio (jueves)</span>
                     <span class="link-url">aldaketa-osoa.html</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Segunda fila (mantenemos los dos bloques inferiores, pero recolocamos para que quede equilibrado) -->
+    <!-- Segunda fila (mantenemos los dos bloques inferiores) -->
     <div class="grid" style="grid-template-columns: 1fr 1fr;">
         <!-- mini bloque de utilidad: vista previa rápida de enlaces recurrentes -->
         <div class="card" style="background: #eef3fa;">
@@ -381,6 +414,7 @@
                 <a href="https://larraunpilota.eus/asteko-kartela.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">📆 Astekoa</a>
                 <a href="https://larraunpilota.eus/azken-emaitzak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">⚡ Azkenak</a>
                 <a href="https://larraunpilota.eus/aldaketak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">🕒 Aldaketak</a>
+                <a href="https://larraunpilota.eus/hurrengo-ordutegiak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">⏰📋 Hurrengoa</a>
             </div>
         </div>
         <div class="card" style="background: #faf7f0;">
@@ -391,6 +425,7 @@
                 <p style="font-size: 0.85rem; line-height: 1.4;">Panel honek Larraun Pilotako kartelak, emaitzak, ordutegi aldaketak eta atal historiko guztiak biltzen ditu. Esteka guztiak
                    leiho berri batean irekiko dira mahaia beti eskuragarri mantentzeko.</p>
                 <p style="font-size: 0.75rem; color: #3d5a6c; margin-top: 0.5rem;">📌 Gomendioa: orri hau zure gustuko gisa markatu dezakezu klube kontrola azkar sartzeko.</p>
+                <p style="font-size: 0.7rem; color: #b45309; margin-top: 0.5rem;">⚠️ <strong>Berria:</strong> Hurrengo asteko ordutegi eta kartela behin-behinekoak eskuragarri!</p>
             </div>
         </div>
     </div>
