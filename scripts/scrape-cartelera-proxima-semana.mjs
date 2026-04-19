@@ -67,11 +67,9 @@ function getNextWeekNumber() {
 
 // Reglas de conversión
 const CONVERSION = [
-  { match: "D. Centeno - B. Esnaola", value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)" },
-  { match: "A. Eguzkiza - L. Navarro", value: "LARRAUN (L. Navarro - M. Lazkoz)" },
-  { match: "X. Goldaracena - E. Astibia", value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)" },
-  { match: "A. Balda - U. Arcelus", value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)" },
-  { match: "M. Goikoetxea - G. Uitzi", value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)" }
+  { match: "LARRAUN (D. Centeno - B. Esnaola)", value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)" },
+  { match: "ABAXITABIDEA (X. Goldaracena - E. Astibia)", value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)" },
+  { match: "LARRAUN (A. Balda - U. Arcelus)", value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)" }
 ];
 
 function convertirPareja(texto) {
