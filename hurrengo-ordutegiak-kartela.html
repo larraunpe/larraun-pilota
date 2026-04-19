@@ -9,7 +9,7 @@
 /* ================= BASE ================= */
 body{
   margin:0;
-  background:#9bc4a0;  /* Fondo exterior más claro */
+  background:#9bc4a0;
   font-family:"Trebuchet MS","Arial Black",sans-serif;
 }
 
@@ -19,7 +19,7 @@ body{
   margin:30px auto;
   display:flex;
   flex-direction:column;
-  background:#C1F9B4;  /* Verde más claro solicitado */
+  background:#C1F9B4;
   position:relative;
   box-shadow:0 0 18px rgba(0,0,0,.4);
 }
@@ -435,8 +435,8 @@ function nuevaPagina(){
 }
 
 function generarPelotazos(contenedor){
- // Menos pelotazos: de 6000 a 800
- for(let i=0;i<800;i++){
+ // Menos pelotazos: reducido de 6000 a 500
+ for(let i=0;i<500;i++){
    const d=document.createElement("div");
    const s=Math.random()*4+2;
    d.className="pelota-dot";
@@ -465,6 +465,13 @@ function rellenarLogos(pagina){
  grid.innerHTML = LOGOS
    .map(f=>`<div class="logo-item"><img src="images/patrocinio/${f}"></div>`)
    .join("");
+}
+
+/* ================= LIMPIAR TEXTO DE HORA ================= */
+function limpiarHora(hora){
+  if(!hora) return "";
+  // Eliminar "!Horario provisional" y espacios sobrantes
+  return hora.replace(/!Horario provisional/g, "").trim();
 }
 
 /* ================= CREAR BLOQUES PARTIDOS ================= */
@@ -535,13 +542,15 @@ function crearBloques(titulo, data){
    const fechaA = new Date(a.fecha.replace(/\//g,"-"));
    const fechaB = new Date(b.fecha.replace(/\//g,"-"));
    if(fechaA - fechaB !== 0) return fechaA - fechaB;
-   if(a.hora !== b.hora) return a.hora.localeCompare(b.hora);
+   const horaA = limpiarHora(a.hora);
+   const horaB = limpiarHora(b.hora);
+   if(horaA !== horaB) return horaA.localeCompare(horaB);
    return (a.fronton || "").localeCompare(b.fronton || "");
  });
 
  const grupos={};
  dataFiltrada.forEach(p=>{
-   const key = p.fecha+"|"+p.hora+"|"+p.fronton;
+   const key = p.fecha+"|"+limpiarHora(p.hora)+"|"+p.fronton;
    if(!grupos[key]) grupos[key]=[];
    grupos[key].push(p);
  });
@@ -552,9 +561,13 @@ function crearBloques(titulo, data){
    const fronton = partidos[0].fronton || "";
    const esLocal = fronton.toLowerCase().includes("lekunberri") || fronton.toLowerCase().includes("aldatz");
    const colorClase = esLocal ? "" : " rojo";
+   
+   // Mostrar hora limpia en el header
+   const horaMostrar = limpiarHora(partidos[0].hora);
+   
    g.innerHTML=`
      <div class="grupo-header${colorClase}">
-       ${partidos[0].fecha} | ${partidos[0].hora} | ${fronton}
+       ${partidos[0].fecha} | ${horaMostrar} | ${fronton}
      </div>
      ${partidos.map(p => {
        const esFinala = p.lehiaketa && p.lehiaketa.toUpperCase().includes("FINALA");
@@ -573,7 +586,7 @@ function crearBloques(titulo, data){
        const longTextAttr = esTextoMuyLargo ? ' data-long-text="true"' : '';
        return `
          <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}"${longTextAttr}>
-           <div class="zkia">${p.zkia}</div>
+           <div class="zkia">${p.zkia || "-"}</div>
            <div class="etxekoa equipo">${etx}</div>
            <div class="kanpokoa equipo">${kan}</div>
            <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa, esFinala)}</div>
@@ -592,11 +605,14 @@ Promise.all([
   fetch("data/proxima-no-oficiales.json").then(r=>r.json()),
   fetch("data/fases.json").then(r=>r.json()),
   fetch("data/categoriacartel.json").then(r=>r.json())
-]).then(([oficiales, noOficiales, fases, categorias])=>{
+]).then(([oficialesData, noOficiales, fases, categorias])=>{
  FASES = fases;
  CATEGORIAS = categorias;
  generarClasesCategorias();
 
+ // Extraer el array de partidos del objeto oficiales (está dentro de "partidos")
+ const oficiales = oficialesData.partidos || [];
+ 
  // Separar noOficiales en oficiales no FNP y no oficiales
  const otrosOficiales = noOficiales.filter(p=>p.ofiziala==="true");
  const noOficialesList = noOficiales.filter(p=>p.ofiziala!=="true");
