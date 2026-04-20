@@ -280,17 +280,42 @@
       margin-left: 6px;
       font-weight: normal;
     }
+    /* Estilos para el selector de idioma */
+    .idioma-selector {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+    .lang-btn {
+      background: none;
+      border: 1px solid #ccc;
+      padding: 4px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .lang-btn.active {
+      background: #b30000;
+      color: white;
+      border-color: #b30000;
+    }
   </style>
 </head>
 <body>
 <div class="container">
+  <div class="idioma-selector">
+    <button id="lang-eu" class="lang-btn active">🇪🇺 Euskera</button>
+    <button id="lang-es" class="lang-btn">🇪🇸 Castellano</button>
+  </div>
   <div class="header">
     <img src="/images/logo-larraun.png" alt="Larraun" onerror="this.style.display='none'">
-    <h1>EMAITZA INTERAKTIBOAK</h1>
+    <h1 id="main-title">EMAITZA INTERAKTIBOAK</h1>
     <img src="/images/logo-fnp.png" alt="FNP" onerror="this.style.display='none'">
   </div>
   
-  <div class="info-interaktiboa">
+  <div class="info-interaktiboa" id="info-text">
     <i>💡 Egin klik lehiaketaren izenean partidaren informazio gehiago ikusteko</i>
   </div>
 
@@ -302,6 +327,84 @@
 </div>
 
 <script>
+// ==================== IDIOMAS ====================
+let currentLang = 'eu'; // 'eu' o 'es'
+
+const translations = {
+  eu: {
+    weekActual: "📅 ASTE HONETAKO EMAITZAK",
+    weekPrevious: "📆 AURREKO ASTEKO EMAITZAK",
+    mainTitle: "EMAITZA INTERAKTIBOAK",
+    infoText: "💡 Egin klik lehiaketaren izenean partidaren informazio gehiago ikusteko",
+    torneoFNP: "🏅 FNP (OFIZIALAK)",
+    torneoBeste: "🏛️ BESTE OFIZIALAK",
+    torneoEz: "⚪ EZ OFIZIALAK",
+    emptyMatches: "🏆 Ez dago partidarik aste honetan.",
+    loading: "⏳ Partidak kargatzen...",
+    footer: "⚾ Larraun Pilota Elkartea • Emaitza interaktiboak asteka eta kategoriaka",
+    all: "🌐 GUZTIAK",
+    matches: "partida"
+  },
+  es: {
+    weekActual: "📅 RESULTADOS DE ESTA SEMANA",
+    weekPrevious: "📆 RESULTADOS DE LA SEMANA PASADA",
+    mainTitle: "RESULTADOS INTERACTIVOS",
+    infoText: "💡 Haz clic en el nombre de la competición para ver más información del partido",
+    torneoFNP: "🏅 FNP (OFICIALES)",
+    torneoBeste: "🏛️ OTROS OFICIALES",
+    torneoEz: "⚪ NO OFICIALES",
+    emptyMatches: "🏆 No hay partidos esta semana.",
+    loading: "⏳ Cargando partidos...",
+    footer: "⚾ Larraun Pilota Elkartea • Resultados interactivos por semana y categoría",
+    all: "🌐 TODOS",
+    matches: "partido"
+  }
+};
+
+function updateUITexts() {
+  // Actualizar título principal
+  document.getElementById('main-title').innerText = translations[currentLang].mainTitle;
+  // Actualizar texto informativo
+  document.getElementById('info-text').innerHTML = `<i>${translations[currentLang].infoText}</i>`;
+  // Actualizar footer
+  document.querySelector('footer').innerHTML = translations[currentLang].footer;
+  
+  // Actualizar textos de los botones de semana si ya existen
+  const weekBtns = document.querySelectorAll('#week-selector .btn');
+  if (weekBtns.length === 2) {
+    weekBtns[0].innerText = translations[currentLang].weekActual;
+    weekBtns[1].innerText = translations[currentLang].weekPrevious;
+  }
+  
+  // Actualizar textos de los botones de torneo
+  const torneoBtns = document.querySelectorAll('#torneo-selector .btn');
+  if (torneoBtns.length === 3) {
+    torneoBtns[0].innerText = translations[currentLang].torneoFNP;
+    torneoBtns[1].innerText = translations[currentLang].torneoBeste;
+    torneoBtns[2].innerText = translations[currentLang].torneoEz;
+  }
+  
+  // Actualizar el texto del chip "GUZTIAK"
+  const allChip = document.querySelector('.chip[data-kat="GUZTIAK"]');
+  if (allChip) {
+    allChip.innerHTML = translations[currentLang].all;
+  }
+  
+  // Actualizar texto de "partida" en los encabezados de categoría
+  document.querySelectorAll('.categoria-header span:last-child').forEach(span => {
+    let count = span.innerText.match(/\d+/);
+    if (count) {
+      span.innerText = `${count[0]} ${translations[currentLang].matches}`;
+    }
+  });
+  
+  // Actualizar mensaje de carga si está visible
+  const loadingDiv = document.getElementById("results-container");
+  if (loadingDiv && loadingDiv.querySelector('.loading')) {
+    loadingDiv.innerHTML = `<div class="loading">${translations[currentLang].loading}</div>`;
+  }
+}
+
 // ==================== FUNCIONES AUXILIARES ====================
 function parseDate(f) { return f ? new Date(f + "T00:00") : null; }
 
@@ -483,7 +586,7 @@ const SOURCES = [
 ];
 
 let loadedMatches = [];
-let currentWeek = "actual";
+let currentWeek = "anterior"; // Cambiado a "anterior" para que sea la semana pasada por defecto
 let currentTorneo = "fnp";
 let currentKategoria = "GUZTIAK";
 
@@ -533,8 +636,8 @@ function filterByWeek(matches, weekType) {
 function renderWeekSelector() {
   const container = document.getElementById("week-selector");
   container.innerHTML = `
-    <button class="btn ${currentWeek === "actual" ? "active" : ""}" data-week="actual">📅 ASTE HONETAKO EMAITZAK</button>
-    <button class="btn ${currentWeek === "anterior" ? "active" : ""}" data-week="anterior">📆 AURREKO ASTEKO EMAITZAK</button>
+    <button class="btn ${currentWeek === "actual" ? "active" : ""}" data-week="actual">${translations[currentLang].weekActual}</button>
+    <button class="btn ${currentWeek === "anterior" ? "active" : ""}" data-week="anterior">${translations[currentLang].weekPrevious}</button>
   `;
   
   document.querySelectorAll('#week-selector .btn').forEach(btn => {
@@ -551,9 +654,9 @@ function renderWeekSelector() {
 function renderTorneoSelector() {
   const container = document.getElementById("torneo-selector");
   const torneos = [
-    { id: "fnp", label: "🏅 FNP", class: "fnp" },
-    { id: "beste", label: "🏛️ BESTE OFIZIALAK", class: "beste" },
-    { id: "ez", label: "⚪ EZ OFIZIALAK", class: "ez" }
+    { id: "fnp", label: translations[currentLang].torneoFNP, class: "fnp" },
+    { id: "beste", label: translations[currentLang].torneoBeste, class: "beste" },
+    { id: "ez", label: translations[currentLang].torneoEz, class: "ez" }
   ];
   
   let html = '';
@@ -597,7 +700,7 @@ function renderKategoriaChips() {
   });
   
   const container = document.getElementById("kategoria-chips");
-  let html = `<div class="chip ${currentKategoria === 'GUZTIAK' ? 'active' : ''}" data-kat="GUZTIAK">🌐 GUZTIAK</div>`;
+  let html = `<div class="chip ${currentKategoria === 'GUZTIAK' ? 'active' : ''}" data-kat="GUZTIAK">${translations[currentLang].all}</div>`;
   for (const kat of kategorias) {
     html += `<div class="chip ${currentKategoria === kat ? 'active' : ''}" data-kat="${kat}">${kat}</div>`;
   }
@@ -624,7 +727,7 @@ function renderResults() {
   });
   
   if (matches.length === 0) {
-    container.innerHTML = '<div class="empty">🏆 Ez dago partidarik aste honetan.</div>';
+    container.innerHTML = `<div class="empty">${translations[currentLang].emptyMatches}</div>`;
     return;
   }
   
@@ -647,9 +750,9 @@ function renderResults() {
   });
   
   const torneoConfig = {
-    fnp: { label: "🏅 FNP (OFIZIALAK)", color: "#003366" },
-    beste: { label: "🏛️ BESTE OFIZIALAK", color: "#198754" },
-    ez: { label: "⚪ EZ OFIZIALAK", color: "#b00000" }
+    fnp: { label: translations[currentLang].torneoFNP, color: "#003366" },
+    beste: { label: translations[currentLang].torneoBeste, color: "#198754" },
+    ez: { label: translations[currentLang].torneoEz, color: "#b00000" }
   };
   const cfg = torneoConfig[currentTorneo];
   
@@ -665,7 +768,7 @@ function renderResults() {
     html += `<div class="categoria-section">
       <div class="categoria-header" style="border-left-color: ${katColor}">
         <span>⚾ ${kat}</span>
-        <span style="font-size:0.9rem; background:#f0f0f0; padding:2px 12px; border-radius:30px;">${partidak.length} partida</span>
+        <span style="font-size:0.9rem; background:#f0f0f0; padding:2px 12px; border-radius:30px;">${partidak.length} ${translations[currentLang].matches}</span>
       </div>`;
     
     for (const p of partidak) {
@@ -759,7 +862,7 @@ async function init() {
   loadedMatches = await loadMatches();
   
   if (loadedMatches.length === 0) {
-    document.getElementById("results-container").innerHTML = '<div class="empty">❌ Ez da partidarik aurkitu.</div>';
+    document.getElementById("results-container").innerHTML = `<div class="empty">${translations[currentLang].emptyMatches}</div>`;
     return;
   }
   
@@ -767,6 +870,31 @@ async function init() {
   renderTorneoSelector();
   renderKategoriaChips();
   renderResults();
+  updateUITexts(); // Aplicar textos iniciales
+  
+  // Configurar botones de idioma
+  document.getElementById('lang-eu').addEventListener('click', () => {
+    currentLang = 'eu';
+    document.getElementById('lang-eu').classList.add('active');
+    document.getElementById('lang-es').classList.remove('active');
+    updateUITexts();
+    // Re-renderizar componentes que dependen del idioma
+    renderWeekSelector();
+    renderTorneoSelector();
+    renderKategoriaChips();
+    renderResults();
+  });
+  
+  document.getElementById('lang-es').addEventListener('click', () => {
+    currentLang = 'es';
+    document.getElementById('lang-es').classList.add('active');
+    document.getElementById('lang-eu').classList.remove('active');
+    updateUITexts();
+    renderWeekSelector();
+    renderTorneoSelector();
+    renderKategoriaChips();
+    renderResults();
+  });
 }
 
 init();
