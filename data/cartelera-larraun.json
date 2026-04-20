@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:30 !Horario provisional",
     "zkia": "3",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
@@ -127,6 +127,15 @@
   },
   {
     "fecha": "2026/04/25",
+    "hora": "11:00 !Horario provisional",
+    "zkia": "2",
+    "fronton": "Huarte - Toki Alai",
+    "etxekoa": "HUARTE (A. Herce - E. Bronte)",
+    "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/25",
     "hora": "11:30 !Horario provisional",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
@@ -139,17 +148,17 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "HUARTE (A. Herce - E. Bronte)",
-    "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
   },
   {
     "fecha": "2026/04/25",
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
+    "etxekoa": "SORAUREN (I. Iribarren - I. Guerra)",
+    "kanpokoak": "LARRAUN (L. Bengoetxea - I. Larreta)",
+    "lehiaketa": "FASE 2 NKJ - PGOMA NESKA BINAKA KADETE FINALERDIA"
   }
 ]
