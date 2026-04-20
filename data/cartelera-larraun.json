@@ -2,6 +2,15 @@
   {
     "fecha": "2026/04/24",
     "hora": "17:00 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Elizondo - Baztan",
+    "etxekoa": "TXARUTA (J. Etxandi - A. Sagastibeltza)",
+    "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/24",
+    "hora": "17:00 !Horario provisional",
     "zkia": "3",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
@@ -34,6 +43,15 @@
     "etxekoa": "ARANPILOTA (A. Beroiz - H. Oiz)",
     "kanpokoak": "LARRAUN (J. Mitxaus - A. Balenciaga)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/24",
+    "hora": "18:30",
+    "zkia": "1",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "LARRAUN (M. Galartza - I. Garziarena)",
+    "kanpokoak": "OBERENA (A. Casillas - A. Sasigain)",
+    "lehiaketa": "PALETA GOMA F36M KOPA - PALETA GOMA NESKA BINAKA FINALA"
   },
   {
     "fecha": "2026/04/24",
@@ -121,15 +139,6 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
-  },
-  {
-    "fecha": "2026/04/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
     "etxekoa": "HUARTE (A. Herce - E. Bronte)",
     "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
@@ -139,8 +148,8 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "TXARUTA (J. Etxandi - A. Sagastibeltza)",
-    "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
   }
 ]
