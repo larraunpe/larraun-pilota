@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Larraun Pilota Elkartea</title>
+    
+    <!-- Etiquetas Meta para App Móvil -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Larraun Pilota">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#cc0000">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -34,12 +42,21 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Eliminar scroll lateral molesto en móviles */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans overflow-hidden">
 
     <!-- Header / Navigation -->
-    <header class="bg-primary text-white shadow-lg">
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center py-3">
                 <div class="flex items-center space-x-3">
@@ -57,7 +74,7 @@
                 </button>
             </div>
             
-            <!-- Main Tabs -->
+            <!-- Main Tabs (Desktop & Scrollable Mobile) -->
             <nav class="flex overflow-x-auto no-scrollbar space-x-6 text-sm font-medium mt-2">
                 <button onclick="loadFrame('home')" id="tab-home" class="pb-2 opacity-80 hover:opacity-100 transition whitespace-nowrap active-tab lang-eu">Hasiera</button>
                 <button onclick="loadFrame('home')" id="tab-home-es" class="pb-2 opacity-80 hover:opacity-100 transition whitespace-nowrap hidden lang-es">Inicio</button>
@@ -93,18 +110,18 @@
     </main>
 
     <!-- Bottom Navigation (Mobile Friendly) -->
-    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden">
-        <button onclick="loadFrame('home')" class="flex flex-col items-center text-primary">
+    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden z-50">
+        <button onclick="loadFrame('home')" class="nav-footer-item flex flex-col items-center text-primary" data-key="home">
             <i class="fas fa-home"></i>
             <span class="text-[10px] lang-eu">Hasiera</span>
             <span class="text-[10px] hidden lang-es">Inicio</span>
         </button>
-        <button onclick="loadFrame('ordutegiak')" class="flex flex-col items-center text-gray-500">
+        <button onclick="loadFrame('ordutegiak')" class="nav-footer-item flex flex-col items-center text-gray-500" data-key="ordutegiak">
             <i class="fas fa-calendar-alt"></i>
             <span class="text-[10px] lang-eu">Karteldegia</span>
             <span class="text-[10px] hidden lang-es">Cartelera</span>
         </button>
-        <button onclick="loadFrame('emaitzak')" class="flex flex-col items-center text-gray-500">
+        <button onclick="loadFrame('emaitzak')" class="nav-footer-item flex flex-col items-center text-gray-500" data-key="emaitzak">
             <i class="fas fa-trophy"></i>
             <span class="text-[10px] lang-eu">Emaitzak</span>
             <span class="text-[10px] hidden lang-es">Resultados</span>
@@ -141,11 +158,14 @@
             });
 
             // Update Bottom Nav Styling (Mobile)
-            document.querySelectorAll('footer button').forEach(btn => {
+            document.querySelectorAll('.nav-footer-item').forEach(btn => {
                 btn.classList.remove('text-primary');
                 btn.classList.add('text-gray-500');
+                if(btn.getAttribute('data-key') === key) {
+                    btn.classList.add('text-primary');
+                    btn.classList.remove('text-gray-500');
+                }
             });
-            // We could logic map this to footer too if needed
         }
 
         // Hide loader when iframe finishes loading
