@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/04/24",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "1",
     "fronton": "Elizondo - Baztan",
     "etxekoa": "TXARUTA (J. Etxandi - A. Sagastibeltza)",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "3",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (I. Clemente - J. Martinez)",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (A. Amundarain - J. Saralegi)",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "1",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "LARRAUN – ARAXES (D. Centeno - B. Esnaola)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "2",
     "fronton": "Mutilva Baja - Polideportivo",
     "etxekoa": "ARANPILOTA (A. Beroiz - H. Oiz)",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "18:30 !Horario provisional",
+    "hora": "18:30",
     "zkia": "2",
     "fronton": "Eugui - Larrain Toki",
     "etxekoa": "ESTERIBAR (I. Fonseca - M. Villanueva)",
@@ -64,7 +64,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "19:00 !Horario provisional",
+    "hora": "19:00",
     "zkia": "1",
     "fronton": "Arbizu - Arbizu",
     "etxekoa": "ALDABIDE (M. Zabalza - E. Leiza)",
@@ -73,7 +73,7 @@
   },
   {
     "fecha": "2026/04/24",
-    "hora": "19:00 !Horario provisional",
+    "hora": "19:00",
     "zkia": "2",
     "fronton": "Arbizu - Arbizu",
     "etxekoa": "ALDABIDE (T. Arbizu - S. Arrizabalaga)",
@@ -82,7 +82,7 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "6",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "AURRERA (E. Bidart - A. Zubillaga)",
@@ -91,7 +91,7 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Ariztimuño - I. Lociga)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun)",
@@ -109,7 +109,7 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Argaña - E. Balda)",
@@ -118,7 +118,7 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Etxepare - A. Artola)",
@@ -127,7 +127,16 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "11:00 !Horario provisional",
+    "hora": "10:00",
+    "zkia": "2",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
+    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE TXAPELA LIGAXKA"
+  },
+  {
+    "fecha": "2026/04/25",
+    "hora": "11:00",
     "zkia": "2",
     "fronton": "Huarte - Toki Alai",
     "etxekoa": "HUARTE (A. Herce - E. Bronte)",
@@ -136,29 +145,20 @@
   },
   {
     "fecha": "2026/04/25",
-    "hora": "11:30 !Horario provisional",
+    "hora": "11:15",
+    "zkia": "2",
+    "fronton": "Ezkabarte - Ezkabarte",
+    "etxekoa": "SORAUREN (I. Iribarren - I. Guerra)",
+    "kanpokoak": "LARRAUN (L. Bengoetxea - I. Larreta)",
+    "lehiaketa": "FASE 2 NKJ - PGOMA NESKA BINAKA KADETE FINALERDIA"
+  },
+  {
+    "fecha": "2026/04/25",
+    "hora": "11:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)",
     "kanpokoak": "IRURTZUN (A. Uharte - U. Lanz)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
-  },
-  {
-    "fecha": "2026/04/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LAGUNAK (A. Antimasberes - J. Bengoetxea)",
-    "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL TXAPELA GAZTE LIGAXKA"
-  },
-  {
-    "fecha": "2026/04/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "SORAUREN (I. Iribarren - I. Guerra)",
-    "kanpokoak": "LARRAUN (L. Bengoetxea - I. Larreta)",
-    "lehiaketa": "FASE 2 NKJ - PGOMA NESKA BINAKA KADETE FINALERDIA"
   }
 ]
