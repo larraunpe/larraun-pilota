@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larraun Pilota - Taldeak (Entrenamenduak)</title>
+<style>
+  /* ===== BASE (tomado del index original) ===== */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  header {
+    background: linear-gradient(90deg, #b30000, #006400);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  header img {
+    max-width: 150px;
+    margin-bottom: 10px;
+  }
+  h2 {
+    color: #b30000;
+    margin-top: 0;
+  }
+  section {
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
+  }
+  .entrenamenduak-taldeak {
+    padding: 40px 20px;
+    background: #f4f4f4;
+  }
+  .entrenamenduak-taldeak .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .entrenamenduak-taldeak .card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    overflow: hidden;
+  }
+  .entrenamenduak-taldeak .card h2 {
+    margin: 0;
+    padding: 16px;
+    color: #fff;
+    font-size: 1.2em;
+  }
+  /* cabeceras por modalidad (colores) */
+  .entrenamenduak-taldeak .esku-julen h2 { background: #2e7d32; }
+  .entrenamenduak-taldeak .esku-barriola h2 { background: #1565c0; }
+  .entrenamenduak-taldeak .pala h2 { background: #6a1b9a; }
+
+  /* grupos internos */
+  .entrenamenduak-taldeak .group {
+    margin-bottom: 14px;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .entrenamenduak-taldeak .prebenjaminak { background: #f1e0c5; }
+  .entrenamenduak-taldeak .benjaminak { background: #ffb74d; }
+  .entrenamenduak-taldeak .alebinak { background: #fff176; }
+  .entrenamenduak-taldeak .infantilak { background: #4caf50; }
+  .entrenamenduak-taldeak .kadeteak { background: #81d4fa; }
+  .entrenamenduak-taldeak .jubenilak { background: #0d47a1; }
+  .entrenamenduak-taldeak .nagusiak { background: #4682B4; }
+
+  .entrenamenduak-taldeak .group h3 {
+    margin: 0 0 6px;
+    font-size: 0.95em;
+    font-weight: bold;
+  }
+  .entrenamenduak-taldeak ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .entrenamenduak-taldeak li {
+    font-size: 0.9em;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+  /* texto blanco en fondos oscuros */
+  .entrenamenduak-taldeak .infantilak h3,
+  .entrenamenduak-taldeak .jubenilak h3,
+  .entrenamenduak-taldeak .nagusiak h3 {
+    color: #ffffff;
+    font-weight: 700;
+  }
+  .entrenamenduak-taldeak li.edad-jubenilak,
+  .entrenamenduak-taldeak li.edad-infantilak,
+  .entrenamenduak-taldeak li.edad-nagusiak {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .footer-note {
+    margin-top: 40px;
+    text-align: center;
+    font-style: italic;
+    background: #e9e9e9;
+    padding: 12px;
+    border-radius: 12px;
+    color: #2c3e50;
+  }
+  .lang-switch {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    display: flex;
+    gap: 8px;
+  }
+  .lang-switch button {
+    background-color: #eee;
+    color: #222;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+  }
+  .lang-switch button.active {
+    background-color: #222;
+    color: white;
+  }
+  .eu, .es {
+    display: block;
+  }
+  .es {
+    display: none;
+  }
+  footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  @media (max-width: 700px) {
+    .entrenamenduak-taldeak .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-switch">
+    <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
+    <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
+  </div>
+  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.style.display='none'">
+  <h1>LARRAUN PILOTA ELKARTEA</h1>
+  <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
+  <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
+</header>
+
+<section id="taldeak" class="entrenamenduak-taldeak">
+  <h2 class="eu">🏋️ Taldeak (2025-2026)</h2>
+  <h2 class="es">🏋️ Grupos (2025-2026)</h2>
+  <p class="eu"><strong>📅 Oharra:</strong> Kategoria kalkulatzeko uda amaierako araua (irailaren 1etik aurrera hurrengo adin taldera pasatzen da). Urtez-urte egokituta: 2025-2026 denboraldirako.</p>
+  <p class="es"><strong>📅 Nota:</strong> Las categorías se calculan según la regla de final de verano (a partir del 1 de septiembre se pasa al siguiente grupo). Adaptado para la temporada 2025-2026.</p>
+
+  <div class="grid" id="dinamicTaldeak">
+    <!-- Aquí se inyectarán dinámicamente las tarjetas de Eskupilota (Julen, Barriola+Enrike) y Pala -->
+  </div>
+  <div class="footer-note">
+    <span class="eu">✅ Kategoria bakoitza kolore bereizgarriarekin: Aurrebenjaminak (beige), Benjaminak (laranja), Alebinak (horia), Infantilak (berdea), Kadeteak (urdin argia), Jubenilak (urdin iluna), Nagusiak (urdin grisa).</span>
+    <span class="es">✅ Cada categoría con color distintivo: Prebenjamín (beige), Benjamín (naranja), Alevín (amarillo), Infantil (verde), Cadete (azul claro), Juvenil (azul oscuro), Senior (azul grisáceo).</span>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Larraun Pilota Elkartea · Taldeak automatikoki JSON-etik sortuak</p>
+  <p class="eu">🔁 Denboraldi erregela: irailaren 1ean adin taldea igotzen da.</p>
+  <p class="es">🔁 Regla de temporada: el 1 de septiembre se asciende de categoría.</p>
+</footer>
+
+<script>
+  // -------- IDIOMAS ----------
+  function setLang(lang) {
+    document.querySelectorAll('.es').forEach(el => el.style.display = lang === 'es' ? 'block' : 'none');
+    document.querySelectorAll('.eu').forEach(el => el.style.display = lang === 'eu' ? 'block' : 'none');
+    document.getElementById('btn-eu').classList.remove('active');
+    document.getElementById('btn-es').classList.remove('active');
+    document.getElementById('btn-' + lang).classList.add('active');
+  }
+
+  // --------------------------------------------------------------
+  // LÓGICA DE CATEGORÍA SEGÚN AÑO DE NACIMIENTO (TEMPORADA ACTUAL)
+  // REGLA: el 1 de septiembre de cada año se cambia de categoría.
+  // Para la temporada 2025-2026 (actual: desde 1-sep-2025 hasta 31-ago-2026)
+  // Calculamos la edad "de competición" que tendrá el jugador el 31 de diciembre del año natural
+  // pero la norma habitual: categoría por año de nacimiento pero con el corte en septiembre.
+  // En la práctica: a partir de septiembre 2025, un niño nacido en 2014 pasa a Infantil (antes era Alevín).
+  // Vamos a usar:
+  // - Aurrebenjaminak: nacidos 2019,2020,2021... (hasta 2025) realmente desde 2019 en adelante (edades muy pequeñas)
+  // - Benjaminak: nacidos 2016,2017,2018 (según datos reales del JSON, pero ahora temporada 2025-26)
+  // - Alebinak: nacidos 2014,2015
+  // - Infantilak: nacidos 2012,2013
+  // - Kadeteak: nacidos 2009,2010,2011
+  // - Jubenilak: nacidos 2006,2007,2008 (o hasta 2005 según)
+  // - Nagusiak: nacidos 2005 edo lehenago.
+  // Adaptamos según la lista original: en el JSON tenemos años desde 1985 hasta 2018.
+  // Para ser fieles a la página original donde los grupos aparecen con niños de esos años,
+  // vamos a mapear según el año de nacimiento (URTEA) pero con la regla de que en sept 2025,
+  // los niños de 2014 ya no son alevines, son infantiles.
+  // Defino función categoríaSegunFechaActual(anioNacimiento)
+  // Fecha de corte: 1 de septiembre de 2025 es el inicio de temporada actual.
+  // Calculamos la edad que tendrá el niño en Agosto 2026? simplemente usando el punto fijo.
+  // Lo más parecido al club real: se basa en el año de nacimiento y la tabla estandar.
+  // En base al JSON original y la web original los grupos fijos en el index.html estaban escritos manualmente,
+  // pero nosotros generaremos dinámicamente según las edades migradas.
+  // Voy a usar la misma lógica que en el index, pero actualizada a la temporada 2025-2026:
+  // - Aurrebenjaminak: nacidos >= 2019
+  // - Benjaminak: nacidos 2016,2017,2018
+  // - Alebinak: nacidos 2014,2015
+  // - Infantilak: nacidos 2012,2013
+  // - Kadeteak: nacidos 2009,2010,2011
+  // - Jubenilak: nacidos 2006,2007,2008
+  // - Nagusiak: nacidos <= 2005
+  // Esto respeta los datos de pelotariak.json (max año 2018, min 1985) y coincide con la estructura.
+  function getCategoriaByBirthYear(urtea) {
+    if (urtea >= 2019) return "prebenjaminak";
+    if (urtea >= 2016) return "benjaminak";
+    if (urtea >= 2014) return "alebinak";
+    if (urtea >= 2012) return "infantilak";
+    if (urtea >= 2009) return "kadeteak";
+    if (urtea >= 2006) return "jubenilak";
+    return "nagusiak";
+  }
+
+  // Nombre visible de la categoría según idioma
+  function getCategoriaLabel(categoriaKey, lang) {
+    const labels = {
+      prebenjaminak: { eu: "Aurrebenjaminak", es: "Prebenjamines" },
+      benjaminak: { eu: "Benjaminak", es: "Benjamines" },
+      alebinak: { eu: "Alebinak", es: "Alevines" },
+      infantilak: { eu: "Infantilak", es: "Infantiles" },
+      kadeteak: { eu: "Kadeteak", es: "Cadetes" },
+      jubenilak: { eu: "Jubenilak", es: "Juveniles" },
+      nagusiak: { eu: "Nagusiak", es: "Senior / Adultos" }
+    };
+    return labels[categoriaKey] ? labels[categoriaKey][lang] : categoriaKey;
+  }
+
+  // Colores/clases CSS asociadas a cada categoría (mismo esquema que index)
+  function getCategoriaClass(categoriaKey) {
+    return categoriaKey; // prebenjaminak, benjaminak... porque las clases CSS existen
+  }
+
+  // --- Función principal: cargar JSON, agrupar por modalidad y entrenador/es (como en index.html)
+  // La estructura original del index tiene tres tarjetas: 
+  // 1) Eskupilota · Julen Martija (categorías alevines y benjamines y prebenjamines)
+  // 2) Eskupilota · Peio Martinez de Eulate + Enrike Galarza (infantil, kadete, jubenil, nagusi)
+  // 3) Pala · Maria Eguzkiza + Xabi Azpiroz (todas las categorías de pala)
+  // Nosotros vamos a respetar esa división mirando la MODALITATEA y el TALDE o edad para asignar a uno u otro bloque.
+  // Según el JSON, MODALITATEA puede ser "ESKU PILOTA" o "PALA GOMA".
+  // Y en ESKU PILOTA: los grupos pequeños (Aurrebenjaminak, Benjaminak, Alebinak) van con Julen.
+  // Los grupos mayores (Infantilak, Kadeteak, Jubenilak, Nagusiak) con Barriola+Enrike.
+  // En PALA GOMA: todos van con Maria+Xabi.
+  // Así que crearemos estructuras de datos para cada bloque.
+  // Además, nos aseguramos de aplicar la categoría actualizada según año nacimiento (urtea) y NO el campo TALDE original,
+  // porque los datos internos pertenecen a años antiguos (2014,2015,2017,2018 etc). Queremos la categoria dinámica 2025-26.
+  // Por tanto: leer cada registro, calcular su categoría dinámica, y luego ubicarlo en la tarjeta correspondiente.
+  // Mostrar los nombres de los pelotaris sin duplicados (aunque un mismo nombre aparezca en varios años? cada registro es único por año, pero puede haber mismo nombre con distinto año? No en este set, pero lo manejamos)
+  // Usaremos Map para evitar duplicados por nombre.
+  
+  async function buildDynamicGroups() {
+    try {
+      const response = await fetch('data/pelotariak.json');
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const rawData = await response.json();
+      
+      // Estructuras para cada bloque (evitar duplicados por nombre)
+      // Bloque Julen (Eskupilota pequeños)
+      const julenGroups = {
+        prebenjaminak: new Map(),
+        benjaminak: new Map(),
+        alebinak: new Map()
+      };
+      // Bloque Barriola+Enrike (Eskupilota mayores)
+      const barriolaGroups = {
+        infantilak: new Map(),
+        kadeteak: new Map(),
+        jubenilak: new Map(),
+        nagusiak: new Map()
+      };
+      // Bloque Pala (todas categorías)
+      const palaGroups = {
+        prebenjaminak: new Map(),
+        benjaminak: new Map(),
+        alebinak: new Map(),
+        infantilak: new Map(),
+        kadeteak: new Map(),
+        jubenilak: new Map(),
+        nagusiak: new Map()
+      };
+      
+      for (const item of rawData) {
+        const modalitatea = item.MODALITATEA;
+        const izena = item.Izena.trim();
+        const urtea = item.URTEA;
+        // Calcular categoría dinámica 2025-26 según año nacimiento
+        const categoriaKey = getCategoriaByBirthYear(urtea);
+        
+        if (modalitatea === "ESKU PILOTA") {
+          // Decidir si va a Julen (pequeños) o a Barriola+Enrike (mayores)
+          if (categoriaKey === "prebenjaminak" || categoriaKey === "benjaminak" || categoriaKey === "alebinak") {
+            if (!julenGroups[categoriaKey].has(izena)) {
+              julenGroups[categoriaKey].set(izena, { izena, urtea });
+            }
+          } else { // infantilak, kadeteak, jubenilak, nagusiak
+            if (!barriolaGroups[categoriaKey].has(izena)) {
+              barriolaGroups[categoriaKey].set(izena, { izena, urtea });
+            }
+          }
+        } 
+        else if (modalitatea === "PALA GOMA") {
+          if (!palaGroups[categoriaKey].has(izena)) {
+            palaGroups[categoriaKey].set(izena, { izena, urtea });
+          }
+        }
+      }
+      
+      // Ordenar listas alfabéticamente dentro de cada grupo
+      const sortByName = (map) => Array.from(map.values()).sort((a,b) => a.izena.localeCompare(b.izena));
+      
+      // ---- Construir HTML para las tres tarjetas ----
+      const container = document.getElementById('dinamicTaldeak');
+      container.innerHTML = '';
+      
+      // Helper: crear bloque group HTML para una categoría con sus jugadores
+      function renderGroup(categoriaKey, jugadoresMap, lang) {
+        const jugadoresList = sortByName(jugadoresMap);
+        if (jugadoresList.length === 0) return '';
+        const className = getCategoriaClass(categoriaKey);
+        const label = getCategoriaLabel(categoriaKey, lang);
+        // Construir lista
+        let itemsHtml = '';
+        for (const p of jugadoresList) {
+          itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
+        }
+        // añadir clase li de color? En el index original no ponen clase edad en li, pero nosotros aplicamos clase al li con edad-xxx? lo dejamos igual que index pero el fondo lo da el group.
+        return `
+          <div class="group ${className}">
+            <h3>${label}</h3>
+            <ul>${itemsHtml}</ul>
+          </div>
+        `;
+      }
+      
+      // Tarjeta 1: ESKU PILOTA · Julen Martija
+      const julenGroupsOrder = ['prebenjaminak', 'benjaminak', 'alebinak'];
+      let julenHtml = '';
+      for (const cat of julenGroupsOrder) {
+        julenHtml += renderGroup(cat, julenGroups[cat], 'eu'); // usamos dos idiomas después, pero ahora render en los dos? podemos duplicar con data-lang? Mejor creamos final con clases eu/es.
+        // Pero necesitamos que cada tarjeta tenga ambos idiomas para el toggle. Voy a generar el contenido dentro de div con clase eu y es duplicado.
+        // Para simplificar, generamos el contenido completo con etiquetas bilingües (usando spans con clase eu y es dentro de cada título y jugadores? es complejo). En el index original las listas no son bilingües, solo los títulos. Nosotros mantendremos en euskera las listas pero el idioma de las cabeceras de grupo sí será dinámico.
+        // Pero voy a generar la estructura con innerHTML, pero con dos idiomas? Podríamos generar dos bloques idénticos (uno eu, uno es oculto). Mejor realizo una función que construya la tarjeta completa pero con textos bilingües en los títulos y los nombres sin traducir.
+        // Dado que los nombres de pelotaris son los mismos en ambos idiomas, solo las categorías deben cambiar.
+      }
+      // Construir la tarjeta completa para Julen, usando ambos idiomas para las cabeceras.
+      const julenCard = buildCardWithLang("🖐 Eskupilota · Julen Martija", "🖐 Mano · Julen Martija", julenGroupsOrder.map(cat => ({ cat, jugadores: julenGroups[cat] })));
+      
+      // Tarjeta 2: ESKU PILOTA · Peio Martinez de Eulate + Enrike Galarza
+      const barriolaGroupsOrder = ['infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
+      const barriolaCard = buildCardWithLang("🖐 Eskupilota · Peio Martinez de Eulate + Enrike Galarza", "🖐 Mano · Peio Martinez de Eulate + Enrike Galarza", barriolaGroupsOrder.map(cat => ({ cat, jugadores: barriolaGroups[cat] })));
+      
+      // Tarjeta 3: PALA
+      const palaGroupsOrder = ['prebenjaminak', 'benjaminak', 'alebinak', 'infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
+      const palaCard = buildCardWithLang("🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", "🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", palaGroupsOrder.map(cat => ({ cat, jugadores: palaGroups[cat] })));
+      
+      container.innerHTML = julenCard + barriolaCard + palaCard;
+      
+      // añadir clases de color para los li (opcional, para consistencia, aunque el fondo ya cubre)
+      // No es necesario, pero por fidelidad al index añadir clase según categoría en cada li? El index original no la añade dinámicamente, pero sí tiene reglas visuales con fondos de grupo. Está perfecto.
+      
+    } catch (err) {
+      console.error("Error cargando JSON o construyendo grupos:", err);
+      document.getElementById('dinamicTaldeak').innerHTML = '<div style="background:#ffdddd;padding:20px;">❌ Errorea datuak kargatzean / Error al cargar datos. Ziurtatu data/pelotariak.json existitzen dela.</div>';
+    }
+  }
+  
+  // Helper que genera una tarjeta completa con sus groups en dos idiomas (para que el toggle funcione)
+  function buildCardWithLang(titleEu, titleEs, groupsData) {
+    // groupsData: array de {cat, jugadores: Map}
+    // Generamos estructura html con dos copias del contenido interno: una eu y una es (con las categorías traducidas)
+    let groupsHtmlEu = '';
+    let groupsHtmlEs = '';
+    for (const g of groupsData) {
+      const jugadoresList = sortByName(g.jugadores);
+      if (jugadoresList.length === 0) continue;
+      const className = getCategoriaClass(g.cat);
+      const labelEu = getCategoriaLabel(g.cat, 'eu');
+      const labelEs = getCategoriaLabel(g.cat, 'es');
+      let itemsHtml = '';
+      for (const p of jugadoresList) itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
+      groupsHtmlEu += `
+        <div class="group ${className}">
+          <h3>${labelEu}</h3>
+          <ul>${itemsHtml}</ul>
+        </div>
+      `;
+      groupsHtmlEs += `
+        <div class="group ${className}">
+          <h3>${labelEs}</h3>
+          <ul>${itemsHtml}</ul>
+        </div>
+      `;
+    }
+    // Distinguimos si la tarjeta es de Julen, Barriola o Pala para aplicar la clase de cabecera específica.
+    let cardClass = '';
+    if (titleEu.includes('Julen Martija')) cardClass = 'esku-julen';
+    else if (titleEu.includes('Peio Martinez') || titleEu.includes('Enrike')) cardClass = 'esku-barriola';
+    else if (titleEu.includes('Pala')) cardClass = 'pala';
+    
+    return `
+      <div class="card ${cardClass}">
+        <h2 class="eu">${titleEu}</h2>
+        <h2 class="es">${titleEs}</h2>
+        <div class="content">
+          <div class="eu">${groupsHtmlEu}</div>
+          <div class="es">${groupsHtmlEs}</div>
+        </div>
+      </div>
+    `;
+  }
+  
+  function sortByName(arr) {
+    return arr.slice().sort((a,b) => a.izena.localeCompare(b.izena, 'eu'));
+  }
+  
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+  
+  // Inicializar la carga y luego el idioma por defecto
+  window.addEventListener('DOMContentLoaded', async () => {
+    await buildDynamicGroups();
+    setLang('eu');  // por defecto euskera
+  });
+  
+  // Exponer setLang globalmente
+  window.setLang = setLang;
+</script>
+
+</body>
+</html>
