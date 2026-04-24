@@ -172,7 +172,7 @@
   <p class="es"><strong>📅 Nota:</strong> Las categorías se calculan según la regla de final de verano (a partir del 1 de septiembre se pasa al siguiente grupo). Adaptado para la temporada 2025-2026.</p>
 
   <div class="grid" id="dinamicTaldeak">
-    <!-- Aquí se inyectarán dinámicamente las tarjetas de Eskupilota (Julen, Barriola+Enrike) y Pala -->
+    <!-- Aquí se inyectarán dinámicamente las tarjetas -->
   </div>
   <div class="footer-note">
     <span class="eu">✅ Kategoria bakoitza kolore bereizgarriarekin: Aurrebenjaminak (beige), Benjaminak (laranja), Alebinak (horia), Infantilak (berdea), Kadeteak (urdin argia), Jubenilak (urdin iluna), Nagusiak (urdin grisa).</span>
@@ -197,39 +197,104 @@
   }
 
   // --------------------------------------------------------------
-  // LÓGICA DE CATEGORÍA SEGÚN AÑO DE NACIMIENTO (TEMPORADA ACTUAL)
-  // REGLA: el 1 de septiembre de cada año se cambia de categoría.
-  // Para la temporada 2025-2026 (actual: desde 1-sep-2025 hasta 31-ago-2026)
-  // Calculamos la edad "de competición" que tendrá el jugador el 31 de diciembre del año natural
-  // pero la norma habitual: categoría por año de nacimiento pero con el corte en septiembre.
-  // En la práctica: a partir de septiembre 2025, un niño nacido en 2014 pasa a Infantil (antes era Alevín).
-  // Vamos a usar:
-  // - Aurrebenjaminak: nacidos 2019,2020,2021... (hasta 2025) realmente desde 2019 en adelante (edades muy pequeñas)
-  // - Benjaminak: nacidos 2016,2017,2018 (según datos reales del JSON, pero ahora temporada 2025-26)
-  // - Alebinak: nacidos 2014,2015
-  // - Infantilak: nacidos 2012,2013
-  // - Kadeteak: nacidos 2009,2010,2011
-  // - Jubenilak: nacidos 2006,2007,2008 (o hasta 2005 según)
-  // - Nagusiak: nacidos 2005 edo lehenago.
-  // Adaptamos según la lista original: en el JSON tenemos años desde 1985 hasta 2018.
-  // Para ser fieles a la página original donde los grupos aparecen con niños de esos años,
-  // vamos a mapear según el año de nacimiento (URTEA) pero con la regla de que en sept 2025,
-  // los niños de 2014 ya no son alevines, son infantiles.
-  // Defino función categoríaSegunFechaActual(anioNacimiento)
-  // Fecha de corte: 1 de septiembre de 2025 es el inicio de temporada actual.
-  // Calculamos la edad que tendrá el niño en Agosto 2026? simplemente usando el punto fijo.
-  // Lo más parecido al club real: se basa en el año de nacimiento y la tabla estandar.
-  // En base al JSON original y la web original los grupos fijos en el index.html estaban escritos manualmente,
-  // pero nosotros generaremos dinámicamente según las edades migradas.
-  // Voy a usar la misma lógica que en el index, pero actualizada a la temporada 2025-2026:
-  // - Aurrebenjaminak: nacidos >= 2019
-  // - Benjaminak: nacidos 2016,2017,2018
-  // - Alebinak: nacidos 2014,2015
-  // - Infantilak: nacidos 2012,2013
-  // - Kadeteak: nacidos 2009,2010,2011
-  // - Jubenilak: nacidos 2006,2007,2008
-  // - Nagusiak: nacidos <= 2005
-  // Esto respeta los datos de pelotariak.json (max año 2018, min 1985) y coincide con la estructura.
+  // DATOS INCORPORADOS DIRECTAMENTE (extraídos de tu pelotariak.json)
+  const pelotariakData = [
+{"URTEA":2014,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Diego Centeno","KOADROA":"TXIKI"},
+{"URTEA":2014,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Mikel Argaña","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Endika Balda","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ibai Ansorena","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ander Astiz","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Joan Mendinueta","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Adur Zubillaga","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ekhi Mozo","KOADROA":"TXIKI"},
+{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ander Dorronsoro","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Lander Ariztimuño","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Amets Mozo","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Aimar Bidegain","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Unai Erneta","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Joar Ruiz","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Markel Etxeberria","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Luka Soria","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Luar Ojuel","KOADROA":"TXIKI"},
+{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Ekhi Zubillaga","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Gorka Garcia","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Liher Goikoetxea","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Beñat Goikoetxea","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Manex Sanz","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Aiur Loyarte","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Eneko Jaurrieta","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Enai Albeniz","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Martin Argaña","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Aimar Ochoa","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Inhar Lociga","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Urko Agirrezabala","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Aratz Apezetxea","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Urko Ariztimuño","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Luken Oiartzun","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Eneko Etxeberria","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Suhar Galartza","KOADROA":"TXIKI"},
+{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Aitor Ruiz","KOADROA":"TXIKI"},
+{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Oier Mitxaus","KOADROA":"TXIKI"},
+{"URTEA":2012,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Aimar Bengoetxea","KOADROA":"HAUNDI"},
+{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Mikel Bidegain","KOADROA":"HAUNDI"},
+{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Xabier Goldaracena","KOADROA":"HAUNDI"},
+{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Aimar Balenciaga","KOADROA":"HAUNDI"},
+{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Julen Mitxaus","KOADROA":"HAUNDI"},
+{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Egoi Ijurko","KOADROA":"HAUNDI"},
+{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Ibai Ijurko","KOADROA":"HAUNDI"},
+{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Egoitz Oreja","KOADROA":"HAUNDI"},
+{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Mikel Laso","KOADROA":"HAUNDI"},
+{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Unai Otamendi","KOADROA":"HAUNDI"},
+{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Aitor Balda","KOADROA":"HAUNDI"},
+{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Julen Bildarraz","KOADROA":"HAUNDI"},
+{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Oihan Ijurko","KOADROA":"HAUNDI"},
+{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Imanol Sotil","KOADROA":"HAUNDI"},
+{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Janire Sotil","KOADROA":"HAUNDI"},
+{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Martin Etxepare","KOADROA":"HAUNDI"},
+{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Ilan Eguzkiza","KOADROA":"HAUNDI"},
+{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Egoi Jaka","KOADROA":"HAUNDI"},
+{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Amaiur Goikoetxea","KOADROA":"HAUNDI"},
+{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Bikendi Legarra","KOADROA":"HAUNDI"},
+{"URTEA":1995,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Unai Astiz","KOADROA":"HAUNDI"},
+{"URTEA":2001,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Iñaki Galarza","KOADROA":"HAUNDI"},
+{"URTEA":2003,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Oinatz Iriarte","KOADROA":"HAUNDI"},
+{"URTEA":2005,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Intza Garaño","KOADROA":"HAUNDI"},
+{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Aitor Eguzkiza","KOADROA":"HAUNDI"},
+{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Endika Galarza","KOADROA":"HAUNDI"},
+{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Lucas Navarro","KOADROA":"HAUNDI"},
+{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Julen Sotil","KOADROA":"HAUNDI"},
+{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Igor Nazabal","KOADROA":"HAUNDI"},
+{"URTEA":1985,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Miguel Lazkoz","KOADROA":"HAUNDI"},
+{"URTEA":2004,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Julen Ezkurdia","KOADROA":"HAUNDI"},
+{"URTEA":2007,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Mattin Goikoetxea","KOADROA":"HAUNDI"},
+{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Xuban Telletxea","KOADROA":"HAUNDI"},
+{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Nora Goldarazena","KOADROA":"PALA"},
+{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Sara Venzislavova","KOADROA":"PALA"},
+{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Nashla Watts","KOADROA":"PALA"},
+{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Haizea Apezetxea","KOADROA":"PALA"},
+{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Nerea Saralegui","KOADROA":"PALA"},
+{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Zuriñe Imaz","KOADROA":"PALA"},
+{"URTEA":2012,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Iraide Garaño","KOADROA":"PALA"},
+{"URTEA":2003,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maider Saralegi","KOADROA":"PALA"},
+{"URTEA":2003,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maddi Galartza","KOADROA":"PALA"},
+{"URTEA":2007,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maria Eguzkiza","KOADROA":"PALA"},
+{"URTEA":2007,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Irati Garziarena","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Naia Galarza","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Irati Balenciaga","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Marian Saralegui","KOADROA":"PALA"},
+{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Martina Morais","KOADROA":"PALA"},
+{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Uxue Goñi","KOADROA":"PALA"},
+{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Laida Legarra","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Haizea Etxarri","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Kiara Legarra","KOADROA":"PALA"},
+{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Joane Martinikorena","KOADROA":"PALA"},
+{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Izarne Larreta","KOADROA":"PALA"},
+{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Lorea Bengoetxea","KOADROA":"PALA"},
+{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Garazi Astiz","KOADROA":"PALA"}
+];
+
+  // --------------------------------------------------------------
+  // LÓGICA DE CATEGORÍA TEMPORADA 2025-2026 (corte 1 de septiembre)
   function getCategoriaByBirthYear(urtea) {
     if (urtea >= 2019) return "prebenjaminak";
     if (urtea >= 2016) return "benjaminak";
@@ -240,7 +305,6 @@
     return "nagusiak";
   }
 
-  // Nombre visible de la categoría según idioma
   function getCategoriaLabel(categoriaKey, lang) {
     const labels = {
       prebenjaminak: { eu: "Aurrebenjaminak", es: "Prebenjamines" },
@@ -254,213 +318,97 @@
     return labels[categoriaKey] ? labels[categoriaKey][lang] : categoriaKey;
   }
 
-  // Colores/clases CSS asociadas a cada categoría (mismo esquema que index)
   function getCategoriaClass(categoriaKey) {
-    return categoriaKey; // prebenjaminak, benjaminak... porque las clases CSS existen
+    return categoriaKey;
   }
 
-  // --- Función principal: cargar JSON, agrupar por modalidad y entrenador/es (como en index.html)
-  // La estructura original del index tiene tres tarjetas: 
-  // 1) Eskupilota · Julen Martija (categorías alevines y benjamines y prebenjamines)
-  // 2) Eskupilota · Peio Martinez de Eulate + Enrike Galarza (infantil, kadete, jubenil, nagusi)
-  // 3) Pala · Maria Eguzkiza + Xabi Azpiroz (todas las categorías de pala)
-  // Nosotros vamos a respetar esa división mirando la MODALITATEA y el TALDE o edad para asignar a uno u otro bloque.
-  // Según el JSON, MODALITATEA puede ser "ESKU PILOTA" o "PALA GOMA".
-  // Y en ESKU PILOTA: los grupos pequeños (Aurrebenjaminak, Benjaminak, Alebinak) van con Julen.
-  // Los grupos mayores (Infantilak, Kadeteak, Jubenilak, Nagusiak) con Barriola+Enrike.
-  // En PALA GOMA: todos van con Maria+Xabi.
-  // Así que crearemos estructuras de datos para cada bloque.
-  // Además, nos aseguramos de aplicar la categoría actualizada según año nacimiento (urtea) y NO el campo TALDE original,
-  // porque los datos internos pertenecen a años antiguos (2014,2015,2017,2018 etc). Queremos la categoria dinámica 2025-26.
-  // Por tanto: leer cada registro, calcular su categoría dinámica, y luego ubicarlo en la tarjeta correspondiente.
-  // Mostrar los nombres de los pelotaris sin duplicados (aunque un mismo nombre aparezca en varios años? cada registro es único por año, pero puede haber mismo nombre con distinto año? No en este set, pero lo manejamos)
-  // Usaremos Map para evitar duplicados por nombre.
-  
-  async function buildDynamicGroups() {
-    try {
-      const response = await fetch('data/pelotariak.json');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const rawData = await response.json();
-      
-      // Estructuras para cada bloque (evitar duplicados por nombre)
-      // Bloque Julen (Eskupilota pequeños)
-      const julenGroups = {
-        prebenjaminak: new Map(),
-        benjaminak: new Map(),
-        alebinak: new Map()
-      };
-      // Bloque Barriola+Enrike (Eskupilota mayores)
-      const barriolaGroups = {
-        infantilak: new Map(),
-        kadeteak: new Map(),
-        jubenilak: new Map(),
-        nagusiak: new Map()
-      };
-      // Bloque Pala (todas categorías)
-      const palaGroups = {
-        prebenjaminak: new Map(),
-        benjaminak: new Map(),
-        alebinak: new Map(),
-        infantilak: new Map(),
-        kadeteak: new Map(),
-        jubenilak: new Map(),
-        nagusiak: new Map()
-      };
-      
-      for (const item of rawData) {
-        const modalitatea = item.MODALITATEA;
-        const izena = item.Izena.trim();
-        const urtea = item.URTEA;
-        // Calcular categoría dinámica 2025-26 según año nacimiento
-        const categoriaKey = getCategoriaByBirthYear(urtea);
-        
-        if (modalitatea === "ESKU PILOTA") {
-          // Decidir si va a Julen (pequeños) o a Barriola+Enrike (mayores)
-          if (categoriaKey === "prebenjaminak" || categoriaKey === "benjaminak" || categoriaKey === "alebinak") {
-            if (!julenGroups[categoriaKey].has(izena)) {
-              julenGroups[categoriaKey].set(izena, { izena, urtea });
-            }
-          } else { // infantilak, kadeteak, jubenilak, nagusiak
-            if (!barriolaGroups[categoriaKey].has(izena)) {
-              barriolaGroups[categoriaKey].set(izena, { izena, urtea });
-            }
-          }
-        } 
-        else if (modalitatea === "PALA GOMA") {
-          if (!palaGroups[categoriaKey].has(izena)) {
-            palaGroups[categoriaKey].set(izena, { izena, urtea });
-          }
-        }
-      }
-      
-      // Ordenar listas alfabéticamente dentro de cada grupo
-      const sortByName = (map) => Array.from(map.values()).sort((a,b) => a.izena.localeCompare(b.izena));
-      
-      // ---- Construir HTML para las tres tarjetas ----
-      const container = document.getElementById('dinamicTaldeak');
-      container.innerHTML = '';
-      
-      // Helper: crear bloque group HTML para una categoría con sus jugadores
-      function renderGroup(categoriaKey, jugadoresMap, lang) {
-        const jugadoresList = sortByName(jugadoresMap);
-        if (jugadoresList.length === 0) return '';
-        const className = getCategoriaClass(categoriaKey);
-        const label = getCategoriaLabel(categoriaKey, lang);
-        // Construir lista
-        let itemsHtml = '';
-        for (const p of jugadoresList) {
-          itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
-        }
-        // añadir clase li de color? En el index original no ponen clase edad en li, pero nosotros aplicamos clase al li con edad-xxx? lo dejamos igual que index pero el fondo lo da el group.
-        return `
-          <div class="group ${className}">
-            <h3>${label}</h3>
-            <ul>${itemsHtml}</ul>
-          </div>
-        `;
-      }
-      
-      // Tarjeta 1: ESKU PILOTA · Julen Martija
-      const julenGroupsOrder = ['prebenjaminak', 'benjaminak', 'alebinak'];
-      let julenHtml = '';
-      for (const cat of julenGroupsOrder) {
-        julenHtml += renderGroup(cat, julenGroups[cat], 'eu'); // usamos dos idiomas después, pero ahora render en los dos? podemos duplicar con data-lang? Mejor creamos final con clases eu/es.
-        // Pero necesitamos que cada tarjeta tenga ambos idiomas para el toggle. Voy a generar el contenido dentro de div con clase eu y es duplicado.
-        // Para simplificar, generamos el contenido completo con etiquetas bilingües (usando spans con clase eu y es dentro de cada título y jugadores? es complejo). En el index original las listas no son bilingües, solo los títulos. Nosotros mantendremos en euskera las listas pero el idioma de las cabeceras de grupo sí será dinámico.
-        // Pero voy a generar la estructura con innerHTML, pero con dos idiomas? Podríamos generar dos bloques idénticos (uno eu, uno es oculto). Mejor realizo una función que construya la tarjeta completa pero con textos bilingües en los títulos y los nombres sin traducir.
-        // Dado que los nombres de pelotaris son los mismos en ambos idiomas, solo las categorías deben cambiar.
-      }
-      // Construir la tarjeta completa para Julen, usando ambos idiomas para las cabeceras.
-      const julenCard = buildCardWithLang("🖐 Eskupilota · Julen Martija", "🖐 Mano · Julen Martija", julenGroupsOrder.map(cat => ({ cat, jugadores: julenGroups[cat] })));
-      
-      // Tarjeta 2: ESKU PILOTA · Peio Martinez de Eulate + Enrike Galarza
-      const barriolaGroupsOrder = ['infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
-      const barriolaCard = buildCardWithLang("🖐 Eskupilota · Peio Martinez de Eulate + Enrike Galarza", "🖐 Mano · Peio Martinez de Eulate + Enrike Galarza", barriolaGroupsOrder.map(cat => ({ cat, jugadores: barriolaGroups[cat] })));
-      
-      // Tarjeta 3: PALA
-      const palaGroupsOrder = ['prebenjaminak', 'benjaminak', 'alebinak', 'infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
-      const palaCard = buildCardWithLang("🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", "🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", palaGroupsOrder.map(cat => ({ cat, jugadores: palaGroups[cat] })));
-      
-      container.innerHTML = julenCard + barriolaCard + palaCard;
-      
-      // añadir clases de color para los li (opcional, para consistencia, aunque el fondo ya cubre)
-      // No es necesario, pero por fidelidad al index añadir clase según categoría en cada li? El index original no la añade dinámicamente, pero sí tiene reglas visuales con fondos de grupo. Está perfecto.
-      
-    } catch (err) {
-      console.error("Error cargando JSON o construyendo grupos:", err);
-      document.getElementById('dinamicTaldeak').innerHTML = '<div style="background:#ffdddd;padding:20px;">❌ Errorea datuak kargatzean / Error al cargar datos. Ziurtatu data/pelotariak.json existitzen dela.</div>';
-    }
-  }
-  
-  // Helper que genera una tarjeta completa con sus groups en dos idiomas (para que el toggle funcione)
-  function buildCardWithLang(titleEu, titleEs, groupsData) {
-    // groupsData: array de {cat, jugadores: Map}
-    // Generamos estructura html con dos copias del contenido interno: una eu y una es (con las categorías traducidas)
-    let groupsHtmlEu = '';
-    let groupsHtmlEs = '';
-    for (const g of groupsData) {
-      const jugadoresList = sortByName(g.jugadores);
-      if (jugadoresList.length === 0) continue;
-      const className = getCategoriaClass(g.cat);
-      const labelEu = getCategoriaLabel(g.cat, 'eu');
-      const labelEs = getCategoriaLabel(g.cat, 'es');
-      let itemsHtml = '';
-      for (const p of jugadoresList) itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
-      groupsHtmlEu += `
-        <div class="group ${className}">
-          <h3>${labelEu}</h3>
-          <ul>${itemsHtml}</ul>
-        </div>
-      `;
-      groupsHtmlEs += `
-        <div class="group ${className}">
-          <h3>${labelEs}</h3>
-          <ul>${itemsHtml}</ul>
-        </div>
-      `;
-    }
-    // Distinguimos si la tarjeta es de Julen, Barriola o Pala para aplicar la clase de cabecera específica.
-    let cardClass = '';
-    if (titleEu.includes('Julen Martija')) cardClass = 'esku-julen';
-    else if (titleEu.includes('Peio Martinez') || titleEu.includes('Enrike')) cardClass = 'esku-barriola';
-    else if (titleEu.includes('Pala')) cardClass = 'pala';
-    
-    return `
-      <div class="card ${cardClass}">
-        <h2 class="eu">${titleEu}</h2>
-        <h2 class="es">${titleEs}</h2>
-        <div class="content">
-          <div class="eu">${groupsHtmlEu}</div>
-          <div class="es">${groupsHtmlEs}</div>
-        </div>
-      </div>
-    `;
-  }
-  
-  function sortByName(arr) {
-    return arr.slice().sort((a,b) => a.izena.localeCompare(b.izena, 'eu'));
-  }
-  
   function escapeHtml(str) {
     return str.replace(/[&<>]/g, function(m) {
       if (m === '&') return '&amp;';
       if (m === '<') return '&lt;';
       if (m === '>') return '&gt;';
       return m;
-    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-      return c;
     });
   }
-  
-  // Inicializar la carga y luego el idioma por defecto
-  window.addEventListener('DOMContentLoaded', async () => {
-    await buildDynamicGroups();
-    setLang('eu');  // por defecto euskera
-  });
-  
-  // Exponer setLang globalmente
+
+  // Construir grupos
+  const julenGroups = { prebenjaminak: new Map(), benjaminak: new Map(), alebinak: new Map() };
+  const barriolaGroups = { infantilak: new Map(), kadeteak: new Map(), jubenilak: new Map(), nagusiak: new Map() };
+  const palaGroups = { prebenjaminak: new Map(), benjaminak: new Map(), alebinak: new Map(), infantilak: new Map(), kadeteak: new Map(), jubenilak: new Map(), nagusiak: new Map() };
+
+  for (const item of pelotariakData) {
+    const modalitatea = item.MODALITATEA;
+    const izena = item.Izena.trim();
+    const urtea = item.URTEA;
+    const categoriaKey = getCategoriaByBirthYear(urtea);
+    
+    if (modalitatea === "ESKU PILOTA") {
+      if (categoriaKey === "prebenjaminak" || categoriaKey === "benjaminak" || categoriaKey === "alebinak") {
+        if (!julenGroups[categoriaKey].has(izena)) julenGroups[categoriaKey].set(izena, { izena, urtea });
+      } else {
+        if (!barriolaGroups[categoriaKey].has(izena)) barriolaGroups[categoriaKey].set(izena, { izena, urtea });
+      }
+    } 
+    else if (modalitatea === "PALA GOMA") {
+      if (!palaGroups[categoriaKey].has(izena)) palaGroups[categoriaKey].set(izena, { izena, urtea });
+    }
+  }
+
+  function sortByName(map) {
+    return Array.from(map.values()).sort((a,b) => a.izena.localeCompare(b.izena, 'eu'));
+  }
+
+  function buildGroupsHTML(groupsData, lang) {
+    let html = '';
+    for (const g of groupsData) {
+      const jugadoresList = sortByName(g.jugadores);
+      if (jugadoresList.length === 0) continue;
+      const className = getCategoriaClass(g.cat);
+      const label = getCategoriaLabel(g.cat, lang);
+      let itemsHtml = '';
+      for (const p of jugadoresList) itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
+      html += `
+        <div class="group ${className}">
+          <h3>${label}</h3>
+          <ul>${itemsHtml}</ul>
+        </div>
+      `;
+    }
+    return html;
+  }
+
+  function buildCard(titleEu, titleEs, groupsConfig, cardClass) {
+    const groupsEu = buildGroupsHTML(groupsConfig, 'eu');
+    const groupsEs = buildGroupsHTML(groupsConfig, 'es');
+    return `
+      <div class="card ${cardClass}">
+        <h2 class="eu">${titleEu}</h2>
+        <h2 class="es">${titleEs}</h2>
+        <div class="content">
+          <div class="eu">${groupsEu}</div>
+          <div class="es">${groupsEs}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  const julenOrder = ['prebenjaminak', 'benjaminak', 'alebinak'];
+  const julenConfig = julenOrder.map(cat => ({ cat, jugadores: julenGroups[cat] }));
+  const julenCard = buildCard("🖐 Eskupilota · Julen Martija", "🖐 Mano · Julen Martija", julenConfig, 'esku-julen');
+
+  const barriolaOrder = ['infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
+  const barriolaConfig = barriolaOrder.map(cat => ({ cat, jugadores: barriolaGroups[cat] }));
+  const barriolaCard = buildCard("🖐 Eskupilota · Peio Martinez de Eulate + Enrike Galarza", "🖐 Mano · Peio Martinez de Eulate + Enrike Galarza", barriolaConfig, 'esku-barriola');
+
+  const palaOrder = ['prebenjaminak', 'benjaminak', 'alebinak', 'infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
+  const palaConfig = palaOrder.map(cat => ({ cat, jugadores: palaGroups[cat] }));
+  const palaCard = buildCard("🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", "🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", palaConfig, 'pala');
+
+  document.getElementById('dinamicTaldeak').innerHTML = julenCard + barriolaCard + palaCard;
+
+  // Establecer idioma por defecto
+  setLang('eu');
   window.setLang = setLang;
 </script>
-
 </body>
 </html>
