@@ -1,22 +1,22 @@
 {
-  "fecha_generacion": "2026-04-24T09:01:28.976Z",
+  "fecha_generacion": "2026-04-24T09:59:29.193Z",
   "semana_numero": 18,
   "total_partidos": 3,
   "partidos": [
     {
       "fecha": "2026/05/02",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN – OBERENA (A. Balda - U. Arcelus)",
       "kanpokoak": "ZUGARRALDE (A. Imaz - A. Merino)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KADETE TXAPELA LIGAXKA"
     },
     {
       "fecha": "2026/05/02",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (U. Otamendi - M. Laso)",
       "kanpokoak": "ULTZAMA (P. Aldaz - M. Perez)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE TXAPELA LIGAXKA"
