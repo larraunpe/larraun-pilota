@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordutegiak - Larraun Pilota Elkartea</title>
+<style>
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== HORARIOS (tal cual del original) ===== */
+.horarios-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.calendario {
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.calendario h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6em;
+}
+
+.fronton h3 { color:#2e7d32; }
+.trinquete h3 { color:#004e92; }
+
+.semana {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.dia {
+  position: relative;
+  padding-top: 42px;
+  height: 520px;
+}
+
+.dia h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px 0;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  z-index: 5;
+  text-align: center;
+}
+
+.evento {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* COLORES DE CATEGORÍAS */
+.prebenjamin { background:#c2b280; }
+.benjamin { background:#ff9800; }
+.alevin { background:#ffeb3b; color:#333; }
+.infantil { background:#4caf50; color:#fff; }
+.cadete { background:#81d4fa; color:#003; }
+.juvenil { background:#0d47a1; color:#fff; }
+.nagusi { background:#4682B4; color:#fff; }
+
+/* FONDOS FRONTOIA / TRINKETE */
+.calendario.fronton {
+  background: linear-gradient(135deg, #cfe8e2, #e2f3ef);
+}
+.calendario.trinquete {
+  background: linear-gradient(135deg, #e6dccf, #f0e9df);
+}
+
+/* NOTA INFORMATIVA */
+.nota {
+  margin-top: 30px;
+  background: #fff9c4;
+  padding: 15px 20px;
+  border-radius: 12px;
+  border-left: 5px solid #b30000;
+  font-size: 0.95em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .semana {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .container { padding: 0 10px; }
+}
+
+@media (max-width: 600px) {
+  .semana {
+    grid-template-columns: 1fr;
+  }
+  body { padding: 10px; }
+  .calendario { padding: 20px 15px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- TÍTULO IGUAL QUE EN EL ORIGINAL -->
+  <h2 class="eu" style="color:#b30000; text-align:center; margin-bottom:10px;">Entrenamenduak</h2>
+  <h3 class="eu" style="text-align:center; margin-bottom:30px;">Ordutegiak</h3>
+
+  <div class="horarios-wrapper">
+
+    <!-- FRONTÓN -->
+    <div class="calendario fronton">
+      <h3>🏟️ FRONTOIA</h3>
+
+      <div class="semana">
+        <div class="dia">
+          <h4>Astelehena/Lunes</h4>
+          <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+          <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+          <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+          <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+        </div>
+
+        <div class="dia">
+          <h4>Asteartea/Martes</h4>
+          <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+          <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+          <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+          <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+          <div class="evento nagusi mano">🖐 Nagusiak A<br>20:15–21:30</div>
+        </div>
+
+        <div class="dia">
+          <h4>Asteazkena/Miércoles</h4>
+          <div class="evento benjamin pala">🏓 Benjaminak<br>16:00–17:00</div>
+          <div class="evento infantil pala">🏓 Infantilak<br>17:00–18:00</div>
+          <div class="evento cadete pala">🏓 Kadete 1<br>18:00–19:00</div>
+          <div class="evento cadete pala">🏓 Kadete 2<br>19:00–20:00</div>
+          <div class="evento nagusi pala">🏓 Nagusiak<br>20:00–21:00</div>
+        </div>
+
+        <div class="dia">
+          <h4>Osteguna/Jueves</h4>
+          <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
+          <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
+          <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
+          <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+        </div>
+
+        <div class="dia">
+          <h4>Ostirala/Viernes</h4>
+          <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
+          <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
+          <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
+          <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRINQUETE -->
+    <div class="calendario trinquete">
+      <h3>🏛️ TRINKETE</h3>
+
+      <div class="semana">
+        <div class="dia">
+          <h4>Astelehena/Lunes</h4>
+          <div class="evento benjamin pala">🏓 Benjaminak<br>16:30–17:30</div>
+          <div class="evento infantil pala">🏓 Infantilak<br>17:30–18:30</div>
+          <div class="evento cadete pala">🏓 Kadete 1<br>18:30–19:30</div>
+          <div class="evento cadete pala">🏓 Kadete 2<br>19:30–20:30</div>
+        </div>
+
+        <div class="dia">
+          <h4>Asteartea/Martes</h4>
+          <div class="evento nagusi mano">🖐 Nagusiak A<br>17:00–20:15</div>
+        </div>
+
+        <div class="dia">
+          <h4>Asteazkena/Miércoles</h4>
+          <div class="evento nagusi mano">🎾 Xare Nagusiak<br>18:15–20:15</div>
+        </div>
+
+        <div class="dia">
+          <h4>Osteguna/Jueves</h4>
+          <div class="evento nagusi mano">🖐 Nagusiak B<br>17:00–20:15</div>
+        </div>
+
+        <div class="dia">
+          <h4>Ostirala/Viernes</h4>
+          <div class="evento nagusi pala">🏓 Nagusiak<br>19:30–21:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTA INFORMATIVA (igual que en el original) -->
+  <div class="nota">
+    <p class="eu">ℹ️ Nahiz ta pilotaria kategori batekoa izan, beste kategori batean entrenatu dezake, entrenatzaileen irizpidearen arabera.</p>
+    <p class="es">ℹ️ Aunque el pelotari sea de una categoría determinada, puede que entrene en otra categoría si los entrenadores lo estiman oportuno.</p>
+  </div>
+
+</div>
+
+<!-- SCRIPT PARA POSICIONAR LOS EVENTOS COMO EN EL DISEÑO ORIGINAL -->
+<script>
+const START_MINUTES = 16 * 60;
+const PIXELS_PER_15_MIN = 20;
+const DAY_HEADER_HEIGHT = 42;
+
+function toMinutes(t) {
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+}
+
+document.querySelectorAll(".dia").forEach(dia => {
+  let maxBottom = 0;
+
+  dia.querySelectorAll(".evento").forEach(ev => {
+    const match = ev.innerText.match(/(\d{1,2}:\d{2})[–-]\s*(\d{1,2}:\d{2})/);
+    if (!match) return;
+
+    const start = toMinutes(match[1]);
+    const end = toMinutes(match[2]);
+
+    const top = DAY_HEADER_HEIGHT +
+      ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+
+    const height = ((end - start) / 15) * PIXELS_PER_15_MIN;
+
+    ev.style.top = top + "px";
+    ev.style.height = height + "px";
+
+    maxBottom = Math.max(maxBottom, top + height);
+  });
+
+  dia.style.height = Math.max(maxBottom + 10, 520) + "px";
+});
+</script>
+
+</body>
+</html>
