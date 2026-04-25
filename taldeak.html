@@ -2,413 +2,337 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Larraun Pilota - Taldeak (Entrenamenduak)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Taldeak - Larraun Pilota Elkartea</title>
 <style>
-  /* ===== BASE (tomado del index original) ===== */
-  * {
-    box-sizing: border-box;
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* ===== TALDEAK (grupos) ===== */
+.entrenamenduak-taldeak {
+  background: #f4f4f4;
+}
+
+.entrenamenduak-taldeak .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+  margin-top: 20px;
+}
+
+/* Tarjetas */
+.entrenamenduak-taldeak .card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.entrenamenduak-taldeak .card:hover {
+  transform: translateY(-4px);
+}
+
+.entrenamenduak-taldeak .card h2 {
+  margin: 0;
+  padding: 18px 16px;
+  color: #fff;
+  font-size: 1.25rem;
+  letter-spacing: -0.3px;
+}
+
+/* Colores de cabecera */
+.entrenamenduak-taldeak .esku-julen h2 { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+.entrenamenduak-taldeak .esku-barriola h2 { background: linear-gradient(135deg, #1565c0, #0d47a1); }
+.entrenamenduak-taldeak .pala h2 { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+
+/* Grupos internos */
+.entrenamenduak-taldeak .group {
+  margin-bottom: 16px;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.entrenamenduak-taldeak .prebenjaminak { background: #f1e0c5; }
+.entrenamenduak-taldeak .benjaminak { background: #ffb74d; }
+.entrenamenduak-taldeak .alebinak { background: #fff176; color: #1e2a0a; }
+.entrenamenduak-taldeak .infantilak { background: #4caf50; }
+.entrenamenduak-taldeak .kadeteak { background: #81d4fa; }
+.entrenamenduak-taldeak .jubenilak { background: #0d47a1; }
+.entrenamenduak-taldeak .nagusiak { background: #4682B4; }
+
+.entrenamenduak-taldeak .group h3 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+/* Texto blanco en cabeceras oscuras */
+.entrenamenduak-taldeak .infantilak h3,
+.entrenamenduak-taldeak .jubenilak h3,
+.entrenamenduak-taldeak .nagusiak h3 {
+  color: #ffffff;
+}
+
+/* Listas de jugadores */
+.entrenamenduak-taldeak ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.entrenamenduak-taldeak li {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  list-style-type: circle;
+  width: calc(50% - 20px);
+  font-weight: 500;
+}
+
+/* Para que en móvil se vea una columna */
+@media (max-width: 550px) {
+  .entrenamenduak-taldeak li {
+    width: 100%;
   }
+}
+
+/* Contenido interno de cada card */
+.content {
+  padding: 16px;
+  background: #fefefe;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
   body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  header {
-    background: linear-gradient(90deg, #b30000, #006400);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-  }
-  header img {
-    max-width: 150px;
-    margin-bottom: 10px;
-  }
-  h2 {
-    color: #b30000;
-    margin-top: 0;
-  }
-  section {
-    padding: 40px 20px;
-    max-width: 1100px;
-    margin: auto;
-  }
-  .entrenamenduak-taldeak {
-    padding: 40px 20px;
-    background: #f4f4f4;
+    padding: 12px;
   }
   .entrenamenduak-taldeak .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
     gap: 24px;
   }
-  .entrenamenduak-taldeak .card {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    overflow: hidden;
-  }
   .entrenamenduak-taldeak .card h2 {
-    margin: 0;
-    padding: 16px;
-    color: #fff;
-    font-size: 1.2em;
-  }
-  /* cabeceras por modalidad (colores) */
-  .entrenamenduak-taldeak .esku-julen h2 { background: #2e7d32; }
-  .entrenamenduak-taldeak .esku-barriola h2 { background: #1565c0; }
-  .entrenamenduak-taldeak .pala h2 { background: #6a1b9a; }
-
-  /* grupos internos */
-  .entrenamenduak-taldeak .group {
-    margin-bottom: 14px;
-    border-radius: 10px;
-    padding: 10px 12px;
-  }
-  .entrenamenduak-taldeak .prebenjaminak { background: #f1e0c5; }
-  .entrenamenduak-taldeak .benjaminak { background: #ffb74d; }
-  .entrenamenduak-taldeak .alebinak { background: #fff176; }
-  .entrenamenduak-taldeak .infantilak { background: #4caf50; }
-  .entrenamenduak-taldeak .kadeteak { background: #81d4fa; }
-  .entrenamenduak-taldeak .jubenilak { background: #0d47a1; }
-  .entrenamenduak-taldeak .nagusiak { background: #4682B4; }
-
-  .entrenamenduak-taldeak .group h3 {
-    margin: 0 0 6px;
-    font-size: 0.95em;
-    font-weight: bold;
-  }
-  .entrenamenduak-taldeak ul {
-    margin: 0;
-    padding-left: 18px;
+    font-size: 1.1rem;
+    padding: 14px;
   }
   .entrenamenduak-taldeak li {
-    font-size: 0.9em;
-    line-height: 1.4;
-    position: relative;
-    z-index: 1;
+    font-size: 0.85rem;
   }
-  /* texto blanco en fondos oscuros */
-  .entrenamenduak-taldeak .infantilak h3,
-  .entrenamenduak-taldeak .jubenilak h3,
-  .entrenamenduak-taldeak .nagusiak h3 {
-    color: #ffffff;
-    font-weight: 700;
-  }
-  .entrenamenduak-taldeak li.edad-jubenilak,
-  .entrenamenduak-taldeak li.edad-infantilak,
-  .entrenamenduak-taldeak li.edad-nagusiak {
-    color: #ffffff;
-    font-weight: 600;
-  }
-  .footer-note {
-    margin-top: 40px;
-    text-align: center;
-    font-style: italic;
-    background: #e9e9e9;
-    padding: 12px;
-    border-radius: 12px;
-    color: #2c3e50;
-  }
-  .lang-switch {
-    position: absolute;
-    top: 14px;
-    left: 18px;
-    display: flex;
-    gap: 8px;
-  }
-  .lang-switch button {
-    background-color: #eee;
-    color: #222;
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    font-weight: bold;
-  }
-  .lang-switch button.active {
-    background-color: #222;
-    color: white;
-  }
-  .eu, .es {
-    display: block;
-  }
-  .es {
-    display: none;
-  }
-  footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-  }
-  @media (max-width: 700px) {
-    .entrenamenduak-taldeak .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}
+
+/* Títulos principales */
+.talde-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.talde-title h2 {
+  color: #b30000;
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+.talde-title h3 {
+  color: #2d6a4f;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+/* Nota informativa opcional (como en el original) */
+.nota {
+  margin-top: 40px;
+  background: #fff9e0;
+  padding: 14px 20px;
+  border-radius: 20px;
+  border-left: 5px solid #b30000;
+  font-size: 0.85rem;
+  text-align: center;
+}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="lang-switch">
-    <button id="btn-eu" onclick="setLang('eu')">EUSKERA</button>
-    <button id="btn-es" onclick="setLang('es')">CASTELLANO</button>
+<div class="container">
+  
+  <div class="talde-title">
+    <h2>Entrenamenduak</h2>
+    <h3>Taldeak</h3>
   </div>
-  <img src="images/logo-larraun.png" alt="Larraun Pilota Elkartea" onerror="this.style.display='none'">
-  <h1>LARRAUN PILOTA ELKARTEA</h1>
-  <p class="eu">Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
-  <p class="es">Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
-</header>
 
-<section id="taldeak" class="entrenamenduak-taldeak">
-  <h2 class="eu">🏋️ Taldeak (2025-2026)</h2>
-  <h2 class="es">🏋️ Grupos (2025-2026)</h2>
-  <p class="eu"><strong>📅 Oharra:</strong> Kategoria kalkulatzeko uda amaierako araua (irailaren 1etik aurrera hurrengo adin taldera pasatzen da). Urtez-urte egokituta: 2025-2026 denboraldirako.</p>
-  <p class="es"><strong>📅 Nota:</strong> Las categorías se calculan según la regla de final de verano (a partir del 1 de septiembre se pasa al siguiente grupo). Adaptado para la temporada 2025-2026.</p>
+  <div class="entrenamenduak-taldeak">
+    <div class="grid">
 
-  <div class="grid" id="dinamicTaldeak">
-    <!-- Aquí se inyectarán dinámicamente las tarjetas -->
-  </div>
-  <div class="footer-note">
-    <span class="eu">✅ Kategoria bakoitza kolore bereizgarriarekin: Aurrebenjaminak (beige), Benjaminak (laranja), Alebinak (horia), Infantilak (berdea), Kadeteak (urdin argia), Jubenilak (urdin iluna), Nagusiak (urdin grisa).</span>
-    <span class="es">✅ Cada categoría con color distintivo: Prebenjamín (beige), Benjamín (naranja), Alevín (amarillo), Infantil (verde), Cadete (azul claro), Juvenil (azul oscuro), Senior (azul grisáceo).</span>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Larraun Pilota Elkartea · Taldeak automatikoki JSON-etik sortuak</p>
-  <p class="eu">🔁 Denboraldi erregela: irailaren 1ean adin taldea igotzen da.</p>
-  <p class="es">🔁 Regla de temporada: el 1 de septiembre se asciende de categoría.</p>
-</footer>
-
-<script>
-  // -------- IDIOMAS ----------
-  function setLang(lang) {
-    document.querySelectorAll('.es').forEach(el => el.style.display = lang === 'es' ? 'block' : 'none');
-    document.querySelectorAll('.eu').forEach(el => el.style.display = lang === 'eu' ? 'block' : 'none');
-    document.getElementById('btn-eu').classList.remove('active');
-    document.getElementById('btn-es').classList.remove('active');
-    document.getElementById('btn-' + lang).classList.add('active');
-  }
-
-  // --------------------------------------------------------------
-  // DATOS INCORPORADOS DIRECTAMENTE (extraídos de tu pelotariak.json)
-  const pelotariakData = [
-{"URTEA":2014,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Diego Centeno","KOADROA":"TXIKI"},
-{"URTEA":2014,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Mikel Argaña","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Endika Balda","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ibai Ansorena","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ander Astiz","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Joan Mendinueta","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Adur Zubillaga","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ekhi Mozo","KOADROA":"TXIKI"},
-{"URTEA":2015,"MODALITATEA":"ESKU PILOTA","TALDE":"ALEBINAK","Izena":"Ander Dorronsoro","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Lander Ariztimuño","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Amets Mozo","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Aimar Bidegain","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Unai Erneta","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Joar Ruiz","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Markel Etxeberria","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Luka Soria","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Luar Ojuel","KOADROA":"TXIKI"},
-{"URTEA":2018,"MODALITATEA":"ESKU PILOTA","TALDE":"AURREBENJAMINAK","Izena":"Ekhi Zubillaga","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Gorka Garcia","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Liher Goikoetxea","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Beñat Goikoetxea","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Manex Sanz","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Aiur Loyarte","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Eneko Jaurrieta","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Enai Albeniz","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Martin Argaña","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 1","Izena":"Aimar Ochoa","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Inhar Lociga","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Urko Agirrezabala","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Aratz Apezetxea","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Urko Ariztimuño","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Luken Oiartzun","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Eneko Etxeberria","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Suhar Galartza","KOADROA":"TXIKI"},
-{"URTEA":2016,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Aitor Ruiz","KOADROA":"TXIKI"},
-{"URTEA":2017,"MODALITATEA":"ESKU PILOTA","TALDE":"BENJAMINAK 2","Izena":"Oier Mitxaus","KOADROA":"TXIKI"},
-{"URTEA":2012,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Aimar Bengoetxea","KOADROA":"HAUNDI"},
-{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Mikel Bidegain","KOADROA":"HAUNDI"},
-{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Xabier Goldaracena","KOADROA":"HAUNDI"},
-{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Aimar Balenciaga","KOADROA":"HAUNDI"},
-{"URTEA":2013,"MODALITATEA":"ESKU PILOTA","TALDE":"INFANTILAK","Izena":"Julen Mitxaus","KOADROA":"HAUNDI"},
-{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Egoi Ijurko","KOADROA":"HAUNDI"},
-{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Ibai Ijurko","KOADROA":"HAUNDI"},
-{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Egoitz Oreja","KOADROA":"HAUNDI"},
-{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Mikel Laso","KOADROA":"HAUNDI"},
-{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"JUBENILAK","Izena":"Unai Otamendi","KOADROA":"HAUNDI"},
-{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Aitor Balda","KOADROA":"HAUNDI"},
-{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Julen Bildarraz","KOADROA":"HAUNDI"},
-{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Oihan Ijurko","KOADROA":"HAUNDI"},
-{"URTEA":2010,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK A","Izena":"Imanol Sotil","KOADROA":"HAUNDI"},
-{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Janire Sotil","KOADROA":"HAUNDI"},
-{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Martin Etxepare","KOADROA":"HAUNDI"},
-{"URTEA":2009,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Ilan Eguzkiza","KOADROA":"HAUNDI"},
-{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Egoi Jaka","KOADROA":"HAUNDI"},
-{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Amaiur Goikoetxea","KOADROA":"HAUNDI"},
-{"URTEA":2011,"MODALITATEA":"ESKU PILOTA","TALDE":"KADETEAK B","Izena":"Bikendi Legarra","KOADROA":"HAUNDI"},
-{"URTEA":1995,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Unai Astiz","KOADROA":"HAUNDI"},
-{"URTEA":2001,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Iñaki Galarza","KOADROA":"HAUNDI"},
-{"URTEA":2003,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Oinatz Iriarte","KOADROA":"HAUNDI"},
-{"URTEA":2005,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Intza Garaño","KOADROA":"HAUNDI"},
-{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Aitor Eguzkiza","KOADROA":"HAUNDI"},
-{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Endika Galarza","KOADROA":"HAUNDI"},
-{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Lucas Navarro","KOADROA":"HAUNDI"},
-{"URTEA":2006,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Julen Sotil","KOADROA":"HAUNDI"},
-{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK A","Izena":"Igor Nazabal","KOADROA":"HAUNDI"},
-{"URTEA":1985,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Miguel Lazkoz","KOADROA":"HAUNDI"},
-{"URTEA":2004,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Julen Ezkurdia","KOADROA":"HAUNDI"},
-{"URTEA":2007,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Mattin Goikoetxea","KOADROA":"HAUNDI"},
-{"URTEA":2008,"MODALITATEA":"ESKU PILOTA","TALDE":"NAGUSIAK B","Izena":"Xuban Telletxea","KOADROA":"HAUNDI"},
-{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Nora Goldarazena","KOADROA":"PALA"},
-{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Sara Venzislavova","KOADROA":"PALA"},
-{"URTEA":2017,"MODALITATEA":"PALA GOMA","TALDE":"ALEBINAK","Izena":"Nashla Watts","KOADROA":"PALA"},
-{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Haizea Apezetxea","KOADROA":"PALA"},
-{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Nerea Saralegui","KOADROA":"PALA"},
-{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Zuriñe Imaz","KOADROA":"PALA"},
-{"URTEA":2012,"MODALITATEA":"PALA GOMA","TALDE":"INFANTILAK","Izena":"Iraide Garaño","KOADROA":"PALA"},
-{"URTEA":2003,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maider Saralegi","KOADROA":"PALA"},
-{"URTEA":2003,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maddi Galartza","KOADROA":"PALA"},
-{"URTEA":2007,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Maria Eguzkiza","KOADROA":"PALA"},
-{"URTEA":2007,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Irati Garziarena","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"JUBENIL ETA NAGUSIAK","Izena":"Naia Galarza","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Irati Balenciaga","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Marian Saralegui","KOADROA":"PALA"},
-{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Martina Morais","KOADROA":"PALA"},
-{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Uxue Goñi","KOADROA":"PALA"},
-{"URTEA":2011,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 1","Izena":"Laida Legarra","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Haizea Etxarri","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Kiara Legarra","KOADROA":"PALA"},
-{"URTEA":2009,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Joane Martinikorena","KOADROA":"PALA"},
-{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Izarne Larreta","KOADROA":"PALA"},
-{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Lorea Bengoetxea","KOADROA":"PALA"},
-{"URTEA":2010,"MODALITATEA":"PALA GOMA","TALDE":"KADETEAK 2","Izena":"Garazi Astiz","KOADROA":"PALA"}
-];
-
-  // --------------------------------------------------------------
-  // LÓGICA DE CATEGORÍA TEMPORADA 2025-2026 (corte 1 de septiembre)
-  function getCategoriaByBirthYear(urtea) {
-    if (urtea >= 2019) return "prebenjaminak";
-    if (urtea >= 2016) return "benjaminak";
-    if (urtea >= 2014) return "alebinak";
-    if (urtea >= 2012) return "infantilak";
-    if (urtea >= 2009) return "kadeteak";
-    if (urtea >= 2006) return "jubenilak";
-    return "nagusiak";
-  }
-
-  function getCategoriaLabel(categoriaKey, lang) {
-    const labels = {
-      prebenjaminak: { eu: "Aurrebenjaminak", es: "Prebenjamines" },
-      benjaminak: { eu: "Benjaminak", es: "Benjamines" },
-      alebinak: { eu: "Alebinak", es: "Alevines" },
-      infantilak: { eu: "Infantilak", es: "Infantiles" },
-      kadeteak: { eu: "Kadeteak", es: "Cadetes" },
-      jubenilak: { eu: "Jubenilak", es: "Juveniles" },
-      nagusiak: { eu: "Nagusiak", es: "Senior / Adultos" }
-    };
-    return labels[categoriaKey] ? labels[categoriaKey][lang] : categoriaKey;
-  }
-
-  function getCategoriaClass(categoriaKey) {
-    return categoriaKey;
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
-  }
-
-  // Construir grupos
-  const julenGroups = { prebenjaminak: new Map(), benjaminak: new Map(), alebinak: new Map() };
-  const barriolaGroups = { infantilak: new Map(), kadeteak: new Map(), jubenilak: new Map(), nagusiak: new Map() };
-  const palaGroups = { prebenjaminak: new Map(), benjaminak: new Map(), alebinak: new Map(), infantilak: new Map(), kadeteak: new Map(), jubenilak: new Map(), nagusiak: new Map() };
-
-  for (const item of pelotariakData) {
-    const modalitatea = item.MODALITATEA;
-    const izena = item.Izena.trim();
-    const urtea = item.URTEA;
-    const categoriaKey = getCategoriaByBirthYear(urtea);
-    
-    if (modalitatea === "ESKU PILOTA") {
-      if (categoriaKey === "prebenjaminak" || categoriaKey === "benjaminak" || categoriaKey === "alebinak") {
-        if (!julenGroups[categoriaKey].has(izena)) julenGroups[categoriaKey].set(izena, { izena, urtea });
-      } else {
-        if (!barriolaGroups[categoriaKey].has(izena)) barriolaGroups[categoriaKey].set(izena, { izena, urtea });
-      }
-    } 
-    else if (modalitatea === "PALA GOMA") {
-      if (!palaGroups[categoriaKey].has(izena)) palaGroups[categoriaKey].set(izena, { izena, urtea });
-    }
-  }
-
-  function sortByName(map) {
-    return Array.from(map.values()).sort((a,b) => a.izena.localeCompare(b.izena, 'eu'));
-  }
-
-  function buildGroupsHTML(groupsData, lang) {
-    let html = '';
-    for (const g of groupsData) {
-      const jugadoresList = sortByName(g.jugadores);
-      if (jugadoresList.length === 0) continue;
-      const className = getCategoriaClass(g.cat);
-      const label = getCategoriaLabel(g.cat, lang);
-      let itemsHtml = '';
-      for (const p of jugadoresList) itemsHtml += `<li>${escapeHtml(p.izena)}</li>`;
-      html += `
-        <div class="group ${className}">
-          <h3>${label}</h3>
-          <ul>${itemsHtml}</ul>
-        </div>
-      `;
-    }
-    return html;
-  }
-
-  function buildCard(titleEu, titleEs, groupsConfig, cardClass) {
-    const groupsEu = buildGroupsHTML(groupsConfig, 'eu');
-    const groupsEs = buildGroupsHTML(groupsConfig, 'es');
-    return `
-      <div class="card ${cardClass}">
-        <h2 class="eu">${titleEu}</h2>
-        <h2 class="es">${titleEs}</h2>
+      <!-- ESKU PILOTA · JULEN MARTIJA -->
+      <div class="card esku-julen">
+        <h2>🖐 Eskupilota · Julen Martija</h2>
         <div class="content">
-          <div class="eu">${groupsEu}</div>
-          <div class="es">${groupsEs}</div>
+
+          <div class="group prebenjaminak">
+            <h3>Aurrebenjaminak</h3>
+            <ul>
+              <li>Lander Ariztimuño</li><li>Amets Mozo</li><li>Aimar Bidegain</li>
+              <li>Unai Erneta</li><li>Joar Ruiz</li><li>Markel Etxeberria</li>
+              <li>Luka Soria</li><li>Luar Ojuel</li><li>Ekhi Zubillaga</li>
+            </ul>
+          </div>
+
+          <div class="group benjaminak">
+            <h3>Benjaminak 1</h3>
+            <ul>
+              <li>Gorka Garcia</li><li>Liher Goikoetxea</li><li>Beñat Goikoetxea</li>
+              <li>Manex Sanz</li><li>Aiur Loyarte</li><li>Eneko Jaurrieta</li>
+              <li>Enai Albeniz</li><li>Martin Argaña</li><li>Aimar Ochoa</li>
+            </ul>
+          </div>
+
+          <div class="group benjaminak">
+            <h3>Benjaminak 2</h3>
+            <ul>
+              <li>Inhar Lociga</li><li>Urko Agirrezabala</li><li>Aratz Apezetxea</li>
+              <li>Urko Ariztimuño</li><li>Luken Oiartzun</li><li>Eneko Etxeberria</li>
+              <li>Suhar Galartza</li><li>Aitor Ruiz</li><li>Oier Mitxaus</li>
+            </ul>
+          </div>
+
+          <div class="group alebinak">
+            <h3>Alebinak</h3>
+            <ul>
+              <li>Diego Centeno</li><li>Mikel Argaña</li><li>Endika Balda</li>
+              <li>Ibai Ansorena</li><li>Ander Astiz</li><li>Joan Mendinueta</li>
+              <li>Adur Zubillaga</li><li>Ekhi Mozo</li><li>Ander Dorronsoro</li>
+            </ul>
+          </div>
+
         </div>
       </div>
-    `;
-  }
 
-  const julenOrder = ['prebenjaminak', 'benjaminak', 'alebinak'];
-  const julenConfig = julenOrder.map(cat => ({ cat, jugadores: julenGroups[cat] }));
-  const julenCard = buildCard("🖐 Eskupilota · Julen Martija", "🖐 Mano · Julen Martija", julenConfig, 'esku-julen');
+      <!-- ESKU PILOTA · PEIO + ENRIKE -->
+      <div class="card esku-barriola">
+        <h2>🖐 Eskupilota · Peio Martinez de Eulate + Enrike Galarza</h2>
+        <div class="content">
 
-  const barriolaOrder = ['infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
-  const barriolaConfig = barriolaOrder.map(cat => ({ cat, jugadores: barriolaGroups[cat] }));
-  const barriolaCard = buildCard("🖐 Eskupilota · Peio Martinez de Eulate + Enrike Galarza", "🖐 Mano · Peio Martinez de Eulate + Enrike Galarza", barriolaConfig, 'esku-barriola');
+          <div class="group infantilak">
+            <h3>Infantilak</h3>
+            <ul>
+              <li>Aimar Bengoetxea</li><li>Mikel Bidegain</li><li>Xabier Goldaracena</li>
+              <li>Aimar Balenciaga</li><li>Julen Mitxaus</li>
+            </ul>
+          </div>
 
-  const palaOrder = ['prebenjaminak', 'benjaminak', 'alebinak', 'infantilak', 'kadeteak', 'jubenilak', 'nagusiak'];
-  const palaConfig = palaOrder.map(cat => ({ cat, jugadores: palaGroups[cat] }));
-  const palaCard = buildCard("🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", "🏓 Pala · Maria Eguzkiza + Xabi Azpiroz", palaConfig, 'pala');
+          <div class="group kadeteak">
+            <h3>Kadeteak B</h3>
+            <ul>
+              <li>Janire Sotil</li><li>Martin Etxepare</li><li>Ilan Eguzkiza</li>
+              <li>Egoi Jaka</li><li>Amaiur Goikoetxea</li><li>Bikendi Legarra</li>
+            </ul>
+          </div>
 
-  document.getElementById('dinamicTaldeak').innerHTML = julenCard + barriolaCard + palaCard;
+          <div class="group kadeteak">
+            <h3>Kadeteak A</h3>
+            <ul>
+              <li>Aitor Balda</li><li>Julen Bildarraz</li><li>Oihan Ijurko</li>
+              <li>Imanol Sotil</li>
+            </ul>
+          </div>
 
-  // Establecer idioma por defecto
-  setLang('eu');
-  window.setLang = setLang;
-</script>
+          <div class="group jubenilak">
+            <h3>Jubenilak</h3>
+            <ul>
+              <li>Egoi Ijurko</li><li>Ibai Ijurko</li><li>Egoitz Oreja</li>
+              <li>Mikel Laso</li><li>Unai Otamendi</li>
+            </ul>
+          </div>
+
+          <div class="group nagusiak">
+            <h3>Nagusiak B</h3>
+            <ul>
+              <li>Miguel Lazkoz</li><li>Julen Ezkurdia</li><li>Mattin Goikoetxea</li>
+              <li>Xuban Telletxea</li>
+            </ul>
+          </div>
+
+          <div class="group nagusiak">
+            <h3>Nagusiak A</h3>
+            <ul>
+              <li>Iñaki Galarza</li><li>Oinatz Iriarte</li><li>Intza Garaño</li>
+              <li>Aitor Eguzkiza</li><li>Endika Galarza</li><li>Lucas Navarro</li>
+              <li>Julen Sotil</li><li>Igor Nazabal</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PALA -->
+      <div class="card pala">
+        <h2>🏓 Pala · Maria Eguzkiza + Xabi Azpiroz</h2>
+        <div class="content">
+
+          <div class="group alebinak">
+            <h3>Alebinak</h3>
+            <ul>
+              <li>Nora Goldarazena</li><li>Sara Venzislavova</li><li>Nashla Watts</li>
+            </ul>
+          </div>
+
+          <div class="group infantilak">
+            <h3>Infantilak</h3>
+            <ul>
+              <li>Haizea Apezetxea</li><li>Nerea Saralegui</li><li>Zuriñe Imaz</li>
+              <li>Iraide Garaño</li>
+            </ul>
+          </div>
+
+          <div class="group kadeteak">
+            <h3>Kadeteak 1</h3>
+            <ul>
+              <li>Irati Balenciaga</li><li>Marian Saralegui</li><li>Martina Morais</li>
+              <li>Uxue Goñi</li><li>Laida Legarra</li>
+            </ul>
+          </div>
+
+          <div class="group kadeteak">
+            <h3>Kadeteak 2</h3>
+            <ul>
+              <li>Haizea Etxarri</li><li>Kiara Legarra</li><li>Joane Martinikorena</li>
+              <li>Izarne Larreta</li><li>Lorea Bengoetxea</li><li>Garazi Astiz</li>
+            </ul>
+          </div>
+
+          <div class="group nagusiak">
+            <h3>Jubenilak / Nagusiak</h3>
+            <ul>
+              <li>Maider Saralegi</li><li>Maddi Galartza</li><li>Maria Eguzkiza</li>
+              <li>Irati Garziarena</li><li>Naia Galarza</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nota aclaratoria (como en el diseño original) -->
+  <div class="nota">
+    <p>ℹ️ Nahiz ta pilotaria kategori batekoa izan, beste kategori batean entrenatu dezake, entrenatzaileen irizpidearen arabera.</p>
+  </div>
+
+</div>
 </body>
 </html>
