@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ordutegiak - Larraun Pilota Elkartea</title>
 <style>
 /* ===== RESET & BASE ===== */
@@ -13,51 +13,56 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;
   background-color: #f4f4f4;
   color: #333;
-  padding: 20px;
+  padding: 16px;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
-/* ===== HORARIOS (tal cual del original) ===== */
+/* ===== HORARIOS ===== */
 .horarios-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
   margin-top: 20px;
 }
 
 .calendario {
   background: #fff;
-  border-radius: 18px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-radius: 28px;
+  padding: 20px 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
 }
 
 .calendario h3 {
   text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.6em;
+  margin-bottom: 20px;
+  font-size: 1.7rem;
+  letter-spacing: -0.3px;
 }
-
 .fronton h3 { color:#2e7d32; }
 .trinquete h3 { color:#004e92; }
 
+/* --- GRID DIAS: responsive, en móvil 1 columna, en tablet 2, en pc 5 --- */
 .semana {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: 18px;
 }
 
+/* Día individual (cada columna) */
 .dia {
   position: relative;
-  padding-top: 42px;
-  height: 520px;
+  background: rgba(255,255,240,0.4);
+  border-radius: 20px;
+  padding-top: 48px;
+  min-height: 540px;
+  transition: all 0.2s;
 }
 
 .dia h4 {
@@ -66,80 +71,169 @@ body {
   left: 0;
   right: 0;
   margin: 0;
-  padding: 8px 0;
-  background: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  padding: 10px 6px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  border-radius: 20px 20px 12px 12px;
   z-index: 5;
   text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  backdrop-filter: blur(2px);
+  letter-spacing: 0.5px;
 }
 
+/* Eventos (horarios) */
 .evento {
   position: absolute;
-  left: 6px;
-  right: 6px;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 0.9em;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  line-height: 1.3;
+  left: 8px;
+  right: 8px;
+  padding: 8px 6px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  line-height: 1.35;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   text-align: center;
+  backdrop-filter: brightness(0.98);
+  transition: transform 0.1s ease;
 }
 
-/* COLORES DE CATEGORÍAS */
-.prebenjamin { background:#c2b280; }
-.benjamin { background:#ff9800; }
-.alevin { background:#ffeb3b; color:#333; }
+/* Colores de categorías (original) */
+.prebenjamin { background:#c2b280; color:#1e2a2a; }
+.benjamin { background:#ff9800; color:#2c1e0a; }
+.alevin { background:#ffeb3b; color:#1f2a0a; }
 .infantil { background:#4caf50; color:#fff; }
-.cadete { background:#81d4fa; color:#003; }
+.cadete { background:#81d4fa; color:#001d3d; }
 .juvenil { background:#0d47a1; color:#fff; }
 .nagusi { background:#4682B4; color:#fff; }
 
-/* FONDOS FRONTOIA / TRINKETE */
+/* Fondos específicos frontón / trinquete */
 .calendario.fronton {
-  background: linear-gradient(135deg, #cfe8e2, #e2f3ef);
+  background: linear-gradient(135deg, #d4f1f9, #eafaf1);
 }
 .calendario.trinquete {
-  background: linear-gradient(135deg, #e6dccf, #f0e9df);
+  background: linear-gradient(135deg, #efe2cd, #f7f0e3);
 }
 
-/* NOTA INFORMATIVA */
+/* Nota informativa */
 .nota {
   margin-top: 30px;
-  background: #fff9c4;
-  padding: 15px 20px;
-  border-radius: 12px;
-  border-left: 5px solid #b30000;
-  font-size: 0.95em;
+  background: #fff9e0;
+  padding: 16px 20px;
+  border-radius: 24px;
+  border-left: 6px solid #b30000;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+/* ===== RESPONSIVE: TABLET (2 columnas) ===== */
+@media (max-width: 950px) and (min-width: 641px) {
   .semana {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
-  .container { padding: 0 10px; }
+  .dia {
+    min-height: 520px;
+  }
+  .evento {
+    font-size: 0.75rem;
+    padding: 6px 4px;
+  }
 }
 
-@media (max-width: 600px) {
+/* ===== RESPONSIVE: MÓVIL (1 columna, limpio) ===== */
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+  .calendario {
+    padding: 16px 12px;
+    border-radius: 24px;
+  }
+  .calendario h3 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
   .semana {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-  body { padding: 10px; }
-  .calendario { padding: 20px 15px; }
+  .dia {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 48px;
+    padding-bottom: 12px;
+    background: rgba(255,255,245,0.7);
+    border-radius: 24px;
+    margin-bottom: 8px;
+  }
+  /* En móvil los eventos se muestran en flujo vertical (no absolutos) */
+  .dia {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .evento {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto !important;
+    height: auto !important;
+    margin: 8px 10px;
+    width: calc(100% - 20px);
+    font-size: 0.85rem;
+    padding: 12px 8px;
+    border-radius: 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+  .dia h4 {
+    position: relative;
+    width: 90%;
+    margin: 0 auto 8px auto;
+    border-radius: 40px;
+    background: #1e3c2c;
+    font-size: 1.1rem;
+    padding: 10px;
+    top: 0;
+  }
+  /* Ajuste de nota */
+  .nota {
+    font-size: 0.85rem;
+    padding: 14px 16px;
+  }
+}
+
+/* Ajuste extra para móviles muy pequeños */
+@media (max-width: 480px) {
+  .evento {
+    font-size: 0.75rem;
+    padding: 10px 6px;
+  }
+  .dia h4 {
+    font-size: 1rem;
+  }
+}
+
+/* Mejora hover solo en desktop */
+@media (min-width: 641px) {
+  .evento:hover {
+    transform: scale(1.02);
+    transition: all 0.1s ease;
+  }
 }
 </style>
 </head>
 <body>
 <div class="container">
   
-  <!-- TÍTULO IGUAL QUE EN EL ORIGINAL -->
-  <h2 class="eu" style="color:#b30000; text-align:center; margin-bottom:10px;">Entrenamenduak</h2>
-  <h3 class="eu" style="text-align:center; margin-bottom:30px;">Ordutegiak</h3>
+  <!-- Título exacto igual que en la sección original -->
+  <h2 style="color:#b30000; text-align:center; margin-bottom:6px; font-size:1.9rem;">Entrenamenduak</h2>
+  <h3 style="text-align:center; margin-bottom:20px; font-weight:500; color:#2d6a4f;">Ordutegiak</h3>
 
   <div class="horarios-wrapper">
 
@@ -148,46 +242,51 @@ body {
       <h3>🏟️ FRONTOIA</h3>
 
       <div class="semana">
+        <!-- Lunes -->
         <div class="dia">
-          <h4>Astelehena/Lunes</h4>
-          <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
-          <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
-          <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
-          <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+          <h4>Astelehena / Lunes</h4>
+          <div class="evento prebenjamin">🖐 Prebenjaminak<br>16:15–17:15</div>
+          <div class="evento benjamin">🖐 Benjaminak 1<br>17:15–18:15</div>
+          <div class="evento benjamin">🖐 Benjaminak 2<br>18:15–19:15</div>
+          <div class="evento alevin">🖐 Alebinak<br>19:15–20:15</div>
         </div>
 
+        <!-- Martes -->
         <div class="dia">
-          <h4>Asteartea/Martes</h4>
-          <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
-          <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
-          <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
-          <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
-          <div class="evento nagusi mano">🖐 Nagusiak A<br>20:15–21:30</div>
+          <h4>Asteartea / Martes</h4>
+          <div class="evento infantil">🖐 Infantilak<br>16:15–17:15</div>
+          <div class="evento cadete">🖐 Kadete B<br>17:15–18:15</div>
+          <div class="evento cadete">🖐 Kadete A<br>18:15–19:15</div>
+          <div class="evento juvenil">🖐 Jubenilak<br>19:15–20:15</div>
+          <div class="evento nagusi">🖐 Nagusiak A<br>20:15–21:30</div>
         </div>
 
+        <!-- Miércoles -->
         <div class="dia">
-          <h4>Asteazkena/Miércoles</h4>
-          <div class="evento benjamin pala">🏓 Benjaminak<br>16:00–17:00</div>
-          <div class="evento infantil pala">🏓 Infantilak<br>17:00–18:00</div>
-          <div class="evento cadete pala">🏓 Kadete 1<br>18:00–19:00</div>
-          <div class="evento cadete pala">🏓 Kadete 2<br>19:00–20:00</div>
-          <div class="evento nagusi pala">🏓 Nagusiak<br>20:00–21:00</div>
+          <h4>Asteazkena / Miércoles</h4>
+          <div class="evento benjamin">🏓 Benjaminak<br>16:00–17:00</div>
+          <div class="evento infantil">🏓 Infantilak<br>17:00–18:00</div>
+          <div class="evento cadete">🏓 Kadete 1<br>18:00–19:00</div>
+          <div class="evento cadete">🏓 Kadete 2<br>19:00–20:00</div>
+          <div class="evento nagusi">🏓 Nagusiak<br>20:00–21:00</div>
         </div>
 
+        <!-- Jueves -->
         <div class="dia">
-          <h4>Osteguna/Jueves</h4>
-          <div class="evento infantil mano">🖐 Infantilak<br>16:15–17:15</div>
-          <div class="evento cadete mano">🖐 Kadete B<br>17:15–18:15</div>
-          <div class="evento cadete mano">🖐 Kadete A<br>18:15–19:15</div>
-          <div class="evento juvenil mano">🖐 Jubenilak<br>19:15–20:15</div>
+          <h4>Osteguna / Jueves</h4>
+          <div class="evento infantil">🖐 Infantilak<br>16:15–17:15</div>
+          <div class="evento cadete">🖐 Kadete B<br>17:15–18:15</div>
+          <div class="evento cadete">🖐 Kadete A<br>18:15–19:15</div>
+          <div class="evento juvenil">🖐 Jubenilak<br>19:15–20:15</div>
         </div>
 
+        <!-- Viernes -->
         <div class="dia">
-          <h4>Ostirala/Viernes</h4>
-          <div class="evento prebenjamin mano">🖐 Prebenjaminak<br>16:15–17:15</div>
-          <div class="evento benjamin mano">🖐 Benjaminak 1<br>17:15–18:15</div>
-          <div class="evento benjamin mano">🖐 Benjaminak 2<br>18:15–19:15</div>
-          <div class="evento alevin mano">🖐 Alebinak<br>19:15–20:15</div>
+          <h4>Ostirala / Viernes</h4>
+          <div class="evento prebenjamin">🖐 Prebenjaminak<br>16:15–17:15</div>
+          <div class="evento benjamin">🖐 Benjaminak 1<br>17:15–18:15</div>
+          <div class="evento benjamin">🖐 Benjaminak 2<br>18:15–19:15</div>
+          <div class="evento alevin">🖐 Alebinak<br>19:15–20:15</div>
         </div>
       </div>
     </div>
@@ -197,80 +296,132 @@ body {
       <h3>🏛️ TRINKETE</h3>
 
       <div class="semana">
+        <!-- Lunes Trinquete -->
         <div class="dia">
-          <h4>Astelehena/Lunes</h4>
-          <div class="evento benjamin pala">🏓 Benjaminak<br>16:30–17:30</div>
-          <div class="evento infantil pala">🏓 Infantilak<br>17:30–18:30</div>
-          <div class="evento cadete pala">🏓 Kadete 1<br>18:30–19:30</div>
-          <div class="evento cadete pala">🏓 Kadete 2<br>19:30–20:30</div>
+          <h4>Astelehena / Lunes</h4>
+          <div class="evento benjamin">🏓 Benjaminak<br>16:30–17:30</div>
+          <div class="evento infantil">🏓 Infantilak<br>17:30–18:30</div>
+          <div class="evento cadete">🏓 Kadete 1<br>18:30–19:30</div>
+          <div class="evento cadete">🏓 Kadete 2<br>19:30–20:30</div>
         </div>
 
+        <!-- Martes Trinquete -->
         <div class="dia">
-          <h4>Asteartea/Martes</h4>
-          <div class="evento nagusi mano">🖐 Nagusiak A<br>17:00–20:15</div>
+          <h4>Asteartea / Martes</h4>
+          <div class="evento nagusi">🖐 Nagusiak A<br>17:00–20:15</div>
         </div>
 
+        <!-- Miércoles Trinquete -->
         <div class="dia">
-          <h4>Asteazkena/Miércoles</h4>
-          <div class="evento nagusi mano">🎾 Xare Nagusiak<br>18:15–20:15</div>
+          <h4>Asteazkena / Miércoles</h4>
+          <div class="evento nagusi">🎾 Xare Nagusiak<br>18:15–20:15</div>
         </div>
 
+        <!-- Jueves Trinquete -->
         <div class="dia">
-          <h4>Osteguna/Jueves</h4>
-          <div class="evento nagusi mano">🖐 Nagusiak B<br>17:00–20:15</div>
+          <h4>Osteguna / Jueves</h4>
+          <div class="evento nagusi">🖐 Nagusiak B<br>17:00–20:15</div>
         </div>
 
+        <!-- Viernes Trinquete -->
         <div class="dia">
-          <h4>Ostirala/Viernes</h4>
-          <div class="evento nagusi pala">🏓 Nagusiak<br>19:30–21:00</div>
+          <h4>Ostirala / Viernes</h4>
+          <div class="evento nagusi">🏓 Nagusiak<br>19:30–21:00</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- NOTA INFORMATIVA (igual que en el original) -->
+  <!-- Nota explicativa extraída del index original -->
   <div class="nota">
-    <p class="eu">ℹ️ Nahiz ta pilotaria kategori batekoa izan, beste kategori batean entrenatu dezake, entrenatzaileen irizpidearen arabera.</p>
-    <p class="es">ℹ️ Aunque el pelotari sea de una categoría determinada, puede que entrene en otra categoría si los entrenadores lo estiman oportuno.</p>
+    <p style="margin-bottom:6px;">ℹ️ Nahiz ta pilotaria kategori batekoa izan, beste kategori batean entrenatu dezake, entrenatzaileen irizpidearen arabera.</p>
+    <p>ℹ️ Aunque el pelotari sea de una categoría determinada, puede que entrene en otra categoría si los entrenadores lo estiman oportuno.</p>
   </div>
-
 </div>
 
-<!-- SCRIPT PARA POSICIONAR LOS EVENTOS COMO EN EL DISEÑO ORIGINAL -->
+<!-- SCRIPT: Solo se aplica el posicionamiento absoluto en desktop/tablet -->
 <script>
-const START_MINUTES = 16 * 60;
-const PIXELS_PER_15_MIN = 20;
-const DAY_HEADER_HEIGHT = 42;
+  (function() {
+    // Función para aplicar layout absoluto solo en pantallas >= 641px
+    function applyAbsolutePositioning() {
+      const isDesktop = window.innerWidth >= 641;
+      const dias = document.querySelectorAll('.dia');
+      
+      if (isDesktop) {
+        // Modo escritorio/tablet grande: posicionamiento absoluto dentro de cada .dia
+        const START_MINUTES = 16 * 60;
+        const PIXELS_PER_15_MIN = 20;
+        const DAY_HEADER_HEIGHT = 48; // coincidiendo con padding-top
 
-function toMinutes(t) {
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-}
-
-document.querySelectorAll(".dia").forEach(dia => {
-  let maxBottom = 0;
-
-  dia.querySelectorAll(".evento").forEach(ev => {
-    const match = ev.innerText.match(/(\d{1,2}:\d{2})[–-]\s*(\d{1,2}:\d{2})/);
-    if (!match) return;
-
-    const start = toMinutes(match[1]);
-    const end = toMinutes(match[2]);
-
-    const top = DAY_HEADER_HEIGHT +
-      ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
-
-    const height = ((end - start) / 15) * PIXELS_PER_15_MIN;
-
-    ev.style.top = top + "px";
-    ev.style.height = height + "px";
-
-    maxBottom = Math.max(maxBottom, top + height);
-  });
-
-  dia.style.height = Math.max(maxBottom + 10, 520) + "px";
-});
+        dias.forEach(dia => {
+          // Reset estilos inline previos
+          dia.style.minHeight = '';
+          dia.style.height = '';
+          
+          let maxBottom = 0;
+          const eventos = dia.querySelectorAll('.evento');
+          if (eventos.length === 0) return;
+          
+          eventos.forEach(ev => {
+            // Quitamos cualquier posición relativa residual
+            ev.style.position = 'absolute';
+            ev.style.left = '8px';
+            ev.style.right = '8px';
+            
+            const text = ev.innerText;
+            const match = text.match(/(\d{1,2}:\d{2})[–-]\s*(\d{1,2}:\d{2})/);
+            if (!match) return;
+            
+            const start = (function(t) {
+              let [h,m] = t.split(":").map(Number);
+              return h*60 + m;
+            })(match[1]);
+            const end = (function(t) {
+              let [h,m] = t.split(":").map(Number);
+              return h*60 + m;
+            })(match[2]);
+            
+            const top = DAY_HEADER_HEIGHT + ((start - START_MINUTES) / 15) * PIXELS_PER_15_MIN;
+            const height = ((end - start) / 15) * PIXELS_PER_15_MIN;
+            
+            ev.style.top = top + "px";
+            ev.style.height = height + "px";
+            ev.style.width = 'auto';
+            
+            maxBottom = Math.max(maxBottom, top + height);
+          });
+          
+          // Ajustamos la altura del día
+          let newHeight = Math.max(maxBottom + 16, 520);
+          dia.style.height = newHeight + "px";
+          dia.style.minHeight = newHeight + "px";
+        });
+      } 
+      else {
+        // Móvil: eliminar cualquier estilo absoluto y restaurar layout en bloque
+        dias.forEach(dia => {
+          dia.style.height = '';
+          dia.style.minHeight = '';
+          const eventos = dia.querySelectorAll('.evento');
+          eventos.forEach(ev => {
+            ev.style.position = '';
+            ev.style.top = '';
+            ev.style.left = '';
+            ev.style.right = '';
+            ev.style.height = '';
+            ev.style.width = '';
+            ev.style.margin = '8px 10px';
+          });
+        });
+      }
+    }
+    
+    // Ejecutar al cargar y en cada cambio de orientación / redimension
+    window.addEventListener('load', applyAbsolutePositioning);
+    window.addEventListener('resize', applyAbsolutePositioning);
+    // También llamada inmediata por si acaso
+    setTimeout(applyAbsolutePositioning, 20);
+  })();
 </script>
-
 </body>
 </html>
