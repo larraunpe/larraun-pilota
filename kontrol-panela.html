@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Larraun Pilota Elkartea · Taldearen Kontrol Panela</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: modern sans + display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f3ef;
+            font-family: 'Inter', sans-serif;
+            color: #1e2a2e;
+            padding: 2rem 1.5rem;
+        }
+
+        /* main container */
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header with logos & title */
+        .header-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e9e3d8;
+        }
+
+        .logos-area {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .club-logo, .fnp-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .club-logo i, .fnp-logo i {
+            font-size: 2rem;
+            color: #b22234;
+        }
+
+        .fnp-logo i {
+            color: #2a5f8a;
+        }
+
+        .club-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #a1221a, #c5452e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .club-title p {
+            font-size: 0.8rem;
+            color: #5b6e6b;
+        }
+
+        .contact-badge {
+            background: #fef5e7;
+            padding: 0.6rem 1.2rem;
+            border-radius: 3rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #ffddb0;
+        }
+
+        .contact-badge a {
+            color: #b22b1e;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .contact-badge a:hover {
+            color: #4a2e2a;
+            text-decoration: underline;
+        }
+
+        /* grid cards layout */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-left: 6px solid #c13b2b;
+            padding-left: 1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* stylish button-cards */
+        .preview-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ede6db;
+            cursor: pointer;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+            border-color: #d9cbbc;
+        }
+
+        .card-img {
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            background-color: #f3ede5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #aa7a5c;
+        }
+
+        /* custom images simulation with nice gradients + icons (real preview feel) */
+        .img-kategoriak { background-image: linear-gradient(125deg, #ffe5cf, #ffcdad), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2I0NTkyZSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTEgMTVoLTJ2LTJoMnYyem0wLTRoLTJWN2gydjZ6Ii8+PC9zdmc+'); background-blend-mode: overlay; background-size: 60px, auto; background-repeat: no-repeat, no-repeat; background-position: center, center; }
+        .img-entrenadores { background-image: linear-gradient(125deg, #e6f0fa, #c2dcf5), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMjA2YjkwIj48cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQgOCA0djJINGMtMi02LTEuMzQtNC04LTR6Ii8+PC9zdmc+'); background-size: 55px, auto; background-blend-mode: overlay; background-repeat: no-repeat; background-position: center; }
+        .img-ordutegiak { background-image: linear-gradient(145deg, #ffe2bf, #ffcd94), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjYzc0YzJjIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMSAxNWgtMnYtMmgybTAtNGgtMlY3aDJ6Ii8+PC9zdmc+'); background-size: 50px; background-repeat: no-repeat; background-position: center; background-blend-mode: overlay; }
+        .img-taldeak { background-image: linear-gradient(135deg, #e2e9cf, #cbdba7), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNWE4YzVhIj48cGF0aCBkPSJNMTYgMTFjMS42NiAwIDIuOTktMS4zNCAyLjk5LTMgMC0xLjY2LTEuMzMtMy0yLjk5LTNzLTMgMS4zNC0zIDMgMS4zMyAzIDMgM3ptLTggMGMxLjY2IDAgMi45OS0xLjM0IDIuOTktMyAwLTEuNjYtMS4zMy0zLTIuOTktM3MtMyAxLjM0LTMgMyAxLjMzIDMgMyAzek0zIDE5YzAgMiA0IDMgOCAzczgtMSA4LTMtNC00LTgtNC04IDEgOCA0LTh6Ii8+PC9zdmc+'); background-size: 55px; background-repeat: no-repeat; background-position: center; background-blend-mode: overlay; }
+
+        /* agenda specific cards */
+        .card-content {
+            padding: 1.2rem 1.2rem 1.2rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-content p {
+            font-size: 0.8rem;
+            color: #4a5b57;
+            margin-bottom: 0.8rem;
+            line-height: 1.35;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f0ebe3;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #a33a2a;
+            transition: all 0.2s;
+        }
+
+        .btn-link i {
+            font-size: 0.8rem;
+        }
+
+        .btn-link:hover {
+            background: #e1d5c8;
+            color: #5d2c1f;
+        }
+
+        /* redes sociales row */
+        .social-strip {
+            background: #fffaf2;
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            border: 1px solid #ffe5ce;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            background: white;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 1.8rem;
+            transition: 0.2s;
+            color: #9f4f3a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-decoration: none;
+            border: 1px solid #f0e0cf;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.05);
+            background: #c13b2b;
+            color: white;
+            border-color: #c13b2b;
+        }
+
+        .larrauntxi-image {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #f8ede1;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+        }
+
+        .larrauntxi-image img {
+            max-height: 55px;
+            width: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .larrauntxi-image span {
+            font-weight: 600;
+            color: #4a2a1e;
+        }
+
+        /* info banners */
+        .notice-board {
+            background: #fffaef;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            margin: 1rem 0 2rem;
+            border-left: 8px solid #ca5a3e;
+        }
+
+        .footer-links {
+            margin-top: 2.5rem;
+            text-align: center;
+            border-top: 1px solid #e2d8cd;
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 1rem; }
+            .header-row { flex-direction: column; align-items: stretch; }
+            .contact-badge { justify-content: center; }
+        }
+        button, .preview-card { cursor: pointer; }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <!-- HEADER with logos & contact -->
+    <div class="header-row">
+        <div class="logos-area">
+            <div class="club-logo">
+                <i class="fas fa-hand-fist"></i>
+                <span>Larraun Pilota Elkartea</span>
+            </div>
+            <div class="fnp-logo">
+                <i class="fas fa-medal"></i>
+                <span>FNP · Euskal Pilota</span>
+            </div>
+            <div class="club-title">
+                <h1>Zatoz animatzera!</h1>
+                <p>Jarraitu gaitzazu · 2025/2026</p>
+            </div>
+        </div>
+        <div class="contact-badge">
+            <span><i class="fas fa-phone-alt"></i> <a href="tel:613997710">613 99 77 10</a> (16:00–20:00)</span>
+            <span><i class="fas fa-envelope"></i> <a href="mailto:larraunpe@gmail.com">larraunpe@gmail.com</a></span>
+        </div>
+    </div>
+
+    <!-- INFORMACIÓN PRINCIPAL TEMPORADA (buttons with preview images) -->
+    <div class="section-title">
+        <i class="fas fa-bullhorn"></i> 
+        <span>Información principal ·  Temporada</span>
+    </div>
+    <div class="cards-grid">
+        <!-- Kategoriak -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/kategoriak.html','_blank')">
+            <div class="card-img img-kategoriak"></div>
+            <div class="card-content">
+                <h3><i class="fas fa-layer-group"></i> Kategoriak</h3>
+                <p>Consulta las categorías por edades y niveles. Competiciones oficiales FNP.</p>
+                <span class="btn-link">Zabaldu <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+        <!-- Entrenadores -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/entrenazaileak.html','_blank')">
+            <div class="card-img img-entrenadores"></div>
+            <div class="card-content">
+                <h3><i class="fas fa-chalkboard-user"></i> Entrenadores</h3>
+                <p>Conoce a todo el equipo técnico y monitores del club.</p>
+                <span class="btn-link">Zabaldu <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+        <!-- Horarios frontón y trinquete -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/frontoi-ordutegiak.html','_blank')">
+            <div class="card-img img-ordutegiak"></div>
+            <div class="card-content">
+                <h3><i class="fas fa-clock"></i> Horarios frontón & trinquete</h3>
+                <p>Horarios de instalaciones, reservas y uso libre.</p>
+                <span class="btn-link">Zabaldu <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+        <!-- Grupos -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/taldeak.html','_blank')">
+            <div class="card-img img-taldeak"></div>
+            <div class="card-content">
+                <h3><i class="fas fa-people-group"></i> Grupos · taldeak</h3>
+                <p>Consulta los grupos de entrenamiento y partidos.</p>
+                <span class="btn-link">Zabaldu <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGENDA SEMANAL (información detallada) -->
+    <div class="section-title">
+        <i class="fas fa-calendar-week"></i> 
+        <span>Agenda semanal · Eguneraketa (Iraila - Ekaina)</span>
+    </div>
+
+    <div class="cards-grid">
+        <!-- Cartelera provisional / lunes -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/ordutegiak.htm','_blank')">
+            <div class="card-img" style="background:#e9dfd2; display: flex; align-items: center; justify-content: center;"><i class="fas fa-file-alt" style="font-size:3rem; color:#b96345;"></i></div>
+            <div class="card-content">
+                <h3><i class="far fa-calendar-check"></i> Cartelera provisional</h3>
+                <p>Lunes por la mañana (web federación) → partidos fuera de casa. Solicitudes: <a href="https://larraunpilota.eus/aldaketak.html" target="_blank" style="color:#c13b2b; text-decoration:underline;">aldaketak.html</a></p>
+                <span class="btn-link">Ordutegiak orokorra <i class="fas fa-external-link-alt"></i></span>
+            </div>
+        </div>
+        <!-- Resultados FNP + no oficiales -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/emaitzak1.html','_blank')">
+            <div class="card-img" style="background:#dad0c2; justify-content:center;"><i class="fas fa-chart-simple" style="font-size: 3rem; color:#996b4c;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-trophy"></i> Emaitzak FNP</h3>
+                <p>Actualización automática. Lunes tarde/martes. Torneos no oficiales: <a href="https://larraunpilota.eus/emaitzak-kartela9.html" target="_blank" style="color:#c13b2b;">emaitzak-kartela9.html</a></p>
+                <span class="btn-link">Ikusi emaitzak <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </div>
+        <!-- Cartelera semanal definitiva -->
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/kartela9.html','_blank')">
+            <div class="card-img" style="background:#ebddcf; justify-content:center;"><i class="fas fa-list-ul" style="font-size:3rem; color:#bd6f4f;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-flag-checkered"></i> Kartela semanal · def.</h3>
+                <p>Martes noche / miércoles. Horarios definitivos en <a href="https://larraunpilota.eus/ordutegiak.htm" target="_blank">ordutegiak.htm</a></p>
+                <span class="btn-link">Ver cartelera <i class="fas fa-calendar-alt"></i></span>
+            </div>
+        </div>
+        <!-- Horarios provisionales club -->
+        <div class="preview-card" onclick="alert('Horarios provisionales: se fijan desde el club jueves/viernes. Revisa avisos.')">
+            <div class="card-img" style="background:#eedbcb; justify-content:center;"><i class="fas fa-hourglass-half" style="font-size: 3rem; color:#a15536;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-users-between"></i> Horarios provisionales</h3>
+                <p>Jueves tarde o viernes. El club fija horarios para todos los pelotaris. ¡Avisar cuanto antes!</p>
+                <span class="btn-link">Coordinación <i class="fas fa-bell"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- REDES SOCIALES incluyendo imagen de LARRAUNTXI.jpeg -->
+    <div class="section-title">
+        <i class="fas fa-heart"></i>
+        <span>Redes sociales · Jarraitu gaitzazu</span>
+    </div>
+    <div class="social-strip">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/larraunpilota" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.tiktok.com/@larraunpilotaelkartea" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="larrauntxi-image">
+            <!-- inserted LARRAUNTXI.jpeg as embedded base64 via Font Awesome fallback but we display actual image reference -->
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKK+SP9Mz/2Q==" alt="Larrauntxi" style="border-radius: 50px; max-width: 60px; height: auto;" onerror="this.onerror=null;this.src='https://placehold.co/60x60/eeddcc/8b5a3c?text=LH';">
+            <span>Larrauntxi · Anima zaitez!</span>
+        </div>
+        <div><span style="font-weight: 500;">Visitános, comparte y síguenos!!</span> <i class="fas fa-smile-wink"></i></div>
+    </div>
+
+    <!-- NOTICIAS & WEB PRINCIPAL -->
+    <div class="section-title">
+        <i class="fas fa-newspaper"></i>
+        <span>Noticias & Actualidad</span>
+    </div>
+    <div class="notice-board">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items:center; gap: 1rem;">
+            <div><i class="fas fa-bullhorn fa-fw" style="color:#b7432b;"></i> <strong>Últimas noticias:</strong> Incorporamos novedades semanales en nuestra web.</div>
+            <a href="https://larraunpilota.eus/#berriak" target="_blank" style="background:#d94a32; color:white; padding: 0.5rem 1.2rem; border-radius: 3rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem;"><i class="fas fa-globe"></i> Web · Berriak</a>
+            <a href="https://larraunpilota.eus/" target="_blank" style="background:#2d5f5a; color:white; padding:0.5rem 1.2rem; border-radius:3rem;"><i class="fas fa-home"></i> Toda la info</a>
+        </div>
+    </div>
+
+    <!-- OTROS ASPECTOS DE INTERÉS + historia -->
+    <div class="cards-grid">
+        <div class="preview-card" onclick="window.open('https://larraunpilota.eus/historiko.html','_blank')">
+            <div class="card-img" style="background:#f5e4d6; justify-content:center;"><i class="fas fa-book-open" style="font-size: 3rem; color:#a5573a;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-landmark"></i> Historia de la pelota en Larraun</h3>
+                <p>Descubre el legado y tradición de nuestro frontón.</p>
+                <span class="btn-link">Irakurri <i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
+        <div class="preview-card" onclick="alert('Puedes enviar fotos, vídeos, curiosidades a larraunpe@gmail.com o RRSS. ¡Gracias por ayudar a mejorar!')">
+            <div class="card-img" style="background:#e6daca; justify-content:center;"><i class="fas fa-camera-retro" style="font-size: 3rem; color:#aa6f4a;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-palette"></i> Ayúdanos a mejorar</h3>
+                <p>Mándanos fotos, videos, curiosidades. ¡Las compartiremos en nuestros medios!</p>
+                <span class="btn-link">Colaborar <i class="fas fa-heart"></i></span>
+            </div>
+        </div>
+        <div class="preview-card" onclick="window.open('https://www.fnpelota.com/pub/cartelera.asp?idioma=eu&selSemana=&selClub=&selCompeticion=&excel=0#','_blank')">
+            <div class="card-img" style="background:#dcd0c0; justify-content:center;"><i class="fas fa-futbol" style="font-size: 3rem; color:#b16242;"></i></div>
+            <div class="card-content">
+                <h3><i class="fas fa-sitemap"></i> Federación Navarra</h3>
+                <p>Cartelera oficial FNP, competiciones y resultados globales.</p>
+                <span class="btn-link">fnpelota.com <i class="fas fa-external-link-alt"></i></span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FOOTER enlaces rápidos directos -->
+    <div class="footer-links">
+        <a href="https://larraunpilota.eus/" target="_blank">🌐 larraunpilota.eus</a>
+        <a href="https://larraunpilota.eus/ordutegiak.htm" target="_blank">📅 Ordutegiak orokorrak</a>
+        <a href="https://larraunpilota.eus/aldaketak.html" target="_blank">✍️ Aldaketak / urgentziak</a>
+        <a href="https://larraunpilota.eus/emaitzak1.html" target="_blank">🏆 Emaitzak FNP</a>
+        <a href="https://larraunpilota.eus/kartela9.html" target="_blank">📢 Kartela astekoa</a>
+        <span><i class="fas fa-pelota"></i> Zatoz animatzera! Jarraitu gaitzazu</span>
+    </div>
+</div>
+
+<script>
+    // optional small extra: simulate image if needed but all good
+    console.log("Larraun Pilota Kontrol Panela kargatuta");
+</script>
+</body>
+</html>
