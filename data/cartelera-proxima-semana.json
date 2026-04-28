@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-04-28T09:24:10.950Z",
+  "fecha_generacion": "2026-04-28T15:28:17.185Z",
   "semana_numero": 19,
   "total_partidos": 13,
   "partidos": [
@@ -35,6 +35,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
+      "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
+      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/09",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
       "kanpokoak": "SAN MIGUEL (D. Gambra - A. Jimenez)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
@@ -47,15 +56,6 @@
       "etxekoa": "LARRAUN (J. Bildarraz - I. Sotil)",
       "kanpokoak": "ULTZAMA (A. Orquin - J. Olague)",
       "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/05/09",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
-      "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
-      "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
     },
     {
       "fecha": "2026/05/09",
