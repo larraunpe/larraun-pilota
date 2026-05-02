@@ -158,7 +158,7 @@
 
         /* custom images simulation with nice gradients + icons (real preview feel) */
         .img-kategoriak { background-image: linear-gradient(125deg, #ffe5cf, #ffcdad), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2I0NTkyZSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTEgMTVoLTJ2LTJoMnYyem0wLTRoLTJWN2gydjZ6Ii8+PC9zdmc+'); background-blend-mode: overlay; background-size: 60px, auto; background-repeat: no-repeat, no-repeat; background-position: center, center; }
-        .img-entrenadores { background-image: linear-gradient(125deg, #e6f0fa, #c2dcf5), url('https://larraunpilota.eus/images/galeria/kartela0.png'); background-size: 55px, auto; background-blend-mode: overlay; background-repeat: no-repeat; background-position: center; }
+        .img-entrenadores { background-image: linear-gradient(125deg, #e6f0fa, #c2dcf5), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMjA2YjkwIj48cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQgOCA0djJINGMtNi0xLjM0LTQtOC00eiIvPjwvc3ZnPg=='); background-size: 55px, auto; background-blend-mode: overlay; background-repeat: no-repeat; background-position: center; }
         .img-ordutegiak { background-image: linear-gradient(145deg, #ffe2bf, #ffcd94), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjYzc0YzJjIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMSAxNWgtMnYtMmgybTAtNGgtMlY3aDJ6Ii8+PC9zdmc+'); background-size: 50px; background-repeat: no-repeat; background-position: center; background-blend-mode: overlay; }
         .img-taldeak { background-image: linear-gradient(135deg, #e2e9cf, #cbdba7), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNWE4YzVhIj48cGF0aCBkPSJNMTYgMTFjMS42NiAwIDIuOTktMS4zNCAyLjk5LTMgMC0xLjY2LTEuMzMtMy0yLjk5LTNzLTMgMS4zNC0zIDMgMS4zMyAzIDMgM3ptLTggMGMxLjY2IDAgMi45OS0xLjM0IDIuOTktMyAwLTEuNjYtMS4zMy0zLTIuOTktM3MtMyAxLjM0LTMgMyAxLjMzIDMgMyAzek0zIDE5YzAgMiA0IDMgOCAzczgtMSA4LTMtNC00LTgtNC04IDEgOCA0LTh6Ii8+PC9zdmc+'); background-size: 55px; background-repeat: no-repeat; background-position: center; background-blend-mode: overlay; }
 
@@ -393,9 +393,9 @@
                 <span class="btn-link">Ikusi emaitzak <i class="fas fa-arrow-right"></i></span>
             </div>
         </div>
-        <!-- Cartelera semanal definitiva -->
+        <!-- Cartelera semanal definitiva - con imagen personalizada kartela0.png -->
         <div class="preview-card" onclick="window.open('https://larraunpilota.eus/kartela9.html','_blank')">
-            <div class="card-img" style="background:#ebddcf; justify-content:center;"><i class="fas fa-list-ul" style="font-size:3rem; color:#bd6f4f;"></i></div>
+            <div class="card-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('https://larraunpilota.eus/images/galeria/kartela0.png'); background-size: cover; background-position: center;"></div>
             <div class="card-content">
                 <h3><i class="fas fa-flag-checkered"></i> Kartela semanal · def.</h3>
                 <p>Martes noche / miércoles. Horarios definitivos en <a href="https://larraunpilota.eus/ordutegiak.html" target="_blank">ordutegiak.html</a></p>
@@ -426,7 +426,6 @@
             <a href="https://www.tiktok.com/@larraunpilotaelkartea" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
         </div>
         <div class="larrauntxi-image">
-            <!-- inserted LARRAUNTXI.jpg as embedded base64 via Font Awesome fallback but we display actual image reference -->
             <img src="images/icons/larrauntxi.jpg" alt="Larrauntxi" style="border-radius: 50px; max-width: 60px; height: auto;" onerror="this.onerror=null;this.src='https://placehold.co/60x60/eeddcc/8b5a3c?text=LH';">
             <span>Larrauntxi · Anima zaitez!</span>
         </div>
@@ -486,8 +485,7 @@
 </div>
 
 <script>
-    // optional small extra: simulate image if needed but all good
-    console.log("Larraun Pilota Kontrol Panela kargatuta");
+    console.log("Larraun Pilota Kontrol Panela kargatuta - Kartela semanal con imagen personalizada");
 </script>
 </body>
 </html>
