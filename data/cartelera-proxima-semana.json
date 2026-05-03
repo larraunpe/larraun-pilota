@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-05-03T19:03:02.789Z",
+  "fecha_generacion": "2026-05-03T20:46:59.573Z",
   "semana_numero": 19,
   "total_partidos": 13,
   "partidos": [
@@ -33,7 +33,7 @@
     {
       "fecha": "2026/05/09",
       "hora": "09:30 !Horario provisional",
-      "zkia": "2",
+      "zkia": "3",
       "fronton": "Berriozar - Polideportivo",
       "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
       "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
