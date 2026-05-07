@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Larraun Pilota Elkartea · Taldearen Kontrol Panela</title>
+    <meta property="og:title" content="Larraun Pilota Elkartea">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.larraunpilota.eus/kontrol-panela.html">
+<meta property="og:image" content="https://www.larraunpilota.eus/og-index.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
     <!-- Font Awesome 6 (free icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts: modern sans + display -->
@@ -275,7 +282,7 @@
         }
 
         .larrauntxi-image img {
-            max-height: 55px;
+            max-height: 85px;  /* Aumentado de 55px a 85px (+54%) */
             width: auto;
             border-radius: 16px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -284,6 +291,7 @@
         .larrauntxi-image span {
             font-weight: 600;
             color: #4a2a1e;
+            font-size: 1rem;  /* Aumentado ligeramente el texto también */
         }
 
         /* info banners */
@@ -311,6 +319,9 @@
             body { padding: 1rem; }
             .header-row { flex-direction: column; align-items: stretch; }
             .contact-badge { justify-content: center; }
+            .larrauntxi-image img {
+                max-height: 70px;  /* En móvil también se aumenta proporcionalmente */
+            }
         }
         button, .preview-card { cursor: pointer; }
         a { text-decoration: none; }
@@ -403,7 +414,7 @@
                 <p>Larraun Pilota Elkartea <strong>ostegunean</strong> jarriko du  <strong>hurrengo asteko ordutegi aldagarriak.</strong> Kanpoko partidetarako klubetako ordutegiak egiaztatu behar dira. 
                 Ordutegia aldatzeko, abisatu lehen baino lehen: <strong>IGANDEA</strong>, azken eguna.
                 Aldaketak eskatzeko, erabili formulario hau:      
-                <br><a href="https://larraunpilota.eus/aldaketa-osoa.html" target="_blank" style="color:#c13b2b; text-decoration:underline;">   DATORREN ASTEKO ALDAKETAK</a></p>
+                <br><br><a href="https://larraunpilota.eus/aldaketa-osoa.html" target="_blank" style="color:#c13b2b; text-decoration:underline;">   DATORREN ASTEKO ALDAKETAK</a></p>
                             </div>
         </div>
 
@@ -419,7 +430,7 @@
                 <p>FNPren behin-behineko ordutegiak <strong>astelehen goizean</strong> eguneratuko dira.
                  Aurretik kanpoko partiden ordutegiak aldatu ezin izan badituzu, erabili formulario hau ahalik eta azkarren.
                  Ez da aldaketarik onartuko asteartean: 
-                <br><a href="https://larraunpilota.eus/aldaketak.html" target="_blank" style="color:#c13b2b; text-decoration:underline;">AZKEN ORDUKO ALDAKETAK</a></p>
+                <br><br><a href="https://larraunpilota.eus/aldaketak.html" target="_blank" style="color:#c13b2b; text-decoration:underline;">AZKEN ORDUKO ALDAKETAK</a></p>
                             </div>
         </div>
 
@@ -433,7 +444,7 @@
                 <strong>Astelehenean eta asteartean</strong>, ahal den neurrian, <strong>ez-ofizialeko</strong> txapelketa emaitzak argitaratuko dira.</p>
                 
                 
-                <p>Emaitzak kartela formatuan ikusteko:<br>
+                <p>Emaitzak kartela formatuan ikusteko:<br><br>
                 <a href="https://larraunpilota.eus/emaitzak-kartela9.html" target="_blank" style="color:#c13b2b;">EMAITZAKO KARTELA</a></p>
                 </div>
         </div>
@@ -441,14 +452,14 @@
         <div class="preview-card" onclick="window.open('https://larraunpilota.eus/kartela9.html','_blank')">
             <div class="card-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('https://larraunpilota.eus/images/galeria/kartela0.png'); background-size: cover; background-position: center;"></div>
             <div class="card-content">
-                <span class="btn-link">Ikusi kartelera <i class="fas fa-calendar-alt"></i></span>
                 <h3><i class="fas fa-flag-checkered"></i> Asteko Kartelera definitiboa</h3>
+                <span class="btn-link">Ikusi kartelera <i class="fas fa-calendar-alt"></i></span>
                 <p><strong>Astearte gaua</strong> edo <strong>asteazkena</strong>, FNPren aldetik eginiko <strong>seinaleaketa definitiboen ondoren</strong>, publikatuko da kartelera definitiboa </p>
                 
             </div>
         </div>
         <!-- Horarios provisionales club -->
-        <div class="preview-card" onclick="alert('2026/2027 denboraldian')">
+        <div class="preview-card" onclick="mostrarAlertaPersonalizada()">
             <div class="card-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png'); background-size: cover; background-position: center;"></div>
             <div class="card-content">
                 <h3><i class="fas fa-users-between"></i> Zuzeneko partiduak</h3>
@@ -465,7 +476,7 @@
     </div>
     <div class="social-strip">
         <div class="larrauntxi-image">
-            <img src="images/icons/LARRAUNTXI.jpg" alt="Larrauntxi" style="border-radius: 100px; max-width: 120px; height: auto;" onerror="this.onerror=null;this.src='https://placehold.co/60x60/eeddcc/8b5a3c?text=LH';">
+            <img src="images/icons/LARRAUNTXI.jpg" alt="Larrauntxi" style="border-radius: 100px; width: auto;" onerror="this.onerror=null;this.src='https://placehold.co/100x100/eeddcc/8b5a3c?text=LH';">
             <span>Zatoz animatzera!</span>
         </div>
         <div class="social-icons">
@@ -501,8 +512,7 @@
                 <span class="btn-link">Irakurri <i class="fas fa-chevron-right"></i></span>
             </div>
         </div>
-        <div class="preview-card" onclick="alert('Argazkiak, bideoak, iradokizunak eta datu interesgarriak larraunpe@gmail.com helbidera edo 613 99 77 10 telefonora bidali ditzakezu. 
-                                                 Milla esker!')">
+        <div class="preview-card" onclick="mostrarAlertaColaboracion()">
             <div class="card-img" style="background:#e6daca; justify-content:center;"><i class="fas fa-camera-retro" style="font-size: 3rem; color:#aa6f4a;"></i></div>
             <div class="card-content">
                 <h3><i class="fas fa-palette"></i> Lagundu iezaguzu hobetzen!</h3>
@@ -532,7 +542,148 @@
 </div>
 
 <script>
-    console.log("Larraun Pilota Kontrol Panela kargatuta - Imagenes personalizadas: kategoriak1.png, entrenatzaileak1.png, kartela0.png");
+    // Función para mostrar alerta personalizada con "larraunpilota.eus:" y botón "Onartu"
+    function mostrarAlertaPersonalizada() {
+        // Crear un div overlay personalizado
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        overlay.style.zIndex = '9999';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.fontFamily = "'Inter', sans-serif";
+        
+        // Crear la caja de alerta
+        const alertBox = document.createElement('div');
+        alertBox.style.backgroundColor = 'white';
+        alertBox.style.borderRadius = '1rem';
+        alertBox.style.padding = '1.5rem';
+        alertBox.style.minWidth = '280px';
+        alertBox.style.maxWidth = '400px';
+        alertBox.style.boxShadow = '0 20px 35px -10px rgba(0,0,0,0.3)';
+        alertBox.style.textAlign = 'center';
+        
+        // Título/mensaje
+        const title = document.createElement('div');
+        title.style.fontWeight = '600';
+        title.style.fontSize = '1.1rem';
+        title.style.marginBottom = '1.5rem';
+        title.style.color = '#1e2a2e';
+        title.innerHTML = '<i class="fas fa-info-circle" style="color:#c13b2b; margin-right:8px;"></i> larraunpilota.eus:<br><span style="font-size:0.95rem; font-weight:normal;">2026/2027 denboraldian</span>';
+        
+        // Botón Onartu
+        const okButton = document.createElement('button');
+        okButton.textContent = 'Onartu';
+        okButton.style.backgroundColor = '#c13b2b';
+        okButton.style.color = 'white';
+        okButton.style.border = 'none';
+        okButton.style.padding = '0.6rem 1.8rem';
+        okButton.style.borderRadius = '2rem';
+        okButton.style.fontSize = '0.9rem';
+        okButton.style.fontWeight = '600';
+        okButton.style.cursor = 'pointer';
+        okButton.style.fontFamily = "'Inter', sans-serif";
+        okButton.style.transition = 'background-color 0.2s';
+        
+        okButton.onmouseover = function() {
+            okButton.style.backgroundColor = '#a32e1f';
+        };
+        okButton.onmouseout = function() {
+            okButton.style.backgroundColor = '#c13b2b';
+        };
+        
+        okButton.onclick = function() {
+            document.body.removeChild(overlay);
+        };
+        
+        alertBox.appendChild(title);
+        alertBox.appendChild(okButton);
+        overlay.appendChild(alertBox);
+        
+        // Cerrar al hacer clic fuera de la alerta
+        overlay.onclick = function(e) {
+            if (e.target === overlay) {
+                document.body.removeChild(overlay);
+            }
+        };
+        
+        document.body.appendChild(overlay);
+    }
+    
+    // Función para la alerta de colaboración
+    function mostrarAlertaColaboracion() {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        overlay.style.zIndex = '9999';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.fontFamily = "'Inter', sans-serif";
+        
+        const alertBox = document.createElement('div');
+        alertBox.style.backgroundColor = 'white';
+        alertBox.style.borderRadius = '1rem';
+        alertBox.style.padding = '1.5rem';
+        alertBox.style.minWidth = '280px';
+        alertBox.style.maxWidth = '400px';
+        alertBox.style.boxShadow = '0 20px 35px -10px rgba(0,0,0,0.3)';
+        alertBox.style.textAlign = 'center';
+        
+        const title = document.createElement('div');
+        title.style.fontWeight = '600';
+        title.style.fontSize = '1.1rem';
+        title.style.marginBottom = '1.5rem';
+        title.style.color = '#1e2a2e';
+        title.innerHTML = '<i class="fas fa-info-circle" style="color:#c13b2b; margin-right:8px;"></i> larraunpilota.eus:<br><span style="font-size:0.95rem; font-weight:normal;">Argazkiak, bideoak, iradokizunak eta datu interesgarriak larraunpe@gmail.com helbidera edo 613 99 77 10 telefonora bidali ditzakezu.<br><br>Milla esker!</span>';
+        
+        const okButton = document.createElement('button');
+        okButton.textContent = 'Onartu';
+        okButton.style.backgroundColor = '#c13b2b';
+        okButton.style.color = 'white';
+        okButton.style.border = 'none';
+        okButton.style.padding = '0.6rem 1.8rem';
+        okButton.style.borderRadius = '2rem';
+        okButton.style.fontSize = '0.9rem';
+        okButton.style.fontWeight = '600';
+        okButton.style.cursor = 'pointer';
+        okButton.style.fontFamily = "'Inter', sans-serif";
+        okButton.style.transition = 'background-color 0.2s';
+        
+        okButton.onmouseover = function() {
+            okButton.style.backgroundColor = '#a32e1f';
+        };
+        okButton.onmouseout = function() {
+            okButton.style.backgroundColor = '#c13b2b';
+        };
+        
+        okButton.onclick = function() {
+            document.body.removeChild(overlay);
+        };
+        
+        alertBox.appendChild(title);
+        alertBox.appendChild(okButton);
+        overlay.appendChild(alertBox);
+        
+        overlay.onclick = function(e) {
+            if (e.target === overlay) {
+                document.body.removeChild(overlay);
+            }
+        };
+        
+        document.body.appendChild(overlay);
+    }
+    
+    console.log("Larraun Pilota Kontrol Panela kargatuta - Imagenes personalizadas: kategoriak1.png, entrenatzaileak1.png, kartela0.png - Alertas personalizadas con 'larraunpilota.eus:' y 'Onartu' - Icono Larrauntxi aumentado en más del 50%");
 </script>
 </body>
 </html>
