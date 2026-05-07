@@ -27,15 +27,6 @@
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
   },
   {
-    "fecha": "2026/05/08",
-    "hora": "20:15",
-    "zkia": "1",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus - A. Balenciaga)",
-    "kanpokoak": "SAN MIGUEL (D. Gambra - A. Jimenez)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
-  },
-  {
     "fecha": "2026/05/09",
     "hora": "09:30",
     "zkia": "3",
@@ -43,6 +34,24 @@
     "etxekoa": "BERRIOZAR (J. Monleon - H. Martiartu)",
     "kanpokoak": "LARRAUN (M. Etxepare - A. Artola)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+  },
+  {
+    "fecha": "2026/05/09",
+    "hora": "10:00",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
+    "kanpokoak": "AURRERA (H. Aizagirre - U. Oscariz)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
+  },
+  {
+    "fecha": "2026/05/10",
+    "hora": "10:00",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
+    "kanpokoak": "AURRERA (I. Zabaleta - I. Iltzarbe)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
   },
   {
     "fecha": "2026/05/09",
@@ -76,15 +85,6 @@
     "hora": "09:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
-    "kanpokoak": "AURRERA (H. Aizagirre - U. Oscariz)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA"
-  },
-  {
-    "fecha": "2026/05/10",
-    "hora": "09:30",
-    "zkia": "4",
-    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus - S. Galartza)",
     "kanpokoak": "SAN JUAN (O. Arretxe - B. Valencia)",
     "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
@@ -92,7 +92,7 @@
   {
     "fecha": "2026/05/10",
     "hora": "09:30",
-    "zkia": "5",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
     "kanpokoak": "HUARTE (A. Etxeberria - O. Goienaga)",
@@ -101,19 +101,10 @@
   {
     "fecha": "2026/05/10",
     "hora": "09:30",
-    "zkia": "6",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
-    "kanpokoak": "AURRERA (I. Zabaleta - I. Iltzarbe)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-  },
-  {
-    "fecha": "2026/05/10",
-    "hora": "09:30",
-    "zkia": "7",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Bildarraz - I. Sotil)",
-    "kanpokoak": "ULTZAMA (A. Orquin - J. Olague)",
-    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA KADETE 1. LIGAXKA"
+    "etxekoa": "LARRAUN (M. Bidegain - A. Balenciaga)",
+    "kanpokoak": "SAN MIGUEL (D. Gambra - A. Jimenez)",
+    "lehiaketa": "MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
   }
 ]
