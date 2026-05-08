@@ -1,6 +1,25 @@
 {
-  "fecha_generacion": "2026-05-08T08:22:00.496Z",
+  "fecha_generacion": "2026-05-08T14:53:16.762Z",
   "semana_numero": 20,
-  "total_partidos": 0,
-  "partidos": []
+  "total_partidos": 2,
+  "partidos": [
+    {
+      "fecha": "2026/05/16",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (H. Apezetxea - L. Legarra)",
+      "kanpokoak": "LARRAUN (G. Astiz - I. Larreta)",
+      "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/16",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (U. Goñi - L. Bengoetxea)",
+      "kanpokoak": "OBERENA (M. Glaria - I. Nuin)",
+      "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
+    }
+  ]
 }
