@@ -1,0 +1,56 @@
+{
+  "name": "Larraun Pilota Elkartea",
+  "short_name": "Larraun Pilota",
+  "description": "Larraun Pilota Elkartearen kontrol panela: ordutegiak, emaitzak eta kartelera.",
+  "start_url": "/kontrol-panela-app.html",
+  "display": "standalone",
+  "background_color": "#f7f3ee",
+  "theme_color": "#c13b2b",
+  "orientation": "portrait",
+  "lang": "eu",
+  "icons": [
+    {
+      "src": "images/icons/LARRAUNTXI.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/LARRAUNTXI.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "images/galeria/kategoriak1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Asteko Kartelera",
+      "short_name": "Kartelera",
+      "description": "Ikusi asteko kartelera",
+      "url": "/kartela9.html",
+      "icons": [{ "src": "images/icons/LARRAUNTXI.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Emaitzak",
+      "short_name": "Emaitzak",
+      "description": "Ikusi emaitzak",
+      "url": "/emaitzak1.html",
+      "icons": [{ "src": "images/icons/LARRAUNTXI.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Ordutegiak",
+      "short_name": "Ordutegiak",
+      "description": "Ikusi ordutegiak",
+      "url": "/ordutegiak.html",
+      "icons": [{ "src": "images/icons/LARRAUNTXI.jpg", "sizes": "96x96" }]
+    }
+  ]
+}
