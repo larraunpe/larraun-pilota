@@ -10,16 +10,10 @@
     <meta name="theme-color" content="#c13b2b">
     <title>Larraun Pilota · App</title>
 
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-
-    <!-- Icons for iOS (fallback if LARRAUNTXI.jpg not available as icon) -->
-    <link rel="apple-touch-icon" href="images/icons/LARRAUNTXI.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/LARRAUNTXI.jpg">
-
-    <!-- Font Awesome -->
+    <link rel="apple-touch-icon" href="images/icons/LARRAUNTXI.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/LARRAUNTXI.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Fonts: Outfit (display) + Nunito (body) -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -29,7 +23,6 @@
             --red-soft: #f5ebe8;
             --cream:    #f7f3ee;
             --sand:     #ede6da;
-            --brown:    #4a2e28;
             --text:     #1e2a2e;
             --muted:    #6b7c78;
             --white:    #ffffff;
@@ -38,664 +31,402 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        html { height: 100%; }
+        html, body { height: 100%; }
 
         body {
             background: var(--cream);
             font-family: 'Nunito', sans-serif;
             color: var(--text);
             min-height: 100vh;
-            padding-bottom: 6rem; /* space for bottom nav */
+            padding-bottom: 5.5rem;
         }
 
         /* ═══════════════════════════════
-           TOP HEADER
+           IN-APP VIEWER
+        ═══════════════════════════════ */
+        #viewer {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 900;
+            flex-direction: column;
+            background: var(--white);
+        }
+        #viewer.open { display: flex; }
+
+        #viewer-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--red);
+            color: white;
+            padding: 0.75rem 1rem;
+            padding-top: max(0.75rem, env(safe-area-inset-top));
+            min-height: 54px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        #viewer-back {
+            background: rgba(255,255,255,0.2);
+            border: none; color: white;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; cursor: pointer; flex-shrink: 0;
+            transition: background 0.15s;
+        }
+        #viewer-back:active { background: rgba(255,255,255,0.4); }
+
+        #viewer-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.92rem; font-weight: 700; flex: 1;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        #viewer-external {
+            background: rgba(255,255,255,0.2);
+            border: none; color: white;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; cursor: pointer; flex-shrink: 0;
+            text-decoration: none; transition: background 0.15s;
+        }
+        #viewer-external:active { background: rgba(255,255,255,0.4); }
+
+        #viewer-iframe {
+            flex: 1; width: 100%; border: none; background: var(--cream);
+        }
+
+        #viewer-loading {
+            position: absolute;
+            inset: 54px 0 0 0;
+            background: var(--cream);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 0.8rem; color: var(--muted); font-size: 0.85rem; z-index: 10;
+        }
+        #viewer-loading i {
+            font-size: 2rem; color: var(--red);
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ═══════════════════════════════
+           HEADER
         ═══════════════════════════════ */
         .app-header {
             background: var(--white);
             border-bottom: 1px solid var(--sand);
             padding: 0.9rem 1.2rem 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
+        .header-left { display: flex; align-items: center; gap: 0.7rem; }
         .club-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--red);
+            width: 40px; height: 40px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--red);
         }
-
         .club-avatar-fallback {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.1rem;
+            width: 40px; height: 40px; border-radius: 50%; background: var(--red);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.1rem;
         }
-
         .header-titles h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--red);
-            line-height: 1.1;
+            font-size: 1rem; font-weight: 800; color: var(--red); line-height: 1.1;
         }
-
-        .header-titles p {
-            font-size: 0.68rem;
-            color: var(--muted);
-            font-weight: 500;
-        }
-
-        .header-contact {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        .header-titles p { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
+        .header-contact { display: flex; gap: 0.5rem; }
         .contact-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            width: 36px; height: 36px; border-radius: 50%;
             background: var(--red-soft);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--red);
-            font-size: 0.9rem;
-            text-decoration: none;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--red); font-size: 0.9rem; text-decoration: none;
             transition: background 0.2s;
         }
-
         .contact-btn:active { background: var(--red); color: white; }
 
         /* ═══════════════════════════════
            MAIN CONTENT
         ═══════════════════════════════ */
-        .content {
-            padding: 1rem 1rem 0.5rem;
-        }
+        .content { padding: 1rem 1rem 0.5rem; }
 
-        /* ═══════════════════════════════
-           SECTION HEADERS
-        ═══════════════════════════════ */
         .section-label {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--muted);
-            padding: 1.2rem 0 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--muted); padding: 1.2rem 0 0.6rem;
+            display: flex; align-items: center; gap: 0.5rem;
         }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--sand); }
 
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--sand);
-        }
-
-        /* ═══════════════════════════════
-           HERO CARDS (2 col grid)
-        ═══════════════════════════════ */
-        .cards-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
+        /* 2-COL CARDS */
+        .cards-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
         .card {
-            background: var(--white);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--sand);
-            cursor: pointer;
+            background: var(--white); border-radius: var(--radius);
+            overflow: hidden; box-shadow: var(--shadow);
+            border: 1px solid var(--sand); cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
-            text-decoration: none;
-            display: block;
-            color: inherit;
+            text-decoration: none; display: block; color: inherit;
         }
-
-        .card:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
+        .card:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
         .card-thumb {
-            height: 90px;
-            background-size: cover;
-            background-position: center;
+            height: 90px; background-size: cover; background-position: center;
             background-color: var(--sand);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #aa7a5c;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #aa7a5c;
         }
-
-        .card-body {
-            padding: 0.7rem 0.75rem 0.75rem;
-        }
-
+        .card-body { padding: 0.7rem 0.75rem 0.75rem; }
         .card-body h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-            line-height: 1.25;
-            color: var(--text);
-            display: flex;
-            align-items: flex-start;
-            gap: 0.35rem;
+            font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem;
+            line-height: 1.25; color: var(--text);
+            display: flex; align-items: flex-start; gap: 0.35rem;
         }
-
-        .card-body h3 i { 
-            color: var(--red); 
-            margin-top: 1px;
-            flex-shrink: 0;
-            font-size: 0.75rem;
-        }
-
-        .card-body p {
-            font-size: 0.7rem;
-            color: var(--muted);
-            line-height: 1.3;
-            margin-bottom: 0.5rem;
-        }
-
+        .card-body h3 i { color: var(--red); margin-top: 1px; flex-shrink: 0; font-size: 0.75rem; }
+        .card-body p { font-size: 0.7rem; color: var(--muted); line-height: 1.3; margin-bottom: 0.5rem; }
         .card-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: var(--red-soft);
-            color: var(--red);
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.25rem 0.6rem;
-            border-radius: 2rem;
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: var(--red-soft); color: var(--red);
+            font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 2rem;
         }
 
-        /* ═══════════════════════════════
-           FULL-WIDTH CARDS
-        ═══════════════════════════════ */
+        /* FULL-WIDTH CARDS */
         .card-full {
-            background: var(--white);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--sand);
-            cursor: pointer;
+            background: var(--white); border-radius: var(--radius);
+            overflow: hidden; box-shadow: var(--shadow);
+            border: 1px solid var(--sand); cursor: pointer;
             transition: transform 0.15s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: stretch;
-            color: inherit;
-            margin-bottom: 0.75rem;
+            text-decoration: none; display: flex; align-items: stretch;
+            color: inherit; margin-bottom: 0.75rem;
         }
-
         .card-full:active { transform: scale(0.98); }
-
         .card-full-thumb {
-            width: 90px;
-            flex-shrink: 0;
-            background-size: cover;
-            background-position: center;
+            width: 90px; flex-shrink: 0;
+            background-size: cover; background-position: center;
             background-color: var(--sand);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: #aa7a5c;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; color: #aa7a5c;
         }
-
         .card-full-body {
-            padding: 0.85rem 0.9rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 0.25rem;
+            padding: 0.85rem 0.9rem; flex: 1;
+            display: flex; flex-direction: column; justify-content: center; gap: 0.25rem;
         }
-
         .card-full-body h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            line-height: 1.2;
+            font-size: 0.88rem; font-weight: 700; color: var(--text);
+            display: flex; align-items: center; gap: 0.4rem; line-height: 1.2;
         }
-
         .card-full-body h3 i { color: var(--red); font-size: 0.8rem; }
-
-        .card-full-body p {
-            font-size: 0.72rem;
-            color: var(--muted);
-            line-height: 1.35;
+        .card-full-body p { font-size: 0.72rem; color: var(--muted); line-height: 1.35; }
+        .card-full-body .inline-link {
+            color: var(--red); font-weight: 600; cursor: pointer;
         }
-
-        .card-full-body p a {
-            color: var(--red);
-            font-weight: 600;
-        }
-
         .card-full-arrow {
-            display: flex;
-            align-items: center;
-            padding-right: 0.8rem;
-            color: var(--sand);
-            font-size: 0.9rem;
+            display: flex; align-items: center;
+            padding-right: 0.8rem; color: var(--sand); font-size: 0.9rem;
         }
 
-        /* ═══════════════════════════════
-           ALERT BANNER
-        ═══════════════════════════════ */
+        /* ALERT BANNER */
         .alert-banner {
             background: linear-gradient(135deg, var(--red) 0%, #e85040 100%);
-            color: white;
-            border-radius: var(--radius);
+            color: white; border-radius: var(--radius);
             padding: 0.9rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 0.75rem; margin-bottom: 0.75rem;
             box-shadow: 0 4px 14px rgba(193,59,43,0.3);
-            cursor: pointer;
-            transition: opacity 0.15s;
-            text-decoration: none;
+            cursor: pointer; transition: opacity 0.15s;
         }
-
         .alert-banner:active { opacity: 0.85; }
-
-        .alert-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
+        .alert-banner-left { display: flex; align-items: center; gap: 0.7rem; }
         .alert-banner-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.2); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
         }
-
         .alert-banner strong {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 700;
-            display: block;
-            line-height: 1.2;
+            font-size: 0.88rem; font-weight: 700; display: block; line-height: 1.2;
         }
+        .alert-banner span { font-size: 0.7rem; opacity: 0.85; }
 
-        .alert-banner span {
-            font-size: 0.7rem;
-            opacity: 0.85;
-        }
-
-        .alert-banner i.fa-chevron-right {
-            opacity: 0.7;
-        }
-
-        /* ═══════════════════════════════
-           SOCIAL STRIP
-        ═══════════════════════════════ */
+        /* SOCIAL */
         .social-strip {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 1rem 1.1rem;
-            border: 1px solid var(--sand);
-            box-shadow: var(--shadow);
+            background: var(--white); border-radius: var(--radius);
+            padding: 1rem 1.1rem; border: 1px solid var(--sand); box-shadow: var(--shadow);
         }
-
-        .social-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 0.9rem;
-        }
-
+        .social-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
         .larrauntxi-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--red);
-            flex-shrink: 0;
+            width: 50px; height: 50px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--red); flex-shrink: 0;
         }
-
         .larrauntxi-fallback {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 50px; height: 50px; border-radius: 50%;
             background: var(--red-soft);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; flex-shrink: 0;
         }
-
         .social-header-text strong {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: block;
+            font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; display: block;
         }
-
-        .social-header-text span {
-            font-size: 0.72rem;
-            color: var(--muted);
-        }
-
-        .social-icons-row {
-            display: flex;
-            gap: 0.65rem;
-            flex-wrap: wrap;
-        }
-
+        .social-header-text span { font-size: 0.72rem; color: var(--muted); }
+        .social-icons-row { display: flex; gap: 0.65rem; flex-wrap: wrap; }
         .social-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: var(--cream);
-            border: 1px solid var(--sand);
-            padding: 0.5rem 0.9rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.15s;
+            display: flex; align-items: center; gap: 0.4rem;
+            background: var(--cream); border: 1px solid var(--sand);
+            padding: 0.5rem 0.9rem; border-radius: 2rem;
+            font-size: 0.8rem; font-weight: 600; color: var(--text);
+            text-decoration: none; transition: all 0.15s;
         }
-
         .social-btn i { font-size: 1rem; }
         .social-btn:active { background: var(--red); color: white; border-color: var(--red); }
-
         .social-btn.fb i { color: #1877f2; }
         .social-btn.ig i { color: #e1306c; }
         .social-btn.wa i { color: #25d366; }
         .social-btn.yt i { color: #ff0000; }
         .social-btn.tt i { color: #010101; }
 
-        /* ═══════════════════════════════
-           FOOTER LINKS
-        ═══════════════════════════════ */
+        /* FOOTER QUICK */
         .footer-quick {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 0.9rem 1rem;
-            border: 1px solid var(--sand);
-            box-shadow: var(--shadow);
-            margin-top: 0.75rem;
+            background: var(--white); border-radius: var(--radius);
+            padding: 0.9rem 1rem; border: 1px solid var(--sand);
+            box-shadow: var(--shadow); margin-top: 0.75rem;
         }
-
         .footer-quick-title {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 0.7rem;
+            font-size: 0.7rem; font-weight: 700; color: var(--muted);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.7rem;
         }
-
-        .footer-quick-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
+        .footer-quick-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .footer-quick-links a {
-            background: var(--cream);
-            border: 1px solid var(--sand);
-            color: var(--text);
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 0.35rem 0.75rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: all 0.15s;
+            background: var(--cream); border: 1px solid var(--sand);
+            color: var(--text); font-size: 0.72rem; font-weight: 600;
+            padding: 0.35rem 0.75rem; border-radius: 2rem;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;
+            transition: all 0.15s; cursor: pointer;
         }
+        .footer-quick-links a:active { background: var(--red); color: white; border-color: var(--red); }
 
-        .footer-quick-links a:active {
-            background: var(--red);
-            color: white;
-            border-color: var(--red);
-        }
-
-        /* ═══════════════════════════════
-           BOTTOM NAV
-        ═══════════════════════════════ */
+        /* BOTTOM NAV */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border-top: 1px solid var(--sand);
-            display: flex;
-            z-index: 200;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--white); border-top: 1px solid var(--sand);
+            display: flex; z-index: 200;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
             padding-bottom: env(safe-area-inset-bottom);
         }
-
         .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             padding: 0.6rem 0.3rem 0.5rem;
-            text-decoration: none;
-            color: var(--muted);
-            font-size: 0.6rem;
-            font-weight: 600;
-            gap: 0.2rem;
-            transition: color 0.15s;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-family: 'Nunito', sans-serif;
+            text-decoration: none; color: var(--muted);
+            font-size: 0.6rem; font-weight: 600; gap: 0.2rem;
+            transition: color 0.15s; cursor: pointer;
+            border: none; background: none; font-family: 'Nunito', sans-serif;
         }
-
         .nav-item i { font-size: 1.2rem; }
-
-        .nav-item.active { color: var(--red); }
         .nav-item:active { color: var(--red); }
-
-        .nav-item.featured {
-            color: white;
-        }
-
         .nav-item.featured .nav-pip {
-            background: var(--red);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(193,59,43,0.4);
-            margin-top: -14px;
+            background: var(--red); width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; box-shadow: 0 4px 12px rgba(193,59,43,0.4);
+            margin-top: -14px; color: white;
         }
 
-        /* ═══════════════════════════════
-           MODAL / OVERLAY
-        ═══════════════════════════════ */
+        /* MODALS */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            z-index: 500;
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+            z-index: 500; display: none; align-items: flex-end; justify-content: center;
         }
-
         .modal-overlay.open { display: flex; }
-
         .modal-sheet {
-            background: var(--white);
-            border-radius: 1.5rem 1.5rem 0 0;
-            padding: 1.5rem 1.5rem 2.5rem;
-            width: 100%;
-            max-width: 480px;
+            background: var(--white); border-radius: 1.5rem 1.5rem 0 0;
+            padding: 1.5rem 1.5rem 2.5rem; width: 100%; max-width: 480px;
             animation: slideUp 0.25s ease;
         }
-
         @keyframes slideUp {
             from { transform: translateY(60px); opacity: 0; }
             to   { transform: translateY(0);    opacity: 1; }
         }
-
         .modal-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--sand);
-            border-radius: 2px;
-            margin: 0 auto 1.2rem;
+            width: 36px; height: 4px; background: var(--sand);
+            border-radius: 2px; margin: 0 auto 1.2rem;
         }
-
         .modal-icon {
-            width: 52px;
-            height: 52px;
-            background: var(--red-soft);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--red);
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
+            width: 52px; height: 52px; background: var(--red-soft); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--red); font-size: 1.4rem; margin-bottom: 0.8rem;
         }
-
         .modal-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 0.4rem;
+            font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem;
         }
-
-        .modal-body {
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.5;
-            margin-bottom: 1.2rem;
-        }
-
+        .modal-body { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.2rem; }
         .modal-btn {
-            display: block;
-            width: 100%;
-            background: var(--red);
-            color: white;
-            border: none;
-            border-radius: 3rem;
-            padding: 0.85rem;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.15s;
+            display: block; width: 100%; background: var(--red); color: white; border: none;
+            border-radius: 3rem; padding: 0.85rem;
+            font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700;
+            cursor: pointer; transition: background 0.15s;
         }
-
         .modal-btn:active { background: var(--red-dark); }
 
-        /* ═══════════════════════════════
-           THUMB IMAGES
-        ═══════════════════════════════ */
-        .img-kategoriak { background-image: url('https://larraunpilota.eus/images/galeria/kategoriak1.png'); }
-        .img-entrenadores { background-image: url('https://larraunpilota.eus/images/galeria/entrenatzaileak1.png'); }
-        .img-ordutegiak { background-image: url('https://larraunpilota.eus/images/galeria/ordutegiak1.png'); }
-        .img-taldeak { background-image: url('https://larraunpilota.eus/images/galeria/taldeak1.png'); }
-        .img-aldaketa { background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12)), url('https://larraunpilota.eus/aldaketa.png'); }
-        .img-egutegia { background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12)), url('https://larraunpilota.eus/egutegia.png'); }
-        .img-emaitzak { background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12)), url('https://larraunpilota.eus/azken-emaitzak.jpg'); }
-        .img-kartela { background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12)), url('https://larraunpilota.eus/images/galeria/kartela0.png'); }
-        .img-zuzeneko { background-image: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.28)), url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png'); }
+        /* THUMB IMAGES */
+        .img-kategoriak  { background-image: url('https://larraunpilota.eus/images/galeria/kategoriak1.png'); }
+        .img-entrenadores{ background-image: url('https://larraunpilota.eus/images/galeria/entrenatzaileak1.png'); }
+        .img-ordutegiak  { background-image: url('https://larraunpilota.eus/images/galeria/ordutegiak1.png'); }
+        .img-taldeak     { background-image: url('https://larraunpilota.eus/images/galeria/taldeak1.png'); }
+        .img-aldaketa    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/aldaketa.png'); }
+        .img-egutegia    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/egutegia.png'); }
+        .img-emaitzak    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/azken-emaitzak.jpg'); }
+        .img-zuzeneko    { background-image: linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.28)),url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png'); }
 
-        /* ═══════════════════════════════
-           INSTALL BANNER
-        ═══════════════════════════════ */
+        /* INSTALL BANNER */
         .install-banner {
-            background: linear-gradient(135deg, #1a3a5c, #2a5f8a);
-            color: white;
-            border-radius: var(--radius);
-            padding: 0.85rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: opacity 0.15s;
+            background: linear-gradient(135deg, #1a3a5c, #2a5f8a); color: white;
+            border-radius: var(--radius); padding: 0.85rem 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 0.75rem; cursor: pointer; transition: opacity 0.15s;
         }
-
         .install-banner:active { opacity: 0.85; }
         .install-banner.hidden { display: none; }
-
         .install-banner i { font-size: 1.5rem; opacity: 0.9; }
-
         .install-banner-text strong {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: block;
+            font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 700; display: block;
         }
-
-        .install-banner-text span {
-            font-size: 0.7rem;
-            opacity: 0.8;
-        }
-
-        .install-banner-close {
-            margin-left: auto;
-            opacity: 0.6;
-            padding: 0.3rem;
-        }
+        .install-banner-text span { font-size: 0.7rem; opacity: 0.8; }
+        .install-banner-close { margin-left: auto; opacity: 0.6; padding: 0.3rem; }
     </style>
 </head>
 <body>
+
+<!-- ═══════════ IN-APP VIEWER ═══════════ -->
+<div id="viewer">
+    <div id="viewer-bar">
+        <button id="viewer-back" onclick="closeViewer()" aria-label="Itzuli">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <span id="viewer-title">Larraun Pilota</span>
+        <a id="viewer-external" href="#" target="_blank" rel="noopener" title="Nabigatzailean ireki">
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+    <div id="viewer-loading">
+        <i class="fas fa-circle-notch"></i>
+        <span>Kargatzen...</span>
+    </div>
+    <iframe id="viewer-iframe" src="about:blank" allowfullscreen
+            onload="document.getElementById('viewer-loading').style.display='none'">
+    </iframe>
+</div>
 
 <!-- ═══════════ HEADER ═══════════ -->
 <header class="app-header">
     <div class="header-left">
         <img class="club-avatar"
-             src="images/icons/LARRAUNTXI.png"
-             alt="Larrauntxi"
+             src="images/icons/LARRAUNTXI.png" alt="Larrauntxi"
              onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
         <div class="club-avatar-fallback" id="avatar-fallback" style="display:none;">
             <i class="fas fa-hand-fist"></i>
@@ -706,19 +437,14 @@
         </div>
     </div>
     <div class="header-contact">
-        <a href="tel:613997710" class="contact-btn" title="Deitu">
-            <i class="fas fa-phone-alt"></i>
-        </a>
-        <a href="mailto:larraunpe@gmail.com" class="contact-btn" title="Email">
-            <i class="fas fa-envelope"></i>
-        </a>
+        <a href="tel:613997710" class="contact-btn"><i class="fas fa-phone-alt"></i></a>
+        <a href="mailto:larraunpe@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i></a>
     </div>
 </header>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="content">
 
-    <!-- Install banner (shown only if PWA not installed) -->
     <div class="install-banner" id="installBanner">
         <i class="fas fa-download"></i>
         <div class="install-banner-text">
@@ -730,83 +456,81 @@
 
     <!-- SECTION 1: INFO OROKORRA -->
     <div class="section-label"><i class="fas fa-bullhorn"></i> Informazio Orokorra</div>
-
     <div class="cards-2col">
-        <a class="card" href="https://larraunpilota.eus/kategoriak.html" target="_blank">
+        <div class="card" onclick="openViewer('https://larraunpilota.eus/kategoriak.html','Kategoriak')">
             <div class="card-thumb img-kategoriak"></div>
             <div class="card-body">
                 <h3><i class="fas fa-layer-group"></i> Kategoriak</h3>
                 <p>Adinaren eta mailaren araberako kategoriak</p>
                 <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
             </div>
-        </a>
-        <a class="card" href="https://larraunpilota.eus/entrenatzaileak.html" target="_blank">
+        </div>
+        <div class="card" onclick="openViewer('https://larraunpilota.eus/entrenatzaileak.html','Entrenatzaileak')">
             <div class="card-thumb img-entrenadores"></div>
             <div class="card-body">
                 <h3><i class="fas fa-chalkboard-user"></i> Entrenatzaileak</h3>
                 <p>Talde tekniko eta irakasleak</p>
                 <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
             </div>
-        </a>
-        <a class="card" href="https://larraunpilota.eus/frontoi-ordutegiak.html" target="_blank">
+        </div>
+        <div class="card" onclick="openViewer('https://larraunpilota.eus/frontoi-ordutegiak.html','Ordutegiak')">
             <div class="card-thumb img-ordutegiak"></div>
             <div class="card-body">
                 <h3><i class="fas fa-clock"></i> Ordutegiak</h3>
                 <p>Frontoi eta trinkete ordutegia</p>
                 <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
             </div>
-        </a>
-        <a class="card" href="https://larraunpilota.eus/taldeak.html" target="_blank">
+        </div>
+        <div class="card" onclick="openViewer('https://larraunpilota.eus/taldeak.html','Taldeak')">
             <div class="card-thumb img-taldeak"></div>
             <div class="card-body">
                 <h3><i class="fas fa-people-arrows"></i> Taldeak</h3>
                 <p>Kategoria bakoitzeko kideak</p>
                 <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
             </div>
-        </a>
+        </div>
     </div>
 
     <!-- SECTION 2: DOKUMENTUAK -->
     <div class="section-label"><i class="fas fa-folder-open"></i> Dokumentuak</div>
 
-    <a class="card-full" href="arauak.pdf" target="_blank">
-        <div class="card-full-thumb" style="background: linear-gradient(135deg, #c13b2b, #e85040);">
-            <i class="fas fa-scale-balanced" style="color:white; font-size:1.6rem;"></i>
+    <div class="card-full" onclick="openViewer('arauak.pdf','Arauak')">
+        <div class="card-full-thumb" style="background:linear-gradient(135deg,#c13b2b,#e85040);">
+            <i class="fas fa-scale-balanced" style="color:white;font-size:1.6rem;"></i>
         </div>
         <div class="card-full-body">
             <h3><i class="fas fa-file-pdf"></i> Arauak</h3>
             <p>Denboraldiko arau eta informazio orokorra</p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <a class="card-full" href="txapelketak-egutegia.pdf" target="_blank">
-        <div class="card-full-thumb" style="background: linear-gradient(135deg, #9a6c2a, #c49040);">
-            <i class="fas fa-trophy" style="color:white; font-size:1.6rem;"></i>
+    <div class="card-full" onclick="openViewer('txapelketak-egutegia.pdf','Txapelketen Egutegia')">
+        <div class="card-full-thumb" style="background:linear-gradient(135deg,#9a6c2a,#c49040);">
+            <i class="fas fa-trophy" style="color:white;font-size:1.6rem;"></i>
         </div>
         <div class="card-full-body">
             <h3><i class="fas fa-file-pdf"></i> Txapelketen Egutegia</h3>
             <p>Torneo ez-ofizialak eta FNPk kudeatzen ez dituen ofizialak</p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <a class="card-full" href="ikasturteko-egutegia.pdf" target="_blank">
-        <div class="card-full-thumb" style="background: linear-gradient(135deg, #2a6c4a, #3a9060);">
-            <i class="fas fa-graduation-cap" style="color:white; font-size:1.6rem;"></i>
+    <div class="card-full" onclick="openViewer('ikasturteko-egutegia.pdf','Ikasturteko Egutegia')">
+        <div class="card-full-thumb" style="background:linear-gradient(135deg,#2a6c4a,#3a9060);">
+            <i class="fas fa-graduation-cap" style="color:white;font-size:1.6rem;"></i>
         </div>
         <div class="card-full-body">
             <h3><i class="fas fa-file-pdf"></i> Ikasturteko Egutegia</h3>
             <p>Eskola-egutegia, entrenamendu-ordutegien oinarria</p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
     <!-- SECTION 3: EGUNERAKETA -->
     <div class="section-label"><i class="fas fa-calendar-week"></i> Eguneraketa</div>
 
-    <!-- Kartelera definitiboa — destacada -->
-    <a class="alert-banner" href="https://larraunpilota.eus/kartela9.html" target="_blank">
+    <div class="alert-banner" onclick="openViewer('https://larraunpilota.eus/kartela9.html','Asteko Kartelera')">
         <div class="alert-banner-left">
             <div class="alert-banner-icon"><i class="fas fa-flag-checkered"></i></div>
             <div>
@@ -815,37 +539,39 @@
             </div>
         </div>
         <i class="fas fa-chevron-right"></i>
-    </a>
+    </div>
 
-    <a class="card-full" href="https://larraunpilota.eus/hurrengo-ordutegiak.html" target="_blank">
+    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/hurrengo-ordutegiak.html','Datorren asteko kartelera')">
         <div class="card-full-thumb img-aldaketa"></div>
         <div class="card-full-body">
             <h3><i class="far fa-calendar-check"></i> Datorren asteko kartelera</h3>
             <p>Ostegunean argitaratzen da. Aldaketak <strong>igandea</strong> arte.</p>
-            <p><a href="https://larraunpilota.eus/aldaketa-osoa.html" target="_blank">→ Aldaketak eskatu</a></p>
+            <p><span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketa-osoa.html','Aldaketak eskatu')">→ Aldaketak eskatu</span></p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <a class="card-full" href="https://larraunpilota.eus/ordutegiak.html" target="_blank">
+    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Behin-behineko kartelera')">
         <div class="card-full-thumb img-egutegia"></div>
         <div class="card-full-body">
             <h3><i class="far fa-calendar-check"></i> Behin-behineko kartelera</h3>
-            <p>Astelehen goizean eguneratzen da. <a href="https://larraunpilota.eus/aldaketak.html" target="_blank">Azken orduko aldaketak</a></p>
+            <p>Astelehen goizean eguneratzen da.
+               <span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketak.html','Azken orduko aldaketak')">Azken orduko aldaketak</span></p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <a class="card-full" href="https://larraunpilota.eus/emaitzak1.html" target="_blank">
+    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak FNP')">
         <div class="card-full-thumb img-emaitzak"></div>
         <div class="card-full-body">
             <h3><i class="fas fa-trophy"></i> Emaitzak FNP</h3>
-            <p>Astelehenetan FNPn argitaratutako emaitzak. <a href="https://larraunpilota.eus/emaitzak-kartela9.html" target="_blank">Kartela formatuan</a></p>
+            <p>Astelehenetan FNPn argitaratutako emaitzak.
+               <span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/emaitzak-kartela9.html','Emaitzen kartela')">Kartela formatuan</span></p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <div class="card-full" onclick="mostrarAlertaZuzeneko()" style="cursor:pointer;">
+    <div class="card-full" onclick="mostrarAlertaZuzeneko()">
         <div class="card-full-thumb img-zuzeneko"></div>
         <div class="card-full-body">
             <h3><i class="fas fa-users-between"></i> Zuzeneko Partiduak</h3>
@@ -857,17 +583,17 @@
     <!-- SECTION 4: BESTE BATZUK -->
     <div class="section-label"><i class="fas fa-ellipsis-h"></i> Beste Batzuk</div>
 
-    <a class="card-full" href="https://larraunpilota.eus/historiko.html" target="_blank">
-        <div class="card-full-thumb" style="background:#f5e4d6; font-size:2rem;">📖</div>
+    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/historiko.html','Larraungo pilotaren historia')">
+        <div class="card-full-thumb" style="background:#f5e4d6;font-size:2rem;">📖</div>
         <div class="card-full-body">
             <h3><i class="fas fa-landmark"></i> Larraungo pilotaren historia</h3>
             <p>Gure kirolaren ondarea eta tradizioa</p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
-    </a>
+    </div>
 
-    <div class="card-full" onclick="mostrarAlertaColaboracion()" style="cursor:pointer;">
-        <div class="card-full-thumb" style="background:#e6daca; font-size:2rem;">📸</div>
+    <div class="card-full" onclick="mostrarAlertaColaboracion()">
+        <div class="card-full-thumb" style="background:#e6daca;font-size:2rem;">📸</div>
         <div class="card-full-body">
             <h3><i class="fas fa-palette"></i> Lagundu iezaguzu hobetzen!</h3>
             <p>Bidali argazkiak, bideoak eta datu interesgarriak</p>
@@ -875,23 +601,21 @@
         <div class="card-full-arrow"><i class="fas fa-heart" style="color:var(--red);"></i></div>
     </div>
 
-    <a class="card-full" href="https://www.fnpelota.com/pub/cartelera.asp?idioma=eu" target="_blank">
-        <div class="card-full-thumb" style="background:#dcd0c0; font-size:2rem;">🏅</div>
+    <div class="card-full" onclick="openViewer('https://www.fnpelota.com/pub/cartelera.asp?idioma=eu','Nafarroako Pilota Federazioa')">
+        <div class="card-full-thumb" style="background:#dcd0c0;font-size:2rem;">🏅</div>
         <div class="card-full-body">
             <h3><i class="fas fa-sitemap"></i> Nafarroako Pilota Federazioa</h3>
             <p>FNPren egutegi ofiziala eta emaitzak</p>
         </div>
         <div class="card-full-arrow"><i class="fas fa-external-link-alt"></i></div>
-    </a>
+    </div>
 
     <!-- SECTION 5: SARE SOZIALAK -->
     <div class="section-label"><i class="fas fa-project-diagram"></i> Sare Sozialak</div>
 
     <div class="social-strip">
         <div class="social-header">
-            <img class="larrauntxi-avatar"
-                 src="images/icons/LARRAUNTXI.jpg"
-                 alt="Larrauntxi"
+            <img class="larrauntxi-avatar" src="images/icons/LARRAUNTXI.png" alt="Larrauntxi"
                  onerror="this.style.display='none'; document.getElementById('lx-fallback').style.display='flex';">
             <div class="larrauntxi-fallback" id="lx-fallback" style="display:none;">🏃</div>
             <div class="social-header-text">
@@ -899,35 +623,35 @@
                 <span>Jarraitu gaitzazu sare sozialetan</span>
             </div>
         </div>
+        <!-- Redes sociales: abre en sus apps nativas, correcto que salgan de la PWA -->
         <div class="social-icons-row">
-            <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" class="social-btn fb">
+            <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" rel="noopener" class="social-btn fb">
                 <i class="fab fa-facebook-f"></i> Facebook
             </a>
-            <a href="https://www.instagram.com/larraunpilota" target="_blank" class="social-btn ig">
+            <a href="https://www.instagram.com/larraunpilota" target="_blank" rel="noopener" class="social-btn ig">
                 <i class="fab fa-instagram"></i> Instagram
             </a>
-            <a href="https://www.whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" class="social-btn wa">
+            <a href="https://www.whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" rel="noopener" class="social-btn wa">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
-            <a href="https://www.youtube.com/@larraunpe" target="_blank" class="social-btn yt">
+            <a href="https://www.youtube.com/@larraunpe" target="_blank" rel="noopener" class="social-btn yt">
                 <i class="fab fa-youtube"></i> YouTube
             </a>
-            <a href="https://www.tiktok.com/@larraunpilotaelkartea" target="_blank" class="social-btn tt">
+            <a href="https://www.tiktok.com/@larraunpilotaelkartea" target="_blank" rel="noopener" class="social-btn tt">
                 <i class="fab fa-tiktok"></i> TikTok
             </a>
         </div>
     </div>
 
-    <!-- Links rápidos -->
     <div class="footer-quick">
         <div class="footer-quick-title">Esteka azkarrak</div>
         <div class="footer-quick-links">
-            <a href="https://larraunpilota.eus/" target="_blank">🌐 Web nagusia</a>
-            <a href="https://larraunpilota.eus/ordutegiak.html" target="_blank">📅 Ordutegiak</a>
-            <a href="https://larraunpilota.eus/aldaketak.html" target="_blank">✍️ Aldaketak</a>
-            <a href="https://larraunpilota.eus/emaitzak1.html" target="_blank">🏆 Emaitzak</a>
-            <a href="https://larraunpilota.eus/kartela9.html" target="_blank">📢 Kartelera</a>
-            <a href="https://larraunpilota.eus/#berriak" target="_blank">📰 Berriak</a>
+            <a onclick="openViewer('https://larraunpilota.eus/','Web nagusia')">🌐 Web nagusia</a>
+            <a onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">📅 Ordutegiak</a>
+            <a onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">✍️ Aldaketak</a>
+            <a onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">🏆 Emaitzak</a>
+            <a onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">📢 Kartelera</a>
+            <a onclick="openViewer('https://larraunpilota.eus/#berriak','Berriak')">📰 Berriak</a>
         </div>
     </div>
 
@@ -935,43 +659,35 @@
 
 <!-- ═══════════ BOTTOM NAV ═══════════ -->
 <nav class="bottom-nav">
-    <a href="https://larraunpilota.eus/" target="_blank" class="nav-item">
-        <i class="fas fa-home"></i>
-        <span>Hasiera</span>
-    </a>
-    <a href="https://larraunpilota.eus/kartela9.html" target="_blank" class="nav-item">
-        <i class="fas fa-calendar-week"></i>
-        <span>Kartelera</span>
-    </a>
-    <a href="https://larraunpilota.eus/emaitzak1.html" target="_blank" class="nav-item featured">
+    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/','Hasiera')">
+        <i class="fas fa-home"></i><span>Hasiera</span>
+    </button>
+    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">
+        <i class="fas fa-calendar-week"></i><span>Kartelera</span>
+    </button>
+    <button class="nav-item featured" onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">
         <div class="nav-pip"><i class="fas fa-trophy"></i></div>
-        <span style="color:var(--red); margin-top:2px;">Emaitzak</span>
-    </a>
-    <a href="https://larraunpilota.eus/ordutegiak.html" target="_blank" class="nav-item">
-        <i class="fas fa-clock"></i>
-        <span>Ordutegiak</span>
-    </a>
-    <a href="https://larraunpilota.eus/aldaketak.html" target="_blank" class="nav-item">
-        <i class="fas fa-pen"></i>
-        <span>Aldaketak</span>
-    </a>
+        <span style="color:var(--red);margin-top:2px;">Emaitzak</span>
+    </button>
+    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">
+        <i class="fas fa-clock"></i><span>Ordutegiak</span>
+    </button>
+    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">
+        <i class="fas fa-pen"></i><span>Aldaketak</span>
+    </button>
 </nav>
 
 <!-- ═══════════ MODALS ═══════════ -->
-<!-- Zuzeneko modal -->
 <div class="modal-overlay" id="modalZuzeneko" onclick="closeModal('modalZuzeneko')">
     <div class="modal-sheet" onclick="event.stopPropagation()">
         <div class="modal-handle"></div>
         <div class="modal-icon"><i class="fas fa-video"></i></div>
         <div class="modal-title">Zuzeneko Partiduak</div>
-        <div class="modal-body">
-            2026/2027 denboraldian etxeko partidak zuzenean eskuragarri egongo dira. Laster!
-        </div>
+        <div class="modal-body">2026/2027 denboraldian etxeko partidak zuzenean eskuragarri egongo dira. Laster!</div>
         <button class="modal-btn" onclick="closeModal('modalZuzeneko')">Onartu</button>
     </div>
 </div>
 
-<!-- Colaboracion modal -->
 <div class="modal-overlay" id="modalColab" onclick="closeModal('modalColab')">
     <div class="modal-sheet" onclick="event.stopPropagation()">
         <div class="modal-handle"></div>
@@ -979,26 +695,63 @@
         <div class="modal-title">Lagundu iezaguzu!</div>
         <div class="modal-body">
             Argazkiak, bideoak, iradokizunak eta datu interesgarriak bidali:<br><br>
-            📧 <a href="mailto:larraunpe@gmail.com" style="color:var(--red); font-weight:600;">larraunpe@gmail.com</a><br>
-            📞 <a href="tel:613997710" style="color:var(--red); font-weight:600;">613 99 77 10</a><br><br>
+            📧 <a href="mailto:larraunpe@gmail.com" style="color:var(--red);font-weight:600;">larraunpe@gmail.com</a><br>
+            📞 <a href="tel:613997710" style="color:var(--red);font-weight:600;">613 99 77 10</a><br><br>
             Milla esker!
         </div>
         <button class="modal-btn" onclick="closeModal('modalColab')">Onartu</button>
     </div>
 </div>
 
-<!-- Service Worker registration + PWA install prompt -->
 <script>
-    // Register service worker
+    // ─── SERVICE WORKER ───────────────────────────────────
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW registered:', reg.scope))
-                .catch(err => console.log('SW error:', err));
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         });
     }
 
-    // PWA install prompt
+    // ─── IN-APP VIEWER ───────────────────────────────────
+    const viewer       = document.getElementById('viewer');
+    const viewerIframe = document.getElementById('viewer-iframe');
+    const viewerTitle  = document.getElementById('viewer-title');
+    const viewerExt    = document.getElementById('viewer-external');
+    const viewerLoad   = document.getElementById('viewer-loading');
+
+    function openViewer(url, title) {
+        // Resolve relative URLs (PDFs in same origin)
+        const abs = url.startsWith('http') ? url : (location.origin + location.pathname.replace(/[^/]*$/, '') + url);
+
+        viewerTitle.textContent = title || 'Larraun Pilota';
+        viewerExt.href = abs;
+        viewerLoad.style.display = 'flex';
+        viewerIframe.src = abs;
+        viewer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        // Push history state so Android back button works
+        history.pushState({ viewer: true, url: abs, title }, '');
+    }
+
+    function closeViewer() {
+        viewer.classList.remove('open');
+        viewerIframe.src = 'about:blank';
+        document.body.style.overflow = '';
+    }
+
+    // Android back button / browser back: close viewer instead of leaving app
+    window.addEventListener('popstate', (e) => {
+        if (viewer.classList.contains('open')) {
+            closeViewer();
+        }
+    });
+
+    // Hide loading spinner when iframe finishes loading
+    viewerIframe.addEventListener('load', () => {
+        viewerLoad.style.display = 'none';
+    });
+
+    // ─── PWA INSTALL PROMPT ───────────────────────────────
     let deferredPrompt;
     const installBanner = document.getElementById('installBanner');
     const installClose  = document.getElementById('installClose');
@@ -1016,34 +769,21 @@
         }
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
+            await deferredPrompt.userChoice;
             deferredPrompt = null;
             installBanner.classList.add('hidden');
         }
     });
 
-    // Hide banner if already installed
-    window.addEventListener('appinstalled', () => {
-        installBanner.classList.add('hidden');
-    });
-
-    // If running as installed PWA, hide banner
+    window.addEventListener('appinstalled', () => installBanner.classList.add('hidden'));
     if (window.matchMedia('(display-mode: standalone)').matches) {
         installBanner.classList.add('hidden');
     }
 
-    // Modal helpers
-    function mostrarAlertaZuzeneko() {
-        document.getElementById('modalZuzeneko').classList.add('open');
-    }
-
-    function mostrarAlertaColaboracion() {
-        document.getElementById('modalColab').classList.add('open');
-    }
-
-    function closeModal(id) {
-        document.getElementById(id).classList.remove('open');
-    }
+    // ─── MODALS ───────────────────────────────────────────
+    function mostrarAlertaZuzeneko()     { document.getElementById('modalZuzeneko').classList.add('open'); }
+    function mostrarAlertaColaboracion() { document.getElementById('modalColab').classList.add('open'); }
+    function closeModal(id)              { document.getElementById(id).classList.remove('open'); }
 </script>
 
 </body>
