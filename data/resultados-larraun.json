@@ -1511,6 +1511,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-05-08",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (L. Arregui - I. San) ARREGUI MENDIZABAL, L. SAN VICENTE FERNANDEZ, I.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño - I. Lociga) ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(5-9) (6-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3156&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-04-17",
     "fronton": "Salinas de Pamplona - Mutilendako",
     "etxekoa": "NOAIN (J. Jauregi - I. Lizarraga) JAUREGI IBARRA, J. LIZARRAGA LATASA, I.",
@@ -1577,6 +1591,90 @@
     ],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3157&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-17",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (J. Sayas - M. Izaguirre) IZAGUIRRE ORMAZABAL, M. SAYAS GOICOECHEA, J.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(8-9) (7-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-24",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "AURRERA (A. Amundarain - J. Saralegi) AMUNDARAIN DELGADO, A. SARALEGI OLANO, J.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-5) (9-4)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-10",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "HUARTE (A. Etxeberria - O. Goienaga) GOIENAGA GARCIA, O. MARSAL RUIZ DE LARRAMENDI, J.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-7) (9-5)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-19",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "ABAXITABIDEA (Z. Beunza - J. Hugalde) BEUNZA USANOS, Z. HUGALDE IRIBARREN , J.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-5) (9-1)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-04-25",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "kanpokoak": "IRURTZUN (U. Arano - H. Zelaia) ARANO IRIARTE, U. ZELAIA TABAR, H.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(5-9) (6-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-08",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (A. Claver - A. Unamuno) CLAVER MAZKIARAN, A. UNAMUNO SANMIGUEL, A.",
+    "kanpokoak": "LARRAUN (A. Ruiz - L. Oiartzun) OIARTZUN GOIKOETXEA, L. RUIZ MARTIN, A.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-3) (9-8)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FASE FINAL NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3158&temp=2025",
     "emaitza": "galduta",
     "ofiziala": true
   },
