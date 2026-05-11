@@ -24,8 +24,8 @@ const CONVERSION = [
     value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
   },
   {
-    match: "A. Eguzkiza - L. Navarro",
-    value: "LARRAUN (L. Navarro - M. Lazkoz)"
+    match: "A. Sagardui - J. Sotil",
+    value: "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)"
   },
   {
     match: "X. Goldaracena - E. Astibia",
