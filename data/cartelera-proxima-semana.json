@@ -1,24 +1,24 @@
 {
-  "fecha_generacion": "2026-05-10T20:51:34.599Z",
-  "semana_numero": 20,
+  "fecha_generacion": "2026-05-11T10:39:04.478Z",
+  "semana_numero": 21,
   "total_partidos": 2,
   "partidos": [
     {
-      "fecha": "2026/05/16",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (H. Apezetxea - L. Legarra)",
-      "kanpokoak": "LARRAUN (G. Astiz - I. Larreta)",
+      "fecha": "2026/05/23",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "G.PILOTA (A. Garmendia - I. Guerra)",
+      "kanpokoak": "LARRAUN (H. Apezetxea - L. Legarra)",
       "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
     },
     {
-      "fecha": "2026/05/16",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (U. Goñi - L. Bengoetxea)",
-      "kanpokoak": "OBERENA (M. Glaria - I. Nuin)",
+      "fecha": "2026/05/23",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "AUÑAMENDI (E. Zia - L. Iriarte)",
+      "kanpokoak": "LARRAUN (U. Goñi - L. Bengoetxea)",
       "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
     }
   ]
