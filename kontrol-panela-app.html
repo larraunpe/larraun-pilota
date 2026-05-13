@@ -117,18 +117,30 @@
         }
         #viewer-desktop-btn.desktop-active .desktop-badge { display: block; }
 
-        /* Iframe wrapper: enables horizontal scroll in desktop mode */
+        /* Iframe wrapper: scroll container, only active when viewer is open */
         #viewer-iframe-wrap {
-            flex: 1; overflow: auto;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             background: var(--cream);
+            /* Critical: must not leak outside the fixed #viewer */
+            position: relative;
+            min-height: 0;
         }
 
         #viewer-iframe {
-            width: 100%; height: 100%; border: none; background: var(--cream); display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: var(--cream);
+            display: block;
         }
 
-        /* Desktop mode: iframe gets fixed wide viewport */
+        /* Desktop mode: allow horizontal scroll, fix width at 1024px */
+        #viewer-iframe-wrap.desktop-mode {
+            overflow-x: auto;
+        }
         #viewer-iframe-wrap.desktop-mode #viewer-iframe {
             width: 1024px;
             min-height: 100%;
@@ -536,7 +548,7 @@
     <!-- SECTION 2: DOKUMENTUAK -->
     <div class="section-label"><i class="fas fa-folder-open"></i> Dokumentuak</div>
 
-    <div class="card-full" onclick="openViewer('arauak.pdf','Arauak')">
+    <div class="card-full" onclick="openViewer('arauak.pdf?v=2','Arauak')">
         <div class="card-full-thumb" style="background:linear-gradient(135deg,#c13b2b,#e85040);">
             <i class="fas fa-scale-balanced" style="color:white;font-size:1.6rem;"></i>
         </div>
@@ -547,7 +559,7 @@
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
 
-    <div class="card-full" onclick="openViewer('txapelketak-egutegia.pdf','Txapelketen Egutegia')">
+    <div class="card-full" onclick="openViewer('txapelketak-egutegia.pdf?v=2','Txapelketen Egutegia')">
         <div class="card-full-thumb" style="background:linear-gradient(135deg,#9a6c2a,#c49040);">
             <i class="fas fa-trophy" style="color:white;font-size:1.6rem;"></i>
         </div>
@@ -558,7 +570,7 @@
         <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
 
-    <div class="card-full" onclick="openViewer('ikasturteko-egutegia.pdf','Ikasturteko Egutegia')">
+    <div class="card-full" onclick="openViewer('ikasturteko-egutegia.pdf?v=2','Ikasturteko Egutegia')">
         <div class="card-full-thumb" style="background:linear-gradient(135deg,#2a6c4a,#3a9060);">
             <i class="fas fa-graduation-cap" style="color:white;font-size:1.6rem;"></i>
         </div>
