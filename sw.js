@@ -1,8 +1,7 @@
 // Larraun Pilota PWA - Service Worker
-// Aldatu CACHE_NAME bertsioa eguneratzean
-const CACHE_NAME = 'larraun-pilota-v1';
+// ⚠️  Aldatu CACHE_NAME zenbakia PDFak edo orrialdeak eguneratzean
+const CACHE_NAME = 'larraun-pilota-v2';
 
-// Fitxategiak cachean gorde (offline erabilgarri)
 const PRECACHE_URLS = [
     '/kontrol-panela-app.html',
     '/manifest.json',
@@ -13,31 +12,39 @@ const PRECACHE_URLS = [
 // Install: precache core files
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll(PRECACHE_URLS).catch(err => {
-                console.warn('Precache partial failure (ok for external URLs):', err);
-            });
-        }).then(() => self.skipWaiting())
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(PRECACHE_URLS).catch(() => {}))
+            .then(() => self.skipWaiting())
     );
 });
 
-// Activate: clean old caches
+// Activate: clean old caches (this forces removal of cached PDFs from v1)
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-            )
-        ).then(() => self.clients.claim())
+        caches.keys()
+            .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+            .then(() => self.clients.claim())
     );
 });
 
-// Fetch: network-first for HTML (always fresh), cache-first for assets
+// Fetch strategy
 self.addEventListener('fetch', event => {
     const { request } = event;
     const url = new URL(request.url);
 
-    // Network-first for navigation (HTML pages) — always get latest content
+    // ─── NEVER cache PDFs: always fetch fresh from network ───
+    if (url.pathname.endsWith('.pdf')) {
+        event.respondWith(
+            fetch(request, { cache: 'no-store' })
+                .catch(() => new Response('PDF ez dago erabilgarri konexiorik gabe.', {
+                    status: 503,
+                    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+                }))
+        );
+        return;
+    }
+
+    // ─── Network-first for HTML navigation (always fresh content) ───
     if (request.mode === 'navigate') {
         event.respondWith(
             fetch(request)
@@ -51,7 +58,7 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // Cache-first for fonts, icons, CSS
+    // ─── Cache-first for fonts and icons (stable resources) ───
     if (
         url.hostname.includes('fonts.googleapis.com') ||
         url.hostname.includes('fonts.gstatic.com') ||
@@ -71,7 +78,7 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // Default: network with cache fallback
+    // ─── Default: network with cache fallback ───
     event.respondWith(
         fetch(request).catch(() => caches.match(request))
     );
