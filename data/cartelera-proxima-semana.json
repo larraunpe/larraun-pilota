@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-05-15T09:49:14.148Z",
+  "fecha_generacion": "2026-05-15T15:17:30.197Z",
   "semana_numero": 21,
-  "total_partidos": 6,
+  "total_partidos": 8,
   "partidos": [
     {
       "fecha": "2026/05/23",
@@ -29,6 +29,24 @@
       "etxekoa": "IRURTZUN",
       "kanpokoak": "LARRAUN",
       "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/23",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "IRURTZUN",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/23",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "IRURTZUN",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA"
     },
     {
       "fecha": "2026/05/24",
