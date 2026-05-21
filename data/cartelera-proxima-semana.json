@@ -1,16 +1,43 @@
 {
-  "fecha_generacion": "2026-05-20T20:20:55.148Z",
+  "fecha_generacion": "2026-05-21T10:40:51.517Z",
   "semana_numero": 22,
   "total_partidos": 9,
   "partidos": [
     {
       "fecha": "2026/05/30",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
+      "hora": "10:30 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Trinkete",
       "etxekoa": "LARRAUN (G. Astiz - I. Larreta)",
       "kanpokoak": "G.PILOTA (A. Garmendia - I. Guerra)",
       "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/30",
+      "hora": "11:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN",
+      "kanpokoak": "GOIZUETA",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/30",
+      "hora": "11:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN",
+      "kanpokoak": "GOIZUETA",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
+    },
+    {
+      "fecha": "2026/05/30",
+      "hora": "11:00 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN",
+      "kanpokoak": "GOIZUETA",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA"
     },
     {
       "fecha": "2026/05/30",
@@ -20,33 +47,6 @@
       "etxekoa": "LARRAUN (H. Apezetxea - L. Legarra)",
       "kanpokoak": "Descanso",
       "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
-    },
-    {
-      "fecha": "2026/05/30",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "GOIZUETA",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
-    },
-    {
-      "fecha": "2026/05/30",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "GOIZUETA",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
-    },
-    {
-      "fecha": "2026/05/30",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "GOIZUETA",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA"
     },
     {
       "fecha": "2026/05/30",
