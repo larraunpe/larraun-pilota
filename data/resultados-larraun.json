@@ -395,6 +395,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-05-23",
+    "fronton": "Garralda - Trinkete",
+    "etxekoa": "AUÑAMENDI (E. Zia - L. Iriarte) IRIARTE BIURRARENA, L. ZIA MURILLO, E.",
+    "kanpokoak": "LARRAUN (U. Goñi - L. Bengoetxea) BENGOETXEA LARRARTE, L. GOÑI ELUSTONDO, U.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(10-15) (10-15)"
+    ],
+    "modalidad": "NKJ - TRINKETE TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3191&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-05-17",
     "fronton": "Pamplona - Frontón Labrit",
     "etxekoa": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
@@ -406,6 +420,42 @@
     "emaitza": "irabazita",
     "ofiziala": true,
     "etxekoa_original": "UMORE ONA (A. Sagardui - J. Sotil) SAGARDUI LEKUONA, A. SOTIL MIKEO, J."
+  },
+  {
+    "fecha": "2026-05-23",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN ARANO IRIARTE, U. ZELAIA TABAR, H.",
+    "kanpokoak": "LARRAUN ARIZTIMUÑO ZUBIRIA, U. LOCIGA MUÑOZ, I.",
+    "tanteoa": "18-12",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3208&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-23",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN COBOS HUARTE, E. ZABALETA SANTESTEBAN, L.",
+    "kanpokoak": "LARRAUN BALDA ETXEBERRIA, E. CENTENO CELAYA, D.",
+    "tanteoa": "18-8",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3209&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-23",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN ERVITI LARUMBE, H. OSINAGA RAZKIN, O.",
+    "kanpokoak": "LARRAUN ARGAÑA ARRIBILLAGA, M. GOLDARACENA LANZ, X.",
+    "tanteoa": "18-6",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3210&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
   },
   {
     "fecha": "2026-05-22",
