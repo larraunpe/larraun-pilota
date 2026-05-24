@@ -1,4 +1,4 @@
-[
+ñ[
   {     "fecha": "2026-05-13",     "fronton": "Irun",     "etxekoa": "LAPKE – MURUMENDI (Perez – Garmendia)",     "kanpokoak": "BURUZGAIN – LARRAUN (Aldaz – E. Galarza)",     "tanteoa": "8-22",     "sets": [],     "modalidad": "ESKU PILOTAKO ZIRKUITUA KANPORAKETA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": "https://circuitopelotamano.com/resultados-emaitzak/"   },
   {     "fecha": "2026-05-15",     "fronton": "Larrion",     "etxekoa": "SAN MIGUEL (A. Iliberri - A. Larunbe)",     "kanpokoak": "S. SEBASTIAN - LARRAUN (I. Bañales - D. Centeno)",     "tanteoa": "10-18",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. HAURRAK LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
   {     "fecha": "2026-05-16",     "fronton": "Estella – Remontival",     "etxekoa": "SAN MIGUEL (S. Alvez – M. Mancisidor)",     "kanpokoak": "SORAUREN – LARRAUN (E. Zarikiegi – A. Astiz)",     "tanteoa": "11-18",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KIMU LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
@@ -6,5 +6,39 @@
   {     "fecha": "2026-05-22",     "fronton": "Ezcaray",     "etxekoa": "LARRAUN – TXUMULUTXUETA (O. Iriarte – Meabe)",     "kanpokoak": "TXUKUN LAKUA – TOLOSA (Ruiz – Karrera)",     "tanteoa": "18-0",     "sets": ["susp."],     "modalidad": "ESKU PILOTAKO ZIRKUITUA. NAGUSIAK LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
   {     "fecha": "2026-05-23",     "fronton": "Ezkabarte",     "etxekoa": "SORAUREN – LARRAUN (E. Zarikiegi – A. Astiz)",     "kanpokoak": "ARAXES (Valdibia – Iriarte)",     "tanteoa": "9-18",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KIMU 4 LIGAXKA",     "emaitza": "galduta",     "ofiziala": "false",     "url": ""   },
   {     "fecha": "2026-05-22",     "fronton": "Ororbia – Municipal",     "etxekoa": "ABAXITABIDEA (M. Casajus - ⁠H. Astibia)",     "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",     "tanteoa": "14-18",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KIMU 2 LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
-  {     "fecha": "2026-05-22",     "fronton": "Tafalla – Ereta",     "etxekoa": "S. SEBASTIAN - LARRAUN (I. Bañales - D. Centeno)",     "kanpokoak": "SAN MIGUEL (D. Gambra - A. Jimenez )",     "tanteoa": "18-10",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. HAURRAK 2 LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   }
+  {     "fecha": "2026-05-22",     "fronton": "Tafalla – Ereta",     "etxekoa": "S. SEBASTIAN - LARRAUN (I. Bañales - D. Centeno)",     "kanpokoak": "SAN MIGUEL (D. Gambra - A. Jimenez )",     "tanteoa": "18-10",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. HAURRAK 2 LIGAXKA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
+  {
+  "fecha": "2026/05/24",
+  "hora": "10:00",
+  "zkia": "1",
+  "fronton": "Lekunberri – Jaian Jai",
+  "etxekoa": "IRURTZUN (Saracibar – Etxeberria)",
+  "kanpokoak": "LARRAUN (Ijurko – I. Sotil)",
+  "lehiaketa": "2026 ESKU-PILOTAKO KLUBEN LIGA. KADETE FINAL LAURDENAK",
+  "tanteoa": "2-0",
+  "sets": [
+    "10-1",
+    "10-1"
+  ],
+  "emaitza": "irabazita",
+  "ofiziala": "true",
+  "url": ""
+},
+  {
+  "fecha": "2026/05/24",
+  "hora": "10:00",
+  "zkia": "1",
+  "fronton": "Lekunberri – Jaian Jai",
+  "etxekoa": "IRURTZUN (Salaberria anaiak)",
+  "kanpokoak": "LARRAUN (Nazabal – Telletxea)",
+  "lehiaketa": "2026 ESKU-PILOTAKO KLUBEN LIGA. GAZTE FINAL LAURDENAK",
+  "tanteoa": "2-0",
+  "sets": [
+    "10-2",
+    "10-3"
+  ],
+  "emaitza": "irabazita",
+  "ofiziala": "true",
+  "url": ""
+}
 ]
