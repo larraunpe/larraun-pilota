@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Larraul - Añadir resultado no oficial</title>
+    <style>
+        body { font-family: system-ui; padding: 1rem; max-width: 600px; margin: 0 auto; }
+        input, select, textarea { width: 100%; padding: 8px; margin: 5px 0 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { background: #1a73e8; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%; }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h2>➕ Añadir resultado no oficial</h2>
+    
+    <label>Fecha (YYYY-MM-DD):</label>
+    <input type="date" id="fecha" value="2026-05-24">
+    
+    <label>Frontón:</label>
+    <input type="text" id="fronton" placeholder="Ej: Lekunberri - Jaian Jai">
+    
+    <label>Etxekoa:</label>
+    <input type="text" id="etxekoa" placeholder="LARRAUN (jugadores)">
+    
+    <label>Kanpokoak:</label>
+    <input type="text" id="kanpokoak" placeholder="Equipo contrario">
+    
+    <label>Tanteoa:</label>
+    <input type="text" id="tanteoa" placeholder="18-10">
+    
+    <label>Sets (opcional, separados por coma):</label>
+    <input type="text" id="sets" placeholder="Ej: 10-4, 10-6">
+    
+    <label>Modalidad / Lehiaketa:</label>
+    <input type="text" id="modalidad" placeholder="UDABERRIKO TXAPELKETA. HAURRAK 2 LIGAXKA">
+    
+    <label>Emaitza:</label>
+    <select id="emaitza">
+        <option value="irabazita">✅ irabazita</option>
+        <option value="galduta">❌ galduta</option>
+        <option value="batura">🔄 batura</option>
+    </select>
+    
+    <button onclick="generarJSON()">🔁 Generar JSON</button>
+    
+    <h3>📋 JSON generado:</h3>
+    <pre id="output"></pre>
+    <button onclick="copiarJSON()">📋 Copiar</button>
+
+    <script>
+        function generarJSON() {
+            const setsRaw = document.getElementById('sets').value;
+            const setsArray = setsRaw ? setsRaw.split(',').map(s => s.trim()) : [];
+            
+            const resultado = {
+                fecha: document.getElementById('fecha').value,
+                fronton: document.getElementById('fronton').value,
+                etxekoa: document.getElementById('etxekoa').value,
+                kanpokoak: document.getElementById('kanpokoak').value,
+                tanteoa: document.getElementById('tanteoa').value,
+                sets: setsArray,
+                modalidad: document.getElementById('modalidad').value,
+                emaitza: document.getElementById('emaitza').value,
+                ofiziala: "false",
+                url: ""
+            };
+            
+            document.getElementById('output').textContent = JSON.stringify(resultado, null, 2);
+        }
+        
+        function copiarJSON() {
+            const texto = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(texto);
+            alert('¡Copiado!');
+        }
+    </script>
+</body>
+</html>
