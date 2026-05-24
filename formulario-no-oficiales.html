@@ -69,6 +69,13 @@
         .row-2 > div {
             flex: 1;
         }
+        .row-3 {
+            display: flex;
+            gap: 12px;
+        }
+        .row-3 > div {
+            flex: 1;
+        }
         button {
             background: #0f3b2c;
             color: white;
@@ -151,9 +158,20 @@
             margin-bottom: 16px;
             text-align: center;
         }
+        .ofizial-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 8px;
+        }
         @media (max-width: 500px) {
             body { padding: 12px; }
             .card { padding: 1rem; }
+            .row-3 { flex-direction: column; gap: 0; }
         }
     </style>
 </head>
@@ -167,7 +185,7 @@
         <div id="status"></div>
 
         <!-- Lista de partidos -->
-        <label>📋 Aukeratu partida (ez ofiziala)</label>
+        <label>📋 Aukeratu partida</label>
         <select id="partidoSelector" disabled>
             <option value="">-- Kargatzen... --</option>
         </select>
@@ -206,7 +224,7 @@
             <label>🏆 Lehiaketa / Fasea</label>
             <input type="text" id="lehiaketa" placeholder="Txapelketa + Fasea" required>
 
-            <div class="row-2">
+            <div class="row-3">
                 <div>
                     <label>⚡ Tanteoa (adibidez: 18-10)</label>
                     <input type="text" id="tanteoa" placeholder="18-10">
@@ -217,6 +235,13 @@
                         <option value="irabazita">✅ irabazita</option>
                         <option value="galduta">❌ galduta</option>
                         <option value="batura">🔄 batura / bertan behera</option>
+                    </select>
+                </div>
+                <div>
+                    <label>🏅 Ofiziala</label>
+                    <select id="ofiziala">
+                        <option value="false">❌ Ez ofiziala</option>
+                        <option value="true">✅ Ofiziala (FNK, FEP, Espainiako Txap.)</option>
                     </select>
                 </div>
             </div>
@@ -256,6 +281,14 @@
     const selectEl = document.getElementById('partidoSelector');
     const statusDiv = document.getElementById('status');
 
+    // Función para limpiar el formulario (deja solo los precargados)
+    function limpiarFormulario() {
+        document.getElementById('tanteoa').value = '';
+        document.getElementById('sets').value = '';
+        document.getElementById('emaitza').value = 'irabazita';
+        document.getElementById('url').value = '';
+    }
+
     // Función para actualizar el desplegable
     function actualizarListaPartidos(partidos) {
         partidosActuales = partidos;
@@ -271,9 +304,10 @@
         partidos.forEach((p, idx) => {
             const option = document.createElement('option');
             option.value = idx;
+            const ofizialMark = p.ofiziala === 'true' ? '🏅 ' : '';
             let titulo = '';
             if (p.fecha && p.fronton && p.etxekoa && p.kanpokoak) {
-                titulo = `${p.fecha} | ${p.fronton} | ${p.etxekoa} vs ${p.kanpokoak}`;
+                titulo = `${ofizialMark}${p.fecha} | ${p.fronton} | ${p.etxekoa} vs ${p.kanpokoak}`;
             } else {
                 titulo = `Partida ${idx + 1}`;
             }
@@ -281,7 +315,8 @@
             selectEl.appendChild(option);
         });
         
-        statusDiv.innerHTML = `<div class="success">✅ ${partidos.length} partida kargatuta</div>`;
+        const ofizialCount = partidos.filter(p => p.ofiziala === 'true').length;
+        statusDiv.innerHTML = `<div class="success">✅ ${partidos.length} partida kargatuta (${ofizialCount} ofizial)</div>`;
     }
 
     // Mostrar error
@@ -330,11 +365,20 @@
         document.getElementById('etxekoa').value = partida.etxekoa || '';
         document.getElementById('kanpokoak').value = partida.kanpokoak || '';
         document.getElementById('lehiaketa').value = partida.lehiaketa || '';
-        // tanteoa, sets, emaitza NO se precargan (son los que hay que rellenar)
+        
+        // 🔥 PRECARGAR ofiziala desde el JSON
+        const ofizialaValue = partida.ofiziala === 'true' ? 'true' : 'false';
+        document.getElementById('ofiziala').value = ofizialaValue;
+        
+        // PRECARGAR url si existe
+        if (partida.url) {
+            document.getElementById('url').value = partida.url;
+        }
+        
+        // Limpiar campos de resultado (los que hay que rellenar)
         document.getElementById('tanteoa').value = '';
         document.getElementById('sets').value = '';
         document.getElementById('emaitza').value = 'irabazita';
-        document.getElementById('url').value = partida.url || '';
     }
 
     // Generar JSON con el resultado
@@ -358,7 +402,7 @@
             tanteoa: document.getElementById('tanteoa').value,
             sets: setsArray,
             emaitza: document.getElementById('emaitza').value,
-            ofiziala: "false",
+            ofiziala: document.getElementById('ofiziala').value,
             url: document.getElementById('url').value
         };
 
