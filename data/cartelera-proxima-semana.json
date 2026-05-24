@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-05-24T19:20:05.093Z",
+  "fecha_generacion": "2026-05-24T20:58:29.351Z",
   "semana_numero": 22,
   "total_partidos": 9,
   "partidos": [
@@ -73,7 +73,7 @@
       "fronton": "-",
       "etxekoa": "BARAÑAIN",
       "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA"
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE LIGAXKA"
     },
     {
       "fecha": "2026/05/31",
@@ -82,7 +82,7 @@
       "fronton": "-",
       "etxekoa": "BARAÑAIN",
       "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE LIGAXKA"
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA"
     }
   ]
 }
