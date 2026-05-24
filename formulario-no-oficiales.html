@@ -1,79 +1,394 @@
 <!DOCTYPE html>
-<html>
+<html lang="eu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Larraul - Añadir resultado no oficial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Larraun Pilota - Añadir resultado</title>
     <style>
-        body { font-family: system-ui; padding: 1rem; max-width: 600px; margin: 0 auto; }
-        input, select, textarea { width: 100%; padding: 8px; margin: 5px 0 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        button { background: #1a73e8; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%; }
-        pre { background: #f0f0f0; padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 12px; }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            color: #0f3b2c;
+        }
+        .sub {
+            color: #4b5563;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #10b981;
+            padding-left: 0.75rem;
+        }
+        label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            background: white;
+            transition: 0.2s;
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        .row-2 {
+            display: flex;
+            gap: 12px;
+        }
+        .row-2 > div {
+            flex: 1;
+        }
+        button {
+            background: #0f3b2c;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 40px;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        button.secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+        button:hover {
+            background: #1e5a43;
+            transform: scale(0.98);
+        }
+        button.secondary:hover {
+            background: #cbd5e1;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 20px;
+            overflow-x: auto;
+            font-size: 12px;
+            font-family: 'SF Mono', monospace;
+            margin: 16px 0 8px;
+        }
+        .badge {
+            background: #e6f7ec;
+            color: #0b3b2a;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        hr {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        .help {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: -12px;
+            margin-bottom: 16px;
+        }
+        .loading {
+            background: #fef9c3;
+            color: #854d0e;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        @media (max-width: 500px) {
+            body { padding: 12px; }
+            .card { padding: 1rem; }
+        }
     </style>
 </head>
 <body>
-    <h2>➕ Añadir resultado no oficial</h2>
-    
-    <label>Fecha (YYYY-MM-DD):</label>
-    <input type="date" id="fecha" value="2026-05-24">
-    
-    <label>Frontón:</label>
-    <input type="text" id="fronton" placeholder="Ej: Lekunberri - Jaian Jai">
-    
-    <label>Etxekoa:</label>
-    <input type="text" id="etxekoa" placeholder="LARRAUN (jugadores)">
-    
-    <label>Kanpokoak:</label>
-    <input type="text" id="kanpokoak" placeholder="Equipo contrario">
-    
-    <label>Tanteoa:</label>
-    <input type="text" id="tanteoa" placeholder="18-10">
-    
-    <label>Sets (opcional, separados por coma):</label>
-    <input type="text" id="sets" placeholder="Ej: 10-4, 10-6">
-    
-    <label>Modalidad / Lehiaketa:</label>
-    <input type="text" id="modalidad" placeholder="UDABERRIKO TXAPELKETA. HAURRAK 2 LIGAXKA">
-    
-    <label>Emaitza:</label>
-    <select id="emaitza">
-        <option value="irabazita">✅ irabazita</option>
-        <option value="galduta">❌ galduta</option>
-        <option value="batura">🔄 batura</option>
-    </select>
-    
-    <button onclick="generarJSON()">🔁 Generar JSON</button>
-    
-    <h3>📋 JSON generado:</h3>
-    <pre id="output"></pre>
-    <button onclick="copiarJSON()">📋 Copiar</button>
+<div class="container">
+    <div class="card">
+        <h1>🎾 Larraun Pilota</h1>
+        <div class="sub">Gehitu emaitza — hautatu partida eta bete markadorea</div>
 
-    <script>
-        function generarJSON() {
-            const setsRaw = document.getElementById('sets').value;
-            const setsArray = setsRaw ? setsRaw.split(',').map(s => s.trim()) : [];
-            
-            const resultado = {
-                fecha: document.getElementById('fecha').value,
-                fronton: document.getElementById('fronton').value,
-                etxekoa: document.getElementById('etxekoa').value,
-                kanpokoak: document.getElementById('kanpokoak').value,
-                tanteoa: document.getElementById('tanteoa').value,
-                sets: setsArray,
-                modalidad: document.getElementById('modalidad').value,
-                emaitza: document.getElementById('emaitza').value,
-                ofiziala: "false",
-                url: ""
-            };
-            
-            document.getElementById('output').textContent = JSON.stringify(resultado, null, 2);
+        <!-- Estado de carga -->
+        <div id="status"></div>
+
+        <!-- Lista de partidos -->
+        <label>📋 Aukeratu partida (ez ofiziala)</label>
+        <select id="partidoSelector" disabled>
+            <option value="">-- Kargatzen... --</option>
+        </select>
+
+        <hr>
+
+        <form id="resultForm">
+            <div class="row-2">
+                <div>
+                    <label>📅 Data (YYYY/MM/DD)</label>
+                    <input type="text" id="fecha" placeholder="2026/05/22" required>
+                </div>
+                <div>
+                    <label>⏰ Ordua</label>
+                    <input type="text" id="hora" placeholder="18:30">
+                </div>
+            </div>
+
+            <div class="row-2">
+                <div>
+                    <label>🔢 Zkia.</label>
+                    <input type="text" id="zkia" placeholder="1">
+                </div>
+                <div>
+                    <label>🏟️ Frontoia</label>
+                    <input type="text" id="fronton" placeholder="Frontoia" required>
+                </div>
+            </div>
+
+            <label>🏠 Etxekoa</label>
+            <input type="text" id="etxekoa" placeholder="LARRAUN ..." required>
+
+            <label>🚌 Kanpokoak</label>
+            <input type="text" id="kanpokoak" placeholder="Aurkaria" required>
+
+            <label>🏆 Lehiaketa / Fasea</label>
+            <input type="text" id="lehiaketa" placeholder="Txapelketa + Fasea" required>
+
+            <div class="row-2">
+                <div>
+                    <label>⚡ Tanteoa (adibidez: 18-10)</label>
+                    <input type="text" id="tanteoa" placeholder="18-10">
+                </div>
+                <div>
+                    <label>🎯 Emaitza</label>
+                    <select id="emaitza">
+                        <option value="irabazita">✅ irabazita</option>
+                        <option value="galduta">❌ galduta</option>
+                        <option value="batura">🔄 batura / bertan behera</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>📊 Sets (aukerakoa, komaz bananduta)</label>
+            <input type="text" id="sets" placeholder="Adib: 10-4, 10-6">
+
+            <label>🔗 URL (aukerakoa)</label>
+            <input type="text" id="url" placeholder="https://...">
+
+            <button type="button" id="generateBtn">✨ Sortu JSON</button>
+        </form>
+
+        <h3 style="margin-top: 24px; font-size: 1.1rem;">📄 JSON sortua</h3>
+        <pre id="jsonOutput">{
+  "fecha": "",
+  "hora": "",
+  "zkia": "",
+  "fronton": "",
+  "etxekoa": "",
+  "kanpokoak": "",
+  "lehiaketa": "",
+  "tanteoa": "",
+  "sets": [],
+  "emaitza": "",
+  "ofiziala": "false",
+  "url": ""
+}</pre>
+        <button id="copyBtn" class="secondary">📋 Kopiatu JSON</button>
+    </div>
+</div>
+
+<script>
+    let partidosActuales = [];
+
+    // Elementos del DOM
+    const selectEl = document.getElementById('partidoSelector');
+    const statusDiv = document.getElementById('status');
+
+    // Función para actualizar el desplegable
+    function actualizarListaPartidos(partidos) {
+        partidosActuales = partidos;
+        selectEl.innerHTML = '<option value="">-- Partida bat hautatu --</option>';
+        selectEl.disabled = false;
+        
+        if (partidos.length === 0) {
+            selectEl.innerHTML = '<option value="">-- Ez da partidarik aurkitu --</option>';
+            statusDiv.innerHTML = '<div class="warning">⚠️ Ez da partidarik kargatu.</div>';
+            return;
         }
         
-        function copiarJSON() {
-            const texto = document.getElementById('output').textContent;
-            navigator.clipboard.writeText(texto);
-            alert('¡Copiado!');
+        partidos.forEach((p, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            let titulo = '';
+            if (p.fecha && p.fronton && p.etxekoa && p.kanpokoak) {
+                titulo = `${p.fecha} | ${p.fronton} | ${p.etxekoa} vs ${p.kanpokoak}`;
+            } else {
+                titulo = `Partida ${idx + 1}`;
+            }
+            option.textContent = titulo.length > 70 ? titulo.substring(0, 70) + '…' : titulo;
+            selectEl.appendChild(option);
+        });
+        
+        statusDiv.innerHTML = `<div class="success">✅ ${partidos.length} partida kargatuta</div>`;
+    }
+
+    // Mostrar error
+    function mostrarError(mensaje) {
+        statusDiv.innerHTML = `<div class="error">❌ ${mensaje}</div>`;
+        selectEl.disabled = false;
+        selectEl.innerHTML = '<option value="">-- Errorea kargatzean --</option>';
+    }
+
+    // Cargar desde GitHub (o cualquier URL de JSON)
+    async function cargarDesdeGitHub() {
+        statusDiv.innerHTML = '<div class="loading">🔄 Partidak kargatzen...</div>';
+        selectEl.disabled = true;
+        selectEl.innerHTML = '<option value="">-- Kargatzen... --</option>';
+        
+        // 🔧 CAMBIA ESTA URL POR LA DE TU JSON EN GITHUB
+        // Ejemplo: https://raw.githubusercontent.com/TU-USUARIO/TU-REPO/main/data/partidos-no-oficiales.json
+        const jsonUrl = 'data/partidos-no-oficiales.json';
+        
+        try {
+            const response = await fetch(jsonUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            const partidos = await response.json();
+            
+            if (!Array.isArray(partidos)) {
+                throw new Error('JSONak array bat izan behar du');
+            }
+            
+            actualizarListaPartidos(partidos);
+            
+        } catch (error) {
+            console.error('Error cargando JSON:', error);
+            mostrarError(`Ezin izan da JSON-a kargatu: ${error.message}. 
+                         Ziurtatu URL-a zuzena dela eta fitxategia existitzen dela.`);
         }
-    </script>
+    }
+
+    // Auto-llenar formulario al seleccionar partida
+    function fillFormFromPartida(partida) {
+        document.getElementById('fecha').value = partida.fecha || '';
+        document.getElementById('hora').value = partida.hora || '';
+        document.getElementById('zkia').value = partida.zkia || '';
+        document.getElementById('fronton').value = partida.fronton || '';
+        document.getElementById('etxekoa').value = partida.etxekoa || '';
+        document.getElementById('kanpokoak').value = partida.kanpokoak || '';
+        document.getElementById('lehiaketa').value = partida.lehiaketa || '';
+        // tanteoa, sets, emaitza NO se precargan (son los que hay que rellenar)
+        document.getElementById('tanteoa').value = '';
+        document.getElementById('sets').value = '';
+        document.getElementById('emaitza').value = 'irabazita';
+        document.getElementById('url').value = partida.url || '';
+    }
+
+    // Generar JSON con el resultado
+    function parseSets(setsStr) {
+        if (!setsStr || !setsStr.trim()) return [];
+        return setsStr.split(',').map(s => s.trim()).filter(s => s !== "");
+    }
+
+    function generateJSON() {
+        const setsStr = document.getElementById('sets').value;
+        const setsArray = parseSets(setsStr);
+
+        const output = {
+            fecha: document.getElementById('fecha').value,
+            hora: document.getElementById('hora').value,
+            zkia: document.getElementById('zkia').value,
+            fronton: document.getElementById('fronton').value,
+            etxekoa: document.getElementById('etxekoa').value,
+            kanpokoak: document.getElementById('kanpokoak').value,
+            lehiaketa: document.getElementById('lehiaketa').value,
+            tanteoa: document.getElementById('tanteoa').value,
+            sets: setsArray,
+            emaitza: document.getElementById('emaitza').value,
+            ofiziala: "false",
+            url: document.getElementById('url').value
+        };
+
+        document.getElementById('jsonOutput').textContent = JSON.stringify(output, null, 2);
+    }
+
+    // Copiar al portapapeles
+    async function copiarJSON() {
+        const jsonText = document.getElementById('jsonOutput').textContent;
+        try {
+            await navigator.clipboard.writeText(jsonText);
+            alert('✅ JSON kopiatu da!');
+        } catch (err) {
+            alert('❌ Ezin izan da kopiatu. Eskuz kopiatu.');
+        }
+    }
+
+    // Eventos
+    selectEl.addEventListener('change', (e) => {
+        const idx = e.target.value;
+        if (idx !== "" && partidosActuales[idx]) {
+            fillFormFromPartida(partidosActuales[idx]);
+        }
+    });
+
+    document.getElementById('generateBtn').addEventListener('click', generateJSON);
+    document.getElementById('copyBtn').addEventListener('click', copiarJSON);
+
+    // Cargar al iniciar
+    cargarDesdeGitHub();
+</script>
 </body>
 </html>
