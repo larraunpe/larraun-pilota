@@ -110,26 +110,10 @@
             font-family: 'SF Mono', monospace;
             margin: 16px 0 8px;
         }
-        .badge {
-            background: #e6f7ec;
-            color: #0b3b2a;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
         hr {
             margin: 1rem 0;
             border: none;
             border-top: 1px solid #e2e8f0;
-        }
-        .help {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-top: -12px;
-            margin-bottom: 16px;
         }
         .loading {
             background: #fef9c3;
@@ -157,16 +141,6 @@
             font-size: 0.85rem;
             margin-bottom: 16px;
             text-align: center;
-        }
-        .ofizial-badge {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 8px;
         }
         @media (max-width: 500px) {
             body { padding: 12px; }
@@ -197,6 +171,7 @@
                 <div>
                     <label>📅 Data (YYYY/MM/DD)</label>
                     <input type="text" id="fecha" placeholder="2026/05/22" required>
+                    <div class="help">Formatua: YYYY/MM/DD (JSON-an YYYY-MM-DD bihurtuko da)</div>
                 </div>
                 <div>
                     <label>⏰ Ordua</label>
@@ -221,8 +196,9 @@
             <label>🚌 Kanpokoak</label>
             <input type="text" id="kanpokoak" placeholder="Aurkaria" required>
 
-            <label>🏆 Lehiaketa / Fasea</label>
+            <label>🏆 Lehiaketa / Fasea (modalitatea)</label>
             <input type="text" id="lehiaketa" placeholder="Txapelketa + Fasea" required>
+            <div class="help">JSON-an "modalidad" gisa agertuko da</div>
 
             <div class="row-3">
                 <div>
@@ -263,7 +239,7 @@
   "fronton": "",
   "etxekoa": "",
   "kanpokoak": "",
-  "lehiaketa": "",
+  "modalidad": "",
   "tanteoa": "",
   "sets": [],
   "emaitza": "",
@@ -281,12 +257,11 @@
     const selectEl = document.getElementById('partidoSelector');
     const statusDiv = document.getElementById('status');
 
-    // Función para limpiar el formulario (deja solo los precargados)
-    function limpiarFormulario() {
-        document.getElementById('tanteoa').value = '';
-        document.getElementById('sets').value = '';
-        document.getElementById('emaitza').value = 'irabazita';
-        document.getElementById('url').value = '';
+    // Función para convertir fecha de YYYY/MM/DD a YYYY-MM-DD
+    function convertirFechaFormato(fechaStr) {
+        if (!fechaStr) return '';
+        // Reemplaza las barras por guiones
+        return fechaStr.replace(/\//g, '-');
     }
 
     // Función para actualizar el desplegable
@@ -333,7 +308,6 @@
         selectEl.innerHTML = '<option value="">-- Kargatzen... --</option>';
         
         // 🔧 CAMBIA ESTA URL POR LA DE TU JSON EN GITHUB
-        // Ejemplo: https://raw.githubusercontent.com/TU-USUARIO/TU-REPO/main/data/partidos-no-oficiales.json
         const jsonUrl = 'data/partidos-no-oficiales.json';
         
         try {
@@ -351,8 +325,7 @@
             
         } catch (error) {
             console.error('Error cargando JSON:', error);
-            mostrarError(`Ezin izan da JSON-a kargatu: ${error.message}. 
-                         Ziurtatu URL-a zuzena dela eta fitxategia existitzen dela.`);
+            mostrarError(`Ezin izan da JSON-a kargatu: ${error.message}`);
         }
     }
 
@@ -366,7 +339,7 @@
         document.getElementById('kanpokoak').value = partida.kanpokoak || '';
         document.getElementById('lehiaketa').value = partida.lehiaketa || '';
         
-        // 🔥 PRECARGAR ofiziala desde el JSON
+        // PRECARGAR ofiziala desde el JSON
         const ofizialaValue = partida.ofiziala === 'true' ? 'true' : 'false';
         document.getElementById('ofiziala').value = ofizialaValue;
         
@@ -390,15 +363,19 @@
     function generateJSON() {
         const setsStr = document.getElementById('sets').value;
         const setsArray = parseSets(setsStr);
+        
+        // Obtener fecha original (formato YYYY/MM/DD) y convertir a YYYY-MM-DD
+        const fechaOriginal = document.getElementById('fecha').value;
+        const fechaConvertida = convertirFechaFormato(fechaOriginal);
 
         const output = {
-            fecha: document.getElementById('fecha').value,
+            fecha: fechaConvertida,
             hora: document.getElementById('hora').value,
             zkia: document.getElementById('zkia').value,
             fronton: document.getElementById('fronton').value,
             etxekoa: document.getElementById('etxekoa').value,
             kanpokoak: document.getElementById('kanpokoak').value,
-            lehiaketa: document.getElementById('lehiaketa').value,
+            modalidad: document.getElementById('lehiaketa').value,  // lehiaketa → modalidad
             tanteoa: document.getElementById('tanteoa').value,
             sets: setsArray,
             emaitza: document.getElementById('emaitza').value,
