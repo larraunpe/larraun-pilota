@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/05/30",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Barañain - Retegi",
     "etxekoa": "BARAÑAIN",
@@ -10,7 +10,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "5",
     "fronton": "Barañain - Retegi",
     "etxekoa": "BARAÑAIN",
@@ -19,7 +19,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "6",
     "fronton": "Barañain - Retegi",
     "etxekoa": "BARAÑAIN",
@@ -28,7 +28,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "10:30 !Horario provisional",
+    "hora": "10:30",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (G. Astiz - I. Larreta)",
@@ -37,7 +37,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
@@ -46,7 +46,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
@@ -55,7 +55,7 @@
   },
   {
     "fecha": "2026/05/30",
-    "hora": "11:00 !Horario provisional",
+    "hora": "11:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
@@ -67,7 +67,7 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN (U. Goñi - L. Bengoetxea)",
+    "etxekoa": "LARRAUN (H. Apezetxea - L. Legarra)",
     "kanpokoak": "Descanso",
     "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
   },
@@ -76,7 +76,7 @@
     "hora": "- !Horario provisional",
     "zkia": "-",
     "fronton": "-",
-    "etxekoa": "LARRAUN (H. Apezetxea - L. Legarra)",
+    "etxekoa": "LARRAUN (U. Goñi - L. Bengoetxea)",
     "kanpokoak": "Descanso",
     "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA LIGAXKA"
   }
