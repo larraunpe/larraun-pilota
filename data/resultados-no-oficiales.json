@@ -6,5 +6,17 @@
   {     "fecha": "2026-05-24",     "fronton": "Lekunberri – Jaian Jai",     "etxekoa": "IRURTZUN (Saracibar – Etxeberria)",     "kanpokoak": "LARRAUN (Ijurko – I. Sotil)",     "tanteoa": "0-2",     "sets": ["1-10 1-10"],     "modalidad": "2026 ESKU-PILOTAKO KLUBEN LIGA. KADETE FINAL LAURDENAK",     "emaitza": "irabazita",     "ofiziala": "true",     "url": "https://www.euskalpilota.eus/pub/circuitoPrivado.asp?idioma=eu&idCategoria=3435&temporada=2025"   },
   {     "fecha": "2026-05-24",     "fronton": "Lekunberri – Jaian Jai",     "etxekoa": "IRURTZUN (Salaberria anaiak)",     "kanpokoak": "LARRAUN (Nazabal – Telletxea)",     "tanteoa": "0-2",     "sets": ["2-10 3-10"],     "modalidad": "2026 ESKU-PILOTAKO KLUBEN LIGA. GAZTE FINAL LAURDENAK",     "emaitza": "irabazita",     "ofiziala": "true",     "url": "https://www.euskalpilota.eus/pub/circuitoPrivado.asp?idioma=eu&idCategoria=3435&temporada=2025"   },
   {     "fecha": "2026-05-24",     "fronton": "Lekunberri – Jaian Jai",     "etxekoa": "IRURTZUN (Igoa – Arbizu)",     "kanpokoak": "LARRAUN (Galarza – Galarza)",     "tanteoa": "2-0",     "sets": ["10-7 10-2"],     "modalidad": "2026 ESKU-PILOTAKO KLUBEN LIGA. NAGUSIAK FINAL LAURDENAK",     "emaitza": "galduta",     "ofiziala": "true",     "url": "https://www.euskalpilota.eus/pub/circuitoPrivado.asp?idioma=eu&idCategoria=3435&temporada=2025"   },
-  {     "fecha": "2026-05-24",     "fronton": "Barañain – Retegi",     "etxekoa": "TOLOSA (Ansola – Lasa)",     "kanpokoak": "LARRAUN (Ijurko – Sotil)",     "tanteoa": "17-18",     "sets": [],     "modalidad": "SAN ESTEBAN-EKO ESKUZ BINAKAKO TXAPELKETA. KADETE KANPORAKETA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   }
+  {     "fecha": "2026-05-24",     "fronton": "Barañain – Retegi",     "etxekoa": "TOLOSA (Ansola – Lasa)",     "kanpokoak": "LARRAUN (Ijurko – Sotil)",     "tanteoa": "17-18",     "sets": [],     "modalidad": "SAN ESTEBAN-EKO ESKUZ BINAKAKO TXAPELKETA. KADETE KANPORAKETA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
+    {
+    "fecha": "2026-05-25",
+    "fronton": "Bergara",
+    "etxekoa": "TOLOSA – OBERENA (Iribarria – Balerdi)",
+    "kanpokoak": "LAGUNAK – LARRAUN (Arribillaga – Sotil)",
+    "tanteoa": "22-17",
+    "sets": [],
+    "modalidad": "BERGARA HIRIA TXAPELKETA. NAGUSIAK FINALA",
+    "emaitza": "galduta",
+    "ofiziala": "false",
+    "url": "https://pilotarentxokoa.com/calendario-torneo-bergara-hiria-2026/"
+  }
 ]
