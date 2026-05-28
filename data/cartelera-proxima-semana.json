@@ -1,8 +1,17 @@
 {
-  "fecha_generacion": "2026-05-27T20:21:09.465Z",
+  "fecha_generacion": "2026-05-28T10:57:25.974Z",
   "semana_numero": 23,
   "total_partidos": 6,
   "partidos": [
+    {
+      "fecha": "2026/06/06",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "CENDEA DE OLZA",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
+    },
     {
       "fecha": "2026/06/06",
       "hora": "- !Horario provisional",
@@ -20,15 +29,6 @@
       "etxekoa": "CENDEA DE OLZA",
       "kanpokoak": "LARRAUN",
       "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
-    },
-    {
-      "fecha": "2026/06/06",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "CENDEA DE OLZA",
-      "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
     },
     {
       "fecha": "2026/06/07",
