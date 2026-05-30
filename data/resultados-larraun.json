@@ -448,11 +448,35 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-05-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "GOIZUETA MAKAZAGA ZABALA, A. ZUBIRI LOYARTE, N.",
+    "tanteoa": "13-18",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3208&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-05-23",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN COBOS HUARTE, E. ZABALETA SANTESTEBAN, L.",
     "kanpokoak": "LARRAUN BALDA ETXEBERRIA, E. CENTENO CELAYA, D.",
     "tanteoa": "18-8",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3209&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN BALDA ETXEBERRIA, E. CENTENO CELAYA, D.",
+    "kanpokoak": "GOIZUETA LARRALDE AROTZENA, U. LUJAMBIO PERURENA , I.",
+    "tanteoa": "17-18",
     "sets": [],
     "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3209&temp=2025",
@@ -472,6 +496,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-05-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN ARGAÑA ARRIBILLAGA, M. GOLDARACENA LANZ, X.",
+    "kanpokoak": "GOIZUETA ARANBERRI APEZETXEA, H. ELIZEGI SALABERRIA, L.",
+    "tanteoa": "1-18",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3210&temp=2025",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-05-22",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA SAGASTIBELTZA BENGOETXEA, H. UGARTEMENDIA MENDIZABAL, A.",
@@ -481,6 +517,18 @@
     "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3211&temp=2025",
     "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-30",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "BARAÑAIN ARRIETA ELCANO, I. BEITIA MENDIVE, J.",
+    "kanpokoak": "LARRAUN BALDA IRUNGARAI, A. BILDARRAZ ANSORENA, J.",
+    "tanteoa": "7-22",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3211&temp=2025",
+    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
@@ -496,6 +544,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-05-30",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "BARAÑAIN GOMEZ MARTINEZ, A. ZUGASTI LOZANO, U.",
+    "kanpokoak": "LARRAUN IJURKO BAKAIKUA, O. IJURKO BAKAIKUA, E.",
+    "tanteoa": "1-22",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3212&temp=2025",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-05-20",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA GOIKOETXEA SAGASTIBELTZA, E. TXOPERENA ZABALETA, H.",
@@ -505,6 +565,18 @@
     "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3213&temp=2025",
     "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-05-30",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "BARAÑAIN ITURBIDE LEGAZ, I. KAÑAMARES ZUDAIRE, I.",
+    "kanpokoak": "LARRAUN GALARTZA ROTETA, I. GALARZA NOGUERA, E.",
+    "tanteoa": "8-22",
+    "sets": [],
+    "modalidad": "HERRIARTEKO CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3213&temp=2025",
+    "emaitza": "irabazita",
     "ofiziala": true
   }
 ]
