@@ -11,8 +11,8 @@ const TEMPORADA = 2025;
 const ID_COMPETICION_DESDE = 3159;
 const ID_COMPETICION_HASTA = 3260;
 
-const ID_FASE_DESDE = 20825;
-const ID_FASE_HASTA = 20825;
+const ID_FASE_DESDE = 20910;
+const ID_FASE_HASTA = 20911;
 
 // Obtener la ruta del directorio actual
 const __filename = fileURLToPath(import.meta.url);
