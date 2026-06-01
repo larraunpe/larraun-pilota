@@ -7,7 +7,7 @@ fetch("data/kategoriak.json")
     const month = today.getMonth() + 1; // 1–12
 
     // año de referencia según temporada
-    const refYear = month >= 9 ? year + 1 : year;
+    const refYear = month >= 6 ? year + 1 : year;
 
     const container = document.getElementById("kategoriak-container");
 
