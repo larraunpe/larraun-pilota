@@ -17,6 +17,14 @@ function getHTML(url) {
   });
 }
 
+// ---------- frontoiak ----------
+// Bilatu "Lekunberri" edo "Aldatz" frontoiaren izenean (case insensitive)
+function isLekunberriOrAldatz(frontonText) {
+  if (!frontonText) return false;
+  const lower = frontonText.toLowerCase();
+  return lower.includes("lekunberri") || lower.includes("aldatz");
+}
+
 // ---------- conversion reglas ----------
 const CONVERSION = [
   {
@@ -55,6 +63,17 @@ function convertirPareja(texto) {
   return limpio;
 }
 
+// Detectar si un partido es de Larraun (equipo local o visitante)
+function isLarraunMatch(etxekoa, kanpokoak) {
+  return (
+    etxekoa.includes("LARRAUN") ||
+    kanpokoak.includes("LARRAUN") ||
+    CONVERSION.some(rule =>
+      etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
+    )
+  );
+}
+
 // ---------- main ----------
 (async () => {
   try {
@@ -77,39 +96,47 @@ function convertirPareja(texto) {
       const hora = cols[1] || "-";
       const zkia = cols[2] || "-";
       const fronton = cols[3] || "-";
-      const etxekoa = cols[4] || "-";
-      const kanpokoak = cols[5] || "-";
+      const etxekoaRaw = cols[4] || "-";
+      const kanpokoakRaw = cols[5] || "-";
       const lehiaketa = cols[6] || "-";
 
-      // solo partidos donde juegue LARRAUN
-      const esLarraun =
-        etxekoa.includes("LARRAUN") ||
-        kanpokoak.includes("LARRAUN") ||
-        CONVERSION.some(rule =>
-          etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
-        );
+      // 1. Iragazi: soilik Lekunberri edo Aldatzeko partiduak
+      if (!isLekunberriOrAldatz(fronton)) return;
 
-      if (!esLarraun) return;
+      // 2. Bihurtu pareen izenak (CONVERSION arauekin)
+      const etxekoa = convertirPareja(etxekoaRaw);
+      const kanpokoak = convertirPareja(kanpokoakRaw);
+
+      // 3. Markatu Larraunek parte hartzen duen (HTMLn nabarmendu ahal izateko)
+      const esLarraun = isLarraunMatch(etxekoaRaw, kanpokoakRaw);
 
       partidos.push({
         fecha,
         hora,
         zkia,
         fronton,
-        etxekoa: convertirPareja(etxekoa),  // ← CORREGIDO: ahora es etxekoa
-        kanpokoak: convertirPareja(kanpokoak),
-        lehiaketa
+        etxekoa,
+        kanpokoak,
+        lehiaketa,
+        larraunParteHartzen: esLarraun   // ← bandera nabarmena
       });
     });
 
-    // Usar fs/promises (asíncrono)
+    // Ordenatu data eta orduaren arabera (global)
+    partidos.sort((a, b) => {
+      const dateA = new Date(`${a.fecha} ${a.hora}`);
+      const dateB = new Date(`${b.fecha} ${b.hora}`);
+      return dateA - dateB;
+    });
+
     await fs.mkdir("data", { recursive: true });
     await fs.writeFile(
       "data/cartelera-larraun.json",
       JSON.stringify(partidos, null, 2)
     );
 
-    console.log(`✔ Cartelera actualizada (${partidos.length} partidos)`);
+    const larraunCount = partidos.filter(p => p.larraunParteHartzen).length;
+    console.log(`✔ Cartelera actualizada (${partidos.length} partidos totales, ${larraunCount} con participación de Larraun)`);
 
   } catch (err) {
     console.error("❌ Error en scraping:", err);
