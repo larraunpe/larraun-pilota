@@ -1,627 +1,298 @@
 <!DOCTYPE html>
 <html lang="eu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etxeko partiduak – Stories</title>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <style>
-        /* Estilos generales de la interfaz */
-        body {
-            margin: 0;
-            background: #1b4d31;
-            font-family: 'Trebuchet MS', 'Arial Black', sans-serif;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .controls {
-            text-align: center;
-            margin: 20px auto;
-            max-width: 1200px;
-            width: 100%;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 50px;
-            border: 2px solid gold;
-        }
-        .dias-grid {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .dia-btn {
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: 2px solid gold;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-width: 120px;
-        }
-        .dia-btn:hover, .dia-btn.active {
-            background: gold;
-            color: black;
-            transform: scale(1.05);
-        }
-        .export-buttons button {
-            background: #ff0050;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.3);
-        }
-        .export-buttons button.secondary {
-            background: #2a5fc4;
-        }
-        #infoDia, #pageCounter {
-            color: white;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        /* Contenedor de las stories */
-        #contenedorPaginas {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        /* Estilos SOLO para las páginas/stories */
-        .pagina {
-            width: 1080px;
-            margin: 30px auto;
-            display: flex;
-            flex-direction: column;
-            background: #2c3e50;
-            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
-                              linear-gradient(145deg, #3a4a5a, #1a2a3a);
-            position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,.5);
-            border-radius: 30px;
-            overflow: hidden;
-            min-height: 1200px;
-        }
-        /* Header de la story - AHORA CON ETXEKO PARTIDUAK */
-        .story-header {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
-            padding: 0 30px;
-            border-bottom: 4px solid gold;
-            z-index: 2;
-            position: relative;
-        }
-        .story-header .logo {
-            height: 70px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px black);
-        }
-        .story-header .titulo-central {
-            color: white;
-            font-size: 36px;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0 #000, 0 0 15px gold;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.3);
-            padding: 5px 25px;
-            border-radius: 50px;
-            border: 2px solid rgba(255,215,0,0.3);
-        }
-        /* Contenido principal de la story */
-        .story-content {
-            flex: 1;
-            padding: 25px;
-            z-index: 2;
-            position: relative;
-        }
-        /* Tarjeta de información del día - AHORA CON EL DÍA DE LA SEMANA */
-        .info-dia-card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 25px;
-            padding: 15px 25px;
-            margin-bottom: 25px;
-            border: 3px solid gold;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        .info-dia-card .dia {
-            font-size: 32px;
-            font-weight: 900;
-            color: #1e4f32;
-            text-transform: uppercase;
-        }
-        .info-dia-card .fecha {
-            font-size: 20px;
-            color: #555;
-            font-weight: bold;
-        }
-        .info-dia-card .paginacion {
-            background: rgba(0,0,0,0.7);
-            color: gold;
-            padding: 6px 20px;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 8px;
-            font-weight: bold;
-            border: 2px solid gold;
-        }
-        /* Grupo de partidos (mismo frontón/hora) */
-        .grupo-partidos {
-            background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            border: 2px solid gold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .grupo-header {
-            padding: 15px 20px;
-            color: white;
-            background: linear-gradient(135deg, #1565c0, #0d47a1);
-        }
-        .grupo-header.trinkete {
-            background: linear-gradient(135deg, #ad1457, #7a0c3a);
-        }
-        .grupo-header .fronton {
-            font-size: 24px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 5px;
-        }
-        .grupo-header .datetime {
-            font-size: 18px;
-            display: flex;
-            gap: 20px;
-            opacity: 0.9;
-        }
-        .grupo-body {
-            padding: 15px;
-        }
-        /* Cada partido individual */
-        .partido-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .partido-item:last-child {
-            border-bottom: none;
-        }
-        .partido-torneo {
-            font-size: 18px;
-            font-weight: 900;
-            color: #1e4f32;
-            margin-bottom: 10px;
-            padding-left: 8px;
-            border-left: 5px solid gold;
-        }
-        .equipo-row {
-            display: flex;
-            align-items: center;
-            font-size: 20px;
-            font-weight: 700;
-            padding: 5px 0 5px 15px;
-        }
-        .equipo-icon {
-            width: 35px;
-            font-size: 22px;
-            margin-right: 10px;
-            text-align: center;
-        }
-        .etxekoa { color: #0d47a1; }
-        .kanpokoa { color: #b71c1c; }
-        /* Finala especial */
-        .partido-item.finala {
-            background: linear-gradient(145deg, rgba(255,215,0,0.15), rgba(255,200,0,0.25));
-            border-radius: 20px;
-            margin: 15px -5px;
-            padding: 15px;
-            border: 3px solid #d4af37;
-            box-shadow: 0 0 25px gold;
-        }
-        .partido-item.finala .partido-torneo {
-            color: #b8860b;
-            font-size: 20px;
-        }
-        /* Indicador de continuación */
-        .continuation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 30px auto;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.7);
-            padding: 20px;
-            border-radius: 60px;
-            border: 4px solid gold;
-            width: 70%;
-            backdrop-filter: blur(5px);
-        }
-        .continuation span {
-            font-size: 40px;
-            animation: bounce 1.5s infinite;
-        }
-        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
-        /* Footer con logos */
-        .story-footer {
-            background: linear-gradient(#1a1a1a, #0a0a0a);
-            padding: 15px;
-            border-top: 3px solid gold;
-            z-index: 2;
-            position: relative;
-        }
-        .logos-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 10px;
-        }
-        .logo-item {
-            background: white;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        .logo-item img {
-            width: 100%;
-            height: 35px;
-            object-fit: contain;
-        }
-        /* Indicador de página (absoluto) */
-        .page-number {
-            position: absolute;
-            bottom: 25px;
-            right: 35px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 40px;
-            font-size: 22px;
-            font-weight: bold;
-            border: 3px solid gold;
-            z-index: 10;
-            backdrop-filter: blur(5px);
-        }
-        /* Pelotazos de fondo */
-        .pelotazos {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.2;
-        }
-        .pelota-dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etxeko partiduak – Larraun Pilota Elkartea</title>
+
+<meta property="og:title" content="Etxeko partiduak – Larraun Pilota Elkartea">
+<meta property="og:description" content="Aste honetako partiduak Larraunen">
+<meta property="og:image" content="https://larraunpilota.eus/og-etxeko-partiduak.jpg">
+<meta property="og:url" content="https://larraunpilota.eus/etxeko-partiduak.html">
+<meta property="og:type" content="website">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:20px;
+}
+
+header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+header img{
+  height:80px;
+}
+
+h1{
+  margin:10px 0 0;
+  color:#004d40;
+}
+
+#content{
+  max-width:900px;
+  margin:auto;
+}
+
+/* ===== DÍA ===== */
+.day-separator{
+  margin:36px 0 18px;
+  text-align:center;
+  font-weight:900;
+  font-size:1.1em;
+  color:#333;
+}
+
+/* ===== GRUPO ===== */
+.group{
+  margin-bottom:22px;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+.group.no-oficial{
+  background:#f0f0f0;
+}
+
+/* CABECERA */
+.group-header{
+  padding:14px 18px;
+  color:#fff;
+}
+
+.jai-alai .group-header{ background:#1565c0; }
+.trinkete .group-header{ background:#ad1457; }
+
+.lekunberri .group-header{ box-shadow: inset 0 0 0 4px #1b5e20; }
+.aldatz .group-header{ box-shadow: inset 0 0 0 4px #4e342e; }
+
+.fronton{
+  font-size:1.25em;
+  font-weight:900;
+}
+
+.datetime{
+  font-size:1em;
+  margin-top:4px;
+}
+
+/* CUERPO */
+.group-body{
+  background:#fff;
+  padding:16px 18px;
+}
+
+.match{
+  padding-top:12px;
+  margin-top:12px;
+  border-top:1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+/* Estilo para partidos de Larraun (más destacado) */
+.match.larraun-partido {
+  background: linear-gradient(90deg, #e8f5e9 0%, #ffffff 100%);
+  border-left: 5px solid #2e7d32;
+  padding-left: 13px;
+  border-radius: 0 8px 8px 0;
+  margin-left: -5px;
+  margin-right: -5px;
+  padding-right: 18px;
+}
+
+.match.larraun-partido .etxekoa,
+.match.larraun-partido .kanpokoa {
+  font-weight: 800;
+}
+
+.match.larraun-partido .torneo {
+  color: #2e7d32;
+}
+
+.larraun-badge {
+  display: inline-block;
+  background: #2e7d32;
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-weight: normal;
+}
+
+.torneo{
+  font-size:1.1em;
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.etxekoa{ color:#0d47a1; font-weight:700; }
+.kanpokoa{ color:#b71c1c; font-weight:700; }
+
+/* Indicador visual de club en los nombres */
+.larraun-club {
+  background-color: #2e7d32;
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-weight: normal;
+}
+</style>
 </head>
+
 <body>
 
-<!-- CONTROLES (fuera de las stories) -->
-<div class="controls">
-    <div class="dias-grid" id="diasGrid"></div>
-    <div class="export-buttons">
-        <button onclick="exportarTodasLasStories()">📱 EXPORTAR STORIES DEL DÍA</button>
-        <button class="secondary" onclick="exportarTodosLosDias()">📱 EXPORTAR TODOS LOS DÍAS</button>
-    </div>
-    <div id="infoDia"></div>
-    <div id="pageCounter"></div>
-</div>
+<header>
+  <img src="images/etxekoak.jpg" alt="Larraun Pilota">
+  <h1>Etxeko partiduak</h1>
+</header>
 
-<!-- CONTENEDOR PARA LAS STORIES GENERADAS -->
-<div id="contenedorPaginas"></div>
+<div id="content"></div>
 
 <script>
-    // --- DATOS GLOBALES ---
-    let CATEGORIAS = {};
-    let todosLosPartidos = [];
-    let partidosPorDia = {}; // Agrupados por fecha real
+/* Función para comprobar si un equipo es Larraun (insensible a mayúsculas/minúsculas) */
+function isLarraunTeam(teamName) {
+  if (!teamName) return false;
+  return teamName.toLowerCase().includes('larraun');
+}
 
-    // --- FUNCIONES AUXILIARES ---
-    function dayEU(d) {
-        const days = ["IGANDEA", "ASTELEHENA", "ASTEARTEA", "ASTEAZKENA", "OSTEGUNA", "OSTIRALA", "LARUNBATA"];
-        const months = ["URTARRILA", "OTSAILA", "MARTXOA", "APIRILA", "MAIATZA", "EKAINA", "UZTAILA", "ABUZTUA", "IRAILA", "URRIA", "AZAROA", "ABENDUA"];
-        return {
-            dia: days[d.getDay()],
-            fecha: `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
-        };
-    }
-    function formatearFechaKey(d) {
-        return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
-    }
-    function parseFecha(fechaStr) {
-        if (!fechaStr) return new Date();
-        let fecha;
-        if (fechaStr.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
-            const partes = fechaStr.split('/');
-            fecha = new Date(`${partes[0]}-${partes[1]}-${partes[2]}T12:00:00`);
-        } else {
-            fecha = new Date(fechaStr + "T12:00:00");
-        }
-        return isNaN(fecha.getTime()) ? new Date() : fecha;
-    }
+/* Función para comprobar si algún equipo del partido es Larraun */
+function partidoInvolucraLarraun(partido) {
+  return isLarraunTeam(partido.etxekoa) || isLarraunTeam(partido.kanpokoak);
+}
 
-    // --- PAGINACIÓN: agrupa respetando grupos enteros ---
-    function paginarGrupos(grupos, maxPartidos = 5) {
-        const paginas = [];
-        let paginaActual = [];
-        let cuentaActual = 0;
-        grupos.forEach(g => {
-            if (cuentaActual + g.length > maxPartidos && paginaActual.length > 0) {
-                paginas.push(paginaActual);
-                paginaActual = [g];
-                cuentaActual = g.length;
-            } else {
-                paginaActual.push(g);
-                cuentaActual += g.length;
-            }
-        });
-        if (paginaActual.length) paginas.push(paginaActual);
-        return paginas;
-    }
+/* Función para añadir el badge de Larraun al nombre del equipo */
+function formatTeamName(teamName, prefix) {
+  if (!teamName) return '';
+  if (isLarraunTeam(teamName)) {
+    return `${prefix} ${teamName} <span class="larraun-club">🏠 LARRAUN</span>`;
+  }
+  return `${prefix} ${teamName}`;
+}
 
-    // --- GENERAR PELOTAZOS ---
-    function generarPelotazos(contenedor, altura) {
-        contenedor.innerHTML = '';
-        for (let i = 0; i < 1500; i++) {
-            const d = document.createElement('div');
-            d.className = 'pelota-dot';
-            d.style.left = Math.random() * 1080 + 'px';
-            d.style.top = Math.random() * altura + 'px';
-            d.style.width = d.style.height = (Math.random() * 4 + 2) + 'px';
-            contenedor.appendChild(d);
-        }
-    }
+/* ===== FECHAS ===== */
+function monday(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  if(day!==1) x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
 
-    // --- CREAR UNA STORY (PÁGINA) ---
-    function crearPagina(gruposPagina, numPagina, totalPaginas, diaInfo, fechaOriginal) {
-        const p = document.createElement('div');
-        p.className = 'pagina';
+function dayEU(d){
+  const days=["IGANDEA","ASTELEHENA","ASTEARTEA","ASTEAZKENA","OSTEGUNA","OSTIRALA","LARUNBATA"];
+  const months=["URTARRILA","OTSAILA","MARTXOA","APIRILA","MAIATZA","EKAINA","UZTAILA","ABUZTUA","IRAILA","URRIA","AZAROA","ABENDUA"];
+  return `${days[d.getDay()]} · ${d.getDate()} ${months[d.getMonth()]}`;
+}
 
-        // Calcular total de partidos en esta página
-        let totalEnPagina = gruposPagina.reduce((acc, g) => acc + g.length, 0);
+Promise.all([
+  fetch("data/cartelera-larraun.json").then(r=>r.json()),
+  fetch("data/partidos-no-oficiales.json").then(r=>r.json())
+]).then(([oficiales,noOficiales])=>{
 
-        // --- HEADER con ETXEKO PARTIDUAK en el centro ---
-        let html = `<div class="story-header">
-            <img src="images/logo-larraun.png" class="logo" onerror="this.style.display='none'">
-            <div class="titulo-central">ETXEKO PARTIDUAK</div>
-            <img src="images/logo-fnp.png" class="logo" onerror="this.style.display='none'">
-        </div>`;
+  const partidos=[...oficiales.map(p=>({...p,ofiziala:true})),...noOficiales];
 
-        // --- CONTENIDO ---
-        html += `<div class="story-content">`;
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const mon=monday(today);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  sun.setHours(23, 59, 59, 999);
 
-        // Tarjeta de información del día - AHORA CON EL DÍA DE LA SEMANA
-        html += `<div class="info-dia-card">`;
-        html += `<div class="dia">${diaInfo.dia}</div>`;
-        html += `<div class="fecha">${diaInfo.fecha}</div>`;
-        if (totalPaginas > 1) {
-            html += `<div class="paginacion">⚡ ${totalEnPagina} partidu · ZATIA ${numPagina}/${totalPaginas}</div>`;
-        }
-        html += `</div>`;
+  const data=partidos.filter(p=>{
+    if(!/lekunberri|aldatz/i.test(p.fronton||"")) return false;
+    const d=new Date(`${p.fecha} ${p.hora||"00:00"}`);
+    return d>=mon && d<=sun;
+  });
 
-        // Grupos de partidos
-        gruposPagina.forEach(grupo => {
-            const primero = grupo[0];
-            const esTrinkete = /trinkete/i.test(primero.fronton || '');
-            html += `<div class="grupo-partidos">`;
-            html += `<div class="grupo-header ${esTrinkete ? 'trinkete' : ''}">`;
-            html += `<div class="fronton"><span>📍</span> ${primero.fronton || 'Frontoia'}</div>`;
-            html += `<div class="datetime"><span>🗓 ${primero.fecha || ''}</span> <span>⏰ ${primero.hora || '00:00'}</span></div>`;
-            html += `</div>`;
-            html += `<div class="grupo-body">`;
+  data.sort((a,b)=>{
+    const da=new Date(`${a.fecha} ${a.hora||"00:00"}`);
+    const db=new Date(`${b.fecha} ${b.hora||"00:00"}`);
+    if(da-db!==0) return da-db;
+    return (a.fronton||"").localeCompare(b.fronton||"");
+  });
 
-            grupo.forEach((partido, index) => {
-                const esFinala = partido.lehiaketa && partido.lehiaketa.toUpperCase().includes('FINALA');
-                html += `<div class="partido-item ${esFinala ? 'finala' : ''}">`;
-                html += `<div class="partido-torneo">${partido.lehiaketa || 'Txapelketa'}</div>`;
-                html += `<div class="equipo-row"><span class="equipo-icon">🏠</span><span class="etxekoa">${partido.etxekoa || ''}</span></div>`;
-                if (partido.kanpokoak) {
-                    html += `<div class="equipo-row"><span class="equipo-icon">✈️</span><span class="kanpokoa">${partido.kanpokoak}</span></div>`;
-                }
-                html += `</div>`;
-            });
+  const cont=document.getElementById("content");
+  let lastDay="";
+  let lastGroupKey = "";
 
-            html += `</div></div>`;
-        });
+  data.forEach(p=>{
+    const d=new Date(`${p.fecha} ${p.hora||"00:00"}`);
+    const dayKey=d.toDateString();
 
-        // Indicador de continuación si no es la última página
-        if (numPagina < totalPaginas) {
-            html += `<div class="continuation"><span>👇</span> JARRAITU <span>👇</span></div>`;
-        }
-
-        html += `</div>`; // Cierra story-content
-
-        // --- FOOTER ---
-        html += `<div class="story-footer"><div class="logos-grid"></div></div>`;
-
-        // Número de página flotante
-        html += `<div class="page-number">${numPagina}/${totalPaginas}</div>`;
-
-        // Contenedor para los pelotazos
-        html += `<div class="pelotazos"></div>`;
-
-        p.innerHTML = html;
-        document.getElementById('contenedorPaginas').appendChild(p);
-
-        // Rellenar logos
-        const logos = [
-            "aliprox.jpg","arbeondo.jpg","asadorepeleta.jpg","barainhoa.jpg","kotxera.jpg",
-            "barilargi.jpg","barlekuonberri.jpg","begoñajanaridenda.jpg","carniceriaartxueta.jpg",
-            "carpinteriahnosazpiroz.jpg","construccionesgañarbe.jpg","construccionesgarciarenasaralegi.jpg",
-            "construccionesurangasaijos.jpg","hotelayestaran.jpg","iseelectricidad.jpg",
-            "kattagorrielkartea.jpg","lacturale.jpg","lagunasesoria.jpg","maderasnasorena.jpg",
-            "maskarada.jpg","suacontrol.jpg","urzubi.jpg","ventamugiro.jpg","dietistaanagurrea.jpg",
-            "ekin.jpg","farmaciaitziarmendia.png","fontaneriabalenciaga.jpg","fontaneriairibarren.jpg",
-            "izarberri.png","lakita.jpg","sidreriatokialai.jpg","tallereslarraun.jpg",
-            "talleresotxotorena.jpg","veterinarialekunberri.jpg"
-        ];
-        const grid = p.querySelector('.logos-grid');
-        if (grid) {
-            grid.innerHTML = logos.map(f => `<div class="logo-item"><img src="images/patrocinio/${f}" onerror="this.style.display='none'"></div>`).join('');
-        }
-
-        // Generar pelotazos después de que la página esté en el DOM
-        setTimeout(() => {
-            const altura = p.offsetHeight;
-            const pel = p.querySelector('.pelotazos');
-            generarPelotazos(pel, altura);
-        }, 50);
-
-        return p;
+    if(dayKey!==lastDay){
+      cont.innerHTML+=`<div class="day-separator">— ${dayEU(d)} —</div>`;
+      lastDay=dayKey;
     }
 
-    // --- CARGAR DATOS ---
-    Promise.all([
-        fetch('data/cartelera-larraun.json').then(r => r.json()),
-        fetch('data/partidos-no-oficiales.json').then(r => r.json()),
-        fetch('data/categoriacartel.json').then(r => r.json()).catch(() => ({}))
-    ]).then(([oficiales, noOficiales, categorias]) => {
-        CATEGORIAS = categorias;
+    const key=`${p.fronton}|${p.fecha}|${p.hora}`;
+    if(document.getElementById(key)) return;
 
-        // Combinar y filtrar
-        todosLosPartidos = [
-            ...oficiales.map(p => ({ ...p, ofiziala: true })),
-            ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
-        ].filter(p => {
-            if (!p.fronton) return false;
-            const f = p.fronton.toLowerCase();
-            return f.includes('lekunberri') || f.includes('aldatz');
-        });
+    const bloque=data.filter(x=>`${x.fronton}|${x.fecha}|${x.hora}`===key);
+    const b0=bloque[0];
 
-        // Agrupar por fecha
-        todosLosPartidos.forEach(p => {
-            const fecha = parseFecha(p.fecha);
-            const key = formatearFechaKey(fecha);
-            if (!partidosPorDia[key]) {
-                partidosPorDia[key] = { fecha, partidos: [] };
-            }
-            partidosPorDia[key].partidos.push(p);
-        });
+    const group=document.createElement("div");
+    group.id=key;
+    group.className="group"+
+      (!b0.ofiziala?" no-oficial":"")+
+      (/trinkete/i.test(b0.fronton)?" trinkete":" jai-alai")+
+      (/lekunberri/i.test(b0.fronton)?" lekunberri":" aldatz");
 
-        // Ordenar fechas
-        const diasOrdenados = Object.keys(partidosPorDia).sort();
+    group.innerHTML=`
+      <div class="group-header">
+        <div class="fronton">📍 ${b0.fronton}</div>
+        <div class="datetime">🗓 ${b0.fecha} · ⏰ ${b0.hora||""}</div>
+      </div>
+      <div class="group-body"></div>
+    `;
 
-        // Crear botones de días
-        const diasGrid = document.getElementById('diasGrid');
-        diasOrdenados.forEach(key => {
-            const data = partidosPorDia[key];
-            const info = dayEU(data.fecha);
-            const btn = document.createElement('button');
-            btn.className = 'dia-btn' + (info.dia === 'IGANDEA' ? ' sunday' : '');
-            btn.innerHTML = `${info.dia}<br><small>${info.fecha}</small><br><strong>${data.partidos.length} partidu</strong>`;
-            btn.onclick = (e) => {
-                document.querySelectorAll('.dia-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                seleccionarDia(key);
-            };
-            diasGrid.appendChild(btn);
-        });
+    const body=group.querySelector(".group-body");
 
-        // Seleccionar primer día
-        if (diasOrdenados.length) {
-            seleccionarDia(diasOrdenados[0]);
-            document.querySelector('.dia-btn')?.classList.add('active');
-        } else {
-            document.getElementById('infoDia').innerHTML = '❌ No hay partidos';
-        }
-    }).catch(error => {
-        console.error('Error:', error);
-        document.getElementById('infoDia').innerHTML = '❌ Error cargando datos';
+    bloque.forEach((m,i)=>{
+      /* Comprobar si este partido involucra a Larraun */
+      const esLarraun = partidoInvolucraLarraun(m);
+      
+      /* Formatear los nombres de los equipos con badge si es Larraun */
+      const etxekoaFormateado = formatTeamName(m.etxekoa, "🏠");
+      const kanpokoaFormateado = formatTeamName(m.kanpokoak, "✈️");
+      
+      /* Añadir clase especial si el partido es de Larraun */
+      const larraunClass = esLarraun ? 'larraun-partido' : '';
+      const larraunBadgeEnTorneo = esLarraun ? '<span class="larraun-badge">🌟 LARRAUN</span>' : '';
+      
+      body.innerHTML+=`
+        <div class="match ${larraunClass}">
+          <div class="torneo">${i+1} · ${m.lehiaketa||""} ${larraunBadgeEnTorneo}</div>
+          <div class="etxekoa">${etxekoaFormateado}</div>
+          <div class="kanpokoa">${kanpokoaFormateado}</div>
+        </div>
+      `;
     });
 
-    // --- SELECCIONAR UN DÍA Y GENERAR SUS STORIES ---
-    function seleccionarDia(fechaKey) {
-        const contenedor = document.getElementById('contenedorPaginas');
-        contenedor.innerHTML = '';
+    cont.appendChild(group);
+  });
 
-        const diaData = partidosPorDia[fechaKey];
-        if (!diaData) return;
-
-        const diaInfo = dayEU(diaData.fecha);
-        const partidos = [...diaData.partidos].sort((a,b) => (a.hora || '00:00').localeCompare(b.hora || '00:00'));
-
-        // Agrupar por frontón+fecha+hora (mismo grupo)
-        const gruposMap = {};
-        partidos.forEach(p => {
-            const key = `${p.fronton}|${p.fecha}|${p.hora}`;
-            if (!gruposMap[key]) gruposMap[key] = [];
-            gruposMap[key].push(p);
-        });
-        const grupos = Object.values(gruposMap);
-
-        // Paginar (máx 5 partidos por página)
-        const paginas = paginarGrupos(grupos, 5);
-
-        // Crear cada página
-        paginas.forEach((gruposPagina, idx) => {
-            crearPagina(gruposPagina, idx+1, paginas.length, diaInfo, `${diaInfo.dia} ${diaInfo.fecha}`);
-        });
-
-        // Actualizar info
-        document.getElementById('infoDia').innerHTML = `📅 ${diaInfo.dia} ${diaInfo.fecha} · ${partidos.length} partidos · ${paginas.length} página${paginas.length > 1 ? 's' : ''}`;
-        document.getElementById('pageCounter').innerHTML = `📱 ${paginas.length} story${paginas.length > 1 ? 's' : ''}`;
-    }
-
-    // --- EXPORTAR ---
-    async function exportarTodasLasStories() {
-        const paginas = document.querySelectorAll('.pagina');
-        for (let i = 0; i < paginas.length; i++) {
-            document.getElementById('pageCounter').innerHTML = `📸 Exportando ${i+1}/${paginas.length}...`;
-            await new Promise(r => setTimeout(r, 200));
-            const canvas = await html2canvas(paginas[i], {
-                scale: 2, backgroundColor: null, windowWidth: 1080,
-                height: paginas[i].offsetHeight, windowHeight: paginas[i].offsetHeight
-            });
-            const a = document.createElement('a');
-            a.href = canvas.toDataURL('image/jpeg', 0.95);
-            
-            // Ahora el día está en la tarjeta, no en el header
-            const diaCard = paginas[i].querySelector('.info-dia-card .dia');
-            const dia = diaCard ? diaCard.textContent.trim() : 'dia';
-            
-            const parte = paginas[i].querySelector('.paginacion')?.textContent.match(/ZATIA (\d+)/);
-            const sufijo = parte ? `-parte-${parte[1]}` : '';
-            a.download = `etxekoak-${dia}${sufijo}.jpg`;
-            a.click();
-            await new Promise(r => setTimeout(r, 500));
-        }
-        document.getElementById('pageCounter').innerHTML = `✅ ¡${paginas.length} stories exportadas!`;
-    }
-
-    async function exportarTodosLosDias() {
-        const dias = Object.keys(partidosPorDia).sort();
-        for (const key of dias) {
-            seleccionarDia(key);
-            await new Promise(r => setTimeout(r, 1000));
-            await exportarTodasLasStories();
-        }
-    }
-
-    // Exponer funciones globalmente
-    window.exportarTodasLasStories = exportarTodasLasStories;
-    window.exportarTodosLosDias = exportarTodosLosDias;
+  /* Mostrar mensaje si no hay partidos */
+  if (data.length === 0) {
+    cont.innerHTML += `<div style="text-align:center; padding:40px; background:white; border-radius:14px;">
+      <h3>📅 Aste honetan ez da partidurik Lekunberri edo Aldatzen</h3>
+      <p>Eguraldi on izan!</p>
+    </div>`;
+  }
+});
 </script>
+
 </body>
 </html>
