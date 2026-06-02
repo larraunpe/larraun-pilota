@@ -2,38 +2,52 @@
   {
     "fecha": "2026/06/05",
     "hora": "18:00",
+    "zkia": "1",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "G.PILOTA (I. Lehr - N. Marroyo)",
+    "kanpokoak": "G.PILOTA (M. Moreno - L. Arratibel)",
+    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA HAUR 2. NESKA FINAL ERDIAK",
+    "larraunParteHartzen": false
+  },
+  {
+    "fecha": "2026/06/05",
+    "hora": "18:00",
+    "zkia": "2",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "G.PILOTA (M. Lakuntza - L. Razkin)",
+    "kanpokoak": "G.PILOTA (G. Barandalla - O. Goñi)",
+    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA HAUR 2. NESKA FINAL ERDIAK",
+    "larraunParteHartzen": false
+  },
+  {
+    "fecha": "2026/06/05",
+    "hora": "18:00",
+    "zkia": "3",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "G.PILOTA (I. Mendiburu - J. Campos)",
+    "kanpokoak": "AUÑAMENDI (U. Erro - I. Garaño)",
+    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA HAUR 1. NESKA FINAL ERDIAK",
+    "larraunParteHartzen": false
+  },
+  {
+    "fecha": "2026/06/05",
+    "hora": "18:00",
+    "zkia": "4",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "G.PILOTA (A. Garmendia - I. Guerra)",
+    "kanpokoak": "OBERENA (M. Glaria - I. Nuin)",
+    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA FINAL ERDIAK",
+    "larraunParteHartzen": false
+  },
+  {
+    "fecha": "2026/06/05",
+    "hora": "18:00",
     "zkia": "5",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (U. Goñi - L. Bengoetxea)",
     "kanpokoak": "LARRAUN (G. Astiz - I. Larreta)",
-    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA FINAL ERDIAK"
-  },
-  {
-    "fecha": "2026/06/06",
-    "hora": "09:30",
-    "zkia": "1",
-    "fronton": "Asiain - Asiain",
-    "etxekoa": "CENDEA DE OLZA",
-    "kanpokoak": "LARRAUN",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
-  },
-  {
-    "fecha": "2026/06/06",
-    "hora": "09:30",
-    "zkia": "2",
-    "fronton": "Asiain - Asiain",
-    "etxekoa": "CENDEA DE OLZA",
-    "kanpokoak": "LARRAUN",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
-  },
-  {
-    "fecha": "2026/06/06",
-    "hora": "09:30",
-    "zkia": "3",
-    "fronton": "Asiain - Asiain",
-    "etxekoa": "CENDEA DE OLZA",
-    "kanpokoak": "LARRAUN",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA"
+    "lehiaketa": "TRK PGOMAZ NESKAK NKJ - PALETA GOMA KADETE NESKA FINAL ERDIAK",
+    "larraunParteHartzen": true
   },
   {
     "fecha": "2026/06/06",
@@ -42,7 +56,8 @@
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
     "kanpokoak": "ULTZAMA",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE LIGAXKA"
+    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE LIGAXKA",
+    "larraunParteHartzen": true
   },
   {
     "fecha": "2026/06/06",
@@ -51,7 +66,8 @@
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
     "kanpokoak": "ULTZAMA",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE LIGAXKA"
+    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE LIGAXKA",
+    "larraunParteHartzen": true
   },
   {
     "fecha": "2026/06/06",
@@ -60,6 +76,7 @@
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN",
     "kanpokoak": "ULTZAMA",
-    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA"
+    "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK LIGAXKA",
+    "larraunParteHartzen": true
   }
 ]
