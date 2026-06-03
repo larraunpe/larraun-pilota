@@ -43,8 +43,8 @@ const CONVERSION = [
     value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
   },
   {
-    match: "M. Goikoetxea - G. Uitzi",
-    value: "LARRAUN – ARAXES (M. Goikoetxea - G. Uitzi)"
+    match: "U. Erro - I. Garaño",
+    value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
   }
 ];
 
