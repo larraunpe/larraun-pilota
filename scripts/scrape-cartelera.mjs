@@ -18,7 +18,6 @@ function getHTML(url) {
 }
 
 // ---------- frontoiak ----------
-// Bilatu "Lekunberri" edo "Aldatz" frontoiaren izenean (case insensitive)
 function isLekunberriOrAldatz(frontonText) {
   if (!frontonText) return false;
   const lower = frontonText.toLowerCase();
@@ -64,12 +63,12 @@ function convertirPareja(texto) {
 }
 
 // Detectar si un partido es de Larraun (equipo local o visitante)
-function isLarraunMatch(etxekoa, kanpokoak) {
+function isLarraunMatch(etxekoaRaw, kanpokoakRaw) {
   return (
-    etxekoa.includes("LARRAUN") ||
-    kanpokoak.includes("LARRAUN") ||
+    etxekoaRaw.includes("LARRAUN") ||
+    kanpokoakRaw.includes("LARRAUN") ||
     CONVERSION.some(rule =>
-      etxekoa.includes(rule.match) || kanpokoak.includes(rule.match)
+      etxekoaRaw.includes(rule.match) || kanpokoakRaw.includes(rule.match)
     )
   );
 }
@@ -100,15 +99,18 @@ function isLarraunMatch(etxekoa, kanpokoak) {
       const kanpokoakRaw = cols[5] || "-";
       const lehiaketa = cols[6] || "-";
 
-      // 1. Iragazi: soilik Lekunberri edo Aldatzeko partiduak
-      if (!isLekunberriOrAldatz(fronton)) return;
+      // 1. Detectar si es partido de LARRAUN
+      const esLarraun = isLarraunMatch(etxekoaRaw, kanpokoakRaw);
+      
+      // 2. Detectar si se juega en Lekunberri o Aldatz
+      const esLekunberriAldatz = isLekunberriOrAldatz(fronton);
+      
+      // 3. INCLUIR si cumple ALGUNA de las dos condiciones
+      if (!esLarraun && !esLekunberriAldatz) return;
 
-      // 2. Bihurtu pareen izenak (CONVERSION arauekin)
+      // 4. Convertir nombres de parejas
       const etxekoa = convertirPareja(etxekoaRaw);
       const kanpokoak = convertirPareja(kanpokoakRaw);
-
-      // 3. Markatu Larraunek parte hartzen duen (HTMLn nabarmendu ahal izateko)
-      const esLarraun = isLarraunMatch(etxekoaRaw, kanpokoakRaw);
 
       partidos.push({
         fecha,
@@ -118,11 +120,12 @@ function isLarraunMatch(etxekoa, kanpokoak) {
         etxekoa,
         kanpokoak,
         lehiaketa,
-        larraunParteHartzen: esLarraun   // ← bandera nabarmena
+        larraunParteHartzen: esLarraun,  // true si participa Larraun
+        kokalekua: esLekunberriAldatz ? "Lekunberri/Aldatz" : "Beste nonbait"  // para información adicional
       });
     });
 
-    // Ordenatu data eta orduaren arabera (global)
+    // Ordenar por fecha y hora
     partidos.sort((a, b) => {
       const dateA = new Date(`${a.fecha} ${a.hora}`);
       const dateB = new Date(`${b.fecha} ${b.hora}`);
@@ -136,7 +139,13 @@ function isLarraunMatch(etxekoa, kanpokoak) {
     );
 
     const larraunCount = partidos.filter(p => p.larraunParteHartzen).length;
-    console.log(`✔ Cartelera actualizada (${partidos.length} partidos totales, ${larraunCount} con participación de Larraun)`);
+    const lekunberriAldatzCount = partidos.filter(p => p.kokalekua === "Lekunberri/Aldatz").length;
+    
+    console.log(`✔ Cartelera actualizada`);
+    console.log(`   📊 Total partidos: ${partidos.length}`);
+    console.log(`   🏠 Partidos de LARRAUN: ${larraunCount}`);
+    console.log(`   📍 Partidos en Lekunberri/Aldatz: ${lekunberriAldatzCount}`);
+    console.log(`   🔄 Partidos que cumplen ambas: ${partidos.filter(p => p.larraunParteHartzen && p.kokalekua === "Lekunberri/Aldatz").length}`);
 
   } catch (err) {
     console.error("❌ Error en scraping:", err);
