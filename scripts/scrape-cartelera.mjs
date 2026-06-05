@@ -42,6 +42,10 @@ const CONVERSION = [
     match: "A. Balda - U. Arcelus",
     value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
   },
+   {
+    match: "U. Erro - I. Gara",
+    value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
+  }
   {
     match: "U. Erro - I. Garaño",
     value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
