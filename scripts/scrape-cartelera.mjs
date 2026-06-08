@@ -46,10 +46,6 @@ const CONVERSION = [
     match: "U. Erro - I. Gara",
     value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
   }
-  {
-    match: "U. Erro - I. Garaño",
-    value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
-  }
 ];
 
 function convertirPareja(texto) {
