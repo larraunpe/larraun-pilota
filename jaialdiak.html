@@ -191,7 +191,7 @@ input:focus{outline:2px solid #7cb342;background:#fff;}
         </tr>
       </thead>
       <tbody id="taula">
-        <tr><td colspan="6" class="loading">Datuak kargatzen...</td></tr>
+        <tr><td colspan="6" class="loading">Datuak kargatzen......</td></tr>
       </tbody>
     </table>
   </div>
@@ -397,8 +397,11 @@ async function crearTabla() {
     ];
 
     const jaialdiak = {};
+    
+    // 🔽 MODIFICACIÓN AQUÍ 🔽
+    // Ahora incluye: Lekunberri, Aldatz, Gorriti y Astitz (sin distinción mayúsc/minúscula)
     data.forEach(p => {
-      if (!/lekunberri|aldatz|lekurbenti/i.test(p.fronton || "")) return;
+      if (!/lekunberri|aldatz|gorriti|astitz/i.test(p.fronton || "")) return;
 
       const hora = normalizaHora(p.hora);
       const key = `${p.fecha}|${hora}|${p.fronton}`;
