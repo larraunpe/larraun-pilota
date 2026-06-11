@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-06-11T11:23:25.021Z",
+  "fecha_generacion": "2026-06-11T16:55:31.972Z",
   "semana_numero": 25,
-  "total_partidos": 3,
+  "total_partidos": 6,
   "partidos": [
     {
       "fecha": "2026/06/20",
@@ -29,6 +29,33 @@
       "etxekoa": "LARRAUN",
       "kanpokoak": "BETELU",
       "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
+    },
+    {
+      "fecha": "2026/06/21",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ESTERIBAR",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE FINALERDIA"
+    },
+    {
+      "fecha": "2026/06/21",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ESTERIBAR",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE FINALERDIA"
+    },
+    {
+      "fecha": "2026/06/21",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ESTERIBAR",
+      "kanpokoak": "LARRAUN",
+      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK FINALERDIA"
     }
   ]
 }
