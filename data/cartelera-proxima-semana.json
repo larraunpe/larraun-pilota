@@ -1,61 +1,6 @@
 {
-  "fecha_generacion": "2026-06-14T21:14:43.919Z",
-  "semana_numero": 25,
-  "total_partidos": 6,
-  "partidos": [
-    {
-      "fecha": "2026/06/19",
-      "hora": "18:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Gorriti - Frontón Sorogain",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "BETELU",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI SEIN LIGAXKA"
-    },
-    {
-      "fecha": "2026/06/19",
-      "hora": "18:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Gorriti - Frontón Sorogain",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "BETELU",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI KIMU LIGAXKA"
-    },
-    {
-      "fecha": "2026/06/19",
-      "hora": "18:00 !Horario provisional",
-      "zkia": "3",
-      "fronton": "Gorriti - Frontón Sorogain",
-      "etxekoa": "LARRAUN",
-      "kanpokoak": "BETELU",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS TXIKI HAUR LIGAXKA"
-    },
-    {
-      "fecha": "2026/06/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ESTERIBAR",
-      "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO KADETE FINALERDIA"
-    },
-    {
-      "fecha": "2026/06/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ESTERIBAR",
-      "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO GAZTE FINALERDIA"
-    },
-    {
-      "fecha": "2026/06/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ESTERIBAR",
-      "kanpokoak": "LARRAUN",
-      "lehiaketa": "CAMPEONATO INTERPUEBLOS ABSOLUTO HELDUAK FINALERDIA"
-    }
-  ]
+  "fecha_generacion": "2026-06-15T13:17:18.053Z",
+  "semana_numero": 26,
+  "total_partidos": 0,
+  "partidos": []
 }
