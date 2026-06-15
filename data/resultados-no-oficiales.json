@@ -3,5 +3,19 @@
   {     "fecha": "2026-06-12",     "fronton": "Huarte – Toki Alai",     "etxekoa": "CD HUARTE (I. Arana - H. Esain )",     "kanpokoak": "S. SEBASTIAN - LARRAUN (I. Bañales - D. Centeno)",     "tanteoa": "18-9",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. HAURRAK 2 LIGAXKA",     "emaitza": "galduta",     "ofiziala": "false",     "url": ""   },
   {     "fecha": "2026-06-13",     "fronton": "Amorebieta",     "etxekoa": "LARRAUN (Nazabal)",     "kanpokoak": "BEHAR ZANA (Otaegi)",     "tanteoa": "22-5",     "sets": [],     "modalidad": "MASTER KAIOLA. GAZTEAK FINAL ERDIAK",     "emaitza": "irabazita",     "ofiziala": "false",     "url": "https://www.facebook.com/lagunonak.zornotza/videos/2181405269368074"   },
   {     "fecha": "2026-06-14",     "fronton": "ORORBIA",     "etxekoa": "LARRAUN (E. Balda - A. Dorronsoro)",     "kanpokoak": "AURRERA (P. Azpiroz - A. Baraibar)",     "tanteoa": "11-18",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KIMU 2 FINALA",     "emaitza": "galduta",     "ofiziala": "false",     "url": ""   },
-  {     "fecha": "2026-06-14",     "fronton": "ORORBIA",     "etxekoa": "LARRAUN (X. Goldarazena - E. Jaka)",     "kanpokoak": "AURRERA (A. Barandarain -  A. Bereau)",     "tanteoa": "22-13",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KADETE 3 FINALA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   }
+  {     "fecha": "2026-06-14",     "fronton": "ORORBIA",     "etxekoa": "LARRAUN (X. Goldarazena - E. Jaka)",     "kanpokoak": "AURRERA (A. Barandarain -  A. Bereau)",     "tanteoa": "22-13",     "sets": [],     "modalidad": "UDABERRIKO TXAPELKETA. KADETE 3 FINALA",     "emaitza": "irabazita",     "ofiziala": "false",     "url": ""   },
+  {
+  "fecha": "2026-06-14",
+  "hora": "17:15",
+  "zkia": "4",
+  "fronton": "Najera",
+  "etxekoa": "SAN COSME – LARRAUN (Fernandez – Sotil)",
+  "kanpokoak": "SAN COSME – IRURTZUN (Gutierrez – Arbizu)",
+  "modalidad": "TORNEO REINO DE NAJERA. SENIOR ELITE FINALA",
+  "tanteoa": "13-23",
+  "sets": [],
+  "emaitza": "galduta",
+  "ofiziala": "false",
+  "url": "https://www.eldiadelarioja.es/noticia/z357b4f5f-c01f-4e76-80c19a78f0700c08/202606/najera-corona-a-sus-reyes-con-txapelas"
+}
 ]
