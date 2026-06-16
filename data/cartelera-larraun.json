@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/06/19",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Gorriti - Frontón Sorogain",
     "etxekoa": "LARRAUN",
@@ -12,7 +12,7 @@
   },
   {
     "fecha": "2026/06/19",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "2",
     "fronton": "Gorriti - Frontón Sorogain",
     "etxekoa": "LARRAUN",
@@ -23,7 +23,7 @@
   },
   {
     "fecha": "2026/06/19",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "3",
     "fronton": "Gorriti - Frontón Sorogain",
     "etxekoa": "LARRAUN",
@@ -34,7 +34,7 @@
   },
   {
     "fecha": "2026/06/21",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Pamplona - Frontón Labrit",
     "etxekoa": "ESTERIBAR",
@@ -45,7 +45,7 @@
   },
   {
     "fecha": "2026/06/21",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Pamplona - Frontón Labrit",
     "etxekoa": "ESTERIBAR",
@@ -56,7 +56,7 @@
   },
   {
     "fecha": "2026/06/21",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Pamplona - Frontón Labrit",
     "etxekoa": "ESTERIBAR",
