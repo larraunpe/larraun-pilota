@@ -1,85 +1,162 @@
-// Larraun Pilota PWA - Service Worker
-// ⚠️  Aldatu CACHE_NAME zenbakia PDFak edo orrialdeak eguneratzean
-const CACHE_NAME = 'larraun-pilota-v2';
+// ============================================================
+// LARRAUN PILOTA - Service Worker
+// Versión: 2.0.0 (2026-01-18)
+// ============================================================
 
-const PRECACHE_URLS = [
-    '/kontrol-panela-app.html',
+const CACHE_NAME = 'larraun-pwa-v2-0-0';
+const STATIC_CACHE_NAME = 'larraun-static-v2-0-0';
+
+// Recursos estáticos que siempre queremos cachear (no cambian)
+const STATIC_ASSETS = [
+    '/',
+    '/index.html',
     '/manifest.json',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
-    'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap'
+    '/images/icons/LARRAUNTXI.png',
+    // Si tienes CSS o JS locales, añádelos aquí
+    // 'css/estilos.css',
+    // 'js/app.js',
 ];
 
-// Install: precache core files
-self.addEventListener('install', event => {
+// URLs que NUNCA deben cachearse (siempre red)
+const NEVER_CACHE = [
+    '/frontoi-ordutegiak.html',
+    '/taldeak.html',
+    '/kategoriak.html',
+    '/entrenatzaileak.html',
+    '/kartela9.html',
+    '/hurrengo-ordutegiak.html',
+    '/ordutegiak.html',
+    '/emaitzak1.html',
+    '/emaitzak-kartela9.html',
+    '/aldaketa-osoa.html',
+    '/aldaketak.html',
+    '/historiko.html',
+    '/arauak.pdf',
+    '/txapelketak-egutegia.pdf',
+    '/ikasturteko-egutegia.pdf',
+];
+
+// ─── INSTALL ─────────────────────────────────────────────
+self.addEventListener('install', (event) => {
+    console.log('[SW] Instalando...');
+    
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(PRECACHE_URLS).catch(() => {}))
-            .then(() => self.skipWaiting())
+        (async () => {
+            // Cachear recursos estáticos
+            const cache = await caches.open(STATIC_CACHE_NAME);
+            await cache.addAll(STATIC_ASSETS);
+            
+            // Activar inmediatamente
+            await self.skipWaiting();
+        })()
     );
 });
 
-// Activate: clean old caches (this forces removal of cached PDFs from v1)
-self.addEventListener('activate', event => {
+// ─── ACTIVATE ────────────────────────────────────────────
+self.addEventListener('activate', (event) => {
+    console.log('[SW] Activando...');
+    
     event.waitUntil(
-        caches.keys()
-            .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
-            .then(() => self.clients.claim())
+        (async () => {
+            // Limpiar cachés antiguas
+            const cacheNames = await caches.keys();
+            await Promise.all(
+                cacheNames
+                    .filter(name => name !== CACHE_NAME && name !== STATIC_CACHE_NAME)
+                    .map(name => caches.delete(name))
+            );
+            
+            // Tomar control de todas las páginas
+            await self.clients.claim();
+        })()
     );
 });
 
-// Fetch strategy
-self.addEventListener('fetch', event => {
-    const { request } = event;
-    const url = new URL(request.url);
-
-    // ─── NEVER cache PDFs: always fetch fresh from network ───
-    if (url.pathname.endsWith('.pdf')) {
+// ─── FETCH (ESTRATEGIA INTELIGENTE) ──────────────────────
+self.addEventListener('fetch', (event) => {
+    const url = new URL(event.request.url);
+    const requestUrl = url.pathname;
+    
+    // 1. SI ES UN RECURSO QUE NUNCA CACHEAMOS → RED SIEMPRE
+    if (NEVER_CACHE.some(path => requestUrl.includes(path))) {
         event.respondWith(
-            fetch(request, { cache: 'no-store' })
-                .catch(() => new Response('PDF ez dago erabilgarri konexiorik gabe.', {
-                    status: 503,
-                    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-                }))
-        );
-        return;
-    }
-
-    // ─── Network-first for HTML navigation (always fresh content) ───
-    if (request.mode === 'navigate') {
-        event.respondWith(
-            fetch(request)
-                .then(response => {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-                    return response;
+            fetch(event.request)
+                .catch(() => {
+                    // Si falla, mostrar página offline
+                    return caches.match('/offline.html');
                 })
-                .catch(() => caches.match(request).then(r => r || caches.match('/kontrol-panela-app.html')))
         );
         return;
     }
-
-    // ─── Cache-first for fonts and icons (stable resources) ───
-    if (
-        url.hostname.includes('fonts.googleapis.com') ||
-        url.hostname.includes('fonts.gstatic.com') ||
-        url.hostname.includes('cdnjs.cloudflare.com') ||
-        request.destination === 'image'
-    ) {
+    
+    // 2. SI ES UN RECURSO ESTÁTICO (css, js, imágenes) → CACHE FIRST
+    if (requestUrl.match(/\.(css|js|png|jpg|jpeg|gif|svg|webp|ico)$/)) {
         event.respondWith(
-            caches.match(request).then(cached => {
-                if (cached) return cached;
-                return fetch(request).then(response => {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-                    return response;
-                });
-            })
+            (async () => {
+                const cache = await caches.open(STATIC_CACHE_NAME);
+                const cachedResponse = await cache.match(event.request);
+                
+                if (cachedResponse) {
+                    // Devolver del caché y actualizar en segundo plano
+                    event.waitUntil(
+                        (async () => {
+                            try {
+                                const networkResponse = await fetch(event.request);
+                                await cache.put(event.request, networkResponse.clone());
+                            } catch (e) {
+                                // No pasa nada si falla
+                            }
+                        })()
+                    );
+                    return cachedResponse;
+                }
+                
+                // Si no está en caché, ir a red
+                try {
+                    const networkResponse = await fetch(event.request);
+                    await cache.put(event.request, networkResponse.clone());
+                    return networkResponse;
+                } catch (e) {
+                    return new Response('Recurso no disponible', { status: 404 });
+                }
+            })()
         );
         return;
     }
-
-    // ─── Default: network with cache fallback ───
+    
+    // 3. PARA EL RESTO (HTML, API, etc.) → NETWORK FIRST
     event.respondWith(
-        fetch(request).catch(() => caches.match(request))
+        (async () => {
+            try {
+                // Intentar obtener de la red primero
+                const networkResponse = await fetch(event.request);
+                
+                // Si es HTML, guardarlo en caché para offline
+                if (networkResponse.headers.get('content-type')?.includes('text/html')) {
+                    const cache = await caches.open(CACHE_NAME);
+                    await cache.put(event.request, networkResponse.clone());
+                }
+                
+                return networkResponse;
+            } catch (error) {
+                // Si falla la red, buscar en caché
+                const cache = await caches.open(CACHE_NAME);
+                const cachedResponse = await cache.match(event.request);
+                
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+                
+                // Si no hay caché, mostrar página offline
+                return caches.match('/offline.html');
+            }
+        })()
     );
+});
+
+// ─── MENSAJES DEL CLIENTE ──────────────────────────────
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
