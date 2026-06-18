@@ -759,13 +759,31 @@
 </div>
 
 <script>
-    // ─── SERVICE WORKER ───────────────────────────────────
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
-        });
-    }
-
+    
+// ─── SERVICE WORKER ───────────────────────────────────
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(registration => {
+                console.log('SW registrado correctamente');
+                
+                // Verificar si hay una nueva versión
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // Nueva versión disponible
+                            if (confirm('¡Nueva versión disponible! ¿Actualizar ahora?')) {
+                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            })
+            .catch(err => console.log('SW registro falló:', err));
+    });
+}
     // ─── IN-APP VIEWER ───────────────────────────────────
     const viewer          = document.getElementById('viewer');
     const viewerIframe    = document.getElementById('viewer-iframe');
