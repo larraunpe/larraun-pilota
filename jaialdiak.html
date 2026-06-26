@@ -399,9 +399,9 @@ async function crearTabla() {
     const jaialdiak = {};
     
     // 🔽 MODIFICACIÓN AQUÍ 🔽
-    // Ahora incluye: Lekunberri, Aldatz, Gorriti y Astitz (sin distinción mayúsc/minúscula)
+    // Ahora incluye: Lekunberri, Aldatz, Mugiro, Gorriti y Astitz (sin distinción mayúsc/minúscula)
     data.forEach(p => {
-      if (!/lekunberri|aldatz|gorriti|astitz/i.test(p.fronton || "")) return;
+      if (!/lekunberri|aldatz|gorriti|mugiro|astitz/i.test(p.fronton || "")) return;
 
       const hora = normalizaHora(p.hora);
       const key = `${p.fecha}|${hora}|${p.fronton}`;
