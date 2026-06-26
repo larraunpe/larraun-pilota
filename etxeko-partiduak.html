@@ -74,6 +74,7 @@ h1{
 
 .lekunberri .group-header{ box-shadow: inset 0 0 0 4px #1b5e20; }
 .aldatz .group-header{ box-shadow: inset 0 0 0 4px #4e342e; }
+.mugiro .group-header{ box-shadow: inset 0 0 0 4px #bf360c; }
 .gorriti .group-header{ box-shadow: inset 0 0 0 4px #bf360c; }
 .astitz .group-header{ box-shadow: inset 0 0 0 4px #6a1b9a; }
 
@@ -150,9 +151,9 @@ Promise.all([
   sun.setHours(23, 59, 59, 999);
 
   // 🔽 MODIFICACIÓN AQUÍ 🔽
-  // Ahora incluye: Lekunberri, Aldatz, Gorriti y Astitz (sin distinción mayúsc/minúscula)
+  // Ahora incluye: Lekunberri, Aldatz, Mugiro, Gorriti y Astitz (sin distinción mayúsc/minúscula)
   const data=partidos.filter(p=>{
-    if(!/lekunberri|aldatz|gorriti|astitz/i.test(p.fronton||"")) return false;
+    if(!/lekunberri|aldatz|gorriti|mugiro|astitz/i.test(p.fronton||"")) return false;
     const d=new Date(`${p.fecha} ${p.hora||"00:00"}`);
     return d>=mon && d<=sun;
   });
@@ -189,6 +190,7 @@ Promise.all([
     let additionalClass = "";
     if(/gorriti/i.test(b0.fronton)) additionalClass = " gorriti";
     else if(/astitz/i.test(b0.fronton)) additionalClass = " astitz";
+    else if(/mugiro/i.test(b0.fronton)) additionalClass = " mugiro";
     else if(/lekunberri/i.test(b0.fronton)) additionalClass = " lekunberri";
     else if(/aldatz/i.test(b0.fronton)) additionalClass = " aldatz";
     
