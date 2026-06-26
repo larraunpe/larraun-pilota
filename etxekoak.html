@@ -705,14 +705,14 @@
         }
 
         // 🔽 MODIFICACIÓN AQUÍ 🔽
-        // Ahora incluye: Lekunberri, Aldatz, Gorriti y Astitz (sin distinción mayúsc/minúscula)
+        // Ahora incluye: Lekunberri, Aldatz, Mugiro, Gorriti y Astitz (sin distinción mayúsc/minúscula)
         todosLosPartidos = [
             ...oficiales.map(p => ({ ...p, ofiziala: true })),
             ...noOficiales.map(p => ({ ...p, ofiziala: p.ofiziala === "true" }))
         ].filter(p => {
             if (!p.fronton) return false;
             const f = p.fronton.toLowerCase();
-            return f.includes('lekunberri') || f.includes('aldatz') || f.includes('gorriti') || f.includes('astitz');
+            return f.includes('lekunberri') || f.includes('aldatz') || f.includes('mugiro')|| f.includes('gorriti') || f.includes('astitz');
         });
 
         // Si sigue sin haber partidos, usar todos
