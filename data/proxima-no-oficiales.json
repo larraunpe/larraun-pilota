@@ -1,6 +1,12 @@
 [
-  {     "fecha": "2026/06/26",     "hora": "19:00",     "zkia": "F",     "fronton": "Alegia",     "etxekoa": "BEHAR ZANA – INTXURRE (Cestau – Iturrioz)",     "kanpokoak": "INTXURRE – LARRAUN (Murua – Sotil)",     "lehiaketa": "ALEGIAKO TORNEOA FINAL ERDIAK",     "ofiziala": "false"   },
-  {     "fecha": "2026/06/28",     "hora": "17:00",     "zkia": "1",     "fronton": "Betelu – Escuelas",     "etxekoa": "TOLOSA",     "kanpokoak": "LARRAUN",     "lehiaketa": "2026 ESKU-PILOTAKO KLUBEN LIGA FINAL ERDIAK",     "ofiziala": "true"   },
-  {     "fecha": "2026/06/28",     "hora": "17:00",     "zkia": "1",     "fronton": "Betelu – Escuelas",     "etxekoa": "TOLOSA",     "kanpokoak": "LARRAUN",     "lehiaketa": "2026 ESKU-PILOTAKO KLUBEN LIGA FINAL ERDIAK",     "ofiziala": "true"   },
-  {     "fecha": "2026/06/28",     "hora": "17:00",     "zkia": "1",     "fronton": "Betelu – Escuelas",     "etxekoa": "TOLOSA",     "kanpokoak": "LARRAUN",     "lehiaketa": "2026 ESKU-PILOTAKO KLUBEN LIGA FINAL ERDIAK",     "ofiziala": "true"   }
+  {
+    "fecha": "2026/07/09",
+    "hora": "18:00",
+    "zkia": "2",
+    "fronton": "Getaria",
+    "etxekoa": "ULTZAMA – MUNDARO (Aldatz – Galarraga)",
+    "kanpokoak": "SAN ASENSIO – LARRAUN (Nanclares – Telletxea)",
+    "lehiaketa": "SALBATORE TXAPELKETA. GAZTEAK FINAL ZORTZIRENAK",
+    "ofiziala": "false"
+  }
 ]
