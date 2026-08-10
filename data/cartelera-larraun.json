@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "fecha": "2025/08/14",
+    "hora": "09:00",
+    "zkia": "2",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "LARRAUN (U. Goñi - I. Iriarte)",
+    "kanpokoak": "AUÑAMENDI (J. Iratzoki - I. Pedroarena)",
+    "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2025/08/14",
+    "hora": "09:00",
+    "zkia": "3",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "LARRAUN (U. Goñi - I. Iriarte)",
+    "kanpokoak": "OBERENA (L. Lacunza - M. Glaria)",
+    "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2025/08/14",
+    "hora": "09:00",
+    "zkia": "6",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "ARDOI (M. Crespo - U. Gomez)",
+    "kanpokoak": "LARRAUN (U. Goñi - I. Iriarte)",
+    "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  }
+]
