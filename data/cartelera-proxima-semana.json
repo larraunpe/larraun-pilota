@@ -1,34 +1,6 @@
 {
-  "fecha_generacion": "2026-08-09T20:33:52.082Z",
-  "semana_numero": 33,
-  "total_partidos": 3,
-  "partidos": [
-    {
-      "fecha": "2025/08/14",
-      "hora": "09:00",
-      "zkia": "2",
-      "fronton": "Pamplona - Frontón Labrit",
-      "etxekoa": "LARRAUN (U. Goñi - I. Iriarte)",
-      "kanpokoak": "AUÑAMENDI (J. Iratzoki - I. Pedroarena)",
-      "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA"
-    },
-    {
-      "fecha": "2025/08/14",
-      "hora": "09:00",
-      "zkia": "3",
-      "fronton": "Pamplona - Frontón Labrit",
-      "etxekoa": "LARRAUN (U. Goñi - I. Iriarte)",
-      "kanpokoak": "OBERENA (L. Lacunza - M. Glaria)",
-      "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA"
-    },
-    {
-      "fecha": "2025/08/14",
-      "hora": "09:00",
-      "zkia": "6",
-      "fronton": "Pamplona - Frontón Labrit",
-      "etxekoa": "ARDOI (M. Crespo - U. Gomez)",
-      "kanpokoak": "LARRAUN (U. Goñi - I. Iriarte)",
-      "lehiaketa": "JUVENIL NKJ - FRONTENIS GAZTE LIGASKA"
-    }
-  ]
+  "fecha_generacion": "2026-08-10T08:27:26.496Z",
+  "semana_numero": 34,
+  "total_partidos": 0,
+  "partidos": []
 }
