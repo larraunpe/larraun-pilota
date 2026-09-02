@@ -1,4 +1,5 @@
-[  {     "fecha": "2026/09/05",     "hora": "17:00",     "zkia": "1",     "fronton": "Villoria",     "etxekoa": "BILDARRAZ NO PUEDE – SANCHEZ",     "kanpokoak": "BOUSADA – BEOBIDE",     "lehiaketa": "PELOTA MANO VILLORIA. JUBENILAK LAGUNARTEKOA",     "ofiziala": "false"   },
+[
+  {     "fecha": "2026/09/05",     "hora": "17:00",     "zkia": "1",     "fronton": "Villoria",     "etxekoa": "BILDARRAZ NO PUEDE – SANCHEZ",     "kanpokoak": "BOUSADA – BEOBIDE",     "lehiaketa": "PELOTA MANO VILLORIA. JUBENILAK LAGUNARTEKOA",     "ofiziala": "false"   },
   {     "fecha": "2026/09/05",     "hora": "17:00",     "zkia": "2",     "fronton": "Villoria",     "etxekoa": "NAZABAL – E. GALARZA",     "kanpokoak": "I. GALARZA – GARAÑO",     "lehiaketa": "PELOTA MANO VILLORIA. HELDUAK LAGUNARTEKOA",     "ofiziala": "false"   },
   {     "fecha": "2026/09/06",     "hora": "10:30",     "zkia": "3",     "fronton": "Artaxoa  - Frontoi zaharra",     "etxekoa": "CENTENO – BAÑALES",     "kanpokoak": "ACEMAR – LASA",     "lehiaketa": "ARTAXOAKO JAIAK LAGUNARTEKOA",     "ofiziala": "false"   }
 ]
