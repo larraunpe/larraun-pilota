@@ -1,0 +1,1367 @@
+```html
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lizentziak / Licencias · Larraun Pilota Elkartea</title>
+
+  <meta name="description"
+        content="Larraun Pilota Elkartea - Lizentzietarako argazkia bidali / Envío de fotografía para licencias.">
+
+  <link rel="icon" href="img/favicon.png">
+
+  <!--
+    Si vuestra web utiliza un CSS global, sustituye esta ruta por
+    la misma hoja de estilos que utilizáis en el resto de páginas.
+  -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =========================================================
+       LIZENTZIAK / LICENCIAS
+       Estilos específicos de esta página
+       ========================================================= */
+
+    .lic-page {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 30px 18px 70px;
+    }
+
+    .lic-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .lic-hero h1 {
+      margin-bottom: 8px;
+    }
+
+    .lic-subtitle {
+      font-size: 1.05rem;
+      opacity: .78;
+      margin: 0;
+    }
+
+    /* Selector de idioma */
+    .lic-language {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 35px;
+    }
+
+    .lic-language button {
+      border: 1px solid currentColor;
+      background: transparent;
+      border-radius: 20px;
+      padding: 7px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .lic-language button.active,
+    .lic-language button:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    /* Introducción */
+    .lic-intro {
+      background: rgba(0, 0, 0, .035);
+      border-radius: 14px;
+      padding: 24px 26px;
+      margin-bottom: 28px;
+      border-left: 5px solid #111;
+    }
+
+    .lic-intro h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .lic-intro p {
+      margin: 7px 0;
+      line-height: 1.65;
+    }
+
+    /* Contenedor principal */
+    .lic-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
+      border: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .lic-section {
+      margin-bottom: 32px;
+    }
+
+    .lic-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .lic-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, .12);
+    }
+
+    .lic-section-title span {
+      font-size: 1.3rem;
+    }
+
+    /* Formulario */
+    .lic-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .lic-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .lic-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .lic-field label {
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .lic-field label small {
+      display: block;
+      font-weight: 400;
+      opacity: .68;
+      margin-top: 2px;
+    }
+
+    .lic-field input,
+    .lic-field select {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #cfcfcf;
+      border-radius: 9px;
+      padding: 13px 14px;
+      font: inherit;
+      background: #fff;
+      color: inherit;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .lic-field input:focus,
+    .lic-field select:focus {
+      outline: none;
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, .08);
+    }
+
+    /* Radios */
+    .lic-radio-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .lic-radio {
+      position: relative;
+    }
+
+    .lic-radio input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lic-radio label {
+      display: block;
+      border: 1px solid #d1d1d1;
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      background: #fff;
+      transition: .2s ease;
+    }
+
+    .lic-radio label:hover {
+      border-color: #777;
+      transform: translateY(-1px);
+    }
+
+    .lic-radio input:checked + label {
+      border-color: #111;
+      background: #f1f1f1;
+      box-shadow: inset 0 0 0 1px #111;
+    }
+
+    .lic-radio strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .lic-radio small {
+      opacity: .65;
+    }
+
+    /* Bloque de fotografía */
+    .lic-photo-box {
+      border: 2px dashed #bdbdbd;
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+      background: #fafafa;
+      transition: .2s ease;
+    }
+
+    .lic-photo-box:hover {
+      border-color: #555;
+    }
+
+    .lic-photo-icon {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+    }
+
+    .lic-photo-box h3 {
+      margin: 0 0 6px;
+    }
+
+    .lic-photo-box p {
+      margin: 4px 0;
+      opacity: .72;
+    }
+
+    .lic-file-label {
+      display: inline-block;
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border-radius: 9px;
+      padding: 13px 22px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .lic-file-label:hover {
+      transform: translateY(-1px);
+      opacity: .88;
+    }
+
+    #foto {
+      display: none;
+    }
+
+    .lic-file-name {
+      margin-top: 14px;
+      font-size: .9rem;
+      font-weight: 700;
+      min-height: 20px;
+    }
+
+    /* Preview */
+    .lic-preview {
+      display: none;
+      margin: 20px auto 0;
+      width: 130px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.16);
+    }
+
+    /* Requisitos */
+    .lic-requirements {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 25px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lic-requirements li {
+      line-height: 1.45;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .lic-requirements li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-weight: 800;
+    }
+
+    /* Privacidad */
+    .lic-privacy {
+      background: #f5f5f5;
+      border-radius: 10px;
+      padding: 17px 18px;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+
+    /* Botón */
+    .lic-submit-wrap {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .lic-submit {
+      border: 0;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      padding: 15px 34px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .lic-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 18px rgba(0,0,0,.18);
+    }
+
+    .lic-submit:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Mensajes */
+    .lic-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px 18px;
+      border-radius: 9px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .lic-message.error {
+      display: block;
+      background: #fff0f0;
+      border: 1px solid #e0aaaa;
+    }
+
+    .lic-message.success {
+      display: block;
+      background: #eff9ef;
+      border: 1px solid #a9d0a9;
+    }
+
+    /* Aviso */
+    .lic-note {
+      margin-top: 22px;
+      text-align: center;
+      font-size: .88rem;
+      opacity: .65;
+    }
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .lic-page {
+        padding: 22px 13px 50px;
+      }
+
+      .lic-card {
+        padding: 20px 16px;
+        border-radius: 12px;
+      }
+
+      .lic-intro {
+        padding: 18px;
+      }
+
+      .lic-form-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+      }
+
+      .lic-field.full {
+        grid-column: auto;
+      }
+
+      .lic-radio-group {
+        grid-template-columns: 1fr;
+      }
+
+      .lic-requirements {
+        grid-template-columns: 1fr;
+      }
+
+      .lic-photo-box {
+        padding: 23px 14px;
+      }
+
+      .lic-submit {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       CABECERA
+       Mantener la misma cabecera que el resto de vuestra web
+       ======================================================= -->
+
+  <header>
+
+    <div class="language-switch">
+      <button type="button" id="btn-eu" class="active">EUSKERA</button>
+      <button type="button" id="btn-es">CASTELLANO</button>
+    </div>
+
+    <div class="site-brand">
+      <a href="index.html">
+        <img src="img/logo-larraun.png"
+             alt="Larraun Pilota Elkartea">
+      </a>
+
+      <div>
+        <h1>LARRAUN PILOTA ELKARTEA</h1>
+        <p>Larraungo pilota elkartea · Lekunberri (Nafarroa)</p>
+        <p>Club de pelota del valle de Larraún · Lekunberri (Navarra)</p>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="index.html">Hasiera</a>
+      <a href="berriak.html">Berriak</a>
+      <a href="kirol-egitura.html">Kirol egitura</a>
+      <a href="entrenamenduak.html">Entrenamenduak</a>
+      <a href="kartelera.html">Kartelera</a>
+      <a href="emaitzak.html">Emaitzak</a>
+      <a href="galeria.html">Galeria</a>
+      <a href="kontaktua.html">Kontaktua</a>
+      <a href="lizentziak.html" class="active">Lizentziak</a>
+    </nav>
+
+  </header>
+
+
+  <!-- =======================================================
+       CONTENIDO
+       ======================================================= -->
+
+  <main class="lic-page">
+
+    <section class="lic-hero">
+
+      <h1>
+        <span class="eu">📸 LIZENTZIAK</span>
+        <span class="es" style="display:none;">📸 LICENCIAS</span>
+      </h1>
+
+      <p class="lic-subtitle eu">
+        Lizentziarako argazkia bidaltzeko formularioa
+      </p>
+
+      <p class="lic-subtitle es" style="display:none;">
+        Formulario para enviar la fotografía de la licencia
+      </p>
+
+      <div class="lic-language">
+        <button type="button" id="page-eu" class="active">EUSKERA</button>
+        <button type="button" id="page-es">CASTELLANO</button>
+      </div>
+
+    </section>
+
+
+    <!-- INTRODUCCIÓN -->
+
+    <section class="lic-intro">
+
+      <div class="eu">
+
+        <h2>Argazkia lizentziarako</h2>
+
+        <p>
+          Benjamin mailan jarduera hasten duten pilotariek,
+          baita aurreko argazkia berritu nahi dutenek ere,
+          lizentzia tramitatzeko argazki berria bidali beharko dute.
+        </p>
+
+        <p>
+          Bete formularioa eta igo argazkia zuzenean.
+          Minutu bat baino gutxiago beharko duzu.
+        </p>
+
+      </div>
+
+      <div class="es" style="display:none;">
+
+        <h2>Fotografía para la licencia</h2>
+
+        <p>
+          Los pelotaris que comienzan su actividad en categoría
+          benjamín, así como aquellos que quieran renovar su
+          fotografía, deberán enviar una fotografía actualizada.
+        </p>
+
+        <p>
+          Completa el formulario y sube la fotografía directamente.
+          Solo te llevará un minuto.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- FORMULARIO -->
+
+    <form
+      id="licenciasForm"
+      class="lic-card"
+      enctype="multipart/form-data"
+      novalidate
+    >
+
+      <!-- DATOS DEL PELOTARI -->
+
+      <section class="lic-section">
+
+        <h2 class="lic-section-title">
+          <span>👤</span>
+
+          <span class="eu">
+            Pilotariaren datuak
+          </span>
+
+          <span class="es" style="display:none;">
+            Datos del pelotari
+          </span>
+        </h2>
+
+
+        <div class="lic-form-grid">
+
+          <!-- Nombre -->
+
+          <div class="lic-field full">
+
+            <label for="nombre">
+
+              <span class="eu">
+                Izen-abizenak *
+                <small>Nombre y apellidos</small>
+              </span>
+
+              <span class="es" style="display:none;">
+                Nombre y apellidos *
+                <small>Izen-abizenak</small>
+              </span>
+
+            </label>
+
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              autocomplete="name"
+              required
+              placeholder="Adibidez: Julen Sotil"
+            >
+
+          </div>
+
+
+          <!-- Año -->
+
+          <div class="lic-field">
+
+            <label for="anio">
+
+              <span class="eu">
+                Jaiotze urtea *
+                <small>Año de nacimiento</small>
+              </span>
+
+              <span class="es" style="display:none;">
+                Año de nacimiento *
+                <small>Jaiotze urtea</small>
+              </span>
+
+            </label>
+
+            <input
+              type="number"
+              id="anio"
+              name="anio"
+              min="2000"
+              max="2030"
+              inputmode="numeric"
+              required
+              placeholder="2016"
+            >
+
+          </div>
+
+
+          <!-- Modalidad -->
+
+          <div class="lic-field">
+
+            <label>
+
+              <span class="eu">
+                Modalitatea *
+                <small>Modalidad</small>
+              </span>
+
+              <span class="es" style="display:none;">
+                Modalidad *
+                <small>Modalitatea</small>
+              </span>
+
+            </label>
+
+
+            <div class="lic-radio-group">
+
+              <div class="lic-radio">
+
+                <input
+                  type="radio"
+                  id="mano"
+                  name="modalidad"
+                  value="Eskupilota"
+                  required
+                >
+
+                <label for="mano">
+                  <strong>🖐 Eskupilota</strong>
+                  <small>Pelota a mano</small>
+                </label>
+
+              </div>
+
+
+              <div class="lic-radio">
+
+                <input
+                  type="radio"
+                  id="pala"
+                  name="modalidad"
+                  value="Pala"
+                >
+
+                <label for="pala">
+                  <strong>🎾 Pala</strong>
+                  <small>Paleta / Pala</small>
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Categoría -->
+
+          <div class="lic-field">
+
+            <label for="categoria">
+
+              <span class="eu">
+                Kategoria *
+                <small>Kategoria</small>
+              </span>
+
+              <span class="es" style="display:none;">
+                Categoría *
+                <small>Kategoria</small>
+              </span>
+
+            </label>
+
+
+            <select
+              id="categoria"
+              name="categoria"
+              required
+            >
+
+              <option value="">
+                Aukeratu / Seleccionar
+              </option>
+
+              <option value="Aurrebenjaminak">
+                Aurrebenjaminak / Prebenjamín
+              </option>
+
+              <option value="Benjaminak">
+                Benjaminak / Benjamín
+              </option>
+
+              <option value="Alebinak">
+                Alebinak / Alevín
+              </option>
+
+              <option value="Infantilak">
+                Infantilak / Infantil
+              </option>
+
+              <option value="Kadeteak">
+                Kadeteak / Cadete
+              </option>
+
+              <option value="Jubenilak">
+                Jubenilak / Juvenil
+              </option>
+
+              <option value="Nagusiak">
+                Nagusiak / Senior
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Tipo de solicitud -->
+
+          <div class="lic-field full">
+
+            <label>
+
+              <span class="eu">
+                Eskaera mota *
+                <small>Eskaeraren arrazoia</small>
+              </span>
+
+              <span class="es" style="display:none;">
+                Tipo de solicitud *
+                <small>Motivo del envío</small>
+              </span>
+
+            </label>
+
+
+            <div class="lic-radio-group">
+
+              <div class="lic-radio">
+
+                <input
+                  type="radio"
+                  id="nueva"
+                  name="tipo"
+                  value="Nueva licencia"
+                  required
+                >
+
+                <label for="nueva">
+
+                  <strong>
+                    🆕 Lizentzia berria
+                  </strong>
+
+                  <small>
+                    Nueva licencia
+                  </small>
+
+                </label>
+
+              </div>
+
+
+              <div class="lic-radio">
+
+                <input
+                  type="radio"
+                  id="renovacion"
+                  name="tipo"
+                  value="Renovación fotografía"
+                >
+
+                <label for="renovacion">
+
+                  <strong>
+                    🔄 Argazkia berritu
+                  </strong>
+
+                  <small>
+                    Renovar fotografía
+                  </small>
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOTOGRAFÍA -->
+
+      <section class="lic-section">
+
+        <h2 class="lic-section-title">
+
+          <span>📷</span>
+
+          <span class="eu">
+            Argazkia
+          </span>
+
+          <span class="es" style="display:none;">
+            Fotografía
+          </span>
+
+        </h2>
+
+
+        <div class="lic-photo-box">
+
+          <div class="lic-photo-icon">
+            📸
+          </div>
+
+          <h3 class="eu">
+            Aukeratu zure argazkia
+          </h3>
+
+          <h3 class="es" style="display:none;">
+            Selecciona tu fotografía
+          </h3>
+
+
+          <p class="eu">
+            JPG edo PNG · Gehienez 5 MB
+          </p>
+
+          <p class="es" style="display:none;">
+            JPG o PNG · Máximo 5 MB
+          </p>
+
+
+          <label
+            for="foto"
+            class="lic-file-label"
+          >
+
+            <span class="eu">
+              📷 ARGAZKIA AUKERATU
+            </span>
+
+            <span class="es" style="display:none;">
+              📷 SELECCIONAR FOTOGRAFÍA
+            </span>
+
+          </label>
+
+
+          <input
+            type="file"
+            id="foto"
+            name="foto"
+            accept="image/jpeg,image/png"
+            required
+          >
+
+
+          <div
+            id="fileName"
+            class="lic-file-name"
+          ></div>
+
+
+          <img
+            id="preview"
+            class="lic-preview"
+            alt="Aurrebista / Vista previa"
+          >
+
+        </div>
+
+      </section>
+
+
+      <!-- REQUISITOS -->
+
+      <section class="lic-section">
+
+        <h2 class="lic-section-title">
+
+          <span>ℹ️</span>
+
+          <span class="eu">
+            Argazkiaren baldintzak
+          </span>
+
+          <span class="es" style="display:none;">
+            Requisitos de la fotografía
+          </span>
+
+        </h2>
+
+
+        <ul class="lic-requirements">
+
+          <li class="eu">
+            Aurrez aurreko argazkia
+          </li>
+
+          <li class="es" style="display:none;">
+            Fotografía de frente
+          </li>
+
+
+          <li class="eu">
+            Hondo argi eta uniformea
+          </li>
+
+          <li class="es" style="display:none;">
+            Fondo claro y uniforme
+          </li>
+
+
+          <li class="eu">
+            Aurpegi osoa ikusgai
+          </li>
+
+          <li class="es" style="display:none;">
+            Rostro completamente visible
+          </li>
+
+
+          <li class="eu">
+            Pertsona bakarra
+          </li>
+
+          <li class="es" style="display:none;">
+            Una sola persona
+          </li>
+
+
+          <li class="eu">
+            Argazki berria
+          </li>
+
+          <li class="es" style="display:none;">
+            Fotografía reciente
+          </li>
+
+
+          <li class="eu">
+            JPG edo PNG formatua
+          </li>
+
+          <li class="es" style="display:none;">
+            Formato JPG o PNG
+          </li>
+
+        </ul>
+
+      </section>
+
+
+      <!-- PRIVACIDAD -->
+
+      <section class="lic-section">
+
+        <div class="lic-privacy">
+
+          <strong class="eu">
+            🔒 Pribatutasuna
+          </strong>
+
+          <strong class="es" style="display:none;">
+            🔒 Privacidad
+          </strong>
+
+
+          <p class="eu">
+            Bidalitako argazkia lizentzia federatiboaren
+            kudeaketarako soilik erabiliko da.
+          </p>
+
+          <p class="es" style="display:none;">
+            La fotografía enviada se utilizará exclusivamente
+            para la gestión de la licencia federativa.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ENVÍO -->
+
+      <div class="lic-submit-wrap">
+
+        <button
+          type="submit"
+          class="lic-submit"
+          id="submitBtn"
+        >
+
+          <span class="eu">
+            📤 ARGAZKIA BIDALI
+          </span>
+
+          <span class="es" style="display:none;">
+            📤 ENVIAR FOTOGRAFÍA
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="formMessage"
+        class="lic-message"
+        role="alert"
+      ></div>
+
+
+      <p class="lic-note eu">
+        * Derrigorrezko eremuak / Campos obligatorios
+      </p>
+
+      <p
+        class="lic-note es"
+        style="display:none;"
+      >
+        * Campos obligatorios / Derrigorrezko eremuak
+      </p>
+
+    </form>
+
+  </main>
+
+
+  <!-- =======================================================
+       PIE
+       ======================================================= -->
+
+  <footer>
+
+    <p>
+      © 2026 Larraun Pilota Elkartea
+    </p>
+
+  </footer>
+
+
+  <!-- =======================================================
+       JAVASCRIPT
+       ======================================================= -->
+
+  <script>
+
+    /* -------------------------------------------------------
+       IDIOMA
+       ------------------------------------------------------- */
+
+    let currentLanguage = "eu";
+
+    const euElements = document.querySelectorAll(".eu");
+    const esElements = document.querySelectorAll(".es");
+
+    const btnEu = document.getElementById("btn-eu");
+    const btnEs = document.getElementById("btn-es");
+
+    const pageEu = document.getElementById("page-eu");
+    const pageEs = document.getElementById("page-es");
+
+
+    function setLanguage(language) {
+
+      currentLanguage = language;
+
+      euElements.forEach(el => {
+        el.style.display =
+          language === "eu" ? "" : "none";
+      });
+
+      esElements.forEach(el => {
+        el.style.display =
+          language === "es" ? "" : "none";
+      });
+
+
+      btnEu.classList.toggle(
+        "active",
+        language === "eu"
+      );
+
+      btnEs.classList.toggle(
+        "active",
+        language === "es"
+      );
+
+      pageEu.classList.toggle(
+        "active",
+        language === "eu"
+      );
+
+      pageEs.classList.toggle(
+        "active",
+        language === "es"
+      );
+
+
+      document.documentElement.lang = language;
+    }
+
+
+    btnEu.addEventListener(
+      "click",
+      () => setLanguage("eu")
+    );
+
+    btnEs.addEventListener(
+      "click",
+      () => setLanguage("es")
+    );
+
+    pageEu.addEventListener(
+      "click",
+      () => setLanguage("eu")
+    );
+
+    pageEs.addEventListener(
+      "click",
+      () => setLanguage("es")
+    );
+
+
+    /* -------------------------------------------------------
+       FOTO
+       ------------------------------------------------------- */
+
+    const fotoInput = document.getElementById("foto");
+    const fileName = document.getElementById("fileName");
+    const preview = document.getElementById("preview");
+
+
+    fotoInput.addEventListener(
+      "change",
+      function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+          fileName.textContent = "";
+          preview.style.display = "none";
+          return;
+        }
+
+
+        /* Tamaño máximo: 5 MB */
+
+        const maxSize = 5 * 1024 * 1024;
+
+        if (file.size > maxSize) {
+
+          fileName.textContent =
+            currentLanguage === "eu"
+              ? "⚠️ Argazkia 5 MB baino handiagoa da."
+              : "⚠️ La fotografía supera los 5 MB.";
+
+          this.value = "";
+          preview.style.display = "none";
+
+          return;
+        }
+
+
+        fileName.textContent =
+          "✓ " + file.name;
+
+
+        /* Previsualización */
+
+        if (file.type.startsWith("image/")) {
+
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+
+            preview.src = event.target.result;
+            preview.style.display = "block";
+
+          };
+
+          reader.readAsDataURL(file);
+        }
+
+      }
+    );
+
+
+    /* -------------------------------------------------------
+       VALIDACIÓN DEL FORMULARIO
+       ------------------------------------------------------- */
+
+    const form = document.getElementById("licenciasForm");
+
+    const submitBtn =
+      document.getElementById("submitBtn");
+
+    const formMessage =
+      document.getElementById("formMessage");
+
+
+    form.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+        formMessage.className = "lic-message";
+        formMessage.textContent = "";
+
+
+        /* Validación HTML */
+
+        if (!form.checkValidity()) {
+
+          form.reportValidity();
+
+          return;
+        }
+
+
+        /* Validar fotografía */
+
+        const file = fotoInput.files[0];
+
+        if (!file) {
+
+          showError(
+            currentLanguage === "eu"
+              ? "Mesedez, igo argazkia."
+              : "Por favor, selecciona una fotografía."
+          );
+
+          return;
+        }
+
+
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png"
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+
+          showError(
+            currentLanguage === "eu"
+              ? "Argazkiak JPG edo PNG izan behar du."
+              : "La fotografía debe estar en formato JPG o PNG."
+          );
+
+          return;
+        }
+
+
+        if (file.size > 5 * 1024 * 1024) {
+
+          showError(
+            currentLanguage === "eu"
+              ? "Argazkiak gehienez 5 MB izan ditzake."
+              : "La fotografía puede tener un máximo de 5 MB."
+          );
+
+          return;
+        }
+
+
+        /*
+          =====================================================
+          IMPORTANTE
+
+          HONA IRISTEAN formularioa baliozkoa da.
+
+          Hemen konektatuko dugu gero Google Apps Script,
+          Formspree, Cloudflare Worker edo erabiliko dugun
+          beste backend-a.
+
+          EZ bidali datuak hemen oraindik.
+          =====================================================
+        */
+
+
+        showSuccess(
+          currentLanguage === "eu"
+            ? "✓ Datuak prest daude bidaltzeko. Bidalketa-sistema oraindik ez dago konektatuta."
+            : "✓ Los datos están preparados. El sistema de envío todavía no está conectado."
+        );
+
+      }
+    );
+
+
+    /* -------------------------------------------------------
+       MENSAJES
+       ------------------------------------------------------- */
+
+    function showError(message) {
+
+      formMessage.className =
+        "lic-message error";
+
+      formMessage.textContent =
+        message;
+
+      formMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+
+    function showSuccess(message) {
+
+      formMessage.className =
+        "lic-message success";
+
+      formMessage.textContent =
+        message;
+
+      formMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
