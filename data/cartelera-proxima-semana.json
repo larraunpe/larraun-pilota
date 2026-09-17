@@ -1,6 +1,25 @@
 {
-  "fecha_generacion": "2026-09-17T12:27:39.170Z",
+  "fecha_generacion": "2026-09-17T17:30:57.220Z",
   "semana_numero": 39,
-  "total_partidos": 0,
-  "partidos": []
+  "total_partidos": 2,
+  "partidos": [
+    {
+      "fecha": "2026/09/26",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+      "kanpokoak": "BETI ONAK (M. Leiza - S. Santesteban)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/26",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "BETI ONAK (M. Ezkurra - E. Rekalde)",
+      "kanpokoak": "LARRAUN (M. Laso - U. Otamendi)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    }
+  ]
 }
