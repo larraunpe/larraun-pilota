@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-09-20T12:04:19.518Z",
+  "fecha_generacion": "2026-09-20T16:42:19.948Z",
   "semana_numero": 39,
   "total_partidos": 13,
   "partidos": [
@@ -13,6 +13,33 @@
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
     },
     {
+      "fecha": "2026/09/25",
+      "hora": "18:30 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Barañain - Retegi",
+      "etxekoa": "LAGUNAK (J. Lacabe)",
+      "kanpokoak": "LARRAUN (I. Galartza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/25",
+      "hora": "21:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (I. Garaño)",
+      "kanpokoak": "BETI ONAK (U. Elizalde)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/25",
+      "hora": "21:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (U. Astiz)",
+      "kanpokoak": "ZUGARRALDE (B. Villanueva)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+    },
+    {
       "fecha": "2026/09/26",
       "hora": "09:30 !Horario provisional",
       "zkia": "4",
@@ -20,6 +47,33 @@
       "etxekoa": "OBERENA (A. Sarasibar)",
       "kanpokoak": "LARRAUN (I. Nazabal)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/26",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (J. Ezkurdia)",
+      "kanpokoak": "ARDOI (M. Abadia)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/26",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (A. Eguzkiza)",
+      "kanpokoak": "LAGUNAK (J. Larrayoz)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/09/26",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Lazkoz)",
+      "kanpokoak": "ARDOI (C. Vazquez)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
     },
     {
       "fecha": "2026/09/26",
@@ -62,62 +116,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (U. Astiz)",
-      "kanpokoak": "ZUGARRALDE (B. Villanueva)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "ULTZAMA (B. Astrain)",
       "kanpokoak": "LARRAUN (I. Ijurko)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (J. Ezkurdia)",
-      "kanpokoak": "ARDOI (M. Abadia)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Eguzkiza)",
-      "kanpokoak": "LAGUNAK (J. Larrayoz)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LAGUNAK (J. Lacabe)",
-      "kanpokoak": "LARRAUN (I. Galartza)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (I. Garaño)",
-      "kanpokoak": "BETI ONAK (U. Elizalde)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/09/27",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (M. Lazkoz)",
-      "kanpokoak": "ARDOI (C. Vazquez)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
     }
   ]
