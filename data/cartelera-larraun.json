@@ -1,7 +1,7 @@
 [
   {
     "fecha": "2026/09/24",
-    "hora": "20:00 !Horario provisional",
+    "hora": "20:00",
     "zkia": "1",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (B. Astrain)",
@@ -12,7 +12,7 @@
   },
   {
     "fecha": "2026/09/25",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "3",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (A. Villanueva)",
@@ -23,7 +23,7 @@
   },
   {
     "fecha": "2026/09/25",
-    "hora": "18:30 !Horario provisional",
+    "hora": "18:30",
     "zkia": "3",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (J. Lacabe)",
@@ -34,7 +34,7 @@
   },
   {
     "fecha": "2026/09/25",
-    "hora": "21:00 !Horario provisional",
+    "hora": "21:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Garaño)",
@@ -45,7 +45,7 @@
   },
   {
     "fecha": "2026/09/25",
-    "hora": "21:00 !Horario provisional",
+    "hora": "21:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Astiz)",
@@ -56,7 +56,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "09:45 !Horario provisional",
+    "hora": "09:45",
     "zkia": "3",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (A. Sarasibar)",
@@ -67,7 +67,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
@@ -78,7 +78,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (E. Ijurko)",
@@ -89,7 +89,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Ezkurdia)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Eguzkiza)",
@@ -111,7 +111,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Lazkoz)",
@@ -122,7 +122,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "2",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (H. Urmeneta)",
@@ -133,7 +133,7 @@
   },
   {
     "fecha": "2026/09/26",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Villava - Lorenzo Goikoa",
     "etxekoa": "BETI ONAK (M. Ezkurra - E. Rekalde)",
