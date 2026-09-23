@@ -26,26 +26,9 @@ function isLekunberriOrAldatz(frontonText) {
 
 // ---------- conversion reglas ----------
 const CONVERSION = [
-  {
-    match: "D. Centeno - B. Esnaola",
-    value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)"
-  },
-  {
-    match: "A. Sagardui - J. Sotil",
-    value: "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)"
-  },
-  {
-    match: "X. Goldaracena - E. Astibia",
-    value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)"
-  },
-  {
-    match: "A. Balda - U. Arcelus",
-    value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)"
-  },
-   {
-    match: "U. Erro - I. Gara",
-    value: "AUÑAMENDI - LARRAUN (U. Erro - I. Garaño)"
-  }
+  { match: "ARAXES (G. Arraztio - U. Ariztimuño)", value: "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)" },
+  { match: "ABAXITABIDEA (P. Aginaga - X. Goldaracena)", value: "ABAXITABIDEA – LARRAUN (P. Aginaga - X. Goldaracena)" },
+  { match: "ARAXES (A. Gorostidi - E. Jaka)", value: "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)" }
 ];
 
 function convertirPareja(texto) {
