@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-09-23T12:36:42.493Z",
+  "fecha_generacion": "2026-09-23T17:47:12.408Z",
   "semana_numero": 40,
   "total_partidos": 26,
   "partidos": [
@@ -11,6 +11,15 @@
       "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
       "kanpokoak": "LEITZA (J. Baleztena - A. Ugartemendia)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "OBERENA (I. Serrano - M. Andueza)",
+      "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/03",
@@ -119,15 +128,6 @@
       "etxekoa": "ALDABIDE (E. Leiza - L. Anton)",
       "kanpokoak": "LARRAUN (A. Astiz - A. Goldarazena)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/03",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "OBERENA (I. Serrano - M. Andueza)",
-      "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/03",
