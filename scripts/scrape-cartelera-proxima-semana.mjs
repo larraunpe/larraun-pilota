@@ -67,9 +67,9 @@ function getNextWeekNumber() {
 
 // Reglas de conversión
 const CONVERSION = [
-  { match: "LARRAUN (D. Centeno - B. Esnaola)", value: "LARRAUN – ARAXES (D. Centeno - B. Esnaola)" },
-  { match: "ABAXITABIDEA (X. Goldaracena - E. Astibia)", value: "LARRAUN – ABAXITABIDEA (X. Goldaracena - E. Astibia)" },
-  { match: "LARRAUN (A. Balda - U. Arcelus)", value: "LARRAUN – OBERENA (A. Balda - U. Arcelus)" }
+  { match: "ARAXES (G. Arraztio - U. Ariztimuño)", value: "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)" },
+  { match: "ABAXITABIDEA (P. Aginaga - X. Goldaracena)", value: "ABAXITABIDEA – LARRAUN (P. Aginaga - X. Goldaracena)" },
+  { match: "ARAXES (A. Gorostidi - E. Jaka)", value: "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)" }
 ];
 
 function convertirPareja(texto) {
