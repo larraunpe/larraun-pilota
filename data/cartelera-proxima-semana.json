@@ -1,8 +1,17 @@
 {
-  "fecha_generacion": "2026-09-22T20:59:23.227Z",
+  "fecha_generacion": "2026-09-23T12:36:42.493Z",
   "semana_numero": 40,
-  "total_partidos": 22,
+  "total_partidos": 26,
   "partidos": [
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
+      "kanpokoak": "LEITZA (J. Baleztena - A. Ugartemendia)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+    },
     {
       "fecha": "2026/10/03",
       "hora": "- !Horario provisional",
@@ -98,9 +107,36 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
-      "kanpokoak": "LEITZA (J. Baleztena - A. Ugartemendia)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
+      "etxekoa": "LARRAUN (A. Ruiz - S. Galartza)",
+      "kanpokoak": "PILOTAJAUKU (J. Mendiluze - O. Vicario)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ALDABIDE (E. Leiza - L. Anton)",
+      "kanpokoak": "LARRAUN (A. Astiz - A. Goldarazena)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "OBERENA (I. Serrano - M. Andueza)",
+      "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus)",
+      "kanpokoak": "ARAXES (U. Miranda - E. Iriarte)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
     },
     {
       "fecha": "2026/10/04",
