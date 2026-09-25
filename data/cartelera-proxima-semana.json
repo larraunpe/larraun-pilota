@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-09-25T17:48:12.443Z",
+  "fecha_generacion": "2026-09-25T21:13:03.523Z",
   "semana_numero": 40,
   "total_partidos": 34,
   "partidos": [
@@ -56,6 +56,15 @@
       "etxekoa": "LARRAUN (L. Ariztimuño - A. Mozo)",
       "kanpokoak": "ARKUPE, P. E. (L. Maritxalar - A. Zubillaga)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "MUTILENDAKO (M. Berruezo - J. Jauregi)",
+      "kanpokoak": "LARRAUN (A. Loyarte - O. Mitxaus)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 1. 1. TALDE"
     },
     {
       "fecha": "2026/10/03",
@@ -134,6 +143,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "BORTZIRIAK (H. Otazo - U. Mikelperizena)",
+      "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/03",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "LARRAUN (O. Ijurko - E. Oreja)",
       "kanpokoak": "LEITZA (J. Baleztena - A. Ugartemendia)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
@@ -152,24 +170,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "BORTZIRIAK (H. Otazo - U. Mikelperizena)",
-      "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/03",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "MUTILENDAKO (M. Berruezo - J. Jauregi)",
-      "kanpokoak": "LARRAUN (A. Loyarte - O. Mitxaus)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 1. 1. TALDE"
-    },
-    {
-      "fecha": "2026/10/03",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "TXARUTA (I. Irazoqui - M. Rekalde)",
       "kanpokoak": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KADETE 2. LIGAXKA"
@@ -179,8 +179,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LEITZA (U. Zugasti - A. Iturrino)",
-      "kanpokoak": "LARRAUN (A. Balda - I. Sotil)",
+      "etxekoa": "LARRAUN (J. Bildarraz - M. Etxepare)",
+      "kanpokoak": "ULTZAMA (A. Garcia - J. Olague)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
     },
     {
@@ -188,8 +188,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (J. Bildarraz - M. Etxepare)",
-      "kanpokoak": "ULTZAMA (A. Garcia - J. Olague)",
+      "etxekoa": "LEITZA (U. Zugasti - A. Iturrino)",
+      "kanpokoak": "LARRAUN (A. Balda - I. Sotil)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
     },
     {
@@ -287,6 +287,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "LARRAUN (A. Eguzkiza)",
+      "kanpokoak": "OBERENA (R. Camara)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/04",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "ULTZAMA (P. Aldaz)",
       "kanpokoak": "LARRAUN (U. Astiz)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
@@ -298,15 +307,6 @@
       "fronton": "-",
       "etxekoa": "LARRAUN (J. Ezkurdia)",
       "kanpokoak": "IRURTZUN (M. Salaberria)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/04",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Eguzkiza)",
-      "kanpokoak": "OBERENA (R. Camara)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
     }
   ]
