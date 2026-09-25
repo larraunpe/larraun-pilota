@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-09-25T12:36:45.616Z",
+  "fecha_generacion": "2026-09-25T17:48:12.443Z",
   "semana_numero": 40,
-  "total_partidos": 32,
+  "total_partidos": 34,
   "partidos": [
     {
       "fecha": "2026/10/03",
@@ -191,6 +191,24 @@
       "etxekoa": "LARRAUN (J. Bildarraz - M. Etxepare)",
       "kanpokoak": "ULTZAMA (A. Garcia - J. Olague)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/04",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (X. Goldarazena)",
+      "kanpokoak": "SAN JUAN (J. Gil)",
+      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA BANAKA 5½ 3. MAILA FINAL HAMASEIRENAK"
+    },
+    {
+      "fecha": "2026/10/04",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Etxarri)",
+      "kanpokoak": "SAN JUAN (I. Sanz)",
+      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - PALETAA GOMA BANAKA 5½ 4. MAILA FINAL ZORTZIRENAK"
     },
     {
       "fecha": "2026/10/04",
