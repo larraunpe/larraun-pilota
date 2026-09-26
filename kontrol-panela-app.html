@@ -30,7 +30,12 @@
             --shadow:   0 4px 16px rgba(0,0,0,0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background: var(--cream);
@@ -44,6 +49,7 @@
         /* ═══════════════════════════════
            IN-APP VIEWER
         ═══════════════════════════════ */
+
         #viewer {
             display: none;
             position: fixed;
@@ -52,7 +58,10 @@
             flex-direction: column;
             background: var(--white);
         }
-        #viewer.open { display: flex; }
+
+        #viewer.open {
+            display: flex;
+        }
 
         #viewer-bar {
             display: flex;
@@ -69,55 +78,102 @@
 
         #viewer-back {
             background: rgba(255,255,255,0.2);
-            border: none; color: white;
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; cursor: pointer; flex-shrink: 0;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            flex-shrink: 0;
             transition: background 0.15s;
         }
-        #viewer-back:active { background: rgba(255,255,255,0.4); }
+
+        #viewer-back:active {
+            background: rgba(255,255,255,0.4);
+        }
 
         #viewer-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.92rem; font-weight: 700; flex: 1;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 0.92rem;
+            font-weight: 700;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #viewer-external {
             background: rgba(255,255,255,0.2);
-            border: none; color: white;
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; cursor: pointer; flex-shrink: 0;
-            text-decoration: none; transition: background 0.15s;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            text-decoration: none;
+            transition: background 0.15s;
         }
-        #viewer-external:active { background: rgba(255,255,255,0.4); }
+
+        #viewer-external:active {
+            background: rgba(255,255,255,0.4);
+        }
 
         /* Desktop toggle button */
         #viewer-desktop-btn {
             background: rgba(255,255,255,0.2);
-            border: none; color: white;
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.82rem; cursor: pointer; flex-shrink: 0;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            cursor: pointer;
+            flex-shrink: 0;
             transition: background 0.15s;
             position: relative;
         }
-        #viewer-desktop-btn:active { background: rgba(255,255,255,0.4); }
+
+        #viewer-desktop-btn:active {
+            background: rgba(255,255,255,0.4);
+        }
+
         #viewer-desktop-btn.desktop-active {
             background: rgba(255,255,255,0.35);
             box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
         }
-        .desktop-badge {
-            position: absolute; top: -3px; right: -3px;
-            background: #f5c542; color: #1e2a2e;
-            font-size: 0.45rem; font-weight: 800;
-            padding: 1px 3px; border-radius: 4px; line-height: 1.3;
-            font-family: 'Outfit', sans-serif; display: none;
-        }
-        #viewer-desktop-btn.desktop-active .desktop-badge { display: block; }
 
-        /* Iframe wrapper: scroll container, only active when viewer is open */
+        .desktop-badge {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            background: #f5c542;
+            color: #1e2a2e;
+            font-size: 0.45rem;
+            font-weight: 800;
+            padding: 1px 3px;
+            border-radius: 4px;
+            line-height: 1.3;
+            font-family: 'Outfit', sans-serif;
+            display: none;
+        }
+
+        #viewer-desktop-btn.desktop-active .desktop-badge {
+            display: block;
+        }
+
+        /* Iframe wrapper */
         #viewer-iframe-wrap {
             flex: 1;
             overflow-y: auto;
@@ -130,7 +186,8 @@
 
         #viewer-iframe {
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -138,10 +195,11 @@
             display: block;
         }
 
-        /* Desktop mode: allow horizontal scroll, fix width at 1024px */
+        /* Desktop mode */
         #viewer-iframe-wrap.desktop-mode {
             overflow-x: auto;
         }
+
         #viewer-iframe-wrap.desktop-mode #viewer-iframe {
             width: 1024px;
             min-height: 100%;
@@ -151,736 +209,2473 @@
             position: absolute;
             inset: 54px 0 0 0;
             background: var(--cream);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 0.8rem; color: var(--muted); font-size: 0.85rem; z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            z-index: 10;
         }
+
         #viewer-loading i {
-            font-size: 2rem; color: var(--red);
+            font-size: 2rem;
+            color: var(--red);
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* ═══════════════════════════════
            HEADER
         ═══════════════════════════════ */
+
         .app-header {
             background: var(--white);
             border-bottom: 1px solid var(--sand);
             padding: 0.9rem 1.2rem 0.7rem;
-            display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
-        .header-left { display: flex; align-items: center; gap: 0.7rem; }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
         .club-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--red);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--red);
         }
+
         .club-avatar-fallback {
-            width: 40px; height: 40px; border-radius: 50%; background: var(--red);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
         }
+
         .header-titles h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem; font-weight: 800; color: var(--red); line-height: 1.1;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1.1;
         }
-        .header-titles p { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
-        .header-contact { display: flex; gap: 0.5rem; }
+
+        .header-titles p {
+            font-size: 0.68rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .header-contact {
+            display: flex;
+            gap: 0.5rem;
+        }
+
         .contact-btn {
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             background: var(--red-soft);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--red); font-size: 0.9rem; text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red);
+            font-size: 0.9rem;
+            text-decoration: none;
             transition: background 0.2s;
         }
-        .contact-btn:active { background: var(--red); color: white; }
+
+        .contact-btn:active {
+            background: var(--red);
+            color: white;
+        }
 
         /* ═══════════════════════════════
            MAIN CONTENT
         ═══════════════════════════════ */
-        .content { padding: 1rem 1rem 0.5rem; }
+
+        .content {
+            padding: 1rem 1rem 0.5rem;
+        }
 
         .section-label {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.72rem; font-weight: 700;
-            letter-spacing: 0.08em; text-transform: uppercase;
-            color: var(--muted); padding: 1.2rem 0 0.6rem;
-            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 1.2rem 0 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--sand); }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--sand);
+        }
 
         /* 2-COL CARDS */
-        .cards-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+        .cards-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
 
         .card {
-            background: var(--white); border-radius: var(--radius);
-            overflow: hidden; box-shadow: var(--shadow);
-            border: 1px solid var(--sand); cursor: pointer;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--sand);
+            cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
-            text-decoration: none; display: block; color: inherit;
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
-        .card:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+        .card:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
 
         .card-thumb {
-            height: 90px; background-size: cover; background-position: center;
+            height: 90px;
+            background-size: cover;
+            background-position: center;
             background-color: var(--sand);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; color: #aa7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #aa7a5c;
         }
-        .card-body { padding: 0.7rem 0.75rem 0.75rem; }
+
+        .card-body {
+            padding: 0.7rem 0.75rem 0.75rem;
+        }
+
         .card-body h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem;
-            line-height: 1.25; color: var(--text);
-            display: flex; align-items: flex-start; gap: 0.35rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            line-height: 1.25;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.35rem;
         }
-        .card-body h3 i { color: var(--red); margin-top: 1px; flex-shrink: 0; font-size: 0.75rem; }
-        .card-body p { font-size: 0.7rem; color: var(--muted); line-height: 1.3; margin-bottom: 0.5rem; }
+
+        .card-body h3 i {
+            color: var(--red);
+            margin-top: 1px;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+
+        .card-body p {
+            font-size: 0.7rem;
+            color: var(--muted);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
         .card-tag {
-            display: inline-flex; align-items: center; gap: 0.3rem;
-            background: var(--red-soft); color: var(--red);
-            font-size: 0.65rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--red-soft);
+            color: var(--red);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 2rem;
         }
 
         /* FULL-WIDTH CARDS */
+
         .card-full {
-            background: var(--white); border-radius: var(--radius);
-            overflow: hidden; box-shadow: var(--shadow);
-            border: 1px solid var(--sand); cursor: pointer;
-            transition: transform 0.15s ease;
-            text-decoration: none; display: flex; align-items: stretch;
-            color: inherit; margin-bottom: 0.75rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--sand);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: stretch;
+            color: inherit;
+            margin-bottom: 0.75rem;
         }
-        .card-full:active { transform: scale(0.98); }
+
+        .card-full:active {
+            transform: scale(0.98);
+        }
+
         .card-full-thumb {
-            width: 90px; flex-shrink: 0;
-            background-size: cover; background-position: center;
+            width: 90px;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
             background-color: var(--sand);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; color: #aa7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #aa7a5c;
         }
+
         .card-full-body {
-            padding: 0.85rem 0.9rem; flex: 1;
-            display: flex; flex-direction: column; justify-content: center; gap: 0.25rem;
+            padding: 0.85rem 0.9rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.25rem;
         }
+
         .card-full-body h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.88rem; font-weight: 700; color: var(--text);
-            display: flex; align-items: center; gap: 0.4rem; line-height: 1.2;
-        }
-        .card-full-body h3 i { color: var(--red); font-size: 0.8rem; }
-        .card-full-body p { font-size: 0.72rem; color: var(--muted); line-height: 1.35; }
-        .card-full-body .inline-link {
-            color: var(--red); font-weight: 600; cursor: pointer;
-        }
-        .card-full-arrow {
-            display: flex; align-items: center;
-            padding-right: 0.8rem; color: var(--sand); font-size: 0.9rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            line-height: 1.2;
         }
 
-        /* ALERT BANNER */
+        .card-full-body h3 i {
+            color: var(--red);
+            font-size: 0.8rem;
+        }
+
+        .card-full-body p {
+            font-size: 0.72rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        .card-full-body .inline-link {
+            color: var(--red);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .card-full-arrow {
+            display: flex;
+            align-items: center;
+            padding-right: 0.8rem;
+            color: var(--sand);
+            font-size: 0.9rem;
+        }
+
+        /* ═══════════════════════════════
+           LIVE CARD
+        ═══════════════════════════════ */
+
+        .live-card {
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .live-card.live-now {
+            border-color: #e53935;
+            box-shadow:
+                0 4px 16px rgba(229,57,53,0.20),
+                0 0 0 1px rgba(229,57,53,0.08);
+            animation: liveCardPulse 2s ease-in-out infinite;
+        }
+
+        .live-card.live-now .card-full-thumb {
+            background:
+                linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.28)),
+                url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .live-card.live-now .card-full-body h3 {
+            color: #d32f2f;
+        }
+
+        .live-card.live-now .card-full-body h3 i {
+            color: #e53935;
+        }
+
+        .live-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.35rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 800;
+            color: #d32f2f;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.1rem;
+        }
+
+        .live-card.live-now .live-indicator {
+            display: flex;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #e53935;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(229,57,53,0.7);
+            animation: liveDotPulse 1.5s infinite;
+        }
+
+        @keyframes liveDotPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(229,57,53,0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 7px rgba(229,57,53,0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(229,57,53,0);
+            }
+        }
+
+        @keyframes liveCardPulse {
+            0%, 100% {
+                box-shadow:
+                    0 4px 16px rgba(229,57,53,0.20),
+                    0 0 0 1px rgba(229,57,53,0.08);
+            }
+            50% {
+                box-shadow:
+                    0 5px 20px rgba(229,57,53,0.32),
+                    0 0 0 3px rgba(229,57,53,0.06);
+            }
+        }
+
+        .live-badge {
+            display: none;
+            position: absolute;
+            top: 0.55rem;
+            left: 0.55rem;
+            z-index: 2;
+            background: #e53935;
+            color: white;
+            border-radius: 0.4rem;
+            padding: 0.25rem 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.2);
+        }
+
+        .live-card.live-now .live-badge {
+            display: block;
+        }
+
+        .live-card.live-now .card-full-arrow {
+            color: #e53935;
+        }
+
+        /* ═══════════════════════════════
+           ALERT BANNER
+        ═══════════════════════════════ */
+
         .alert-banner {
             background: linear-gradient(135deg, var(--red) 0%, #e85040 100%);
-            color: white; border-radius: var(--radius);
+            color: white;
+            border-radius: var(--radius);
             padding: 0.9rem 1rem;
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 0.75rem; margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
             box-shadow: 0 4px 14px rgba(193,59,43,0.3);
-            cursor: pointer; transition: opacity 0.15s;
+            cursor: pointer;
+            transition: opacity 0.15s;
         }
-        .alert-banner:active { opacity: 0.85; }
-        .alert-banner-left { display: flex; align-items: center; gap: 0.7rem; }
+
+        .alert-banner:active {
+            opacity: 0.85;
+        }
+
+        .alert-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
         .alert-banner-icon {
-            width: 36px; height: 36px;
-            background: rgba(255,255,255,0.2); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
+
         .alert-banner strong {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.88rem; font-weight: 700; display: block; line-height: 1.2;
+            font-size: 0.88rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1.2;
         }
-        .alert-banner span { font-size: 0.7rem; opacity: 0.85; }
 
-        /* SOCIAL */
+        .alert-banner span {
+            font-size: 0.7rem;
+            opacity: 0.85;
+        }
+
+        /* ═══════════════════════════════
+           SOCIAL
+        ═══════════════════════════════ */
+
         .social-strip {
-            background: var(--white); border-radius: var(--radius);
-            padding: 1rem 1.1rem; border: 1px solid var(--sand); box-shadow: var(--shadow);
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1rem 1.1rem;
+            border: 1px solid var(--sand);
+            box-shadow: var(--shadow);
         }
-        .social-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
+
+        .social-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.9rem;
+        }
+
         .larrauntxi-avatar {
-            width: 50px; height: 50px; border-radius: 50%;
-            object-fit: cover; border: 2px solid var(--red); flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--red);
+            flex-shrink: 0;
         }
+
         .larrauntxi-fallback {
-            width: 50px; height: 50px; border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: var(--red-soft);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
+
         .social-header-text strong {
-            font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: block;
         }
-        .social-header-text span { font-size: 0.72rem; color: var(--muted); }
-        .social-icons-row { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+
+        .social-header-text span {
+            font-size: 0.72rem;
+            color: var(--muted);
+        }
+
+        .social-icons-row {
+            display: flex;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
         .social-btn {
-            display: flex; align-items: center; gap: 0.4rem;
-            background: var(--cream); border: 1px solid var(--sand);
-            padding: 0.5rem 0.9rem; border-radius: 2rem;
-            font-size: 0.8rem; font-weight: 600; color: var(--text);
-            text-decoration: none; transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--cream);
+            border: 1px solid var(--sand);
+            padding: 0.5rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.15s;
         }
-        .social-btn i { font-size: 1rem; }
-        .social-btn:active { background: var(--red); color: white; border-color: var(--red); }
-        .social-btn.fb i { color: #1877f2; }
-        .social-btn.ig i { color: #e1306c; }
-        .social-btn.wa i { color: #25d366; }
-        .social-btn.yt i { color: #ff0000; }
-        .social-btn.tt i { color: #010101; }
 
-        /* FOOTER QUICK */
+        .social-btn i {
+            font-size: 1rem;
+        }
+
+        .social-btn:active {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+
+        .social-btn.fb i {
+            color: #1877f2;
+        }
+
+        .social-btn.ig i {
+            color: #e1306c;
+        }
+
+        .social-btn.wa i {
+            color: #25d366;
+        }
+
+        .social-btn.yt i {
+            color: #ff0000;
+        }
+
+        .social-btn.tt i {
+            color: #010101;
+        }
+
+        /* ═══════════════════════════════
+           FOOTER QUICK
+        ═══════════════════════════════ */
+
         .footer-quick {
-            background: var(--white); border-radius: var(--radius);
-            padding: 0.9rem 1rem; border: 1px solid var(--sand);
-            box-shadow: var(--shadow); margin-top: 0.75rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--sand);
+            box-shadow: var(--shadow);
+            margin-top: 0.75rem;
         }
-        .footer-quick-title {
-            font-size: 0.7rem; font-weight: 700; color: var(--muted);
-            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.7rem;
-        }
-        .footer-quick-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .footer-quick-links a {
-            background: var(--cream); border: 1px solid var(--sand);
-            color: var(--text); font-size: 0.72rem; font-weight: 600;
-            padding: 0.35rem 0.75rem; border-radius: 2rem;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;
-            transition: all 0.15s; cursor: pointer;
-        }
-        .footer-quick-links a:active { background: var(--red); color: white; border-color: var(--red); }
 
-        /* BOTTOM NAV */
+        .footer-quick-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .footer-quick-links a {
+            background: var(--cream);
+            border: 1px solid var(--sand);
+            color: var(--text);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.35rem 0.75rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+
+        .footer-quick-links a:active {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+
+        /* ═══════════════════════════════
+           BOTTOM NAV
+        ═══════════════════════════════ */
+
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: var(--white); border-top: 1px solid var(--sand);
-            display: flex; z-index: 200;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--sand);
+            display: flex;
+            z-index: 200;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
             padding-bottom: env(safe-area-inset-bottom);
         }
+
         .nav-item {
-            flex: 1; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 0.6rem 0.3rem 0.5rem;
-            text-decoration: none; color: var(--muted);
-            font-size: 0.6rem; font-weight: 600; gap: 0.2rem;
-            transition: color 0.15s; cursor: pointer;
-            border: none; background: none; font-family: 'Nunito', sans-serif;
-        }
-        .nav-item i { font-size: 1.2rem; }
-        .nav-item:active { color: var(--red); }
-        .nav-item.featured .nav-pip {
-            background: var(--red); width: 44px; height: 44px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; box-shadow: 0 4px 12px rgba(193,59,43,0.4);
-            margin-top: -14px; color: white;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.6rem;
+            font-weight: 600;
+            gap: 0.2rem;
+            transition: color 0.15s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: 'Nunito', sans-serif;
         }
 
-        /* MODALS */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-            z-index: 500; display: none; align-items: flex-end; justify-content: center;
+        .nav-item i {
+            font-size: 1.2rem;
         }
-        .modal-overlay.open { display: flex; }
+
+        .nav-item:active {
+            color: var(--red);
+        }
+
+        .nav-item.featured .nav-pip {
+            background: var(--red);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(193,59,43,0.4);
+            margin-top: -14px;
+            color: white;
+        }
+
+        /* ═══════════════════════════════
+           MODALS
+        ═══════════════════════════════ */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 500;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
         .modal-sheet {
-            background: var(--white); border-radius: 1.5rem 1.5rem 0 0;
-            padding: 1.5rem 1.5rem 2.5rem; width: 100%; max-width: 480px;
+            background: var(--white);
+            border-radius: 1.5rem 1.5rem 0 0;
+            padding: 1.5rem 1.5rem 2.5rem;
+            width: 100%;
+            max-width: 480px;
             animation: slideUp 0.25s ease;
         }
+
         @keyframes slideUp {
-            from { transform: translateY(60px); opacity: 0; }
-            to   { transform: translateY(0);    opacity: 1; }
+            from {
+                transform: translateY(60px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         .modal-handle {
-            width: 36px; height: 4px; background: var(--sand);
-            border-radius: 2px; margin: 0 auto 1.2rem;
+            width: 36px;
+            height: 4px;
+            background: var(--sand);
+            border-radius: 2px;
+            margin: 0 auto 1.2rem;
         }
+
         .modal-icon {
-            width: 52px; height: 52px; background: var(--red-soft); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--red); font-size: 1.4rem; margin-bottom: 0.8rem;
+            width: 52px;
+            height: 52px;
+            background: var(--red-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
         }
+
         .modal-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 0.4rem;
         }
-        .modal-body { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.2rem; }
+
+        .modal-body {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
         .modal-btn {
-            display: block; width: 100%; background: var(--red); color: white; border: none;
-            border-radius: 3rem; padding: 0.85rem;
-            font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700;
-            cursor: pointer; transition: background 0.15s;
+            display: block;
+            width: 100%;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 3rem;
+            padding: 0.85rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-align: center;
+            text-decoration: none;
         }
-        .modal-btn:active { background: var(--red-dark); }
 
-        /* THUMB IMAGES */
-        .img-kategoriak  { background-image: url('https://larraunpilota.eus/images/kategoriak1.png'); }
-        .img-entrenadores{ background-image: url('https://larraunpilota.eus/images/entrenatzaileak1.png'); }
-        .img-ordutegiak  { background-image: url('https://larraunpilota.eus/images/frontoiko-ordutegiak1.png'); }
-        .img-taldeak     { background-image: url('https://larraunpilota.eus/images/larraungo-taldeak1.png'); }
-        .img-aldaketa    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/aldaketa.png'); }
-        .img-egutegia    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/egutegia.png'); }
-        .img-emaitzak    { background-image: linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),url('https://larraunpilota.eus/azken-emaitzak.jpg'); }
-        .img-zuzeneko    { background-image: linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.28)),url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png'); }
+        .modal-btn:active {
+            background: var(--red-dark);
+        }
 
-        /* INSTALL BANNER */
+        .modal-btn.youtube {
+            background: #ff0000;
+            margin-bottom: 0.6rem;
+        }
+
+        .modal-btn.youtube:active {
+            background: #cc0000;
+        }
+
+        /* ═══════════════════════════════
+           THUMB IMAGES
+        ═══════════════════════════════ */
+
+        .img-kategoriak {
+            background-image: url('https://larraunpilota.eus/images/kategoriak1.png');
+        }
+
+        .img-entrenadores {
+            background-image: url('https://larraunpilota.eus/images/entrenatzaileak1.png');
+        }
+
+        .img-ordutegiak {
+            background-image: url('https://larraunpilota.eus/images/frontoiko-ordutegiak1.png');
+        }
+
+        .img-taldeak {
+            background-image: url('https://larraunpilota.eus/images/larraungo-taldeak1.png');
+        }
+
+        .img-aldaketa {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),
+                url('https://larraunpilota.eus/aldaketa.png');
+        }
+
+        .img-egutegia {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),
+                url('https://larraunpilota.eus/egutegia.png');
+        }
+
+        .img-emaitzak {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),
+                url('https://larraunpilota.eus/azken-emaitzak.jpg');
+        }
+
+        .img-zuzeneko {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.28)),
+                url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png');
+        }
+
+        /* ═══════════════════════════════
+           INSTALL BANNER
+        ═══════════════════════════════ */
+
         .install-banner {
-            background: linear-gradient(135deg, #1a3a5c, #2a5f8a); color: white;
-            border-radius: var(--radius); padding: 0.85rem 1rem;
-            display: flex; align-items: center; gap: 0.75rem;
-            margin-bottom: 0.75rem; cursor: pointer; transition: opacity 0.15s;
+            background: linear-gradient(135deg, #1a3a5c, #2a5f8a);
+            color: white;
+            border-radius: var(--radius);
+            padding: 0.85rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: opacity 0.15s;
         }
-        .install-banner:active { opacity: 0.85; }
-        .install-banner.hidden { display: none; }
-        .install-banner i { font-size: 1.5rem; opacity: 0.9; }
+
+        .install-banner:active {
+            opacity: 0.85;
+        }
+
+        .install-banner.hidden {
+            display: none;
+        }
+
+        .install-banner i {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
         .install-banner-text strong {
-            font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 700; display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: block;
         }
-        .install-banner-text span { font-size: 0.7rem; opacity: 0.8; }
-        .install-banner-close { margin-left: auto; opacity: 0.6; padding: 0.3rem; }
+
+        .install-banner-text span {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .install-banner-close {
+            margin-left: auto;
+            opacity: 0.6;
+            padding: 0.3rem;
+        }
     </style>
 </head>
+
 <body>
 
 <!-- ═══════════ IN-APP VIEWER ═══════════ -->
+
 <div id="viewer">
     <div id="viewer-bar">
+
         <button id="viewer-back" onclick="closeViewer()" aria-label="Itzuli">
             <i class="fas fa-arrow-left"></i>
         </button>
+
         <span id="viewer-title">Larraun Pilota</span>
-        <button id="viewer-desktop-btn" onclick="toggleDesktopMode()" title="Ordenagailu/Mugikor bista">
+
+        <button
+            id="viewer-desktop-btn"
+            onclick="toggleDesktopMode()"
+            title="Ordenagailu/Mugikor bista">
             <i class="fas fa-desktop"></i>
             <span class="desktop-badge">PC</span>
         </button>
-        <a id="viewer-external" href="#" target="_blank" rel="noopener" title="Nabigatzailean ireki">
+
+        <a
+            id="viewer-external"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            title="Nabigatzailean ireki">
             <i class="fas fa-external-link-alt"></i>
         </a>
+
     </div>
+
     <div id="viewer-loading">
         <i class="fas fa-circle-notch"></i>
         <span>Kargatzen...</span>
     </div>
+
     <div id="viewer-iframe-wrap">
-        <iframe id="viewer-iframe" src="about:blank" allowfullscreen>
+        <iframe
+            id="viewer-iframe"
+            src="about:blank"
+            allowfullscreen>
         </iframe>
     </div>
 </div>
 
+
 <!-- ═══════════ HEADER ═══════════ -->
+
 <header class="app-header">
+
     <div class="header-left">
-        <img class="club-avatar"
-             src="images/icons/LARRAUNTXI.png" alt="Larrauntxi"
-             onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
-        <div class="club-avatar-fallback" id="avatar-fallback" style="display:none;">
+
+        <img
+            class="club-avatar"
+            src="images/icons/LARRAUNTXI.png"
+            alt="Larrauntxi"
+            onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
+
+        <div
+            class="club-avatar-fallback"
+            id="avatar-fallback"
+            style="display:none;">
             <i class="fas fa-hand-fist"></i>
         </div>
+
         <div class="header-titles">
             <h1>Larraun Pilota</h1>
             <p>Kontrol Panela · 2025-2026</p>
         </div>
+
     </div>
+
     <div class="header-contact">
-        <a href="tel:613997710" class="contact-btn"><i class="fas fa-phone-alt"></i></a>
-        <a href="mailto:larraunpe@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i></a>
+
+        <a
+            href="tel:613997710"
+            class="contact-btn">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+
+        <a
+            href="mailto:larraunpe@gmail.com"
+            class="contact-btn">
+            <i class="fas fa-envelope"></i>
+        </a>
+
     </div>
+
 </header>
 
+
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
+
 <main class="content">
 
-    <div class="install-banner" id="installBanner">
+    <!-- INSTALL BANNER -->
+
+    <div
+        class="install-banner"
+        id="installBanner">
+
         <i class="fas fa-download"></i>
+
         <div class="install-banner-text">
             <strong>Instalatu App gisa</strong>
             <span>Gehitu pantaila nagusira</span>
         </div>
-        <span class="install-banner-close" id="installClose"><i class="fas fa-times"></i></span>
+
+        <span
+            class="install-banner-close"
+            id="installClose">
+            <i class="fas fa-times"></i>
+        </span>
+
     </div>
 
-    <!-- SECTION 1: INFO OROKORRA -->
-    <div class="section-label"><i class="fas fa-bullhorn"></i> Informazio Orokorra</div>
+
+    <!-- ═══════════════════════════════
+         SECTION 1: INFO OROKORRA
+    ═══════════════════════════════ -->
+
+    <div class="section-label">
+        <i class="fas fa-bullhorn"></i>
+        Informazio Orokorra
+    </div>
+
     <div class="cards-2col">
-        <div class="card" onclick="openViewer('https://larraunpilota.eus/kategoriak.html','Kategoriak')">
+
+        <div
+            class="card"
+            onclick="openViewer('https://larraunpilota.eus/kategoriak.html','Kategoriak')">
+
             <div class="card-thumb img-kategoriak"></div>
+
             <div class="card-body">
-                <h3><i class="fas fa-layer-group"></i> Kategoriak</h3>
-                <p>Adinaren eta mailaren araberako kategoriak</p>
-                <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
+
+                <h3>
+                    <i class="fas fa-layer-group"></i>
+                    Kategoriak
+                </h3>
+
+                <p>
+                    Adinaren eta mailaren araberako kategoriak
+                </p>
+
+                <span class="card-tag">
+                    Zabaldu
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+
             </div>
+
         </div>
-        <div class="card" onclick="openViewer('https://larraunpilota.eus/entrenatzaileak.html','Entrenatzaileak')">
+
+
+        <div
+            class="card"
+            onclick="openViewer('https://larraunpilota.eus/entrenatzaileak.html','Entrenatzaileak')">
+
             <div class="card-thumb img-entrenadores"></div>
+
             <div class="card-body">
-                <h3><i class="fas fa-chalkboard-user"></i> Entrenatzaileak</h3>
-                <p>Talde tekniko eta irakasleak</p>
-                <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
+
+                <h3>
+                    <i class="fas fa-chalkboard-user"></i>
+                    Entrenatzaileak
+                </h3>
+
+                <p>
+                    Talde tekniko eta irakasleak
+                </p>
+
+                <span class="card-tag">
+                    Zabaldu
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+
             </div>
+
         </div>
-        <div class="card" onclick="openViewer('https://larraunpilota.eus/frontoiko-ordutegiak.html','Ordutegiak')">
+
+
+        <div
+            class="card"
+            onclick="openViewer('https://larraunpilota.eus/frontoiko-ordutegiak.html','Ordutegiak')">
+
             <div class="card-thumb img-ordutegiak"></div>
+
             <div class="card-body">
-                <h3><i class="fas fa-clock"></i> Ordutegiak</h3>
-                <p>Frontoi eta trinkete ordutegia</p>
-                <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
+
+                <h3>
+                    <i class="fas fa-clock"></i>
+                    Ordutegiak
+                </h3>
+
+                <p>
+                    Frontoi eta trinkete ordutegia
+                </p>
+
+                <span class="card-tag">
+                    Zabaldu
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+
             </div>
+
         </div>
-        <div class="card" onclick="openViewer('https://larraunpilota.eus/larraungo-taldeak.html','Taldeak')">
+
+
+        <div
+            class="card"
+            onclick="openViewer('https://larraunpilota.eus/larraungo-taldeak.html','Taldeak')">
+
             <div class="card-thumb img-taldeak"></div>
+
             <div class="card-body">
-                <h3><i class="fas fa-people-arrows"></i> Taldeak</h3>
-                <p>Kategoria bakoitzeko kideak</p>
-                <span class="card-tag">Zabaldu <i class="fas fa-arrow-right"></i></span>
+
+                <h3>
+                    <i class="fas fa-people-arrows"></i>
+                    Taldeak
+                </h3>
+
+                <p>
+                    Kategoria bakoitzeko kideak
+                </p>
+
+                <span class="card-tag">
+                    Zabaldu
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- SECTION 2: DOKUMENTUAK -->
-    <div class="section-label"><i class="fas fa-folder-open"></i> Dokumentuak</div>
 
-    <div class="card-full" onclick="openViewer('arauak.pdf?v=2','Arauak')">
-        <div class="card-full-thumb" style="background:linear-gradient(135deg,#c13b2b,#e85040);">
-            <i class="fas fa-scale-balanced" style="color:white;font-size:1.6rem;"></i>
+    <!-- ═══════════════════════════════
+         SECTION 2: DOKUMENTUAK
+    ═══════════════════════════════ -->
+
+    <div class="section-label">
+        <i class="fas fa-folder-open"></i>
+        Dokumentuak
+    </div>
+
+
+    <div
+        class="card-full"
+        onclick="openViewer('arauak.pdf?v=2','Arauak')">
+
+        <div
+            class="card-full-thumb"
+            style="background:linear-gradient(135deg,#c13b2b,#e85040);">
+
+            <i
+                class="fas fa-scale-balanced"
+                style="color:white;font-size:1.6rem;">
+            </i>
+
         </div>
+
         <div class="card-full-body">
-            <h3><i class="fas fa-file-pdf"></i> Arauak</h3>
-            <p>Denboraldiko arau eta informazio orokorra</p>
+
+            <h3>
+                <i class="fas fa-file-pdf"></i>
+                Arauak
+            </h3>
+
+            <p>
+                Denboraldiko arau eta informazio orokorra
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('txapelketak-egutegia.pdf?v=2','Txapelketen Egutegia')">
-        <div class="card-full-thumb" style="background:linear-gradient(135deg,#9a6c2a,#c49040);">
-            <i class="fas fa-trophy" style="color:white;font-size:1.6rem;"></i>
+
+    <div
+        class="card-full"
+        onclick="openViewer('txapelketak-egutegia.pdf?v=2','Txapelketen Egutegia')">
+
+        <div
+            class="card-full-thumb"
+            style="background:linear-gradient(135deg,#9a6c2a,#c49040);">
+
+            <i
+                class="fas fa-trophy"
+                style="color:white;font-size:1.6rem;">
+            </i>
+
         </div>
+
         <div class="card-full-body">
-            <h3><i class="fas fa-file-pdf"></i> Txapelketen Egutegia</h3>
-            <p>Torneo ez-ofizialak eta FNPk kudeatzen ez dituen ofizialak</p>
+
+            <h3>
+                <i class="fas fa-file-pdf"></i>
+                Txapelketen Egutegia
+            </h3>
+
+            <p>
+                Torneo ez-ofizialak eta FNPk kudeatzen ez dituen ofizialak
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('ikasurteko-egutegia.pdf?v=2','ikasurteko Egutegia')">
-        <div class="card-full-thumb" style="background:linear-gradient(135deg,#2a6c4a,#3a9060);">
-            <i class="fas fa-graduation-cap" style="color:white;font-size:1.6rem;"></i>
+
+    <div
+        class="card-full"
+        onclick="openViewer('ikasurteko-egutegia.pdf?v=2','ikasurteko Egutegia')">
+
+        <div
+            class="card-full-thumb"
+            style="background:linear-gradient(135deg,#2a6c4a,#3a9060);">
+
+            <i
+                class="fas fa-graduation-cap"
+                style="color:white;font-size:1.6rem;">
+            </i>
+
         </div>
+
         <div class="card-full-body">
-            <h3><i class="fas fa-file-pdf"></i> ikasurteko Egutegia</h3>
-            <p>Eskola-egutegia, entrenamendu-ordutegien oinarria</p>
+
+            <h3>
+                <i class="fas fa-file-pdf"></i>
+                ikasurteko Egutegia
+            </h3>
+
+            <p>
+                Eskola-egutegia, entrenamendu-ordutegien oinarria
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <!-- SECTION 3: EGUNERAKETA -->
-    <div class="section-label"><i class="fas fa-calendar-week"></i> Eguneraketa</div>
 
-    <div class="alert-banner" onclick="openViewer('https://larraunpilota.eus/kartela9.html','Asteko Kartelera')">
+    <!-- ═══════════════════════════════
+         SECTION 3: EGUNERAKETA
+    ═══════════════════════════════ -->
+
+    <div class="section-label">
+        <i class="fas fa-calendar-week"></i>
+        Eguneraketa
+    </div>
+
+
+    <div
+        class="alert-banner"
+        onclick="openViewer('https://larraunpilota.eus/kartela9.html','Asteko Kartelera')">
+
         <div class="alert-banner-left">
-            <div class="alert-banner-icon"><i class="fas fa-flag-checkered"></i></div>
-            <div>
-                <strong>Asteko Kartelera Definitiboa</strong>
-                <span>Asteazkena argitaratzen da</span>
+
+            <div class="alert-banner-icon">
+                <i class="fas fa-flag-checkered"></i>
             </div>
+
+            <div>
+
+                <strong>
+                    Asteko Kartelera Definitiboa
+                </strong>
+
+                <span>
+                    Asteazkena argitaratzen da
+                </span>
+
+            </div>
+
         </div>
+
         <i class="fas fa-chevron-right"></i>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/hurrengo-ordutegiak.html','Datorren asteko kartelera')">
+
+    <div
+        class="card-full"
+        onclick="openViewer('https://larraunpilota.eus/hurrengo-ordutegiak.html','Datorren asteko kartelera')">
+
         <div class="card-full-thumb img-aldaketa"></div>
+
         <div class="card-full-body">
-            <h3><i class="far fa-calendar-check"></i> Datorren asteko kartelera</h3>
-            <p>Ostegunean argitaratzen da. Aldaketak <strong>igandea</strong> arte.</p>
-            <p><span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketa-osoa.html','Aldaketak eskatu')">→ Aldaketak eskatu</span></p>
+
+            <h3>
+                <i class="far fa-calendar-check"></i>
+                Datorren asteko kartelera
+            </h3>
+
+            <p>
+                Ostegunean argitaratzen da. Aldaketak <strong>igandea</strong> arte.
+            </p>
+
+            <p>
+                <span
+                    class="inline-link"
+                    onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketa-osoa.html','Aldaketak eskatu')">
+                    → Aldaketak eskatu
+                </span>
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Behin-behineko kartelera')">
+
+    <div
+        class="card-full"
+        onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Behin-behineko kartelera')">
+
         <div class="card-full-thumb img-egutegia"></div>
+
         <div class="card-full-body">
-            <h3><i class="far fa-calendar-check"></i> Behin-behineko kartelera</h3>
-            <p>Astelehen goizean eguneratzen da.
-               <span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketak.html','Azken orduko aldaketak')">Azken orduko aldaketak</span></p>
+
+            <h3>
+                <i class="far fa-calendar-check"></i>
+                Behin-behineko kartelera
+            </h3>
+
+            <p>
+                Astelehen goizean eguneratzen da.
+                <span
+                    class="inline-link"
+                    onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketak.html','Azken orduko aldaketak')">
+                    Azken orduko aldaketak
+                </span>
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak FNP')">
+
+    <div
+        class="card-full"
+        onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak FNP')">
+
         <div class="card-full-thumb img-emaitzak"></div>
+
         <div class="card-full-body">
-            <h3><i class="fas fa-trophy"></i> Emaitzak FNP</h3>
-            <p>Astelehenetan FNPn argitaratutako emaitzak.
-               <span class="inline-link" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/emaitzak-kartela9.html','Emaitzen kartela')">Kartela formatuan</span></p>
+
+            <h3>
+                <i class="fas fa-trophy"></i>
+                Emaitzak FNP
+            </h3>
+
+            <p>
+                Astelehenetan FNPn argitaratutako emaitzak.
+                <span
+                    class="inline-link"
+                    onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/emaitzak-kartela9.html','Emaitzen kartela')">
+                    Kartela formatuan
+                </span>
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="mostrarAlertaZuzeneko()">
+
+    <!-- ═══════════════════════════════
+         YOUTUBE / ZUZENEKO PARTIDUAK
+    ═══════════════════════════════ -->
+
+    <div
+        class="card-full live-card"
+        id="liveCard"
+        onclick="openLiveStream()">
+
+        <div class="live-badge" id="liveBadge">
+            <i class="fas fa-circle"></i>
+            ZUZENEAN
+        </div>
+
         <div class="card-full-thumb img-zuzeneko"></div>
+
         <div class="card-full-body">
-            <h3><i class="fas fa-users-between"></i> Zuzeneko Partiduak</h3>
-            <p>LAISTER: Etxeko partidak zuzenean</p>
+
+            <div
+                class="live-indicator"
+                id="liveIndicator">
+                <span class="live-dot"></span>
+                ZUZENEAN ORAIN
+            </div>
+
+            <h3 id="liveTitle">
+
+                <i
+                    id="liveIcon"
+                    class="fas fa-video">
+                </i>
+
+                <span id="liveTitleText">
+                    Zuzeneko Partiduak
+                </span>
+
+            </h3>
+
+            <p id="liveDescription">
+                Ikusi gure etxeko partidak zuzenean YouTuben
+            </p>
+
         </div>
-        <div class="card-full-arrow"><i class="fas fa-bell"></i></div>
+
+        <div
+            class="card-full-arrow"
+            id="liveArrow">
+
+            <i class="fas fa-chevron-right"></i>
+
+        </div>
+
     </div>
 
-    <!-- SECTION 4: BESTE BATZUK -->
-    <div class="section-label"><i class="fas fa-ellipsis-h"></i> Beste Batzuk</div>
 
-    <div class="card-full" onclick="openViewer('https://larraunpilota.eus/historiko.html','Larraungo pilotaren historia')">
-        <div class="card-full-thumb" style="background:#f5e4d6;font-size:2rem;">📖</div>
-        <div class="card-full-body">
-            <h3><i class="fas fa-landmark"></i> Larraungo pilotaren historia</h3>
-            <p>Gure kirolaren ondarea eta tradizioa</p>
-        </div>
-        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+    <!-- ═══════════════════════════════
+         SECTION 4: BESTE BATZUK
+    ═══════════════════════════════ -->
+
+    <div class="section-label">
+        <i class="fas fa-ellipsis-h"></i>
+        Beste Batzuk
     </div>
 
-    <div class="card-full" onclick="mostrarAlertaColaboracion()">
-        <div class="card-full-thumb" style="background:#e6daca;font-size:2rem;">📸</div>
-        <div class="card-full-body">
-            <h3><i class="fas fa-palette"></i> Lagundu iezaguzu hobetzen!</h3>
-            <p>Bidali argazkiak, bideoak eta datu interesgarriak</p>
+
+    <div
+        class="card-full"
+        onclick="openViewer('https://larraunpilota.eus/historiko.html','Larraungo pilotaren historia')">
+
+        <div
+            class="card-full-thumb"
+            style="background:#f5e4d6;font-size:2rem;">
+            📖
         </div>
-        <div class="card-full-arrow"><i class="fas fa-heart" style="color:var(--red);"></i></div>
+
+        <div class="card-full-body">
+
+            <h3>
+                <i class="fas fa-landmark"></i>
+                Larraungo pilotaren historia
+            </h3>
+
+            <p>
+                Gure kirolaren ondarea eta tradizioa
+            </p>
+
+        </div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
     </div>
 
-    <div class="card-full" onclick="openViewer('https://www.fnpelota.com/pub/cartelera.asp?idioma=eu','Nafarroako Pilota Federazioa')">
-        <div class="card-full-thumb" style="background:#dcd0c0;font-size:2rem;">🏅</div>
-        <div class="card-full-body">
-            <h3><i class="fas fa-sitemap"></i> Nafarroako Pilota Federazioa</h3>
-            <p>FNPren egutegi ofiziala eta emaitzak</p>
+
+    <div
+        class="card-full"
+        onclick="mostrarAlertaColaboracion()">
+
+        <div
+            class="card-full-thumb"
+            style="background:#e6daca;font-size:2rem;">
+            📸
         </div>
-        <div class="card-full-arrow"><i class="fas fa-external-link-alt"></i></div>
+
+        <div class="card-full-body">
+
+            <h3>
+                <i class="fas fa-palette"></i>
+                Lagundu iezaguzu hobetzen!
+            </h3>
+
+            <p>
+                Bidali argazkiak, bideoak eta datu interesgarriak
+            </p>
+
+        </div>
+
+        <div class="card-full-arrow">
+            <i
+                class="fas fa-heart"
+                style="color:var(--red);">
+            </i>
+        </div>
+
     </div>
 
-    <!-- SECTION 5: SARE SOZIALAK -->
-    <div class="section-label"><i class="fas fa-project-diagram"></i> Sare Sozialak</div>
+
+    <div
+        class="card-full"
+        onclick="openViewer('https://www.fnpelota.com/pub/cartelera.asp?idioma=eu','Nafarroako Pilota Federazioa')">
+
+        <div
+            class="card-full-thumb"
+            style="background:#dcd0c0;font-size:2rem;">
+            🏅
+        </div>
+
+        <div class="card-full-body">
+
+            <h3>
+                <i class="fas fa-sitemap"></i>
+                Nafarroako Pilota Federazioa
+            </h3>
+
+            <p>
+                FNPren egutegi ofiziala eta emaitzak
+            </p>
+
+        </div>
+
+        <div class="card-full-arrow">
+            <i class="fas fa-external-link-alt"></i>
+        </div>
+
+    </div>
+
+
+    <!-- ═══════════════════════════════
+         SECTION 5: SARE SOZIALAK
+    ═══════════════════════════════ -->
+
+    <div class="section-label">
+        <i class="fas fa-project-diagram"></i>
+        Sare Sozialak
+    </div>
+
 
     <div class="social-strip">
+
         <div class="social-header">
-            <img class="larrauntxi-avatar" src="images/icons/LARRAUNTXI.png" alt="Larrauntxi"
-                 onerror="this.style.display='none'; document.getElementById('lx-fallback').style.display='flex';">
-            <div class="larrauntxi-fallback" id="lx-fallback" style="display:none;">🏃</div>
-            <div class="social-header-text">
-                <strong>Zatoz animatzera!</strong>
-                <span>Jarraitu gaitzazu sare sozialetan</span>
+
+            <img
+                class="larrauntxi-avatar"
+                src="images/icons/LARRAUNTXI.png"
+                alt="Larrauntxi"
+                onerror="this.style.display='none'; document.getElementById('lx-fallback').style.display='flex';">
+
+            <div
+                class="larrauntxi-fallback"
+                id="lx-fallback"
+                style="display:none;">
+                🏃
             </div>
+
+            <div class="social-header-text">
+
+                <strong>
+                    Zatoz animatzera!
+                </strong>
+
+                <span>
+                    Jarraitu gaitzazue sare sozialetan
+                </span>
+
+            </div>
+
         </div>
-        <!-- Redes sociales: abre en sus apps nativas, correcto que salgan de la PWA -->
+
+
+        <!-- Redes sociales -->
+
         <div class="social-icons-row">
-            <a href="https://www.facebook.com/profile.php?id=61585064469809" target="_blank" rel="noopener" class="social-btn fb">
-                <i class="fab fa-facebook-f"></i> Facebook
+
+            <a
+                href="https://www.facebook.com/profile.php?id=61585064469809"
+                target="_blank"
+                rel="noopener"
+                class="social-btn fb">
+
+                <i class="fab fa-facebook-f"></i>
+                Facebook
+
             </a>
-            <a href="https://www.instagram.com/larraunpilota" target="_blank" rel="noopener" class="social-btn ig">
-                <i class="fab fa-instagram"></i> Instagram
+
+
+            <a
+                href="https://www.instagram.com/larraunpilota"
+                target="_blank"
+                rel="noopener"
+                class="social-btn ig">
+
+                <i class="fab fa-instagram"></i>
+                Instagram
+
             </a>
-            <a href="https://www.whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08" target="_blank" rel="noopener" class="social-btn wa">
-                <i class="fab fa-whatsapp"></i> WhatsApp
+
+
+            <a
+                href="https://www.whatsapp.com/channel/0029Vb5DgCF29758ox3YJa08"
+                target="_blank"
+                rel="noopener"
+                class="social-btn wa">
+
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+
             </a>
-            <a href="https://www.youtube.com/@larraunpe" target="_blank" rel="noopener" class="social-btn yt">
-                <i class="fab fa-youtube"></i> YouTube
+
+
+            <a
+                href="https://www.youtube.com/@larraunpe"
+                target="_blank"
+                rel="noopener"
+                class="social-btn yt">
+
+                <i class="fab fa-youtube"></i>
+                YouTube
+
             </a>
-            <a href="https://www.tiktok.com/@larraunpilotaelkartea" target="_blank" rel="noopener" class="social-btn tt">
-                <i class="fab fa-tiktok"></i> TikTok
+
+
+            <a
+                href="https://www.tiktok.com/@larraunpilotaelkartea"
+                target="_blank"
+                rel="noopener"
+                class="social-btn tt">
+
+                <i class="fab fa-tiktok"></i>
+                TikTok
+
             </a>
+
         </div>
+
     </div>
 
+
+    <!-- ═══════════════════════════════
+         FOOTER QUICK
+    ═══════════════════════════════ -->
+
     <div class="footer-quick">
-        <div class="footer-quick-title">Esteka azkarrak</div>
-        <div class="footer-quick-links">
-            <a onclick="openViewer('https://larraunpilota.eus/','Web nagusia')">🌐 Web nagusia</a>
-            <a onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">📅 Ordutegiak</a>
-            <a onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">✍️ Aldaketak</a>
-            <a onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">🏆 Emaitzak</a>
-            <a onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">📢 Kartelera</a>
-            <a onclick="openViewer('https://larraunpilota.eus/#berriak','Berriak')">📰 Berriak</a>
+
+        <div class="footer-quick-title">
+            Esteka azkarrak
         </div>
+
+        <div class="footer-quick-links">
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/','Web nagusia')">
+                🌐 Web nagusia
+            </a>
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">
+                📅 Ordutegiak
+            </a>
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">
+                ✍️ Aldaketak
+            </a>
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">
+                🏆 Emaitzak
+            </a>
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">
+                📢 Kartelera
+            </a>
+
+            <a
+                onclick="openViewer('https://larraunpilota.eus/#berriak','Berriak')">
+                📰 Berriak
+            </a>
+
+        </div>
+
     </div>
 
 </main>
 
+
 <!-- ═══════════ BOTTOM NAV ═══════════ -->
+
 <nav class="bottom-nav">
-    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/','Hasiera')">
-        <i class="fas fa-home"></i><span>Hasiera</span>
+
+    <button
+        class="nav-item"
+        onclick="openViewer('https://larraunpilota.eus/','Hasiera')">
+
+        <i class="fas fa-home"></i>
+        <span>Hasiera</span>
+
     </button>
-    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">
-        <i class="fas fa-calendar-week"></i><span>Kartelera</span>
+
+
+    <button
+        class="nav-item"
+        onclick="openViewer('https://larraunpilota.eus/kartela9.html','Kartelera')">
+
+        <i class="fas fa-calendar-week"></i>
+        <span>Kartelera</span>
+
     </button>
-    <button class="nav-item featured" onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">
-        <div class="nav-pip"><i class="fas fa-trophy"></i></div>
-        <span style="color:var(--red);margin-top:2px;">Emaitzak</span>
+
+
+    <button
+        class="nav-item featured"
+        onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak')">
+
+        <div class="nav-pip">
+            <i class="fas fa-trophy"></i>
+        </div>
+
+        <span style="color:var(--red);margin-top:2px;">
+            Emaitzak
+        </span>
+
     </button>
-    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">
-        <i class="fas fa-clock"></i><span>Ordutegiak</span>
+
+
+    <button
+        class="nav-item"
+        onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Ordutegiak')">
+
+        <i class="fas fa-clock"></i>
+        <span>Ordutegiak</span>
+
     </button>
-    <button class="nav-item" onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">
-        <i class="fas fa-pen"></i><span>Aldaketak</span>
+
+
+    <button
+        class="nav-item"
+        onclick="openViewer('https://larraunpilota.eus/aldaketak.html','Aldaketak')">
+
+        <i class="fas fa-pen"></i>
+        <span>Aldaketak</span>
+
     </button>
+
 </nav>
 
-<!-- ═══════════ MODALS ═══════════ -->
-<div class="modal-overlay" id="modalZuzeneko" onclick="closeModal('modalZuzeneko')">
-    <div class="modal-sheet" onclick="event.stopPropagation()">
+
+<!-- ═══════════ MODAL ZUZENEKO ═══════════ -->
+
+<div
+    class="modal-overlay"
+    id="modalZuzeneko"
+    onclick="closeModal('modalZuzeneko')">
+
+    <div
+        class="modal-sheet"
+        onclick="event.stopPropagation()">
+
         <div class="modal-handle"></div>
-        <div class="modal-icon"><i class="fas fa-video"></i></div>
-        <div class="modal-title">Zuzeneko Partiduak</div>
-        <div class="modal-body">2026/2027 denboraldian etxeko partidak zuzenean eskuragarri egongo dira. Laster!</div>
-        <button class="modal-btn" onclick="closeModal('modalZuzeneko')">Onartu</button>
+
+        <div class="modal-icon">
+            <i class="fas fa-video"></i>
+        </div>
+
+        <div
+            class="modal-title"
+            id="liveModalTitle">
+            Zuzeneko Partiduak
+        </div>
+
+        <div
+            class="modal-body"
+            id="liveModalBody">
+            Gure etxeko partidak zuzenean ikusi ahal izango dituzu Larraun Pilota Elkartearen YouTube kanalean.
+        </div>
+
+        <a
+            id="liveModalButton"
+            class="modal-btn youtube"
+            href="https://www.youtube.com/@larraunpe/streams"
+            target="_blank"
+            rel="noopener">
+
+            <i class="fab fa-youtube"></i>
+            YouTube kanala
+
+        </a>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal('modalZuzeneko')">
+
+            Itxi
+
+        </button>
+
     </div>
+
 </div>
 
-<div class="modal-overlay" id="modalColab" onclick="closeModal('modalColab')">
-    <div class="modal-sheet" onclick="event.stopPropagation()">
+
+<!-- ═══════════ MODAL COLABORACIÓN ═══════════ -->
+
+<div
+    class="modal-overlay"
+    id="modalColab"
+    onclick="closeModal('modalColab')">
+
+    <div
+        class="modal-sheet"
+        onclick="event.stopPropagation()">
+
         <div class="modal-handle"></div>
-        <div class="modal-icon"><i class="fas fa-camera-retro"></i></div>
-        <div class="modal-title">Lagundu iezaguzu!</div>
-        <div class="modal-body">
-            Argazkiak, bideoak, iradokizunak eta datu interesgarriak bidali:<br><br>
-            📧 <a href="mailto:larraunpe@gmail.com" style="color:var(--red);font-weight:600;">larraunpe@gmail.com</a><br>
-            📞 <a href="tel:613997710" style="color:var(--red);font-weight:600;">613 99 77 10</a><br><br>
-            Milla esker!
+
+        <div class="modal-icon">
+            <i class="fas fa-camera-retro"></i>
         </div>
-        <button class="modal-btn" onclick="closeModal('modalColab')">Onartu</button>
+
+        <div class="modal-title">
+            Lagundu iezaguzu!
+        </div>
+
+        <div class="modal-body">
+
+            Argazkiak, bideoak, iradokizunak eta datu interesgarriak bidali:
+
+            <br><br>
+
+            📧
+            <a
+                href="mailto:larraunpe@gmail.com"
+                style="color:var(--red);font-weight:600;">
+                larraunpe@gmail.com
+            </a>
+
+            <br>
+
+            📞
+            <a
+                href="tel:613997710"
+                style="color:var(--red);font-weight:600;">
+                613 99 77 10
+            </a>
+
+            <br><br>
+
+            Milla esker!
+
+        </div>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal('modalColab')">
+
+            Onartu
+
+        </button>
+
     </div>
+
 </div>
+
 
 <script>
-    
-// ─── SERVICE WORKER ───────────────────────────────────
+
+/* ═══════════════════════════════════════════════════════
+   CONFIGURACIÓN YOUTUBE
+   ═══════════════════════════════════════════════════════ */
+
+const YOUTUBE_CHANNEL_URL =
+    'https://www.youtube.com/@larraunpe/streams';
+
+const YOUTUBE_LIVE_JSON =
+    'data/youtube-live.json';
+
+/*
+ * Tiempo entre comprobaciones.
+ * 2 minutos = 120000 ms
+ */
+const YOUTUBE_CHECK_INTERVAL = 120000;
+
+
+/* Estado actual del directo */
+
+let youtubeLiveData = {
+    live: false,
+    videoId: '',
+    title: '',
+    url: YOUTUBE_CHANNEL_URL
+};
+
+
+/* ═══════════════════════════════════════════════════════
+   SERVICE WORKER
+   ═══════════════════════════════════════════════════════ */
+
 if ('serviceWorker' in navigator) {
+
     window.addEventListener('load', () => {
+
         navigator.serviceWorker.register('sw.js')
+
             .then(registration => {
+
                 console.log('SW registrado correctamente');
-                
-                // Verificar si hay una nueva versión
+
+                /* Verificar si hay una nueva versión */
+
                 registration.addEventListener('updatefound', () => {
+
                     const newWorker = registration.installing;
+
                     newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // Nueva versión disponible
-                            if (confirm('¡Nueva versión disponible! ¿Actualizar ahora?')) {
-                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+
+                        if (
+                            newWorker.state === 'installed' &&
+                            navigator.serviceWorker.controller
+                        ) {
+
+                            if (
+                                confirm(
+                                    '¡Nueva versión disponible! ¿Actualizar ahora?'
+                                )
+                            ) {
+
+                                newWorker.postMessage({
+                                    type: 'SKIP_WAITING'
+                                });
+
                                 window.location.reload();
+
                             }
+
                         }
+
                     });
+
                 });
+
             })
-            .catch(err => console.log('SW registro falló:', err));
+
+            .catch(err => {
+
+                console.log(
+                    'SW registro falló:',
+                    err
+                );
+
+            });
+
     });
+
 }
-    // ─── IN-APP VIEWER ───────────────────────────────────
-    const viewer          = document.getElementById('viewer');
-    const viewerIframe    = document.getElementById('viewer-iframe');
-    const viewerWrap      = document.getElementById('viewer-iframe-wrap');
-    const viewerTitle     = document.getElementById('viewer-title');
-    const viewerExt       = document.getElementById('viewer-external');
-    const viewerLoad      = document.getElementById('viewer-loading');
-    const desktopBtn      = document.getElementById('viewer-desktop-btn');
-    let   isDesktopMode   = false;
-    let   currentViewerUrl = '';
 
-    function openViewer(url, title) {
-        // Resolve relative URLs (PDFs in same origin)
-        const abs = url.startsWith('http') ? url : (location.origin + location.pathname.replace(/[^/]*$/, '') + url);
-        currentViewerUrl = abs;
 
-        viewerTitle.textContent = title || 'Larraun Pilota';
-        viewerExt.href = abs;
+/* ═══════════════════════════════════════════════════════
+   IN-APP VIEWER
+   ═══════════════════════════════════════════════════════ */
+
+const viewer =
+    document.getElementById('viewer');
+
+const viewerIframe =
+    document.getElementById('viewer-iframe');
+
+const viewerWrap =
+    document.getElementById('viewer-iframe-wrap');
+
+const viewerTitle =
+    document.getElementById('viewer-title');
+
+const viewerExt =
+    document.getElementById('viewer-external');
+
+const viewerLoad =
+    document.getElementById('viewer-loading');
+
+const desktopBtn =
+    document.getElementById('viewer-desktop-btn');
+
+let isDesktopMode = false;
+
+let currentViewerUrl = '';
+
+
+function openViewer(url, title) {
+
+    /* Resolve relative URLs */
+
+    const abs =
+        url.startsWith('http')
+            ? url
+            : (
+                location.origin +
+                location.pathname.replace(/[^/]*$/, '') +
+                url
+            );
+
+    currentViewerUrl = abs;
+
+    viewerTitle.textContent =
+        title || 'Larraun Pilota';
+
+    viewerExt.href = abs;
+
+    viewerLoad.style.display = 'flex';
+
+    applyDesktopMode(isDesktopMode);
+
+    viewerIframe.src = abs;
+
+    viewer.classList.add('open');
+
+    document.body.style.overflow = 'hidden';
+
+    /* Android back button */
+
+    history.pushState(
+        {
+            viewer: true,
+            url: abs,
+            title
+        },
+        ''
+    );
+
+}
+
+
+function closeViewer() {
+
+    viewer.classList.remove('open');
+
+    viewerIframe.src = 'about:blank';
+
+    document.body.style.overflow = '';
+
+}
+
+
+function applyDesktopMode(desktop) {
+
+    if (desktop) {
+
+        viewerWrap.classList.add(
+            'desktop-mode'
+        );
+
+        desktopBtn.classList.add(
+            'desktop-active'
+        );
+
+    } else {
+
+        viewerWrap.classList.remove(
+            'desktop-mode'
+        );
+
+        desktopBtn.classList.remove(
+            'desktop-active'
+        );
+
+    }
+
+}
+
+
+function toggleDesktopMode() {
+
+    isDesktopMode = !isDesktopMode;
+
+    applyDesktopMode(
+        isDesktopMode
+    );
+
+    if (currentViewerUrl) {
+
         viewerLoad.style.display = 'flex';
-        applyDesktopMode(isDesktopMode);  // apply current mode
-        viewerIframe.src = abs;
-        viewer.classList.add('open');
-        document.body.style.overflow = 'hidden';
 
-        // Push history state so Android back button works
-        history.pushState({ viewer: true, url: abs, title }, '');
+        viewerIframe.src =
+            currentViewerUrl;
+
     }
 
-    function closeViewer() {
-        viewer.classList.remove('open');
-        viewerIframe.src = 'about:blank';
-        document.body.style.overflow = '';
-    }
+}
 
-    function applyDesktopMode(desktop) {
-        if (desktop) {
-            viewerWrap.classList.add('desktop-mode');
-            desktopBtn.classList.add('desktop-active');
-        } else {
-            viewerWrap.classList.remove('desktop-mode');
-            desktopBtn.classList.remove('desktop-active');
+
+/* Android back button */
+
+window.addEventListener(
+    'popstate',
+    () => {
+
+        if (
+            viewer.classList.contains('open')
+        ) {
+
+            closeViewer();
+
         }
-    }
 
-    function toggleDesktopMode() {
-        isDesktopMode = !isDesktopMode;
-        applyDesktopMode(isDesktopMode);
-        // Reload the page so it recalculates its layout at the new width
-        if (currentViewerUrl) {
-            viewerLoad.style.display = 'flex';
-            viewerIframe.src = currentViewerUrl;
+    }
+);
+
+
+/* Iframe loaded */
+
+viewerIframe.addEventListener(
+    'load',
+    () => {
+
+        viewerLoad.style.display =
+            'none';
+
+    }
+);
+
+
+/* ═══════════════════════════════════════════════════════
+   YOUTUBE LIVE
+   ═══════════════════════════════════════════════════════ */
+
+const liveCard =
+    document.getElementById('liveCard');
+
+const liveTitleText =
+    document.getElementById('liveTitleText');
+
+const liveDescription =
+    document.getElementById('liveDescription');
+
+const liveIcon =
+    document.getElementById('liveIcon');
+
+const liveIndicator =
+    document.getElementById('liveIndicator');
+
+const liveBadge =
+    document.getElementById('liveBadge');
+
+const liveModalTitle =
+    document.getElementById('liveModalTitle');
+
+const liveModalBody =
+    document.getElementById('liveModalBody');
+
+const liveModalButton =
+    document.getElementById('liveModalButton');
+
+
+/*
+ * Carga data/youtube-live.json
+ */
+
+async function comprobarDirectoYouTube() {
+
+    try {
+
+        const response =
+            await fetch(
+                YOUTUBE_LIVE_JSON +
+                '?t=' +
+                Date.now(),
+                {
+                    cache: 'no-store'
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                'No se pudo cargar youtube-live.json'
+            );
+
         }
+
+        const data =
+            await response.json();
+
+        youtubeLiveData = {
+
+            live:
+                data.live === true,
+
+            videoId:
+                data.videoId || '',
+
+            title:
+                data.title || '',
+
+            url:
+                data.url ||
+                (
+                    data.videoId
+                        ? 'https://www.youtube.com/watch?v=' +
+                          data.videoId
+                        : YOUTUBE_CHANNEL_URL
+                )
+
+        };
+
+        actualizarTarjetaDirecto();
+
+    } catch (error) {
+
+        /*
+         * Si todavía no existe el JSON,
+         * simplemente mostramos el estado
+         * normal de YouTube.
+         */
+
+        console.log(
+            'Estado YouTube:',
+            error.message
+        );
+
+        youtubeLiveData = {
+
+            live: false,
+
+            videoId: '',
+
+            title: '',
+
+            url: YOUTUBE_CHANNEL_URL
+
+        };
+
+        actualizarTarjetaDirecto();
+
     }
 
-    // Android back button / browser back: close viewer instead of leaving app
-    window.addEventListener('popstate', () => {
-        if (viewer.classList.contains('open')) closeViewer();
-    });
+}
 
-    // Hide loading spinner when iframe finishes loading
-    viewerIframe.addEventListener('load', () => {
-        viewerLoad.style.display = 'none';
-    });
 
-    // ─── PWA INSTALL PROMPT ───────────────────────────────
-    let deferredPrompt;
-    const installBanner = document.getElementById('installBanner');
-    const installClose  = document.getElementById('installClose');
+/*
+ * Actualiza visualmente la tarjeta
+ */
 
-    window.addEventListener('beforeinstallprompt', (e) => {
+function actualizarTarjetaDirecto() {
+
+    if (youtubeLiveData.live) {
+
+        /* ═══════════════════════════════
+           ESTADO: DIRECTO ACTIVO
+        ═══════════════════════════════ */
+
+        liveCard.classList.add(
+            'live-now'
+        );
+
+        liveTitleText.textContent =
+            'ZUZENEAN ORAIN!';
+
+        liveDescription.textContent =
+            youtubeLiveData.title
+                ? youtubeLiveData.title
+                : 'Partida zuzenean YouTuben';
+
+        liveIcon.className =
+            'fas fa-circle';
+
+        liveModalTitle.textContent =
+            '🔴 ZUZENEAN ORAIN!';
+
+        liveModalBody.textContent =
+            youtubeLiveData.title
+                ? youtubeLiveData.title
+                : 'Larraun Pilota zuzenean YouTuben.';
+
+        liveModalButton.href =
+            youtubeLiveData.url ||
+            YOUTUBE_CHANNEL_URL;
+
+        liveModalButton.innerHTML =
+            '<i class="fab fa-youtube"></i> Ikusi zuzenean';
+
+    } else {
+
+        /* ═══════════════════════════════
+           ESTADO: SIN DIRECTO
+        ═══════════════════════════════ */
+
+        liveCard.classList.remove(
+            'live-now'
+        );
+
+        liveTitleText.textContent =
+            'Zuzeneko Partiduak';
+
+        liveDescription.textContent =
+            'Ikusi gure etxeko partidak zuzenean YouTuben';
+
+        liveIcon.className =
+            'fas fa-video';
+
+        liveModalTitle.textContent =
+            'Zuzeneko Partiduak';
+
+        liveModalBody.textContent =
+            'Gure etxeko partidak zuzenean ikusi ahal izango dituzu Larraun Pilota Elkartearen YouTube kanalean.';
+
+        liveModalButton.href =
+            YOUTUBE_CHANNEL_URL;
+
+        liveModalButton.innerHTML =
+            '<i class="fab fa-youtube"></i> YouTube kanala';
+
+    }
+
+}
+
+
+/*
+ * Al pulsar la tarjeta:
+ *
+ * - Si hay directo → abre la emisión
+ * - Si no → abre el modal con el canal
+ */
+
+function openLiveStream() {
+
+    if (
+        youtubeLiveData.live &&
+        youtubeLiveData.url
+    ) {
+
+        window.open(
+            youtubeLiveData.url,
+            '_blank',
+            'noopener'
+        );
+
+    } else {
+
+        mostrarAlertaZuzeneko();
+
+    }
+
+}
+
+
+/*
+ * Primera comprobación
+ */
+
+comprobarDirectoYouTube();
+
+
+/*
+ * Comprobación automática cada 2 minutos
+ */
+
+setInterval(
+    comprobarDirectoYouTube,
+    YOUTUBE_CHECK_INTERVAL
+);
+
+
+/* ═══════════════════════════════════════════════════════
+   PWA INSTALL PROMPT
+   ═══════════════════════════════════════════════════════ */
+
+let deferredPrompt;
+
+const installBanner =
+    document.getElementById(
+        'installBanner'
+    );
+
+const installClose =
+    document.getElementById(
+        'installClose'
+    );
+
+
+window.addEventListener(
+    'beforeinstallprompt',
+    (e) => {
+
         e.preventDefault();
+
         deferredPrompt = e;
-        installBanner.classList.remove('hidden');
-    });
 
-    installBanner.addEventListener('click', async (e) => {
-        if (e.target.closest('#installClose')) {
-            installBanner.classList.add('hidden');
-            return;
-        }
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            await deferredPrompt.userChoice;
-            deferredPrompt = null;
-            installBanner.classList.add('hidden');
-        }
-    });
+        installBanner.classList.remove(
+            'hidden'
+        );
 
-    window.addEventListener('appinstalled', () => installBanner.classList.add('hidden'));
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-        installBanner.classList.add('hidden');
     }
+);
 
-    // ─── MODALS ───────────────────────────────────────────
-    function mostrarAlertaZuzeneko()     { document.getElementById('modalZuzeneko').classList.add('open'); }
-    function mostrarAlertaColaboracion() { document.getElementById('modalColab').classList.add('open'); }
-    function closeModal(id)              { document.getElementById(id).classList.remove('open'); }
+
+installBanner.addEventListener(
+    'click',
+    async (e) => {
+
+        if (
+            e.target.closest(
+                '#installClose'
+            )
+        ) {
+
+            installBanner.classList.add(
+                'hidden'
+            );
+
+            return;
+
+        }
+
+        if (deferredPrompt) {
+
+            deferredPrompt.prompt();
+
+            await deferredPrompt.userChoice;
+
+            deferredPrompt = null;
+
+            installBanner.classList.add(
+                'hidden'
+            );
+
+        }
+
+    }
+);
+
+
+window.addEventListener(
+    'appinstalled',
+    () => {
+
+        installBanner.classList.add(
+            'hidden'
+        );
+
+    }
+);
+
+
+if (
+    window.matchMedia(
+        '(display-mode: standalone)'
+    ).matches
+) {
+
+    installBanner.classList.add(
+        'hidden'
+    );
+
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   MODALS
+   ═══════════════════════════════════════════════════════ */
+
+function mostrarAlertaZuzeneko() {
+
+    document
+        .getElementById('modalZuzeneko')
+        .classList.add('open');
+
+}
+
+
+function mostrarAlertaColaboracion() {
+
+    document
+        .getElementById('modalColab')
+        .classList.add('open');
+
+}
+
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.remove('open');
+
+}
+
 </script>
 
 </body>
