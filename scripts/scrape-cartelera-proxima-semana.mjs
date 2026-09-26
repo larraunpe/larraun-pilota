@@ -69,6 +69,7 @@ function getNextWeekNumber() {
 const CONVERSION = [
   { match: "ARAXES (G. Arraztio - U. Ariztimuño)", value: "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)" },
   { match: "ABAXITABIDEA (P. Aginaga - X. Goldaracena)", value: "ABAXITABIDEA – LARRAUN (P. Aginaga - X. Goldaracena)" },
+  { match: "DOS PAREDES (O. Sarasibar - M. Galartza)", value: "DOS PAREDES - LARRAUN (O. Sarasibar - M. Galartza)" },
   { match: "ARAXES (A. Gorostidi - E. Jaka)", value: "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)" }
 ];
 
