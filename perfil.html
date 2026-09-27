@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Larraun Pilota">
+    <meta name="theme-color" content="#c13b2b">
+
+    <title>Pelotariak · Larraun Pilota</title>
+
+    <link rel="apple-touch-icon" href="images/icons/LARRAUNTXI.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #c13b2b;
+            --red-dark: #9a2d1f;
+            --red-soft: #f5ebe8;
+            --cream: #f7f3ee;
+            --sand: #ede6da;
+            --text: #1e2a2e;
+            --muted: #6b7c78;
+            --white: #ffffff;
+            --green: #2f7654;
+            --green-soft: #eaf4ee;
+            --radius: 1.2rem;
+            --shadow: 0 4px 16px rgba(0,0,0,.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--cream);
+            font-family: 'Nunito', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            overflow-x: hidden;
+        }
+
+        .app-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--sand);
+            padding: .9rem 1.2rem .7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            min-width: 0;
+        }
+
+        .club-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--red);
+            flex-shrink: 0;
+        }
+
+        .header-titles {
+            min-width: 0;
+        }
+
+        .header-titles h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1.1;
+        }
+
+        .header-titles p {
+            font-size: .68rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+        }
+
+        .lang-btn,
+        .home-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--red-soft);
+            color: var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: .72rem;
+            font-weight: 800;
+        }
+
+        .content {
+            width: min(720px, 100%);
+            margin: 0 auto;
+            padding: 1rem 1rem 2rem;
+        }
+
+        .page-intro {
+            background: linear-gradient(135deg, var(--red), #e85040);
+            color: white;
+            border-radius: var(--radius);
+            padding: 1.15rem 1.1rem;
+            margin-bottom: .9rem;
+            box-shadow: 0 5px 18px rgba(193,59,43,.2);
+        }
+
+        .page-intro-top {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .page-intro-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .page-intro h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .page-intro p {
+            font-size: .76rem;
+            opacity: .9;
+            margin-top: .18rem;
+        }
+
+        .search-card {
+            background: var(--white);
+            border: 1px solid var(--sand);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: .95rem;
+            margin-bottom: .9rem;
+        }
+
+        .search-label {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: .75rem;
+            font-weight: 800;
+            color: var(--muted);
+            margin-bottom: .5rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: .9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        #search {
+            width: 100%;
+            border: 1px solid var(--sand);
+            background: var(--cream);
+            border-radius: .85rem;
+            padding: .82rem 2.7rem .82rem 2.55rem;
+            font-family: 'Nunito', sans-serif;
+            font-size: .9rem;
+            color: var(--text);
+            outline: none;
+        }
+
+        #search:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(193,59,43,.1);
+        }
+
+        .clear-search {
+            position: absolute;
+            right: .55rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            display: none;
+        }
+
+        .result-count {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: .6rem;
+            font-size: .68rem;
+            color: var(--muted);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            display: inline-block;
+            margin-right: .3rem;
+        }
+
+        .suggestions {
+            margin-top: .55rem;
+            display: none;
+            border: 1px solid var(--sand);
+            border-radius: .85rem;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .suggestions.open { display: block; }
+
+        .suggestion {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--sand);
+            background: var(--white);
+            text-align: left;
+            padding: .75rem .8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .6rem;
+            color: var(--text);
+        }
+
+        .suggestion:last-child { border-bottom: none; }
+
+        .suggestion:hover,
+        .suggestion:active {
+            background: var(--red-soft);
+        }
+
+        .suggestion-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: .82rem;
+            font-weight: 700;
+        }
+
+        .suggestion-meta {
+            color: var(--muted);
+            font-size: .68rem;
+            white-space: nowrap;
+        }
+
+        .profile {
+            display: none;
+            background: var(--white);
+            border: 1px solid var(--sand);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: profileIn .2s ease-out;
+        }
+
+        .profile.visible { display: block; }
+
+        @keyframes profileIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-head {
+            background: linear-gradient(135deg, #fff, var(--red-soft));
+            padding: 1.1rem;
+            border-bottom: 1px solid var(--sand);
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+        }
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--red);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(193,59,43,.2);
+        }
+
+        .profile-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .profile-sub {
+            color: var(--muted);
+            font-size: .7rem;
+            margin-top: .2rem;
+        }
+
+        .profile-body {
+            padding: .85rem;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .65rem;
+        }
+
+        .data-item {
+            background: var(--cream);
+            border: 1px solid var(--sand);
+            border-radius: .85rem;
+            padding: .72rem .75rem;
+            min-width: 0;
+        }
+
+        .data-item.full { grid-column: 1 / -1; }
+
+        .data-label {
+            color: var(--muted);
+            font-size: .63rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .18rem;
+        }
+
+        .data-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: .88rem;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .data-link {
+            color: var(--red);
+            text-decoration: none;
+        }
+
+        .data-link:hover { text-decoration: underline; }
+
+        .competition {
+            margin-top: .65rem;
+            padding: .85rem;
+            border-radius: .9rem;
+            border: 1px solid var(--sand);
+            background: var(--white);
+        }
+
+        .competition.active {
+            border-color: #cfe2d6;
+            background: var(--green-soft);
+        }
+
+        .competition-label {
+            color: var(--muted);
+            font-size: .63rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .35rem;
+        }
+
+        .competition-empty {
+            color: var(--muted);
+            font-size: .78rem;
+            font-style: italic;
+        }
+
+        .competition-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            width: 100%;
+            padding: .78rem 1rem;
+            border-radius: .75rem;
+            background: var(--green);
+            color: white;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: .82rem;
+            font-weight: 800;
+            margin-top: .55rem;
+            transition: transform .15s, opacity .15s;
+        }
+
+        .competition-button:hover { opacity: .92; }
+        .competition-button:active { transform: scale(.98); }
+
+        .back-button {
+            width: 100%;
+            margin-top: .75rem;
+            padding: .7rem 1rem;
+            border-radius: .75rem;
+            border: 1px solid var(--sand);
+            background: var(--cream);
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            font-size: .76rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .empty-state,
+        .loading,
+        .error {
+            background: var(--white);
+            border: 1px solid var(--sand);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.4rem 1rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: .8rem;
+        }
+
+        .empty-state i,
+        .loading i,
+        .error i {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--red);
+            margin-bottom: .55rem;
+        }
+
+        .loading i { animation: spin 1s linear infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem 1rem .5rem;
+            color: var(--muted);
+            font-size: .65rem;
+        }
+
+        @media (max-width: 480px) {
+            .data-grid { grid-template-columns: 1fr; }
+            .data-item.full { grid-column: auto; }
+        }
+
+        @media (min-width: 700px) {
+            .content { padding-top: 1.4rem; }
+            .profile-head { padding: 1.3rem; }
+            .profile-body { padding: 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="app-header">
+    <div class="header-left">
+        <img src="images/logo-web.png" class="club-avatar" alt="Larraun Pilota"
+             onerror="this.style.display='none'">
+        <div class="header-titles">
+            <h1>LARRAUN PILOTA</h1>
+            <p id="headerSubtitle">Pelotariak · Pelotaris</p>
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button class="lang-btn" id="langBtn" type="button" onclick="toggleLanguage()">ES</button>
+        <a class="home-btn" href="index.html" aria-label="Hasiera">
+            <i class="fas fa-house"></i>
+        </a>
+    </div>
+</header>
+
+<main class="content">
+
+    <section class="page-intro">
+        <div class="page-intro-top">
+            <div class="page-intro-icon"><i class="fas fa-user"></i></div>
+            <div>
+                <h2 id="pageTitle">Pelotariak</h2>
+                <p id="pageDescription">Aukeratu zure izen-abizenak zure fitxa ikusteko</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-card">
+        <label class="search-label" for="search" id="searchLabel">
+            Bilatu pelotaria
+        </label>
+
+        <div class="search-wrap">
+            <i class="fas fa-magnifying-glass"></i>
+            <input
+                id="search"
+                type="search"
+                autocomplete="off"
+                autocapitalize="words"
+                placeholder="Abizenak, Izena..."
+                aria-label="Bilatu pelotaria"
+            >
+            <button class="clear-search" id="clearSearch" type="button" aria-label="Garbitu">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="suggestions" id="suggestions"></div>
+
+        <div class="result-count">
+            <span><span class="status-dot"></span><span id="activeCount">Kargatzen...</span></span>
+            <span id="dataStatus"></span>
+        </div>
+    </section>
+
+    <div id="loading" class="loading">
+        <i class="fas fa-spinner"></i>
+        <span id="loadingText">Datuak kargatzen...</span>
+    </div>
+
+    <div id="error" class="error" style="display:none;">
+        <i class="fas fa-triangle-exclamation"></i>
+        <strong id="errorTitle">Ezin izan dira datuak kargatu</strong>
+        <p id="errorText" style="margin-top:.35rem;"></p>
+    </div>
+
+    <section class="profile" id="profile" aria-live="polite">
+        <div class="profile-head">
+            <div class="profile-avatar" id="profileAvatar">LP</div>
+            <div>
+                <div class="profile-name" id="profileName"></div>
+                <div class="profile-sub" id="profileSub"></div>
+            </div>
+        </div>
+
+        <div class="profile-body">
+
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="data-label" id="labelFitxa">Fitxa</div>
+                    <div class="data-value" id="profileFitxa"></div>
+                </div>
+
+                <div class="data-item">
+                    <div class="data-label" id="labelUrtea">Urtea</div>
+                    <div class="data-value" id="profileUrtea"></div>
+                </div>
+
+                <div class="data-item full">
+                    <div class="data-label" id="labelHerria">Herria</div>
+                    <div class="data-value" id="profileHerria"></div>
+                </div>
+
+                <div class="data-item">
+                    <div class="data-label" id="labelModalitatea">Modalitatea</div>
+                    <div class="data-value">
+                        <a class="data-link" id="profileModalitatea"
+                           href="https://larraunpilota.eus/larraungo-taldeak.html"></a>
+                    </div>
+                </div>
+
+                <div class="data-item">
+                    <div class="data-label" id="labelTaldea">Taldea</div>
+                    <div class="data-value">
+                        <a class="data-link" id="profileTaldea"
+                           href="https://larraunpilota.eus/larraungo-taldeak.html"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="competition" id="competitionBox">
+                <div class="competition-label" id="competitionLabel">Lehiaketa</div>
+
+                <div id="competitionActive" style="display:none;">
+                    <div class="data-value" id="competitionText"></div>
+                    <a class="competition-button" id="competitionButton"
+                       href="#" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-trophy"></i>
+                        <span id="competitionButtonText">Lehiaketara joan</span>
+                    </a>
+                </div>
+
+                <div class="competition-empty" id="competitionEmpty">
+                    Lehia aktiborik gabe / Sin competición activa
+                </div>
+            </div>
+
+            <button class="back-button" type="button" onclick="closeProfile()">
+                <i class="fas fa-arrow-left"></i>
+                <span id="backText">Beste pelotari bat bilatu</span>
+            </button>
+        </div>
+    </section>
+
+    <div class="empty-state" id="initialState" style="display:none;">
+        <i class="fas fa-user-magnifying-glass"></i>
+        <span id="initialText">Bilatu eta aukeratu pelotari bat bere fitxa ikusteko.</span>
+    </div>
+
+    <footer class="footer">
+        © Larraun Pilota Elkartea
+    </footer>
+
+</main>
+
+<script>
+/*
+    FITXA.csv
+    ------------------------------
+    Debe estar en:
+        /data/FITXA.csv
+
+    Columnas utilizadas:
+        ACTIVO
+        URTEA
+        FITXA
+        ABIZENAK
+        IZENA
+        HERRIA
+        MODALITATEA
+        TALDE
+        LEHIAKETA
+
+    LEHIAKETA contiene actualmente la URL de la competición.
+*/
+
+const CSV_URL = 'data/FITXA.csv';
+const TALDEAK_URL = 'https://larraunpilota.eus/larraungo-taldeak.html';
+
+let players = [];
+let selectedPlayer = null;
+let currentLang = localStorage.getItem('larraunPerfilLang') || 'eu';
+
+const texts = {
+    eu: {
+        subtitle: 'Pelotariak · Pelotaris',
+        title: 'Pelotariak',
+        description: 'Aukeratu zure izen-abizenak zure fitxa ikusteko',
+        searchLabel: 'Bilatu pelotaria',
+        placeholder: 'Abizenak, Izena...',
+        loading: 'Datuak kargatzen...',
+        active: n => `${n} pelotari aktibo`,
+        noResults: 'Ez da pelotari aktiborik aurkitu.',
+        noData: 'Ez dago daturik.',
+        fitxa: 'Fitxa',
+        urtea: 'Urtea',
+        herria: 'Herria',
+        modalitatea: 'Modalitatea',
+        taldea: 'Taldea',
+        lehiaketa: 'Lehiaketa',
+        noCompetition: 'Lehia aktiborik gabe / Sin competición activa',
+        goCompetition: 'Lehiaketara joan',
+        back: 'Beste pelotari bat bilatu',
+        initial: 'Bilatu eta aukeratu pelotari bat bere fitxa ikusteko.',
+        errorTitle: 'Ezin izan dira datuak kargatu',
+        errorText: 'Egiaztatu /data/FITXA.csv fitxategia webgunera igo dela.',
+        csvError: 'CSVaren formatua ezin izan da irakurri.',
+        searchStatus: 'prest'
+    },
+    es: {
+        subtitle: 'Pelotaris',
+        title: 'Pelotaris',
+        description: 'Selecciona tus apellidos y nombre para ver tu ficha',
+        searchLabel: 'Buscar pelotari',
+        placeholder: 'Apellidos, Nombre...',
+        loading: 'Cargando datos...',
+        active: n => `${n} pelotaris activos`,
+        noResults: 'No se ha encontrado ningún pelotari activo.',
+        noData: 'No hay datos.',
+        fitxa: 'Licencia',
+        urtea: 'Año nacimiento',
+        herria: 'Localidad',
+        modalitatea: 'Modalidad',
+        taldea: 'Grupo',
+        lehiaketa: 'Competición',
+        noCompetition: 'Lehia aktiborik gabe / Sin competición activa',
+        goCompetition: 'Ir a la competición',
+        back: 'Buscar otro pelotari',
+        initial: 'Busca y selecciona un pelotari para ver su ficha.',
+        errorTitle: 'No se han podido cargar los datos',
+        errorText: 'Comprueba que el archivo /data/FITXA.csv está subido a la web.',
+        csvError: 'No se ha podido leer el formato del CSV.',
+        searchStatus: 'listo'
+    }
+};
+
+const $ = id => document.getElementById(id);
+
+function normalize(value) {
+    return String(value ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+}
+
+function clean(value) {
+    return String(value ?? '').trim();
+}
+
+/*
+ * Parser CSV sencillo pero robusto para comas entre comillas,
+ * dobles comillas escapadas y saltos de línea.
+ */
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let field = '';
+    let quoted = false;
+
+    for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i + 1];
+
+        if (quoted) {
+            if (c === '"' && next === '"') {
+                field += '"';
+                i++;
+            } else if (c === '"') {
+                quoted = false;
+            } else {
+                field += c;
+            }
+        } else {
+            if (c === '"') {
+                quoted = true;
+            } else if (c === ',') {
+                row.push(field);
+                field = '';
+            } else if (c === '\n') {
+                row.push(field.replace(/\r$/, ''));
+                if (row.some(v => v.trim() !== '')) rows.push(row);
+                row = [];
+                field = '';
+            } else {
+                field += c;
+            }
+        }
+    }
+
+    if (field.length || row.length) {
+        row.push(field.replace(/\r$/, ''));
+        if (row.some(v => v.trim() !== '')) rows.push(row);
+    }
+
+    if (!rows.length) return [];
+
+    const headers = rows[0].map(h => clean(h).toUpperCase());
+
+    return rows.slice(1).map(values => {
+        const obj = {};
+        headers.forEach((header, index) => {
+            obj[header] = clean(values[index] ?? '');
+        });
+        return obj;
+    });
+}
+
+function playerName(player) {
+    const surname = clean(player.ABIZENAK);
+    const name = clean(player.IZENA);
+    return surname && name ? `${surname}, ${name}` : (surname || name || 'Pelotaria');
+}
+
+function initials(player) {
+    const surname = clean(player.ABIZENAK);
+    const name = clean(player.IZENA);
+    const a = surname ? surname.charAt(0) : '';
+    const b = name ? name.charAt(0) : '';
+    return (a + b).toUpperCase() || 'LP';
+}
+
+function applyLanguage() {
+    const t = texts[currentLang];
+
+    document.documentElement.lang = currentLang;
+
+    $('headerSubtitle').textContent = t.subtitle;
+    $('pageTitle').textContent = t.title;
+    $('pageDescription').textContent = t.description;
+    $('searchLabel').textContent = t.searchLabel;
+    $('search').placeholder = t.placeholder;
+    $('loadingText').textContent = t.loading;
+    $('labelFitxa').textContent = t.fitxa;
+    $('labelUrtea').textContent = t.urtea;
+    $('labelHerria').textContent = t.herria;
+    $('labelModalitatea').textContent = t.modalitatea;
+    $('labelTaldea').textContent = t.taldea;
+    $('competitionLabel').textContent = t.lehiaketa;
+    $('competitionEmpty').textContent = t.noCompetition;
+    $('competitionButtonText').textContent = t.goCompetition;
+    $('backText').textContent = t.back;
+    $('initialText').textContent = t.initial;
+    $('errorTitle').textContent = t.errorTitle;
+    $('errorText').textContent = t.errorText;
+    $('langBtn').textContent = currentLang === 'eu' ? 'ES' : 'EU';
+
+    if (players.length) {
+        $('activeCount').textContent = t.active(players.length);
+    }
+
+    if (selectedPlayer) renderProfile(selectedPlayer);
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'eu' ? 'es' : 'eu';
+    localStorage.setItem('larraunPerfilLang', currentLang);
+    applyLanguage();
+}
+
+function showSuggestions(list) {
+    const box = $('suggestions');
+    box.innerHTML = '';
+
+    if (!list.length) {
+        box.innerHTML = `<div style="padding:.8rem;color:var(--muted);font-size:.75rem;">${texts[currentLang].noResults}</div>`;
+        box.classList.add('open');
+        return;
+    }
+
+    list.slice(0, 12).forEach(player => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'suggestion';
+
+        const name = document.createElement('span');
+        name.className = 'suggestion-name';
+        name.textContent = playerName(player);
+
+        const meta = document.createElement('span');
+        meta.className = 'suggestion-meta';
+        meta.textContent = [player.HERRIA, player.MODALITATEA]
+            .filter(Boolean)
+            .join(' · ');
+
+        button.appendChild(name);
+        button.appendChild(meta);
+
+        button.addEventListener('click', () => selectPlayer(player));
+        box.appendChild(button);
+    });
+
+    box.classList.add('open');
+}
+
+function searchPlayers(value) {
+    const query = normalize(value);
+
+    $('clearSearch').style.display = query ? 'block' : 'none';
+
+    if (!query) {
+        $('suggestions').classList.remove('open');
+        return;
+    }
+
+    const matches = players.filter(player => {
+        const name = normalize(playerName(player));
+        const surname = normalize(player.ABIZENAK);
+        const firstName = normalize(player.IZENA);
+
+        return name.includes(query) ||
+               surname.includes(query) ||
+               firstName.includes(query);
+    });
+
+    showSuggestions(matches);
+}
+
+function selectPlayer(player, updateHash = true) {
+    selectedPlayer = player;
+
+    $('search').value = playerName(player);
+    $('clearSearch').style.display = 'block';
+    $('suggestions').classList.remove('open');
+    $('initialState').style.display = 'none';
+    $('profile').classList.add('visible');
+
+    renderProfile(player);
+
+    if (updateHash && player.FITXA) {
+        history.replaceState(null, '', `#${encodeURIComponent(player.FITXA)}`);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderProfile(player) {
+    if (!player) return;
+
+    $('profileAvatar').textContent = initials(player);
+    $('profileName').textContent = playerName(player);
+
+    const subParts = [];
+    if (player.MODALITATEA) subParts.push(player.MODALITATEA);
+    if (player.TALDE) subParts.push(player.TALDE);
+    $('profileSub').textContent = subParts.join(' · ');
+
+    $('profileFitxa').textContent = player.FITXA || '—';
+    $('profileUrtea').textContent = player.URTEA || '—';
+    $('profileHerria').textContent = player.HERRIA || '—';
+
+    $('profileModalitatea').textContent = player.MODALITATEA || '—';
+    $('profileModalitatea').href = TALDEAK_URL;
+
+    $('profileTaldea').textContent = player.TALDE || '—';
+    $('profileTaldea').href = TALDEAK_URL;
+
+    const competition = clean(player.LEHIAKETA);
+
+    if (competition) {
+        $('competitionBox').classList.add('active');
+        $('competitionActive').style.display = 'block';
+        $('competitionEmpty').style.display = 'none';
+
+        /*
+         * LEHIAKETA contiene la URL en el FITXA.csv actual.
+         * Se muestra un texto limpio y se utiliza la URL como destino.
+         */
+        $('competitionText').textContent =
+            currentLang === 'eu' ? 'Lehiaketa aktiboa' : 'Competición activa';
+
+        $('competitionButton').href = competition;
+    } else {
+        $('competitionBox').classList.remove('active');
+        $('competitionActive').style.display = 'none';
+        $('competitionEmpty').style.display = 'block';
+        $('competitionButton').href = '#';
+    }
+}
+
+function closeProfile() {
+    selectedPlayer = null;
+    $('profile').classList.remove('visible');
+    $('search').value = '';
+    $('clearSearch').style.display = 'none';
+    $('suggestions').classList.remove('open');
+    $('initialState').style.display = 'block';
+
+    history.replaceState(null, '', window.location.pathname);
+    $('search').focus();
+}
+
+async function loadCSV() {
+    try {
+        const response = await fetch(`${CSV_URL}?v=${Date.now()}`, {
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const buffer = await response.arrayBuffer();
+
+        /*
+         * El archivo proporcionado usa Windows-1252/Latin-1.
+         * Intentamos UTF-8 primero y usamos Windows-1252 si hace falta.
+         */
+        let text;
+        try {
+            text = new TextDecoder('utf-8', { fatal: true }).decode(buffer);
+        } catch {
+            text = new TextDecoder('windows-1252').decode(buffer);
+        }
+
+        const data = parseCSV(text);
+
+        const required = [
+            'ACTIVO', 'URTEA', 'FITXA', 'ABIZENAK', 'IZENA',
+            'HERRIA', 'MODALITATEA', 'TALDE', 'LEHIAKETA'
+        ];
+
+        const missing = required.filter(col => !(col in (data[0] || {})));
+
+        if (missing.length) {
+            throw new Error(`${texts[currentLang].csvError} Falta: ${missing.join(', ')}`);
+        }
+
+        players = data
+            .filter(player => normalize(player.ACTIVO) === 'x')
+            .sort((a, b) =>
+                playerName(a).localeCompare(playerName(b), 'eu', { sensitivity: 'base' })
+            );
+
+        $('loading').style.display = 'none';
+        $('error').style.display = 'none';
+        $('activeCount').textContent = texts[currentLang].active(players.length);
+        $('dataStatus').textContent = texts[currentLang].searchStatus;
+        $('initialState').style.display = 'block';
+
+        openFromHash();
+
+    } catch (error) {
+        console.error('FITXA.csv:', error);
+        $('loading').style.display = 'none';
+        $('error').style.display = 'block';
+        $('initialState').style.display = 'none';
+    }
+}
+
+function openFromHash() {
+    const hash = decodeURIComponent(window.location.hash.replace(/^#/, '')).trim();
+    if (!hash) return;
+
+    const player = players.find(p => clean(p.FITXA) === hash);
+
+    if (player) {
+        selectPlayer(player, false);
+    }
+}
+
+$('search').addEventListener('input', event => {
+    searchPlayers(event.target.value);
+});
+
+$('search').addEventListener('focus', event => {
+    if (event.target.value.trim()) {
+        searchPlayers(event.target.value);
+    }
+});
+
+$('clearSearch').addEventListener('click', () => {
+    closeProfile();
+});
+
+document.addEventListener('click', event => {
+    const searchCard = document.querySelector('.search-card');
+    if (!searchCard.contains(event.target)) {
+        $('suggestions').classList.remove('open');
+    }
+});
+
+window.addEventListener('hashchange', openFromHash);
+
+applyLanguage();
+loadCSV();
+</script>
+
+</body>
+</html>
