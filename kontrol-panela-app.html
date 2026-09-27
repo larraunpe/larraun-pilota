@@ -434,7 +434,7 @@
         .img-zuzeneko    { background-image: linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.28)),url('https://larraunpilota.eus/images/galeria/larrauntxiyoutube.png'); }
 
 
-        .favorites-panel{background:linear-gradient(135deg,#fffaf6,#fff);border:1px solid var(--sand);border-radius:var(--radius);box-shadow:var(--shadow);padding:.95rem;margin-bottom:.75rem}.favorites-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.75rem}.favorites-title{display:flex;align-items:center;gap:.5rem;font-family:Outfit,sans-serif;font-size:.9rem;font-weight:800}.favorites-title i{color:#d39a20}.favorites-count{font-size:.65rem;font-weight:800;color:var(--muted);background:var(--cream);border:1px solid var(--sand);padding:.28rem .55rem;border-radius:2rem}.favorites-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.favorite-card{display:flex;align-items:center;gap:.55rem;min-width:0;background:var(--white);border:1px solid var(--sand);border-radius:.9rem;padding:.62rem .65rem;cursor:pointer}.favorite-avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-family:Outfit,sans-serif;font-size:.7rem;font-weight:800}.favorite-info{min-width:0;flex:1}.favorite-name{font-family:Outfit,sans-serif;font-size:.7rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.favorite-meta{font-size:.6rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}.favorite-remove{width:24px;height:24px;border:0;border-radius:50%;background:var(--cream);color:var(--muted);cursor:pointer;flex:0 0 24px}.favorite-empty{color:var(--muted);font-size:.7rem;line-height:1.4}.favorite-empty strong{color:var(--red)}.update-card .card-full-body{padding:.9rem .95rem}.update-note{display:block;font-size:.7rem;color:var(--muted);line-height:1.4}.update-action{display:inline-flex;align-items:center;gap:.3rem;margin-top:.2rem;color:var(--red);font-size:.72rem;font-weight:800;cursor:pointer}@media(max-width:480px){.favorites-grid{grid-template-columns:1fr}}
+        .favorites-panel{background:linear-gradient(135deg,#fffaf6,#fff);border:1px solid var(--sand);border-radius:var(--radius);box-shadow:var(--shadow);padding:.95rem;margin-bottom:.75rem}.favorites-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.75rem}.favorites-title{display:flex;align-items:center;gap:.5rem;font-family:Outfit,sans-serif;font-size:.9rem;font-weight:800}.favorites-title i{color:#d39a20}.favorites-count{font-size:.65rem;font-weight:800;color:var(--muted);background:var(--cream);border:1px solid var(--sand);padding:.28rem .55rem;border-radius:2rem}.favorites-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.favorite-card{display:flex;align-items:center;gap:.55rem;min-width:0;background:var(--white);border:1px solid var(--sand);border-radius:.9rem;padding:.62rem .65rem;cursor:pointer}.favorite-avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-family:Outfit,sans-serif;font-size:.7rem;font-weight:800}.favorite-info{min-width:0;flex:1}.favorite-name{font-family:Outfit,sans-serif;font-size:.7rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.favorite-meta{font-size:.6rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}.favorite-remove{width:24px;height:24px;border:0;border-radius:50%;background:var(--cream);color:var(--muted);cursor:pointer;flex:0 0 24px}.favorite-empty{color:var(--muted);font-size:.7rem;line-height:1.4}.favorite-empty strong{color:var(--red)}.profile-access{display:flex;align-items:center;justify-content:space-between;gap:.7rem;width:100%;padding:.78rem .85rem;margin-bottom:.75rem;border:1px solid var(--sand);border-radius:.9rem;background:var(--red-soft);color:var(--red);cursor:pointer;text-decoration:none}.profile-access-icon{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}.profile-access-text{flex:1;min-width:0}.profile-access-title{font-family:Outfit,sans-serif;font-size:.82rem;font-weight:800}.profile-access-sub{display:block;margin-top:.12rem;color:var(--muted);font-size:.66rem}.profile-access-arrow{font-size:.75rem}.update-card .card-full-body{padding:.9rem .95rem}.update-note{display:block;font-size:.7rem;color:var(--muted);line-height:1.4}.update-action{display:inline-flex;align-items:center;gap:.3rem;margin-top:.2rem;color:var(--red);font-size:.72rem;font-weight:800;cursor:pointer}@media(max-width:480px){.favorites-grid{grid-template-columns:1fr}}
 
         /* INSTALL BANNER */
         .install-banner {
@@ -550,8 +550,24 @@
         </div>
     </div>
 
-    <div class="section-label"><i class="fas fa-star"></i> Nire pelotariak</div>
-    <div class="favorites-panel"><div class="favorites-head"><div class="favorites-title"><i class="fas fa-star"></i><span>Gogoko pelotariak</span></div><span class="favorites-count" id="favoritesCount">0 / 5</span></div><div id="favoritesGrid" class="favorites-grid"></div><div id="favoritesEmpty" class="favorite-empty">Oraindik ez duzu gogokorik gehitu. <strong>Profil batean</strong> egin dezakezu.</div></div>
+    <!-- SECTION 2: PELOTARIAK -->
+    <div class="section-label"><i class="fas fa-users"></i> Pelotariak</div>
+    <div class="favorites-panel">
+        <div class="profile-access" onclick="openViewer('https://larraunpilota.eus/perfil.html','Pelotariak · Profilak')">
+            <div class="profile-access-icon"><i class="fas fa-user"></i></div>
+            <div class="profile-access-text">
+                <div class="profile-access-title">Pelotariak · Profilak</div>
+                <span class="profile-access-sub">Bilatu pelotaria eta kudeatu zure 5 gogokoenak</span>
+            </div>
+            <i class="fas fa-chevron-right profile-access-arrow"></i>
+        </div>
+        <div class="favorites-head">
+            <div class="favorites-title"><i class="fas fa-star"></i><span>Nire pelotariak</span></div>
+            <span class="favorites-count" id="favoritesCount">0 / 5</span>
+        </div>
+        <div id="favoritesGrid" class="favorites-grid"></div>
+        <div id="favoritesEmpty" class="favorite-empty">Oraindik ez duzu gogokorik gehitu. <strong>Ireki Profilak</strong> eta aukeratu gehienez 5 pelotari.</div>
+    </div>
 
     <!-- SECTION 2: DOKUMENTUAK -->
     <div class="section-label"><i class="fas fa-folder-open"></i> Dokumentuak</div>
@@ -591,8 +607,39 @@
 
     <!-- SECTION 3: EGUNERAKETA -->
     <div class="section-label"><i class="fas fa-calendar-week"></i> Eguneraketa</div>
-    <div class="card-full update-card" onclick="openViewer('https://larraunpilota.eus/hurrengo-ordutegiak.html','Datorren asteko kartelera')"><div class="card-full-thumb img-aldaketa"></div><div class="card-full-body"><h3><i class="far fa-calendar-check"></i> Datorren asteko kartelera</h3><span class="update-note">Ostegunean argitaratzen da.</span><span class="update-note">Aldaketak <strong>igandea</strong> arte.</span><span class="update-note">Ostiralean kontsultatu behar da, hurrengo asteko partiduak baino lehen.</span><span class="update-action" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketa-osoa.html','Aldaketak eskatu')">→ Aldaketak eskatu</span></div><div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div></div>
-    <div class="card-full update-card" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Behin-behineko kartelera')"><div class="card-full-thumb img-egutegia"></div><div class="card-full-body"><h3><i class="far fa-calendar-check"></i> Behin-behineko kartelera</h3><span class="update-note">Astelehen goizean eguneratzen da.</span><span class="update-action" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketak.html','Azken orduko aldaketak')">→ Azken orduko aldaketak</span><span class="update-note">Premiazkoa denean bakarrik; eskaera <strong>astearte goizea</strong> baino lehen.</span></div><div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div></div>
+    <div class="card-full update-card" onclick="openViewer('https://larraunpilota.eus/hurrengo-ordutegiak.html','Datorren asteko kartelera')">
+        <div class="card-full-thumb img-aldaketa"></div>
+        <div class="card-full-body">
+            <h3><i class="far fa-calendar-check"></i> Datorren asteko kartelera</h3>
+            <span class="update-note">Ostegunean argitaratzen da.</span>
+            <span class="update-note">Aldaketak <strong>igandea</strong> arte.</span>
+            <span class="update-note">Ostiralean kontsultatu behar da, hurrengo asteko partiduak baino lehen.</span>
+            <span class="update-action" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketa-osoa.html','Aldaketak eskatu')">→ Aldaketak eskatu</span>
+        </div>
+        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <div class="card-full update-card" onclick="openViewer('https://larraunpilota.eus/ordutegiak.html','Behin-behineko kartelera')">
+        <div class="card-full-thumb img-egutegia"></div>
+        <div class="card-full-body">
+            <h3><i class="far fa-calendar-check"></i> Behin-behineko kartelera</h3>
+            <span class="update-note">Astelehen goizean eguneratzen da.</span>
+            <span class="update-action" onclick="event.stopPropagation();openViewer('https://larraunpilota.eus/aldaketak.html','Azken orduko aldaketak')">→ Azken orduko aldaketak</span>
+            <span class="update-note">Premiazkoa denean bakarrik; eskaera <strong>astearte goizea</strong> baino lehen.</span>
+        </div>
+        <div class="card-full-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <div class="alert-banner" onclick="openViewer('https://larraunpilota.eus/kartela9.html','Asteko Kartelera')">
+        <div class="alert-banner-left">
+            <div class="alert-banner-icon"><i class="fas fa-flag-checkered"></i></div>
+            <div>
+                <strong>Asteko Kartelera Definitiboa</strong>
+                <span>Asteazkena argitaratzen da</span>
+            </div>
+        </div>
+        <i class="fas fa-chevron-right"></i>
+    </div>
 
     <div class="card-full" onclick="openViewer('https://larraunpilota.eus/emaitzak1.html','Emaitzak FNP')">
         <div class="card-full-thumb img-emaitzak"></div>
