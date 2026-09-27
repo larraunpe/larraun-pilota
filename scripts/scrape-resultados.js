@@ -6,7 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
-const TEMPORADA = 2025;
+const TEMPORADA = 2026;
 
 const ID_COMPETICION_DESDE = 3250;
 const ID_COMPETICION_HASTA = 3360;
