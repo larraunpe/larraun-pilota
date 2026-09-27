@@ -1,1 +1,134 @@
-[]
+[
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+    "etxekoa": "OBERENA (A. Sarasibar) SARASIBAR MARIÑELARENA, A.",
+    "kanpokoak": "LARRAUN (I. Nazabal) NAZABAL OTAMENDI, I.",
+    "tanteoa": "13-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-25",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Astiz) ASTIZ OLASKOAGA, U.",
+    "kanpokoak": "ZUGARRALDE (B. Villanueva) VILLANUEVA MARTINEZ, B.",
+    "tanteoa": "18-7",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-25",
+    "fronton": "Barañain - Retegi",
+    "etxekoa": "LAGUNAK (J. Lacabe) LACABE VILLANUEVA, J.",
+    "kanpokoak": "LARRAUN (I. Galartza) GALARTZA ROTETA, I.",
+    "tanteoa": "10-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-25",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Garaño) GARAÑO GASTESI, I.",
+    "kanpokoak": "BETI ONAK (U. Elizalde) ELIZALDE BEREAU, U.",
+    "tanteoa": "18-7",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Ezkurdia) EZKURDIA ROTETA, J.",
+    "kanpokoak": "ARDOI (M. Abadia) ABADIA PEREZ, M.",
+    "tanteoa": "18-16",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3257&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Eguzkiza) EGUZKIZA ARGAÑA, A.",
+    "kanpokoak": "LAGUNAK (J. Larrayoz) LARRAYOZ OLAGUE, J.",
+    "tanteoa": "18-14",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3257&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Burlada - Askatasuna",
+    "etxekoa": "ZUGARRALDE (H. Urmeneta) URMENETA AMAT, H.",
+    "kanpokoak": "LARRAUN (O. Iriarte) IRIARTE CILVETI, O.",
+    "tanteoa": "12-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3257&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (E. Ijurko) IJURKO BAKAIKUA, E.",
+    "kanpokoak": "P.P.SAN SEBASTIAN (S. Campos) CAMPOS IRISARRI, S.",
+    "tanteoa": "18-2",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3258&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-24",
+    "fronton": "Larraintzar - Ulzama",
+    "etxekoa": "ULTZAMA (B. Astrain) ASTRAIN, B.",
+    "kanpokoak": "LARRAUN (I. Ijurko) IJURKO BAKAIKUA, I.",
+    "tanteoa": "18-15",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3258&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-25",
+    "fronton": "Burlada - Askatasuna",
+    "etxekoa": "ZUGARRALDE (A. Villanueva) VILLANUEVA ANSORENA, A.",
+    "kanpokoak": "LARRAUN (X. Telletxea) TELLETXEA BULDAIN, X.",
+    "tanteoa": "3-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3258&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-09-26",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Lazkoz) LAZKOZ ARTANGA, M.",
+    "kanpokoak": "ARDOI (C. Vazquez) VAZQUEZ ECHEVERRIA, C.",
+    "tanteoa": "16-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3258&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  }
+]
