@@ -801,16 +801,58 @@
 </nav>
 
 <!-- ═══════════ MODALS ═══════════ -->
-<div class="modal-overlay" id="modalZuzeneko" onclick="closeModal('modalZuzeneko')">
-    <div class="modal-sheet" onclick="event.stopPropagation()">
-        <div class="modal-handle"></div>
-        <div class="modal-icon"><i class="fas fa-video"></i></div>
-        <div class="modal-title">Zuzeneko Partiduak</div>
-        <div class="modal-body">2026/2027 denboraldian etxeko partidak zuzenean eskuragarri egongo dira. Laster!</div>
-        <button class="modal-btn" onclick="closeModal('modalZuzeneko')">Onartu</button>
-    </div>
-</div>
+<!-- ═══════════ MODAL ZUZENEKO ═══════════ -->
 
+<div
+    class="modal-overlay"
+    id="modalZuzeneko"
+    onclick="closeModal('modalZuzeneko')">
+
+    <div
+        class="modal-sheet"
+        onclick="event.stopPropagation()">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-icon">
+            <i class="fas fa-video"></i>
+        </div>
+
+        <div
+            class="modal-title"
+            id="liveModalTitle">
+            Zuzeneko Partiduak
+        </div>
+
+        <div
+            class="modal-body"
+            id="liveModalBody">
+            Gure etxeko partidak zuzenean ikusi ahal izango dituzu Larraun Pilota Elkartearen YouTube kanalean.
+        </div>
+
+        <a
+            id="liveModalButton"
+            class="modal-btn youtube"
+            href="https://www.youtube.com/@larraunpe/streams"
+            target="_blank"
+            rel="noopener">
+
+            <i class="fab fa-youtube"></i>
+            YouTube kanala
+
+        </a>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal('modalZuzeneko')">
+
+            Itxi
+
+        </button>
+
+    </div>
+
+</div>
 <div class="modal-overlay" id="modalColab" onclick="closeModal('modalColab')">
     <div class="modal-sheet" onclick="event.stopPropagation()">
         <div class="modal-handle"></div>
@@ -827,6 +869,33 @@
 </div>
 
 <script>
+    /* ═══════════════════════════════════════════════════════
+   CONFIGURACIÓN YOUTUBE
+   ═══════════════════════════════════════════════════════ */
+
+const YOUTUBE_CHANNEL_URL =
+    'https://www.youtube.com/@larraunpe/streams';
+
+const YOUTUBE_LIVE_JSON =
+    'data/youtube-live.json';
+
+/*
+ * Tiempo entre comprobaciones.
+ * 2 minutos = 120000 ms
+ */
+const YOUTUBE_CHECK_INTERVAL = 120000;
+
+
+/* Estado actual del directo */
+
+let youtubeLiveData = {
+    live: false,
+    videoId: '',
+    title: '',
+    url: YOUTUBE_CHANNEL_URL
+};
+
+
     
 // ─── SERVICE WORKER ───────────────────────────────────
 if ('serviceWorker' in navigator) {
