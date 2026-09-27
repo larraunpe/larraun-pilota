@@ -488,6 +488,8 @@
             font-size: .65rem;
         }
 
+.favorite-btn{width:100%;margin-top:.75rem;padding:.78rem 1rem;border-radius:.75rem;border:1px solid var(--sand);background:var(--cream);color:var(--red);font-family:Outfit,sans-serif;font-size:.82rem;font-weight:800;cursor:pointer}.favorite-btn.active{background:#fff5d8;border-color:#e6c76b;color:#9b7410}.favorite-limit{margin-top:.4rem;text-align:center;color:var(--muted);font-size:.68rem}
+
         @media (max-width: 480px) {
             .data-grid { grid-template-columns: 1fr; }
             .data-item.full { grid-column: auto; }
@@ -632,6 +634,9 @@
                     Lehia aktiborik gabe / Sin competición activa
                 </div>
             </div>
+
+            <button class="favorite-btn" id="favoriteBtn" type="button" onclick="toggleFavorite()"><i class="fas fa-star"></i> <span id="favoriteBtnText">Gehitu nire gogokoetara</span></button>
+            <div class="favorite-limit" id="favoriteLimit"></div>
 
             <button class="back-button" type="button" onclick="closeProfile()">
                 <i class="fas fa-arrow-left"></i>
@@ -847,7 +852,7 @@ function applyLanguage() {
         $('activeCount').textContent = t.active(players.length);
     }
 
-    if (selectedPlayer) renderProfile(selectedPlayer);
+    if (selectedPlayer) { renderProfile(selectedPlayer); updateFavoriteButton(); }
 }
 
 function toggleLanguage() {
@@ -968,13 +973,20 @@ function renderProfile(player) {
             currentLang === 'eu' ? 'Lehiaketa aktiboa' : 'Competición activa';
 
         $('competitionButton').href = competition;
+        updateFavoriteButton();
     } else {
         $('competitionBox').classList.remove('active');
         $('competitionActive').style.display = 'none';
         $('competitionEmpty').style.display = 'block';
         $('competitionButton').href = '#';
+        updateFavoriteButton();
     }
 }
+
+function getFavoriteList(){try{return JSON.parse(localStorage.getItem('larraun_mis_pelotariak')||'[]')}catch{return[]}}
+function setFavoriteList(a){localStorage.setItem('larraun_mis_pelotariak',JSON.stringify(a.slice(0,5)))}
+function updateFavoriteButton(){if(!selectedPlayer)return;const a=getFavoriteList();const exists=a.some(p=>String(p.fitxa)===String(selectedPlayer.FITXA));const b=$('favoriteBtn'),t=$('favoriteBtnText'),l=$('favoriteLimit');b.classList.toggle('active',exists);t.textContent=exists?(currentLang==='eu'?'Gogokoetatik kendu':'Quitar de favoritos'):(currentLang==='eu'?'Gehitu nire gogokoetara':'Añadir a favoritos');l.textContent=`${a.length} / 5`;l.style.display=exists?'block':'none'}
+function toggleFavorite(){if(!selectedPlayer||!selectedPlayer.FITXA)return;let a=getFavoriteList();const i=a.findIndex(p=>String(p.fitxa)===String(selectedPlayer.FITXA));if(i>=0)a.splice(i,1);else{if(a.length>=5){alert('Gehienez 5 pelotari hauta ditzakezu / Puedes seleccionar un máximo de 5 pelotaris.');return}a.push({fitxa:String(selectedPlayer.FITXA),name:playerName(selectedPlayer),urtea:selectedPlayer.URTEA||'',herria:selectedPlayer.HERRIA||''})}setFavoriteList(a);updateFavoriteButton()}
 
 function closeProfile() {
     selectedPlayer = null;
