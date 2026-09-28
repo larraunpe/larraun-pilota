@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="eu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Larraun Pilota">
-    <meta name="theme-color" content="#c13b2b">
-    <title>Larraun Pilota · App</title>
-
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="images/icons/LARRAUNTXI.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/LARRAUNTXI.png">
+<!DOCTYPE html> 
+<html lang="eu"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="mobile-web-app-capable" content="yes"> 
+    <meta name="apple-mobile-web-app-capable" content="yes"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+    <meta name="apple-mobile-web-app-title" content="Larraun Pilota"> 
+    <meta name="theme-color" content="#c13b2b"> 
+    <title>Larraun Pilota · App</title> 
+ 
+    <link rel="manifest" href="manifest.json"> 
+    <link rel="apple-touch-icon" href="images/icons/LARRAUNTXI.png"> 
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/LARRAUNTXI.png"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -885,6 +885,64 @@ const YOUTUBE_LIVE_JSON =
  */
 const YOUTUBE_CHECK_INTERVAL = 120000;
 
+function openLiveStream() {
+    const target = youtubeLiveData && youtubeLiveData.live && youtubeLiveData.videoId
+        ? `https://www.youtube.com/watch?v=${encodeURIComponent(youtubeLiveData.videoId)}`
+        : YOUTUBE_CHANNEL_URL;
+
+    // YouTube no siempre permite reproducir la emisión dentro del visor.
+    // Abrimos el canal/stream directamente en la misma ventana del navegador.
+    window.open(target, '_blank', 'noopener,noreferrer');
+}
+
+function actualizarTarjetaYouTube() {
+    const card = document.getElementById('liveCard');
+    const badge = document.getElementById('liveBadge');
+    const indicator = document.getElementById('liveIndicator');
+    const title = document.getElementById('liveTitleText');
+    const description = document.getElementById('liveDescription');
+    const icon = document.getElementById('liveIcon');
+
+    if (!card) return;
+
+    if (youtubeLiveData.live && youtubeLiveData.videoId) {
+        card.classList.add('is-live');
+        if (badge) badge.style.display = 'flex';
+        if (indicator) indicator.style.display = 'flex';
+        if (title) title.textContent = youtubeLiveData.title || 'Zuzeneko Partidua';
+        if (description) description.textContent = 'Ikusi partida zuzenean YouTuben';
+        if (icon) icon.className = 'fas fa-circle-play';
+    } else {
+        card.classList.remove('is-live');
+        if (badge) badge.style.display = 'none';
+        if (indicator) indicator.style.display = 'none';
+        if (title) title.textContent = 'Zuzeneko Partiduak';
+        if (description) description.textContent = 'Ikusi gure etxeko partidak zuzenean YouTuben';
+        if (icon) icon.className = 'fas fa-video';
+    }
+}
+
+async function comprobarDirectoYouTube() {
+    try {
+        const response = await fetch(`${YOUTUBE_LIVE_JSON}?v=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error('No se pudo leer youtube-live.json');
+        const data = await response.json();
+        youtubeLiveData = {
+            live: data.live === true,
+            videoId: data.videoId || '',
+            title: data.title || '',
+            url: data.url || YOUTUBE_CHANNEL_URL
+        };
+    } catch (error) {
+        // Si el JSON no está disponible, el botón sigue funcionando y lleva al canal.
+        youtubeLiveData = { ...youtubeLiveData, live: false, videoId: '' };
+        console.warn('No se pudo comprobar el directo de YouTube:', error);
+    }
+
+    actualizarTarjetaYouTube();
+}
+
+
 
 /* Estado actual del directo */
 
@@ -1022,6 +1080,10 @@ if ('serviceWorker' in navigator) {
     function addFavoritePlayer(p){if(!p?.FITXA)return;let a=getFavorites();if(a.some(x=>String(x.fitxa)===String(p.FITXA)))return;if(a.length>=MAX_FAVORITES){alert('Gehienez 5 pelotari hauta ditzakezu / Puedes seleccionar un máximo de 5 pelotaris.');return}a.push({fitxa:String(p.FITXA),name:`${p.ABIZENAK||''}, ${p.IZENA||''}`.replace(/^,\s*|\s*,\s*$/g,'').trim(),urtea:p.URTEA||'',herria:p.HERRIA||''});saveFavorites(a)}
     function removeFavorite(f){saveFavorites(getFavorites().filter(p=>String(p.fitxa)!==String(f)))}
     renderFavorites();
+
+    // Comprobar el estado del canal al cargar y periódicamente.
+    comprobarDirectoYouTube();
+    setInterval(comprobarDirectoYouTube, YOUTUBE_CHECK_INTERVAL);
 
     // ─── MODALS ───────────────────────────────────────────
     function mostrarAlertaZuzeneko()     { document.getElementById('modalZuzeneko').classList.add('open'); }
