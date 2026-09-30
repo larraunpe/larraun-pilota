@@ -320,10 +320,33 @@
             gap: .85rem;
         }
 
+        .profile-avatar-wrap {
+            width: 76px;
+            height: 76px;
+            flex: 0 0 76px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-avatar-image,
         .profile-avatar {
-            width: 58px;
-            height: 58px;
+            width: 76px;
+            height: 76px;
             border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(193,59,43,.2);
+        }
+
+        .profile-avatar-image {
+            display: block;
+            background: var(--red-soft);
+            border: 2px solid var(--red);
+        }
+
+        .profile-avatar {
             background: var(--red);
             color: white;
             display: flex;
@@ -332,8 +355,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.25rem;
             font-weight: 800;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(193,59,43,.2);
+            border: 2px solid var(--red);
         }
 
         .profile-name {
@@ -493,6 +515,17 @@
         @media (max-width: 480px) {
             .data-grid { grid-template-columns: 1fr; }
             .data-item.full { grid-column: auto; }
+
+            .profile-head {
+                gap: .75rem;
+            }
+
+            .profile-avatar-wrap,
+            .profile-avatar-image,
+            .profile-avatar {
+                width: 68px;
+                height: 68px;
+            }
         }
 
         @media (min-width: 700px) {
@@ -576,7 +609,10 @@
 
     <section class="profile" id="profile" aria-live="polite">
         <div class="profile-head">
-            <div class="profile-avatar" id="profileAvatar">LP</div>
+            <div class="profile-avatar-wrap" id="profileAvatarWrap">
+                <img class="profile-avatar-image" id="profileAvatarImage" src="" alt="" style="display:none;">
+                <div class="profile-avatar" id="profileAvatar">LP</div>
+            </div>
             <div>
                 <div class="profile-name" id="profileName"></div>
                 <div class="profile-sub" id="profileSub"></div>
@@ -679,6 +715,7 @@
 
 const CSV_URL = 'data/FITXA.csv';
 const TALDEAK_URL = 'https://larraunpilota.eus/larraungo-taldeak.html';
+const PLAYER_IMAGES_URL = 'images/pelotaris/';
 
 let players = [];
 let selectedPlayer = null;
@@ -940,7 +977,38 @@ function selectPlayer(player, updateHash = true) {
 function renderProfile(player) {
     if (!player) return;
 
-    $('profileAvatar').textContent = initials(player);
+    const fitxa = clean(player.FITXA);
+    const photo = fitxa
+        ? `${PLAYER_IMAGES_URL}${encodeURIComponent(fitxa)}.png`
+        : '';
+
+    const avatarImage = $('profileAvatarImage');
+    const avatarFallback = $('profileAvatar');
+
+    // Intentamos cargar la foto correspondiente a FITXA.
+    // Si no existe, mostramos las iniciales como respaldo.
+    if (photo) {
+        avatarImage.onload = () => {
+            avatarImage.style.display = 'block';
+            avatarFallback.style.display = 'none';
+        };
+
+        avatarImage.onerror = () => {
+            avatarImage.removeAttribute('src');
+            avatarImage.style.display = 'none';
+            avatarFallback.textContent = initials(player);
+            avatarFallback.style.display = 'flex';
+        };
+
+        avatarImage.alt = playerName(player);
+        avatarImage.src = photo;
+    } else {
+        avatarImage.removeAttribute('src');
+        avatarImage.style.display = 'none';
+        avatarFallback.textContent = initials(player);
+        avatarFallback.style.display = 'flex';
+    }
+
     $('profileName').textContent = playerName(player);
 
     const subParts = [];
