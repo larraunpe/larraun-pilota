@@ -974,6 +974,21 @@ function selectPlayer(player, updateHash = true) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function cleanCompetitionUrl(value) {
+    let url = clean(value);
+
+    // El CSV se mantiene intacto. Solo quitamos comillas exteriores
+    // por si alguna celda las incluye al ser exportada.
+    if (
+        (url.startsWith('\"') && url.endsWith('\"')) ||
+        (url.startsWith("'") && url.endsWith("'"))
+    ) {
+        url = url.slice(1, -1).trim();
+    }
+
+    return url;
+}
+
 function renderProfile(player) {
     if (!player) return;
 
@@ -1026,7 +1041,9 @@ function renderProfile(player) {
     $('profileTaldea').textContent = player.TALDE || '—';
     $('profileTaldea').href = TALDEAK_URL;
 
-    const competition = clean(player.LEHIAKETA);
+    // La URL procede directamente de LEHIAKETA en FITXA.csv.
+    // No modificamos dominio, ruta ni parámetros de la Federación.
+    const competition = cleanCompetitionUrl(player.LEHIAKETA);
 
     if (competition) {
         $('competitionBox').classList.add('active');
@@ -1041,12 +1058,19 @@ function renderProfile(player) {
             currentLang === 'eu' ? 'Lehiaketa aktiboa' : 'Competición activa';
 
         $('competitionButton').href = competition;
+        $('competitionButton').onclick = function () {
+            // Navegación directa a la URL exacta del CSV.
+            // No hacemos fetch, proxy ni redirecciones desde Larraun.
+            this.href = competition;
+            return true;
+        };
         updateFavoriteButton();
     } else {
         $('competitionBox').classList.remove('active');
         $('competitionActive').style.display = 'none';
         $('competitionEmpty').style.display = 'block';
         $('competitionButton').href = '#';
+        $('competitionButton').onclick = null;
         updateFavoriteButton();
     }
 }
