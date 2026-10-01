@@ -125,17 +125,6 @@
     "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Bidegain - U. Erneta)",
-    "kanpokoak": "PILOTAJAUKU (I. Zabala - H. Olabarria)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/10/03",
-    "hora": "10:00",
-    "zkia": "3",
-    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel - E. Zubillaga)",
     "kanpokoak": "ABAXITABIDEA (U. Oteiza - I. Zubieta)",
     "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
@@ -145,7 +134,7 @@
   {
     "fecha": "2026/10/03",
     "hora": "10:00",
-    "zkia": "4",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
     "kanpokoak": "ZUGARRALDE (G. Galarza - E. Azanza)",
@@ -156,7 +145,7 @@
   {
     "fecha": "2026/10/03",
     "hora": "10:00",
-    "zkia": "5",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - S. Galartza)",
     "kanpokoak": "PILOTAJAUKU (J. Mendiluze - O. Vicario)",
@@ -167,7 +156,7 @@
   {
     "fecha": "2026/10/03",
     "hora": "10:00",
-    "zkia": "6",
+    "zkia": "SUSPENDITUTA",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus)",
     "kanpokoak": "ARAXES (U. Miranda - E. Iriarte)",
@@ -178,7 +167,7 @@
   {
     "fecha": "2026/10/03",
     "hora": "10:00",
-    "zkia": "7",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Sanz - A. Buldain)",
     "kanpokoak": "OBERENA (A. Arnesto - J. Sanchez-valverde)",
@@ -365,11 +354,22 @@
   {
     "fecha": "2026/10/04",
     "hora": "10:00",
-    "zkia": "1",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Ijurko)",
     "kanpokoak": "LAGUNAK (A. Maya)",
     "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/10/03",
+    "hora": "10:00",
+    "zkia": "5",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Bidegain - U. Erneta)",
+    "kanpokoak": "PILOTAJAUKU (I. Zabala - H. Olabarria)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   }
