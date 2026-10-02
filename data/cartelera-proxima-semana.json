@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-10-01T20:10:55.469Z",
+  "fecha_generacion": "2026-10-02T13:39:10.376Z",
   "semana_numero": 41,
   "total_partidos": 32,
   "partidos": [
@@ -98,18 +98,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "TXARUTA (A. Sagastibeltza - J. Etxandi)",
-      "kanpokoak": "LARRAUN (L. Ariztimuño - A. Mozo)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+      "etxekoa": "IRURTZUN (E. Prieto - A. Garijo)",
+      "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "IRURTZUN (E. Prieto - A. Garijo)",
-      "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+      "etxekoa": "TXARUTA (A. Sagastibeltza - J. Etxandi)",
+      "kanpokoak": "LARRAUN (L. Ariztimuño - A. Mozo)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
@@ -125,8 +125,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
-      "kanpokoak": "Descanso",
+      "etxekoa": "ULTZAMA (U. Garcia - L. Irure)",
+      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
@@ -152,8 +152,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ULTZAMA (U. Garcia - L. Irure)",
-      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
+      "etxekoa": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
+      "kanpokoak": "Descanso",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
@@ -164,15 +164,6 @@
       "etxekoa": "LARRAUN (D. Centeno - M. Argaña)",
       "kanpokoak": "Descanso",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/10",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Balda - I. Sotil)",
-      "kanpokoak": "Descanso",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
@@ -193,6 +184,15 @@
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
     },
     {
+      "fecha": "2026/10/10",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Balda - I. Sotil)",
+      "kanpokoak": "Descanso",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+    },
+    {
       "fecha": "2026/10/11",
       "hora": "- !Horario provisional",
       "zkia": "-",
@@ -206,9 +206,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (I. Nazabal)",
-      "kanpokoak": "BETI ONAK (I. Mariezkurrena)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+      "etxekoa": "ARAXES (G. Uitzi)",
+      "kanpokoak": "LARRAUN (A. Eguzkiza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
     },
     {
       "fecha": "2026/10/11",
@@ -242,17 +242,17 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (O. Iriarte)",
-      "kanpokoak": "BETI ONAK (E. Santesteban)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
+      "etxekoa": "LARRAUN (M. Lazkoz)",
+      "kanpokoak": "ZUGARRALDE (M. Gastesi)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
     },
     {
       "fecha": "2026/10/11",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES (G. Uitzi)",
-      "kanpokoak": "LARRAUN (A. Eguzkiza)",
+      "etxekoa": "LARRAUN (O. Iriarte)",
+      "kanpokoak": "BETI ONAK (E. Santesteban)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
     },
     {
@@ -287,9 +287,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (M. Lazkoz)",
-      "kanpokoak": "ZUGARRALDE (M. Gastesi)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
+      "etxekoa": "LARRAUN (I. Nazabal)",
+      "kanpokoak": "BETI ONAK (I. Mariezkurrena)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
     }
   ]
 }
