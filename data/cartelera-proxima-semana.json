@@ -1,12 +1,12 @@
 {
-  "fecha_generacion": "2026-10-02T13:39:10.376Z",
+  "fecha_generacion": "2026-10-02T19:02:09.314Z",
   "semana_numero": 41,
   "total_partidos": 32,
   "partidos": [
     {
       "fecha": "2026/10/10",
       "hora": "09:30 !Horario provisional",
-      "zkia": "8",
+      "zkia": "7",
       "fronton": "Estella - Remontival",
       "etxekoa": "SAN MIGUEL (X. Mateo)",
       "kanpokoak": "LARRAUN (I. Galartza)",
@@ -80,15 +80,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (M. Laso - U. Otamendi)",
-      "kanpokoak": "LEITZA (E. Bidart - O. Alkorta)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/10",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "IRURTZUN (E. Esain - P. Gorraiz)",
       "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
@@ -98,9 +89,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "IRURTZUN (E. Prieto - A. Garijo)",
-      "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+      "etxekoa": "LARRAUN (M. Laso - U. Otamendi)",
+      "kanpokoak": "LEITZA (E. Bidart - O. Alkorta)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
@@ -116,18 +107,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "AGOITZ (E. Arcelus - E. Balisa)",
-      "kanpokoak": "LARRAUN (L. Ojuel - E. Zubillaga)",
+      "etxekoa": "IRURTZUN (E. Prieto - A. Garijo)",
+      "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/10",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ULTZAMA (U. Garcia - L. Irure)",
-      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
@@ -152,8 +134,26 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "AGOITZ (E. Arcelus - E. Balisa)",
+      "kanpokoak": "LARRAUN (L. Ojuel - E. Zubillaga)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/10",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
       "kanpokoak": "Descanso",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/10",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ULTZAMA (U. Garcia - L. Irure)",
+      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
@@ -170,18 +170,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
-      "kanpokoak": "BORTZIRIAK (I. Iratzoki - X. Korta)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KADETE 2. LIGAXKA"
+      "etxekoa": "IRURTZUN (U. Osinaga - O. Lee)",
+      "kanpokoak": "LARRAUN (A. Balenciaga - J. Mitxaus)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "IRURTZUN (U. Osinaga - O. Lee)",
-      "kanpokoak": "LARRAUN (A. Balenciaga - J. Mitxaus)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA"
+      "etxekoa": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
+      "kanpokoak": "BORTZIRIAK (I. Iratzoki - X. Korta)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KADETE 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/10",
@@ -206,9 +206,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES (G. Uitzi)",
-      "kanpokoak": "LARRAUN (A. Eguzkiza)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
+      "etxekoa": "LARRAUN (M. Lazkoz)",
+      "kanpokoak": "ZUGARRALDE (M. Gastesi)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/11",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (I. Nazabal)",
+      "kanpokoak": "BETI ONAK (I. Mariezkurrena)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
     },
     {
       "fecha": "2026/10/11",
@@ -236,15 +245,6 @@
       "etxekoa": "ZUGARRALDE (M. Baleztena)",
       "kanpokoak": "LARRAUN (J. Ezkurdia)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/11",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (M. Lazkoz)",
-      "kanpokoak": "ZUGARRALDE (M. Gastesi)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA"
     },
     {
       "fecha": "2026/10/11",
@@ -287,9 +287,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (I. Nazabal)",
-      "kanpokoak": "BETI ONAK (I. Mariezkurrena)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA LIGAXKA"
+      "etxekoa": "ARAXES (G. Uitzi)",
+      "kanpokoak": "LARRAUN (A. Eguzkiza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA LIGAXKA"
     }
   ]
 }
