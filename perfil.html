@@ -660,7 +660,7 @@
                 <div id="competitionActive" style="display:none;">
                     <div class="data-value" id="competitionText"></div>
                     <a class="competition-button" id="competitionButton"
-                       href="#" target="_blank" rel="noopener noreferrer">
+                       href="#" target="_blank" rel="noopener noreferrer external">
                         <i class="fas fa-trophy"></i>
                         <span id="competitionButtonText">Lehiaketara joan</span>
                     </a>
@@ -977,16 +977,38 @@ function selectPlayer(player, updateHash = true) {
 function cleanCompetitionUrl(value) {
     let url = clean(value);
 
-    // El CSV se mantiene intacto. Solo quitamos comillas exteriores
-    // por si alguna celda las incluye al ser exportada.
     if (
-        (url.startsWith('\"') && url.endsWith('\"')) ||
+        (url.startsWith('"') && url.endsWith('"')) ||
         (url.startsWith("'") && url.endsWith("'"))
     ) {
         url = url.slice(1, -1).trim();
     }
 
-    return url;
+    if (!url) return '';
+
+    try {
+        const parsed = new URL(url);
+
+        // FITXA.csv NO se modifica. Solo normalizamos la URL al abrirla.
+        if (
+            parsed.hostname.toLowerCase() === 'www.fnpelota.com' ||
+            parsed.hostname.toLowerCase() === 'fnpelota.com'
+        ) {
+            parsed.protocol = 'https:';
+            parsed.hostname = 'www.fnpelota.com';
+
+            // Ruta canónica de FNP.
+            if (/^\/pub\/modalidadcomp\.asp$/i.test(parsed.pathname)) {
+                parsed.pathname = '/pub/ModalidadComp.asp';
+            }
+
+            return parsed.toString();
+        }
+
+        return url;
+    } catch {
+        return url;
+    }
 }
 
 function renderProfile(player) {
@@ -1041,8 +1063,6 @@ function renderProfile(player) {
     $('profileTaldea').textContent = player.TALDE || '—';
     $('profileTaldea').href = TALDEAK_URL;
 
-    // La URL procede directamente de LEHIAKETA en FITXA.csv.
-    // No modificamos dominio, ruta ni parámetros de la Federación.
     const competition = cleanCompetitionUrl(player.LEHIAKETA);
 
     if (competition) {
@@ -1058,19 +1078,12 @@ function renderProfile(player) {
             currentLang === 'eu' ? 'Lehiaketa aktiboa' : 'Competición activa';
 
         $('competitionButton').href = competition;
-        $('competitionButton').onclick = function () {
-            // Navegación directa a la URL exacta del CSV.
-            // No hacemos fetch, proxy ni redirecciones desde Larraun.
-            this.href = competition;
-            return true;
-        };
         updateFavoriteButton();
     } else {
         $('competitionBox').classList.remove('active');
         $('competitionActive').style.display = 'none';
         $('competitionEmpty').style.display = 'block';
         $('competitionButton').href = '#';
-        $('competitionButton').onclick = null;
         updateFavoriteButton();
     }
 }
