@@ -1077,13 +1077,25 @@ function renderProfile(player) {
         $('competitionText').textContent =
             currentLang === 'eu' ? 'Lehiaketa aktiboa' : 'Competición activa';
 
-        $('competitionButton').href = competition;
+        $('competitionButton').href = '#';
+        $('competitionButton').onclick = function (event) {
+            event.preventDefault();
+
+            // Apertura directa de la URL de FNP en una nueva pestaña.
+            // No hacemos fetch, proxy ni redirecciones desde Larraun.
+            if (competition) {
+                window.open(competition, '_blank', 'noopener,noreferrer');
+            }
+
+            return false;
+        };
         updateFavoriteButton();
     } else {
         $('competitionBox').classList.remove('active');
         $('competitionActive').style.display = 'none';
         $('competitionEmpty').style.display = 'block';
         $('competitionButton').href = '#';
+        $('competitionButton').onclick = null;
         updateFavoriteButton();
     }
 }
