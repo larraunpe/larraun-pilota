@@ -197,6 +197,19 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-03",
+    "fronton": "Ororbia - Ororbia",
+    "etxekoa": "ABAXITABIDEA – LARRAUN (P. Aginaga - X. Goldaracena)",
+    "kanpokoak": "TXARUTA (J. Ripa - A. Urrutia) RIPA ERIZE, J. URRUTIA ETXENIKE, A.",
+    "tanteoa": "18-0",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3239&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "etxekoa_original": "ABAXITABIDEA (P. Aginaga - X. Goldaracena) AGINAGA ELIZAGARAI, P. GOLDARACENA LANZ, X."
+  },
+  {
     "fecha": "2026-10-02",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (I. Serrano - M. Andueza) ANDUEZA OLLO, M. SERRANO NIETO, I.",
@@ -438,6 +451,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-03",
+    "fronton": "Tafalla - Ereta",
+    "etxekoa": "P.P.SAN SEBASTIAN (O. Lerga)",
+    "kanpokoak": "LARRAUN (M. Lazkoz)",
+    "tanteoa": "6-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3258&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-02",
     "fronton": "Sarriguren - Salesianos",
     "etxekoa": "DOS PAREDES (N. Esparza - M. Larraza) ESPARZA BUN, N. LARRAZA SENAR, M.",
@@ -460,6 +485,18 @@
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA NESKEN BINAKA LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3273&temp=2026",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (X. Goldarazena) GOLDARAZENA AZPIROTZ, X.",
+    "kanpokoak": "SAN JUAN (J. Gil)",
+    "tanteoa": "21-25",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA BANAKA 5½ 3. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3278&temp=2026",
+    "emaitza": "galduta",
     "ofiziala": true
   }
 ]
