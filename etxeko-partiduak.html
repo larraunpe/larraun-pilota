@@ -1,9 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="eu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Etxeko partiduak – Larraun Pilota Elkartea</title>
 
 <meta property="og:title" content="Etxeko partiduak – Larraun Pilota Elkartea">
@@ -17,6 +17,11 @@
 
 
 <style>
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
 body{
   font-family:Arial, Helvetica, sans-serif;
   background:#f4f4f4;
@@ -31,6 +36,7 @@ header{
 
 header img{
   height:80px;
+  max-width:100%;
 }
 
 h1{
@@ -43,7 +49,11 @@ h1{
   margin:auto;
 }
 
-/* ===== DÍA ===== */
+
+/* =========================================================
+   DÍA
+   ========================================================= */
+
 .day-separator{
   margin:36px 0 18px;
   text-align:center;
@@ -52,7 +62,11 @@ h1{
   color:#333;
 }
 
-/* ===== GRUPO ===== */
+
+/* =========================================================
+   GRUPO / FESTIVAL
+   ========================================================= */
+
 .group{
   margin-bottom:22px;
   border-radius:14px;
@@ -64,7 +78,11 @@ h1{
   background:#f0f0f0;
 }
 
-/* CABECERA */
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
 .group-header{
   padding:14px 18px;
   color:#fff;
@@ -77,6 +95,9 @@ h1{
 .trinkete .group-header{
   background:#ad1457;
 }
+
+
+/* COLORES DE LOS FRONTONES */
 
 .lekunberri .group-header{
   box-shadow:inset 0 0 0 4px #1b5e20;
@@ -98,6 +119,7 @@ h1{
   box-shadow:inset 0 0 0 4px #6a1b9a;
 }
 
+
 .fronton{
   font-size:1.25em;
   font-weight:900;
@@ -108,11 +130,20 @@ h1{
   margin-top:4px;
 }
 
-/* CUERPO */
+
+/* =========================================================
+   CUERPO
+   ========================================================= */
+
 .group-body{
   background:#fff;
   padding:16px 18px;
 }
+
+
+/* =========================================================
+   PARTIDO
+   ========================================================= */
 
 .match{
   padding-top:12px;
@@ -122,40 +153,20 @@ h1{
 
 .match:first-child{
   margin-top:0;
+  padding-top:0;
+  border-top:none;
 }
 
-/* ===== PARTIDO SUSPENDIDO ===== */
-.match.suspendido{
-  background:#eeeeee;
-  border-radius:10px;
-  padding:12px 14px;
-  margin-left:-4px;
-  margin-right:-4px;
-  border-top:1px solid #d0d0d0;
-}
 
-.match.suspendido .match-top{
+/* =========================================================
+   CABECERA DEL PARTIDO
+   ========================================================= */
+
+.match-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:15px;
-}
-
-.match-susp{
-  color:#c62828;
-  font-weight:900;
-  font-size:.95em;
-  text-align:right;
-  white-space:nowrap;
-}
-
-.match.suspendido .torneo{
-  color:#555;
-}
-
-.match.suspendido .etxekoa,
-.match.suspendido .kanpokoa{
-  opacity:.75;
 }
 
 .torneo{
@@ -163,6 +174,11 @@ h1{
   font-weight:900;
   margin-bottom:6px;
 }
+
+
+/* =========================================================
+   PELOTARIS
+   ========================================================= */
 
 .etxekoa{
   color:#0d47a1;
@@ -175,7 +191,76 @@ h1{
 }
 
 
-/* ===== MÓVIL ===== */
+/* =========================================================
+   PARTIDO SUSPENDIDO
+   ========================================================= */
+
+.match.suspendido{
+
+  background:#eeeeee;
+
+  border-radius:10px;
+
+  padding:12px 14px;
+
+  margin-left:-4px;
+  margin-right:-4px;
+
+  border-top:1px solid #d0d0d0;
+}
+
+.match.suspendido .torneo{
+  color:#555;
+}
+
+.match.suspendido .etxekoa,
+.match.suspendido .kanpokoa{
+  opacity:.75;
+}
+
+
+/* TEXTO SUSPENDITUTA */
+
+.match-susp{
+
+  color:#c62828;
+
+  font-weight:900;
+
+  font-size:.95em;
+
+  text-align:right;
+
+  white-space:nowrap;
+}
+
+
+/* =========================================================
+   MENSAJE DE ERROR
+   ========================================================= */
+
+.error-message{
+
+  background:#fff;
+
+  padding:20px;
+
+  border-radius:12px;
+
+  text-align:center;
+
+  color:#b71c1c;
+
+  font-weight:bold;
+
+  box-shadow:0 3px 8px rgba(0,0,0,.15);
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
 @media(max-width:600px){
 
   body{
@@ -211,22 +296,33 @@ h1{
   }
 
   .match-top{
-    align-items:flex-start !important;
+    align-items:flex-start;
   }
 
   .match-susp{
     font-size:.85em;
   }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
 <header>
-  <img src="images/etxekoak.jpg" alt="Larraun Pilota">
+
+  <img
+    src="images/etxekoak.jpg"
+    alt="Larraun Pilota"
+  >
+
   <h1>Etxeko partiduak</h1>
+
 </header>
+
 
 <div id="content"></div>
 
@@ -234,12 +330,14 @@ h1{
 <script>
 
 /* =========================================================
-   FECHAS
+   FECHA DEL LUNES
    ========================================================= */
 
 function monday(d){
+
   const x=new Date(d);
-  const day=x.getDay()||7;
+
+  const day=x.getDay() || 7;
 
   if(day!==1){
     x.setDate(x.getDate()-day+1);
@@ -250,6 +348,10 @@ function monday(d){
   return x;
 }
 
+
+/* =========================================================
+   FECHA EN EUSKERA
+   ========================================================= */
 
 function dayEU(d){
 
@@ -283,27 +385,37 @@ function dayEU(d){
 
 
 /* =========================================================
-   ORDEN DE LOS PARTIDOS
+   ORDEN DE ZKIA
    =========================================================
-   Se utiliza SIEMPRE el campo "zkia".
 
-   Ejemplo:
-   zkia = 1  → 1
-   zkia = 2  → 2
-   zkia = 10 → 10
-   zkia = SUSP → -
+   Valores:
 
-   Los partidos numerados se ordenan numéricamente.
-   Los SUSP se mantienen después de los partidos numerados.
+   1       → 1
+   2       → 2
+   3       → 3
+   10      → 10
+   SUSP    → posición especial
+
+   Los números se ordenan numéricamente.
+
+   SUSP se coloca después de los partidos numerados,
+   salvo que existan varios SUSP, que mantienen su orden
+   original.
    ========================================================= */
 
 function ordenZkia(valor){
 
-  if(valor===undefined || valor===null){
+  if(
+    valor===undefined ||
+    valor===null
+  ){
     return Number.MAX_SAFE_INTEGER;
   }
 
-  const texto=String(valor).trim().toUpperCase();
+  const texto=
+    String(valor)
+      .trim()
+      .toUpperCase();
 
   if(texto==="SUSP"){
     return Number.MAX_SAFE_INTEGER;
@@ -320,18 +432,39 @@ function ordenZkia(valor){
 
 
 /* =========================================================
-   CARGA DE DATOS
+   CARGAR LOS DOS JSON
    ========================================================= */
 
 Promise.all([
 
   fetch("data/cartelera-larraun.json")
-    .then(r=>r.json()),
+    .then(r=>{
+
+      if(!r.ok){
+        throw new Error(
+          "No se ha podido cargar cartelera-larraun.json"
+        );
+      }
+
+      return r.json();
+    }),
 
   fetch("data/partidos-no-oficiales.json")
-    .then(r=>r.json())
+    .then(r=>{
 
-]).then(([oficiales,noOficiales])=>{
+      if(!r.ok){
+        throw new Error(
+          "No se ha podido cargar partidos-no-oficiales.json"
+        );
+      }
+
+      return r.json();
+    })
+
+])
+
+
+.then(([oficiales,noOficiales])=>{
 
 
   /* =======================================================
@@ -341,11 +474,24 @@ Promise.all([
   const partidos=[
 
     ...oficiales.map(p=>({
+
       ...p,
+
       ofiziala:true
+
     })),
 
-    ...noOficiales
+    ...noOficiales.map(p=>({
+
+      ...p,
+
+      /*
+       * Si el JSON de no oficiales no trae ofiziala,
+       * se considera no oficial.
+       */
+      ofiziala:false
+
+    }))
 
   ];
 
@@ -362,27 +508,45 @@ Promise.all([
 
   const sun=new Date(mon);
 
-  sun.setDate(mon.getDate()+6);
+  sun.setDate(
+    mon.getDate()+6
+  );
 
-  sun.setHours(23,59,59,999);
+  sun.setHours(
+    23,
+    59,
+    59,
+    999
+  );
 
 
   /* =======================================================
-     SOLO FRONTONES DE LARRAUN
+     FRONTONES DEL CLUB
      ======================================================= */
 
   const data=partidos.filter(p=>{
 
+
+    /*
+     * Solo estos cinco frontones.
+     */
+
     if(
       !/lekunberri|aldatz|gorriti|mugiro|astitz/i
-        .test(p.fronton||"")
+        .test(p.fronton || "")
     ){
+
       return false;
+
     }
 
+
     const d=new Date(
-      `${p.fecha} ${p.hora||"00:00"}`
+
+      `${p.fecha} ${p.hora || "00:00"}`
+
     );
+
 
     return d>=mon && d<=sun;
 
@@ -390,51 +554,119 @@ Promise.all([
 
 
   /* =======================================================
-     ORDEN GENERAL:
-     1. FECHA
-     2. HORA
-     3. FRONTÓN
-     4. ZKIA
+     AGRUPAR FESTIVALES
+     =======================================================
+
+     ESTA ES LA PARTE IMPORTANTE.
+
+     Cada festival se identifica mediante:
+
+       FRONTÓN
+       +
+       FECHA
+       +
+       HORA
+
+     De esta manera un festival SOLO SE CREA UNA VEZ.
+
+     Todos sus partidos quedan dentro del mismo bloque.
      ======================================================= */
 
-  data.sort((a,b)=>{
+  const festivales=new Map();
+
+
+  data.forEach(p=>{
+
+
+    const key=[
+
+      String(p.fronton || "").trim(),
+
+      String(p.fecha || "").trim(),
+
+      String(p.hora || "").trim()
+
+    ].join("|");
+
+
+    if(!festivales.has(key)){
+
+      festivales.set(
+        key,
+        []
+      );
+
+    }
+
+
+    festivales
+      .get(key)
+      .push(p);
+
+  });
+
+
+  /* =======================================================
+     CONVERTIR MAP EN ARRAY
+     ======================================================= */
+
+  const listaFestivales=
+    Array.from(
+      festivales.values()
+    );
+
+
+  /* =======================================================
+     ORDENAR FESTIVALES
+     ======================================================= */
+
+  listaFestivales.sort((a,b)=>{
+
+
+    const pa=a[0];
+
+    const pb=b[0];
+
 
     const da=new Date(
-      `${a.fecha} ${a.hora||"00:00"}`
+
+      `${pa.fecha} ${pa.hora || "00:00"}`
+
     );
+
 
     const db=new Date(
-      `${b.fecha} ${b.hora||"00:00"}`
+
+      `${pb.fecha} ${pb.hora || "00:00"}`
+
     );
 
-    const diferenciaFecha=da-db;
 
-    if(diferenciaFecha!==0){
-      return diferenciaFecha;
+    /*
+     * Primero fecha y hora.
+     */
+
+    if(da-db!==0){
+
+      return da-db;
+
     }
 
 
-    const frontonA=(a.fronton||"").toLowerCase();
-    const frontonB=(b.fronton||"").toLowerCase();
+    /*
+     * En caso de misma fecha/hora,
+     * orden alfabético por frontón.
+     */
 
-    const diferenciaFronton=
-      frontonA.localeCompare(frontonB);
+    return (
 
-    if(diferenciaFronton!==0){
-      return diferenciaFronton;
-    }
+      pa.fronton || ""
 
+    ).localeCompare(
 
-    /* ===== ORDEN SEGÚN ZKIA ===== */
+      pb.fronton || ""
 
-    const za=ordenZkia(a.zkia);
-    const zb=ordenZkia(b.zkia);
-
-    if(za!==zb){
-      return za-zb;
-    }
-
-    return 0;
+    );
 
   });
 
@@ -443,27 +675,43 @@ Promise.all([
      CONTENEDOR
      ======================================================= */
 
-  const cont=document.getElementById("content");
+  const cont=
+    document.getElementById(
+      "content"
+    );
+
 
   let lastDay="";
 
 
   /* =======================================================
-     RECORRER PARTIDOS
+     CREAR CADA FESTIVAL UNA SOLA VEZ
      ======================================================= */
 
-  data.forEach(p=>{
+  listaFestivales.forEach(bloque=>{
+
+
+    /*
+     * Primer partido del festival.
+     * Sirve para obtener los datos comunes.
+     */
+
+    const b0=bloque[0];
 
 
     /* =====================================================
-       FECHA DEL PARTIDO
+       FECHA
        ===================================================== */
 
     const d=new Date(
-      `${p.fecha} ${p.hora||"00:00"}`
+
+      `${b0.fecha} ${b0.hora || "00:00"}`
+
     );
 
-    const dayKey=d.toDateString();
+
+    const dayKey=
+      d.toDateString();
 
 
     /* =====================================================
@@ -473,106 +721,138 @@ Promise.all([
     if(dayKey!==lastDay){
 
       cont.innerHTML+=`
+
         <div class="day-separator">
+
           — ${dayEU(d)} —
+
         </div>
+
       `;
 
       lastDay=dayKey;
+
     }
 
 
     /* =====================================================
-       CLAVE DEL GRUPO
-       ===================================================== */
-
-    const key=
-      `${p.fronton}|${p.fecha}|${p.hora}`;
-
-
-    if(document.getElementById(
-      CSS.escape(key)
-    )){
-      return;
-    }
-
-
-    /* =====================================================
-       TODOS LOS PARTIDOS DEL MISMO FRONTÓN / HORA
-       ===================================================== */
-
-    const bloque=data.filter(x=>
-      `${x.fronton}|${x.fecha}|${x.hora}`===key
-    );
-
-
-    /* =====================================================
-       ORDENAR LOS PARTIDOS DEL BLOQUE POR ZKIA
+       ORDENAR PARTIDOS SEGÚN ZKIA
        ===================================================== */
 
     bloque.sort((a,b)=>{
 
-      const za=ordenZkia(a.zkia);
-      const zb=ordenZkia(b.zkia);
+
+      const za=
+        ordenZkia(a.zkia);
+
+      const zb=
+        ordenZkia(b.zkia);
+
 
       if(za!==zb){
+
         return za-zb;
+
       }
+
+
+      /*
+       * Si ambos tienen el mismo valor especial
+       * (por ejemplo dos SUSP), conservamos el orden
+       * en el que llegaron del JSON.
+       */
 
       return 0;
 
     });
 
 
-    const b0=bloque[0];
+    /* =====================================================
+       CLASE DEL FRONTÓN
+       ===================================================== */
+
+    let additionalClass="";
+
+
+    if(
+      /gorriti/i.test(
+        b0.fronton || ""
+      )
+    ){
+
+      additionalClass=" gorriti";
+
+    }
+
+    else if(
+      /astitz/i.test(
+        b0.fronton || ""
+      )
+    ){
+
+      additionalClass=" astitz";
+
+    }
+
+    else if(
+      /mugiro/i.test(
+        b0.fronton || ""
+      )
+    ){
+
+      additionalClass=" mugiro";
+
+    }
+
+    else if(
+      /lekunberri/i.test(
+        b0.fronton || ""
+      )
+    ){
+
+      additionalClass=" lekunberri";
+
+    }
+
+    else if(
+      /aldatz/i.test(
+        b0.fronton || ""
+      )
+    ){
+
+      additionalClass=" aldatz";
+
+    }
 
 
     /* =====================================================
        CREAR GRUPO
        ===================================================== */
 
-    const group=document.createElement("div");
+    const group=
+      document.createElement(
+        "div"
+      );
 
-    group.id=key;
-
-
-    /* =====================================================
-       CLASES DEL FRONTÓN
-       ===================================================== */
-
-    let additionalClass="";
-
-    if(/gorriti/i.test(b0.fronton)){
-      additionalClass=" gorriti";
-    }
-
-    else if(/astitz/i.test(b0.fronton)){
-      additionalClass=" astitz";
-    }
-
-    else if(/mugiro/i.test(b0.fronton)){
-      additionalClass=" mugiro";
-    }
-
-    else if(/lekunberri/i.test(b0.fronton)){
-      additionalClass=" lekunberri";
-    }
-
-    else if(/aldatz/i.test(b0.fronton)){
-      additionalClass=" aldatz";
-    }
-
-
-    /* =====================================================
-       CLASE FINAL DEL GRUPO
-       ===================================================== */
 
     group.className=
-      "group"+
-      (!b0.ofiziala ? " no-oficial" : "")+
-      (/trinkete/i.test(b0.fronton)
-        ? " trinkete"
-        : " jai-alai")+
+
+      "group" +
+
+      (
+        !b0.ofiziala
+          ? " no-oficial"
+          : ""
+      ) +
+
+      (
+        /trinkete/i.test(
+          b0.fronton || ""
+        )
+          ? " trinkete"
+          : " jai-alai"
+      ) +
+
       additionalClass;
 
 
@@ -585,13 +865,19 @@ Promise.all([
       <div class="group-header">
 
         <div class="fronton">
-          📍 ${b0.fronton||""}
+
+          📍 ${b0.fronton || ""}
+
         </div>
 
         <div class="datetime">
-          🗓 ${b0.fecha||""}
+
+          🗓 ${b0.fecha || ""}
+
           ·
-          ⏰ ${b0.hora||""}
+
+          ⏰ ${b0.hora || ""}
+
         </div>
 
       </div>
@@ -602,57 +888,85 @@ Promise.all([
 
 
     const body=
-      group.querySelector(".group-body");
+      group.querySelector(
+        ".group-body"
+      );
 
 
     /* =====================================================
-       PARTIDOS DEL BLOQUE
+       CREAR TODOS LOS PARTIDOS
        ===================================================== */
 
-    bloque.forEach((m)=>{
+    bloque.forEach(m=>{
 
 
       /* ===================================================
-         DETECTAR SUSPENDIDO
+         COMPROBAR SI ESTÁ SUSPENDIDO
          =================================================== */
 
       const suspendido=
-        String(m.zkia||"")
-          .trim()
-          .toUpperCase()==="SUSP";
+
+        String(
+          m.zkia || ""
+        )
+        .trim()
+        .toUpperCase()==="SUSP";
 
 
       /* ===================================================
-         NÚMERO DEL PARTIDO
+         NÚMERO
          =================================================== */
 
-      const numero=
-        suspendido
-          ? "-"
-          : (
-              m.zkia!==undefined &&
-              m.zkia!==null &&
-              String(m.zkia).trim()!==""
-                ? String(m.zkia)
-                : ""
-            );
+      let numero;
+
+
+      if(suspendido){
+
+        numero="-";
+
+      }
+
+      else if(
+        m.zkia!==undefined &&
+        m.zkia!==null &&
+        String(m.zkia).trim()!==""
+      ){
+
+        numero=
+          String(m.zkia).trim();
+
+      }
+
+      else{
+
+        numero="";
+
+      }
 
 
       /* ===================================================
-         CREAR PARTIDO
+         CREAR ELEMENTO
          =================================================== */
 
       const match=
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       match.className=
-        "match"+
-        (suspendido ? " suspendido" : "");
+
+        "match" +
+
+        (
+          suspendido
+            ? " suspendido"
+            : ""
+        );
 
 
       /* ===================================================
-         PARTE SUPERIOR
+         CONTENIDO
          =================================================== */
 
       match.innerHTML=`
@@ -660,14 +974,24 @@ Promise.all([
         <div class="match-top">
 
           <div class="torneo">
-            ${numero} · ${m.lehiaketa||""}
+
+            ${numero}
+
+            ${
+              m.lehiaketa
+                ? ` · ${m.lehiaketa}`
+                : ""
+            }
+
           </div>
 
           ${
             suspendido
               ? `
                 <div class="match-susp">
+
                   SUSPENDITUTA
+
                 </div>
               `
               : ""
@@ -675,48 +999,82 @@ Promise.all([
 
         </div>
 
+
         <div class="etxekoa">
-          🏠 ${m.etxekoa||""}
+
+          🏠 ${m.etxekoa || ""}
+
         </div>
 
+
         <div class="kanpokoa">
-          ✈️ ${m.kanpokoak||""}
+
+          ✈️ ${m.kanpokoak || ""}
+
         </div>
 
       `;
 
 
-      body.appendChild(match);
+      body.appendChild(
+        match
+      );
 
     });
 
 
     /* =====================================================
-       AÑADIR GRUPO A LA PÁGINA
+       AÑADIR FESTIVAL A LA PÁGINA
        ===================================================== */
 
-    cont.appendChild(group);
+    cont.appendChild(
+      group
+    );
 
   });
 
-}).catch(error=>{
+
+  /* =======================================================
+     SI NO HAY PARTIDOS
+     ======================================================= */
+
+  if(listaFestivales.length===0){
+
+    cont.innerHTML=`
+
+      <div class="error-message">
+
+        Ez dago etxeko partidurik aste honetan.
+
+      </div>
+
+    `;
+
+  }
+
+})
+
+
+/* =========================================================
+   ERROR DE CARGA
+   ========================================================= */
+
+.catch(error=>{
 
   console.error(
     "Errorea datuak kargatzean:",
     error
   );
 
-  document.getElementById("content").innerHTML=`
 
-    <div style="
-      background:#fff;
-      padding:20px;
-      border-radius:12px;
-      text-align:center;
-      color:#b71c1c;
-      font-weight:bold;
-    ">
+  document.getElementById(
+    "content"
+  ).innerHTML=`
+
+    <div class="error-message">
+
       Ezin izan dira partiduak kargatu.
+
     </div>
 
   `;
