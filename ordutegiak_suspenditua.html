@@ -40,10 +40,9 @@ body{margin:0;font-family:'Segoe UI',Roboto,system-ui,sans-serif;background:#f0f
 /* Panel de impresión */
 #inprimatu-modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:none;align-items:center;justify-content:center;padding:15px;z-index:9999}
 #inprimatu-modal.irekita{display:flex}.inprimatu-panela{background:#fff;width:min(520px,100%);border-radius:20px;box-shadow:0 15px 50px rgba(0,0,0,.35);padding:22px}.inprimatu-panela h3{font-size:1.45rem;color:#0b2c5d;margin-bottom:8px}.inprimatu-panela .azalpena{font-size:.95rem;color:#555;margin-bottom:18px}.egoera-aukerak{display:grid;gap:10px}.egoera-aukerak label{display:flex;align-items:center;gap:10px;border:2px solid #ddd;border-radius:12px;padding:12px;cursor:pointer;font-weight:700}.egoera-aukerak label:hover{background:#f6f6f6}.egoera-aukerak input{width:19px;height:19px}.egoera-aukerak .susp{border-color:#aaa}.egoera-aukerak .apl{border-color:#8bb4e8}.modal-botoiak{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}.modal-botoiak button{border:0;border-radius:30px;padding:10px 18px;font-weight:800;cursor:pointer}.btn-itxi{background:#eee;color:#333}.btn-inprimatu{background:#b30000;color:#fff}
-#inprimatzeko-eremua{display:none}
+#inprimatzeko-eremua{position:fixed;left:-100000px;top:0;width:1000px;display:block;background:#fff;padding:0;z-index:-1}
 .print-card{width:100%;max-width:900px;margin:0 auto;border:3px solid #222;border-radius:20px;overflow:hidden;background:#fff;font-family:'Segoe UI',Roboto,system-ui,sans-serif}.print-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 22px;background:#fff;border-bottom:3px solid #b30000}.print-head img{height:60px;width:auto;object-fit:contain}.print-head h1{text-align:center;color:#b30000;font-size:2rem;margin:0}.print-meta{padding:18px 22px 8px;text-align:center;color:#333;font-weight:700;font-size:1.05rem}.print-match{margin:12px 22px 22px;border:4px solid #333;border-radius:18px;padding:25px;position:relative;overflow:hidden}.print-match>*{position:relative;z-index:2}.print-time{text-align:center;font-size:2.3rem;font-weight:900;color:#fff;background:#0b2c5d;border-radius:40px;padding:7px 22px;width:max-content;max-width:100%;margin:0 auto 22px}.print-pairs{display:grid;grid-template-columns:1fr 1fr;gap:15px}.print-pair{font-size:1.45rem;font-weight:900;padding:16px;border-radius:12px;background:#f5f5f5;text-align:center}.print-pair.home{color:#0b2c5d;border:3px solid #0b2c5d}.print-pair.away{color:#b00000;border:3px solid #b00000}.print-comp{text-align:center;margin-top:18px;font-size:1.15rem;font-weight:700}.print-status{text-align:center;font-size:2rem;font-weight:1000;margin-top:20px;padding:12px;border-radius:12px}.print-match.estado-suspendido{background:repeating-linear-gradient(135deg,rgba(110,110,110,.18) 0,rgba(110,110,110,.18) 8px,rgba(255,255,255,.92) 8px,rgba(255,255,255,.92) 18px)}.print-match.estado-suspendido .print-status{color:#d00000;border:4px solid #d00000;background:rgba(255,255,255,.86)}.print-match.estado-aplazado{background:repeating-linear-gradient(135deg,rgba(0,91,190,.18) 0,rgba(0,91,190,.18) 8px,rgba(255,255,255,.92) 8px,rgba(255,255,255,.92) 18px)}.print-match.estado-aplazado .print-status{color:#008000;border:4px solid #008000;background:rgba(255,255,255,.86)}.print-foot{text-align:center;padding:12px 20px 20px;color:#555;font-weight:700}
 @media(max-width:600px){.print-pairs{grid-template-columns:1fr}.print-head h1{font-size:1.35rem}.print-head img{height:45px}.print-match{margin:10px 12px 16px;padding:15px}.print-time{font-size:1.7rem}.print-pair{font-size:1.15rem}}
-@media print{body{background:#fff;padding:0}.ordutegi-kartela,#inprimatu-modal{display:none!important}#inprimatzeko-eremua{display:block!important;padding:12mm}.print-card{box-shadow:none;border:3px solid #222;max-width:none;page-break-inside:avoid}.print-match{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-match.estado-suspendido,.print-match.estado-aplazado{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-head,.print-match{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -61,18 +60,19 @@ body{margin:0;font-family:'Segoe UI',Roboto,system-ui,sans-serif;background:#f0f
 
 <div id="inprimatu-modal" aria-hidden="true">
   <div class="inprimatu-panela">
-    <h3>🖨️ Partida inprimatu</h3>
-    <div class="azalpena">Aukeratu partida honentzat nahi duzun egoera. Aukera bakarra markatu daiteke.</div>
+    <h3>🖼️ Partida partekatu</h3>
+    <div class="azalpena">Aukeratu partida honentzat nahi duzun egoera. Aukera bakarra markatu daiteke. Ondoren, PNG irudi bat sortuko da, WhatsAppen erraz partekatzeko.</div>
     <div class="egoera-aukerak">
       <label><input type="radio" name="partida-egoera" value="normal" checked> ⚪ Markarik gabe — ordutegiaren oroigarria</label>
       <label class="susp"><input type="radio" name="partida-egoera" value="suspendido"> 🔴 SUSPENDITUTA — marra diagonal grisak</label>
       <label class="apl"><input type="radio" name="partida-egoera" value="aplazado"> 🟢 ORDU ALDAKETA — marra diagonal urdinak</label>
     </div>
-    <div class="modal-botoiak"><button class="btn-itxi" id="inprimatu-itxi">Itxi</button><button class="btn-inprimatu" id="inprimatu-orain">🖨️ Inprimatu</button></div>
+    <div class="modal-botoiak"><button class="btn-itxi" id="inprimatu-itxi">Itxi</button><button class="btn-inprimatu" id="inprimatu-orain">🖼️ Sortu PNG</button></div>
   </div>
 </div>
 <div id="inprimatzeko-eremua"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
 (async function(){
   let kategoriakRaw=[];let kategoriakMap=new Map();let edadMinToKategoria=new Map();
@@ -109,16 +109,35 @@ body{margin:0;font-family:'Segoe UI',Roboto,system-ui,sans-serif;background:#f0f
   function closePrint(){modal.classList.remove('irekita');modal.setAttribute('aria-hidden','true');selectedMatch=null}
   document.getElementById('inprimatu-itxi').onclick=closePrint;
   modal.addEventListener('click',e=>{if(e.target===modal)closePrint()});
-  document.getElementById('inprimatu-orain').onclick=()=>{
+  document.getElementById('inprimatu-orain').onclick=async()=>{
     if(!selectedMatch)return;
     const estado=document.querySelector('input[name="partida-egoera"]:checked').value;const p=selectedMatch;
     const d=dateStrToDate(p.fecha);const eus=['igandea','astelehena','asteartea','asteazkena','osteguna','ostirala','larunbata'];const egun=d?`${eus[d.getDay()]}, ${p.fecha}`:(p.fecha||'');
     const hora=(p.hora||'').match(/(\d{1,2}:\d{2})/);const horaTxt=hora?hora[1]:'⏳ ERABAKITZEKE';const prov=(p.hora||'').includes('provisional');
     const etx=p.etxekoa||'?';const kan=p.kanpokoak||'?';const front=p.fronton||'Frontoia zehaztu gabe';const comp=p.lehiaketa||p.modalidad||'';
     const cls=estado==='suspendido'?'estado-suspendido':estado==='aplazado'?'estado-aplazado':'';const status=estado==='suspendido'?'SUSPENDITUTA':estado==='aplazado'?'ORDU ALDAKETA':'';
-    document.getElementById('inprimatzeko-eremua').innerHTML=`<div class="print-card"><div class="print-head"><img src="images/logo-larraun.png" alt="Larraun Pilota"><h1>PARTIDUAREN OROIGARRIA</h1><img src="images/logo-fnp.png" alt="FNP"></div><div class="print-meta">📅 ${egun} &nbsp; · &nbsp; 🎯 ${front}</div><div class="print-match ${cls}"><div class="print-time">${horaTxt}${prov?' · PROVIS.' : ''}</div><div class="print-pairs"><div class="print-pair home">🏠 ${etx}</div><div class="print-pair away">✈️ ${kan}</div></div><div class="print-comp">🏆 ${comp}${p.zkia&&p.zkia!=='-'?' &nbsp; · &nbsp; #'+p.zkia:''}</div>${status?`<div class="print-status">${status}</div>`:''}</div><div class="print-foot">Larraun Pilota Elkartea · @larraunpilota</div></div>`;
-    closePrint();setTimeout(()=>window.print(),120);
+    const area=document.getElementById('inprimatzeko-eremua');
+    area.innerHTML=`<div class="print-card"><div class="print-head"><img src="images/logo-larraun.png" alt="Larraun Pilota"><h1>PARTIDUAREN OROIGARRIA</h1><img src="images/logo-fnp.png" alt="FNP"></div><div class="print-meta">📅 ${egun} &nbsp; · &nbsp; 🎯 ${front}</div><div class="print-match ${cls}"><div class="print-time">${horaTxt}${prov?' · PROVIS.' : ''}</div><div class="print-pairs"><div class="print-pair home">🏠 ${etx}</div><div class="print-pair away">✈️ ${kan}</div></div><div class="print-comp">🏆 ${comp}${p.zkia&&p.zkia!=='-'?' &nbsp; · &nbsp; #'+p.zkia:''}</div>${status?`<div class="print-status">${status}</div>`:''}</div><div class="print-foot">Larraun Pilota Elkartea · @larraunpilota</div></div>`;
+    const card=area.querySelector('.print-card');
+    const boton=document.getElementById('inprimatu-orain');const textoOriginal=boton.textContent;boton.disabled=true;boton.textContent='⏳ Sortzen...';
+    try{
+      if(typeof html2canvas!=='function')throw new Error('html2canvas ezin kargatu');
+      await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+      const canvas=await html2canvas(card,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:1000});
+      const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png',1));
+      if(!blob)throw new Error('PNG ezin sortu');
+      const safe=(p.etxekoa||'partida').replace(/[^a-z0-9áéíóúüñ]+/gi,'-').replace(/^-|-$/g,'').toLowerCase();
+      const filename=`larraun-${safe}-${p.fecha||'partida'}.png`;
+      const file=new File([blob],filename,{type:'image/png'});
+      if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+        try{await navigator.share({title:'Larraun Pilota - Partida',text:status||'Partidua',files:[file]});}
+        catch(e){if(e.name!=='AbortError')downloadPng(blob,filename)}
+      }else downloadPng(blob,filename);
+    }catch(e){console.error(e);alert('❌ Ezin izan da PNG irudia sortu. Saiatu berriro.');}
+    finally{boton.disabled=false;boton.textContent=textoOriginal;area.innerHTML='';closePrint();}
   };
+
+  function downloadPng(blob,filename){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 
   function renderPartidak(iturria){
     const arr=getPartidakByIturria(iturria);const container=document.getElementById('kategoriak-container');const selector=document.getElementById('kategoria-selector-container');
