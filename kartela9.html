@@ -203,6 +203,16 @@
     padding: 12px 10px;
   }
 
+  /* ================= PARTIDO SUSPENDIDO ================= */
+  .linea.suspendido-linea{
+    background: repeating-linear-gradient(-45deg,#f8f8f8 0px,#f8f8f8 10px,#e2e2e2 10px,#e2e2e2 20px);
+    border-top:1px solid #cfcfcf;
+    border-bottom:1px solid #cfcfcf;
+    position:relative;
+  }
+  .linea.suspendido-linea .zkia{color:#b00000;font-weight:900;}
+  .suspendituta{display:inline-flex;align-items:center;justify-content:center;margin-left:4px;padding:3px 7px;color:#c40000;background:#fff;border:1px solid #c40000;border-radius:5px;font-size:10px;font-weight:900;letter-spacing:.6px;line-height:1.1;white-space:nowrap;}
+
   .larraun{
     font-weight:900;
     font-size:15px;
@@ -465,6 +475,8 @@
       padding: 8px 6px;
       font-size: 11px;
     }
+
+    .suspendituta{font-size:9px;padding:3px 6px;margin-left:3px;}
     .logos-grid {
       grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     }
@@ -685,14 +697,18 @@
           if(kan.toLowerCase().includes("larraun")) {
             kan = kan.replace(/Larraun/gi, match => `<strong>${match}</strong>`);
           }
+          const esSuspendido = String(p.zkia || "").trim().toUpperCase() === "SUSP";
           const lineaClass = esFinala ? "linea finala-linea" : "linea";
+          const claseSuspendido = esSuspendido ? " suspendido-linea" : "";
           const longTextAttr = esTextoMuyLargo ? ' data-long-text="true"' : '';
+          const lehiaketaHTML = formatearLehiaketa(p.lehiaketa, esFinala);
+          const suspenditutaHTML = esSuspendido ? `<span class="suspendituta">SUSPENDITUTA</span>` : "";
           return `
-            <div class="${lineaClass} ${obtenerClaseCategoria(p.lehiaketa)}"${longTextAttr}>
+            <div class="${lineaClass}${claseSuspendido} ${obtenerClaseCategoria(p.lehiaketa)}"${longTextAttr}>
               <div class="zkia">${p.zkia}</div>
               <div class="etxekoa equipo">${etx}</div>
               <div class="kanpokoa equipo">${kan}</div>
-              <div class="lehiaketa">${formatearLehiaketa(p.lehiaketa, esFinala)}</div>
+              <div class="lehiaketa">${lehiaketaHTML}${suspenditutaHTML}</div>
             </div>
           `;
         }).join("")}
