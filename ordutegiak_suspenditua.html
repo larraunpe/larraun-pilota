@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+<title>Larraun Pilota – ORDUTEGIAK</title>
+<link rel="icon" type="image/png" href="/egutegia.png">
+<meta property="og:title" content="ORDUTEGIAK – Larraun Pilota Elkartea">
+<meta property="og:description" content="Asterako partiden ordutegiak, kategoriaka antolatuta">
+<meta property="og:image" content="https://larraunpilota.eus/egutegia.png">
+<meta property="og:url" content="https://larraunpilota.eus/ordutegiak.html">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{margin:0;font-family:'Segoe UI',Roboto,system-ui,sans-serif;background:#f0f2f5;padding:10px}
+.ordutegi-kartela{max-width:1200px;margin:0 auto;background:#fff;border-radius:24px 24px 20px 20px;box-shadow:0 10px 30px rgba(0,20,30,.2);overflow:hidden;padding:20px 15px 25px}
+@media(min-width:768px){body{padding:20px}.ordutegi-kartela{border-radius:32px 32px 24px 24px;padding:30px 35px 35px}}
+.header-ordutegiak{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #b30000;flex-wrap:wrap;gap:10px}
+.header-ordutegiak img{height:50px;width:auto;object-fit:contain}.header-ordutegiak h2{font-size:1.8rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#b30000;margin:0 5px;text-shadow:1px 1px 0 rgba(0,0,0,.05);text-align:center}
+@media(min-width:480px){.header-ordutegiak h2{font-size:2.2rem}}@media(min-width:768px){.header-ordutegiak{margin-bottom:30px;padding-bottom:15px;border-bottom-width:4px}.header-ordutegiak img{height:80px}.header-ordutegiak h2{font-size:3rem;letter-spacing:2px;margin:0 20px}}
+.iturria-selector,.kategoria-selector{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;justify-content:center;padding:0 5px}.kategoria-selector{margin-bottom:25px}
+.iturria-botoia,.kategoria-botoia{padding:10px 20px;font-size:1rem;font-weight:700;border:none;border-radius:40px;cursor:pointer;background:#f0f0f0;color:#333;box-shadow:0 2px 4px rgba(0,0,0,.1);transition:.2s;border:2px solid transparent}
+.kategoria-botoia{padding:8px 16px;font-size:.9rem}.iturria-botoia:hover,.kategoria-botoia:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.15)}
+.iturria-botoia.aktibo,.kategoria-botoia.aktibo{background:#b30000;color:#fff;border-color:#800000}.kategoria-botoia.guztiak{background:#333;color:#fff}
+@media(min-width:768px){.iturria-selector{gap:15px;margin-bottom:25px}.kategoria-selector{gap:15px;margin-bottom:35px}.iturria-botoia{padding:12px 30px;font-size:1.1rem}.kategoria-botoia{padding:12px 28px;font-size:1.1rem}}
+.kategoriak-ordena{display:flex;flex-direction:column;gap:20px}.kategoria-blokea{border-radius:18px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.15);background:#fff}@media(min-width:768px){.kategoriak-ordena{gap:30px}.kategoria-blokea{border-radius:24px}}
+.kategoria-titulua{padding:12px 16px;font-size:1.5rem;font-weight:800;letter-spacing:.5px;color:#1a1a1a;background:rgba(255,255,255,.95);display:flex;align-items:center;gap:10px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.1);flex-wrap:wrap}.emoji-big{font-size:1.8rem;filter:drop-shadow(2px 2px 2px rgba(0,0,0,.2))}
+@media(min-width:480px){.kategoria-titulua{padding:14px 20px;font-size:1.8rem;gap:12px}}@media(min-width:768px){.kategoria-titulua{padding:16px 28px;font-size:2.4rem;gap:16px}.emoji-big{font-size:2.8rem}}
+.egun-saila{margin:12px 10px 15px;border-left:6px solid;background:#fff;border-radius:14px 6px 6px 14px;padding:10px 12px 6px;box-shadow:0 2px 6px rgba(0,0,0,.05)}.egun-izena{font-size:1.3rem;font-weight:700;color:#0b2c5d;display:flex;align-items:center;gap:6px;margin-bottom:10px;border-bottom:2px solid #b0b0b0;padding-bottom:6px;text-transform:capitalize;flex-wrap:wrap}
+@media(min-width:768px){.egun-saila{margin:20px 20px 25px;border-left-width:8px;border-radius:18px 8px 8px 18px;padding:12px 15px 8px}.egun-izena{font-size:1.8rem;gap:10px;margin-bottom:15px;padding-bottom:8px}}
+.frontoi-taldea{margin-bottom:15px;margin-left:4px}.frontoi-izena{font-weight:700;font-size:1.1rem;background:#f2f2f2;display:inline-block;padding:5px 16px 5px 14px;border-radius:30px;margin-bottom:10px;border:2px solid #aaa;box-shadow:0 2px 4px rgba(0,0,0,.1);word-break:break-word;max-width:100%}.frontoi-izena.berezia{background:#0b5ed7!important;color:#fff!important;border-color:#003f8c;box-shadow:0 3px 0 #002856}@media(min-width:768px){.frontoi-taldea{margin-bottom:20px;margin-left:8px}.frontoi-izena{font-size:1.4rem;padding:6px 24px 6px 20px;border-radius:40px;margin-bottom:12px}}
+.partido-txikia{display:flex;align-items:flex-start;gap:10px;background:#fff;padding:12px;margin-bottom:8px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.08);border-left:6px solid;flex-wrap:wrap;position:relative;transition:.2s}.partido-txikia:hover{box-shadow:0 4px 12px rgba(0,0,0,.13)}
+@media(min-width:480px){.partido-txikia{gap:15px;padding:14px 16px}}@media(min-width:768px){.partido-txikia{gap:20px;padding:16px 20px;margin-bottom:10px;border-radius:16px;border-left-width:8px}}
+.ordu-blokea{min-width:80px;font-weight:800;font-size:1.1rem;background:#0b2c5d;color:#fff;padding:5px 10px;border-radius:30px;text-align:center;box-shadow:0 3px 0 #04162e;flex-shrink:0;align-self:flex-start}.ordu-blokea.provisorio{background:#b34a00;box-shadow:0 3px 0 #6b2d00}.ordu-blokea small{font-size:.65rem;font-weight:500;display:block;opacity:.95}@media(min-width:480px){.ordu-blokea{min-width:100px;font-size:1.2rem;padding:6px 12px}}@media(min-width:768px){.ordu-blokea{min-width:120px;font-size:1.4rem;padding:8px 16px;box-shadow:0 4px 0 #04162e}.ordu-blokea.provisorio{box-shadow:0 4px 0 #6b2d00}.ordu-blokea small{font-size:.75rem}}
+.partido-info{flex:1;min-width:200px}.parejak{font-weight:700;font-size:1rem;display:flex;flex-direction:column;gap:4px}.etxekoa,.kanpokoak{display:flex;align-items:center;gap:5px;flex-wrap:wrap;word-break:break-word}.etxekoa{color:#0b2c5d}.kanpokoak{color:#b00000}.larraun-handiagoa{font-size:1.1rem;font-weight:900;background:#ffe6e6;padding:2px 8px;border-radius:30px;border:2px solid #b30000;box-shadow:0 2px 4px rgba(0,0,0,.1);display:inline-block}@media(min-width:768px){.parejak{font-size:1.2rem;gap:6px}.larraun-handiagoa{font-size:1.5rem;padding:3px 12px}}
+.lehiaketa-labur{margin-top:6px;font-size:.85rem;color:#333;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.zkia-etiketa{background:#333;color:#fff;border-radius:30px;padding:3px 8px;font-size:.75rem;font-weight:700}.fase-tag{background:#d4af37;color:#1a1a1a;font-size:.7rem;font-weight:800;padding:3px 8px;border-radius:20px;text-transform:uppercase}@media(min-width:768px){.lehiaketa-labur{margin-top:10px;font-size:1rem;gap:12px}.zkia-etiketa{padding:4px 12px;font-size:.9rem}.fase-tag{font-size:.85rem;padding:4px 12px}}
+.inprimatu-botoia{border:0;background:#333;color:#fff;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1.05rem;box-shadow:0 2px 5px rgba(0,0,0,.2);flex:0 0 auto}.inprimatu-botoia:hover{background:#b30000;transform:scale(1.05)}
+.footer-ordutegiak{margin-top:25px;padding-top:15px;border-top:2px solid #bbb;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.9rem;color:#1f1f1f;font-weight:600;text-align:center}.footer-ordutegiak .social{background:#b30000;color:#fff;padding:6px 16px;border-radius:40px;display:inline-block}@media(min-width:480px){.footer-ordutegiak{flex-direction:row;justify-content:space-between;font-size:1rem}}@media(min-width:768px){.footer-ordutegiak{margin-top:45px;padding-top:20px;border-top:3px solid #aaa;font-size:1.1rem}.footer-ordutegiak .social{padding:8px 22px}}
+.ez-partidurik{padding:20px;text-align:center;font-size:1.2rem;color:#777;font-style:italic}.kategoria-ezkutuan{display:none!important}
+
+/* Panel de impresión */
+#inprimatu-modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:none;align-items:center;justify-content:center;padding:15px;z-index:9999}
+#inprimatu-modal.irekita{display:flex}.inprimatu-panela{background:#fff;width:min(520px,100%);border-radius:20px;box-shadow:0 15px 50px rgba(0,0,0,.35);padding:22px}.inprimatu-panela h3{font-size:1.45rem;color:#0b2c5d;margin-bottom:8px}.inprimatu-panela .azalpena{font-size:.95rem;color:#555;margin-bottom:18px}.egoera-aukerak{display:grid;gap:10px}.egoera-aukerak label{display:flex;align-items:center;gap:10px;border:2px solid #ddd;border-radius:12px;padding:12px;cursor:pointer;font-weight:700}.egoera-aukerak label:hover{background:#f6f6f6}.egoera-aukerak input{width:19px;height:19px}.egoera-aukerak .susp{border-color:#aaa}.egoera-aukerak .apl{border-color:#8bb4e8}.modal-botoiak{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}.modal-botoiak button{border:0;border-radius:30px;padding:10px 18px;font-weight:800;cursor:pointer}.btn-itxi{background:#eee;color:#333}.btn-inprimatu{background:#b30000;color:#fff}
+#inprimatzeko-eremua{display:none}
+.print-card{width:100%;max-width:900px;margin:0 auto;border:3px solid #222;border-radius:20px;overflow:hidden;background:#fff;font-family:'Segoe UI',Roboto,system-ui,sans-serif}.print-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 22px;background:#fff;border-bottom:3px solid #b30000}.print-head img{height:60px;width:auto;object-fit:contain}.print-head h1{text-align:center;color:#b30000;font-size:2rem;margin:0}.print-meta{padding:18px 22px 8px;text-align:center;color:#333;font-weight:700;font-size:1.05rem}.print-match{margin:12px 22px 22px;border:4px solid #333;border-radius:18px;padding:25px;position:relative;overflow:hidden}.print-match>*{position:relative;z-index:2}.print-time{text-align:center;font-size:2.3rem;font-weight:900;color:#fff;background:#0b2c5d;border-radius:40px;padding:7px 22px;width:max-content;max-width:100%;margin:0 auto 22px}.print-pairs{display:grid;grid-template-columns:1fr 1fr;gap:15px}.print-pair{font-size:1.45rem;font-weight:900;padding:16px;border-radius:12px;background:#f5f5f5;text-align:center}.print-pair.home{color:#0b2c5d;border:3px solid #0b2c5d}.print-pair.away{color:#b00000;border:3px solid #b00000}.print-comp{text-align:center;margin-top:18px;font-size:1.15rem;font-weight:700}.print-status{text-align:center;font-size:2rem;font-weight:1000;margin-top:20px;padding:12px;border-radius:12px}.print-match.estado-suspendido{background:repeating-linear-gradient(135deg,rgba(110,110,110,.18) 0,rgba(110,110,110,.18) 8px,rgba(255,255,255,.92) 8px,rgba(255,255,255,.92) 18px)}.print-match.estado-suspendido .print-status{color:#d00000;border:4px solid #d00000;background:rgba(255,255,255,.86)}.print-match.estado-aplazado{background:repeating-linear-gradient(135deg,rgba(0,91,190,.18) 0,rgba(0,91,190,.18) 8px,rgba(255,255,255,.92) 8px,rgba(255,255,255,.92) 18px)}.print-match.estado-aplazado .print-status{color:#008000;border:4px solid #008000;background:rgba(255,255,255,.86)}.print-foot{text-align:center;padding:12px 20px 20px;color:#555;font-weight:700}
+@media(max-width:600px){.print-pairs{grid-template-columns:1fr}.print-head h1{font-size:1.35rem}.print-head img{height:45px}.print-match{margin:10px 12px 16px;padding:15px}.print-time{font-size:1.7rem}.print-pair{font-size:1.15rem}}
+@media print{body{background:#fff;padding:0}.ordutegi-kartela,#inprimatu-modal{display:none!important}#inprimatzeko-eremua{display:block!important;padding:12mm}.print-card{box-shadow:none;border:3px solid #222;max-width:none;page-break-inside:avoid}.print-match{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-match.estado-suspendido,.print-match.estado-aplazado{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-head,.print-match{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ordutegi-kartela">
+  <div class="header-ordutegiak">
+    <img src="images/logo-larraun.png" alt="Larraun Pilota">
+    <h2>ASTE HONETAKO ORDUTEGIAK</h2>
+    <img src="images/logo-fnp.png" alt="FNP">
+  </div>
+  <div id="iturria-selector-container" class="iturria-selector"></div>
+  <div id="kategoria-selector-container" class="kategoria-selector"></div>
+  <div id="kategoriak-container" class="kategoriak-ordena"><div class="ez-partidurik" id="loading-placeholder">⏳ partidak kargatzen...</div></div>
+  <div class="footer-ordutegiak"><div>📍 Larraun Pilota Elkartea</div><div class="social">@larraunpilota</div></div>
+</div>
+
+<div id="inprimatu-modal" aria-hidden="true">
+  <div class="inprimatu-panela">
+    <h3>🖨️ Partida inprimatu</h3>
+    <div class="azalpena">Aukeratu partida honentzat nahi duzun egoera. Aukera bakarra markatu daiteke.</div>
+    <div class="egoera-aukerak">
+      <label><input type="radio" name="partida-egoera" value="normal" checked> ⚪ Markarik gabe — ordutegiaren oroigarria</label>
+      <label class="susp"><input type="radio" name="partida-egoera" value="suspendido"> 🔴 SUSPENDITUTA — marra diagonal grisak</label>
+      <label class="apl"><input type="radio" name="partida-egoera" value="aplazado"> 🟢 ORDU ALDAKETA — marra diagonal urdinak</label>
+    </div>
+    <div class="modal-botoiak"><button class="btn-itxi" id="inprimatu-itxi">Itxi</button><button class="btn-inprimatu" id="inprimatu-orain">🖨️ Inprimatu</button></div>
+  </div>
+</div>
+<div id="inprimatzeko-eremua"></div>
+
+<script>
+(async function(){
+  let kategoriakRaw=[];let kategoriakMap=new Map();let edadMinToKategoria=new Map();
+  try{
+    const r=await fetch('/data/categoriaedad.json');
+    if(r.ok){kategoriakRaw=await r.json();
+      kategoriakRaw.forEach(item=>{const izena=Object.keys(item).find(k=>k!=='EDADMIN'&&k!=='EDADMAX');if(!izena)return;const edadMin=item.EDADMIN?parseInt(item.EDADMIN,10):999;if(!edadMinToKategoria.has(edadMin))edadMinToKategoria.set(edadMin,izena)});
+      kategoriakRaw.forEach(item=>{const izena=Object.keys(item).find(k=>k!=='EDADMIN'&&k!=='EDADMAX');if(!izena)return;const edadMin=item.EDADMIN?parseInt(item.EDADMIN,10):999;kategoriakMap.set(izena.toUpperCase().trim(),{kolorea:item[izena],edadMin,izena,kategoriaNagusia:edadMinToKategoria.get(edadMin)||izena})});
+      const s=new Set();kategoriakRaw.forEach(item=>{const izena=Object.keys(item).find(k=>k!=='EDADMIN'&&k!=='EDADMAX');if(!izena)return;const edadMin=item.EDADMIN?parseInt(item.EDADMIN,10):999;const k=edadMinToKategoria.get(edadMin);if(k)s.add(k)});
+      const a=Array.from(s).map(izena=>{const item=kategoriakRaw.find(i=>Object.keys(i).find(k=>k!=='EDADMIN'&&k!=='EDADMAX')===izena);return{izena,edadMin:item?parseInt(item.EDADMIN,10):999}}).sort((a,b)=>a.edadMin-b.edadMin||a.izena.localeCompare(b.izena));
+      kategoriakRaw=a.map(item=>({[item.izena]:kategoriakMap.get(item.izena.toUpperCase().trim())?.kolorea||'#cccccc',EDADMIN:item.edadMin}));
+    }
+  }catch(e){console.warn('kategoriak kargatzean errorea:',e)}
+
+  const src=document.getElementById('iturria-selector-container');
+  const iturriak=[{id:'fnp',izena:'FNP'},{id:'beste-ofizialak',izena:'BESTE OFIZIALAK'},{id:'ez-ofizialak',izena:'EZ OFIZIALAK'}];
+  const srcBtns=[];let srcAktibo='fnp';
+  iturriak.forEach(i=>{const b=document.createElement('button');b.className=`iturria-botoia ${i.id===srcAktibo?'aktibo':''}`;b.textContent=i.izena;b.dataset.iturria=i.id;src.appendChild(b);srcBtns.push(b)});
+
+  let ofizialak=[],noOfizialak=[];
+  try{
+    const [a,b]=await Promise.all([fetch('/data/cartelera-larraun.json'),fetch('/data/partidos-no-oficiales.json')]);
+    if(!a.ok||!b.ok)throw new Error('datuak ezin kargatu');ofizialak=await a.json();noOfizialak=await b.json();
+  }catch(e){document.getElementById('kategoriak-container').innerHTML='<div class="ez-partidurik">❌ Ezin partidak kargatu.</div>';return}
+
+  const gaur=new Date();const hoy=new Date(gaur.getFullYear(),gaur.getMonth(),gaur.getDate());const ds=hoy.getDay();const diff=ds===0?6:ds-1;const asteLehen=new Date(hoy);asteLehen.setDate(hoy.getDate()-diff);asteLehen.setHours(0,0,0,0);const asteAzken=new Date(asteLehen);asteAzken.setDate(asteLehen.getDate()+6);asteAzken.setHours(23,59,59,999);window.astekoLehen=asteLehen;window.astekoAzken=asteAzken;
+  function dateStrToDate(s){if(!s)return null;const p=s.split('/');if(p.length!==3)return null;return new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]))}
+  function getPartidakByIturria(iturria){let arr=iturria==='fnp'?ofizialak:noOfizialak.filter(p=>String(p.ofiziala).toLowerCase()===(iturria==='beste-ofizialak'?'true':'false'));arr=arr.filter(p=>{const d=dateStrToDate(p.fecha);return d&&d>=asteLehen&&d<=asteAzken});arr.forEach(p=>{if(p.etxekoa?.includes('Descanso'))p.etxekoa=p.etxekoa.replace('Descanso','Atsedena');if(p.kanpokoak?.includes('Descanso'))p.kanpokoak=p.kanpokoak.replace('Descanso','Atsedena')});return arr}
+  function kategoriaNagusia(t){if(!t)return'Beste';const up=t.toUpperCase();for(const[k,i]of kategoriakMap.entries())if(up.includes(k))return i.kategoriaNagusia;if(up.includes('HAUR'))return'HAURRAK';if(up.includes('KADETE'))return'KADETE';if(up.includes('KIMU'))return'KIMU';if(up.includes('GAZTE'))return'GAZTE';if(up.includes('ALEBIN'))return'ALEBINAK';if(up.includes('SEIN'))return'SEIN';if(up.includes('ESKUZ KOPA'))return'ESKUZ KOPA';return'Beste'}
+
+  let selectedMatch=null;
+  const modal=document.getElementById('inprimatu-modal');
+  function openPrint(p){selectedMatch=p;document.querySelector('input[name="partida-egoera"][value="normal"]').checked=true;modal.classList.add('irekita');modal.setAttribute('aria-hidden','false')}
+  function closePrint(){modal.classList.remove('irekita');modal.setAttribute('aria-hidden','true');selectedMatch=null}
+  document.getElementById('inprimatu-itxi').onclick=closePrint;
+  modal.addEventListener('click',e=>{if(e.target===modal)closePrint()});
+  document.getElementById('inprimatu-orain').onclick=()=>{
+    if(!selectedMatch)return;
+    const estado=document.querySelector('input[name="partida-egoera"]:checked').value;const p=selectedMatch;
+    const d=dateStrToDate(p.fecha);const eus=['igandea','astelehena','asteartea','asteazkena','osteguna','ostirala','larunbata'];const egun=d?`${eus[d.getDay()]}, ${p.fecha}`:(p.fecha||'');
+    const hora=(p.hora||'').match(/(\d{1,2}:\d{2})/);const horaTxt=hora?hora[1]:'⏳ ERABAKITZEKE';const prov=(p.hora||'').includes('provisional');
+    const etx=p.etxekoa||'?';const kan=p.kanpokoak||'?';const front=p.fronton||'Frontoia zehaztu gabe';const comp=p.lehiaketa||p.modalidad||'';
+    const cls=estado==='suspendido'?'estado-suspendido':estado==='aplazado'?'estado-aplazado':'';const status=estado==='suspendido'?'SUSPENDITUTA':estado==='aplazado'?'ORDU ALDAKETA':'';
+    document.getElementById('inprimatzeko-eremua').innerHTML=`<div class="print-card"><div class="print-head"><img src="images/logo-larraun.png" alt="Larraun Pilota"><h1>PARTIDUAREN OROIGARRIA</h1><img src="images/logo-fnp.png" alt="FNP"></div><div class="print-meta">📅 ${egun} &nbsp; · &nbsp; 🎯 ${front}</div><div class="print-match ${cls}"><div class="print-time">${horaTxt}${prov?' · PROVIS.' : ''}</div><div class="print-pairs"><div class="print-pair home">🏠 ${etx}</div><div class="print-pair away">✈️ ${kan}</div></div><div class="print-comp">🏆 ${comp}${p.zkia&&p.zkia!=='-'?' &nbsp; · &nbsp; #'+p.zkia:''}</div>${status?`<div class="print-status">${status}</div>`:''}</div><div class="print-foot">Larraun Pilota Elkartea · @larraunpilota</div></div>`;
+    closePrint();setTimeout(()=>window.print(),120);
+  };
+
+  function renderPartidak(iturria){
+    const arr=getPartidakByIturria(iturria);const container=document.getElementById('kategoriak-container');const selector=document.getElementById('kategoria-selector-container');
+    if(!arr.length){container.innerHTML='<div class="ez-partidurik">🗓 Aste honetan ez dago partidarik.</div>';selector.innerHTML='';return}
+    const by=new Map();arr.forEach(p=>{const k=kategoriaNagusia(p.lehiaketa||p.modalidad||'');if(!by.has(k))by.set(k,[]);by.get(k).push(p)});
+    const prior=new Map();kategoriakRaw.forEach((item,i)=>{const n=Object.keys(item)[0];if(n)prior.set(n.toUpperCase().trim(),i)});
+    const kats=Array.from(by.keys()).sort((a,b)=>{const ia=prior.has(a.toUpperCase().trim())?prior.get(a.toUpperCase().trim()):999;const ib=prior.has(b.toUpperCase().trim())?prior.get(b.toUpperCase().trim()):999;return ia-ib||a.localeCompare(b)});
+    selector.innerHTML='';const all=document.createElement('button');all.className='kategoria-botoia guztiak aktibo';all.textContent='Guztiak';all.dataset.kategoria='guztiak';selector.appendChild(all);const katBtns=[];
+    kats.forEach(k=>{const b=document.createElement('button');b.className='kategoria-botoia';b.textContent=k;b.dataset.kategoria=k;selector.appendChild(b);katBtns.push(b)});
+    container.innerHTML='';const egunak=['igandea','astelehena','asteartea','asteazkena','osteguna','ostirala','larunbata'];const blocks={};
+    function parseOrdua(h){if(!h||h.trim()===''||h.trim()==='-'||h.startsWith('-'))return'23:59';const m=h.match(/(\d{1,2}:\d{2})/);return m?m[1]:'23:59'}
+    function level(t){const m=t?.match(/(KIMU|SEIN|GAZTE|KADETE|HAUR|ALEBIN)\s*(\d+)/i);return m?parseInt(m[2],10):999}
+    kats.forEach(k=>{
+      const list=by.get(k);let col='#ccc';for(const[,i]of kategoriakMap.entries())if(i.kategoriaNagusia===k){col=i.kolorea;break}
+      list.sort((a,b)=>{const da=dateStrToDate(a.fecha),db=dateStrToDate(b.fecha);if(!da&&!db)return 0;if(!da)return 1;if(!db)return-1;if(da.getTime()!==db.getTime())return da-db;const ha=parseOrdua(a.hora||''),hb=parseOrdua(b.hora||'');return ha.localeCompare(hb)||((a.fronton||'').localeCompare(b.fronton||''))||(level(b.lehiaketa)-level(a.lehiaketa))});
+      const block=document.createElement('div');block.className='kategoria-blokea';block.style.backgroundColor=col;block.dataset.kategoria=k;block.innerHTML=`<div class="kategoria-titulua"><span class="emoji-big">⚾</span> ${k} · (${list.length} partida)</div>`;let curDate=null,curFront=null,dateDiv=null,frontDiv=null;
+      list.forEach(p=>{
+        if(p.fecha!==curDate){curDate=p.fecha;curFront=null;const d=dateStrToDate(p.fecha);dateDiv=document.createElement('div');dateDiv.className='egun-saila';dateDiv.style.borderLeftColor=col;dateDiv.innerHTML=`<div class="egun-izena">📅 ${d?`${egunak[d.getDay()]}, ${p.fecha}`:p.fecha}</div>`;block.appendChild(dateDiv)}
+        const front=p.fronton||'Frontoia zehaztu gabe';if(front!==curFront){curFront=front;frontDiv=document.createElement('div');frontDiv.className='frontoi-taldea';const f=document.createElement('div');f.className='frontoi-izena'+(/lekunberri|aldatz/i.test(front)?' berezia':'');f.textContent='🎯 '+front;frontDiv.appendChild(f);dateDiv.appendChild(frontDiv)}
+        const div=document.createElement('div');div.className='partido-txikia';div.style.borderLeftColor=col;const hh=parseOrdua(p.hora||'');const show=hh==='23:59'?'⏳ ERABAKITZEKE':hh;const prov=(p.hora||'').includes('provisional');const et=p.etxekoa||'?';const ka=p.kanpokoak||'?';const ecls='etxekoa '+(et.toUpperCase().includes('LARRAUN')?'larraun-handiagoa':'');const kcls='kanpokoak '+(ka.toUpperCase().includes('LARRAUN')?'larraun-handiagoa':'');
+        div.innerHTML=`<div class="ordu-blokea ${prov?'provisorio':''}">${show}${prov?'<small>provis.</small>':''}</div><div class="partido-info"><div class="parejak"><span class="${ecls}">🏠 ${et}</span><span class="${kcls}">✈️ ${ka}</span></div><div class="lehiaketa-labur"><span>🏆 ${p.lehiaketa||p.modalidad||''}</span>${p.zkia&&p.zkia!=='-'?`<span class="zkia-etiketa">#${p.zkia}</span>`:''}${p.lehiaketa?.toUpperCase().includes('FINALA')?'<span class="fase-tag">⚡ FINALA</span>':''}</div></div><button class="inprimatu-botoia" type="button" title="Partida hau inprimatu" aria-label="Partida hau inprimatu">🖨️</button>`;
+        div.querySelector('.inprimatu-botoia').addEventListener('click',()=>openPrint(p));frontDiv.appendChild(div);
+      });container.appendChild(block);blocks[k]=block;
+    });
+    function filter(k){Object.values(blocks).forEach(b=>b.classList.toggle('kategoria-ezkutuan',k!=='guztiak'&&b.dataset.kategoria!==k));all.classList.toggle('aktibo',k==='guztiak');katBtns.forEach(b=>b.classList.toggle('aktibo',b.dataset.kategoria===k))}
+    all.onclick=()=>filter('guztiak');katBtns.forEach(b=>b.onclick=()=>filter(b.dataset.kategoria));
+  }
+  renderPartidak('fnp');
+  srcBtns.forEach(b=>b.addEventListener('click',()=>{srcBtns.forEach(x=>x.classList.remove('aktibo'));b.classList.add('aktibo');renderPartidak(b.dataset.iturria)}));
+})();
+</script>
+</body>
+</html>
