@@ -123,12 +123,40 @@
   },
   {
     "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Ariztimuño - A. Mozo) ARIZTIMUÑO ZUBIRIA, L. MOZO BALDA, A.",
+    "kanpokoak": "ARKUPE, P. E. (L. Maritxalar - A. Zubillaga) MARITXALAR ALDAZ, L. ZUBILLAGA MITXEO, A.",
+    "tanteoa": "1-2",
+    "sets": [
+      "(9-8) (8-9) (0-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (M. Arruti - E. Domingo) ARRUTI ETCHEVERS, M. DOMINGO FERNANDEZ, E.",
     "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
     "tanteoa": "2-0",
     "sets": [
       "(9-8) (9-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Sanz - A. Buldain) BULDAIN DE LA ROSA, A. SANZ BIANA, M.",
+    "kanpokoak": "OBERENA (A. Arnesto - J. Sanchez-valverde) ARNESTO ARCELUS, A. SANCHEZ-VALVERDE BERRIO, J.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(2-9) (5-9)"
     ],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
@@ -160,6 +188,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo) MENDINUETA MARIÑELARENA, J. MOZO BALDA, E.",
+    "kanpokoak": "ZUGARRALDE (G. Galarza - E. Azanza) AZANZA ALVAREZ, E. GALARZA GOÑI, G.",
+    "tanteoa": "8-19",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3236&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-02",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA (U. Alkorta - P. Azpiroz) ALKORTA ORONOZ, U. AZPIROZ RAZQUIN, P.",
@@ -183,6 +223,18 @@
     "emaitza": "galduta",
     "ofiziala": true,
     "kanpokoak_original": "ARAXES (G. Arraztio - U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U. ARRAZTIO ESTANGA, G."
+  },
+  {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Ruiz - S. Galartza) GALARTZA MEÑIKA, S. RUIZ MARTIN, A.",
+    "kanpokoak": "PILOTAJAUKU (J. Mendiluze - O. Vicario) MENDILUZE BELOKI, J. VICARIO UNAMUNO, O.",
+    "tanteoa": "18-14",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3237&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
   },
   {
     "fecha": "2026-10-03",
@@ -223,6 +275,18 @@
   },
   {
     "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
+    "kanpokoak": "ARAXES (U. Miranda - E. Iriarte) *Equipo no presentado",
+    "tanteoa": "18-0*",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3241&temp=2026",
+    "emaitza": "berdinketa",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
     "fronton": "Elizondo - Baztan",
     "etxekoa": "TXARUTA (I. Irazoqui - M. Rekalde) IRAZOQUI VIELA, I. REKALDE IÑARREA, M.",
     "kanpokoak": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
@@ -240,6 +304,18 @@
     "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
     "kanpokoak": "BETI ONAK (M. Leiza - S. Santesteban) LEIZA BALEZTENA, M. SANTESTEBAN BELZARENA, S.",
     "tanteoa": "12-22",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3246&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Ijurko - E. Oreja) IJURKO BAKAIKUA, O. OREJA ALTUNA, E.",
+    "kanpokoak": "LEITZA (J. Baleztena - A. Ugartemendia) BALEZTENA OTXOTORENA, J. UGARTEMENDIA MENDIZABAL, A.",
+    "tanteoa": "7-22",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3246&temp=2026",
@@ -513,8 +589,8 @@
   {
     "fecha": "2026-10-03",
     "fronton": "Tafalla - Ereta",
-    "etxekoa": "P.P.SAN SEBASTIAN (O. Lerga)",
-    "kanpokoak": "LARRAUN (M. Lazkoz)",
+    "etxekoa": "P.P.SAN SEBASTIAN (O. Lerga) LERGA IRISARRI, O.",
+    "kanpokoak": "LARRAUN (M. Lazkoz) LAZKOZ ARTANGA, M.",
     "tanteoa": "6-18",
     "sets": [],
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA LIGAXKA",
@@ -557,6 +633,18 @@
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA BANAKA 5½ 3. MAILA LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3278&temp=2026",
     "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-03",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Etxarri) ETXARRI OLASKOAGA, A.",
+    "kanpokoak": "SAN JUAN (I. Sanz) *Equipo no presentado",
+    "tanteoa": "25-0*",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA PGOMAZ NKT - PALETAA GOMA BANAKA 5½ 4. MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3279&temp=2026",
+    "emaitza": "berdinketa",
     "ofiziala": true
   }
 ]
