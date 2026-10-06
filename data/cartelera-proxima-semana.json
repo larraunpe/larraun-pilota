@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-10-05T23:50:26.719Z",
+  "fecha_generacion": "2026-10-06T13:59:33.765Z",
   "semana_numero": 42,
-  "total_partidos": 19,
+  "total_partidos": 21,
   "partidos": [
     {
       "fecha": "2026/10/17",
@@ -38,6 +38,24 @@
       "etxekoa": "LAGUNAK (N. Iraizoz - O. Etxeberria)",
       "kanpokoak": "LARRAUN (J. Bildarraz - M. Etxepare)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
+      "kanpokoak": "SAN JUAN (I. Guerra - I. Iribarren)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "OBERENA (I. Nuin - A. Arrosagaray)",
+      "kanpokoak": "LARRAUN (L. Bengoetxea - U. Goñi)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
