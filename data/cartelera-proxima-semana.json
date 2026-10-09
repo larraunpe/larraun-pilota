@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-10-09T14:11:41.633Z",
+  "fecha_generacion": "2026-10-09T20:00:42.460Z",
   "semana_numero": 42,
   "total_partidos": 21,
   "partidos": [
@@ -71,18 +71,45 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (D. Centeno - M. Argaña)",
-      "kanpokoak": "UMORE ONA (I. Kurianovych - P. Kurianovych)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
+      "etxekoa": "MUTILENDAKO (M. Iragui - I. Berruezo)",
+      "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
-      "kanpokoak": "ARKUPE, P. E. (J. Madariaga - O. Muñoa)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KADETE 2. LIGAXKA"
+      "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
+      "kanpokoak": "MUTILENDAKO (O. Orzanko - J. San Jose)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
+      "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "HUARTE (G. Amatria - R. Caballero)",
+      "kanpokoak": "LARRAUN (A. Ruiz - S. Galartza)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Astiz - A. Goldarazena)",
+      "kanpokoak": "LEITZA (I. Troncoso - L. Sanz)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
@@ -143,45 +170,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "MUTILENDAKO (M. Iragui - I. Berruezo)",
-      "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+      "etxekoa": "LARRAUN (D. Centeno - M. Argaña)",
+      "kanpokoak": "UMORE ONA (I. Kurianovych - P. Kurianovych)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (J. Mendinueta - E. Mozo)",
-      "kanpokoak": "MUTILENDAKO (O. Orzanko - J. San Jose)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/17",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
-      "kanpokoak": "LARRAUN (U. Agirrezabala - A. Apezetxea)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/17",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "HUARTE (G. Amatria - R. Caballero)",
-      "kanpokoak": "LARRAUN (A. Ruiz - S. Galartza)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/17",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Astiz - A. Goldarazena)",
-      "kanpokoak": "LEITZA (I. Troncoso - L. Sanz)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
+      "etxekoa": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
+      "kanpokoak": "ARKUPE, P. E. (J. Madariaga - O. Muñoa)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KADETE 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/18",
