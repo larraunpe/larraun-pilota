@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-10-10T13:20:47.944Z",
+  "fecha_generacion": "2026-10-10T18:15:45.786Z",
   "semana_numero": 42,
   "total_partidos": 21,
   "partidos": [
@@ -11,6 +11,24 @@
       "etxekoa": "UMORE ONA (O. Goizueta - I. Lujambio)",
       "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "09:30 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Estella - Remontival",
+      "etxekoa": "SAN MIGUEL (E. Argandoña - X. Flores)",
+      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/17",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "4",
+      "fronton": "Pamplona - Oberena F 1",
+      "etxekoa": "OBERENA (I. Nuin - A. Arrosagaray)",
+      "kanpokoak": "LARRAUN (L. Bengoetxea - U. Goñi)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
@@ -125,15 +143,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "OBERENA (I. Nuin - A. Arrosagaray)",
-      "kanpokoak": "LARRAUN (L. Bengoetxea - U. Goñi)",
-      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/17",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "LAGUNAK (S. Arteta - U. Arteta)",
       "kanpokoak": "LARRAUN (J. Ruiz - L. Soria)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
@@ -152,9 +161,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "SAN MIGUEL (E. Argandoña - X. Flores)",
-      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+      "etxekoa": "MUTILENDAKO (M. Iragui - I. Berruezo)",
+      "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
@@ -173,15 +182,6 @@
       "etxekoa": "HUARTE (G. Amatria - R. Caballero)",
       "kanpokoak": "LARRAUN (A. Ruiz - S. Galartza)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/17",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "MUTILENDAKO (M. Iragui - I. Berruezo)",
-      "kanpokoak": "LARRAUN (I. Ansorena - A. Zubillaga)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/17",
