@@ -414,6 +414,14 @@
 
         .data-link:hover { text-decoration: underline; }
 
+        .fitxa-pdf-link {
+            color: var(--red);
+            text-decoration: none;
+            cursor: pointer;
+            border-bottom: 1px dashed currentColor;
+        }
+        .fitxa-pdf-link:hover { text-decoration: underline; }
+
         .competition {
             margin-top: .65rem;
             padding: .85rem;
@@ -716,6 +724,7 @@
 const CSV_URL = 'data/FITXA.csv';
 const TALDEAK_URL = 'https://larraunpilota.eus/larraungo-taldeak.html';
 const PLAYER_IMAGES_URL = 'images/pelotaris/';
+const FITXA_PDF_URL = 'fitxa/';
 
 let players = [];
 let selectedPlayer = null;
@@ -1053,7 +1062,53 @@ function renderProfile(player) {
     if (player.TALDE) subParts.push(player.TALDE);
     $('profileSub').textContent = subParts.join(' · ');
 
-    $('profileFitxa').textContent = player.FITXA || '—';
+    // La licencia enlaza al PDF /fitxa/CODIGO.pdf solo si existe.
+    const fitxaBox = $('profileFitxa');
+    fitxaBox.replaceChildren();
+    if (fitxa) {
+        const fitxaLink = document.createElement('a');
+        fitxaLink.className = 'fitxa-pdf-link';
+        fitxaLink.href = `${FITXA_PDF_URL}${encodeURIComponent(fitxa)}.pdf`;
+        fitxaLink.target = '_blank';
+        fitxaLink.rel = 'noopener noreferrer';
+        fitxaLink.textContent = fitxa;
+        fitxaLink.title = currentLang === 'eu'
+            ? 'Klik egin PDF fitxa irekitzeko'
+            : 'Haz clic para abrir la ficha PDF';
+        fitxaLink.addEventListener('click', async event => {
+            event.preventDefault();
+            // Abrimos una pestaña inmediatamente para evitar bloqueos del navegador.
+            const newTab = window.open('about:blank', '_blank');
+            if (!newTab) {
+                alert(currentLang === 'eu'
+                    ? 'Baimendu leiho berriak irekitzea PDFa ikusteko.'
+                    : 'Permite las ventanas emergentes para abrir el PDF.');
+                return;
+            }
+            try {
+                const response = await fetch(fitxaLink.href, {
+                    method: 'HEAD',
+                    cache: 'no-store'
+                });
+                if (response.ok) {
+                    newTab.location.href = fitxaLink.href;
+                } else {
+                    newTab.close();
+                    alert(currentLang === 'eu'
+                        ? 'Ez da PDF fitxategia aurkitu.'
+                        : 'No se ha encontrado el PDF de esta ficha.');
+                }
+            } catch (error) {
+                newTab.close();
+                alert(currentLang === 'eu'
+                    ? 'Ezin izan da PDF fitxategia egiaztatu. Saiatu berriro.'
+                    : 'No se ha podido comprobar el PDF. Inténtalo de nuevo.');
+            }
+        });
+        fitxaBox.appendChild(fitxaLink);
+    } else {
+        fitxaBox.textContent = '—';
+    }
     $('profileUrtea').textContent = player.URTEA || '—';
     $('profileHerria').textContent = player.HERRIA || '—';
 
