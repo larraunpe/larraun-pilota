@@ -200,17 +200,6 @@
   {
     "fecha": "2026/10/17",
     "hora": "10:00",
-    "zkia": "6",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (D. Centeno - M. Argaña)",
-    "kanpokoak": "UMORE ONA (I. Kurianovych - P. Kurianovych)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/10/17",
-    "hora": "10:00",
     "zkia": "2",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (N. Iraizoz - O. Etxeberria)",
@@ -301,6 +290,17 @@
     "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (D. Centeno - M. Argaña)",
+    "kanpokoak": "UMORE ONA (I. Kurianovych - P. Kurianovych)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+ {
+    "fecha": "2026/10/18",
+    "hora": "10:00",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Laso - U. Otamendi)",
     "kanpokoak": "LARRAUN (O. Ijurko - E. Oreja)",
     "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. FINAL LAURDENAK",
@@ -310,7 +310,7 @@
   {
     "fecha": "2026/10/18",
     "hora": "10:00",
-    "zkia": "2",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Garaño)",
     "kanpokoak": "Leitza (J. Sagastibeltza)",
