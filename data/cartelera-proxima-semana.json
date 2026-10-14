@@ -1,8 +1,35 @@
 {
-  "fecha_generacion": "2026-10-13T20:31:58.872Z",
+  "fecha_generacion": "2026-10-14T12:41:53.702Z",
   "semana_numero": 43,
   "total_partidos": 21,
   "partidos": [
+    {
+      "fecha": "2026/10/21",
+      "hora": "17:30",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (E. Oreja)",
+      "kanpokoak": "ZUGARRALDE (A. Gonzalez)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
+    },
+    {
+      "fecha": "2026/10/21",
+      "hora": "17:30",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (J. Bildarraz)",
+      "kanpokoak": "UMORE ONA (A. Sagardui)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
+    },
+    {
+      "fecha": "2026/10/21",
+      "hora": "17:30",
+      "zkia": "4",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Etxepare)",
+      "kanpokoak": "ULTZAMA (I. Sarratea)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
+    },
     {
       "fecha": "2026/10/23",
       "hora": "18:00 !Horario provisional",
@@ -11,51 +38,6 @@
       "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda)",
       "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (E. Oreja)",
-      "kanpokoak": "ZUGARRALDE (A. Gonzalez)",
-      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
-    },
-    {
-      "fecha": "2026/10/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (J. Bildarraz)",
-      "kanpokoak": "UMORE ONA (A. Sagardui)",
-      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
-    },
-    {
-      "fecha": "2026/10/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (M. Etxepare)",
-      "kanpokoak": "ULTZAMA (I. Sarratea)",
-      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo KANPORAKETA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
-      "kanpokoak": "OBERENA (I. Nuin - A. Arrosagaray)",
-      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
-      "kanpokoak": "G.PILOTA (A. Jimenez - A. Garmendia)",
-      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     },
     {
       "fecha": "2026/10/24",
@@ -191,6 +173,24 @@
       "etxekoa": "PILOTAJAUKU (L. Arregui -I. San Vicente)",
       "kanpokoak": "LARRAUN (M. Sanz - A. Buldain)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
+      "kanpokoak": "OBERENA (I. Nuin - A. Arrosagaray)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
+      "kanpokoak": "G.PILOTA (A. Jimenez - A. Garmendia)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     }
   ]
 }
