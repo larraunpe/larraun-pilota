@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2025-2026ko txapelketa ez-ofizialak</title>
+<style>
+:root{--navy:#123c63;--blue:#1769aa;--ink:#203040;--muted:#657586;--line:#dce4ec;--bg:#f3f6f9;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+header{background:linear-gradient(120deg,#123c63,#1769aa);color:#fff;padding:28px 18px 25px}.head{max-width:1200px;margin:auto}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:700;opacity:.85}
+h1{margin:.35rem 0 .5rem;font-size:clamp(1.5rem,4vw,2.4rem);line-height:1.15}header p{margin:.3rem 0 0;max-width:850px;color:#e9f3fb}
+main{max-width:1200px;margin:22px auto;padding:0 14px 36px}.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;margin-bottom:16px;box-shadow:0 5px 20px #173c5c0a}
+.filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}label{display:block;font-size:.9rem;font-weight:750;margin-bottom:6px}
+select{width:100%;min-height:43px;padding:10px 11px;border:1px solid #bdcad7;border-radius:9px;background:#fff;color:var(--ink);font:inherit}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+button{border:0;border-radius:9px;background:var(--navy);color:white;font-weight:700;padding:11px 15px;cursor:pointer;font:inherit}
+button.secondary{background:#e8eef4;color:var(--navy);border:1px solid var(--line)}button:hover{filter:brightness(1.07)}
+.stats{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.pill{display:inline-block;background:#e8f1f9;color:var(--navy);border-radius:999px;padding:4px 9px;font-size:.78rem;font-weight:750}
+.table-wrap{overflow:auto;border-radius:11px;border:1px solid var(--line)}table{border-collapse:collapse;width:100%;background:#fff;min-width:850px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#edf3f8;color:#24455f;font-size:.82rem;text-transform:uppercase;letter-spacing:.035em;position:sticky;top:0}
+tbody tr:hover{background:#f7fafc}td.date{white-space:nowrap;font-variant-numeric:tabular-nums}.tournament{font-weight:750}.notice{font-size:.9rem;color:var(--muted);margin:.7rem 0 0}
+.empty{padding:28px;text-align:center;color:var(--muted)}footer{max-width:1200px;margin:0 auto;padding:0 14px 30px;color:var(--muted);font-size:.85rem}
+@media(max-width:700px){.filters{grid-template-columns:1fr}.panel{padding:14px}header{padding:23px 16px}main{margin-top:14px}}
+</style>
+</head>
+<body>
+<header><div class="head">
+<div class="kicker">Larraun Pilota · 2025–2026 denboraldia</div>
+<h1>Txapelketa ez-ofizialen historikoa</h1>
+<p>Bilatu txapelketak modalitatearen, kategoriaren eta hasiera-hilabetearen arabera.</p>
+</div></header>
+<main>
+<section class="panel" aria-label="Bilaketa-iragazkiak">
+<div class="filters">
+<div><label for="modalitatea">Modalitatea</label><select id="modalitatea"><option value="">Modalitate guztiak</option></select></div>
+<div><label for="kategoria">Kategoria</label><select id="kategoria"><option value="">Kategoria guztiak</option></select></div>
+<div><label for="hilea">Hasiera-hilabetea</label><select id="hilea"><option value="">Hilabete guztiak</option></select></div>
+</div>
+<div class="controls"><div class="stats"><span id="count" class="pill">Kargatzen…</span><span id="range"></span></div><button class="secondary" id="garbitu" type="button">Iragazkiak garbitu</button></div>
+<p class="notice">Kategoria izenean agertzen ez denean, <strong>Helduak</strong> gisa sailkatu da. Modalitatea txapelketaren izenetik ondorioztatu da; modalitatea argi adierazten ez den izenetan, <strong>Eskuz</strong> erabili da behin-behineko sailkapen gisa. Hasiera- eta amaiera-datak historikoko txapelketaren izen berarekin agertzen diren lehen eta azken partida-datak dira; ez dute zertan txapelketaren egutegi ofizial osoa adierazi.</p>
+</section>
+<section class="panel">
+<div class="table-wrap"><table>
+<thead><tr><th>Txapelketa</th><th>Modalitatea</th><th>Kategoria</th><th>Hasiera</th><th>Amaiera</th><th>Partidak</th><th>Frontoiak</th><th>Faseak</th></tr></thead>
+<tbody id="results"><tr><td colspan="8" class="empty">CSV fitxategia kargatzen…</td></tr></tbody>
+</table></div>
+</section>
+</main>
+<footer>Iturria: KARTELERAPLANTILLA.ods fitxategiko «ezoficialahistoriko» orria. Denboraldia: 2025/09/01etik 2026/08/31ra. CSV fitxategia HTML honen karpeta berean egon behar da.</footer>
+<script>
+const CSV_FILE = "ezofizialak-txapelketak-2025-2026.csv";
+const monthNames = ["Urtarrila","Otsaila","Martxoa","Apirila","Maiatza","Ekaina","Uztaila","Abuztua","Iraila","Urria","Azaroa","Abendua"];
+const el = id => document.getElementById(id);
+let allRows = [];
+function parseCSV(text){
+  text=text.replace(/^\uFEFF/,"");
+  const firstLine=text.split(/\r?\n/,1)[0]||"";
+  const delimiter=(firstLine.match(/;/g)||[]).length>(firstLine.match(/,/g)||[]).length?";":",";
+  const out=[];let row=[],field="",quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i],next=text[i+1];
+    if(c==='"'&&quoted&&next==='"'){field+='"';i++;}
+    else if(c==='"')quoted=!quoted;
+    else if(c===delimiter&&!quoted){row.push(field);field="";}
+    else if((c==="\n"||c==="\r")&&!quoted){if(c==="\r"&&next==="\n")i++;row.push(field);if(row.some(v=>v.trim()!==""))out.push(row);row=[];field="";}
+    else field+=c;
+  }
+  if(field.length||row.length){row.push(field);out.push(row);}
+  if(!out.length)return [];
+  const headers=out.shift().map(h=>h.trim().toLowerCase());
+  return out.map(r=>{const o={};headers.forEach((h,i)=>o[h]=(r[i]||"").trim());return{
+    tournament:o["txapelketa"]||"",modality:o["modalitatea"]||"Eskuz",category:o["kategoria"]||"Helduak",
+    start:o["hasiera_data"]||"",end:o["amaiera_data"]||"",matches:o["partida_kopurua"]||"",
+    venues:o["frontoiak"]||"",phases:o["faseak"]||""
+  };}).filter(r=>r.tournament);
+}
+function parseDate(s){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s);return m?new Date(+m[1],+m[2]-1,+m[3]):null;}
+function fmtDate(s){const d=parseDate(s);return d?`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`:s;}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function fillSelect(id,values,label){const select=el(id),old=select.value;select.innerHTML="";const first=document.createElement("option");first.value="";first.textContent=label;select.appendChild(first);values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;select.appendChild(o);});if(values.includes(old))select.value=old;}
+function populateFilters(){
+  fillSelect("modalitatea",[...new Set(allRows.map(r=>r.modality))].sort((a,b)=>a.localeCompare(b,"eu")),"Modalitate guztiak");
+  fillSelect("kategoria",[...new Set(allRows.map(r=>r.category))].sort((a,b)=>a.localeCompare(b,"eu")),"Kategoria guztiak");
+  const months=[...new Set(allRows.map(r=>{const d=parseDate(r.start);return d?`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`:"";}).filter(Boolean))].sort();
+  const select=el("hilea"),old=select.value;select.innerHTML='<option value="">Hilabete guztiak</option>';
+  months.forEach(x=>{const [y,m]=x.split("-");const o=document.createElement("option");o.value=x;o.textContent=monthNames[+m-1]+" "+y;select.appendChild(o);});if(months.includes(old))select.value=old;
+}
+function render(){
+  const modality=el("modalitatea").value,category=el("kategoria").value,month=el("hilea").value;
+  const filtered=allRows.filter(r=>{const d=parseDate(r.start),m=d?`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`:"";return(!modality||r.modality===modality)&&(!category||r.category===category)&&(!month||m===month);}).sort((a,b)=>a.start.localeCompare(b.start)||a.tournament.localeCompare(b.tournament,"eu"));
+  el("count").textContent=`${filtered.length} txapelketa`;
+  el("range").textContent=filtered.length?`${fmtDate(filtered[0].start)} – ${fmtDate(filtered[filtered.length-1].end)}`:"";
+  const tbody=el("results");
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="8" class="empty">Ez da iragazkiekin bat datorren txapelketarik aurkitu.</td></tr>';return;}
+  tbody.innerHTML=filtered.map(r=>`<tr><td class="tournament">${esc(r.tournament)}</td><td><span class="pill">${esc(r.modality)}</span></td><td>${esc(r.category)}</td><td class="date">${esc(fmtDate(r.start))}</td><td class="date">${esc(fmtDate(r.end))}</td><td>${esc(r.matches)}</td><td>${esc(r.venues)}</td><td>${esc(r.phases)}</td></tr>`).join("");
+}
+async function loadCSV(){try{const response=await fetch(CSV_FILE,{cache:"no-store"});if(!response.ok)throw new Error("HTTP "+response.status);allRows=parseCSV(await response.text());if(!allRows.length)throw new Error("CSV hutsa");populateFilters();render();}catch(e){el("count").textContent="Ezin izan da CSV-a kargatu";el("results").innerHTML='<tr><td colspan="8" class="empty">Ezin izan da CSV fitxategia kargatu. Egiaztatu <strong>ezofizialak-txapelketak-2025-2026.csv</strong> HTML fitxategiaren karpeta berean dagoela eta bi fitxategiak web-zerbitzari batean argitaratuta daudela (adibidez, GitHub Pages). Ez ireki HTMLa zuzenean ordenagailutik; nabigatzaileak CSVaren irakurketa blokea dezake.</td></tr>';console.error(e);}}
+["modalitatea","kategoria","hilea"].forEach(id=>el(id).addEventListener("change",render));
+el("garbitu").addEventListener("click",()=>{el("modalitatea").value="";el("kategoria").value="";el("hilea").value="";render();});
+loadCSV();
+</script>
+</body></html>
