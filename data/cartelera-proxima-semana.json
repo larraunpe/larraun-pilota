@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-10-18T16:24:02.415Z",
+  "fecha_generacion": "2026-10-18T20:14:33.484Z",
   "semana_numero": 43,
   "total_partidos": 21,
   "partidos": [
@@ -34,6 +34,15 @@
       "fecha": "2026/10/23",
       "hora": "18:00 !Horario provisional",
       "zkia": "1",
+      "fronton": "Tafalla - Ereta",
+      "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda)",
+      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/23",
+      "hora": "18:00 !Horario provisional",
+      "zkia": "1",
       "fronton": "Alsasua - Burunda",
       "etxekoa": "PILOTAJAUKU (L. Arregui -I. San Vicente)",
       "kanpokoak": "LARRAUN (M. Sanz - A. Buldain)",
@@ -50,15 +59,6 @@
     },
     {
       "fecha": "2026/10/23",
-      "hora": "18:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Tafalla - Ereta",
-      "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda)",
-      "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/23",
       "hora": "18:30 !Horario provisional",
       "zkia": "2",
       "fronton": "Lesaka - Arkupe",
@@ -68,35 +68,8 @@
     },
     {
       "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
+      "hora": "09:30 !Horario provisional",
       "zkia": "1",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (J. Ruiz - L. Soria)",
-      "kanpokoak": "ZUGARRALDE (A. Agerri - E. Requena)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (L. Ojuel - E. Zubillaga)",
-      "kanpokoak": "ZUGARRALDE (A. Tabar - A. Mañeru)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "3",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
-      "kanpokoak": "SAN MIGUEL (E. Gomez - I. Gomez)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "4",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (A. Ruiz - S. Galartza)",
       "kanpokoak": "IK. SAN FERMIN (A. Albisu - X. Garcia)",
@@ -104,7 +77,34 @@
     },
     {
       "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
+      "hora": "09:30 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (J. Ruiz - L. Soria)",
+      "kanpokoak": "ZUGARRALDE (A. Agerri - E. Requena)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "09:30 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (L. Ojuel - E. Zubillaga)",
+      "kanpokoak": "ZUGARRALDE (A. Tabar - A. Mañeru)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "09:30 !Horario provisional",
+      "zkia": "4",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
+      "kanpokoak": "SAN MIGUEL (E. Gomez - I. Gomez)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "09:30 !Horario provisional",
       "zkia": "5",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus)",
@@ -113,7 +113,7 @@
     },
     {
       "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
+      "hora": "09:30 !Horario provisional",
       "zkia": "6",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
@@ -122,7 +122,7 @@
     },
     {
       "fecha": "2026/10/24",
-      "hora": "10:00 !Horario provisional",
+      "hora": "09:30 !Horario provisional",
       "zkia": "7",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
@@ -131,8 +131,8 @@
     },
     {
       "fecha": "2026/10/24",
-      "hora": "10:30 !Horario provisional",
-      "zkia": "2",
+      "hora": "10:00 !Horario provisional",
+      "zkia": "1",
       "fronton": "Arbizu - Arbizu",
       "etxekoa": "ALDABIDE (S. Arrizabalaga - T. Arbizu)",
       "kanpokoak": "ARAXES - LARRAUN (G. Arraztio - U. Ariztimuño)",
@@ -161,6 +161,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "AGOITZ (J. Beroiz - J. Martin)",
+      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
       "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
@@ -173,15 +182,6 @@
       "etxekoa": "TXARUTA (E. Otxandorena - E. Otxandorena)",
       "kanpokoak": "LARRAUN (L. Ariztimuño - A. Mozo)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "AGOITZ (J. Beroiz - J. Martin)",
-      "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/10/24",
