@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-10-18T11:58:14.140Z",
+  "fecha_generacion": "2026-10-18T16:24:02.415Z",
   "semana_numero": 43,
   "total_partidos": 21,
   "partidos": [
@@ -56,6 +56,15 @@
       "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda)",
       "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/23",
+      "hora": "18:30 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lesaka - Arkupe",
+      "etxekoa": "ARKUPE, P. E. (A. Hita - O. Irurieta)",
+      "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
     },
     {
       "fecha": "2026/10/24",
@@ -152,24 +161,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LEITZA (E. Saizar - E. Bengoetxea)",
-      "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ARKUPE, P. E. (A. Hita - O. Irurieta)",
-      "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro)",
-      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/10/24",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
       "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA"
@@ -191,6 +182,15 @@
       "etxekoa": "AGOITZ (J. Beroiz - J. Martin)",
       "kanpokoak": "LARRAUN (J. Mendinueta - E. Mozo)",
       "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/10/24",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LEITZA (E. Saizar - E. Bengoetxea)",
+      "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
+      "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA"
     }
   ]
 }
