@@ -45,7 +45,29 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:00 !Horario provisional",
+    "hora": "17:30",
+    "zkia": "1",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
+    "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/10/23",
+    "hora": "18:00",
+    "zkia": "3",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (J. Saracibar - O. Razkin)",
+    "kanpokoak": "LARRAUN (A. Balda - I. Sotil)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/10/23",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Elizondo - Baztan",
     "etxekoa": "TXARUTA (E. Otxandorena - E. Otxandorena)",
@@ -56,8 +78,8 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:00 !Horario provisional",
-    "zkia": "4",
+    "hora": "18:00",
+    "zkia": "5",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (I. Arrieta - J. Goñi)",
     "kanpokoak": "ARAXES – LARRAUN (A. Gorostidi - E. Jaka)",
@@ -67,7 +89,7 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Tafalla - Ereta",
     "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda)",
@@ -78,7 +100,7 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (L. Arregui -I. San Vicente)",
@@ -89,7 +111,7 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "2",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (A. Claver - M. Izaguirre)",
@@ -100,7 +122,7 @@
   },
   {
     "fecha": "2026/10/23",
-    "hora": "18:30 !Horario provisional",
+    "hora": "18:30",
     "zkia": "2",
     "fronton": "Lesaka - Arkupe",
     "etxekoa": "ARKUPE, P. E. (A. Hita - O. Irurieta)",
@@ -110,8 +132,19 @@
     "kokalekua": "Beste nonbait"
   },
   {
+    "fecha": "2026/10/23",
+    "hora": "19:30",
+    "zkia": "1",
+    "fronton": "Sarriguren - Salesianos",
+    "etxekoa": "DOS PAREDES - LARRAUN (O. Sarasibar - M. Galartza)",
+    "kanpokoak": "AUÑAMENDI (E. Zabalza - A. Ardanaz)",
+    "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA NESKEN BINAKA FINAL LAURDENAK",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - S. Galartza)",
@@ -122,8 +155,19 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Loyarte - O. Mitxaus)",
+    "kanpokoak": "TXARUTA (H. Aizagirre - U. Oscariz)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 1. 2. TALDE",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/10/24",
+    "hora": "09:30",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Ruiz - L. Soria)",
     "kanpokoak": "ZUGARRALDE (A. Agerri - E. Requena)",
@@ -133,8 +177,8 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
-    "zkia": "3",
+    "hora": "09:30",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel - E. Zubillaga)",
     "kanpokoak": "ZUGARRALDE (A. Tabar - A. Mañeru)",
@@ -144,18 +188,7 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
-    "zkia": "4",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
-    "kanpokoak": "SAN MIGUEL (E. Gomez - I. Gomez)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus)",
@@ -166,7 +199,7 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
@@ -177,7 +210,7 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
@@ -188,7 +221,7 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Arbizu - Arbizu",
     "etxekoa": "ALDABIDE (S. Arrizabalaga - T. Arbizu)",
@@ -199,7 +232,29 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "17:00 !Horario provisional",
+    "hora": "10:45",
+    "zkia": "2",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (M. Salaberria)",
+    "kanpokoak": "LARRAUN (O. Iriarte)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA FINALERDIA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/10/24",
+    "hora": "17:00",
+    "zkia": "1",
+    "fronton": "Villava - Lorenzo Goikoa",
+    "etxekoa": "BETI ONAK (U. Esain)",
+    "kanpokoak": "LARRAUN (X. Telletxea)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA FINALERDIAK",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/10/24",
+    "hora": "17:00",
     "zkia": "1",
     "fronton": "Aoiz - Toki Eder",
     "etxekoa": "AGOITZ (J. Beroiz - J. Martin)",
@@ -210,31 +265,9 @@
   },
   {
     "fecha": "2026/10/24",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (A. Loyarte - O. Mitxaus)",
-    "kanpokoak": "TXARUTA (H. Aizagirre - U. Oscariz)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 1. 2. TALDE",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/10/24",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LARRAUN (M. Laso - U. Otamendi)",
-    "kanpokoak": "BETI ONAK (M. Ezkurra - E. Rekalde)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. FINALERDIA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/10/24",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
+    "hora": "18:00",
+    "zkia": "1",
+    "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA (E. Saizar - E. Bengoetxea)",
     "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
     "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA",
@@ -242,69 +275,36 @@
     "kokalekua": "Beste nonbait"
   },
   {
-    "fecha": "2026/10/24",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
-    "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
+    "fecha": "2026/10/25",
+    "hora": "09:30",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Ansorena - A. Zubillaga)",
+    "kanpokoak": "SAN MIGUEL (E. Gomez - I. Gomez)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
     "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/10/24",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "IRURTZUN (J. Saracibar - O. Razkin)",
-    "kanpokoak": "LARRAUN (A. Balda - I. Sotil)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
+    "kokalekua": "Lekunberri/Aldatz"
   },
   {
     "fecha": "2026/10/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "DOS PAREDES - LARRAUN (O. Sarasibar - M. Galartza)",
-    "kanpokoak": "AUÑAMENDI (E. Zabalza - A. Ardanaz)",
-    "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA NESKEN BINAKA FINAL LAURDENAK",
+    "hora": "09:30",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Laso - U. Otamendi)",
+    "kanpokoak": "BETI ONAK (M. Ezkurra - E. Rekalde)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA GAZTE 1. FINALERDIA",
     "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
+    "kokalekua": "Lekunberri/Aldatz"
   },
   {
     "fecha": "2026/10/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
+    "hora": "09:30",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Garaño)",
     "kanpokoak": "Leitza (H. Txoperena)",
     "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA FINALERDIA",
     "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/10/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "IRURTZUN (M. Salaberria)",
-    "kanpokoak": "LARRAUN (O. Iriarte)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 2. MAILA FINALERDIA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/10/25",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "BETI ONAK (U. Esain)",
-    "kanpokoak": "LARRAUN (X. Telletxea)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 3. MAILA FINALERDIAK",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
+    "kokalekua": "Lekunberri/Aldatz"
   }
 ]
