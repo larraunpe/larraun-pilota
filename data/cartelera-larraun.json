@@ -44,17 +44,6 @@
     "kokalekua": "Lekunberri/Aldatz"
   },
   {
-    "fecha": "2026/10/24",
-    "hora": "18:00",
-    "zkia": "2",
-    "fronton": "Leitza - Amazabal",
-    "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
-    "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
-    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
     "fecha": "2026/10/23",
     "hora": "18:00",
     "zkia": "3",
@@ -167,7 +156,7 @@
   {
     "fecha": "2026/10/24",
     "hora": "09:30",
-    "zkia": "3",
+    "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Ruiz - L. Soria)",
     "kanpokoak": "ZUGARRALDE (A. Agerri - E. Requena)",
@@ -178,7 +167,7 @@
   {
     "fecha": "2026/10/24",
     "hora": "09:30",
-    "zkia": "4",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel - E. Zubillaga)",
     "kanpokoak": "ZUGARRALDE (A. Tabar - A. Mañeru)",
@@ -189,7 +178,7 @@
   {
     "fecha": "2026/10/24",
     "hora": "09:30",
-    "zkia": "5",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus)",
     "kanpokoak": "PILOTAJAUKU (E. Garcia - I. Otsoa)",
@@ -200,7 +189,7 @@
   {
     "fecha": "2026/10/24",
     "hora": "09:30",
-    "zkia": "6",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
     "kanpokoak": "OBERENA (I. Nuin - A. Arrosagaray)",
@@ -211,7 +200,7 @@
   {
     "fecha": "2026/10/24",
     "hora": "09:30",
-    "zkia": "7",
+    "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
     "kanpokoak": "G.PILOTA (A. Jimenez - A. Garmendia)",
@@ -271,6 +260,17 @@
     "etxekoa": "LEITZA (E. Saizar - E. Bengoetxea)",
     "kanpokoak": "LARRAUN (D. Centeno - M. Argaña)",
     "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/10/24",
+    "hora": "18:00",
+    "zkia": "2",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "LEITZA (L. Santos - J. Bermejo)",
+    "kanpokoak": "LARRAUN (A. Bidegain - U. Erneta)",
+    "lehiaketa": "MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 3. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
