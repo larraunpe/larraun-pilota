@@ -1,8 +1,35 @@
 {
-  "fecha_generacion": "2026-10-21T21:23:48.247Z",
+  "fecha_generacion": "2026-10-22T12:49:24.141Z",
   "semana_numero": 44,
-  "total_partidos": 19,
+  "total_partidos": 22,
   "partidos": [
+    {
+      "fecha": "2026/10/28",
+      "hora": "17:30",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LAGUNAK (O. Etxeberria)",
+      "kanpokoak": "LARRAUN (E. Oreja)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINAL HOGEITA HAMABIRENAK"
+    },
+    {
+      "fecha": "2026/10/28",
+      "hora": "17:30",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (A. Balda)",
+      "kanpokoak": "IRURTZUN (O. Razkin)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINAL HOGEITA HAMABIRENAK"
+    },
+    {
+      "fecha": "2026/10/28",
+      "hora": "17:30",
+      "zkia": "4",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "ERREKA (M. Oiaregi)",
+      "kanpokoak": "LARRAUN (M. Etxepare)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINAL HOGEITA HAMABIRENAK"
+    },
     {
       "fecha": "2026/10/30",
       "hora": "18:00 !Horario provisional",
