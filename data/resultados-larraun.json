@@ -140,6 +140,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-23",
+    "fronton": "Tafalla - Ereta",
+    "etxekoa": "P.P.SAN SEBASTIAN (A. Flamarique - O. Leunda) FLAMARIQUE ESPEJO, A. LEUNDA MARCO, O.",
+    "kanpokoak": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(3-9) (7-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Sanz - A. Buldain) BULDAIN DE LA ROSA, A. SANZ BIANA, M.",
@@ -309,6 +323,18 @@
     "etxekoa": "UMORE ONA (O. Goizueta - I. Lujambio) GOIZUETA MUTUBERRIA , O. LUJAMBIO PERURENA , I.",
     "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro) BALDA ETXEBERRIA, E. DORRONSORO ALBERO, A.",
     "tanteoa": "18-7",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3235&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-23",
+    "fronton": "Lesaka - Arkupe",
+    "etxekoa": "ARKUPE, P. E. (A. Hita - O. Irurieta) HITA ARANGUREN, A. IRURIETA IZQUIERDO, O.",
+    "kanpokoak": "LARRAUN (E. Balda - A. Dorronsoro) BALDA ETXEBERRIA, E. DORRONSORO ALBERO, A.",
+    "tanteoa": "18-8",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3235&temp=2026",
@@ -1164,6 +1190,19 @@
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3273&temp=2026",
     "emaitza": "irabazita",
     "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-23",
+    "fronton": "Sarriguren - Salesianos",
+    "etxekoa": "DOS PAREDES - LARRAUN (O. Sarasibar - M. Galartza)",
+    "kanpokoak": "AUÑAMENDI (E. Zabalza - A. Ardanaz) SARAGUETA MARTINEZ, I. ZABALZA ENCAJE, E.",
+    "tanteoa": "29-30",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA PGOMAZ NKT - PALETA GOMA NESKEN BINAKA FINAL LAURDENAK",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3273&idFaseEliminatoria=21078&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true,
+    "etxekoa_original": "DOS PAREDES (O. Sarasibar - M. Galartza) GALARTZA ROTETA, M. SARASIBAR TORAL, O."
   },
   {
     "fecha": "2026-10-03",
