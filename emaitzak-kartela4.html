@@ -355,11 +355,46 @@ body{
   transform:scale(1.05);
 }
 
+/* ================= PAGINACIÓN DE IMPRESIÓN ================= */
+.pagina-impresion{ display:none; }
+.numero-pagina{
+  text-align:center;
+  color:#0b2350;
+  font-family:'Orbitron', Arial, sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  padding:10px 0 4px;
+  border-top:1px solid #d5dbe5;
+  margin-top:12px;
+}
 @media print {
-  .no-print{ display:none !important; }
-  body{ background:#fff; }
   @page{ size:A4; margin:10mm; }
-  .pagina{ width:100%; }
+  body{ background:#fff; }
+  .no-print{ display:none !important; }
+  body > .pagina{ display:none !important; }
+  #paginasImpresion{ display:block !important; }
+  .pagina-impresion{
+    display:flex !important;
+    flex-direction:column;
+    min-height:275mm;
+    box-sizing:border-box;
+    page-break-after:always;
+    break-after:page;
+    background:#fff;
+    width:100%;
+  }
+  .pagina-impresion:last-child{ page-break-after:auto; break-after:auto; }
+  .pagina-impresion .contenido-impresion{ flex:1; }
+  .pagina-impresion .partido,
+  .pagina-impresion .titulo-seccion{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .pagina-impresion .header{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
 }
 
 </style>
@@ -418,6 +453,8 @@ body{
 </div>
 
 </div>
+
+<div id="paginasImpresion" class="no-print" aria-hidden="true"></div>
 
 <script>
 // ================= DATOS DE EJEMPLO CON URLs REALES =================
@@ -806,8 +843,53 @@ async function cargarDatos() {
   }
 }
 
+// ================= PAGINACIÓN PARA IMPRESIÓN =================
+async function prepararPaginasImpresion(){
+  const lista = document.getElementById("lista");
+  const contenedorPaginas = document.getElementById("paginasImpresion");
+  if (!lista || !contenedorPaginas) return;
+
+  await document.fonts.ready;
+  await new Promise(resolve => setTimeout(resolve, 700));
+
+  const headerHTML = document.querySelector(".header").outerHTML;
+  const footerHTML = document.querySelector(".patrocinadores").outerHTML;
+  const elementos = Array.from(lista.children);
+  contenedorPaginas.innerHTML = "";
+
+  const crearHoja = () => {
+    const hoja = document.createElement("section");
+    hoja.className = "pagina-impresion";
+    hoja.innerHTML = `${headerHTML}<div class="contenido-impresion" style="padding:12px 0;"></div>${footerHTML}<div class="numero-pagina"></div>`;
+    contenedorPaginas.appendChild(hoja);
+    return hoja;
+  };
+
+  let hoja = crearHoja();
+  let contenido = hoja.querySelector(".contenido-impresion");
+  const alturaMaxima = 850;
+
+  for (const elemento of elementos) {
+    const clon = elemento.cloneNode(true);
+    contenido.appendChild(clon);
+    if (contenido.scrollHeight > alturaMaxima && contenido.children.length > 1) {
+      contenido.removeChild(clon);
+      hoja = crearHoja();
+      contenido = hoja.querySelector(".contenido-impresion");
+      contenido.appendChild(clon);
+    }
+  }
+
+  const hojas = Array.from(contenedorPaginas.querySelectorAll(".pagina-impresion"));
+  hojas.forEach((h, i) => {
+    h.querySelector(".numero-pagina").textContent = `PÁGINA ${i + 1} / ${hojas.length}`;
+  });
+  contenedorPaginas.classList.remove("no-print");
+  contenedorPaginas.setAttribute("aria-hidden", "false");
+}
+
 // Iniciar
-cargarDatos();
+cargarDatos().then(prepararPaginasImpresion);
 
 // ================= EXPORTAR A JPG =================
 
@@ -832,6 +914,15 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
     if (paginaActual.scrollHeight > 1587) {
       contenedor.removeChild(clon);
       paginas.push(paginaActual);
+
+  // Numeración visible en los JPG descargados.
+  const totalPaginas = paginas.length;
+  paginas.forEach((pagina, indice) => {
+    const numero = document.createElement("div");
+    numero.className = "numero-pagina";
+    numero.textContent = `PÁGINA ${indice + 1} / ${totalPaginas}`;
+    pagina.appendChild(numero);
+  });
       paginaActual = crearPagina(headerHTML, footerHTML);
       document.body.appendChild(paginaActual);
       contenedor = paginaActual.querySelector(".contenido");

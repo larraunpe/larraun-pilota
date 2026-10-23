@@ -423,6 +423,31 @@ body{
   height:36px;
   object-fit:contain;
 }
+
+/* ================= NUMERACIÓN DE PÁGINAS ================= */
+.numero-pagina{
+  position:absolute;
+  right:18px;
+  bottom:10px;
+  z-index:30;
+  padding:6px 10px;
+  border-radius:5px;
+  color:#fff;
+  background:rgba(0,0,0,.72);
+  font:700 16px Arial,sans-serif;
+  letter-spacing:.5px;
+  pointer-events:none;
+}
+@media print{
+  @page{size:A3 portrait;margin:0}
+  html,body{margin:0!important;padding:0!important;background:#fff!important}
+  .exportar{display:none!important}
+  .pagina{margin:0!important;box-shadow:none!important;page-break-after:always;break-after:page;
+    print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .pagina:last-child{page-break-after:auto;break-after:auto}
+  .contenido{overflow:hidden}
+}
+
 </style>
 </head>
 
@@ -775,6 +800,17 @@ function crearBloques(titulo,data){
 }
 
 
+
+/* ================= NUMERAR TODAS LAS PÁGINAS ================= */
+
+function actualizarNumeracion(){
+  const paginas = [...document.querySelectorAll("#contenedorPaginas .pagina")];
+  const total = paginas.length;
+  paginas.forEach((pagina, indice) => {
+    const numero = pagina.querySelector(".numero-pagina");
+    if(numero) numero.textContent = `ORRIALDEA ${indice + 1} / ${total}`;
+  });
+}
 
 /* ================= FETCH + CONSTRUIR ================= */
 
