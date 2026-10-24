@@ -1,441 +1,121 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Panel de Control | Larraun Pilota</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(145deg, #f0f4f8 0%, #e2e8f0 100%);
-            min-height: 100vh;
-            padding: 2rem 1.5rem;
-            color: #0a1e2f;
-        }
-
-        /* Contenedor principal */
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header con logo y título */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e3c2c, #2b5e3b);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.01em;
-            display: inline-block;
-            padding: 0 1rem;
-        }
-
-        .club-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 100px;
-            padding: 0.5rem 1.5rem;
-            margin-top: 0.75rem;
-            font-weight: 500;
-            color: #1f4f2b;
-            border: 1px solid rgba(60,100,50,0.2);
-        }
-
-        .club-badge:before {
-            content: "⚾";
-            font-size: 1.2rem;
-        }
-
-        /* Grid de tarjetas */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Tarjetas sección */
-        .card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(2px);
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-header {
-            padding: 1.5rem 1.8rem 0.8rem 1.8rem;
-            border-bottom: 2px solid rgba(0,0,0,0.05);
-        }
-
-        .card-header h2 {
-            font-size: 1.7rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .card-header h2 i {
-            font-size: 1.8rem;
-        }
-
-        .cartelera .card-header h2 { color: #c2410c; }
-        .resultados .card-header h2 { color: #1e4a76; }
-        .cambios .card-header h2 { color: #b45309; }
-        .otros .card-header h2 { color: #4b5563; }
-
-        .badge-count {
-            background: #eef2ff;
-            border-radius: 40px;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-left: 0.75rem;
-            color: #1f3a5f;
-        }
-
-        .links-container {
-            padding: 1.2rem 1.5rem 1.8rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        /* Estilo de cada enlace (accesible y táctil) */
-        .dashboard-link {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            padding: 0.85rem 1.2rem;
-            background: #ffffff;
-            border-radius: 1.2rem;
-            text-decoration: none;
-            color: #1f2a3e;
-            font-weight: 500;
-            transition: all 0.2s;
-            border: 1px solid #e9edf2;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-        }
-
-        .dashboard-link:hover {
-            background: #f8fafc;
-            border-color: #b9d0b0;
-            transform: translateX(6px);
-            box-shadow: 0 6px 12px -8px rgba(0,0,0,0.1);
-        }
-
-        .link-icon {
-            font-size: 1.4rem;
-            min-width: 32px;
-            text-align: center;
-        }
-
-        .link-text {
-            flex: 1;
-            font-size: 1rem;
-            letter-spacing: -0.2px;
-        }
-
-        .link-url {
-            font-size: 0.7rem;
-            color: #6f7c91;
-            font-family: monospace;
-            opacity: 0.7;
-            word-break: break-all;
-        }
-
-        /* Grupo especial para destacar algunos */
-        .highlight-link {
-            background: #fef9e6;
-            border-left: 4px solid #e67e22;
-        }
-
-        /* Estilo para enlaces nuevos de horarios provisionales */
-        .provisional-link {
-            background: linear-gradient(135deg, #fff9e8, #fff5e0);
-            border-left: 4px solid #f59e0b;
-        }
-
-        .provisional-link:hover {
-            background: linear-gradient(135deg, #fff5e0, #fff0d4);
-            border-color: #d97706;
-        }
-
-        /* Footer */
-        .footer-info {
-            text-align: center;
-            margin-top: 3rem;
-            padding: 1.5rem;
-            font-size: 0.85rem;
-            color: #4a5b6e;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        /* responsive */
-        @media (max-width: 680px) {
-            body {
-                padding: 1rem;
-            }
-            .card-header h2 {
-                font-size: 1.4rem;
-            }
-            .dashboard-link {
-                padding: 0.7rem 1rem;
-            }
-            .link-text {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* accesibilidad: focus visible */
-        .dashboard-link:focus-visible {
-            outline: 3px solid #2c7a4b;
-            outline-offset: 2px;
-            background: #f0f9f0;
-        }
-
-        /* iconos simulados con emojis para consistencia */
-        .icon-kartelera:before { content: "📅"; }
-        .icon-asteko:before { content: "📆"; }
-        .icon-kartela7:before { content: "🎯"; }
-        .icon-etxeko:before { content: "🏠"; }
-        .icon-ordutegi:before { content: "⏰"; }
-        .icon-emaitzak:before { content: "📊"; }
-        .icon-azken:before { content: "🏆"; }
-        .icon-estadistika:before { content: "📈"; }
-        .icon-historiko:before { content: "📜"; }
-        .icon-berriak:before { content: "📰"; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#174b3b">
+<title>Panel de Control | Larraun Pilota</title>
+<style>
+:root{--green:#174b3b;--green2:#247653;--red:#7f2434;--ink:#202a2d;--muted:#657274;--paper:#f3f6f4;--line:#e1e8e4;--white:#fff;--shadow:0 12px 32px rgba(24,55,43,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+a{color:inherit}.hero{background:linear-gradient(125deg,var(--green) 0%,#206b4d 55%,var(--red) 100%);color:#fff;padding:34px 20px 40px}.hero-inner{max-width:1180px;margin:auto}.topline{display:flex;align-items:center;gap:15px}.crest{width:58px;height:58px;border:1px solid #ffffff70;background:#ffffff18;border-radius:16px;display:grid;place-items:center;font-size:31px;flex:none}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:750;opacity:.85}.hero h1{margin:5px 0 4px;font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.15}.hero p{margin:9px 0 0;color:#f0f7f2;max-width:720px}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.pill{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #ffffff70;border-radius:999px;padding:9px 14px;font-size:.9rem;font-weight:700;color:#fff;background:#ffffff12}.pill:hover{background:#ffffff25}.wrap{max-width:1180px;margin:-18px auto 0;padding:0 18px 34px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:30px 2px 14px}.section-head h2{font-size:1.22rem;margin:0}.section-head p{margin:3px 0 0;color:var(--muted);font-size:.91rem}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px;min-width:0}.card-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}.icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:#eaf3ed;font-size:23px;flex:none}.card:nth-child(2) .icon,.card:nth-child(5) .icon{background:#f8e9eb}.card h3{font-size:1.08rem;line-height:1.25;margin:0}.subtitle{font-size:.84rem;color:var(--muted);margin:3px 0 0}.links{display:grid;gap:7px}.link{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;text-decoration:none;padding:10px 11px;border-radius:10px;background:#f7f9f8;border:1px solid transparent;font-size:.91rem;font-weight:620}.link span:last-child{color:#84918d;flex:none}.link:hover{border-color:#b8d5c3;background:#eef6f0;color:var(--green)}.link small{display:block;font-size:.78rem;font-weight:450;color:var(--muted);margin-top:2px}.tag{display:inline-block;margin-left:5px;border-radius:5px;padding:1px 5px;font-size:.69rem;font-weight:800;background:#fff0d8;color:#805515;vertical-align:2px}.note{border-radius:11px;padding:12px 13px;background:#f3f5fb;color:#4c5871;font-size:.88rem;margin-top:12px}.note strong{display:block;margin-bottom:3px}.shortcuts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.shortcut{display:flex;flex-direction:column;gap:4px;text-align:center;align-items:center;justify-content:center;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 8px;font-size:.84rem;font-weight:750;box-shadow:0 4px 14px #173c2a08}.shortcut span{font-size:1.4rem}.shortcut:hover{border-color:#a7cdb4;transform:translateY(-1px)}footer{text-align:center;color:var(--muted);font-size:.86rem;padding:12px 16px 30px}footer a{color:var(--green);font-weight:700;text-decoration:none}.language{margin-left:auto;display:flex;gap:6px}.language button{border:1px solid #ffffff70;background:transparent;color:#fff;border-radius:8px;padding:6px 10px;font-weight:750;cursor:pointer}.language button.active{background:#fff;color:var(--green)}:focus-visible{outline:3px solid #e8b34d;outline-offset:3px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:580px){.hero{padding:25px 16px 34px}.crest{width:48px;height:48px;border-radius:13px;font-size:26px}.topline{gap:11px}.language{align-self:flex-start}.wrap{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr;gap:12px}.card{padding:16px}.section-head{margin-top:25px}.shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-actions .pill{font-size:.82rem}.link{padding:11px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
 </head>
 <body>
-<div class="dashboard">
-    <div class="header">
-        <h1>🛡️ Larraun Pilota Elkartea<br><span style="font-size: 1rem;">Panel de Control / Aginte Panela</span></h1>
-        <div class="club-badge">
-            Pilota Kluba · Mahaigaina azkar
-        </div>
-    </div>
-
-    <div class="grid">
-        <!-- SECCIÓN CARTELERA (principal) -->
-        <div class="card cartelera">
-            <div class="card-header">
-                <h2>
-                    <span>📢</span>  Egitaraua / Cartelera
-                    <span class="badge-count">9 akzeso</span>
-                </h2>
-                <p style="font-size: 0.8rem; color: #5a6e4a; margin-top: 6px;">Partiduak, kartelak eta ordutegiak</p>
-            </div>
-            <div class="links-container">
-                
-                <a href="https://larraunpilota.eus/kartelera.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📅</span>
-                    <span class="link-text">Kartelera orokorra</span>
-                    <span class="link-url">kartelera.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/ordutegiak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">⏰</span>
-                    <span class="link-text">Ordutegiak / Horarios</span>
-                    <span class="link-url">ordutegiak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/asteko-kartela.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📆</span>
-                    <span class="link-text">Asteko kartela (web y whatsapp)</span>
-                    <span class="link-url">asteko-kartela.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/kartela7.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🎯</span>
-                    <span class="link-text">Kartela_orribakarra</span>
-                    <span class="link-url">kartela7.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/kartela8.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🎯</span>
-                    <span class="link-text">Kartela_orribatzuk (rrss)</span>
-                    <span class="link-url">kartela8.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/etxekoak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🏠</span>
-                    <span class="link-text">Etxekoak (rrss)</span>
-                    <span class="link-url">etxekoak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/etxeko-partiduak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🏠⚡</span>
-                    <span class="link-text">Etxeko partiduak (epaileak)</span>
-                    <span class="link-url">etxeko-partiduak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/eguneko-partidak1.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🌞</span>
-                    <span class="link-text">Eguneko partidak (taldeak)</span>
-                    <span class="link-url">eguneko-partidak1.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/jaialdiak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🎉</span>
-                    <span class="link-text">Jaialdiak / Festivales</span>
-                    <span class="link-url">jaialdiak.html</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- SECCIÓN RESULTADOS (emaitzak, estadísticas) -->
-        <div class="card resultados">
-            <div class="card-header">
-                <h2>
-                    <span>🏆</span> Emaitzak / Resultados
-                    <span class="badge-count">7 akzeso</span>
-                </h2>
-                <p style="font-size: 0.8rem; color: #2c5282;">Azken markadoreak eta estatistikak</p>
-            </div>
-            <div class="links-container">
-                <a href="https://larraunpilota.eus/emaitzak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📊</span>
-                    <span class="link-text">Emaitzak orokorra</span>
-                    <span class="link-url">emaitzak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/emaitzak1.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📋</span>
-                    <span class="link-text">Emaitza interaktiboak</span>
-                    <span class="link-url">emaitzak1.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/azken-emaitzak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">⚡</span>
-                    <span class="link-text">Azken emaitzak (web eta whatsapp)</span>
-                    <span class="link-url">azken-emaitzak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/emaitzak-kartela3.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🗂️</span>
-                    <span class="link-text">Emaitzak_orribatean</span>
-                    <span class="link-url">emaitzak-kartela3.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/emaitzak-kartela4.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🗂️</span>
-                    <span class="link-text">Emaitzak_orribatzuk</span>
-                    <span class="link-url">emaitzak-kartela4.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/emaitzak-kartela7.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📌</span>
-                    <span class="link-text">Emaitzak_tiktok</span>
-                    <span class="link-url">emaitzak-kartela7.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/estadistika.html" class="dashboard-link highlight-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📈</span>
-                    <span class="link-text">📊 Estadistika / Estadísticas</span>
-                    <span class="link-url">estadistika.html</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- SECCIÓN ACTUALIZADA: ALDAKETAK / CAMBIOS DE HORARIO -->
-        <div class="card cambios">
-            <div class="card-header">
-                <h2>
-                    <span>🕒</span> Aldaketak / Cambios de horario
-                    <span class="badge-count">5 akzeso</span>
-                </h2>
-                <p style="font-size: 0.8rem; color: #b45309; margin-top: 6px;">Aldaketa-eskaerak, oharrak eta ordutegi behin-behinekoak</p>
-            </div>
-            <div class="links-container">
-                <!-- Nuevos enlaces destacados: horarios provisionales -->
-                <a href="https://larraunpilota.eus/hurrengo-ordutegiak.html" class="dashboard-link provisional-link" target="_blank" rel="noopener">
-                    <span class="link-icon">⏰📋</span>
-                    <span class="link-text">
-                        <strong>📋 Hurrengo asteko ordutegiak</strong>
-                        <span style="display: block; font-size: 0.7rem; font-weight: normal; color: #b45309;">⚠️ Behin-behinekoak / Provisional</span>
-                    </span>
-                    <span class="link-url">hurrengo-ordutegiak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/hurrengo-ordutegiak-kartela.html" class="dashboard-link provisional-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📅⚠️</span>
-                    <span class="link-text">
-                        <strong>📋 Hurrengo asteko kartela</strong>
-                        <span style="display: block; font-size: 0.7rem; font-weight: normal; color: #b45309;">⚠️ Behin-behinekoak / Provisional</span>
-                    </span>
-                    <span class="link-url">hurrengo-ordutegiak-kartela.html</span>
-                </a>
-                
-                <!-- Separador visual sutil -->
-                <div style="height: 2px; background: linear-gradient(90deg, transparent, #fde68a, transparent); margin: 0.3rem 0;"></div>
-                
-                <!-- Enlaces existentes -->
-                <a href="https://larraunpilota.eus/aldaketak.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">👥</span>
-                    <span class="link-text">Astelenako eskaera / Solicitud de cambio (lunes)</span>
-                    <span class="link-url">aldaketak.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/aldaketak1.html" class="dashboard-link" target="_blank" rel="noopener">
-                    <span class="link-icon">🤝</span>
-                    <span class="link-text">Eskabide orokorra (beste kluba ere) / Solicitud general</span>
-                    <span class="link-url">aldaketak1.html</span>
-                </a>
-                <a href="https://larraunpilota.eus/aldaketa-osoa.html" class="dashboard-link highlight-link" target="_blank" rel="noopener">
-                    <span class="link-icon">📢</span>
-                    <span class="link-text">Ostegunako eskaera / Solicitud de cambio (jueves)</span>
-                    <span class="link-url">aldaketa-osoa.html</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Segunda fila (mantenemos los dos bloques inferiores) -->
-    <div class="grid" style="grid-template-columns: 1fr 1fr;">
-        <!-- mini bloque de utilidad: vista previa rápida de enlaces recurrentes -->
-        <div class="card" style="background: #eef3fa;">
-            <div class="card-header">
-                <h2 style="font-size: 1.2rem;">✨ Gogoko lasterbideak</h2>
-            </div>
-            <div class="links-container" style="flex-direction: row; flex-wrap: wrap; gap: 0.8rem;">
-                <a href="https://larraunpilota.eus/kartelera.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">📅 Kartelera</a>
-                <a href="https://larraunpilota.eus/emaitzak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">🏆 Emaitzak</a>
-                <a href="https://larraunpilota.eus/asteko-kartela.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">📆 Astekoa</a>
-                <a href="https://larraunpilota.eus/azken-emaitzak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">⚡ Azkenak</a>
-                <a href="https://larraunpilota.eus/aldaketak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">🕒 Aldaketak</a>
-                <a href="https://larraunpilota.eus/hurrengo-ordutegiak.html" class="dashboard-link" style="flex: 1 0 auto; min-width: 130px;">⏰📋 Hurrengoa</a>
-            </div>
-        </div>
-        <div class="card" style="background: #faf7f0;">
-            <div class="card-header">
-                <h2 style="font-size: 1.2rem;">ℹ️ Informazio erabilgarria</h2>
-            </div>
-            <div class="links-container">
-                <p style="font-size: 0.85rem; line-height: 1.4;">Panel honek Larraun Pilotako kartelak, emaitzak, ordutegi aldaketak eta atal historiko guztiak biltzen ditu. Esteka guztiak
-                   leiho berri batean irekiko dira mahaia beti eskuragarri mantentzeko.</p>
-                <p style="font-size: 0.75rem; color: #3d5a6c; margin-top: 0.5rem;">📌 Gomendioa: orri hau zure gustuko gisa markatu dezakezu klube kontrola azkar sartzeko.</p>
-                <p style="font-size: 0.7rem; color: #b45309; margin-top: 0.5rem;">⚠️ <strong>Berria:</strong> Hurrengo asteko ordutegi eta kartela behin-behinekoak eskuragarri!</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-info">
-        <span>🎾 Larraun Pilota · Panel de control unificado · </span>
-        <span>Enlaces actualizados a marzo 2026 · </span>
-        <span><a href="https://larraunpilota.eus/index.html" style="color: #2b6e3c; text-decoration: none;">Visitar web oficial</a></span>
-        <br><small>Todas las páginas se abren en nueva pestaña para facilitar la navegación.</small>
-    </div>
-</div>
+<header class="hero">
+ <div class="hero-inner">
+  <div class="topline">
+   <div class="crest" aria-hidden="true">🥎</div>
+   <div><div class="eyebrow" data-eu="Larraun Pilota Elkartea" data-es="Larraun Pilota Elkartea">Larraun Pilota Elkartea</div><h1 data-eu="Kontrol-panela" data-es="Panel de control">Kontrol-panela</h1></div>
+   <div class="language" aria-label="Hizkuntza / Idioma"><button class="active" id="euBtn" onclick="setLang('eu')">EU</button><button id="esBtn" onclick="setLang('es')">ES</button></div>
+  </div>
+  <p data-eu="Klubeko kartelak, emaitzak, ordutegi-aldaketak eta datuak kudeatzeko sarbide azkarra." data-es="Acceso rápido a carteleras, resultados, cambios de horario y herramientas de gestión del club.">Klubeko kartelak, emaitzak, ordutegi-aldaketak eta datuak kudeatzeko sarbide azkarra.</p>
+  <div class="hero-actions">
+   <a class="pill" href="https://larraunpilota.eus/index.html" target="_blank" rel="noopener">🌐 <span data-eu="Webgune publikoa" data-es="Web pública">Webgune publikoa</span> ↗</a>
+   <a class="pill" href="https://github.com/larraunpe/larraun-pilota" target="_blank" rel="noopener">💻 GitHub ↗</a>
+  </div>
+ </div>
+</header>
+<main class="wrap">
+ <div class="section-head"><div><h2 data-eu="Tresnak eta atalak" data-es="Herramientas y secciones">Tresnak eta atalak</h2><p data-eu="Aukeratu ireki nahi duzun tresna." data-es="Selecciona la herramienta que quieras abrir.">Aukeratu ireki nahi duzun tresna.</p></div></div>
+ <div class="grid">
+  <section class="card">
+   <div class="card-head"><div class="icon">📅</div><div><h3 data-eu="Egitaraua / Kartelera" data-es="Programa / Cartelera">Egitaraua / Kartelera</h3><p class="subtitle" data-eu="Partidak eta jaialdiak" data-es="Partidos y festivales">Partidak eta jaialdiak</p></div></div>
+   <div class="links">
+    <a class="link" href="https://larraunpilota.eus/kartelera.html" target="_blank" rel="noopener"><span data-eu="Kartelera nagusia" data-es="Cartelera principal">Kartelera nagusia</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/ordutegiak.html" target="_blank" rel="noopener"><span data-eu="Ordutegiak" data-es="Horarios">Ordutegiak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/asteko-kartela.html" target="_blank" rel="noopener"><span data-eu="Asteko kartela" data-es="Cartel semanal">Asteko kartela</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/kartela7.html" target="_blank" rel="noopener"><span>Kartela 7</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/kartela8.html" target="_blank" rel="noopener"><span>Kartela 8</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/etxekoak.html" target="_blank" rel="noopener"><span data-eu="Etxeko partidak" data-es="Partidos en casa">Etxeko partidak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/etxeko-partiduak.html" target="_blank" rel="noopener"><span data-eu="Etxeko partidak (zerrenda)" data-es="Partidos en casa (lista)">Etxeko partidak (zerrenda)</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/eguneko-partidak1.html" target="_blank" rel="noopener"><span data-eu="Eguneko partidak" data-es="Partidos del día">Eguneko partidak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/jaialdiak.html" target="_blank" rel="noopener"><span data-eu="Jaialdiak" data-es="Festivales">Jaialdiak</span><span>↗</span></a>
+   </div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">🏆</div><div><h3 data-eu="Emaitzak" data-es="Resultados">Emaitzak</h3><p class="subtitle" data-eu="Emaitzak eta estatistikak" data-es="Resultados y estadísticas">Emaitzak eta estatistikak</p></div></div>
+   <div class="links">
+    <a class="link" href="https://larraunpilota.eus/emaitzak.html" target="_blank" rel="noopener"><span>Emaitzak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/emaitzak1.html" target="_blank" rel="noopener"><span>Emaitzak 1</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/azken-emaitzak.html" target="_blank" rel="noopener"><span data-eu="Azken emaitzak" data-es="Últimos resultados">Azken emaitzak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/emaitzak-kartela3.html" target="_blank" rel="noopener"><span>Emaitzen kartela 3</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/emaitzak-kartela4.html" target="_blank" rel="noopener"><span>Emaitzen kartela 4</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/emaitzak-kartela7.html" target="_blank" rel="noopener"><span>Emaitzen kartela 7</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/estadistika.html" target="_blank" rel="noopener"><span data-eu="Estatistikak" data-es="Estadísticas">Estatistikak</span><span>↗</span></a>
+   </div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">🔁</div><div><h3 data-eu="Ordutegi-aldaketak" data-es="Cambios de horario">Ordutegi-aldaketak</h3><p class="subtitle" data-eu="Behin-behinekoak eta eguneratuak" data-es="Provisionales y actualizados">Behin-behinekoak eta eguneratuak</p></div></div>
+   <div class="links">
+    <a class="link" href="https://larraunpilota.eus/hurrengo-ordutegiak.html" target="_blank" rel="noopener"><span data-eu="Hurrengo ordutegiak" data-es="Próximos horarios">Hurrengo ordutegiak <b class="tag" data-eu="BEHIN-BEHINEKOA" data-es="PROVISIONAL">BEHIN-BEHINEKOA</b></span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/hurrengo-ordutegiak-kartela.html" target="_blank" rel="noopener"><span data-eu="Ordutegien kartela" data-es="Cartel de horarios">Ordutegien kartela <b class="tag" data-eu="BEHIN-BEHINEKOA" data-es="PROVISIONAL">BEHIN-BEHINEKOA</b></span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/aldaketak.html" target="_blank" rel="noopener"><span data-eu="Aldaketak" data-es="Cambios">Aldaketak</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/aldaketak1.html" target="_blank" rel="noopener"><span>Aldaketak 1</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/aldaketa-osoa.html" target="_blank" rel="noopener"><span data-eu="Aldaketen zerrenda osoa" data-es="Listado completo de cambios">Aldaketen zerrenda osoa</span><span>↗</span></a>
+   </div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">🛠️</div><div><h3 data-eu="Kartelera eta emaitzak kudeatu" data-es="Gestionar cartelera y resultados">Kartelera eta emaitzak kudeatu</h3><p class="subtitle" data-eu="Partidak eta JSON datu-fitxategiak" data-es="Partidos y archivos de datos JSON">Partidak eta JSON datu-fitxategiak</p></div></div>
+   <div class="links">
+    <a class="link" href="https://larraunpilota.eus/gestor-partidos-larraun.html" target="_blank" rel="noopener"><span data-eu="Partida ez-ofizialen kudeatzailea" data-es="Gestor de partidos no oficiales">Partida ez-ofizialen kudeatzailea</span><span>↗</span></a>
+    <a class="link" href="https://github.com/larraunpe/larraun-pilota/blob/main/data/partidos-no-oficiales.json" target="_blank" rel="noopener"><span data-eu="Partida ez-ofizialen JSONa" data-es="JSON de partidos no oficiales">Partida ez-ofizialen JSONa</span><span>↗</span></a>
+    <a class="link" href="https://github.com/larraunpe/larraun-pilota/blob/main/data/resultados-larraun.json" target="_blank" rel="noopener"><span data-eu="Partida ofizialen aldaketak (astearteko seinalamenduen ondoren)" data-es="Cambios de partidos oficiales tras los señalamientos del martes">Partida ofizialen aldaketak (astearteko seinalamenduen ondoren)</span><span>↗</span></a>
+    <a class="link" href="https://larraunpilota.eus/formulario-no-oficiales.html" target="_blank" rel="noopener"><span data-eu="Partida ez-ofizialen emaitzak sartu" data-es="Introducir resultados de partidos no oficiales">Partida ez-ofizialen emaitzak sartu</span><span>↗</span></a>
+    <a class="link" href="https://github.com/larraunpe/larraun-pilota/blob/main/data/resultados-no-oficiales.json" target="_blank" rel="noopener"><span data-eu="Emaitza ez-ofizialen JSONa" data-es="JSON de resultados no oficiales">Emaitza ez-ofizialen JSONa</span><span>↗</span></a>
+   </div>
+   <div class="note"><strong data-eu="Oharra" data-es="Nota">Oharra</strong><span data-eu="GitHubeko JSON fitxategiak editatzeko, saioa hasi eta gordetako aldaketak argitaratu behar dira." data-es="Para editar los JSON de GitHub, inicia sesión y publica los cambios guardados.">GitHubeko JSON fitxategiak editatzeko, saioa hasi eta gordetako aldaketak argitaratu behar dira.</span></div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">📣</div><div><h3 data-eu="Abisuak eta egoerak" data-es="Avisos y estados">Abisuak eta egoerak</h3><p class="subtitle" data-eu="Irudiak sortu eta partekatu" data-es="Crear y compartir imágenes">Irudiak sortu eta partekatu</p></div></div>
+   <div class="links">
+    <a class="link" href="https://larraunpilota.eus/ordutegiak_suspenditua.html" target="_blank" rel="noopener"><span data-eu="Bertan behera, aldatua edo abisua irudia sortu" data-es="Generar imagen de suspendido, modificado o aviso">Bertan behera, aldatua edo abisua irudia sortu</span><span>↗</span></a>
+   </div>
+   <div class="note"><strong data-eu="Erabilera" data-es="Uso">Erabilera</strong><span data-eu="Erabili partida bat bertan behera geratzen denean, ordutegia aldatzen denean edo ohar bat zabaldu behar denean." data-es="Úsalo cuando se suspenda un partido, cambie un horario o haya que difundir un aviso.">Erabili partida bat bertan behera geratzen denean, ordutegia aldatzen denean edo ohar bat zabaldu behar denean.</span></div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">🪪</div><div><h3 data-eu="Lizentziak, izen-emateak eta ordutegiak" data-es="Licencias, inscripciones y horarios">Lizentziak, izen-emateak eta ordutegiak</h3><p class="subtitle" data-eu="Federazioa eta pilotarien aplikazioa" data-es="Federación y aplicación de pelotaris">Federazioa eta pilotarien aplikazioa</p></div></div>
+   <div class="links">
+    <a class="link" href="https://kirol-lizentziak.com/" target="_blank" rel="noopener"><span data-eu="Kirol-lizentziak" data-es="Licencias deportivas">Kirol-lizentziak</span><span>↗</span></a>
+    <a class="link" href="https://www.fnpelota.com/pub/accesoLogin.asp?idioma=eu" target="_blank" rel="noopener"><span data-eu="FNP — izen-emateak eta federazio-kudeaketak" data-es="FNP — inscripciones y gestiones federativas">FNP — izen-emateak eta federazio-kudeaketak</span><span>↗</span></a>
+   </div>
+   <div class="note"><strong data-eu="Ordutegien aukeraketa" data-es="Selección de horarios">Ordutegien aukeraketa</strong><span data-eu="Pilotari aplikazioan egiten da, mugikorrean instalatutako aplikazioaren bidez. Ez dago hemen esteka zuzenik." data-es="Se realiza en la aplicación Pilotari, instalada en el móvil. No se dispone aquí de un enlace directo.">Pilotari aplikazioan egiten da, mugikorrean instalatutako aplikazioaren bidez. Ez dago hemen esteka zuzenik.</span></div>
+  </section>
+  <section class="card">
+   <div class="card-head"><div class="icon">🧩</div><div><h3 data-eu="Emaitzen lehiaketa-IDa" data-es="ID de competición para ver resultados">Emaitzen lehiaketa-IDa</h3><p class="subtitle" data-eu="Scraper-aren konfigurazioa" data-es="Configuración del scraper">Scraper-aren konfigurazioa</p></div></div>
+   <div class="links">
+    <a class="link" href="https://github.com/larraunpe/larraun-pilota/blob/main/scripts/scrape-resultados.js" target="_blank" rel="noopener"><span data-eu="Lehiaketa-IDa aldatu (scrape-resultados.js)" data-es="Modificar ID de competición (scrape-resultados.js)">Lehiaketa-IDa aldatu (scrape-resultados.js)</span><span>↗</span></a>
+   </div>
+   <div class="note"><strong data-eu="Kontuz" data-es="Importante">Kontuz</strong><span data-eu="Fitxategia aldatu aurretik, gorde jatorrizko kopia bat. Aldaketek emaitzen bilketa automatikoan eragina izan dezakete." data-es="Antes de modificar el archivo, guarda una copia del original. Los cambios pueden afectar a la recopilación automática de resultados.">Fitxategia aldatu aurretik, gorde jatorrizko kopia bat. Aldaketek emaitzen bilketa automatikoan eragina izan dezakete.</span></div>
+  </section>
+ </div>
+ <div class="section-head"><div><h2 data-eu="Zuzeneko sarbideak" data-es="Accesos directos">Zuzeneko sarbideak</h2><p data-eu="Maiz erabiltzen diren orriak" data-es="Páginas de uso frecuente">Maiz erabiltzen diren orriak</p></div></div>
+ <nav class="shortcuts" aria-label="Accesos directos">
+  <a class="shortcut" href="https://larraunpilota.eus/kartelera.html" target="_blank" rel="noopener"><span>📅</span><b data-eu="Kartelera" data-es="Cartelera">Kartelera</b></a>
+  <a class="shortcut" href="https://larraunpilota.eus/emaitzak.html" target="_blank" rel="noopener"><span>🏆</span><b data-eu="Emaitzak" data-es="Resultados">Emaitzak</b></a>
+  <a class="shortcut" href="https://larraunpilota.eus/asteko-kartela.html" target="_blank" rel="noopener"><span>🗓️</span><b data-eu="Astekoa" data-es="Semanal">Astekoa</b></a>
+  <a class="shortcut" href="https://larraunpilota.eus/azken-emaitzak.html" target="_blank" rel="noopener"><span>📊</span><b data-eu="Azken emaitzak" data-es="Últimos resultados">Azken emaitzak</b></a>
+  <a class="shortcut" href="https://larraunpilota.eus/aldaketak.html" target="_blank" rel="noopener"><span>🔁</span><b data-eu="Aldaketak" data-es="Cambios">Aldaketak</b></a>
+  <a class="shortcut" href="https://larraunpilota.eus/hurrengo-ordutegiak.html" target="_blank" rel="noopener"><span>⏭️</span><b data-eu="Hurrengoak" data-es="Próximos">Hurrengoak</b></a>
+ </nav>
+</main>
+<footer><span data-eu="Larraun Pilota Elkartea · Kontrol-panela" data-es="Larraun Pilota Elkartea · Panel de control">Larraun Pilota Elkartea · Kontrol-panela</span> · <a href="https://larraunpilota.eus/index.html" target="_blank" rel="noopener" data-eu="Webgunera itzuli" data-es="Volver a la web">Webgunera itzuli</a></footer>
+<script>
+function setLang(lang){document.documentElement.lang=lang;document.querySelectorAll('[data-eu][data-es]').forEach(el=>{el.textContent=el.dataset[lang]});document.getElementById('euBtn').classList.toggle('active',lang==='eu');document.getElementById('esBtn').classList.toggle('active',lang==='es');try{localStorage.setItem('larraun-panel-lang',lang)}catch(e){}}
+try{const saved=localStorage.getItem('larraun-panel-lang');if(saved==='es')setLang('es')}catch(e){}
+</script>
 </body>
 </html>
