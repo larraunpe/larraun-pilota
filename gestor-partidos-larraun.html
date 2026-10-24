@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestor de partidos — Larraun Pilota</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#172033;background:#f3f6fa}
+*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(120deg,#153d78,#087d68);color:white;padding:24px 18px}
+header h1{margin:0 0 7px;font-size:clamp(1.35rem,3vw,2rem)}header p{margin:0;opacity:.92}
+main{max-width:1400px;margin:20px auto;padding:0 14px 40px}.card{background:#fff;border:1px solid #dce3ec;border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 3px 12px #1720330a}
+h2{margin:0 0 12px;font-size:1.2rem}.muted{color:#586579;font-size:.92rem;line-height:1.45}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+button,.filelabel{border:0;border-radius:7px;padding:10px 13px;background:#164b83;color:white;font-weight:700;cursor:pointer;font-size:.9rem}
+button.secondary,.filelabel{background:#e8eef5;color:#18334f}button.green{background:#087d68}button.red{background:#a83232}
+button:hover,.filelabel:hover{filter:brightness(.95)}input,select{font:inherit;width:100%;padding:9px;border:1px solid #c7d2df;border-radius:6px;background:white;min-width:0}
+label{display:block;font-size:.88rem;font-weight:700;margin-bottom:5px}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.wide{grid-column:span 2}.tablewrap{overflow:auto;border:1px solid #dce3ec;border-radius:8px;max-height:460px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;white-space:nowrap}th,td{border-bottom:1px solid #e4e9ef;padding:9px 10px;text-align:left}th{position:sticky;top:0;background:#eaf0f6;z-index:1}tbody tr:nth-child(even){background:#f8fafc}
+.status{padding:9px 12px;border-radius:7px;background:#edf5ff;margin:10px 0;color:#183d68}.status.error{background:#fff0f0;color:#8b2020}
+textarea{width:100%;min-height:125px;font:13px/1.45 Consolas,monospace;border:1px solid #c7d2df;border-radius:7px;padding:10px;white-space:pre;overflow:auto}
+.outputgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.small{font-size:.82rem}
+@media(max-width:800px){.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.outputgrid{grid-template-columns:1fr}}
+@media(max-width:480px){.formgrid{grid-template-columns:1fr}.wide{grid-column:span 1}.card{padding:13px}}
+</style>
+</head>
+<body>
+<header><h1>⚾ Larraun Pilota — Gestor de partidos</h1><p>Consulta el JSON, prepara nuevos partidos y copia los datos a Excel o LibreOffice Calc.</p></header>
+<main>
+<section class="card">
+<h2>1. Partidos que ya están en la web</h2>
+<p class="muted">Se cargan desde <b>data/partidos-no-oficiales.json</b>. Puedes copiar la tabla como texto tabulado y pegarla directamente en Excel, LibreOffice Calc o Google Sheets.</p>
+<div class="actions">
+<button id="loadBtn">↻ Cargar / actualizar JSON</button>
+<button id="copyExisting" class="secondary">Copiar partidos existentes para hoja de cálculo</button>
+<button id="downloadExisting" class="secondary">Descargar tabla existente (.tsv)</button>
+<label class="filelabel" for="jsonFile">Abrir JSON local…</label><input id="jsonFile" type="file" accept=".json,application/json" hidden>
+</div>
+<div id="status" class="status">Cargando partidos…</div>
+<div class="tablewrap"><table id="existingTable"><thead></thead><tbody></tbody></table></div>
+</section>
+
+<section class="card">
+<h2>2. Añadir un partido nuevo</h2>
+<p class="muted">Rellena los campos y pulsa <b>Generar partido</b>. La fecha se guardará en formato <code>AAAA/MM/DD</code> y <code>ofiziala</code> como texto <code>"true"</code> o <code>"false"</code>, igual que en el JSON actual.</p>
+<form id="matchForm">
+<div class="formgrid">
+<div><label for="fecha">Fecha *</label><input id="fecha" type="date" required></div>
+<div><label for="hora">Hora *</label><input id="hora" type="time" required></div>
+<div><label for="zkia">Número / zkia *</label><input id="zkia" type="text" placeholder="Ej. 4 o SUSP" required></div>
+<div><label for="fronton">Frontón *</label><input id="fronton" required placeholder="Ej. Lekunberri"></div>
+<div class="wide"><label for="etxekoa">Equipo local / etxekoa *</label><input id="etxekoa" required placeholder="Ej. LARRAUN (Apellido – Apellido)"></div>
+<div class="wide"><label for="kanpokoak">Equipo visitante / kanpokoak *</label><input id="kanpokoak" required placeholder="Ej. OTRO CLUB (Apellido – Apellido)"></div>
+<div class="wide"><label for="lehiaketa">Competición / lehiaketa *</label><input id="lehiaketa" required placeholder="Ej. NOMBRE DEL TORNEO. GAZTEAK FINALA"></div>
+<div><label for="ofiziala">¿Es oficial?</label><select id="ofiziala"><option value="false">No oficial</option><option value="true">Oficial</option></select></div>
+</div>
+<div class="actions"><button class="green" type="submit">＋ Generar partido</button><button type="button" class="secondary" id="clearForm">Limpiar formulario</button></div>
+</form>
+<div id="newStatus" class="status">Todavía no has generado ningún partido.</div>
+</section>
+
+<section class="card">
+<h2>3. Partidos nuevos generados</h2>
+<p class="muted">Puedes acumular varios registros. Copia la fila tabulada para pegarla en la siguiente fila de tu hoja de cálculo, o descarga los registros en JSON. Los campos siguen el orden del JSON original.</p>
+<div class="actions">
+<button id="copyNew" class="secondary">Copiar filas nuevas para Excel / ODS</button>
+<button id="downloadNewTsv" class="secondary">Descargar filas nuevas (.tsv)</button>
+<button id="downloadNewJson" class="green">Descargar solo partidos nuevos (.json)</button>
+<button id="downloadCombined" class="green">Descargar JSON completo (existentes + nuevos)</button>
+<button id="clearNew" class="red">Vaciar partidos nuevos</button>
+</div>
+<div class="tablewrap"><table id="newTable"><thead></thead><tbody></tbody></table></div>
+<div class="outputgrid" style="margin-top:14px">
+<div><label for="jsonOutput">JSON de los partidos nuevos</label><textarea id="jsonOutput" readonly placeholder="Aquí aparecerá el JSON…"></textarea><div class="actions"><button class="secondary" id="copyJson">Copiar JSON nuevo</button></div></div>
+<div><label for="tsvOutput">Filas para pegar en Excel / ODS (sin cabecera)</label><textarea id="tsvOutput" readonly placeholder="Aquí aparecerán las filas tabuladas…"></textarea><div class="actions"><button class="secondary" id="copyTsv">Copiar filas</button></div></div>
+</div>
+<p class="muted small"><b>Importante:</b> esta página no puede modificar directamente el archivo alojado en la web. Descarga el JSON completo y, cuando hayas comprobado el resultado, sustituye manualmente <code>data/partidos-no-oficiales.json</code> en tu repositorio. Antes de reemplazarlo, conserva una copia de seguridad.</p>
+</section>
+</main>
+<script>
+const JSON_URL = "https://larraunpilota.eus/data/partidos-no-oficiales.json";
+const FIELDS = ["fecha","hora","zkia","fronton","etxekoa","kanpokoak","lehiaketa","ofiziala"];
+const LABELS = ["Fecha","Hora","Zkia","Frontón","Etxekoa (local)","Kanpokoak (visitante)","Lehiaketa (competición)","Ofiziala"];
+let existing = [];
+let added = [];
+
+const $ = id => document.getElementById(id);
+function normalizeMatch(m){
+  const out = {};
+  FIELDS.forEach(k => out[k] = m[k] == null ? "" : String(m[k]));
+  return out;
+}
+function setStatus(message, error=false){$("status").textContent=message;$("status").className="status"+(error?" error":"");}
+function makeTable(tableId, rows, includeHeader=true){
+  const table=$(tableId), thead=table.querySelector("thead"), tbody=table.querySelector("tbody");
+  thead.innerHTML="";tbody.innerHTML="";
+  if(includeHeader){const tr=document.createElement("tr");LABELS.forEach(x=>{const th=document.createElement("th");th.textContent=x;tr.appendChild(th)});thead.appendChild(tr)}
+  rows.forEach(row=>{const tr=document.createElement("tr");FIELDS.forEach(k=>{const td=document.createElement("td");td.textContent=row[k]??"";tr.appendChild(td)});tbody.appendChild(tr)});
+}
+function toTSV(rows, header=false){
+  const clean = v => String(v??"").replace(/\t/g," ").replace(/\r?\n/g," ");
+  const lines=[];
+  if(header) lines.push(LABELS.map(clean).join("\t"));
+  rows.forEach(r=>lines.push(FIELDS.map(k=>clean(r[k])).join("\t")));
+  return lines.join("\r\n");
+}
+async function loadJson(){
+  setStatus("Cargando JSON desde la web…");
+  try{
+    const response=await fetch(JSON_URL,{cache:"no-store"});
+    if(!response.ok) throw new Error("Respuesta HTTP "+response.status);
+    const data=await response.json();
+    if(!Array.isArray(data)) throw new Error("El JSON no contiene una lista de partidos.");
+    existing=data.map(normalizeMatch);
+    makeTable("existingTable",existing);
+    setStatus("Cargados "+existing.length+" partidos desde la web.");
+  }catch(err){
+    setStatus("No se pudo cargar automáticamente: "+err.message+". Si abres este HTML desde tu ordenador, pulsa «Abrir JSON local…» y selecciona el archivo JSON descargado desde la web. Si está alojado en larraunpilota.eus, vuelve a intentarlo.",true);
+  }
+}
+function renderAdded(){
+  makeTable("newTable",added);
+  $("jsonOutput").value=JSON.stringify(added,null,2);
+  $("tsvOutput").value=toTSV(added,false);
+  $("newStatus").textContent=added.length ? "Hay "+added.length+" partido(s) nuevo(s) preparado(s)." : "Todavía no has generado ningún partido.";
+}
+function download(filename, content, type){
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+async function copyText(value, message){
+  if(!value){alert("No hay datos para copiar.");return}
+  try{await navigator.clipboard.writeText(value);alert(message)}
+  catch(e){const ta=document.createElement("textarea");ta.value=value;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();alert(message)}
+}
+$("loadBtn").addEventListener("click",loadJson);
+$("copyExisting").addEventListener("click",()=>copyText(toTSV(existing,true),"Tabla copiada. Pégala en la primera celda de Excel o LibreOffice Calc."));
+$("downloadExisting").addEventListener("click",()=>download("partidos-existentes.tsv",toTSV(existing,true),"text/tab-separated-values;charset=utf-8"));
+$("jsonFile").addEventListener("change",async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try{const data=JSON.parse(await file.text());if(!Array.isArray(data))throw new Error("El archivo debe contener una lista JSON.");existing=data.map(normalizeMatch);makeTable("existingTable",existing);setStatus("Cargados "+existing.length+" partidos desde el archivo local: "+file.name)}catch(err){setStatus("Error al leer el archivo: "+err.message,true)}
+  e.target.value="";
+});
+$("matchForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const rawDate=$("fecha").value;
+  const match={
+    fecha:rawDate.replace(/-/g,"/"),
+    hora:$("hora").value,
+    zkia:$("zkia").value.trim(),
+    fronton:$("fronton").value.trim(),
+    etxekoa:$("etxekoa").value.trim(),
+    kanpokoak:$("kanpokoak").value.trim(),
+    lehiaketa:$("lehiaketa").value.trim(),
+    ofiziala:$("ofiziala").value
+  };
+  if(FIELDS.some(k=>!match[k])){alert("Completa todos los campos.");return}
+  added.push(match);renderAdded();
+  $("newStatus").textContent="Partido generado correctamente. Ya puedes copiar la fila o descargar el JSON.";
+  $("zkia").value=String(Number(match.zkia)+1 || "");
+  $("fronton").focus();
+});
+$("clearForm").addEventListener("click",()=>{$("matchForm").reset();$("fecha").value="";});
+$("copyNew").addEventListener("click",()=>copyText(toTSV(added,false),"Filas copiadas sin cabecera. Pégalas en la primera celda vacía de tu hoja."));
+$("downloadNewTsv").addEventListener("click",()=>download("partidos-nuevos.tsv",toTSV(added,true),"text/tab-separated-values;charset=utf-8"));
+$("downloadNewJson").addEventListener("click",()=>download("partidos-nuevos.json",JSON.stringify(added,null,2)+"\n","application/json;charset=utf-8"));
+$("downloadCombined").addEventListener("click",()=>download("partidos-no-oficiales.json",JSON.stringify(existing.concat(added),null,2)+"\n","application/json;charset=utf-8"));
+$("clearNew").addEventListener("click",()=>{if(confirm("¿Vaciar todos los partidos nuevos generados?")){added=[];renderAdded()}});
+$("copyJson").addEventListener("click",()=>copyText($("jsonOutput").value,"JSON copiado."));
+$("copyTsv").addEventListener("click",()=>copyText($("tsvOutput").value,"Filas copiadas."));
+renderAdded();loadJson();
+</script>
+</body>
+</html>
