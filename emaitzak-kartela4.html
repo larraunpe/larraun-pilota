@@ -920,7 +920,7 @@ document.getElementById("btnExportar").addEventListener("click", async () => {
   paginas.forEach((pagina, indice) => {
     const numero = document.createElement("div");
     numero.className = "numero-pagina";
-    numero.textContent = `PÁGINA ${indice + 1} / ${totalPaginas}`;
+    numero.textContent = `${indice + 1} / ${totalPaginas}`;
     pagina.appendChild(numero);
   });
       paginaActual = crearPagina(headerHTML, footerHTML);
