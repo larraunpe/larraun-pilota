@@ -11,7 +11,7 @@ const TEMPORADA = 2026;
 const ID_COMPETICION_DESDE = 3200;
 const ID_COMPETICION_HASTA = 3330;
 
-const ID_FASE_DESDE = 21057;
+const ID_FASE_DESDE = 21050;
 const ID_FASE_HASTA = 21080;
 
 // Obtener la ruta del directorio actual
