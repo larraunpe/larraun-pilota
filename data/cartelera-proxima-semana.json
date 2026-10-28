@@ -1,8 +1,35 @@
 {
-  "fecha_generacion": "2026-10-28T19:22:09.425Z",
+  "fecha_generacion": "2026-10-28T23:54:55.507Z",
   "semana_numero": 45,
   "total_partidos": 12,
   "partidos": [
+    {
+      "fecha": "2026/11/06",
+      "hora": "19:45 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (U. Astiz - I. Garaño)",
+      "kanpokoak": "BETI ONAK (U. Elizalde - I. Mariezkurrena)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/06",
+      "hora": "19:45 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (O. Iriarte - L. Navarro)",
+      "kanpokoak": "LAGUNAK (A. Beloki - J. Lacabe)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/06",
+      "hora": "19:45 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (I. Ijurko - M. Lazkoz)",
+      "kanpokoak": "LEITZA (H. Txoperena - E. Goikoetxea)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA"
+    },
     {
       "fecha": "2026/11/07",
       "hora": "- !Horario provisional",
@@ -53,42 +80,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ULTZAMA (P. Aldaz - J. Murillo)",
-      "kanpokoak": "LARRAUN (J. Sotil - I. Galartza)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/08",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (U. Astiz - I. Garaño)",
-      "kanpokoak": "BETI ONAK (U. Elizalde - I. Mariezkurrena)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/08",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "IRURTZUN (A. Salaberria - A. Lizarraga)",
-      "kanpokoak": "LARRAUN (I. Nazabal - E. Galarza)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/08",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (O. Iriarte - L. Navarro)",
-      "kanpokoak": "LAGUNAK (A. Beloki - J. Lacabe)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/08",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "BETI ONAK (A. Bidaurreta - R. Fernandez)",
       "kanpokoak": "LARRAUN (A. Eguzkiza - X. Telletxea)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
@@ -107,9 +98,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (I. Ijurko - M. Lazkoz)",
-      "kanpokoak": "LEITZA (H. Txoperena - E. Goikoetxea)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA"
+      "etxekoa": "ULTZAMA (P. Aldaz - J. Murillo)",
+      "kanpokoak": "LARRAUN (J. Sotil - I. Galartza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/08",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "IRURTZUN (A. Salaberria - A. Lizarraga)",
+      "kanpokoak": "LARRAUN (I. Nazabal - E. Galarza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
     }
   ]
 }
