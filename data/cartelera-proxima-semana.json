@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-10-29T13:58:16.871Z",
+  "fecha_generacion": "2026-10-29T19:30:33.117Z",
   "semana_numero": 45,
-  "total_partidos": 24,
+  "total_partidos": 25,
   "partidos": [
     {
       "fecha": "2026/11/04",
@@ -107,6 +107,24 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "ATARRABIA (A. Zabaleta)",
+      "kanpokoak": "LARRAUN (X. Goldaracena)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/07",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Balenciaga)",
+      "kanpokoak": "ALDABIDE (U. Miranda)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/07",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "ALDABIDE (L. Agirre)",
       "kanpokoak": "LARRAUN (E. Balda)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 1. LIGAXKA"
@@ -170,18 +188,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ATARRABIA (A. Zabaleta)",
-      "kanpokoak": "LARRAUN (X. Goldaracena)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/07",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Balenciaga)",
-      "kanpokoak": "ALDABIDE (U. Miranda)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+      "etxekoa": "IRURTZUN (O. Beloki)",
+      "kanpokoak": "LARRAUN (E. Jaka)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/08",
