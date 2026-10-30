@@ -70,6 +70,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-30",
+    "fronton": "Goizueta - Municipal",
+    "etxekoa": "UMORE ONA (A. Makazaga - A. Zubiri) GOIZUETA MUTUBERRIA, Z. ZUBIRI APEZETXEA, A.",
+    "kanpokoak": "LARRAUN (A. Loyarte - O. Mitxaus) LOYARTE GAZTELUMENDI, A. MITXAUS FUENTES, O.",
+    "tanteoa": "2-1",
+    "sets": [
+      "(9-8) (4-9) (3-1)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 1. 2. TALDE",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3231&idFaseEliminatoria=21077&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ariztimuño - A. Mozo) ARIZTIMUÑO ZUBIRIA, L. MOZO BALDA, A.",
@@ -927,6 +941,18 @@
     "sets": [],
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA FINALERDIA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&idFaseEliminatoria=21058&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-30",
+    "fronton": "Pamplona - Frontón Labrit",
+    "etxekoa": "IRURTZUN (I. Olaetxea) OLAETXEA BALDA, I.",
+    "kanpokoak": "LARRAUN (I. Garaño) GARAÑO GASTESI, I.",
+    "tanteoa": "15-18",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BANAKA 1. MAILA FINALA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3256&idFaseEliminatoria=21059&temp=2026",
     "emaitza": "irabazita",
     "ofiziala": true
   },
