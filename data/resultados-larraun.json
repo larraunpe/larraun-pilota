@@ -140,6 +140,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-31",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Ariztimuño - A. Mozo) ARIZTIMUÑO ZUBIRIA, L. MOZO BALDA, A.",
+    "kanpokoak": "ULTZAMA (A. Martinez - J. Arraztoa) ARRAZTOA EZCURRA, J. MARTINEZ LEGARREA, A.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-6) (9-7)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (M. Arruti - E. Domingo) ARRUTI ETCHEVERS, M. DOMINGO FERNANDEZ, E.",
@@ -196,6 +210,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (B. Goikoetxea - L. Goikoetxea) GOIKOETXEA AREVALO, B. GOIKOETXEA AREVALO, L.",
+    "kanpokoak": "ULTZAMA (X. Baraibar - J. Macaya) BARAIBAR INDA, X. MACAYA SABER, J.",
+    "tanteoa": "3-0",
+    "sets": [
+      "(9-4) (9-3) (3-2)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Sanz - A. Buldain) BULDAIN DE LA ROSA, A. SANZ BIANA, M.",
@@ -245,6 +273,20 @@
     "tanteoa": "2-0",
     "sets": [
       "(9-0) (9-2)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Sanz - A. Buldain) BULDAIN DE LA ROSA, A. SANZ BIANA, M.",
+    "kanpokoak": "IRURTZUN (U. Arano - H. Zelaia) ARANO IRIARTE, U. ZELAIA TABAR, H.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(1-9) (0-9)"
     ],
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA SEIN 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3232&temp=2026",
@@ -468,6 +510,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (E. Balda - A. Dorronsoro) BALDA ETXEBERRIA, E. DORRONSORO ALBERO, A.",
+    "kanpokoak": "ABAXITABIDEA (E. Narvaez - E. Petrotx) NARVAEZ ILUNDAIN, E. PETROTX GARCIA DE AZILU, E.",
+    "tanteoa": "4-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3235&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-02",
     "fronton": "Larraintzar - Ulzama",
     "etxekoa": "ULTZAMA (A. Vertiz - M. Iraizoz) IRAIZOZ GARRIZ, M. VERTIZ LATASA, A.",
@@ -639,6 +693,18 @@
     "kanpokoak_original": "ARAXES (G. Arraztio - U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U. ARRAZTIO ESTANGA, G."
   },
   {
+    "fecha": "2026-10-31",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Agirrezabala - A. Apezetxea) AGIRREZABALA VALENCIA, U. APEZETXEA GOIKOETXEA, A.",
+    "kanpokoak": "ALDABIDE (S. Arrizabalaga - T. Arbizu) ARBIZU AIZPURUA, T. ARRIZABALAGA GARZIANDIA, S.",
+    "tanteoa": "12-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3236&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz - S. Galartza) GALARTZA MEÑIKA, S. RUIZ MARTIN, A.",
@@ -684,6 +750,18 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3237&temp=2026",
     "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-31",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "LEITZA (J. Saralegi - A. Amundarain) AMUNDARAIN DELGADO, A. SARALEGI OLANO, J.",
+    "kanpokoak": "LARRAUN (A. Ruiz - S. Galartza) GALARTZA MEÑIKA, S. RUIZ MARTIN, A.",
+    "tanteoa": "17-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA KIMU 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3237&temp=2026",
+    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
@@ -797,6 +875,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-10-30",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (D. Centeno - M. Argaña) ARGAÑA ARRIBILLAGA, M. CENTENO CELAYA, D.",
+    "kanpokoak": "IRURTZUN (X. Sanchez - P. Maudit) MAUDIT SENAR, P. SANCHEZ ONGAY, X.",
+    "tanteoa": "11-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3240&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-03",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga - J. Mitxaus) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
@@ -830,6 +920,18 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3241&temp=2026",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-10-30",
+    "fronton": "Alsasua - Burunda",
+    "etxekoa": "PILOTAJAUKU (A. Arregi - J. Jaca) ARREGI MENDIZABAL, A. JACA LOPEZ DE AGUILETA, J.",
+    "kanpokoak": "LARRAUN (A. Balenciaga - J. Mitxaus) BALENCIAGA GRACIA, A. MITXAUS FUENTES, J.",
+    "tanteoa": "18-10",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO PAREJAS - FSE 1 NKJ - ESKUZ BINAKA HAUR 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3241&temp=2026",
+    "emaitza": "galduta",
     "ofiziala": true
   },
   {
