@@ -100,6 +100,17 @@
   },
   {
     "fecha": "2026/11/06",
+    "hora": "18:00",
+    "zkia": "4",
+    "fronton": "Goizueta - Municipal",
+    "etxekoa": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+    "kanpokoak": "ARKUPE, P. E. (A. Martinez - A. Martinez)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/06",
     "hora": "19:00",
     "zkia": "1",
     "fronton": "Pamplona - Frontón Labrit",
@@ -241,21 +252,10 @@
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
-    {
-    "fecha": "2026/11/07",
-    "hora": "10:00",
-    "zkia": "9",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus)",
-    "kanpokoak": "ULTZAMA (O. Etchepare)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
   {
     "fecha": "2026/11/07",
     "hora": "10:00",
-    "zkia": "10",
+    "zkia": "9",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil)",
     "kanpokoak": "ULTZAMA (J. Olague)",
@@ -266,7 +266,7 @@
   {
     "fecha": "2026/11/07",
     "hora": "10:00",
-    "zkia": "11",
+    "zkia": "10",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Ijurko)",
     "kanpokoak": "LEITZA (A. Ugartemendia)",
