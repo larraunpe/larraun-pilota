@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-11-03T14:53:07.296Z",
+  "fecha_generacion": "2026-11-03T20:49:00.645Z",
   "semana_numero": 46,
-  "total_partidos": 31,
+  "total_partidos": 32,
   "partidos": [
     {
       "fecha": "2026/11/14",
@@ -143,15 +143,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES (M. Mitxeltorena)",
-      "kanpokoak": "LARRAUN (A. Ruiz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "ULTZAMA (A. Martinez)",
       "kanpokoak": "LARRAUN (A. Loyarte)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
@@ -179,6 +170,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "OBERENA (J. Martinez)",
+      "kanpokoak": "LARRAUN (A. Balenciaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "LARRAUN (D. Centeno)",
       "kanpokoak": "ARAXES (B. Esnaola)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
@@ -188,9 +188,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "OBERENA (J. Martinez)",
-      "kanpokoak": "LARRAUN (A. Balenciaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+      "etxekoa": "ARAXES (M. Mitxeltorena)",
+      "kanpokoak": "LARRAUN (A. Ruiz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 3. LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
@@ -209,6 +209,15 @@
       "etxekoa": "ZUGARRALDE (J. Gastesi - T. Ibiriku)",
       "kanpokoak": "LARRAUN (E. Ijurko - I. Ijurko)",
       "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/15",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "OBERENA (M. Crespo - G. Imaz)",
+      "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
