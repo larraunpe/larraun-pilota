@@ -56,6 +56,17 @@
   },
   {
     "fecha": "2026/11/06",
+    "hora": "17:40 !Horario provisional",
+    "zkia": "3",
+    "fronton": "Salinas de Pamplona - Mutilendako",
+    "etxekoa": "MUTILENDAKO (J. Jauregi)",
+    "kanpokoak": "LARRAUN (O. Mitxaus)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/06",
     "hora": "17:45 !Horario provisional",
     "zkia": "2",
     "fronton": "Irurtzun - Bi Aizpe 1",
@@ -265,8 +276,8 @@
   },
   {
     "fecha": "2026/11/07",
-    "hora": "16:30 !Horario provisional",
-    "zkia": "3",
+    "hora": "16:00 !Horario provisional",
+    "zkia": "4",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (M. Fernandez)",
     "kanpokoak": "LARRAUN (U. Otamendi)",
@@ -317,17 +328,6 @@
     "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/07",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "MUTILENDAKO (J. Jauregi)",
-    "kanpokoak": "LARRAUN (O. Mitxaus)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
   },
   {
     "fecha": "2026/11/08",
