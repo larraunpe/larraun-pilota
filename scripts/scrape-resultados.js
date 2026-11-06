@@ -8,8 +8,8 @@ import { fileURLToPath } from "url";
 const BASE = "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu";
 const TEMPORADA = 2026;
 
-const ID_COMPETICION_DESDE = 3200;
-const ID_COMPETICION_HASTA = 3330;
+const ID_COMPETICION_DESDE = 3300;
+const ID_COMPETICION_HASTA = 3430;
 
 const ID_FASE_DESDE = 21050;
 const ID_FASE_HASTA = 21200;
