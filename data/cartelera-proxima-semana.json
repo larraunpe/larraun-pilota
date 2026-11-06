@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-11-05T15:13:19.442Z",
+  "fecha_generacion": "2026-11-06T14:49:23.728Z",
   "semana_numero": 46,
-  "total_partidos": 41,
+  "total_partidos": 42,
   "partidos": [
     {
       "fecha": "2026/11/10",
@@ -40,6 +40,15 @@
       "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINAL ZORTZIRENAK"
     },
     {
+      "fecha": "2026/11/12",
+      "hora": "22:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (X. Goldarazena - A. Etxarri)",
+      "kanpokoak": "G.PILOTA (J. Beloki - X. Urrestarazu)",
+      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA"
+    },
+    {
       "fecha": "2026/11/14",
       "hora": "09:30 !Horario provisional",
       "zkia": "10",
@@ -50,21 +59,12 @@
     },
     {
       "fecha": "2026/11/14",
-      "hora": "16:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Pamplona - Larrabide - Trinkete",
-      "etxekoa": "ZUGARRALDE (J. Gastesi - T. Ibiriku)",
-      "kanpokoak": "LARRAUN (E. Ijurko - I. Ijurko)",
-      "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "16:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Pamplona - Larrabide - Trinkete",
-      "etxekoa": "MUTILENDAKO (J. Iragi - D. Sala)",
-      "kanpokoak": "LARRAUN (J. Ezkurdia - M. Lazkoz)",
-      "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA"
+      "hora": "10:00 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Goizueta - Municipal",
+      "etxekoa": "UMORE ONA (A. Salaberria)",
+      "kanpokoak": "LARRAUN (I. Sotil)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
@@ -107,63 +107,36 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "OBERENA (U. Arcelus)",
-      "kanpokoak": "LARRAUN (U. Otamendi)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+      "etxekoa": "ULTZAMA (A. Martinez)",
+      "kanpokoak": "LARRAUN (A. Loyarte)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "PAZ ZIGANDA (M. Perez)",
-      "kanpokoak": "LARRAUN (J. Irujo)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+      "etxekoa": "LARRAUN (L. Ariztimuño)",
+      "kanpokoak": "LAGUNAK (E. Aldaz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (M. Laso)",
-      "kanpokoak": "LEITZA (A. Zubillaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+      "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
+      "kanpokoak": "AUÑAMENDI (I. Pedroarena - L. Iriarte)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (O. Ijurko)",
-      "kanpokoak": "IRURTZUN (E. Esain)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "UMORE ONA (A. Salaberria)",
-      "kanpokoak": "LARRAUN (I. Sotil)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
-      "kanpokoak": "LARRAUN (A. Astiz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (E. Jaka)",
-      "kanpokoak": "UMORE ONA (J. Larin)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
+      "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
+      "kanpokoak": "SAN JUAN (I. Guerra - I. Iribarren)",
+      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
@@ -251,24 +224,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (L. Ariztimuño)",
-      "kanpokoak": "LAGUNAK (E. Aldaz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ULTZAMA (A. Martinez)",
-      "kanpokoak": "LARRAUN (A. Loyarte)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "LARRAUN (L. Soria)",
       "kanpokoak": "PILOTAJAUKU (H. Amillano)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA"
@@ -278,18 +233,99 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
-      "kanpokoak": "AUÑAMENDI (I. Pedroarena - L. Iriarte)",
-      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
+      "etxekoa": "OBERENA (U. Arcelus)",
+      "kanpokoak": "LARRAUN (U. Otamendi)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
-      "kanpokoak": "SAN JUAN (I. Guerra - I. Iribarren)",
-      "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
+      "etxekoa": "LARRAUN (M. Laso)",
+      "kanpokoak": "LEITZA (A. Zubillaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (E. Jaka)",
+      "kanpokoak": "UMORE ONA (J. Larin)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "PAZ ZIGANDA (M. Perez)",
+      "kanpokoak": "LARRAUN (J. Irujo)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
+      "kanpokoak": "LARRAUN (A. Astiz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (O. Ijurko)",
+      "kanpokoak": "IRURTZUN (E. Esain)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "Pamplona - Mendillorri-Trinkete",
+      "etxekoa": "MUTILENDAKO (J. Iragi - D. Sala)",
+      "kanpokoak": "LARRAUN (J. Ezkurdia - M. Lazkoz)",
+      "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "Pamplona - Mendillorri-Trinkete",
+      "etxekoa": "ZUGARRALDE (J. Gastesi - T. Ibiriku)",
+      "kanpokoak": "LARRAUN (E. Ijurko - I. Ijurko)",
+      "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/15",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "OBERENA (M. Crespo - G. Imaz)",
+      "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/15",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (M. Eguzkiza)",
+      "kanpokoak": "Descanso",
+      "lehiaketa": "30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/15",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (M. Eguzkiza - M. Galartza)",
+      "kanpokoak": "DOS PAREDES (I. Arbizu - L. Artazcoz)",
+      "lehiaketa": "TRINKETE NKT - EMAKUMEZKO PALETA GOMA TRINKETE 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
@@ -314,9 +350,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ULTZAMA (I. Landiribar - G. Otxandorena)",
-      "kanpokoak": "LARRAUN (O. Iriarte - L. Navarro)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
+      "etxekoa": "LARRAUN (I. Nazabal - E. Galarza)",
+      "kanpokoak": "OBERENA (J. Rekalde - U. Apeztegia)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
@@ -332,9 +368,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (I. Nazabal - E. Galarza)",
-      "kanpokoak": "OBERENA (J. Rekalde - U. Apeztegia)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
+      "etxekoa": "ULTZAMA (I. Landiribar - G. Otxandorena)",
+      "kanpokoak": "LARRAUN (O. Iriarte - L. Navarro)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/15",
@@ -344,33 +380,6 @@
       "etxekoa": "ZUGARRALDE (X. Garcia - A. Villanueva)",
       "kanpokoak": "LARRAUN (I. Ijurko - M. Lazkoz)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/15",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (M. Eguzkiza)",
-      "kanpokoak": "Descanso",
-      "lehiaketa": "30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/15",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "OBERENA (M. Crespo - G. Imaz)",
-      "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/15",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (X. Goldarazena - A. Etxarri)",
-      "kanpokoak": "G.PILOTA (J. Beloki - X. Urrestarazu)",
-      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA"
     }
   ]
 }
