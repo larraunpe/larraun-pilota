@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-07T13:46:19.207Z",
+  "fecha_generacion": "2026-11-07T18:29:45.889Z",
   "semana_numero": 46,
   "total_partidos": 42,
   "partidos": [
@@ -56,6 +56,15 @@
       "etxekoa": "OBERENA (J. Martinez)",
       "kanpokoak": "LARRAUN (A. Balenciaga)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/13",
+      "hora": "18:00 !Horario provisional",
+      "zkia": "5",
+      "fronton": "Bera - Eztegara",
+      "etxekoa": "BORTZIRIAK (E. Zubieta)",
+      "kanpokoak": "LARRAUN (X. Goldaracena)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/13",
@@ -242,8 +251,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
-      "kanpokoak": "LARRAUN (A. Astiz)",
+      "etxekoa": "PAZ ZIGANDA (M. Perez)",
+      "kanpokoak": "LARRAUN (J. Irujo)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
     },
     {
@@ -251,8 +260,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "PAZ ZIGANDA (M. Perez)",
-      "kanpokoak": "LARRAUN (J. Irujo)",
+      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
+      "kanpokoak": "LARRAUN (A. Astiz)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
     },
     {
@@ -269,15 +278,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "BORTZIRIAK (E. Zubieta)",
-      "kanpokoak": "LARRAUN (X. Goldaracena)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "ARAXES (M. Mitxeltorena)",
       "kanpokoak": "LARRAUN (A. Ruiz)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 3. LIGAXKA"
@@ -287,8 +287,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ZUGARRALDE (E. Azanza)",
-      "kanpokoak": "LARRAUN (U. Agirrezabala)",
+      "etxekoa": "IRURTZUN (M. Goikoetxea)",
+      "kanpokoak": "LARRAUN (A. Apezetxea)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
@@ -305,8 +305,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "IRURTZUN (M. Goikoetxea)",
-      "kanpokoak": "LARRAUN (A. Apezetxea)",
+      "etxekoa": "ZUGARRALDE (E. Azanza)",
+      "kanpokoak": "LARRAUN (U. Agirrezabala)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
