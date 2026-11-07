@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-07T18:29:45.889Z",
+  "fecha_generacion": "2026-11-07T20:30:50.656Z",
   "semana_numero": 46,
   "total_partidos": 42,
   "partidos": [
@@ -98,36 +98,27 @@
       "hora": "20:30 !Horario provisional",
       "zkia": "2",
       "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (D. Centeno)",
-      "kanpokoak": "ARAXES (B. Esnaola)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
+      "etxekoa": "LARRAUN (L. Ariztimuño)",
+      "kanpokoak": "LAGUNAK (E. Aldaz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/13",
       "hora": "20:30 !Horario provisional",
       "zkia": "3",
       "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (E. Jaka)",
-      "kanpokoak": "UMORE ONA (J. Larin)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
+      "etxekoa": "LARRAUN (U. Ariztimuño)",
+      "kanpokoak": "SAN MIGUEL (J. Chasco)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/13",
       "hora": "20:30 !Horario provisional",
       "zkia": "4",
       "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (O. Ijurko)",
-      "kanpokoak": "IRURTZUN (E. Esain)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/13",
-      "hora": "20:30 !Horario provisional",
-      "zkia": "5",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (M. Laso)",
-      "kanpokoak": "LEITZA (A. Zubillaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+      "etxekoa": "LARRAUN (D. Centeno)",
+      "kanpokoak": "ARAXES (B. Esnaola)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
@@ -143,24 +134,6 @@
       "hora": "10:30 !Horario provisional",
       "zkia": "1",
       "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (L. Ariztimuño)",
-      "kanpokoak": "LAGUNAK (E. Aldaz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "10:30 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (U. Ariztimuño)",
-      "kanpokoak": "SAN MIGUEL (J. Chasco)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "10:30 !Horario provisional",
-      "zkia": "3",
-      "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (I. Larreta - G. Astiz)",
       "kanpokoak": "AUÑAMENDI (I. Pedroarena - L. Iriarte)",
       "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
@@ -168,11 +141,38 @@
     {
       "fecha": "2026/11/14",
       "hora": "10:30 !Horario provisional",
-      "zkia": "4",
+      "zkia": "2",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi)",
       "kanpokoak": "SAN JUAN (I. Guerra - I. Iribarren)",
       "lehiaketa": "1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE  LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "10:30 !Horario provisional",
+      "zkia": "3",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (E. Jaka)",
+      "kanpokoak": "UMORE ONA (J. Larin)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "10:30 !Horario provisional",
+      "zkia": "4",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (O. Ijurko)",
+      "kanpokoak": "IRURTZUN (E. Esain)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "10:30 !Horario provisional",
+      "zkia": "5",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Laso)",
+      "kanpokoak": "LEITZA (A. Zubillaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
