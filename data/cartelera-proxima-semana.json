@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-08T14:07:00.614Z",
+  "fecha_generacion": "2026-11-08T19:22:42.900Z",
   "semana_numero": 46,
   "total_partidos": 42,
   "partidos": [
@@ -50,21 +50,21 @@
     },
     {
       "fecha": "2026/11/13",
-      "hora": "17:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Pamplona - Oberena F 1",
-      "etxekoa": "OBERENA (J. Martinez)",
-      "kanpokoak": "LARRAUN (A. Balenciaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/13",
       "hora": "17:45 !Horario provisional",
-      "zkia": "3",
+      "zkia": "2",
       "fronton": "Irurtzun - Bi Aizpe 1",
       "etxekoa": "IRURTZUN (M. Goikoetxea)",
       "kanpokoak": "LARRAUN (A. Apezetxea)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/13",
+      "hora": "18:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+      "etxekoa": "OBERENA (J. Martinez)",
+      "kanpokoak": "LARRAUN (A. Balenciaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
     },
     {
       "fecha": "2026/11/13",
@@ -104,21 +104,21 @@
     },
     {
       "fecha": "2026/11/13",
-      "hora": "19:00 !Horario provisional",
-      "zkia": "1",
-      "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
-      "etxekoa": "OBERENA (M. Crespo - G. Imaz)",
-      "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/13",
       "hora": "19:30 !Horario provisional",
       "zkia": "1",
       "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
       "etxekoa": "OBERENA (U. Arcelus)",
       "kanpokoak": "LARRAUN (U. Otamendi)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/13",
+      "hora": "20:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+      "etxekoa": "OBERENA (M. Crespo - G. Imaz)",
+      "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
     },
     {
       "fecha": "2026/11/13",
@@ -314,6 +314,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
+      "kanpokoak": "LARRAUN (A. Astiz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/14",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "PAZ ZIGANDA (M. Perez)",
       "kanpokoak": "LARRAUN (J. Irujo)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
@@ -323,9 +332,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "SAN FCO. JAVIER (E. Ramiro)",
-      "kanpokoak": "LARRAUN (A. Astiz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+      "etxekoa": "ARAXES (M. Mitxeltorena)",
+      "kanpokoak": "LARRAUN (A. Ruiz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 3. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
@@ -344,15 +353,6 @@
       "etxekoa": "LARRAUN (A. Dorronsoro)",
       "kanpokoak": "Descanso",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/14",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ARAXES (M. Mitxeltorena)",
-      "kanpokoak": "LARRAUN (A. Ruiz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 3. LIGAXKA"
     },
     {
       "fecha": "2026/11/14",
