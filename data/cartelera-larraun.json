@@ -320,17 +320,6 @@
   },
   {
     "fecha": "2026/11/14",
-    "hora": "10:00",
-    "zkia": "5",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (M. Laso)",
-    "kanpokoak": "LEITZA (A. Zubillaga)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/14",
     "hora": "11:00",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
@@ -414,6 +403,17 @@
     "etxekoa": "LARRAUN (J. Sotil - I. Galartza)",
     "kanpokoak": "IRURTZUN (I. Olaetxea - E. Santesteban)",
     "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/15",
+    "hora": "10:30",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Laso)",
+    "kanpokoak": "LEITZA (A. Zubillaga)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
