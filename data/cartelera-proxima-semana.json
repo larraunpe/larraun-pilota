@@ -1,8 +1,17 @@
 {
-  "fecha_generacion": "2026-11-11T21:49:49.470Z",
+  "fecha_generacion": "2026-11-12T15:49:20.530Z",
   "semana_numero": 47,
-  "total_partidos": 43,
+  "total_partidos": 44,
   "partidos": [
+    {
+      "fecha": "2026/11/18",
+      "hora": "17:30",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Laso)",
+      "kanpokoak": "LEITZA (A. Ugartemendia)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINAL LAURDENAK"
+    },
     {
       "fecha": "2026/11/20",
       "hora": "18:00 !Horario provisional",
@@ -116,15 +125,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (U. Otamendi)",
-      "kanpokoak": "LEITZA (J. Baleztena)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "LARRAUN (I. Sotil)",
       "kanpokoak": "IRURTZUN (O. Razkin)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 2. LIGAXKA"
@@ -226,6 +226,15 @@
       "fronton": "-",
       "etxekoa": "BETI ONAK (M. Leiza)",
       "kanpokoak": "LARRAUN (M. Laso)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/21",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (U. Otamendi)",
+      "kanpokoak": "LEITZA (J. Baleztena)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
     },
     {
