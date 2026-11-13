@@ -401,11 +401,35 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-13",
+    "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+    "etxekoa": "OBERENA (J. Martinez) MARTINEZ MURILLO, J.",
+    "kanpokoak": "LARRAUN (A. Balenciaga) BALENCIAGA GRACIA, A.",
+    "tanteoa": "13-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3336&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-06",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (O. Beloki) BELOKI ETXARRI, O.",
     "kanpokoak": "LARRAUN (E. Jaka) JAKA LASARTE, E.",
     "tanteoa": "18-3",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3339&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (E. Jaka) JAKA LASARTE, E.",
+    "kanpokoak": "UMORE ONA (J. Larin) LARIN ZUBIETA, J.",
+    "tanteoa": "0-18",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3339&temp=2026",
@@ -449,6 +473,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-13",
+    "fronton": "Goizueta - Municipal",
+    "etxekoa": "UMORE ONA (A. Salaberria) SALABERRIA ALSUA, A.",
+    "kanpokoak": "LARRAUN (I. Sotil) SOTIL MIKEO, I.",
+    "tanteoa": "18-7",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3342&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-08",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
@@ -488,6 +524,19 @@
     "emaitza": "irabazita",
     "ofiziala": true,
     "etxekoa_original": "UMORE ONA (A. Sagardui - J. Sotil) SAGARDUI LEKUONA, A. SOTIL MIKEO, J."
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Pamplona - Oberena F 1",
+    "etxekoa": "OBERENA (M. Crespo - G. Imaz) CRESPO CATALAN, M. IMAZ EZKURRA, G.",
+    "kanpokoak": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+    "tanteoa": "14-22",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3352&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true,
+    "kanpokoak_original": "UMORE ONA (A. Sagardui - J. Sotil) GOMEZ BASURTO, U. SAGARDUI LEKUONA, A."
   },
   {
     "fecha": "2026-11-07",
