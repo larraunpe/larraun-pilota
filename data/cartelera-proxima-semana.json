@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-14T16:42:19.479Z",
+  "fecha_generacion": "2026-11-14T18:55:11.549Z",
   "semana_numero": 47,
   "total_partidos": 44,
   "partidos": [
@@ -247,21 +247,21 @@
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA"
     },
     {
+      "fecha": "2026/11/21",
+      "hora": "18:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (O. Iriarte - L. Navarro)",
+      "kanpokoak": "IRURTZUN (A. Yaben - P. Gorraiz)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
+    },
+    {
       "fecha": "2026/11/22",
       "hora": "10:00 !Horario provisional",
       "zkia": "1",
       "fronton": "Lekunberri - Jaian Jai",
       "etxekoa": "LARRAUN (E. Ijurko - J. Ezkurdia)",
       "kanpokoak": "BETI ONAK (A. Romero - E. Santesteban)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/22",
-      "hora": "10:00 !Horario provisional",
-      "zkia": "2",
-      "fronton": "Lekunberri - Jaian Jai",
-      "etxekoa": "LARRAUN (O. Iriarte - L. Navarro)",
-      "kanpokoak": "IRURTZUN (A. Yaben - P. Gorraiz)",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA"
     },
     {
