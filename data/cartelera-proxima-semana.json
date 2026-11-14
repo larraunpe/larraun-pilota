@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-14T01:55:39.508Z",
+  "fecha_generacion": "2026-11-14T13:35:07.153Z",
   "semana_numero": 47,
   "total_partidos": 44,
   "partidos": [
@@ -20,6 +20,15 @@
       "etxekoa": "LEITZA (L. Santos)",
       "kanpokoak": "LARRAUN (L. Soria)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/20",
+      "hora": "18:00 !Horario provisional",
+      "zkia": "2",
+      "fronton": "Alsasua - Burunda",
+      "etxekoa": "PILOTAJAUKU (I. Zabala)",
+      "kanpokoak": "LARRAUN (L. Ariztimuño)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/20",
@@ -305,15 +314,6 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "PILOTAJAUKU (I. Zabala)",
-      "kanpokoak": "LARRAUN (L. Ariztimuño)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "ATARRABIA (L. Urtasun)",
       "kanpokoak": "LARRAUN (U. Ariztimuño)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
@@ -332,9 +332,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LAGUNAK (E. Caamaño)",
-      "kanpokoak": "LARRAUN (A. Balenciaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+      "etxekoa": "ARAXES (A. Gorostidi)",
+      "kanpokoak": "LARRAUN (E. Jaka)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/21",
@@ -350,9 +350,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES (A. Gorostidi)",
-      "kanpokoak": "LARRAUN (E. Jaka)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
+      "etxekoa": "LAGUNAK (E. Caamaño)",
+      "kanpokoak": "LARRAUN (A. Balenciaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
     },
     {
       "fecha": "2026/11/22",
