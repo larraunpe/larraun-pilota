@@ -354,6 +354,48 @@
   },
   {
     "fecha": "2026-11-07",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Loyarte) LOYARTE GAZTELUMENDI, A.",
+    "kanpokoak": "ALDABIDE (Y. Saez) SAEZ DE VICUÑA LOPEZ, Y.",
+    "tanteoa": "1-2",
+    "sets": [
+      "(7-9) (9-8) (1-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3327&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Larraintzar - Ulzama",
+    "etxekoa": "ULTZAMA (A. Martinez) MARTINEZ LEGARREA, A.",
+    "kanpokoak": "LARRAUN (A. Loyarte) LOYARTE GAZTELUMENDI, A.",
+    "tanteoa": "0-2",
+    "sets": [
+      "(5-9) (7-9)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3327&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Ariztimuño) ARIZTIMUÑO ZUBIRIA, L.",
+    "kanpokoak": "LAGUNAK (E. Aldaz) ALDAZ GONZALEZ, E.",
+    "tanteoa": "1-2",
+    "sets": [
+      "(6-9) (9-7) (2-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3327&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-07",
     "fronton": "Arbizu - Arbizu",
     "etxekoa": "ALDABIDE (L. Agirre) AGIRRE ARRUTI, L.",
     "kanpokoak": "LARRAUN (E. Balda) BALDA ETXEBERRIA, E.",
@@ -374,6 +416,18 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3333&temp=2026",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Lodosa - San Francisco Javier",
+    "etxekoa": "SAN FCO. JAVIER (E. Ramiro) RAMIRO BASTRAKOVA, E.",
+    "kanpokoak": "LARRAUN (A. Astiz) ASTIZ VELASCO, A.",
+    "tanteoa": "18-12",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3333&temp=2026",
+    "emaitza": "galduta",
     "ofiziala": true
   },
   {
@@ -676,6 +730,18 @@
     "etxekoa": "ZUGARRALDE (H. Urmeneta - A. Maiza) MAIZA ILUNDAIN, A. URMENETA AMAT, H.",
     "kanpokoak": "LARRAUN (E. Ijurko - J. Ezkurdia) EZKURDIA ROTETA, J. IJURKO BAKAIKUA, E.",
     "tanteoa": "22-12",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3365&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-14",
+    "fronton": "Estella - Remontival",
+    "etxekoa": "SAN MIGUEL (J. Ochotorena - X. Mateo) MATEO LOS ARCOS, X. OCHOTORENA APESTEGUIA, J.",
+    "kanpokoak": "LARRAUN (E. Ijurko - J. Ezkurdia) EZKURDIA ROTETA, J. IJURKO BAKAIKUA, E.",
+    "tanteoa": "22-10",
     "sets": [],
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3365&temp=2026",
