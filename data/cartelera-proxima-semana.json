@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-14T18:55:11.549Z",
+  "fecha_generacion": "2026-11-14T22:23:30.156Z",
   "semana_numero": 47,
   "total_partidos": 44,
   "partidos": [
@@ -301,6 +301,15 @@
       "lehiaketa": "30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA"
     },
     {
+      "fecha": "2026/11/22",
+      "hora": "12:00 !Horario provisional",
+      "zkia": "1",
+      "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
+      "etxekoa": "OBERENA (O. Canabal - J. Cuairan)",
+      "kanpokoak": "LARRAUN (J. Sotil - I. Galartza)",
+      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA"
+    },
+    {
       "fecha": "2026/11/21",
       "hora": "- !Horario provisional",
       "zkia": "-",
@@ -332,6 +341,15 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "LAGUNAK (E. Caamaño)",
+      "kanpokoak": "LARRAUN (A. Balenciaga)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/21",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "ARAXES (A. Gorostidi)",
       "kanpokoak": "LARRAUN (E. Jaka)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA"
@@ -344,15 +362,6 @@
       "etxekoa": "PAZ ZIGANDA (I. Irure)",
       "kanpokoak": "LARRAUN (A. Astiz)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LAGUNAK (E. Caamaño)",
-      "kanpokoak": "LARRAUN (A. Balenciaga)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
     },
     {
       "fecha": "2026/11/22",
@@ -377,9 +386,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "OBERENA (O. Canabal - J. Cuairan)",
-      "kanpokoak": "LARRAUN (J. Sotil - I. Galartza)",
-      "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA"
+      "etxekoa": "ROTXAPEA (M. Zandio - J. Merindano)",
+      "kanpokoak": "LARRAUN (X. Goldarazena - A. Etxarri)",
+      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA"
     },
     {
       "fecha": "2026/11/22",
@@ -389,15 +398,6 @@
       "etxekoa": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
       "kanpokoak": "Descanso",
       "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/22",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "ROTXAPEA (M. Zandio - J. Merindano)",
-      "kanpokoak": "LARRAUN (X. Goldarazena - A. Etxarri)",
-      "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA"
     }
   ]
 }
