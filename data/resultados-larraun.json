@@ -611,6 +611,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Sotil - I. Galartza) GALARTZA ROTETA, I. SOTIL MIKEO, J.",
+    "kanpokoak": "IRURTZUN (I. Olaetxea - E. Santesteban) OLAETXEA BALDA, I. SANTESTEBAN BENDOIRO, E.",
+    "tanteoa": "17-22",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT- MUTILEN ESKUZ BINAKA OHOREZKO MAILA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3363&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-05",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Astiz - I. Garaño) ASTIZ OLASKOAGA, U. EGUZKIZA ARGAÑA, A.",
@@ -676,6 +688,18 @@
     "etxekoa": "BETI ONAK (A. Bidaurreta - R. Fernandez) BIDAURRETA ZABALA, A. COMAS , N.",
     "kanpokoak": "LARRAUN (A. Eguzkiza - X. Telletxea) TELLETXEA BULDAIN, X. GOIKOETXEA LOPETEGI, B.",
     "tanteoa": "6-22",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3365&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Eguzkiza - X. Telletxea) TELLETXEA BULDAIN, X. GOIKOETXEA LOPETEGI, B.",
+    "kanpokoak": "P.P.SAN SEBASTIAN (J. Tirado - O. Lerga) LERGA IRISARRI, O. LIZARRAGA OLCOZ, O.",
+    "tanteoa": "22-14",
     "sets": [],
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3365&temp=2026",
@@ -753,6 +777,42 @@
     ],
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA TRINKETE NKT - EMAKUMEZKO PALETA GOMA TRINKETE 1. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3374&idFaseEliminatoria=21186&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-15",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "LARRAUN (M. Eguzkiza) EGUZKIZA ARGAÑA, M.",
+    "kanpokoak": "LARRAUN (M. Galartza) GALARTZA ROTETA, M.",
+    "tanteoa": "13-20",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3376&idFaseEliminatoria=21188&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-15",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "AUÑAMENDI (M. Ardanaz) ARDANAZ DUFUR, M.",
+    "kanpokoak": "LARRAUN (M. Eguzkiza) EGUZKIZA ARGAÑA, M.",
+    "tanteoa": "20-9",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3376&idFaseEliminatoria=21188&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-15",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "TENIS (I. Arraztoa) ARRAZTOA LAZARO, I.",
+    "kanpokoak": "LARRAUN (M. Galartza) GALARTZA ROTETA, M.",
+    "tanteoa": "19-20",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3376&idFaseEliminatoria=21188&temp=2026",
     "emaitza": "irabazita",
     "ofiziala": true
   }
