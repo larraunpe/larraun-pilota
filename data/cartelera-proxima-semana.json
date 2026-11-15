@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-15T14:27:03.860Z",
+  "fecha_generacion": "2026-11-15T20:04:28.516Z",
   "semana_numero": 47,
   "total_partidos": 44,
   "partidos": [
@@ -20,6 +20,15 @@
       "etxekoa": "LEITZA (L. Santos)",
       "kanpokoak": "LARRAUN (L. Soria)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/20",
+      "hora": "17:45 !Horario provisional",
+      "zkia": "4",
+      "fronton": "Irurtzun - Bi Aizpe 1",
+      "etxekoa": "IRURTZUN (X. Sanchez)",
+      "kanpokoak": "LARRAUN (D. Centeno)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/20",
@@ -323,18 +332,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "PAZ ZIGANDA (I. Irure)",
-      "kanpokoak": "LARRAUN (A. Astiz)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
+      "etxekoa": "LAGUNAK (A. Antimasberes)",
+      "kanpokoak": "LARRAUN (O. Ijurko)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
     },
     {
       "fecha": "2026/11/21",
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LAGUNAK (A. Antimasberes)",
-      "kanpokoak": "LARRAUN (O. Ijurko)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA"
+      "etxekoa": "PAZ ZIGANDA (I. Irure)",
+      "kanpokoak": "LARRAUN (A. Astiz)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
     },
     {
       "fecha": "2026/11/21",
@@ -353,15 +362,6 @@
       "etxekoa": "LAGUNAK (E. Caamaño)",
       "kanpokoak": "LARRAUN (A. Balenciaga)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/21",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "IRURTZUN (X. Sanchez)",
-      "kanpokoak": "LARRAUN (D. Centeno)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/21",
