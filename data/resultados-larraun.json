@@ -96,6 +96,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-14",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Bengoetxea - U. Goñi) BENGOETXEA LARRARTE, L. GOÑI ELUSTONDO, U.",
+    "kanpokoak": "SAN JUAN (I. Guerra - I. Iribarren) GUERRA SANDUA, I. IRIBARREN LEKUMBERRI, I.",
+    "tanteoa": "25-21",
+    "sets": [],
+    "modalidad": "NKJ 36M PALETA GOMAZ NESKAK 1 FASEA NKJ - PGOMA NESKA BINAKA GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3271&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-02",
     "fronton": "Sarriguren - Salesianos",
     "etxekoa": "DOS PAREDES (N. Esparza - M. Larraza) ESPARZA BUN, N. LARRAZA SENAR, M.",
@@ -390,18 +402,6 @@
   },
   {
     "fecha": "2026-11-07",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Irujo) *Equipo no presentado",
-    "kanpokoak": "ABAXITABIDEA (H. Gila) GILA CATALAN, H.",
-    "tanteoa": "0*-18",
-    "sets": [],
-    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3333&temp=2026",
-    "emaitza": "berdinketa",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-11-07",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "ATARRABIA (A. Zabaleta) ZABALETA POLO, A.",
     "kanpokoak": "LARRAUN (X. Goldaracena) GOLDARACENA LANZ, X.",
@@ -521,6 +521,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-14",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (M. Laso) LASO ETXARRI, M.",
+    "kanpokoak": "LEITZA (A. Zubillaga) *Equipo no presentado",
+    "tanteoa": "18-0*",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3341&temp=2026",
+    "emaitza": "berdinketa",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil) SOTIL MIKEO, I.",
@@ -542,20 +554,6 @@
     "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3342&temp=2026",
     "emaitza": "galduta",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-11-08",
-    "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko) IJURKO BAKAIKUA, E. IJURKO BAKAIKUA, I.",
-    "kanpokoak": "LARRAUN (J. Ezkurdia - M. Lazkoz) EZKURDIA ROTETA, J. LAZKOZ ARTANGA, M.",
-    "tanteoa": "2-0",
-    "sets": [
-      "(15-14) (15-10)"
-    ],
-    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3347&temp=2026",
-    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
@@ -659,6 +657,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-15",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (I. Nazabal - E. Galarza) GALARZA NOGUERA, E. NAZABAL OTAMENDI, I.",
+    "kanpokoak": "OBERENA (J. Rekalde - U. Apeztegia) CRESPO CATALAN, M. REKALDE OIAREGI, J.",
+    "tanteoa": "22-7",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3364&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-07",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Iriarte - L. Navarro) IRIARTE CILVETI, O. LASO ETXARRI, M.",
@@ -740,6 +750,18 @@
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3366&temp=2026",
     "emaitza": "berdinketa",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-14",
+    "fronton": "Burlada - Askatasuna",
+    "etxekoa": "ZUGARRALDE (X. Garcia - A. Villanueva) GARCIA ETXEONDO, X. VILLANUEVA ANSORENA, A.",
+    "kanpokoak": "LARRAUN (I. Ijurko - M. Lazkoz) IJURKO BAKAIKUA, I. LAZKOZ ARTANGA, M.",
+    "tanteoa": "11-22",
+    "sets": [],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3366&temp=2026",
+    "emaitza": "irabazita",
     "ofiziala": true
   },
   {
