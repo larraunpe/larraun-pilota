@@ -45,7 +45,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "17:15 !Horario provisional",
+    "hora": "17:30 !Horario provisional",
     "zkia": "1",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA (L. Santos)",
@@ -62,17 +62,6 @@
     "etxekoa": "ARAXES (A. Gorostidi)",
     "kanpokoak": "LARRAUN (E. Jaka)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KADETE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/20",
-    "hora": "17:45 !Horario provisional",
-    "zkia": "4",
-    "fronton": "Irurtzun - Bi Aizpe 1",
-    "etxekoa": "IRURTZUN (X. Sanchez)",
-    "kanpokoak": "LARRAUN (D. Centeno)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
@@ -100,17 +89,6 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "18:00 !Horario provisional",
-    "zkia": "2",
-    "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
-    "etxekoa": "OBERENA (E. IBARRA )",
-    "kanpokoak": "LARRAUN (J. Irujo)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/20",
     "hora": "18:15 !Horario provisional",
     "zkia": "2",
     "fronton": "Villava - Paz Ziganda",
@@ -127,17 +105,6 @@
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
     "kanpokoak": "MUTILENDAKO (J. Iragi - D. Sala)",
-    "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/20",
-    "hora": "20:00 !Horario provisional",
-    "zkia": "2",
-    "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (J. Ezkurdia - M. Lazkoz)",
-    "kanpokoak": "ZUGARRALDE (J. Gastesi - T. Ibiriku)",
     "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
@@ -172,6 +139,17 @@
     "etxekoa": "DOS PAREDES (M. Larraza - U. Murillo)",
     "kanpokoak": "LARRAUN (M. Eguzkiza - M. Galartza)",
     "lehiaketa": "TRINKETE NKT - EMAKUMEZKO PALETA GOMA TRINKETE 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:15 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (X. Sanchez)",
+    "kanpokoak": "LARRAUN (D. Centeno)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
@@ -331,7 +309,18 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:30 !Horario provisional",
+    "zkia": "1",
+    "fronton": "Burlada - Askatasuna",
+    "etxekoa": "ZUGARRALDE (M. Baleztena - A. Agirre)",
+    "kanpokoak": "LARRAUN (A. Eguzkiza - X. Telletxea)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "17:30 !Horario provisional",
     "zkia": "2",
     "fronton": "Villava - Lorenzo Goikoa",
     "etxekoa": "BETI ONAK (U. Esain - U. Olaz)",
@@ -342,23 +331,12 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:30 !Horario provisional",
     "zkia": "3",
     "fronton": "Villava - Lorenzo Goikoa",
     "etxekoa": "BETI ONAK (M. Leiza)",
     "kanpokoak": "LARRAUN (M. Laso)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "17:30 !Horario provisional",
-    "zkia": "1",
-    "fronton": "Burlada - Askatasuna",
-    "etxekoa": "ZUGARRALDE (M. Baleztena - A. Agirre)",
-    "kanpokoak": "LARRAUN (A. Eguzkiza - X. Telletxea)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
