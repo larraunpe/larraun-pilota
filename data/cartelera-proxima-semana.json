@@ -1,7 +1,7 @@
 {
-  "fecha_generacion": "2026-11-16T00:36:03.717Z",
+  "fecha_generacion": "2026-11-16T16:40:03.585Z",
   "semana_numero": 48,
-  "total_partidos": 18,
+  "total_partidos": 17,
   "partidos": [
     {
       "fecha": "2026/11/28",
@@ -46,15 +46,6 @@
       "fronton": "-",
       "etxekoa": "LARRAUN (A. Astiz)",
       "kanpokoak": "ARDOI (U. Olleta)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/28",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (J. Irujo)",
-      "kanpokoak": "SAN MIGUEL (S. Alves)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA"
     },
     {
