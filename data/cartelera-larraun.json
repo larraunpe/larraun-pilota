@@ -133,17 +133,6 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "20:30",
-    "zkia": "3",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus)",
-    "kanpokoak": "ABAXITABIDEA (U. Fillat)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/20",
     "hora": "20:30 !Horario provisional",
     "zkia": "1",
     "fronton": "Pamplona - Mendillorri-Trinkete",
@@ -168,6 +157,17 @@
     "fecha": "2026/11/21",
     "hora": "09:30 !Horario provisional",
     "zkia": "1",
+    "fronton": "Villava - Atarrabia",
+    "etxekoa": "ATARRABIA (L. Urtasun)",
+    "kanpokoak": "LARRAUN (U. Ariztimuño)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:30 !Horario provisional",
+    "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (X. Goldaracena)",
     "kanpokoak": "AGOITZ (A. Ardanaz)",
@@ -180,6 +180,17 @@
     "hora": "09:30 !Horario provisional",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (E. Balda)",
+    "kanpokoak": "UMORE ONA (U. Larralde)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:30 !Horario provisional",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel)",
     "kanpokoak": "PILOTAJAUKU (J. Tainta)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
@@ -189,7 +200,7 @@
   {
     "fecha": "2026/11/21",
     "hora": "09:30 !Horario provisional",
-    "zkia": "3",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Loyarte)",
     "kanpokoak": "IRURTZUN (U. Arano)",
@@ -200,7 +211,7 @@
   {
     "fecha": "2026/11/21",
     "hora": "09:30 !Horario provisional",
-    "zkia": "4",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus)",
     "kanpokoak": "ALDABIDE (I. Flores)",
@@ -211,22 +222,11 @@
   {
     "fecha": "2026/11/21",
     "hora": "09:30 !Horario provisional",
-    "zkia": "5",
+    "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Dorronsoro)",
     "kanpokoak": "LEITZA (P. Azpiroz)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
-    "zkia": "6",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (E. Balda)",
-    "kanpokoak": "UMORE ONA (U. Larralde)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 1. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
@@ -458,17 +458,6 @@
     "etxekoa": "LAGUNAK (A. Antimasberes)",
     "kanpokoak": "LARRAUN (O. Ijurko)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA GAZTE 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "ATARRABIA (L. Urtasun)",
-    "kanpokoak": "LARRAUN (U. Ariztimuño)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
