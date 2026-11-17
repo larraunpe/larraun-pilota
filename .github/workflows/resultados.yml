@@ -23,7 +23,7 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias
-        run: npm install axios cheerio
+        run: npm install axios cheerio iconv-lite
       
       
 
