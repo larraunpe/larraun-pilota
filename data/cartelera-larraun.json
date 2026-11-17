@@ -45,7 +45,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Leitza - Amazabal",
     "etxekoa": "LEITZA (L. Santos)",
@@ -56,7 +56,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "17:45 !Horario provisional",
+    "hora": "17:45",
     "zkia": "4",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (A. Gorostidi)",
@@ -67,7 +67,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "2",
     "fronton": "Alsasua - Burunda",
     "etxekoa": "PILOTAJAUKU (I. Zabala)",
@@ -78,7 +78,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (E. Caamaño)",
@@ -89,7 +89,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "18:15 !Horario provisional",
+    "hora": "18:15",
     "zkia": "2",
     "fronton": "Villava - Paz Ziganda",
     "etxekoa": "PAZ ZIGANDA (I. Irure)",
@@ -100,7 +100,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "19:30 !Horario provisional",
+    "hora": "19:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Apezetxea)",
@@ -111,7 +111,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "19:30 !Horario provisional",
+    "hora": "19:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Agirrezabala)",
@@ -122,7 +122,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "19:30 !Horario provisional",
+    "hora": "19:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Astiz - I. Garaño)",
@@ -133,7 +133,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "20:00 !Horario provisional",
+    "hora": "20:00",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
@@ -144,7 +144,7 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "20:30 !Horario provisional",
+    "hora": "20:30",
     "zkia": "1",
     "fronton": "Pamplona - Mendillorri-Trinkete",
     "etxekoa": "DOS PAREDES (M. Larraza - U. Murillo)",
@@ -155,7 +155,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:00 !Horario provisional",
+    "hora": "09:00",
     "zkia": "1",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "ATARRABIA (L. Urtasun)",
@@ -166,7 +166,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15 !Horario provisional",
+    "hora": "09:15",
     "zkia": "1",
     "fronton": "Irurtzun - Bi Aizpe 1",
     "etxekoa": "IRURTZUN (X. Sanchez)",
@@ -177,7 +177,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (X. Goldaracena)",
@@ -188,7 +188,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (E. Balda)",
@@ -199,30 +199,8 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "3",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (L. Ojuel)",
-    "kanpokoak": "PILOTAJAUKU (J. Tainta)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
-    "zkia": "4",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Loyarte)",
-    "kanpokoak": "IRURTZUN (U. Arano)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
-    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus)",
     "kanpokoak": "ALDABIDE (I. Flores)",
@@ -232,7 +210,29 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
+    "zkia": "4",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Ojuel)",
+    "kanpokoak": "PILOTAJAUKU (J. Tainta)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:30",
+    "zkia": "5",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Loyarte)",
+    "kanpokoak": "IRURTZUN (U. Arano)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:30",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Dorronsoro)",
@@ -243,7 +243,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30 !Horario provisional",
+    "hora": "09:30",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil)",
@@ -331,7 +331,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Burlada - Askatasuna",
     "etxekoa": "ZUGARRALDE (M. Baleztena - A. Agirre)",
@@ -342,7 +342,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "2",
     "fronton": "Villava - Lorenzo Goikoa",
     "etxekoa": "BETI ONAK (U. Esain - U. Olaz)",
@@ -353,7 +353,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "3",
     "fronton": "Villava - Lorenzo Goikoa",
     "etxekoa": "BETI ONAK (M. Leiza)",
@@ -364,7 +364,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "18:00 !Horario provisional",
+    "hora": "18:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Iriarte - L. Navarro)",
@@ -375,7 +375,7 @@
   },
   {
     "fecha": "2026/11/22",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (U. Otamendi)",
@@ -386,7 +386,7 @@
   },
   {
     "fecha": "2026/11/22",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (E. Ijurko - J. Ezkurdia)",
@@ -394,6 +394,17 @@
     "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/22",
+    "hora": "11:00",
+    "zkia": "1",
+    "fronton": "Pamplona - Rotxapea",
+    "etxekoa": "ROTXAPEA (M. Zandio - J. Merindano)",
+    "kanpokoak": "LARRAUN (X. Goldarazena - A. Etxarri)",
+    "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
   },
   {
     "fecha": "2026/11/22",
@@ -441,7 +452,7 @@
   },
   {
     "fecha": "2026/11/22",
-    "hora": "12:00 !Horario provisional",
+    "hora": "12:00",
     "zkia": "1",
     "fronton": "Pamplona - Oberena Frontón Baldo Peralta",
     "etxekoa": "OBERENA (O. Canabal - J. Cuairan)",
@@ -452,8 +463,8 @@
   },
   {
     "fecha": "2026/11/22",
-    "hora": "12:30 !Horario provisional",
-    "zkia": "2",
+    "hora": "12:30",
+    "zkia": "1",
     "fronton": "Barañain - Retegi",
     "etxekoa": "LAGUNAK (A. Antimasberes)",
     "kanpokoak": "LARRAUN (O. Ijurko)",
@@ -469,17 +480,6 @@
     "etxekoa": "LARRAUN (I. Ijurko - M. Lazkoz)",
     "kanpokoak": "Descanso",
     "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 3. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/22",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "ROTXAPEA (M. Zandio - J. Merindano)",
-    "kanpokoak": "LARRAUN (X. Goldarazena - A. Etxarri)",
-    "lehiaketa": "36 M PILOTALEKUA PGOMAZ NKT - GIZONEZKOEN BINAKAKO GOMAZKO PALETA 4. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   },
