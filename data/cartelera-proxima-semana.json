@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-18T16:06:32.262Z",
+  "fecha_generacion": "2026-11-18T23:46:00.820Z",
   "semana_numero": 48,
   "total_partidos": 17,
   "partidos": [
@@ -62,27 +62,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (A. Apezetxea)",
-      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/28",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
       "etxekoa": "MUTILENDAKO (O. Zabaleta)",
       "kanpokoak": "LARRAUN (U. Agirrezabala)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/28",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (D. Centeno)",
-      "kanpokoak": "PILOTAJAUKU (J. Jaca)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
@@ -98,9 +80,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (L. Ojuel)",
-      "kanpokoak": "PILOTAJAUKU (X. Perianez)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA"
+      "etxekoa": "LARRAUN (D. Centeno)",
+      "kanpokoak": "PILOTAJAUKU (J. Jaca)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/28",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Apezetxea)",
+      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
@@ -119,6 +110,15 @@
       "etxekoa": "LARRAUN (U. Ariztimuño)",
       "kanpokoak": "BERRIOZAR (B. Garai)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/28",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (L. Ojuel)",
+      "kanpokoak": "PILOTAJAUKU (X. Perianez)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
