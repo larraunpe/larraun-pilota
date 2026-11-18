@@ -133,17 +133,6 @@
   },
   {
     "fecha": "2026/11/20",
-    "hora": "20:00",
-    "zkia": "1",
-    "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
-    "kanpokoak": "MUTILENDAKO (J. Iragi - D. Sala)",
-    "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/20",
     "hora": "20:30",
     "zkia": "1",
     "fronton": "Pamplona - Mendillorri-Trinkete",
@@ -177,7 +166,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (X. Goldaracena)",
@@ -188,19 +177,8 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
     "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (E. Balda)",
-    "kanpokoak": "UMORE ONA (U. Larralde)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "09:30",
-    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus)",
     "kanpokoak": "ALDABIDE (I. Flores)",
@@ -210,7 +188,18 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (E. Balda)",
+    "kanpokoak": "UMORE ONA (U. Larralde)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:15",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel)",
@@ -221,7 +210,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Loyarte)",
@@ -232,7 +221,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Dorronsoro)",
@@ -243,7 +232,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:30",
+    "hora": "09:15",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil)",
@@ -254,8 +243,8 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "10:00",
-    "zkia": "4",
+    "hora": "18:00",
+    "zkia": "1",
     "fronton": "Biscarret - Biscarret",
     "etxekoa": "OBERENA (N. Asiain)",
     "kanpokoak": "LARRAUN (U. Goñi)",
@@ -265,8 +254,19 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "10:00",
-    "zkia": "6",
+    "hora": "18:00",
+    "zkia": "2",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "AUÑAMENDI (L. Iriarte)",
+    "kanpokoak": "OBERENA (N. Asiain)",
+    "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA KADETE 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "18:00",
+    "zkia": "3",
     "fronton": "Biscarret - Biscarret",
     "etxekoa": "LARRAUN (U. Goñi)",
     "kanpokoak": "AUÑAMENDI (L. Iriarte)",
@@ -328,6 +328,17 @@
     "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BINAKA KADETE 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "12:30",
+    "zkia": "1",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
+    "kanpokoak": "MUTILENDAKO (J. Iragi - D. Sala)",
+    "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
   },
   {
     "fecha": "2026/11/21",
