@@ -120,25 +120,25 @@
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
-{
+  {
     "fecha": "2026/11/20",
     "hora": "19:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus)",
-    "kanpokoak": "ABAXITABIDEA (U. Fillat)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
+    "etxekoa": "LARRAUN (U. Astiz - I. Garaño)",
+    "kanpokoak": "IRURTZUN (H. Salcedo - X. Lazkoz)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
   {
     "fecha": "2026/11/20",
-    "hora": "19:30",
-    "zkia": "4",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Astiz - I. Garaño)",
-    "kanpokoak": "IRURTZUN (H. Salcedo - X. Lazkoz)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. LIGAXKA",
+    "hora": "20:00",
+    "zkia": "1",
+    "fronton": "Lekunberri - Trinkete",
+    "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
+    "kanpokoak": "MUTILENDAKO (J. Iragi - D. Sala)",
+    "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
@@ -177,7 +177,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (X. Goldaracena)",
@@ -188,19 +188,8 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
     "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (O. Mitxaus)",
-    "kanpokoak": "ALDABIDE (I. Flores)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 1. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "09:15",
-    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (E. Balda)",
     "kanpokoak": "UMORE ONA (U. Larralde)",
@@ -210,7 +199,18 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
+    "zkia": "3",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (O. Mitxaus)",
+    "kanpokoak": "ALDABIDE (I. Flores)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 1. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/21",
+    "hora": "09:30",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel)",
@@ -221,7 +221,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Loyarte)",
@@ -232,7 +232,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
     "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Dorronsoro)",
@@ -243,7 +243,7 @@
   },
   {
     "fecha": "2026/11/21",
-    "hora": "09:15",
+    "hora": "09:30",
     "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil)",
@@ -328,17 +328,6 @@
     "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BINAKA KADETE 2. LIGAXKA",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/21",
-    "hora": "12:30",
-    "zkia": "1",
-    "fronton": "Lekunberri - Trinkete",
-    "etxekoa": "LARRAUN (E. Ijurko - I. Ijurko)",
-    "kanpokoak": "MUTILENDAKO (J. Iragi - D. Sala)",
-    "lehiaketa": "TRINKETE NKT - ESKUZ BINAKA TRINKETE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
   },
   {
     "fecha": "2026/11/21",
