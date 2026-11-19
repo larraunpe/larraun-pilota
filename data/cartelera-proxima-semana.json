@@ -1,8 +1,17 @@
 {
-  "fecha_generacion": "2026-11-18T23:46:00.820Z",
+  "fecha_generacion": "2026-11-19T16:13:21.891Z",
   "semana_numero": 48,
-  "total_partidos": 17,
+  "total_partidos": 18,
   "partidos": [
+    {
+      "fecha": "2026/11/25",
+      "hora": "18:00",
+      "zkia": "1",
+      "fronton": "Lekunberri - Jaian Jai",
+      "etxekoa": "LARRAUN (M. Laso)",
+      "kanpokoak": "BETI ONAK (M. Leiza)",
+      "lehiaketa": "MANO INDIVIDUAL 4 1/2 NKJ - ESKUZ BANAKA 4 ½ GAZTE Guillermo Mazo FINALERDIA"
+    },
     {
       "fecha": "2026/11/28",
       "hora": "10:30",
@@ -71,9 +80,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (A. Balenciaga)",
-      "kanpokoak": "PILOTAJAUKU (A. Arregi)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
+      "etxekoa": "LARRAUN (A. Apezetxea)",
+      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
@@ -89,9 +98,9 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (A. Apezetxea)",
-      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
+      "etxekoa": "LARRAUN (A. Balenciaga)",
+      "kanpokoak": "PILOTAJAUKU (A. Arregi)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
