@@ -1,5 +1,5 @@
 {
-  "fecha_generacion": "2026-11-20T00:07:02.666Z",
+  "fecha_generacion": "2026-11-20T15:52:02.774Z",
   "semana_numero": 48,
   "total_partidos": 18,
   "partidos": [
@@ -71,27 +71,18 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
+      "etxekoa": "LARRAUN (U. Ariztimuño)",
+      "kanpokoak": "BERRIOZAR (B. Garai)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/28",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
       "etxekoa": "MUTILENDAKO (O. Zabaleta)",
       "kanpokoak": "LARRAUN (U. Agirrezabala)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/28",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (A. Apezetxea)",
-      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
-    },
-    {
-      "fecha": "2026/11/28",
-      "hora": "- !Horario provisional",
-      "zkia": "-",
-      "fronton": "-",
-      "etxekoa": "LARRAUN (D. Centeno)",
-      "kanpokoak": "PILOTAJAUKU (J. Jaca)",
-      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
     },
     {
       "fecha": "2026/11/28",
@@ -107,8 +98,17 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "ARAXES (G. Arraztio)",
-      "kanpokoak": "LARRAUN (A. Dorronsoro)",
+      "etxekoa": "LARRAUN (D. Centeno)",
+      "kanpokoak": "PILOTAJAUKU (J. Jaca)",
+      "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA"
+    },
+    {
+      "fecha": "2026/11/28",
+      "hora": "- !Horario provisional",
+      "zkia": "-",
+      "fronton": "-",
+      "etxekoa": "LARRAUN (A. Apezetxea)",
+      "kanpokoak": "BERRIOZAR (A. Ezkurra)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
@@ -116,8 +116,8 @@
       "hora": "- !Horario provisional",
       "zkia": "-",
       "fronton": "-",
-      "etxekoa": "LARRAUN (U. Ariztimuño)",
-      "kanpokoak": "BERRIOZAR (B. Garai)",
+      "etxekoa": "ARAXES (G. Arraztio)",
+      "kanpokoak": "LARRAUN (A. Dorronsoro)",
       "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA"
     },
     {
