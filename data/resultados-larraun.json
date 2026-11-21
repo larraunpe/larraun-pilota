@@ -1,5 +1,61 @@
 [
   {
+    "fecha": "2026-11-13",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Soria) SORIA IRIARTE, L.",
+    "kanpokoak": "PILOTAJAUKU (H. Amillano) AMILLANO RUBIO, H.",
+    "tanteoa": "2-1",
+    "sets": [
+      "(2-9) (9-8) (3-2)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-20",
+    "fronton": "Leitza - Amazabal",
+    "etxekoa": "LEITZA (L. Santos) SANTOS ALGUERO, L.",
+    "kanpokoak": "LARRAUN (L. Soria) SORIA IRIARTE, L.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-2) (9-4)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-07",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (L. Ojuel) OJUEL ASTIBIA, L.",
+    "kanpokoak": "IRURTZUN (E. Prieto) *Equipo no presentado",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-0) (9-0)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
+    "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-13",
+    "fronton": "Betelu - Escuelas",
+    "etxekoa": "ARAXES (A. Circujano) CIRCUJANO IRURZUN, A.",
+    "kanpokoak": "LARRAUN (L. Ojuel) OJUEL ASTIBIA, L.",
+    "tanteoa": "2-0",
+    "sets": [
+      "(9-4) (9-3)"
+    ],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-10-21",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (E. Oreja) OREJA ALTUNA, E.",
@@ -236,62 +292,6 @@
     "ofiziala": true
   },
   {
-    "fecha": "2026-11-13",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (L. Soria) SORIA IRIARTE, L.",
-    "kanpokoak": "PILOTAJAUKU (H. Amillano) AMILLANO RUBIO, H.",
-    "tanteoa": "2-1",
-    "sets": [
-      "(2-9) (9-8) (3-2)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
-    "emaitza": "irabazita",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-11-20",
-    "fronton": "Leitza - Amazabal",
-    "etxekoa": "LEITZA (L. Santos) SANTOS ALGUERO, L.",
-    "kanpokoak": "LARRAUN (L. Soria) SORIA IRIARTE, L.",
-    "tanteoa": "2-0",
-    "sets": [
-      "(9-2) (9-4)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
-    "emaitza": "galduta",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-11-07",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (L. Ojuel) OJUEL ASTIBIA, L.",
-    "kanpokoak": "IRURTZUN (E. Prieto) *Equipo no presentado",
-    "tanteoa": "2-0",
-    "sets": [
-      "(9-0) (9-0)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
-    "emaitza": "irabazita",
-    "ofiziala": true
-  },
-  {
-    "fecha": "2026-11-13",
-    "fronton": "Betelu - Escuelas",
-    "etxekoa": "ARAXES (A. Circujano) CIRCUJANO IRURZUN, A.",
-    "kanpokoak": "LARRAUN (L. Ojuel) OJUEL ASTIBIA, L.",
-    "tanteoa": "2-0",
-    "sets": [
-      "(9-4) (9-3)"
-    ],
-    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA SEIN 3. LIGAXKA",
-    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3328&idFaseEliminatoria=21135&temp=2026",
-    "emaitza": "galduta",
-    "ofiziala": true
-  },
-  {
     "fecha": "2026-11-07",
     "fronton": "Arbizu - Arbizu",
     "etxekoa": "ALDABIDE (L. Agirre) AGIRRE ARRUTI, L.",
@@ -357,6 +357,18 @@
     "etxekoa": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
     "kanpokoak": "SAN MIGUEL (J. Chasco) CHASCO GANUZA, J.",
     "tanteoa": "10-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3331&idFaseEliminatoria=21138&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Villava - Atarrabia",
+    "etxekoa": "ATARRABIA (L. Urtasun) URTASUN AZKONA, L.",
+    "kanpokoak": "LARRAUN (U. Ariztimuño) ARIZTIMUÑO ZUBIRIA, U.",
+    "tanteoa": "18-2",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3331&idFaseEliminatoria=21138&temp=2026",
@@ -448,6 +460,18 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-20",
+    "fronton": "Villava - Paz Ziganda",
+    "etxekoa": "PAZ ZIGANDA (I. Irure) IRURE AIZPURUA, I.",
+    "kanpokoak": "LARRAUN (A. Astiz) ASTIZ VELASCO, A.",
+    "tanteoa": "18-13",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 4. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3333&idFaseEliminatoria=21140&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-07",
     "fronton": "Villava - Atarrabia",
     "etxekoa": "ATARRABIA (A. Zabaleta) ZABALETA POLO, A.",
@@ -477,6 +501,18 @@
     "etxekoa": "LARRAUN (D. Centeno) CENTENO CELAYA, D.",
     "kanpokoak": "ARAXES (B. Esnaola) ESNAOLA SOTIL, B.",
     "tanteoa": "4-18",
+    "sets": [],
+    "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3335&idFaseEliminatoria=21142&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Irurtzun - Bi Aizpe 1",
+    "etxekoa": "IRURTZUN (X. Sanchez) SANCHEZ ONGAY, X.",
+    "kanpokoak": "LARRAUN (D. Centeno) CENTENO CELAYA, D.",
+    "tanteoa": "18-4",
     "sets": [],
     "modalidad": "NKJ - 36 M ESKUZ MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3335&idFaseEliminatoria=21142&temp=2026",
@@ -886,6 +922,20 @@
     "ofiziala": true
   },
   {
+    "fecha": "2026-11-20",
+    "fronton": "Pamplona - Mendillorri-Trinkete",
+    "etxekoa": "DOS PAREDES (M. Larraza - U. Murillo) LARRAZA SENAR, M. MURILLO GOÑI, U.",
+    "kanpokoak": "LARRAUN (M. Eguzkiza - M. Galartza) EGUZKIZA ARGAÑA, M. GALARTZA ROTETA, M.",
+    "tanteoa": "2-1",
+    "sets": [
+      "(12-15) (15-9) (10-6)"
+    ],
+    "modalidad": "NAFARROAKO KLUBEN TXAPELKETA TRINKETE NKT - EMAKUMEZKO PALETA GOMA TRINKETE 1. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3374&idFaseEliminatoria=21186&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
     "fecha": "2026-11-15",
     "fronton": "Biscarret - Biscarret",
     "etxekoa": "LARRAUN (M. Eguzkiza) EGUZKIZA ARGAÑA, M.",
@@ -919,6 +969,54 @@
     "modalidad": "NAFARROAKO KLUBEN TXAPELKETA 30 M FRONTOIA NKT - EMAKUMEZKO PGOMA BANAKA LIGAXKA",
     "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3376&idFaseEliminatoria=21188&temp=2026",
     "emaitza": "irabazita",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Pamplona - Tenis",
+    "etxekoa": "LARRAUN (I. Garaño - L. Legarra) GARAÑO GASTESI, I. LEGARRA IJURKO, L.",
+    "kanpokoak": "OBERENA (A. Echeverria - J. Fernandez) ECHEVERRIA VELAZ, A. FERNANDEZ SESMA, J.",
+    "tanteoa": "3-15",
+    "sets": [],
+    "modalidad": "NKJ - 30M PALETA GOMA FEMENINA NKJ - PGOMA NESKA BINAKA KADETE 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3381&idFaseEliminatoria=21204&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Pamplona - Tenis",
+    "etxekoa": "OBERENA (M. Glaria - I. Urtasun) GLARIA BUENO, M. URTASUN ECHEVERRIA, I.",
+    "kanpokoak": "LARRAUN (I. Garaño - L. Legarra) GARAÑO GASTESI, I. LEGARRA IJURKO, L.",
+    "tanteoa": "15-4",
+    "sets": [],
+    "modalidad": "NKJ - 30M PALETA GOMA FEMENINA NKJ - PGOMA NESKA BINAKA KADETE 2. LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3381&idFaseEliminatoria=21204&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "SAN JUAN (I. Guerra) GUERRA SANDUA, I.",
+    "kanpokoak": "LARRAUN (L. Bengoetxea) BENGOETXEA LARRARTE, L.",
+    "tanteoa": "15-10",
+    "sets": [],
+    "modalidad": "NKJ - 30M PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3382&idFaseEliminatoria=21205&temp=2026",
+    "emaitza": "galduta",
+    "ofiziala": true
+  },
+  {
+    "fecha": "2026-11-21",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "OBERENA (I. Nuin) NUIN OLITE, I.",
+    "kanpokoak": "LARRAUN (L. Bengoetxea) BENGOETXEA LARRARTE, L.",
+    "tanteoa": "15-7",
+    "sets": [],
+    "modalidad": "NKJ - 30M PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA GAZTE LIGAXKA",
+    "url": "https://www.fnpelota.com/pub/modalidadComp.asp?idioma=eu&idCompeticion=3382&idFaseEliminatoria=21205&temp=2026",
+    "emaitza": "galduta",
     "ofiziala": true
   }
 ]
