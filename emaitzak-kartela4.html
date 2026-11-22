@@ -585,14 +585,43 @@ function estado(p){
     return b>a?"win":"lose";
 }
 
-function ordenar(lista){
-  return lista.sort((a,b)=>{
-    const fa=new Date(a.fecha+"T"+(a.hora||"00:00"));
-    const fb=new Date(b.fecha+"T"+(b.hora||"00:00"));
-    return fb - fa;
-  });
+// Orden de categorías: de la más joven a la más mayor.
+function obtenerOrdenCategoria(p){
+  const texto = [p.categoria, p.kategoria, p.talde, p.lehiaketa, p.modalidad]
+    .filter(Boolean).join(" ").toLowerCase()
+    .normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+
+  const categorias = [
+    { orden: 0, claves: ["prebenjamin", "pre-benjamin", "sein txiki", "txiki"] },
+    { orden: 1, claves: ["benjamin", "benjaminak", "sein"] },
+    { orden: 2, claves: ["alevin", "alebin", "kimu"] },
+    { orden: 3, claves: ["infantil", "haur"] },
+    { orden: 4, claves: ["cadete", "kadete"] },
+    { orden: 5, claves: ["juvenil", "gazte"] },
+    { orden: 6, claves: ["senior", "nagusi", "helduak", "adulto"] }
+  ];
+  for (const categoria of categorias){
+    if (categoria.claves.some(clave => texto.includes(clave))) return categoria.orden;
+  }
+  return 99;
 }
 
+function ordenar(lista){
+  return lista.sort((a,b)=>{
+    // 1. Categoría, de menor a mayor edad.
+    const categoriaA = obtenerOrdenCategoria(a);
+    const categoriaB = obtenerOrdenCategoria(b);
+    if (categoriaA !== categoriaB) return categoriaA - categoriaB;
+
+    // 2. Día: primero los partidos más recientes.
+    const fechaA = new Date(a.fecha+"T"+(a.hora||"00:00"));
+    const fechaB = new Date(b.fecha+"T"+(b.hora||"00:00"));
+    if (fechaA.getTime() !== fechaB.getTime()) return fechaB - fechaA;
+
+    // 3. Frontón, en orden alfabético.
+    return (a.fronton || "").localeCompare(b.fronton || "", "eu", {sensitivity:"base"});
+  });
+}
 function filtrarPeriodo(lista){
   const hoy=new Date();
   hoy.setHours(23,59,59,999);
@@ -807,13 +836,13 @@ async function cargarDatos() {
   const todos = filtrarPeriodo([...DATOS_EJEMPLO.larraun, ...DATOS_EJEMPLO.noOficiales]);
   
   const nkj = todos.filter(p => DATOS_EJEMPLO.larraun.some(e => e === p));
-  const ofizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala === true);
-  const ezOfizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && p.ofiziala !== true);
-  
-  lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkj), "bloque-nkj"));
-  lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizial), "bloque-ofizial"));
+  const ofizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && (p.ofiziala === true || p.ofiziala === "true"));
+  const ezOfizial = todos.filter(p => !DATOS_EJEMPLO.larraun.some(e => e === p) && !(p.ofiziala === true || p.ofiziala === "true"));
+
+  // Primero todos los resultados oficiales (incluido NEPF), después los no oficiales.
+  lista.appendChild(bloque("TXAPELKETA OFIZIALAK", ordenar([...nkj, ...ofizial]), "bloque-ofizial"));
   lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizial), "bloque-ezofizial"));
-  
+
   // Intentar cargar datos reales
   try {
     const [larraunReal, noOficialesReal, fasesReal, categoriasReal] = await Promise.all([
@@ -832,10 +861,10 @@ async function cargarDatos() {
       const nkjReal = todosReales.filter(p => larraunReal.includes(p));
       const ofizialReal = todosReales.filter(p => !larraunReal.includes(p) && (p.ofiziala === true || p.ofiziala === "true"));
       const ezOfizialReal = todosReales.filter(p => !larraunReal.includes(p) && !(p.ofiziala === true || p.ofiziala === "true"));
-      
+
       lista.innerHTML = "";
-      lista.appendChild(bloque("NEPF EMAITZAK", ordenar(nkjReal), "bloque-nkj"));
-      lista.appendChild(bloque("BESTE TXAPELKETAK OFIZIALAK", ordenar(ofizialReal), "bloque-ofizial"));
+      // Primero todos los resultados oficiales (incluido NEPF), después los no oficiales.
+      lista.appendChild(bloque("TXAPELKETA OFIZIALAK", ordenar([...nkjReal, ...ofizialReal]), "bloque-ofizial"));
       lista.appendChild(bloque("TXAPELKETAK EZ OFIZIALAK", ordenar(ezOfizialReal), "bloque-ezofizial"));
     }
   } catch(e) {
