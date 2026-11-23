@@ -155,6 +155,17 @@
   },
   {
     "fecha": "2026/11/28",
+    "hora": "10:00 !Horario provisional",
+    "zkia": "5",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Mitxaus)",
+    "kanpokoak": "HUARTE (E. Bronte)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/28",
     "hora": "10:30",
     "zkia": "2",
     "fronton": "Pamplona - Tenis",
