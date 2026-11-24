@@ -1,11 +1,4 @@
-[    {
-    "fecha": "2026/11/29",
-    "hora": "09:30",
-    "zkia": "5",
-    "fronton": "Elizondo",
-    "etxekoa": "HERNANI (Makazaga – Aranburu)",
-    "kanpokoak": "LARRAUN (Ijurko – Otamendi)",
-    "lehiaketa": "BAZTANGO TXAPELKETA. GAZTEAK KANPORAKETA",
-    "ofiziala": "false"
-  }
+[ 
+  {     "fecha": "2026/11/27",     "hora": "19:00",     "zkia": "1",     "fronton": "Uharte – Toki Alai",     "etxekoa": "LARRAUN (Nazabal)",     "kanpokoak": "OBERENA (Sarasibar)",     "lehiaketa": "UHARTE 4 ½ TXAPELKETA. HELDUAK FINAL LAURDENAK",     "ofiziala": "false"   },
+  {     "fecha": "2026/11/29",     "hora": "09:30",     "zkia": "5",     "fronton": "Elizondo",     "etxekoa": "HERNANI (Makazaga – Aranburu)",     "kanpokoak": "LARRAUN (Ijurko – Otamendi)",     "lehiaketa": "BAZTANGO TXAPELKETA. GAZTEAK KANPORAKETA",     "ofiziala": "false"   }
 ]
