@@ -169,6 +169,17 @@
     "hora": "10:00",
     "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (J. Mitxaus)",
+    "kanpokoak": "HUARTE (E. Bronte)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+{
+    "fecha": "2026/11/28",
+    "hora": "10:00",
+    "zkia": "6",
+    "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (D. Centeno)",
     "kanpokoak": "PILOTAJAUKU (J. Jaca)",
     "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 2. LIGAXKA",
@@ -178,7 +189,7 @@
   {
     "fecha": "2026/11/28",
     "hora": "10:00",
-    "zkia": "6",
+    "zkia": "7",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga)",
     "kanpokoak": "PILOTAJAUKU (A. Arregi)",
