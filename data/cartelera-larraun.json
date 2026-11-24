@@ -23,7 +23,7 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "17:00 !Horario provisional",
+    "hora": "17:00",
     "zkia": "8",
     "fronton": "Salinas de Pamplona - Mutilendako",
     "etxekoa": "MUTILENDAKO (O. Zabaleta)",
@@ -34,7 +34,7 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "17:45 !Horario provisional",
+    "hora": "17:45",
     "zkia": "2",
     "fronton": "Betelu - Escuelas",
     "etxekoa": "ARAXES (G. Arraztio)",
@@ -45,7 +45,18 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "20:00 !Horario provisional",
+    "hora": "18:00",
+    "zkia": "1",
+    "fronton": "Goizueta - Escuelas",
+    "etxekoa": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
+    "kanpokoak": "OBERENA (A. Arrastia - L. Oscoz)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA FINAL LAURDENAK",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/27",
+    "hora": "20:00",
     "zkia": "1",
     "fronton": "Lekunberri - Trinkete",
     "etxekoa": "LARRAUN (M. Eguzkiza - M. Galartza)",
@@ -56,7 +67,7 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "20:30 !Horario provisional",
+    "hora": "20:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Loyarte)",
@@ -67,7 +78,7 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "20:30 !Horario provisional",
+    "hora": "20:30",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Soria)",
@@ -78,7 +89,7 @@
   },
   {
     "fecha": "2026/11/27",
-    "hora": "20:30 !Horario provisional",
+    "hora": "20:30",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (O. Mitxaus)",
@@ -88,8 +99,19 @@
     "kokalekua": "Lekunberri/Aldatz"
   },
   {
+    "fecha": "2026/11/27",
+    "hora": "21:00",
+    "zkia": "1",
+    "fronton": "Villava - Lorenzo Goikoa",
+    "etxekoa": "BETI ONAK (S. Yaniz - A. Mina)",
+    "kanpokoak": "LARRAUN (U. Astiz - I. Garaño)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. FINAL LAURDENAK",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
     "fecha": "2026/11/28",
-    "hora": "00:00 !Horario provisional",
+    "hora": "00:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Sotil)",
@@ -100,18 +122,7 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "2",
-    "fronton": "Biscarret - Biscarret",
-    "etxekoa": "TENIS (K. Goñi)",
-    "kanpokoak": "LARRAUN (U. Goñi)",
-    "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA KADETE 1. FINAL LAURDENAK",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ariztimuño)",
@@ -122,7 +133,7 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "2",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (L. Ojuel)",
@@ -133,7 +144,7 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Ruiz)",
@@ -144,7 +155,7 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
+    "hora": "10:00",
     "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Astiz)",
@@ -153,21 +164,10 @@
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
-    {
-    "fecha": "2026/11/28",
-    "hora": "10:00",
-    "zkia": "5",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus)",
-    "kanpokoak": "HUARTE (E. Bronte)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
   {
     "fecha": "2026/11/28",
     "hora": "10:00",
-    "zkia": "6",
+    "zkia": "5",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (D. Centeno)",
     "kanpokoak": "PILOTAJAUKU (J. Jaca)",
@@ -178,7 +178,7 @@
   {
     "fecha": "2026/11/28",
     "hora": "10:00",
-    "zkia": "7",
+    "zkia": "6",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (A. Balenciaga)",
     "kanpokoak": "PILOTAJAUKU (A. Arregi)",
@@ -188,14 +188,14 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "10:00 !Horario provisional",
-    "zkia": "5",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (J. Mitxaus)",
-    "kanpokoak": "HUARTE (E. Bronte)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA HAUR 3ª LIGAXKA",
+    "hora": "10:00",
+    "zkia": "2",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "TENIS (K. Goñi)",
+    "kanpokoak": "LARRAUN (U. Goñi)",
+    "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA KADETE 1. FINAL LAURDENAK",
     "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
+    "kokalekua": "Beste nonbait"
   },
   {
     "fecha": "2026/11/28",
@@ -221,18 +221,7 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "11:00 !Horario provisional",
-    "zkia": "1",
-    "fronton": "Biscarret - Biscarret",
-    "etxekoa": "AUÑAMENDI (I. Pedroarena)",
-    "kanpokoak": "LARRAUN (L. Bengoetxea)",
-    "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA GAZTE FINALERDIA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/28",
-    "hora": "11:30 !Horario provisional",
+    "hora": "11:00",
     "zkia": "1",
     "fronton": "Estella - Remontival",
     "etxekoa": "SAN MIGUEL (I. Barbarin - O. Zudaire)",
@@ -243,7 +232,18 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "11:30 !Horario provisional",
+    "hora": "11:00",
+    "zkia": "1",
+    "fronton": "Biscarret - Biscarret",
+    "etxekoa": "AUÑAMENDI (I. Pedroarena)",
+    "kanpokoak": "LARRAUN (L. Bengoetxea)",
+    "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BANAKA GAZTE FINALERDIA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Beste nonbait"
+  },
+  {
+    "fecha": "2026/11/28",
+    "hora": "11:30",
     "zkia": "1",
     "fronton": "Biscarret - Biscarret",
     "etxekoa": "LARRAUN (M. Galartza)",
@@ -254,7 +254,29 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "17:30 !Horario provisional",
+    "hora": "16:45",
+    "zkia": "1",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (A. Apezetxea)",
+    "kanpokoak": "BERRIOZAR (A. Ezkurra)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/28",
+    "hora": "16:45",
+    "zkia": "2",
+    "fronton": "Lekunberri - Jaian Jai",
+    "etxekoa": "LARRAUN (U. Ariztimuño)",
+    "kanpokoak": "BERRIOZAR (B. Garai)",
+    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
+    "larraunParteHartzen": true,
+    "kokalekua": "Lekunberri/Aldatz"
+  },
+  {
+    "fecha": "2026/11/28",
+    "hora": "17:30",
     "zkia": "1",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (M. Laso)",
@@ -265,19 +287,8 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "17:30 !Horario provisional",
+    "hora": "17:30",
     "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Eguzkiza - X. Telletxea)",
-    "kanpokoak": "ZUGARRALDE (E. Eguaras - A. Lerga)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. FINAL LAURDENAK",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/28",
-    "hora": "17:30 !Horario provisional",
-    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (I. Nazabal - E. Galarza)",
     "kanpokoak": "LAGUNAK (D. Landa - I. Elizegi)",
@@ -287,8 +298,8 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "17:30 !Horario provisional",
-    "zkia": "4",
+    "hora": "17:30",
+    "zkia": "3",
     "fronton": "Lekunberri - Jaian Jai",
     "etxekoa": "LARRAUN (J. Sotil - I. Galartza)",
     "kanpokoak": "ZUGARRALDE (E. Anso - B. Villanueva)",
@@ -298,23 +309,12 @@
   },
   {
     "fecha": "2026/11/28",
-    "hora": "18:00 !Horario provisional",
-    "zkia": "1",
+    "hora": "17:30",
+    "zkia": "4",
     "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (U. Ariztimuño)",
-    "kanpokoak": "BERRIOZAR (B. Garai)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Lekunberri/Aldatz"
-  },
-  {
-    "fecha": "2026/11/28",
-    "hora": "18:00 !Horario provisional",
-    "zkia": "2",
-    "fronton": "Lekunberri - Jaian Jai",
-    "etxekoa": "LARRAUN (A. Apezetxea)",
-    "kanpokoak": "BERRIOZAR (A. Ezkurra)",
-    "lehiaketa": "MANO INDIVIDUAL FASE UNICA NKJ - ESKUZ BANAKA KIMU 2. LIGAXKA",
+    "etxekoa": "LARRAUN (A. Eguzkiza - X. Telletxea)",
+    "kanpokoak": "ZUGARRALDE (E. Eguaras - A. Lerga)",
+    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - GIZONEZKOEN ESKUZ BINAKA 2. FINAL LAURDENAK",
     "larraunParteHartzen": true,
     "kokalekua": "Lekunberri/Aldatz"
   },
@@ -326,28 +326,6 @@
     "etxekoa": "LARRAUN (I. Garaño - L. Legarra)",
     "kanpokoak": "Descanso",
     "lehiaketa": "PALETA GOMA FEMENINA NKJ - PGOMA NESKA BINAKA KADETE 2. LIGAXKA",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/29",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "UMORE ONA - LARRAUN (A. Sagardui - J. Sotil)",
-    "kanpokoak": "OBERENA (A. Arrastia - L. Oscoz)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT- NESKEN ESKUZ BINAKA FINAL LAURDENAK",
-    "larraunParteHartzen": true,
-    "kokalekua": "Beste nonbait"
-  },
-  {
-    "fecha": "2026/11/29",
-    "hora": "- !Horario provisional",
-    "zkia": "-",
-    "fronton": "-",
-    "etxekoa": "BETI ONAK (S. Yaniz - A. Mina)",
-    "kanpokoak": "LARRAUN (U. Astiz - I. Garaño)",
-    "lehiaketa": "36 M PILOTALEKUA ESKUZ NKT - ESKUZ BINAKA 1. FINAL LAURDENAK",
     "larraunParteHartzen": true,
     "kokalekua": "Beste nonbait"
   }
